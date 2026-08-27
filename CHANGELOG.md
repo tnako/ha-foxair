@@ -1,3 +1,6 @@
+## 0.3.14
+- fix: slope/offset writes not persisting — switch FC06 write_register to FC16 write_registers (FoxAir_Control core uses FC16 build_write_frame) + 120ms inter-block poll delay to fix Elfin EW11 transaction_id desync (read stale / pdu without request)
+
 ## 0.3.13
 - feat: image.foxair_heating_curve on FoxAir Heat Pump device — live heating curve PNG via PIL (no YAML/Lovelace) — AT vs Flow, slope 1234 offset 1235 R10/R11 clamp, fixed R02, current AT dot from 2048/2014, auto-refresh on coordinator
 

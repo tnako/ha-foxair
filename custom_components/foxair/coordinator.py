@@ -134,14 +134,16 @@ class FoxAirCoordinator(DataUpdateCoordinator):
         sid=cfg.get("slave",1)
         async with self._lock:
             try:
+                # FoxAir_Control uses FC16 (write multiple) for all single-register writes — FC06 is ACKed but not persisted on this firmware. Use FC16.
                 try:
-                    rr=await self.client.write_register(address=addr, value=raw, slave=sid)
+                    rr=await self.client.write_registers(address=addr, values=[raw], slave=sid)
                 except TypeError:
-                    rr=await self.client.write_register(address=addr, value=raw, device_id=sid)
+                    rr=await self.client.write_registers(address=addr, values=[raw], device_id=sid)
                 if rr.isError():
                     _LOGGER.error("Write %s error %s", addr, rr)
                     return False
-                _LOGGER.warning("Write OK %s [%s] -> raw %s (scaled %.2f)", addr, meta.get("code"), raw, value)
+                _LOGGER.warning("Write OK FC16 %s [%s] -> raw %s (scaled %.2f)", addr, meta.get("code"), raw, value)
+                await asyncio.sleep(0.4)
                 await self.async_request_refresh()
                 return True
             except Exception as e:
@@ -167,8 +169,8 @@ class FoxAirCoordinator(DataUpdateCoordinator):
             for addr,qty,_ in POLL_BLOCKS:
                 try:
                     slave_id=cfg.get("slave",1)
-                    # small pause to let bridge breathe - 300ms like Control 900ms init
-                    await asyncio.sleep(0.05)
+                    # Elfin EW11 bridge is half-duplex Modbus RTU; 50ms caused transaction_id desync (see logs 17:43 FC16 ACK but read stale). Use 120ms like FoxAir_Control post_delay.
+                    await asyncio.sleep(0.12)
                     try:
                         rr=await self.client.read_holding_registers(address=addr, count=qty, slave=slave_id)
                     except TypeError:
