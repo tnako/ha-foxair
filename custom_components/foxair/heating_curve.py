@@ -1,7 +1,7 @@
 """Heating curve helper for v0.3.3+ — fixed vs weather-compensated.
 
 Fixed: target = R02 (1158)
-Curve: target(AT) = 35 + offset + slope*(20 - AT) clamped [R10/R11] + envelope R31/R34
+Curve: target(AT) = offset - slope * AT  (reference AT = 0), clamped [R10/R11] + envelope R31/R34
 
 Slope 1234 RAW -> /10 => 0.0..3.0, Offset 1235 TEMP1 -> /10 => -10..10
 Enable 1236 H36 0/1 (select) — 1 = curve
@@ -11,11 +11,14 @@ from typing import Optional
 def calc_curve_target(at_c: float, slope: float, offset: float, base: float = 0.0) -> float:
     """Linear weather compensation.
 
-    FoxAir formula: target(AT) = offset + slope * (20 - AT).
+    FoxAir/Phnix formula (reference point is AT = 0):
+        target(AT) = offset - slope * AT
+    i.e. flow at the design outside temperature 0 °C equals `offset`,
+    and flow drops by `slope` per 1 °C of AT rise.
     `base` is kept for call-compatibility (defaults to 0).
     """
     try:
-        return float(offset) + float(slope) * (20.0 - float(at_c))
+        return float(offset) - float(slope) * float(at_c)
     except Exception:
         return 0.0
 

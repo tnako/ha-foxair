@@ -1,3 +1,6 @@
+## 0.3.31
+- fix: heating-curve formula — reference point is AT = 0, not AT = 20. Correct formula `flow(AT) = offset - slope·AT` (offset = flow at 0 °C outside temp). Previous `offset + slope·(20-AT)` drew the line ~6 °C too high. Verified against reference points -30:46 … 20:31.
+
 ## 0.3.30
 - fix: add `mdi:heat-pump` icon fallback on all entities (climate/sensor/number/select) so they render an icon even if `brand/` PNG is unavailable (manifest `icon` key stays removed — invalid in HA schema, breaks CI)
 

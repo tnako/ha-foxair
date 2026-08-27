@@ -5,7 +5,8 @@ Sharp SVG, no Pillow needed. Updates only when curve-relevant values change.
 
 Mode behaviour (driven by H36 / register 1236):
   * H36 = 1  -> AT-compensation (curve) mode:
-                target(AT) = offset + slope * (20 - AT), clamped to [R10, R11]
+                target(AT) = offset - slope * AT, clamped to [R10, R11]
+                (reference point is AT = 0, where flow equals offset)
                 Drawn as the main blue curve line.
   * H36 = 0  -> constant (fixed) mode:
                 target = R02 (register 1158), drawn as the main amber line.
