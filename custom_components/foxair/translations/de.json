@@ -1735,6 +1735,9 @@
       },
       "foxair_2149": {
         "name": "Funktion unbekannt"
+      },
+      "foxair_heating_curve_target": {
+        "name": "Heizkurve Ziel"
       }
     },
     "climate": {

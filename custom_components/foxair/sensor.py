@@ -57,6 +57,8 @@ async def async_setup_entry(hass, entry, add_entities):
         if meta.get("risk") == "blocked":
             continue
         ents.append(FoxSensor(coord, addr))
+    # heating curve computed target (always visible, no expert needed)
+    ents.append(FoxHeatingCurveTargetSensor(coord))
     add_entities(ents)
 
 class FoxSensor(CoordinatorEntity, SensorEntity):
@@ -112,3 +114,38 @@ class FoxSensor(CoordinatorEntity, SensorEntity):
         try: meta = self.coordinator.get_metadata(self._addr)
         except: pass
         return {"raw": rec.get("raw"), "address": self._addr, "block": info.get("block"), "code": info.get("code"), "type": info.get("type"), "group": meta.get("group"), "risk": meta.get("risk"), "editable": meta.get("editable"), "min": meta.get("min"), "max": meta.get("max")}
+class FoxHeatingCurveTargetSensor(CoordinatorEntity, SensorEntity):
+    _attr_has_entity_name = True
+    _attr_translation_key = "foxair_heating_curve_target"
+    _attr_name = "Heating Curve Target"
+    _attr_device_class = SensorDeviceClass.TEMPERATURE
+    _attr_native_unit_of_measurement = "°C"
+    _attr_state_class = SensorStateClass.MEASUREMENT
+    _attr_icon = "mdi:chart-bell-curve"
+    def __init__(self, coord):
+        super().__init__(coord)
+        self._attr_unique_id = "foxair_heating_curve_target"
+        self._attr_device_info = DEVICE
+    @property
+    def native_value(self):
+        try:
+            from .heating_curve import curve_target_for_at
+            at = self.coordinator.data.get(2048, {}).get("value")
+            if at is None: return None
+            v = curve_target_for_at(self.coordinator, float(at))
+            return round(v,1) if v is not None else None
+        except: return None
+    @property
+    def extra_state_attributes(self):
+        try:
+            at = self.coordinator.data.get(2048, {}).get("value")
+            slope = self.coordinator.data.get(1234, {}).get("value")
+            offset = self.coordinator.data.get(1235, {}).get("value")
+            en = self.coordinator.data.get(1236, {}).get("raw")
+            fixed = self.coordinator.data.get(1158, {}).get("value")
+            after = self.coordinator.data.get(2014, {}).get("value")
+            r10 = self.coordinator.data.get(1164, {}).get("value")
+            r11 = self.coordinator.data.get(1165, {}).get("value")
+            return {"at": at, "slope": slope, "offset": offset, "h36_enable": en, "fixed_r02": fixed, "after_comp_2014": after, "r10_min": r10, "r11_max": r11, "panel": "/api/foxair/heating-curve-panel", "svg": "/api/foxair/heating_curve.svg"}
+        except: return {}
+

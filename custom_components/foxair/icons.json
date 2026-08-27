@@ -2190,10 +2190,10 @@
         "default": "mdi:thermometer"
       },
       "foxair_1234": {
-        "default": "mdi:heat-pump"
+        "default": "mdi:chart-bell-curve"
       },
       "foxair_1235": {
-        "default": "mdi:heat-pump"
+        "default": "mdi:tune-vertical"
       },
       "foxair_1237": {
         "default": "mdi:thermometer"

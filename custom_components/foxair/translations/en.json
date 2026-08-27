@@ -1735,6 +1735,9 @@
       },
       "foxair_2149": {
         "name": "Unknown Function [2149]"
+      },
+      "foxair_heating_curve_target": {
+        "name": "Heating Curve Target"
       }
     },
     "climate": {

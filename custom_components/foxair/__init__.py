@@ -3,6 +3,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers import device_registry as dr
 from .coordinator import FoxAirCoordinator
 from .const import DOMAIN
+from .views import FoxAirCurveSvgView, FoxAirCurvePanelView
 
 PLATFORMS = ["sensor", "climate", "number", "select"]
 
@@ -20,6 +21,28 @@ async def _cleanup_orphaned_devices(hass: HomeAssistant):
         pass
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
+    # register HTTP views (idempotent)
+    try:
+        hass.http.register_view(FoxAirCurveSvgView())
+        hass.http.register_view(FoxAirCurvePanelView())
+    except Exception:
+        pass
+    # auto sidebar panel (iframe) — no Lovelace edit required
+    try:
+        from homeassistant.components.frontend import async_register_built_in_panel
+        # frontend is optional in some core installs
+        if hasattr(hass, "components") and hasattr(hass.components, "frontend"):
+            await async_register_built_in_panel(
+                hass,
+                component_name="iframe",
+                sidebar_title="FoxAir Curve",
+                sidebar_icon="mdi:chart-bell-curve",
+                frontend_url_path="foxair_curve",
+                config={"url": "/api/foxair/heating-curve-panel"},
+                require_admin=False,
+            )
+    except Exception:
+        pass
     coord = FoxAirCoordinator(hass, entry)
     await coord.async_config_entry_first_refresh()
     hass.data.setdefault("foxair", {})[entry.entry_id] = coord

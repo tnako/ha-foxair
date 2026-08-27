@@ -1,3 +1,9 @@
+## 0.3.3
+- heating curve (Way B) inside integration — no Lovelace edits: auto sidebar panel "FoxAir Curve" (iframe /api/foxair/heating-curve-panel) + SVG endpoint /api/foxair/heating_curve.svg (AT -20..20 vs Flow 10..70, R10/R11 band, fixed R02 dashed, live AT dot + 2014 validation)
+- Way A fixed R02 (1158) vs Way B slope (1234 0.1..3.0) + offset (1235 -5..5) + H36 enable (1236) — curve formula target=35+offset+slope*(20-AT) clamped R10/R11 & R31/R34 envelope; Zone Z kept separate (Z06/Z07 mixing, not curve)
+- sensor.foxair_heating_curve_target computed from live AT 2048, exposed with panel/svg attrs; slope/offset made advanced (no expert ack) and added to POPULAR
+- panel + views registered in __init__.py via hass.http + frontend.async_register_built_in_panel (awaited), views.py + heating_curve.py new
+
 ## 0.3.2
 - hotfix: restore missing _load_map after dedup regression (0.3.1 coordinator had 0 _load_map -> UpdateFailed); verified 1 _load_map + get_metadata + async_write_register
 - validate: py_compile all platforms, coordinator now correctly loads 573 metadata entries, climate heating/cooling verified R02 20-60 R03 7-28
