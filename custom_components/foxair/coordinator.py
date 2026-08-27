@@ -27,47 +27,55 @@ def scaled(dtype, raw):
 class FoxAirCoordinator(DataUpdateCoordinator):
     POLL_BLOCKS = POLL_BLOCKS
     def __init__(self, hass, entry):
-        super().__init__(hass, _LOGGER, name="FoxAir", update_interval=timedelta(seconds=10))
+        super().__init__(hass, _LOGGER, name="FoxAir", update_interval=timedelta(seconds=30))
         self.entry=entry
         self.client=None
         self.data={}
         self.stats={"polls":0,"errors":0,"last_ms":0}
-        self._load_map()
-    def _load_map(self):
+        self._regmap=None
+        self._lock = asyncio.Lock()
+
+    async def _load_map(self):
         p=pathlib.Path(__file__).parent/"data/foxair_phnix_registers.json"
-        self.regmap=json.loads(p.read_text(encoding="utf-8-sig"))
+        text = await self.hass.async_add_executor_job(lambda: p.read_text(encoding="utf-8-sig"))
+        self._regmap = json.loads(text)
+
     async def _async_update_data(self):
+        if self._regmap is None:
+            await self._load_map()
         cfg=self.entry.data
         if not self.client:
-            self.client=AsyncModbusTcpClient(host=cfg["host"], port=cfg["port"], timeout=4)
+            self.client=AsyncModbusTcpClient(host=cfg["host"], port=cfg["port"], timeout=8)
             ok=await self.client.connect()
             if not ok:
                 raise ConfigEntryNotReady(f"Modbus connect failed {cfg['host']}:{cfg['port']}")
-        out={}; t0=time.monotonic()
-        for addr,qty,_ in POLL_BLOCKS:
-            try:
-                slave_id=cfg.get("slave",1)
+        async with self._lock:
+            out={}; t0=time.monotonic()
+            for addr,qty,_ in POLL_BLOCKS:
                 try:
-                    rr=await self.client.read_holding_registers(address=addr, count=qty, slave=slave_id)
-                except TypeError:
-                    rr=await self.client.read_holding_registers(address=addr, count=qty, device_id=slave_id)
-                if rr.isError():
+                    slave_id=cfg.get("slave",1)
+                    # small pause to let bridge breathe - 300ms like Control 900ms init
+                    await asyncio.sleep(0.3)
+                    try:
+                        rr=await self.client.read_holding_registers(address=addr, count=qty, slave=slave_id)
+                    except TypeError:
+                        rr=await self.client.read_holding_registers(address=addr, count=qty, device_id=slave_id)
+                    if rr.isError():
+                        self.stats["errors"]+=1
+                        _LOGGER.warning("read %s/%s error %s", addr, qty, rr)
+                        continue
+                    regs=rr.registers
+                    for i, raw in enumerate(regs):
+                        a=addr+i
+                        info=self._regmap.get(str(a))
+                        if not info: continue
+                        if info.get("type")=="BLOCK": continue
+                        out[a]={"raw":raw, "value":scaled(info.get("type","RAW"),raw), "info":info}
+                except Exception as e:
                     self.stats["errors"]+=1
-                    _LOGGER.warning("read %s/%s error %s", addr, qty, rr)
-                    continue
-                regs=rr.registers
-                for i, raw in enumerate(regs):
-                    a=addr+i
-                    info=self.regmap.get(str(a))
-                    if not info: continue
-                    if info.get("type")=="BLOCK": continue
-                    out[a]={"raw":raw, "value":scaled(info.get("type","RAW"),raw), "info":info}
-                await asyncio.sleep(0.05)
-            except Exception as e:
-                self.stats["errors"]+=1
-                _LOGGER.warning("poll %s exception %s", addr, e)
-                raise UpdateFailed(str(e)) from e
-        self.stats["polls"]+=1
-        self.stats["last_ms"]=int((time.monotonic()-t0)*1000)
-        self.data=out
-        return out
+                    _LOGGER.warning("poll %s exception %s", addr, e)
+                    raise UpdateFailed(str(e)) from e
+            self.stats["polls"]+=1
+            self.stats["last_ms"]=int((time.monotonic()-t0)*1000)
+            self.data=out
+            return out

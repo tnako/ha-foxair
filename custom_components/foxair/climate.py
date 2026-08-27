@@ -19,7 +19,7 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
     def __init__(self, coord):
         super().__init__(coord)
         self._attr_unique_id = "foxair_climate"
-        self._attr_device_info = DeviceInfo(identifiers={(DOMAIN, "foxair")}, name="FoxAir Modbus Heat Pump", model="Heat Pump", manufacturer="FoxAir/PHNIX", model="Modbus TCP")
+        self._attr_device_info = DeviceInfo(identifiers={(DOMAIN, "foxair")}, name="FoxAir Modbus Heat Pump", manufacturer="FoxAir/PHNIX", model="Modbus TCP Heat Pump")
 
     @property
     def current_temperature(self):
@@ -28,13 +28,11 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
 
     @property
     def target_temperature(self):
-        # heating target R02 1158
         rec = self.coordinator.data.get(1158)
         return rec["value"] if rec else None
 
     @property
     def hvac_mode(self):
-        # 1011 off? 1012 mode
         off = self.coordinator.data.get(1011)
         mode = self.coordinator.data.get(1012)
         if off and off["raw"] == 0:
@@ -51,7 +49,6 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
         temp = kwargs.get("temperature")
         if temp is None: return
         raw = int(round(temp*10))
-        # write via coordinator - try slave/device_id fallback
         cfg = self.coordinator.entry.data
         sid = cfg.get("slave",1)
         client = self.coordinator.client
@@ -62,7 +59,6 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
         await self.coordinator.async_request_refresh()
 
     async def async_set_hvac_mode(self, hvac_mode):
-        # 1011 on/off + 1012 mode
         cfg = self.coordinator.entry.data
         sid = cfg.get("slave",1)
         client = self.coordinator.client
@@ -72,7 +68,6 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
             except TypeError:
                 await client.write_register(address=1011, value=0, device_id=sid)
         else:
-            # ensure on
             try:
                 await client.write_register(address=1011, value=1, slave=sid)
             except TypeError:
