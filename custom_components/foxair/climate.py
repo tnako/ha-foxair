@@ -2,8 +2,11 @@ from homeassistant.components.climate import ClimateEntity, HVACMode, ClimateEnt
 from homeassistant.const import UnitOfTemperature
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from .const import main_device
+from .heating_curve import curve_target_for_at
 import logging
 _LOGGER = logging.getLogger(__name__)
+
+AT_ADDR = 2048  # outdoor / ambient temperature used for weather compensation
 
 # 1011 ON/OFF, 1012 mode: 0=DHW only,1=Heat,2=Cool,3=DHW+Heat,4=DHW+Cool
 HVAC_MAP = {0: HVACMode.HEAT, 1: HVACMode.HEAT, 2: HVACMode.COOL, 3: HVACMode.HEAT_COOL, 4: HVACMode.HEAT_COOL}
@@ -50,10 +53,37 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
 
     @property
     def target_temperature(self):
+        # In AT-compensation (weather-curve) mode the effective target is the
+        # live curve value computed from outdoor temperature, NOT the fixed
+        # setpoint register. Only in fixed mode do we show the fixed setpoint.
+        if self.control_mode == "weather_curve":
+            try:
+                at = self.coordinator.data.get(AT_ADDR, {}).get("value")
+                if at is not None:
+                    ct = curve_target_for_at(self.coordinator, float(at))
+                    if ct is not None:
+                        return round(ct, 1)
+            except Exception:
+                pass
+            return None
         raw_mode = self._raw_mode()
         addr = RAW_MODE_TO_TARGET.get(raw_mode, 1158)
         rec = self.coordinator.data.get(addr)
         return rec["value"] if rec else None
+
+    @property
+    def control_mode(self):
+        """'weather_curve' when H36 AT-compensation is enabled, else 'fixed'."""
+        return "weather_curve" if self.coordinator.data.get(1236, {}).get("raw") == 1 else "fixed"
+
+    @property
+    def supported_features(self):
+        # The target-temperature slider only makes sense in fixed mode.
+        # In AT-compensation mode the target is derived from the curve, so we
+        # hide the slider (PRESET_MODE stays available to switch modes).
+        if self.control_mode == "weather_curve":
+            return ClimateEntityFeature.PRESET_MODE
+        return ClimateEntityFeature.TARGET_TEMPERATURE | ClimateEntityFeature.PRESET_MODE
 
     @property
     def hvac_mode(self):
@@ -93,11 +123,28 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
     @property
     def extra_state_attributes(self):
         raw_mode = self._raw_mode()
-        return {"raw_mode": raw_mode, "mode_code": {0:"DHW",1:"Heat",2:"Cool",3:"DHW+Heat",4:"DHW+Cool"}.get(raw_mode, str(raw_mode)), "target_addr": RAW_MODE_TO_TARGET.get(raw_mode), "dhw_mode": raw_mode in (0,3,4), "control_mode": "weather_curve" if self.coordinator.data.get(1236, {}).get("raw")==1 else "fixed"}
+        at = self.coordinator.data.get(AT_ADDR, {}).get("value")
+        return {
+            "raw_mode": raw_mode,
+            "mode_code": {0:"DHW",1:"Heat",2:"Cool",3:"DHW+Heat",4:"DHW+Cool"}.get(raw_mode, str(raw_mode)),
+            "target_addr": RAW_MODE_TO_TARGET.get(raw_mode),
+            "dhw_mode": raw_mode in (0,3,4),
+            "control_mode": self.control_mode,
+            "at": at,
+        }
 
     async def async_set_temperature(self, **kwargs):
         temp = kwargs.get("temperature")
         if temp is None: return
+        # In AT-compensation mode the target is derived from the curve
+        # (offset/slope + outdoor temp), so it cannot be set directly.
+        # The fixed setpoint register is ignored by the device in this mode.
+        if self.control_mode == "weather_curve":
+            raise ValueError(
+                "Cannot set target_temperature directly in AT-compensation "
+                "(weather-curve) mode. Tune the curve via number.foxair_1234 (slope) "
+                "and number.foxair_1235 (offset) instead."
+            )
         raw_mode = self._raw_mode()
         hvac = kwargs.get("hvac_mode")
         if hvac:

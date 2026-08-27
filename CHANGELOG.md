@@ -1,3 +1,6 @@
+## 0.3.37
+- fix(climate): in AT-compensation (weather-curve) mode (H36 / reg 1236 = 1) the climate card now shows the computed curve target (offset − slope·AT, reg 2048) instead of the fixed setpoint register. The target-temperature slider is hidden in curve mode (PRESET_MODE stays to switch modes); setting temp directly in curve mode is rejected with a hint to tune slope/offset. Fixed setpoint still shown only in fixed mode.
+
 ## 0.3.36
 - fix: add repository-root `brand/` directory (icon.png + @2x, logo) so the HACS store card shows the integration icon. The inner `custom_components/foxair/brand/` feeds HA's local /api/brands; HACS store listing needs the root-level `brand/` (see HACS issue #5171).
 
