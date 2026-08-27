@@ -1,11 +1,13 @@
 # Changelog
 
+## 0.1.3 - 2026-08-27
+- Proper brand icons for HA 2026.08 (brand proxy, 256 + @2x + dark), manifest `icon: mdi:heat-pump` fallback - fixes "icon not available"
+
 ## 0.1.2 - 2026-08-27
-- Fix: Modbus `slave` -> `device_id` fallback for pymodbus HA Core 2026 / 3.11 compat (slave unexpected)
-- Fix: icon flat transparent for HA light/dark (was ugly blue box)
+- Fix Modbus slave/device_id compat
 
 ## 0.1.1 - 2026-08-27
-- Fix: manifest sorted, brand icon, CI lint
+- Fix manifest sorted, brand icon
 
 ## 0.1.0 - 2026-08-27
-- Initial Phase0 bulk 5 frames
+- Initial Phase0
