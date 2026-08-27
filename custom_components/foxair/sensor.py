@@ -45,9 +45,16 @@ DEVICE = DeviceInfo(identifiers={(DOMAIN, "foxair")}, name="FoxAir Modbus Heat P
 
 async def async_setup_entry(hass, entry, add_entities):
     coord = hass.data["foxair"][entry.entry_id]
+    # ensure metadata ready for category logic
+    if not getattr(coord, "_metadata", None):
+        await coord._load_map()
     ents = []
     for addr, rec in coord.data.items():
         if rec.get("info", {}).get("type") == "BLOCK":
+            continue
+        # hide blocked headers already via BLOCK, but also honor metadata blocked
+        meta = coord.get_metadata(addr) if hasattr(coord, "get_metadata") else {}
+        if meta.get("risk") == "blocked":
             continue
         ents.append(FoxSensor(coord, addr))
     add_entities(ents)
@@ -71,9 +78,23 @@ class FoxSensor(CoordinatorEntity, SensorEntity):
         if dtype in ("TEMP1","TEMP","TEMP05"): self._attr_suggested_display_precision = 1
         elif dtype in ("VOLT","BAR_X10","POWER_KW_X10"): self._attr_suggested_display_precision = 1
         elif dtype == "FLOW_M3H_X100": self._attr_suggested_display_precision = 2
-        if addr in HIDDEN:
+        # v0.3 metadata-aware category
+        try:
+            meta = coord.get_metadata(addr) if hasattr(coord, "get_metadata") else {}
+        except: meta={}
+        risk = meta.get("risk")
+        if addr in HIDDEN or risk == "blocked":
             self._attr_entity_registry_enabled_default = False
             self._attr_entity_category = EntityCategory.DIAGNOSTIC
+        elif risk == "dangerous":
+            self._attr_entity_category = EntityCategory.DIAGNOSTIC
+            # keep enabled per POPULAR but diagnostic still hides
+            self._attr_entity_registry_enabled_default = addr in POPULAR_ADDRS
+            if addr not in POPULAR_ADDRS:
+                self._attr_entity_registry_enabled_default = False
+        elif risk == "advanced":
+            self._attr_entity_category = EntityCategory.CONFIG
+            self._attr_entity_registry_enabled_default = addr in POPULAR_ADDRS
         else:
             self._attr_entity_registry_enabled_default = addr in POPULAR_ADDRS
             if addr not in POPULAR_ADDRS:
@@ -87,4 +108,7 @@ class FoxSensor(CoordinatorEntity, SensorEntity):
         rec = self.coordinator.data.get(self._addr)
         if not rec: return {}
         info = rec.get("info",{})
-        return {"raw": rec.get("raw"), "address": self._addr, "block": info.get("block"), "code": info.get("code"), "type": info.get("type")}
+        meta = {}
+        try: meta = self.coordinator.get_metadata(self._addr)
+        except: pass
+        return {"raw": rec.get("raw"), "address": self._addr, "block": info.get("block"), "code": info.get("code"), "type": info.get("type"), "group": meta.get("group"), "risk": meta.get("risk"), "editable": meta.get("editable"), "min": meta.get("min"), "max": meta.get("max")}

@@ -1,3 +1,12 @@
+## 0.3.0
+- v0.3 metadata: every register now has group, editable, min/max/step, risk, platform (tools/build_metadata.py -> data/foxair_metadata.json 573 entries: 107 blocked, 197 safe, 158 advanced, 111 dangerous; 332 editable: 231 number + 75 select + 24 time)
+- protection: 3-tier risk (safe/advanced/dangerous) identical to FoxAir_Control groups H/A/F/D/E/C/R/P/Z/G/SG/KG/T; sensor shows readback, number/select provide writes only when validated
+- expert mode: config_flow options `enable_expert` + `expert_ack` (required) — without it, dangerous (A/C/E/F/D/H10 etc 110 regs) are not created and writes blocked; advanced (P/Z/G) are CONFIG category, dangerous are DIAGNOSTIC disabled by default
+- validated writes: coordinator.async_write_register checks editable, expert ack, min/max (parsed 117 ranges from knowledge like "-40 bis 10°C"), inverse scaling, modbus FC16; out-of-range blocked and logged
+- UX: box vs slider mode, shield-alert icon for dangerous, group/risk/min/max exposed as sensor attributes, options reload triggers entity re-creation
+- icons: extended to number/select (231+75) with group icons
+- translations: added options strings for en/de/ru + number/select keys (FoxAir_Control naming)
+
 ## 0.2.11
 - RU: T-Diag1-3 popular sensors now Russian (were English fallback)
 

@@ -47,6 +47,7 @@ def scaled(dtype, raw):
         return float(sv)
     return float(sv)
 
+
 class FoxAirCoordinator(DataUpdateCoordinator):
     POLL_BLOCKS = POLL_BLOCKS
     def __init__(self, hass, entry):
@@ -62,6 +63,90 @@ class FoxAirCoordinator(DataUpdateCoordinator):
         p=pathlib.Path(__file__).parent/"data/foxair_phnix_registers.json"
         text = await self.hass.async_add_executor_job(lambda: p.read_text(encoding="utf-8-sig"))
         self._regmap = json.loads(text)
+        # load v0.3 metadata sidecar (editable, min/max, group, risk)
+        try:
+            mp=pathlib.Path(__file__).parent/"data/foxair_metadata.json"
+            mtext = await self.hass.async_add_executor_job(lambda: mp.read_text(encoding="utf-8-sig"))
+            self._metadata = json.loads(mtext)
+        except Exception:
+            self._metadata = {}
+
+
+    async def _load_map(self):
+        p=pathlib.Path(__file__).parent/"data/foxair_phnix_registers.json"
+        text = await self.hass.async_add_executor_job(lambda: p.read_text(encoding="utf-8-sig"))
+        self._regmap = json.loads(text)
+        # load v0.3 metadata sidecar (editable, min/max, group, risk)
+        try:
+            mp=pathlib.Path(__file__).parent/"data/foxair_metadata.json"
+            mtext = await self.hass.async_add_executor_job(lambda: mp.read_text(encoding="utf-8-sig"))
+            self._metadata = json.loads(mtext)
+        except Exception:
+            self._metadata = {}
+
+    def get_metadata(self, addr: int) -> dict:
+        return (getattr(self, "_metadata", {}) or {}).get(str(addr), {})
+
+    async def async_write_register(self, addr: int, value: float) -> bool:
+        """Validated write with min/max and expert guard. Returns True if sent."""
+        meta = self.get_metadata(addr)
+        if not meta.get("editable"):
+            _LOGGER.error("Write blocked: %s not editable (group=%s risk=%s)", addr, meta.get("group"), meta.get("risk"))
+            return False
+        if meta.get("requires_expert") and not self.entry.options.get("enable_expert"):
+            _LOGGER.error("Write blocked: %s [%s] requires expert mode (enable in Options)", addr, meta.get("code"))
+            return False
+        lo, hi = meta.get("min"), meta.get("max")
+        if lo is not None and hi is not None:
+            if not (lo - 1e-9 <= value <= hi + 1e-9):
+                _LOGGER.error("Write blocked: %s=%.2f out of range [%.2f, %.2f]", addr, value, lo, hi)
+                return False
+        dtype = meta.get("type","RAW")
+        raw = value
+        try:
+            if dtype in ("TEMP","TEMP1"):
+                raw = int(round(value*10))
+            elif dtype in ("TEMP05",):
+                raw = int(round(value*2))
+            elif dtype in ("DIGI5","POWER_KW_X10","BAR_X10","FLOW_M3H_X10","AMP_X10"):
+                raw = int(round(value*10))
+            elif dtype == "FLOW_M3H_X100":
+                raw = int(round(value*100))
+            elif dtype == "COP_X100":
+                raw = int(round(value*100))
+            elif dtype == "AMP_X2":
+                raw = int(round(value*2))
+            elif dtype == "DIGI6":
+                raw = int(round(value*1000))
+            elif dtype == "DIGI19":
+                raw = int(round(value*100))
+            elif dtype == "DIGI4":
+                raw = int(round(value*5))
+            else:
+                raw = int(round(value))
+            raw = int(raw) & 0xFFFF
+            if raw < 0:
+                raw = (raw + 0x10000) & 0xFFFF
+        except Exception as e:
+            _LOGGER.error("Write conversion failed %s: %s", addr, e)
+            return False
+        cfg=self.entry.data
+        sid=cfg.get("slave",1)
+        async with self._lock:
+            try:
+                try:
+                    rr=await self.client.write_register(address=addr, value=raw, slave=sid)
+                except TypeError:
+                    rr=await self.client.write_register(address=addr, value=raw, device_id=sid)
+                if rr.isError():
+                    _LOGGER.error("Write %s error %s", addr, rr)
+                    return False
+                _LOGGER.warning("Write OK %s [%s] -> raw %s (scaled %.2f)", addr, meta.get("code"), raw, value)
+                await self.async_request_refresh()
+                return True
+            except Exception as e:
+                _LOGGER.error("Write %s exception %s", addr, e)
+                return False
 
     async def _async_update_data(self):
         if self._regmap is None:
