@@ -8,12 +8,16 @@ Enable 1236 H36 0/1 (select) — 1 = curve
 """
 from typing import Optional
 
-def calc_curve_target(at_c: float, slope: float, offset: float, base: float = 35.0) -> float:
-    """Linear weather compensation."""
+def calc_curve_target(at_c: float, slope: float, offset: float, base: float = 0.0) -> float:
+    """Linear weather compensation.
+
+    FoxAir formula: target(AT) = offset + slope * (20 - AT).
+    `base` is kept for call-compatibility (defaults to 0).
+    """
     try:
-        return base + float(offset) + float(slope) * (20.0 - float(at_c))
-    except:
-        return base
+        return float(offset) + float(slope) * (20.0 - float(at_c))
+    except Exception:
+        return 0.0
 
 def clamp(v: float, lo: Optional[float], hi: Optional[float]) -> float:
     if lo is not None and v < lo: return lo

@@ -1,3 +1,6 @@
+## 0.3.25
+- fix: heating curve image now always draws a line — AT-compensation curve (blue, clamped to R10/R11) when H36=1, constant line at R02 (amber) when H36=0, faint curve preview in fixed mode; slope normalized and offset respected; standalone SVG view aligned
+
 ## 0.3.24
 - fix: align register tab assignments with official app split (H/A/F/D/E/R/P/G/C/Z/O/S/T); added authoritative `modbus/tabs.txt` from official app docs; regenerated `foxair_metadata.json` so device pages and entity grouping match official UI
 

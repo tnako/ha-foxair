@@ -60,13 +60,15 @@ class FoxAirCurveSvgView(HomeAssistantView):
         # build curve polyline -20..20 step 1
         pts = []
         from .heating_curve import calc_curve_target
+        slope_n = slope if slope is not None else 0.6
+        if slope_n > 3.0:
+            slope_n = slope_n / 10.0
+        offset_n = offset if offset is not None else 0.0
         for at_step in range(-20, 21):
-            raw = calc_curve_target(at_step, slope, offset)
-            # clamp same as helper
+            raw = calc_curve_target(at_step, slope_n, offset_n, base=0.0)
             clamped = max(r10, min(r11, raw))
-            # also envelope? keep simple
             pts.append((x_at(at_step), y_flow(clamped)))
-        poly = " ".join(f"{x:.1f},{y:.1f}" for x,y in pts)
+        poly = " ".join(f"{x:.1f},{y:.1f}" for x, y in pts)
 
         # fixed line
         fixed_y = y_flow(fixed) if fixed is not None else y_flow(35)
