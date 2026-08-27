@@ -1,6 +1,6 @@
 {
   "domain": "foxair",
-  "name": "FoxAir Heat Pump",
+  "name": "FoxAir Modbus Heat Pump",
   "codeowners": ["@tnako"],
   "config_flow": true,
   "documentation": "https://github.com/tnako/ha-foxair",

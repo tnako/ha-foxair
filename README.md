@@ -1,4 +1,4 @@
-# FoxAir Heat Pump for Home Assistant
+# FoxAir Modbus Heat Pump for Home Assistant
 
 Control and monitor your FoxAir / PHNIX heat pump directly from Home Assistant over Modbus TCP.
 
