@@ -1,3 +1,6 @@
+## 0.3.35
+- feat: optimistic UI updates for number + select writes — slider/mode shows the new value instantly on release instead of waiting for the Modbus round-trip (can be ~1-2s). Failed writes roll back; coordinator read-back/poll reconciles to the real device value.
+
 ## 0.3.34
 - feat: heating-curve image — labelled data points every 10 °C (−30,−20,−10,0,10,20) showing the flow value on the curve. AT=0 already covered by the anchor cross; right-edge label kept inside the plot.
 

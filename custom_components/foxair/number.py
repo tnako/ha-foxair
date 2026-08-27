@@ -49,6 +49,7 @@ class FoxNumber(CoordinatorEntity, NumberEntity):
         super().__init__(coord)
         self._addr = addr
         self._meta = meta
+        self._optimistic = None  # value shown during a write round-trip
         self._attr_unique_id = f"foxair_num_{addr}"
         self._attr_translation_key = f"foxair_{addr}"
         entry_id = getattr(coord, "_entry_id", None) or getattr(coord, "config_entry", None) and getattr(coord.config_entry, "entry_id", None)
@@ -89,6 +90,9 @@ class FoxNumber(CoordinatorEntity, NumberEntity):
 
     @property
     def native_value(self):
+        # optimistic value shown while a write round-trip is in flight
+        if self._optimistic is not None:
+            return self._optimistic
         rec = self.coordinator.data.get(self._addr)
         if rec is None: return None
         v = rec.get("value")
@@ -96,8 +100,22 @@ class FoxNumber(CoordinatorEntity, NumberEntity):
         except: return None
 
     async def async_set_native_value(self, value: float) -> None:
-        ok = await self.coordinator.async_write_register(self._addr, float(value))
+        value = float(value)
+        # show the new value immediately so the slider doesn't appear frozen
+        # while the Modbus write + read-back round-trip (can be ~1-2s) happens
+        self._optimistic = value
+        self._attr_assumed_state = True
+        self.async_write_ha_state()
+        ok = await self.coordinator.async_write_register(self._addr, value)
         if not ok:
             _LOGGER.error("number write failed %s", self._addr)
+            # roll back optimistic value; next poll will restore real value
+            self._optimistic = None
+            self._attr_assumed_state = False
+            self.async_write_ha_state()
             raise ValueError(f"Write rejected for {self._addr}")
+        # keep optimistic value until the read-back/poll confirms; clear on next
+        # coordinator update so we always converge to the real device value
+        self._optimistic = None
+        self.async_write_ha_state()
 

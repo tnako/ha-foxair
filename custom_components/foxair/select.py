@@ -184,6 +184,7 @@ class FoxSelect(CoordinatorEntity, SelectEntity):
         super().__init__(coord)
         self._addr = addr
         self._meta = meta
+        self._optimistic = None  # slug shown during a write round-trip
         self._attr_unique_id = f"foxair_sel_{addr}"
         self._attr_translation_key = f"foxair_{addr}"
         entry_id = getattr(coord, "_entry_id", None) or getattr(coord, "config_entry", None) and getattr(coord.config_entry, "entry_id", None)
@@ -228,6 +229,8 @@ class FoxSelect(CoordinatorEntity, SelectEntity):
 
     @property
     def current_option(self):
+        if self._optimistic is not None:
+            return self._optimistic
         rec = self.coordinator.data.get(self._addr)
         if not rec:
             return None
@@ -246,6 +249,11 @@ class FoxSelect(CoordinatorEntity, SelectEntity):
         return str(raw) if str(raw) in (self._attr_options or []) else None
 
     async def async_select_option(self, option: str) -> None:
+        # show the new option immediately so the control doesn't appear frozen
+        # during the Modbus write + read-back round-trip (~1-2s)
+        self._optimistic = option
+        self._attr_assumed_state = True
+        self.async_write_ha_state()
         # option is a slug like "single_contact" or numeric "1"
         raw_str = self._slug_to_raw.get(option)
         if raw_str is None:
@@ -264,7 +272,15 @@ class FoxSelect(CoordinatorEntity, SelectEntity):
             try:
                 val = int(option)
             except Exception:
+                self._optimistic = None
+                self._attr_assumed_state = False
+                self.async_write_ha_state()
                 raise ValueError(f"Unknown option {option} for {self._addr}")
         ok = await self.coordinator.async_write_register(self._addr, float(val))
         if not ok:
+            self._optimistic = None
+            self._attr_assumed_state = False
+            self.async_write_ha_state()
             raise ValueError(f"Write rejected {self._addr}")
+        self._optimistic = None
+        self.async_write_ha_state()
