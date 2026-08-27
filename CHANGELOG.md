@@ -1,3 +1,6 @@
+## 0.3.28
+- feat: offer "Enable expert mode" boolean during first integration setup (config flow) and carry it into entry options so advanced/dangerous parameters are exposed immediately; also available in Options
+
 ## 0.3.27
 - fix: restore heating-curve controls on main device — 1234 (slope), 1235 (offset), 1236 (H36 fixed/AT-compensation) and R02/R10/R11 (target/min/max water temp) are now `safe` and not expert-gated, so they appear without enabling expert mode (regression from expert-gate added after 0.3.9)
 
