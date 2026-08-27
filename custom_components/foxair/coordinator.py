@@ -132,23 +132,32 @@ class FoxAirCoordinator(DataUpdateCoordinator):
             return False
         cfg=self.entry.data
         sid=cfg.get("slave",1)
-        async with self._lock:
-            try:
-                # FoxAir_Control uses FC16 (write multiple) for all single-register writes — FC06 is ACKed but not persisted on this firmware. Use FC16.
-                try:
-                    rr=await self.client.write_registers(address=addr, values=[raw], slave=sid)
-                except TypeError:
-                    rr=await self.client.write_registers(address=addr, values=[raw], device_id=sid)
-                if rr.isError():
-                    _LOGGER.error("Write %s error %s", addr, rr)
-                    return False
-                _LOGGER.warning("Write OK FC16 %s [%s] -> raw %s (scaled %.2f)", addr, meta.get("code"), raw, value)
-                await asyncio.sleep(0.4)
-                await self.async_request_refresh()
-                return True
-            except Exception as e:
-                _LOGGER.error("Write %s exception %s", addr, e)
+        # Use ephemeral client for writes — poll client is polluted by Elfin transparent broadcast extra data (WF223...), causing transaction_id desync. Separate connection guarantees clean FC16.
+        write_client = AsyncModbusTcpClient(host=cfg["host"], port=cfg["port"], timeout=8)
+        try:
+            ok = await write_client.connect()
+            if not ok:
+                _LOGGER.error("Write %s connect failed %s:%s", addr, cfg["host"], cfg["port"])
                 return False
+            try:
+                rr=await write_client.write_registers(address=addr, values=[raw], slave=sid)
+            except TypeError:
+                rr=await write_client.write_registers(address=addr, values=[raw], device_id=sid)
+            if rr.isError():
+                _LOGGER.error("Write %s error %s", addr, rr)
+                return False
+            _LOGGER.warning("Write OK FC16 %s [%s] -> raw %s (scaled %.2f)", addr, meta.get("code"), raw, value)
+            await asyncio.sleep(0.6)
+            # refresh via main poll client
+            async with self._lock:
+                await self.async_request_refresh()
+            return True
+        except Exception as e:
+            _LOGGER.error("Write %s exception %s", addr, e)
+            return False
+        finally:
+            try: write_client.close()
+            except: pass
 
     async def _async_update_data(self):
         if self._regmap is None:

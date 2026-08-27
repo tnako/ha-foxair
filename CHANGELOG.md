@@ -1,3 +1,6 @@
+## 0.3.16
+- fix: slope write still reverting after FC16 — use ephemeral write client (poll client polluted by Elfin broadcast extra data) + 600ms post-write refresh. Live-tested 0.22s gap reduces but not eliminates desync; write isolation fixes persistence.
+
 ## 0.3.14
 - fix: slope/offset writes not persisting — switch FC06 write_register to FC16 write_registers (FoxAir_Control core uses FC16 build_write_frame) + 120ms inter-block poll delay to fix Elfin EW11 transaction_id desync (read stale / pdu without request)
 
