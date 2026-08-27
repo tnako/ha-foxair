@@ -1,23 +1,21 @@
-# Debug / Diagnostics
+# Help
 
-## Logger
-Add to configuration.yaml:
+## Seeing what happens
+
+Add this to your `configuration.yaml` and restart:
+
 ```yaml
 logger:
   logs:
     custom_components.foxair: debug
-    pymodbus: debug
 ```
 
-## Diagnostics
-Settings -> Devices -> FoxAir -> Download diagnostics. Contains: host/port, poll blocks, last raw values per block (no secrets), error counters, coordinator latency.
+To help troubleshooting, go to **Settings -> Devices -> FoxAir -> Download diagnostics**. The file contains the host address, poll statistics and a few raw values - no passwords.
 
-## Protection
-- Single AsyncModbusTcpClient keepalive, 50ms gap, qty <=125, sequential.
-- Writes disabled for diagnostic entities by default (C/F/D/E/A/KG). Enable per entity only if you understand limits.
-- Limits from knowledge.json "X bis Y" + type fallback; out-of-range writes blocked with log warning.
-- `advanced_write: true` option in integration options to unlock hidden unsafe (default false).
-- Throttle existing yaml +300 documented, backup kept.
+## Why some controls are hidden
 
-## Versioning
-manifest.json version + git tag `v0.1.0`. HACS tracks tags. Bump version on each release: update manifest.json + CHANGELOG + `git tag vX.Y.Z && git push origin tag`.
+Changing compressor, fan or defrost values can stop your heat pump. Everyday settings like heating temperature and pump mode are visible. Installer settings (`C` compressor, `F` fan, `D` defrost, `E` EEV, `A` protection, `KG` timers) are hidden as **Diagnostic** and disabled by default. Enable a single entity only if you understand its limits.
+
+## If you still use YAML Modbus
+
+If you already poll the heat pump via `modbus_foxair.yaml`, keep it but let this integration do the work - two integrations polling fast at the same time can overload the small Modbus bridge. Our installer throttles the YAML intervals during testing and keeps a backup.

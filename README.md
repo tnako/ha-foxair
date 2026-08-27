@@ -1,43 +1,42 @@
-# ha-foxair - Home Assistant FoxAir / PHNIX Heat Pump
+# FoxAir Heat Pump for Home Assistant
 
-Public HACS integration for FoxAir / PHNIX heat pumps via Modbus TCP (tested with EW11-host:8899).
+Control and monitor your FoxAir / PHNIX heat pump directly from Home Assistant over Modbus TCP.
 
-- Bulk polling (5 frames, ~16 req/min) - no bus overload
-- Full register map from [FoxAir_Control](https://github.com/dosordie/FoxAir_Control) (573 regs, grouping identical to Control) - see Attribution
-- Popular entities enabled by default, installer/unsafe hidden as diagnostic (disabled by default)
-- Multilang EN (default) + DE + RU
-- Keeps your existing `modbus: FoxAIR` yaml untouched (throttle it to +300s during test)
+This integration reads the heat pump in efficient bulk blocks, so the Modbus bus stays calm and responsive. The register layout and scaling are the same as used in FoxAir_Control.
 
-## Installation via HACS (recommended, HAOS compatible)
+**What you get**
+- Live temperatures, pressures, flow and compressor state
+- Heating / hot water setpoints you can safely adjust
+- Pump and SG Ready controls
+- Expert settings hidden by default - enable only if you know what they do
+- English, German and Russian names
 
-1. Ensure HACS is installed (https://hacs.xyz/docs/use/).
-2. In Home Assistant go to HACS -> Integrations -> three dots (top right) -> Custom repositories.
-3. Add repository URL `https://github.com/tnako/ha-foxair`, category `Integration`, Add.
-4. Search HACS for `FoxAir`, Install, Restart Home Assistant.
-5. Settings -> Devices & Services -> Add Integration -> FoxAir Heat Pump.
-   Enter Host `EW11-host`, Port `8899`, Slave `1` (defaults match stock Warmlink bridge). Choose polling: Fast 10s (T live), Slow 60s (R/P), Static 300s.
-6. Entities appear grouped by blocks (R Sollwerte, T Diagnose/Live, P Pumpe etc.) - same as FoxAir_Control. Popular safe entities enabled, installer/unsafe (C/F/D/E/A/KG) disabled by default under Diagnostic - enable per entity if needed.
+## Installation via HACS (recommended)
 
-Manual install (no HACS):
- Copy `custom_components/foxair` to `/config/custom_components/foxair` on HAOS host (Samba/SSH `scp -r custom_components/foxair root@HA-host:/usr/share/hassio/homeassistant/custom_components/`), Restart.
+1. Ensure [HACS](https://hacs.xyz/docs/use/) is installed.
+2. In Home Assistant open **HACS -> Integrations -> three dots -> Custom repositories**.
+3. Add `https://github.com/tnako/ha-foxair` with category `Integration`.
+4. Search for **FoxAir** in HACS, hit **Install**, then **Restart**.
+5. Go to **Settings -> Devices & Services -> Add Integration -> FoxAir Heat Pump**.
+6. Enter host, port and slave ID (defaults are `EW11-host`, `8899`, `1`).
 
-Throttle existing yaml during test (already done via SSH +300):
- `modbus_foxair.yaml` scan_interval 20->320 etc. with original kept as comment. Revert: `cp modbus_foxair.yaml.bak.1787829054 modbus_foxair.yaml && ha core restart`.
+Your heat pump appears as one device with entities grouped like in FoxAir_Control:
+`R` heating setpoints, `T` live diagnostics, `P` pump, `SG` SG Ready and so on. Safe everyday controls are enabled, installer controls are hidden under **Diagnostic** - enable them per entity if needed.
 
-## Configuration
+## Manual installation
+
+Copy `custom_components/foxair` to `/config/custom_components/foxair` on your Home Assistant host (HAOS: `scp -r custom_components/foxair root@your-ha:/usr/share/hassio/homeassistant/custom_components/`), then restart.
+
+## Help and diagnostics
+
+- Set `custom_components.foxair: debug` in `logger` to see detailed polling logs.
+- Use **Settings -> Devices -> FoxAir -> Download diagnostics** to export a support file (contains addresses and raw values, no passwords).
+- See `docs/DEBUG.md` and `CHANGELOG.md` for details.
 
 ## Attribution
 
-Register definitions (`foxair_phnix_registers.json`, `foxair_phnix_knowledge.json`), block grouping (`BLOCK_SHORT_DESCRIPTIONS`), scaling (`format_value_by_type`) and Modbus framing logic are derived from [dosordie/FoxAir_Control](https://github.com/dosordie/FoxAir_Control) (data/, core/foxair_phnix_core.py, workers/standard_modbus_worker.py). Many thanks to the FoxAir_Control authors for reverse-engineering and curation. PDFs/manuals from that repo are NOT redistributed here.
+Register maps, block names and value scaling are based on the amazing reverse-engineering in [dosordie/FoxAir_Control](https://github.com/dosordie/FoxAir_Control). PDFs and manuals from that project are not redistributed here - thank you to its authors.
 
 ## License
 
 MIT - see LICENSE
-
-## Debug & Protection
-
-- Logger: `custom_components.foxair: debug` (see docs/DEBUG.md)
-- Diagnostics: Settings -> Devices -> FoxAir -> Download diagnostics (no secrets)
-- Protection: Single keepalive, 50ms gap, qty<=125, writes hidden diagnostic disabled by default. See docs/DEBUG.md.
-- Versioning: manifest 0.1.0 + git tag v0.1.0, HACS tracks releases. CHANGELOG.md
-

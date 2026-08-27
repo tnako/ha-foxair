@@ -1,5 +1,1 @@
-## FoxAir Heat Pump
-
-Bulk Modbus, no bus overload, grouping like FoxAir_Control. Popular safe enabled, installer hidden.
-
-See README for HACS install.
+FoxAir Heat Pump - bulk Modbus, calm bus, same groups as FoxAir_Control. Everyday controls visible, expert controls hidden until enabled.
