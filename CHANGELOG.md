@@ -1,3 +1,6 @@
+## 0.3.12
+- fix: icon 403 brands CDN fallback — rebuild local brand icons (icon.svg → brand/icon.png 256 + icon@2x 512 etc via cairosvg) per HA 2026.3 docs https://developers.home-assistant.io/blog/2026/02/24/brands-proxy-api — local /api/brands/integration/foxair/icon.png now serves icon on Integrations/devices pages (HACS dashboard still via data-v2.hacs.xyz until hacs/integration#5171 merges fallback)
+
 ## 0.3.11
 - fix: AT Compensation Slope/Offset show unknown — poll 1126×125 truncated by Elfin bridge to 90 regs so 1234 sat at offset 108 outside reply; split POLL_BLOCKS to 60/65 (12 blocks) so 1234-1236 now via 1186×65
 - fix: Offset 37.0 exceeded old -5..5 limit — widen 1235 to -30..70°C (live raw 370 → 37.0) so number shows value; slope 0.3 (raw 3, DIGI5/10) already in 0.1..3.0
