@@ -1745,6 +1745,11 @@
         "name": "Wärmepumpe"
       }
     },
+    "switch": {
+      "foxair_power": {
+        "name": "Strom"
+      }
+    },
     "number": {
       "foxair_1013": {
         "name": "Wassertanktemperatur (vom Zentralregler bei H37-1)"

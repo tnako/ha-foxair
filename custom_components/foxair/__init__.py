@@ -5,7 +5,7 @@ from .coordinator import FoxAirCoordinator
 from .const import DOMAIN
 from .views import FoxAirCurveSvgView, FoxAirCurvePanelView
 
-PLATFORMS = ["sensor", "climate", "number", "select", "image"]
+PLATFORMS = ["sensor", "climate", "number", "select", "image", "switch"]
 
 async def _cleanup_orphaned_devices(hass: HomeAssistant):
     try:

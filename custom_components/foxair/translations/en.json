@@ -1745,6 +1745,11 @@
         "name": "Heat pump"
       }
     },
+    "switch": {
+      "foxair_power": {
+        "name": "Power"
+      }
+    },
     "number": {
       "foxair_1013": {
         "name": "DHW Tank Temperature (from central controller H37=1)"

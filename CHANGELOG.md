@@ -1,3 +1,10 @@
+## 0.3.39
+- feat: optimistic UI updates for toggles/mode changes — Power switch (1011), climate hvac_mode, and climate preset_mode now flip instantly on tap instead of waiting for the Modbus round-trip. Failed writes roll back; coordinator read-back/poll reconciles to the real device value.
+
+## 0.3.38
+- feat: separate Power switch (switch.foxair_power, reg 1011) so On/Off is no longer bundled into the climate mode selector.
+- fix(climate): target temperature is now shown in AT-compensation (weather-curve) mode — pinned to the live curve value (offset − slope·AT) with min==max so the slider is visible but locked (target is derived, not directly settable). Fixed setpoint still editable in fixed mode.
+
 ## 0.3.37
 - fix(climate): in AT-compensation (weather-curve) mode (H36 / reg 1236 = 1) the climate card now shows the computed curve target (offset − slope·AT, reg 2048) instead of the fixed setpoint register. The target-temperature slider is hidden in curve mode (PRESET_MODE stays to switch modes); setting temp directly in curve mode is rejected with a hint to tune slope/offset. Fixed setpoint still shown only in fixed mode.
 

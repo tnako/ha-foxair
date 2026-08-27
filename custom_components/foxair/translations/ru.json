@@ -1745,6 +1745,11 @@
         "name": "Heat pump"
       }
     },
+    "switch": {
+      "foxair_power": {
+        "name": "Power"
+      }
+    },
     "number": {
       "foxair_1013": {
         "name": "Температура бака ГВС (от центрального контроллера H37=1)"
