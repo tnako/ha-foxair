@@ -2209,10 +2209,10 @@
         "name": "AT to Start Frequency Limit in Cooling [R60]"
       },
       "foxair_1234": {
-        "name": "AT Compensation Slope"
+        "name": "Heating Curve Slope (K)"
       },
       "foxair_1235": {
-        "name": "AT Compensation Offset"
+        "name": "Heating Curve Offset (B)"
       },
       "foxair_1237": {
         "name": "AT to Stop Frequency Limit in Cooling [R61]"
@@ -2766,10 +2766,10 @@
         "name": "Frequenzregelungsmodus [C06]"
       },
       "foxair_1236": {
-        "name": "Enable AT Compensation Curve Zone 1 [H36]",
+        "name": "Heating Curve Mode [H36]",
         "state": {
-          "no": "No",
-          "yes": "Yes"
+          "fixed": "Fixed temperature",
+          "curve": "Weather compensation (curve)"
         }
       },
       "foxair_1244": {

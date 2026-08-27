@@ -1737,7 +1737,7 @@
         "name": "Unknown Function [2149]"
       },
       "foxair_heating_curve_target": {
-        "name": "Цель кривой нагрева"
+        "name": "Цель кривой отопления"
       }
     },
     "climate": {
@@ -2209,10 +2209,10 @@
         "name": "AT to Start Frequency Limit in Cooling [R60]"
       },
       "foxair_1234": {
-        "name": "Наклон компенсации AT"
+        "name": "Наклон кривой отопления (K)"
       },
       "foxair_1235": {
-        "name": "Смещение компенсации AT"
+        "name": "Сдвиг кривой отопления (B)"
       },
       "foxair_1237": {
         "name": "AT to Stop Frequency Limit in Cooling [R61]"
@@ -2766,10 +2766,10 @@
         "name": "Frequenzregelungsmodus [C06]"
       },
       "foxair_1236": {
-        "name": "Enable AT Compensation Curve Zone 1 [H36]",
+        "name": "Режим кривой отопления [H36]",
         "state": {
-          "no": "Нет",
-          "yes": "Да"
+          "fixed": "Фиксированная",
+          "curve": "Погодозависимая (кривая)"
         }
       },
       "foxair_1244": {

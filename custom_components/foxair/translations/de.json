@@ -1737,7 +1737,7 @@
         "name": "Funktion unbekannt"
       },
       "foxair_heating_curve_target": {
-        "name": "Heizkurve Ziel"
+        "name": "Heizkurven-Zieltemperatur"
       }
     },
     "climate": {
@@ -2209,10 +2209,10 @@
         "name": "AT zum Start der Frequenzbegrenzung im Kühlbetrieb [R60]"
       },
       "foxair_1234": {
-        "name": "AT-Kompensation Slope / Steigung"
+        "name": "Heizkurve Steigung (K)"
       },
       "foxair_1235": {
-        "name": "AT-Kompensation Offset / Versatz"
+        "name": "Heizkurve Verschiebung (B)"
       },
       "foxair_1237": {
         "name": "AT zum Stoppen der Frequenzbegrenzung im Kühlbetrieb [R61]"
@@ -2766,10 +2766,10 @@
         "name": "Frequenzregelungsmodus [C06]"
       },
       "foxair_1236": {
-        "name": "AT-Kompensationskurve Zone 1 aktivieren [H36]",
+        "name": "Heizkurve Modus [H36]",
         "state": {
-          "no": "Nein",
-          "yes": "Ja"
+          "fixed": "Festtemperatur",
+          "curve": "Witterungsgeführt (Kurve)"
         }
       },
       "foxair_1244": {

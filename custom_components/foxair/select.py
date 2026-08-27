@@ -92,6 +92,7 @@ GER_TO_EN = {
 VIRTUAL_SG_MAP = {
     2133: {"0": "off_disabled", "1": "sg1_sleep", "2": "sg2_low_pv", "3": "sg3_medium_pv", "4": "sg4_high_pv", "5": "normal"},
     8801: {"0": "off_disabled", "1": "sg1_sleep", "2": "sg2_low_pv", "3": "sg3_medium_pv", "4": "sg4_high_pv", "5": "normal"},
+    1236: {"0": "fixed", "1": "curve"},
 }
 
 
@@ -189,7 +190,10 @@ class FoxSelect(CoordinatorEntity, SelectEntity):
         block = meta.get("block") or ""
         self._attr_device_info = device_for_addr(addr, block, entry_id)
         risk = meta.get("risk")
-        if risk == "dangerous":
+        if addr == 1236:
+            self._attr_entity_category = None
+            self._attr_entity_registry_enabled_default = True
+        elif risk == "dangerous":
             self._attr_entity_category = EntityCategory.DIAGNOSTIC
             self._attr_entity_registry_enabled_default = False
         elif risk == "advanced":

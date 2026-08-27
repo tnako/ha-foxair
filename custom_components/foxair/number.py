@@ -54,9 +54,11 @@ class FoxNumber(CoordinatorEntity, NumberEntity):
         entry_id = getattr(coord, "_entry_id", None) or getattr(coord, "config_entry", None) and getattr(coord.config_entry, "entry_id", None)
         block = meta.get("block") or ""
         self._attr_device_info = device_for_addr(addr, block, entry_id)
-        # category by risk (aligned with sensor.py)
         risk = meta.get("risk")
-        if risk == "dangerous":
+        if addr in (1234, 1235):
+            self._attr_entity_category = None
+            self._attr_entity_registry_enabled_default = True
+        elif risk == "dangerous":
             self._attr_entity_category = EntityCategory.DIAGNOSTIC
             self._attr_entity_registry_enabled_default = False
         elif risk == "advanced":
