@@ -16,13 +16,16 @@ BLOCK_SHORT = {
     "KG": "Timer",
     "ERR": "Fault",
 }
-# Bulk poll blocks (qty <=125) covering 1001-1358 and 2001-2149
+# Bulk poll blocks (qty <=125) covering 1001-1540 and 2001-2149
+# Mirrors FoxAir_Control 8x90 init blocks but merged for efficiency (max 125 per Modbus frame).
 POLL_BLOCKS = [
     (1001, 125, "B1 H/A/F/D"),
     (1126, 125, "B2 E/R"),
-    (1251, 108, "B3 R/C/SG/P"),
-    (2001, 125, "B4 T live"),
-    (2126, 24, "B5 ERR tail"),
+    (1251, 125, "B3 R/C/SG/P 1251-1375"),
+    (1376, 125, "B4 factory/test+P 1376-1500"),
+    (1501, 40, "B5 extra 1501-1540"),
+    (2001, 125, "B6 T live"),
+    (2126, 24, "B7 ERR tail"),
 ]
 # Everyday controls stay visible, installer controls are Diagnostic and disabled by default
 POPULAR_ADDRS = {

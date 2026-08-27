@@ -9,20 +9,43 @@ from .const import POLL_BLOCKS
 _LOGGER = logging.getLogger(__name__)
 
 def s16(v): return v - 0x10000 if v & 0x8000 else v
+
+def _decode_hhmm(raw: int) -> str:
+    h=(raw>>8)&0xFF
+    m=raw&0xFF
+    if 0 <= h <= 23 and 0 <= m <= 59:
+        return f"{h:02d}:{m:02d}"
+    return str(s16(raw))
+
 def scaled(dtype, raw):
     dtype=(dtype or "RAW").upper()
     sv=s16(raw)
-    if dtype in ("TEMP","TEMP1"): return sv/10.0
-    if dtype=="TEMP05": return sv/2.0
-    if dtype in ("HZ",): return sv
-    if dtype=="PERCENT": return sv
-    if dtype=="FLOW_M3H_X100": return sv/100.0
-    if dtype=="FLOW_M3H_X10": return sv/10.0
-    if dtype in ("POWER_KW_X10","BAR_X10","AMP_X10"): return sv/10.0
-    if dtype in ("DIGI5",): return sv/10.0
-    if dtype=="AMP_X2": return sv/2.0
-    if dtype=="DIGI1": return sv
-    return sv
+    if dtype in ("TEMP","TEMP1"):
+        return sv/10.0
+    if dtype in ("TEMP05","TEMP_0_5","STEP_0_5C"):
+        return sv/2.0
+    if dtype in ("DIGI5","POWER_KW_X10","KW_X10","BAR_X10","PRESSURE_BAR_X10","FLOW_M3H_X10","FLOW_X10","AMP_X10","CURRENT_A_X10"):
+        return sv/10.0
+    if dtype in ("FLOW_M3H_X100","FLOW_X100","COP_X100","COP100"):
+        return sv/100.0
+    if dtype in ("AMP_X2","CURRENT_A_X2"):
+        return sv/2.0
+    if dtype in ("VOLT","VOLTS","V","WATT","WATTS","POWER_W","RPM","FAN_RPM","KWH","ENERGY_KWH","KWH_PER_H","KW_PER_H"):
+        return float(sv)
+    if dtype == "DIGI6":
+        return sv/1000.0
+    if dtype == "DIGI19":
+        return sv/100.0
+    if dtype == "DIGI4":
+        return sv/5.0
+    if dtype == "DIGI1":
+        return float(sv)
+    if dtype in ("TIME_HHMM","HHMM"):
+        return _decode_hhmm(raw)
+    # BITFIELD, TIMER_BITPAIR, TIMER_MODE, SG_MODE etc. return raw int for HA numeric sensors
+    if dtype in ("BITFIELD","FAULT_BITS","TIMER_BITPAIR","TIMER_MODE","MODE_0_4","SG_MODE","RUN_MODE","DAYS","HOURS","MINUTES","SECONDS","STEPS_N","EEV_STEPS","STEPS","HOURS","PERCENT","PCT","HZ","FREQUENCY_HZ"):
+        return float(sv)
+    return float(sv)
 
 class FoxAirCoordinator(DataUpdateCoordinator):
     POLL_BLOCKS = POLL_BLOCKS
