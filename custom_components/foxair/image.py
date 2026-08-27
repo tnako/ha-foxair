@@ -1,17 +1,10 @@
 """Image platform — heating curve on device page without YAML.
 
 Renders image.foxair_heating_curve on the FoxAir Heat Pump device.
-Light theme — white BG, grey grid, blue
-curve with light fill, red live dot. 1200x720 for crisp device thumbnail
-(expands on tap). Same math as views.py/svg but as PNG via PIL.
-
-AT is 2048 (T04), slope 1234 DIGI5/10, offset 1235 TEMP1/10, enable 1236,
-clamp R10 1164 / R11 1165, fixed R02 1158, after-comp 2014.
+Sharp SVG, no Pillow needed. Updates only when curve-relevant values change.
 """
 from __future__ import annotations
-import io
 import logging
-import pathlib
 from datetime import datetime, timezone
 from homeassistant.components.image import ImageEntity
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
@@ -20,35 +13,12 @@ from .heating_curve import calc_curve_target, curve_target_for_at
 
 _LOGGER = logging.getLogger(__name__)
 
-try:
-    from PIL import Image, ImageDraw, ImageFont
-    HAS_PIL = True
-except Exception:
-    HAS_PIL = False
-
-def _load_font(size: int):
-    # try DejaVuSans available in ha docker and on macOS
-    candidates = [
-        "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
-        "/usr/share/fonts/TTF/DejaVuSans.ttf",
-        "/System/Library/Fonts/Helvetica.ttc",
-    ]
-    for p in candidates:
-        if pathlib.Path(p).exists():
-            try:
-                return ImageFont.truetype(p, size)
-            except Exception:
-                pass
-    try:
-        return ImageFont.load_default()
-    except:
-        return None
 
 class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
     _attr_has_entity_name = False
     _attr_name = "Heating Curve"
     _attr_icon = "mdi:chart-bell-curve"
-    _attr_content_type = "image/png"
+    _attr_content_type = "image/svg+xml"
 
     def __init__(self, coordinator, entry_id: str):
         CoordinatorEntity.__init__(self, coordinator)
@@ -59,6 +29,7 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
         self.entity_id = "image.foxair_heating_curve"
         self._image_bytes: bytes | None = None
         self._image_last_updated: datetime | None = None
+        self._curve_params: tuple | None = None
         self._render()
 
     @property
@@ -70,57 +41,31 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
             self._render()
         return self._image_bytes
 
+    def _curve_inputs(self):
+        coord = self.coordinator
+        if not coord or not getattr(coord, "data", None):
+            return None
+        d = coord.data
+        slope = d.get(1234, {}).get("value", 0.6) if d.get(1234) else None
+        if isinstance(slope, (int, float)) and slope > 5:
+            slope = slope / 10.0
+        offset = d.get(1235, {}).get("value", 0) if d.get(1235) else None
+        h36 = d.get(1236, {}).get("raw") if d.get(1236) else None
+        at_live = d.get(2048, {}).get("value") if d.get(2048) else None
+        fixed = d.get(1158, {}).get("value") if d.get(1158) else None
+        after = d.get(2014, {}).get("value") if d.get(2014) else None
+        r10 = d.get(1164, {}).get("value", 20) if d.get(1164) else None
+        r11 = d.get(1165, {}).get("value", 60) if d.get(1165) else None
+        return (slope, offset, h36, at_live, fixed, after, r10, r11)
+
     def _handle_coordinator_update(self) -> None:
-        self._render()
+        key = self._curve_inputs()
+        if key != self._curve_params:
+            self._curve_params = key
+            self._render()
         super()._handle_coordinator_update()
 
     def _render(self):
-        if not HAS_PIL:
-            self._image_bytes = (
-                b"\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x01\x00\x00\x00\x01"
-                b"\x08\x06\x00\x00\x00\x1f\x15\xc4\x89\x00\x00\x00\nIDATx\x9cc\x00\x01\x00\x00\x05\x00\x01\r\n"
-                b"-\xb4\x00\x00\x00\x00IEND\xaeB`\x82"
-            )
-            self._image_last_updated = datetime.now(timezone.utc)
-            return
-        coord = self.coordinator
-        slope = 0.3
-        offset = 37.0
-        r10, r11 = 20.0, 60.0
-        fixed = None
-        at_live = None
-        target_live = None
-        after_comp = None
-        if coord and getattr(coord, "data", None):
-            try:
-                rec_slope = coord.data.get(1234)
-                if rec_slope:
-                    slope = float(rec_slope.get("value", slope))
-                if slope and slope > 5:
-                    slope = slope / 10.0
-                rec_off = coord.data.get(1235)
-                if rec_off:
-                    offset = float(rec_off.get("value", offset))
-                r10 = float(coord.data.get(1164, {}).get("value", r10)) if coord.data.get(1164) else r10
-                r11 = float(coord.data.get(1165, {}).get("value", r11)) if coord.data.get(1165) else r11
-                rec_at = coord.data.get(2048)
-                if rec_at:
-                    try: at_live = float(rec_at.get("value"))
-                    except: at_live = None
-                if at_live is not None:
-                    try: target_live = curve_target_for_at(coord, at_live)
-                    except: target_live = None
-                rec_ac = coord.data.get(2014)
-                if rec_ac:
-                    try: after_comp = float(rec_ac.get("value"))
-                    except: after_comp = None
-                rec_f = coord.data.get(1158)
-                if rec_f:
-                    try: fixed = float(rec_f.get("value"))
-                    except: fixed = None
-            except Exception as e:
-                _LOGGER.debug("image render coord read fail %s", e)
-
         W, H = 1200, 720
         pad_l, pad_r, pad_t, pad_b = 90, 40, 70, 80
         plot_w = W - pad_l - pad_r
@@ -128,182 +73,164 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
 
         def x_at(v: float) -> float:
             return pad_l + (v + 30) / 50 * plot_w
+
         def y_flow(v: float) -> float:
             return pad_t + (65 - v) / 50 * plot_h
+
         def clamp(v, lo, hi):
+            if lo is None:
+                lo = 20
+            if hi is None:
+                hi = 60
             return max(lo, min(hi, v))
 
-        # dark theme — larger 1200x720 not icon
-        BG = (15, 23, 42)        # #0f172a
-        GRID = (30, 41, 59)      # #1e293b
-        GRID_MINOR = (23, 33, 54)
-        AXIS = (51, 65, 85)      # #334155
-        TEXT = (148, 163, 184)   # #94a3b8
-        TEXT_DARK = (226, 232, 240)
-        TITLE_CLR = (226, 232, 240)
-        CURVE = (96, 165, 250)   # muted blue -> #60a5fa
-        CURVE_FILL = (30, 58, 95)
-        FIXED_COL = (251, 146, 60)   # orange
-        DOT = (248, 113, 113)    # red-400 live
-        AFTER_COL = (167, 139, 250)
+        coord = self.coordinator
+        slope = 0.6
+        offset = 0.0
+        r10, r11 = 20.0, 60.0
+        fixed = None
+        at_live = None
+        target_live = None
+        after_comp = None
+        h36_raw = None
+        is_curve_mode = True
 
-        im = Image.new("RGB", (W, H), BG)
-        draw = ImageDraw.Draw(im)
-        f_title = _load_font(28)
-        f_axis = _load_font(18)
-        f_small = _load_font(16)
-        f_tiny = _load_font(13)
-        f_big = _load_font(22)
+        params = self._curve_params
+        if params:
+            slope, offset, h36_raw, at_live, fixed, after_comp, r10, r11 = params
+            if slope is None:
+                slope = 0.6
+            if offset is None:
+                offset = 0.0
+            is_curve_mode = h36_raw != 0
 
-        # title
-        title = f"Heating Curve  —  slope {slope:.2f}  ·  offset {offset:.1f}°C  ·  AT → Flow"
-        try:
-            draw.text((W//2, 18), title, fill=TITLE_CLR, font=f_title, anchor="mt")
-        except: draw.text((W//2, 18), title, fill=TITLE_CLR, anchor="mt")
-        subtitle = f"Flow = 35 + offset + slope × (20 − AT)   clamped R10 {r10:.0f}°C … R11 {r11:.0f}°C"
-        try: draw.text((W//2, 52), subtitle, fill=TEXT, font=f_tiny, anchor="mt")
-        except: pass
-
-        # axes
-        draw.line([(pad_l, pad_t), (pad_l, H - pad_b)], fill=AXIS, width=2)
-        draw.line([(pad_l, H - pad_b), (W - pad_r, H - pad_b)], fill=AXIS, width=2)
-
-        # minor grid every 5C AT / 5C flow — faint
-        for at_g in range(-30, 21, 5):
-            if at_g % 10 == 0: continue
-            x = x_at(at_g)
-            draw.line([(x, pad_t), (x, H - pad_b)], fill=GRID_MINOR, width=1)
-        for f in range(20, 66, 5):
-            if f % 10 == 0: continue
-            y = y_flow(f)
-            draw.line([(pad_l, y), (W - pad_r, y)], fill=GRID_MINOR, width=1)
-        # major grid
-        for at_g in [-30, -20, -10, 0, 10, 20]:
-            x = x_at(at_g)
-            draw.line([(x, pad_t), (x, H - pad_b)], fill=GRID, width=1)
-            lab = f"{at_g}°"
-            try: draw.text((x, H - pad_b + 10), lab, fill=TEXT, font=f_axis, anchor="mt")
-            except: draw.text((x, H - pad_b + 10), lab, fill=TEXT, anchor="mt")
-        for f in [20, 30, 40, 50, 60]:
-            y = y_flow(f)
-            draw.line([(pad_l, y), (W - pad_r, y)], fill=GRID, width=1)
-            try: draw.text((pad_l - 12, y), f"{f}°", fill=TEXT, font=f_axis, anchor="rm")
-            except: draw.text((pad_l - 12, y), f"{f}°", fill=TEXT, anchor="rm")
-        # axis titles
-        try:
-            draw.text((pad_l + plot_w//2, H - 14), "Outdoor temperature AT  [°C]", fill=TEXT_DARK, font=f_small, anchor="mb")
-        except: pass
-        # vertical axis title rotated — draw via text then rotate would need extra; keep as side label
-        # R10/R11 band as light fill
-        y_r11 = y_flow(r11)
-        y_r10 = y_flow(r10)
-        overlay = Image.new("RGBA", (W, H), (0,0,0,0))
-        od = ImageDraw.Draw(overlay)
-        od.rectangle([(pad_l, y_r11), (W - pad_r, y_r10)], fill=CURVE_FILL + (70,))
-        # subtle border of band
-        od.line([(pad_l, y_r11), (W - pad_r, y_r11)], fill=CURVE + (90,), width=1)
-        od.line([(pad_l, y_r10), (W - pad_r, y_r10)], fill=CURVE + (90,), width=1)
-        im = Image.alpha_composite(im.convert("RGBA"), overlay).convert("RGB")
-        draw = ImageDraw.Draw(im)
-        try: draw.text((W - pad_r - 6, y_r11 + 6), f"R10 {r10:.0f}° — R11 {r11:.0f}°", fill=CURVE, font=f_tiny, anchor="rt")
-        except: pass
-
-        # fill under curve (clamped) — range -30..+20 per user, step 10 labels but 0.5 for smoothness
-        pts = []
-        for i in range(-30*2, 20*2+1):
-            at_step = i/2.0
-            raw = calc_curve_target(at_step, slope, offset)
-            clamped = clamp(raw, r10, r11)
-            pts.append((x_at(at_step), y_flow(clamped)))
-        # polygon for fill: curve + bottom edge
-        if len(pts) >= 2:
-            poly = pts + [(pts[-1][0], H - pad_b), (pts[0][0], H - pad_b)]
-            overlay2 = Image.new("RGBA", (W, H), (0,0,0,0))
-            od2 = ImageDraw.Draw(overlay2)
-            od2.polygon(poly, fill=CURVE_FILL + (55,))
-            im = Image.alpha_composite(im.convert("RGBA"), overlay2).convert("RGB")
-            draw = ImageDraw.Draw(im)
-        # curve line — always drawn, but prominent only in curve mode
-        # detect mode: H36 1236 raw 0=fixed, 1=curve
-        try:
-            h36_raw = coord.data.get(1236, {}).get("raw") if coord and getattr(coord, "data", None) else None
-            is_curve_mode = (h36_raw != 0)  # None defaults to curve (show curve)
-        except:
-            is_curve_mode = True
-        for a,b in zip(pts, pts[1:]):
-            draw.line([a,b], fill=CURVE, width=4)
-        # fixed line dashed — only when NOT in curve mode
-        if fixed is not None and not is_curve_mode:
-            fy = y_flow(clamp(fixed, 15, 65))
-            dash, gap = 14, 10
-            x = pad_l
-            while x < W - pad_r:
-                x2 = min(x+dash, W-pad_r)
-                draw.line([(x, fy), (x2, fy)], fill=FIXED_COL, width=3)
-                x += dash+gap
-            try: draw.text((W - pad_r - 6, fy - 10), f"Fixed R02 {fixed:.1f}°C", fill=FIXED_COL, font=f_small, anchor="rb")
-            except: pass
-
-        # live dot — big red as in photo
-        if at_live is not None and target_live is not None:
+        if at_live is not None and slope is not None and offset is not None:
             try:
-                dot_x = x_at(float(at_live))
-                dot_y = y_flow(float(target_live))
-                if pad_l-10 <= dot_x <= W-pad_r+10 and pad_t-10 <= dot_y <= H-pad_b+10:
-                    r = 10
-                    # shadow
-                    draw.ellipse([(dot_x-r-3, dot_y-r-3), (dot_x+r+3, dot_y+r+3)], fill=(0,0,0,30) if False else (255,255,255))
-                    # white halo
-                    draw.ellipse([(dot_x-r-3, dot_y-r-3), (dot_x+r+3, dot_y+r+3)], fill=(255,255,255), outline=(200,200,200))
-                    draw.ellipse([(dot_x-r, dot_y-r), (dot_x+r, dot_y+r)], fill=DOT, outline=(255,255,255))
-                    # label box
-                    txt = f"AT {at_live:.1f}° → {target_live:.1f}°C"
-                    lx = dot_x + 18
-                    ly = dot_y - 18
-                    anchor = "lm"
-                    if lx > W - pad_r - 160:
-                        lx = dot_x - 18
-                        anchor = "rm"
-                    # label bg
-                    bbox = draw.textbbox((lx, ly), txt, font=f_small, anchor=anchor) if f_small else (lx-50, ly-10, lx+50, ly+10)
-                    pad = 6
-                    draw.rounded_rectangle([(bbox[0]-pad, bbox[1]-pad), (bbox[2]+pad, bbox[3]+pad)], radius=6, fill=(30,41,59), outline=(51,65,85))
-                    try: draw.text((lx, ly), txt, fill=DOT, font=f_small, anchor=anchor)
-                    except: draw.text((lx, ly), txt, fill=DOT, anchor=anchor)
-                    if after_comp is not None:
-                        ay = y_flow(float(after_comp))
-                        draw.ellipse([(dot_x-5, ay-5), (dot_x+5, ay+5)], fill=AFTER_COL, outline=(255,255,255))
-                        try: draw.text((lx, ly+20), f"after 2014 {after_comp:.1f}°", fill=AFTER_COL, font=f_tiny, anchor=anchor)
-                        except: pass
+                target_live = curve_target_for_at(coord, float(at_live))
             except Exception as e:
-                _LOGGER.debug("dot draw fail %s", e)
+                _LOGGER.debug("curve target calc failed %s", e)
+                target_live = None
+
+        # Build SVG
+        BG = "#0f172a"
+        GRID = "#1e293b"
+        GRID_MINOR = "#172033"
+        AXIS = "#334155"
+        TEXT = "#94a3b8"
+        TEXT_DARK = "#e2e8f0"
+        CURVE = "#38bdf8"
+        CURVE_FILL = "rgba(14,165,233,0.08)"
+        FIXED_COL = "#fbbf24"
+        DOT = "#f87171"
+        AFTER_COL = "#a78bfa"
+
+        grid_lines = ""
+        for at_g in range(-30, 21, 5):
+            x = round(x_at(at_g), 1)
+            stroke = GRID if at_g % 10 == 0 else GRID_MINOR
+            grid_lines += f'<line x1="{x}" y1="{pad_t}" x2="{x}" y2="{H - pad_b}" stroke="{stroke}" stroke-width="1"/>\n'
+        for f in range(20, 66, 5):
+            y = round(y_flow(f), 1)
+            stroke = GRID if f % 10 == 0 else GRID_MINOR
+            grid_lines += f'<line x1="{pad_l}" y1="{y}" x2="{W - pad_r}" y2="{y}" stroke="{stroke}" stroke-width="1"/>\n'
+
+        ticks = ""
+        for at_g in [-30, -20, -10, 0, 10, 20]:
+            x = round(x_at(at_g), 1)
+            ticks += f'<text x="{x}" y="{H - pad_b + 18}" text-anchor="middle" fill="{TEXT}" font-family="sans-serif" font-size="14">{at_g}°</text>\n'
+        for f in [20, 30, 40, 50, 60]:
+            y = round(y_flow(f), 1)
+            ticks += f'<text x="{pad_l - 12}" y="{y + 5}" text-anchor="end" fill="{TEXT}" font-family="sans-serif" font-size="14">{f}°</text>\n'
+
+        pts = []
+        if slope is None or offset is None:
+            # insufficient data, render empty placeholder
+            pass
         else:
-            try: draw.text((W//2, H//2), "waiting for AT 2048 …", fill=TEXT, font=f_small, anchor="mm")
-            except: pass
+            for i in range(-30 * 2, 20 * 2 + 1):
+                at_step = i / 2.0
+                raw = calc_curve_target(at_step, float(slope), float(offset))
+                clamped = clamp(raw, r10, r11)
+                pts.append((round(x_at(at_step), 1), round(y_flow(clamped), 1)))
 
-        # footer — flow label on left edge
-        try:
-            # draw vertical Flow label via text at left margin
-            draw.text((18, pad_t + plot_h//2), "Flow", fill=TEXT_DARK, font=f_small, anchor="mm")
-            draw.text((18, pad_t + plot_h//2 + 18), "°C", fill=TEXT, font=f_tiny, anchor="mm")
-        except: pass
+        poly_pts = " ".join(f"{x},{y}" for x, y in pts)
+        poly_fill = " ".join(
+            f"{x},{y}" for x, y in pts + [(pts[-1][0], H - pad_b), (pts[0][0], H - pad_b)]
+        ) if pts else ""
 
-        # mode hint
-        try:
-            en = coord.data.get(1236, {}).get("raw") if coord and getattr(coord, "data", None) else None
-            if en == 0:
-                draw.rounded_rectangle([(W//2-220, H-38), (W//2+220, H-14)], radius=8, fill=(254,243,199), outline=(251,191,36))
-                draw.text((W//2, H-26), "H36=0 fixed mode — preview of curve", fill=(146,64,14), font=f_tiny, anchor="mm")
-        except: pass
+        band_top = round(y_flow(r11), 1)
+        band_bot = round(y_flow(r10), 1)
+        band_h = max(band_bot - band_top, 1)
 
-        buf = io.BytesIO()
-        im.save(buf, format="PNG", optimize=True)
-        self._image_bytes = buf.getvalue()
+        mode_hint = ""
+        if h36_raw == 0 and fixed is not None:
+            fy = round(y_flow(clamp(fixed, r10, r11)), 1)
+            mode_hint = (
+                f'<line x1="{pad_l}" y1="{fy}" x2="{W - pad_r}" y2="{fy}" stroke="{FIXED_COL}" stroke-width="3" stroke-dasharray="14 10"/>\n'
+                f'<text x="{W - pad_r - 6}" y="{fy - 10}" text-anchor="end" fill="{FIXED_COL}" font-family="sans-serif" font-size="14">Fixed R02 {fixed:.1f}°C</text>\n'
+            )
+        if h36_raw == 0:
+            mode_hint += (
+                f'<rect x="{W//2 - 220}" y="{H - 38}" width="440" height="24" rx="8" fill="#fef3c7" stroke="#f59e0b"/>\n'
+                f'<text x="{W//2}" y="{H - 21}" text-anchor="middle" fill="#92400e" font-family="sans-serif" font-size="13">H36=0 fixed mode — curve preview only</text>\n'
+            )
+
+        dot_svg = ""
+        if at_live is not None and target_live is not None:
+            dx = round(x_at(float(at_live)), 1)
+            dy = round(y_flow(float(target_live)), 1)
+            if pad_l <= dx <= W - pad_r and pad_t <= dy <= H - pad_b:
+                dot_svg = (
+                    f'<circle cx="{dx}" cy="{dy}" r="10" fill="#fff" opacity="0.9"/>\n'
+                    f'<circle cx="{dx}" cy="{dy}" r="8" fill="{DOT}" stroke="#fff" stroke-width="2"/>\n'
+                )
+                txt = f"AT {float(at_live):.1f}° → {float(target_live):.1f}°C"
+                dot_svg += (
+                    f'<text x="{dx + 18}" y="{dy - 12}" fill="{DOT}" font-family="sans-serif" font-size="14">{txt}</text>\n'
+                )
+                if after_comp is not None:
+                    ay = round(y_flow(float(after_comp)), 1)
+                    dot_svg += (
+                        f'<circle cx="{dx}" cy="{ay}" r="5" fill="{AFTER_COL}" stroke="#fff" stroke-width="1.5"/>\n'
+                        f'<text x="{dx + 18}" y="{ay + 16}" fill="{AFTER_COL}" font-family="sans-serif" font-size="12">after 2014 {float(after_comp):.1f}°</text>\n'
+                    )
+        else:
+            dot_svg = (
+                f'<text x="{W//2}" y="{H//2 + 10}" text-anchor="middle" fill="{TEXT}" font-family="sans-serif" font-size="16">Waiting for AT 2048 …</text>\n'
+            )
+
+        mode_text = "Curve mode" if is_curve_mode else "Fixed mode"
+        if slope is None or offset is None:
+            subtitle = "Heating Curve"
+        else:
+            subtitle = (
+                f"Heating Curve — slope {float(slope):.2f} · offset {float(offset):.1f}°C · {mode_text} · R10 {float(r10):.0f}° … R11 {float(r11):.0f}°"
+            )
+
+        svg = f"""<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}">
+<rect width="100%" height="100%" fill="{BG}"/>
+<text x="{W//2}" y="28" text-anchor="middle" fill="{TEXT_DARK}" font-family="sans-serif" font-size="22">{subtitle}</text>
+<line x1="{pad_l}" y1="{pad_t}" x2="{pad_l}" y2="{H - pad_b}" stroke="{AXIS}" stroke-width="2"/>
+<line x1="{pad_l}" y1="{H - pad_b}" x2="{W - pad_r}" y2="{H - pad_b}" stroke="{AXIS}" stroke-width="2"/>
+{grid_lines}
+{ticks}
+<rect x="{pad_l}" y="{band_top}" width="{plot_w}" height="{band_h}" fill="{CURVE_FILL}"/>
+<text x="{W - pad_r - 6}" y="{band_top + 14}" text-anchor="end" fill="{CURVE}" font-family="sans-serif" font-size="12">R10 {float(r10):.0f} — R11 {float(r11):.0f}</text>
+{('<polygon points="' + poly_fill + '" fill="' + CURVE_FILL + '"/>') if pts else ''}
+<polyline fill="none" stroke="{CURVE}" stroke-width="4" stroke-linejoin="round" points="{poly_pts}"/>
+{mode_hint}
+{dot_svg}
+{('<text x="' + str(W//2) + '" y="' + str(H//2 + 10) + '" text-anchor="middle" fill="' + TEXT + '" font-family="sans-serif" font-size="16">Heating curve data not available yet — waiting for slope/offset/AT …</text>') if not pts else ''}
+<text x="{pad_l + plot_w//2}" y="{H - 10}" text-anchor="middle" fill="{TEXT_DARK}" font-family="sans-serif" font-size="13">Outdoor temperature AT  [°C]</text>
+<text x="18" y="{pad_t + plot_h//2}" text-anchor="middle" fill="{TEXT_DARK}" font-family="sans-serif" font-size="14" transform="rotate(-90 18,{pad_t + plot_h//2})">Flow °C</text>
+</svg>"""
+
+        self._image_bytes = svg.encode("utf-8")
         self._image_last_updated = datetime.now(timezone.utc)
+
 
 async def async_setup_entry(hass, entry, async_add_entities):
     coord = hass.data.get("foxair", {}).get(entry.entry_id)
     if not coord:
         return
-    ent = FoxAirHeatingCurveImage(coord, entry.entry_id)
-    async_add_entities([ent])
+    async_add_entities([FoxAirHeatingCurveImage(coord, entry.entry_id)])
