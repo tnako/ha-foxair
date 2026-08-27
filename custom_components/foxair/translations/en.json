@@ -1065,16 +1065,16 @@
         "name": "Circulation Pump Timer 3 Active Bitmask"
       },
       "foxair_1334": {
-        "name": "SG Ready Auswahl [SG01]"
+        "name": "SG Ready Selection [SG01]"
       },
       "foxair_1335": {
-        "name": "SG Mode 1 Schlafmodus Zeit [SG02]"
+        "name": "SG Mode 1 Sleep Mode Time [SG02]"
       },
       "foxair_1336": {
-        "name": "SG Mode 2 Leistung / wenig PV [SG03]"
+        "name": "SG Mode 2 Power / Low PV [SG03]"
       },
       "foxair_1337": {
-        "name": "SG Mode 3 Leistung / mittel PV [SG04]"
+        "name": "SG Mode 3 Power / Medium PV [SG04]"
       },
       "foxair_1338": {
         "name": "SG Mode 4 DHW Target Temp Boost [SG05]"
@@ -1395,7 +1395,7 @@
         "name": "Heating Return Temperature [T40]"
       },
       "foxair_2036": {
-        "name": "Heizungsvorlauftemperatur [T41]"
+        "name": "Heating Flow Temperature [T41]"
       },
       "foxair_2037": {
         "name": "Mixing Pipe Outlet Water Temperature [T42]"
@@ -1416,7 +1416,7 @@
         "name": "Compressor Phase Current [T36]"
       },
       "foxair_2043": {
-        "name": "DC-Power-Bus-Spannung [T37]"
+        "name": "DC Bus Voltage [T37]"
       },
       "foxair_2044": {
         "name": "IPM Temperature [T38]"
@@ -1461,7 +1461,7 @@
         "name": "Live value 2057 [hidden diagnostic]"
       },
       "foxair_2058": {
-        "name": "Raumtemperatur [T09]"
+        "name": "Room Temperature [T09]"
       },
       "foxair_2059": {
         "name": "Unit Capacity [T59]"
@@ -1473,7 +1473,7 @@
         "name": "IPM High Fault Temperature [T33]"
       },
       "foxair_2062": {
-        "name": "AC-Eingangsspannung [T34]"
+        "name": "AC Input Voltage [T34]"
       },
       "foxair_2063": {
         "name": "EVI Inlet Temperature [T10]"
@@ -1686,7 +1686,7 @@
         "name": "Current of External Fan Motor Drive [T48]"
       },
       "foxair_2133": {
-        "name": "SG Ready aktiver Modus [SGstatus]"
+        "name": "SG Ready Active Mode [SGstatus]"
       },
       "foxair_2134": {
         "name": "Timer State Power Limit Timers 1-6"

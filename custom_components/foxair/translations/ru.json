@@ -1065,16 +1065,16 @@
         "name": "Циркул. насос Таймер 3 Битмаска активности"
       },
       "foxair_1334": {
-        "name": "SG Ready Auswahl [SG01]"
+        "name": "Выбор SG Ready [SG01]"
       },
       "foxair_1335": {
-        "name": "SG Mode 1 Schlafmodus Zeit [SG02]"
+        "name": "SG Режим 1 Время спящего режима [SG02]"
       },
       "foxair_1336": {
-        "name": "SG Mode 2 Leistung / wenig PV [SG03]"
+        "name": "SG Режим 2 Мощность / мало PV [SG03]"
       },
       "foxair_1337": {
-        "name": "SG Mode 3 Leistung / mittel PV [SG04]"
+        "name": "SG Режим 3 Мощность / средне PV [SG04]"
       },
       "foxair_1338": {
         "name": "SG Режим 4 Повышение цел. темп. ГВС [SG05]"
@@ -1395,7 +1395,7 @@
         "name": "Темп. обратки отопления [T40]"
       },
       "foxair_2036": {
-        "name": "Heizungsvorlauftemperatur [T41]"
+        "name": "Темп. подачи отопления [T41]"
       },
       "foxair_2037": {
         "name": "Темп. воды на выходе смесительной трубы [T42]"
@@ -1416,7 +1416,7 @@
         "name": "Фазный ток компрессора [T36]"
       },
       "foxair_2043": {
-        "name": "DC-Power-Bus-Spannung [T37]"
+        "name": "Напряжение шины DC [T37]"
       },
       "foxair_2044": {
         "name": "Темп. IPM [T38]"
@@ -1461,7 +1461,7 @@
         "name": "Значение 2057 [скрыто]"
       },
       "foxair_2058": {
-        "name": "Raumtemperatur [T09]"
+        "name": "Комнатная температура [T09]"
       },
       "foxair_2059": {
         "name": "Unit Capacity [T59]"
@@ -1473,7 +1473,7 @@
         "name": "Темп. аварии IPM высокая [T33]"
       },
       "foxair_2062": {
-        "name": "Напряжение AC на входе [T34]"
+        "name": "Входное напряжение AC [T34]"
       },
       "foxair_2063": {
         "name": "Темп. входа EVI [T10]"
@@ -1686,7 +1686,7 @@
         "name": "Ток внешнего привода вентилятора [T48]"
       },
       "foxair_2133": {
-        "name": "SG Ready aktiver Modus [SGstatus]"
+        "name": "Активный режим SG Ready [SGstatus]"
       },
       "foxair_2134": {
         "name": "Состояние таймеров лимита мощности 1-6"
