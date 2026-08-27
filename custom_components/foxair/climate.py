@@ -16,6 +16,7 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
     _attr_translation_key = "foxair_climate"
     _attr_temperature_unit = UnitOfTemperature.CELSIUS
     _attr_supported_features = ClimateEntityFeature.TARGET_TEMPERATURE | ClimateEntityFeature.PRESET_MODE
+    _attr_icon = "mdi:heat-pump"
     _attr_hvac_modes = [HVACMode.OFF, HVACMode.HEAT, HVACMode.COOL, HVACMode.HEAT_COOL]
     _attr_preset_modes = ["dhw_only","heat_only","cool_only","dhw+heat","dhw+cool"]
 

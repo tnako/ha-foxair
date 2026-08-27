@@ -1,3 +1,6 @@
+## 0.3.30
+- fix: add `mdi:heat-pump` icon fallback on all entities (climate/sensor/number/select) so they render an icon even if `brand/` PNG is unavailable (manifest `icon` key stays removed — invalid in HA schema, breaks CI)
+
 ## 0.3.29
 - fix: remove invalid `icon` key from manifest.json (HA manifest schema rejects it; CI "Invalid manifest" error). In-HA icon is served from `brand/`; HACS card icon remains a known HACS limitation (issue #5171)
 

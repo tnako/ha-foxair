@@ -55,6 +55,7 @@ class FoxNumber(CoordinatorEntity, NumberEntity):
         block = meta.get("block") or ""
         tab = meta.get("tab") or block
         self._attr_device_info = device_for_addr(addr, block, entry_id, tab)
+        self._attr_icon = meta.get("icon") or "mdi:heat-pump"
         risk = meta.get("risk")
         if addr in (1234, 1235):
             self._attr_entity_category = None
