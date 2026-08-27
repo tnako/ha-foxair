@@ -44,22 +44,23 @@ APP_TAB_TITLES = {
     "ERR": "Fault",
 }
 
-# Risk tiers: safe (everyday), advanced (installer), dangerous (can damage/brick)
+# Risk tiers: safe (everyday), advanced (installer/normal config, visible in CONFIG), dangerous (can damage/brick -> expert only)
 RISK_BY_BLOCK = {
-    "R": "safe",
-    "SG": "safe",
-    "KG": "safe",
-    "G": "advanced",
-    "Z": "advanced",
-    "P": "advanced",
-    "H": "advanced",      # overridden per-addr for H10/H34 etc -> dangerous
-    "A": "dangerous",
-    "F": "dangerous",
-    "D": "dangerous",
-    "E": "dangerous",
-    "C": "dangerous",
-    "T": "safe",          # but read-only
-    "ERR": "safe",
+    "R": "safe",       # setpoints: target/min/max temps
+    "SG": "safe",       # SG Ready modes
+    "KG": "safe",       # timer
+    "G": "advanced",    # legionella/disinfection
+    "Z": "advanced",    # zones
+    "P": "advanced",    # pump
+    "H": "advanced",    # base/hardware (most are normal config; truly dangerous ones overridden below)
+    "A": "advanced",    # protection/limits (normal tuning; dangerous ones overridden)
+    "F": "advanced",    # fan
+    "D": "advanced",    # defrost
+    "E": "advanced",    # EVI/EEV
+    "C": "advanced",    # compressor
+    "T": "safe",        # but read-only
+    "ERR": "safe",      # fault read-only
+    "S": "safe",        # switches read-only
 }
 
 # Per-address risk overrides (hardware/brick risks)
@@ -82,6 +83,12 @@ RISK_OVERRIDES = {
     1165: "safe",       # R11 max heating target temp
     1157: "safe",       # R01 DHW target temp
     1159: "safe",       # R03 cooling target temp
+}
+
+# Per-address min/max overrides (DISPLAYED/scaled units) for entities whose
+# generic per-type fallback is too wide. Applied after parse_range + fallback.
+RANGE_OVERRIDES = {
+    1234: (0.0, 3.5),     # AT-compensation slope: 0..3.5 per °C (DIGI5 /10)
 }
 
 TYPE_TO_PLATFORM = {
@@ -174,7 +181,7 @@ def main():
         risk = RISK_OVERRIDES.get(addr, RISK_BY_BLOCK.get(block, "advanced" if editable else "safe"))
         if dtype == "BLOCK":
             risk = "blocked"
-        requires_expert = risk in ("advanced", "dangerous")
+        requires_expert = risk == "dangerous"
         if risk == "dangerous":
             requires_expert = True
         # min/max from knowledge
@@ -189,10 +196,13 @@ def main():
                 "BAR_X10": (0, 5), "HZ": (20, 130), "PERCENT": (0,100),
                 "STEPS_N": (0,500), "RPM": (0,1500), "MINUTES": (0,180), "SECONDS": (0,300),
                 "HOURS": (0,24), "DAYS": (0,365), "POWER_KW_X10": (0, 50),
-                "DIGI1": (0, 5), "DIGI5": (0, 100), "DIGI6": (0,10), "DIGI19": (0,100),
+                "DIGI1": (0, 5), "DIGI5": (0, 10), "DIGI6": (0,10), "DIGI19": (0,100),
             }
             if dtype in fallbacks:
                 lo, hi = fallbacks[dtype]
+        # explicit per-address range override (displayed units)
+        if addr in RANGE_OVERRIDES:
+            lo, hi = RANGE_OVERRIDES[addr]
         step = default_step(dtype, lo, hi)
         # default value
         default = kd.get("default") if isinstance(kd, dict) else None

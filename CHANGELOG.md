@@ -1,3 +1,6 @@
+## 0.3.33
+- fix: slope (1234) slider range now 0..3.5 (was 0..100 — raw DIGI5 range shown unscaled). Added RANGE_OVERRIDES in build_metadata; DIGI5 generic fallback corrected to displayed 0..10.
+
 ## 0.3.32
 - feat: heating-curve image — add reference cross at design point (AT=0 → flow=offset), so it's clear the curve is anchored at 0 °C outside = offset flow. Dashed vertical (AT=0) + horizontal (offset) lines, labeled dot, and the AT=0 x-axis tick now reads "0°→37°".
 
