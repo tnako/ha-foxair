@@ -1,7 +1,7 @@
 """Image platform — heating curve on device page without YAML.
 
 Renders image.foxair_heating_curve on the FoxAir Heat Pump device.
-Light theme  — white BG, grey grid, blue
+Light theme — white BG, grey grid, blue
 curve with light fill, red live dot. 1200x720 for crisp device thumbnail
 (expands on tap). Same math as views.py/svg but as PNG via PIL.
 
@@ -133,7 +133,7 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
         def clamp(v, lo, hi):
             return max(lo, min(hi, v))
 
-        # dark theme — matches  if dark display, larger 1200x720 not icon
+        # dark theme — larger 1200x720 not icon
         BG = (15, 23, 42)        # #0f172a
         GRID = (30, 41, 59)      # #1e293b
         GRID_MINOR = (23, 33, 54)
