@@ -1520,6 +1520,15 @@
       "foxair_2077": {
         "name": "Wasserdurchflussrate [T39]"
       },
+      "foxair_heating_power": {
+        "name": "Heizleistung (berechnet)"
+      },
+      "foxair_electrical_power": {
+        "name": "Elektrische Leistung (berechnet)"
+      },
+      "foxair_cop": {
+        "name": "COP (berechnet)"
+      },
       "foxair_2078": {
         "name": "Energiezähler elektrisch high bits"
       },

@@ -1520,6 +1520,15 @@
       "foxair_2077": {
         "name": "Water Flow Rate [T39]"
       },
+      "foxair_heating_power": {
+        "name": "Heating Power (calculated)"
+      },
+      "foxair_electrical_power": {
+        "name": "Electrical Power (calculated)"
+      },
+      "foxair_cop": {
+        "name": "COP (calculated)"
+      },
       "foxair_2078": {
         "name": "Energy Meter Electric High Bits"
       },

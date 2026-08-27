@@ -1,3 +1,9 @@
+## 0.3.40
+- feat: computed (derived) sensors — `foxair_heating_power`, `foxair_electrical_power`, `foxair_cop`.
+  - Heating power = (flow/3600)·ρ·cp·ΔT from registers 2077/2045/2046, with an EMA flow smoother + "hold-last-good" guard for the flaky water-flow sensor and forced zero when the compressor is off.
+  - Electrical-power source for COP is configurable in Options: FoxAir Unit Power register 2054 (default, accurate, no calibration), V×A (2062×2057) with tunable gain/offset, or an external HA power-meter entity.
+  - COP = heating_power / electrical_power, guarded against standby/garbage values.
+
 ## 0.3.39
 - feat: optimistic UI updates for toggles/mode changes — Power switch (1011), climate hvac_mode, and climate preset_mode now flip instantly on tap instead of waiting for the Modbus round-trip. Failed writes roll back; coordinator read-back/poll reconciles to the real device value.
 
