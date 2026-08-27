@@ -7,13 +7,12 @@
   "config_flow": true,
   "dependencies": [],
   "documentation": "https://github.com/tnako/ha-foxair",
-  "icon": "mdi:heat-pump",
   "iot_class": "local_polling",
   "issue_tracker": "https://github.com/tnako/ha-foxair/issues",
   "requirements": [
     "pymodbus>=3.6.0"
   ],
-  "version": "0.2.7",
+  "version": "0.2.8",
   "integration_type": "device",
   "quality_scale": "custom"
 }
