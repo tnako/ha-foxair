@@ -1,3 +1,6 @@
+## 0.3.13
+- feat: image.foxair_heating_curve on FoxAir Heat Pump device — live heating curve PNG via PIL (no YAML/Lovelace) — AT vs Flow, slope 1234 offset 1235 R10/R11 clamp, fixed R02, current AT dot from 2048/2014, auto-refresh on coordinator
+
 ## 0.3.12
 - fix: icon 403 brands CDN fallback — rebuild local brand icons (icon.svg → brand/icon.png 256 + icon@2x 512 etc via cairosvg) per HA 2026.3 docs https://developers.home-assistant.io/blog/2026/02/24/brands-proxy-api — local /api/brands/integration/foxair/icon.png now serves icon on Integrations/devices pages (HACS dashboard still via data-v2.hacs.xyz until hacs/integration#5171 merges fallback)
 
