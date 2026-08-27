@@ -127,7 +127,7 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
         plot_h = H - pad_t - pad_b
 
         def x_at(v: float) -> float:
-            return pad_l + (v + 20) / 40 * plot_w
+            return pad_l + (v + 30) / 50 * plot_w
         def y_flow(v: float) -> float:
             return pad_t + (65 - v) / 50 * plot_h
         def clamp(v, lo, hi):
@@ -169,7 +169,7 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
         draw.line([(pad_l, H - pad_b), (W - pad_r, H - pad_b)], fill=AXIS, width=2)
 
         # minor grid every 5C AT / 5C flow — faint
-        for at_g in range(-20, 21, 5):
+        for at_g in range(-30, 21, 5):
             if at_g % 10 == 0: continue
             x = x_at(at_g)
             draw.line([(x, pad_t), (x, H - pad_b)], fill=GRID_MINOR, width=1)
@@ -178,7 +178,7 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
             y = y_flow(f)
             draw.line([(pad_l, y), (W - pad_r, y)], fill=GRID_MINOR, width=1)
         # major grid
-        for at_g in [-20, -10, 0, 10, 20]:
+        for at_g in [-30, -20, -10, 0, 10, 20]:
             x = x_at(at_g)
             draw.line([(x, pad_t), (x, H - pad_b)], fill=GRID, width=1)
             lab = f"{at_g}°"
@@ -208,9 +208,9 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
         try: draw.text((W - pad_r - 6, y_r11 + 6), f"R10 {r10:.0f}° — R11 {r11:.0f}°", fill=CURVE, font=f_tiny, anchor="rt")
         except: pass
 
-        # fill under curve (clamped)
+        # fill under curve (clamped) — range -30..+20 per user, step 10 labels but 0.5 for smoothness
         pts = []
-        for i in range(-20*2, 20*2+1):
+        for i in range(-30*2, 20*2+1):
             at_step = i/2.0
             raw = calc_curve_target(at_step, slope, offset)
             clamped = clamp(raw, r10, r11)
@@ -223,12 +223,17 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
             od2.polygon(poly, fill=CURVE_FILL + (55,))
             im = Image.alpha_composite(im.convert("RGBA"), overlay2).convert("RGB")
             draw = ImageDraw.Draw(im)
-        # curve line
+        # curve line — always drawn, but prominent only in curve mode
+        # detect mode: H36 1236 raw 0=fixed, 1=curve
+        try:
+            h36_raw = coord.data.get(1236, {}).get("raw") if coord and getattr(coord, "data", None) else None
+            is_curve_mode = (h36_raw != 0)  # None defaults to curve (show curve)
+        except:
+            is_curve_mode = True
         for a,b in zip(pts, pts[1:]):
             draw.line([a,b], fill=CURVE, width=4)
-        # curve outline white for contrast
-        # fixed line dashed
-        if fixed is not None:
+        # fixed line dashed — only when NOT in curve mode
+        if fixed is not None and not is_curve_mode:
             fy = y_flow(clamp(fixed, 15, 65))
             dash, gap = 14, 10
             x = pad_l

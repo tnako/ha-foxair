@@ -1,3 +1,6 @@
+## 0.3.20
+- fix: image curve now -30..+20 step 10° (was -20..+20), minor grid 5° retained. Curve drawn -30..+20 with 0.5° smoothness. Fixed R02 dashed now only when H36=0 (fixed mode); in curve mode (H36=1) only blue curve shows per user report 'you draw only fixed while mode = curve'.
+
 ## 0.3.19
 - fix: revert 0.3.18 light theme — bad photo bad match. Restore dark #0f172a 1200×720 with muted blue 96,165,250, dark fill, dark label boxes. Keep larger size so device page shows not icon but bigger image near slope/offset (crisp when expanded).
 
