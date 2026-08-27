@@ -1,4 +1,4 @@
-﻿{
+{
   "_comment": "Hier sind alle Register welche auf allen Modbussen gleich sind. 1xxx les-/schreibbar, 2xxx nur lesen.",
   "200": {
     "function": "03",
