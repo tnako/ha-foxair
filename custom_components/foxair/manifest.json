@@ -6,7 +6,8 @@
   ],
   "config_flow": true,
   "dependencies": [
-    "frontend"
+    "frontend",
+    "http"
   ],
   "documentation": "https://github.com/tnako/ha-foxair",
   "integration_type": "device",
@@ -16,5 +17,5 @@
   "requirements": [
     "pymodbus>=3.6.0"
   ],
-  "version": "0.3.4"
+  "version": "0.3.5"
 }
