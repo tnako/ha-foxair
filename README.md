@@ -33,3 +33,11 @@ Register definitions (`foxair_phnix_registers.json`, `foxair_phnix_knowledge.jso
 ## License
 
 MIT - see LICENSE
+
+## Debug & Protection
+
+- Logger: `custom_components.foxair: debug` (see docs/DEBUG.md)
+- Diagnostics: Settings -> Devices -> FoxAir -> Download diagnostics (no secrets)
+- Protection: Single keepalive, 50ms gap, qty<=125, writes hidden diagnostic disabled by default. See docs/DEBUG.md.
+- Versioning: manifest 0.1.0 + git tag v0.1.0, HACS tracks releases. CHANGELOG.md
+

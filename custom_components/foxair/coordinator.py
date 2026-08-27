@@ -1,14 +1,14 @@
-"""Bulk polling coordinator - port of FoxAir_Control standard_modbus_worker + core scaling."""
-import json, pathlib, struct, asyncio, logging
+"""Bulk polling coordinator - port of FoxAir_Control standard_modbus_worker + core scaling. Includes stats for diagnostics."""
+import json, pathlib, asyncio, logging, time
 from datetime import timedelta
-from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
+from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
+from homeassistant.exceptions import ConfigEntryNotReady
 from pymodbus.client import AsyncModbusTcpClient
 from .const import POLL_BLOCKS
 
 _LOGGER = logging.getLogger(__name__)
 
 def s16(v): return v - 0x10000 if v & 0x8000 else v
-
 def scaled(dtype, raw):
     dtype=(dtype or "RAW").upper()
     sv=s16(raw)
@@ -22,11 +22,13 @@ def scaled(dtype, raw):
     return sv
 
 class FoxAirCoordinator(DataUpdateCoordinator):
+    POLL_BLOCKS = POLL_BLOCKS
     def __init__(self, hass, entry):
         super().__init__(hass, _LOGGER, name="FoxAir", update_interval=timedelta(seconds=10))
         self.entry=entry
         self.client=None
         self.data={}
+        self.stats={"polls":0,"errors":0,"last_ms":0}
         self._load_map()
     def _load_map(self):
         p=pathlib.Path(__file__).parent/"data/foxair_phnix_registers.json"
@@ -35,12 +37,15 @@ class FoxAirCoordinator(DataUpdateCoordinator):
         cfg=self.entry.data
         if not self.client:
             self.client=AsyncModbusTcpClient(host=cfg["host"], port=cfg["port"], timeout=4)
-            await self.client.connect()
-        out={}
+            ok=await self.client.connect()
+            if not ok:
+                raise ConfigEntryNotReady(f"Modbus connect failed {cfg['host']}:{cfg['port']}")
+        out={}; t0=time.monotonic()
         for addr,qty,_ in POLL_BLOCKS:
             try:
                 rr=await self.client.read_holding_registers(address=addr, count=qty, slave=cfg.get("slave",1))
                 if rr.isError():
+                    self.stats["errors"]+=1
                     _LOGGER.warning("read %s/%s error %s", addr, qty, rr)
                     continue
                 regs=rr.registers
@@ -48,10 +53,13 @@ class FoxAirCoordinator(DataUpdateCoordinator):
                     a=addr+i
                     info=self.regmap.get(str(a))
                     if not info: continue
-                    dtype=info.get("type","RAW")
-                    out[a]={"raw":raw, "value":scaled(dtype,raw), "info":info}
+                    out[a]={"raw":raw, "value":scaled(info.get("type","RAW"),raw), "info":info}
                 await asyncio.sleep(0.05)
             except Exception as e:
+                self.stats["errors"]+=1
                 _LOGGER.warning("poll %s exception %s", addr, e)
+                raise UpdateFailed(str(e)) from e
+        self.stats["polls"]+=1
+        self.stats["last_ms"]=int((time.monotonic()-t0)*1000)
         self.data=out
         return out
