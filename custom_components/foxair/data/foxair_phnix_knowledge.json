@@ -1,0 +1,2290 @@
+{
+  "1001": {
+    "description": "Blockkopf Paket 1 / Kennung; Teil der WiFi-Barcode-/Warmlink-Modulkennung WF2210250475 (ASCII Big Endian, Wort 1-6; Wort 7 Reserve/Ende). Nicht Geräte-Serial-No.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1002": {
+    "description": "Blockkopf Paket 1 / Kennung; Teil der WiFi-Barcode-/Warmlink-Modulkennung WF2210250475 (ASCII Big Endian, Wort 1-6; Wort 7 Reserve/Ende). Nicht Geräte-Serial-No.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1003": {
+    "description": "Blockkopf Paket 1 / Kennung; Teil der WiFi-Barcode-/Warmlink-Modulkennung WF2210250475 (ASCII Big Endian, Wort 1-6; Wort 7 Reserve/Ende). Nicht Geräte-Serial-No.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1004": {
+    "description": "Blockkopf Paket 1 / Kennung; Teil der WiFi-Barcode-/Warmlink-Modulkennung WF2210250475 (ASCII Big Endian, Wort 1-6; Wort 7 Reserve/Ende). Nicht Geräte-Serial-No.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1005": {
+    "description": "Blockkopf Paket 1 / Kennung; Teil der WiFi-Barcode-/Warmlink-Modulkennung WF2210250475 (ASCII Big Endian, Wort 1-6; Wort 7 Reserve/Ende). Nicht Geräte-Serial-No.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1006": {
+    "description": "Blockkopf Paket 1 / Kennung; Teil der WiFi-Barcode-/Warmlink-Modulkennung WF2210250475 (ASCII Big Endian, Wort 1-6; Wort 7 Reserve/Ende). Nicht Geräte-Serial-No.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1007": {
+    "description": "Blockkopf Paket 1 / Kennung; Teil der WiFi-Barcode-/Warmlink-Modulkennung WF2210250475 (ASCII Big Endian, Wort 1-6; Wort 7 Reserve/Ende). Nicht Geräte-Serial-No.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1008": {
+    "description": "Reserviertes Wort im Paket-/Blockkopf; typischerweise 0.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1009": {
+    "description": "Paketkopf-Wort; beobachtet meist 0x0210 / 528. Bedeutung vermutlich Marker/Länge/Strukturkennung.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1010": {
+    "description": "Paketkopf-Wort zeigt auf den Anfang dieses Blockkopfs: 1001 / 0x03E9.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1011": {
+    "description": "0-0FF/1-EIN",
+    "source": "ASM DEMONS.ASM"
+  },
+  "1012": {
+    "description": "Modus setzen: 0=Warmwasser, 1=Heizen, 2=Kühlen, 3=Warmwasser + Heizen, 4=Warmwasser + Kühlen. Das ist der Soll-/Einstellmodus.",
+    "source": "Display-FW ASM Modus"
+  },
+  "1013": {
+    "description": "(gemäß Zentralsteuerung)"
+  },
+  "1014": {
+    "description": "0-nicht zulassen/1- zulassen",
+    "source": "v36 Beschreibung/App-Review"
+  },
+  "1015": {},
+  "1016": {
+    "description": "Manuelle Steuerung / Silent Status: Bit 1 (Maske 0x0002) ist Silent Mode. Derselbe Registerwert ist auch der Status. Beim Schreiben nur Bit 1 per Read-Modify-Write ändern.",
+    "source": "v36 Beschreibung/App-Review"
+  },
+  "1017": {},
+  "1018": {
+    "description": "0-nein/1-ja",
+    "source": "v36 Beschreibung/App-Review",
+    "source_app_video": "ScreenRecording_06-13-2026_Parameterblock1"
+  },
+  "1019": {
+    "default": "0",
+    "description": "0-nein/1-ja",
+    "source": "v36 Beschreibung/App-Review",
+    "source_app_video": "ScreenRecording_06-13-2026_Parameterblock1"
+  },
+  "1020": {
+    "default": "0",
+    "description": "0-nein, 1=35C° Testbedingung, 2=55C° Testbedingung",
+    "source": "v36 Beschreibung/App-Review",
+    "source_app_video": "ScreenRecording_06-13-2026_Parameterblock1"
+  },
+  "1021": {
+    "default": "1",
+    "description": "0-Nein/1-Ja",
+    "source": "ASM DEMONS.ASM",
+    "source_app_video": "ScreenRecording_06-13-2026_Parameterblock1"
+  },
+  "1022": {
+    "default": "0",
+    "description": "selbst getestet"
+  },
+  "1023": {
+    "default": "0",
+    "description": "0-Display-Steuerung 1-Fernsteuerung",
+    "source": "ASM DEMONS.ASM",
+    "source_app_video": "ScreenRecording_06-13-2026_Parameterblock1"
+  },
+  "1024": {
+    "default": "1",
+    "description": "1 bis 32",
+    "source_app_video": "ScreenRecording_06-13-2026_Parameterblock1"
+  },
+  "1025": {
+    "default": "0",
+    "description": "H38 / Spracheinstellung / Language choice. Aus Display-Firmware: H38 nutzt Kommunikationsvariable 0401H = 1025 dez.; Value Map noch offen.",
+    "source": "Display-FW ASM + user correction 2026-06-19"
+  },
+  "1026": {
+    "default": "2425",
+    "description": "Display-Firmware: H39 wird auch für Logo-Auswahl genutzt / Quelle ASM",
+    "source": "ASM DEMONS.ASM"
+  },
+  "1027": {
+    "default": "3",
+    "description": "0-kein EVI, 1-EVI bei Kühlung, 2-EVI bei Heizung, 3-EVI sowohl Heizung als auch Kühlung,",
+    "source": "v36 Beschreibung/App-Review",
+    "source_app_video": "ScreenRecording_06-13-2026_Parameterblock1"
+  },
+  "1028": {
+    "default": "1",
+    "description": "0-Nein/1-Ja",
+    "source": "ASM DEMONS.ASM; v36 Beschreibung/App-Review",
+    "source_app_video": "ScreenRecording_06-13-2026_Parameterblock1"
+  },
+  "1029": {
+    "default": "0",
+    "description": "0= °C 1=°F",
+    "source": "ASM DEMONS.ASM",
+    "source_app_video": "ScreenRecording_06-13-2026_Parameterblock1"
+  },
+  "1030": {
+    "description": "0-Nein/1-Ja",
+    "source": "ASM DEMONS.ASM",
+    "source_app_video": "ScreenRecording_06-13-2026_Parameterblock1"
+  },
+  "1031": {
+    "default": "0",
+    "description": "Temperaturdifferenz zum Abschalten der elektrischen Heizung. 0.5 °C Schritte; raw 0 = 0.0 °C. Standard laut App: 0 °C. Vom User korrigiert; vorher fälschlich als Indoor Unit Type gemappt.",
+    "source": "User Korrektur + App-Video; v37",
+    "source_app_video": "App-Video A-Block ScreenRecording_06-13-2026 10-50-12; v38"
+  },
+  "1032": {
+    "default": "3",
+    "description": "1-Elektrische Heizstufe 1 2-Elektrische Heizstufe 2 , 3-Elektrische Heizstufe 3",
+    "source": "v36 Beschreibung/App-Review",
+    "source_app_video": "ScreenRecording_06-13-2026_Parameterblock1"
+  },
+  "1033": {
+    "default": "0",
+    "description": "0 = 3-Wege-Ventil EIN im Warmwasser-Modus / Hot Water-ON; 1 = 3-Wege-Ventil AUS im Warmwasser-Modus / Hot Water-OFF.",
+    "source": "v36 Beschreibung/App-Review",
+    "source_app_video": "ScreenRecording_06-13-2026_Parameterblock1"
+  },
+  "1034": {
+    "default": "0",
+    "description": "0 bis 20",
+    "source_app_video": "ScreenRecording_06-13-2026_Parameterblock1"
+  },
+  "1035": {
+    "default": "0",
+    "description": "0-Auslasswassertemp 1-Raumtemp. 2-Puffertanktemp. 3- Einlasswassertemp",
+    "source": "v36 Beschreibung/App-Review",
+    "source_app_video": "ScreenRecording_06-13-2026_Parameterblock1"
+  },
+  "1036": {
+    "default": "0",
+    "description": "Hydraulikmodul/Indoor-Unit-Typ: 0=None, 1=1st Type, 2=2nd Type, 3=3rd Type. Vom User korrigiert.",
+    "source": "User Korrektur + App-Video; v37"
+  },
+  "1037": {
+    "default": "-25 °C",
+    "description": "-40.0 10.0°C,TEMP1",
+    "source_app_video": "App-Video A-Block ScreenRecording_06-13-2026 10-50-12; v38"
+  },
+  "1038": {
+    "default": "4°C",
+    "description": "A22 10.0C°",
+    "source_app_video": "App-Video A-Block ScreenRecording_06-13-2026 10-50-12; v38"
+  },
+  "1039": {
+    "default": "3°C",
+    "description": "1. 0 bis 50°C",
+    "source_app_video": "App-Video A-Block ScreenRecording_06-13-2026 10-50-12; v38"
+  },
+  "1040": {
+    "default": "120 °C",
+    "description": "60 bis 130°C",
+    "source_app_video": "App-Video A-Block ScreenRecording_06-13-2026 10-50-12; v38"
+  },
+  "1041": {
+    "default": "0",
+    "description": "0= keine Wasserflussfunktion, 1= Grundfos 25-75 2= Grundfos 25-105 3= Grundfos 25-125",
+    "source_app_video": "ScreenRecording_06-13-2026_Parameterblock1"
+  },
+  "1042": {
+    "default": "0",
+    "description": "0-Nein/1-Ja",
+    "source": "v36 Beschreibung/App-Review",
+    "source_app_video": "App-Video A-Block ScreenRecording_06-13-2026 10-50-12; v38"
+  },
+  "1043": {
+    "default": "5°C",
+    "description": "-30 bis 20°C",
+    "source_app_video": "App-Video A-Block ScreenRecording_06-13-2026 10-50-12; v38"
+  },
+  "1044": {
+    "default": "10℃",
+    "description": "0 bis 30°C",
+    "source_app_video": "App-Video A-Block ScreenRecording_06-13-2026 10-50-12; v38"
+  },
+  "1045": {
+    "default": "120",
+    "description": "1 180min - Test 180",
+    "source_app_video": "ScreenRecording_06-13-2026_Parameterblock1"
+  },
+  "1046": {
+    "default": "0",
+    "description": "H37 / DHW Temp. Sourcing / Wassertank-Temperaturquelle. Selbst getestet: Register 1046 ist H37.",
+    "source_app_video": "ScreenRecording_06-13-2026_Parameterblock1",
+    "source_user_test": "H37 = Register 1046 selbst getestet"
+  },
+  "1047": {
+    "description": "0-Nein/1-Ja",
+    "source": "v36 Beschreibung/App-Review",
+    "source_app_video": "App-Video F/D-Block ScreenRecording_06-13-2026 12-47-25; v39"
+  },
+  "1048": {
+    "default": "0",
+    "description": "External Pump Selection. Code aktuell unbekannt; ausdrücklich nicht H37, da H37 = Register 1046 bestätigt ist.",
+    "source": "ASM DEMONS.ASM",
+    "source_app_video": "ScreenRecording_06-13-2026_Parameterblock1",
+    "source_user_test": "1048 nicht H37; H37 = 1046 selbst getestet"
+  },
+  "1049": {
+    "default": "-80",
+    "description": "Quelle Forum - Stimmt mit WarmeLink überein; ASM: A31, Celsius-Grenzwert max. 60°C / Fahrenheit-Behandlung",
+    "source": "ASM DEMONS.ASM",
+    "source_app_video": "App-Video A-Block ScreenRecording_06-13-2026 10-50-12; v38"
+  },
+  "1050": {
+    "default": "60",
+    "description": "Quelle Forum - Stimmt mit WarmeLink überein; App: Electric Heater Delays Comp. On Time, Minuten",
+    "source_app_video": "App-Video A-Block ScreenRecording_06-13-2026 10-50-12; v38"
+  },
+  "1051": {
+    "default": "21",
+    "description": "-30 bis 60°C",
+    "source_app_video": "App-Video A-Block ScreenRecording_06-13-2026 10-50-12; v38"
+  },
+  "1052": {
+    "default": "0",
+    "description": "0-5K/1-2K",
+    "source": "v36 Beschreibung/App-Review",
+    "source_app_video": "App-Video A-Block ScreenRecording_06-13-2026 10-50-12; v38"
+  },
+  "1053": {
+    "default": "4°C",
+    "description": "-20°C 10°0",
+    "source_app_video": "App-Video A-Block ScreenRecording_06-13-2026 10-50-12; v38"
+  },
+  "1054": {
+    "default": "1",
+    "description": "0-R32/1-R290",
+    "source": "v36 Beschreibung/App-Review",
+    "source_app_video": "App-Video A-Block ScreenRecording_06-13-2026 10-50-12; v38"
+  },
+  "1055": {
+    "default": "-3.5°C",
+    "description": "-50 bis 30°C",
+    "source_app_video": "App-Video A-Block ScreenRecording_06-13-2026 10-50-12; v38"
+  },
+  "1056": {
+    "default": "5C",
+    "description": "-20 bis 20 °C",
+    "source_app_video": "App-Video A-Block ScreenRecording_06-13-2026 10-50-12; v38"
+  },
+  "1057": {
+    "default": "7℃",
+    "description": "Temperaturdifferenz zwischen Auslass- und WW-Temperatur / Temp Diff between Outlet and DHW Temp; alter App-Video-Text war irreführend.",
+    "source_app_video": "App-Video A-Block ScreenRecording_06-13-2026 10-50-12; v38"
+  },
+  "1058": {
+    "default": "0",
+    "description": "App: Enable The High Pressure Sensor; 0=NO, 1=YES",
+    "source": "ASM DEMONS.ASM",
+    "source_app_video": "App-Video A-Block ScreenRecording_06-13-2026 10-50-12; v38"
+  },
+  "1059": {
+    "default": "3",
+    "description": "3-DC-Lüftermotor/4-DC-Lüftermotor ( externer Antrieb)",
+    "source": "ASM DEMONS_V1.3.ASM",
+    "source_app_video": "App-Video F/D-Block ScreenRecording_06-13-2026 12-47-25; v39"
+  },
+  "1060": {
+    "default": "50℃",
+    "description": "-15 bis 60°C",
+    "source_app_video": "App-Video F/D-Block ScreenRecording_06-13-2026 12-47-25; v39"
+  },
+  "1061": {
+    "default": "0",
+    "description": "F27: Fan Motor Power Curve / Lüftermotor-Leistungskurve.",
+    "source": "Warmlink-App Video + user review 2026-06-19",
+    "source_app_video": "App-Video F/D-Block ScreenRecording_06-13-2026 12-47-25; v39"
+  },
+  "1062": {
+    "default": "10℃",
+    "description": "-15 bis 60°C",
+    "source_app_video": "App-Video F/D-Block ScreenRecording_06-13-2026 12-47-25; v39"
+  },
+  "1063": {
+    "default": "30",
+    "description": "App: Electric Heater Opening Temp. Diff; Anzeige in °C, sichtbar 3.0°C",
+    "source_app_video": "App-Video A-Block ScreenRecording_06-13-2026 10-50-12; v38"
+  },
+  "1064": {
+    "default": "0",
+    "description": "App: Crank Preheating Time; Anzeige in Minuten",
+    "source_app_video": "App-Video A-Block ScreenRecording_06-13-2026 10-50-12; v38"
+  },
+  "1065": {
+    "default": "0",
+    "description": "Selbst getestet"
+  },
+  "1066": {
+    "default": "10℃",
+    "description": "-15 bis 60°C",
+    "source_app_video": "App-Video F/D-Block ScreenRecording_06-13-2026 12-47-25; v39"
+  },
+  "1067": {
+    "default": "0",
+    "description": "selbst getestet"
+  },
+  "1068": {
+    "default": "20°C",
+    "description": "-15 bis 60°C",
+    "source_app_video": "App-Video F/D-Block ScreenRecording_06-13-2026 12-47-25; v39"
+  },
+  "1069": {
+    "default": "None",
+    "description": "Z01 / Enable Multi-Zone Control (Warmlink-App Z-Block). Sichtbarer App-Default: None. Alte Notiz: selbst getestet; Quelle Forum; alter Name: Z01 / Forum - Enable Multi-Zone Control : 0 0=none,1=zone1S,2=Zone2S,3=Zone1+2S,4=Zone1T,5=Zone2T,6=Zone1+2T,7=Zone1P,8=Zone2P,0=Zone8+9P",
+    "source": "Warmlink-App Video 2026-06-14 + vorhandene ASM/XLS-Zuordnung"
+  },
+  "1070": {
+    "default": "20.0°C",
+    "description": "Z02 / Zone 1 Target RT (Warmlink-App Z-Block). Sichtbarer App-Default: 20.0°C. Alte Notiz: selbst getestet; Quelle Forum; alter Name: Z02 / Forum - Zone 1 target RT : 20 C",
+    "source": "Warmlink-App Video 2026-06-14 + vorhandene ASM/XLS-Zuordnung"
+  },
+  "1071": {
+    "default": "2.0°C",
+    "description": "Z03 / Zone 1 RT Diff. to Start (Warmlink-App Z-Block). Sichtbarer App-Default: 2.0°C. Alte Notiz: selbst getestet; Quelle Forum; alter Name: Z03 / Forum -Zone 1 RT diff to start : 2 K",
+    "source": "Warmlink-App Video 2026-06-14 + vorhandene ASM/XLS-Zuordnung"
+  },
+  "1072": {
+    "default": "20.0°C",
+    "description": "Z04 / Zone 2 Target RT (Warmlink-App Z-Block). Sichtbarer App-Default: 20.0°C. Alte Notiz: selbst getestet; Quelle Forum; alter Name: Z04 / Forum - Zone 2 target RT : 20 C",
+    "source": "Warmlink-App Video 2026-06-14 + vorhandene ASM/XLS-Zuordnung"
+  },
+  "1073": {
+    "default": "2.0°C",
+    "description": "Z05 / Zone 2 RT Diff. to Start (Warmlink-App Z-Block). Sichtbarer App-Default: 2.0°C. Alte Notiz: selbst getestet; Quelle Forum; alter Name: Z05 / Forum - Zone 2 RT diff to start : 2 K",
+    "source": "Warmlink-App Video 2026-06-14 + vorhandene ASM/XLS-Zuordnung"
+  },
+  "1074": {
+    "default": "0",
+    "default_by_device": {
+      "foxair_blue_bl12_3": "0",
+      "foxair_blue_bl23_3": "1",
+      "foxair_blue_bl8_1": "0",
+      "foxair_green_gl15_3": "0",
+      "foxair_green_gl22_3": "1",
+      "foxair_green_gl9_1": "0"
+    },
+    "description": "0-Einzel/1-Doppel",
+    "notes": "Gerätespezifischer Default laut User: GL9/GL15/BL8/BL12 = Einzellüfter; GL22/BL23 = Doppellüfter. Hinweis: F10 liegt im aktuellen Mapping auf Register 1074.",
+    "source": "User-Hinweis 2026-06-14",
+    "source_app_video": "App-Video F/D-Block ScreenRecording_06-13-2026 12-47-25; v39"
+  },
+  "1075": {
+    "default": "45.0°C",
+    "description": "Z06 / Zone 1 Heating Target Outlet WT (Warmlink-App Z-Block). Sichtbarer App-Default: 45.0°C. Alte Notiz: selbst getestet; Quelle Forum; alter Name: Z06 / Forum - Zone 1 heating target outlet WT : 45 C",
+    "source": "Warmlink-App Video 2026-06-14 + vorhandene ASM/XLS-Zuordnung"
+  },
+  "1076": {
+    "default": "35.0°C",
+    "description": "Z07 / Zone 2 Mixing Target Outlet WT (Warmlink-App Z-Block). Sichtbarer App-Default: 35.0°C. Alte Notiz: selbst getestet; Quelle Forum; alter Name: Z07 / Forum - Zone 1 mixing target outlet WT : 35 C",
+    "source": "Warmlink-App Video 2026-06-14 + vorhandene ASM/XLS-Zuordnung"
+  },
+  "1077": {
+    "default": "NO",
+    "description": "Z17 / Enable AT Compensation Curve Zone 2 (Warmlink-App Z-Block). Sichtbarer App-Default: NO. Registeradresse aus vorhandener ASM/XLS-Zuordnung; App zeigt es als Z17. Alte Notiz: selbst getestet; Quelle Forum; alter Name: Z17 / Forum - Enable AT Compensation Curve Zone2 : 0 0=no, 1=yes",
+    "source": "Warmlink-App Video 2026-06-14 + vorhandene ASM/XLS-Zuordnung"
+  },
+  "1078": {
+    "default": "0",
+    "description": "ASM: Bereichsparameter Zone 2, K",
+    "source": "ASM DEMONS.ASM"
+  },
+  "1079": {
+    "default": "0",
+    "description": "ASM: Bereichsparameter Zone 2, B",
+    "source": "ASM DEMONS.ASM"
+  },
+  "1080": {
+    "default": "0%",
+    "description": "Z08 / Mixing Valve Manual Adjustment Ratio (0% for Auto Control) (Warmlink-App Z-Block). Sichtbarer App-Default: 0%. Alte Notiz: selbst getestet / Quelle ASM; vorher: Reserviert",
+    "source": "Warmlink-App Video 2026-06-14 + vorhandene ASM/XLS-Zuordnung"
+  },
+  "1081": {
+    "default": "300г",
+    "description": "10 bis 1300",
+    "source_app_video": "App-Video F/D-Block ScreenRecording_06-13-2026 12-47-25; v39"
+  },
+  "1082": {
+    "default": "150s",
+    "description": "Z09 / Mixing Valve Opening Time (Warmlink-App Z-Block). Sichtbarer App-Default: 150s. Alte Notiz: selbst getestet jetzt 150 / Quelle ASM; vorher: Reserviert - ?",
+    "source": "Warmlink-App Video 2026-06-14 + vorhandene ASM/XLS-Zuordnung"
+  },
+  "1083": {
+    "default": "300r",
+    "description": "10 bis 1300",
+    "source_app_video": "App-Video F/D-Block ScreenRecording_06-13-2026 12-47-25; v39"
+  },
+  "1084": {
+    "default": "150s",
+    "description": "Z10 / Mixing Valve Closing Time (Warmlink-App Z-Block). Sichtbarer App-Default: 150s. Alte Notiz: selbst getestet jetzt 150 / Quelle ASM; vorher: Reserviert",
+    "source": "Warmlink-App Video 2026-06-14 + vorhandene ASM/XLS-Zuordnung"
+  },
+  "1085": {
+    "default": "2.0",
+    "description": "Z11 / Mixing Valve Adjustment P(PID) (Warmlink-App Z-Block). Sichtbarer App-Default: 2.0. Alte Notiz: selbst getestet jetzt 20 / Quelle ASM; vorher: Reserviert",
+    "source": "Warmlink-App Video 2026-06-14 + vorhandene ASM/XLS-Zuordnung"
+  },
+  "1086": {
+    "default": "0",
+    "description": "Ältere Display-FW: 243EH = ob Timer-Stummschaltung aktiviert ist.",
+    "source": "ASM DEMONS.ASM"
+  },
+  "1087": {
+    "default": "0",
+    "description": "0-Nein/1-Ja",
+    "source": "v36 Beschreibung/App-Review",
+    "source_app_video": "App-Video F/D-Block ScreenRecording_06-13-2026 12-47-25; v39"
+  },
+  "1088": {
+    "default": "0.2",
+    "description": "Z12 / Mixing Valve Adjustment I(PID) (Warmlink-App Z-Block). Sichtbarer App-Default: 0.2. Alte Notiz: selbst getestet jetzt 2 / Quelle ASM; vorher: Reserviert",
+    "source": "Warmlink-App Video 2026-06-14 + vorhandene ASM/XLS-Zuordnung"
+  },
+  "1089": {
+    "default": "600г",
+    "description": "10 bis 1300",
+    "source_app_video": "App-Video F/D-Block ScreenRecording_06-13-2026 12-47-25; v39"
+  },
+  "1090": {
+    "default": "2min",
+    "description": "Z13 / Mixing Valve PID Period (Warmlink-App Z-Block). Sichtbarer App-Default: 2min. Alte Notiz: selbst getestet jetzt 2 / Quelle ASM; vorher: Reserviert",
+    "source": "Warmlink-App Video 2026-06-14 + vorhandene ASM/XLS-Zuordnung"
+  },
+  "1091": {
+    "description": "Paketkennung: WF2210250475 (Wort 1-6), beobachtet in 90er-Paketblöcken.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1092": {
+    "description": "Paketkennung: WF2210250475 (Wort 1-6), beobachtet in 90er-Paketblöcken.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1093": {
+    "description": "Paketkennung: WF2210250475 (Wort 1-6), beobachtet in 90er-Paketblöcken.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1094": {
+    "description": "Paketkennung: WF2210250475 (Wort 1-6), beobachtet in 90er-Paketblöcken.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1095": {
+    "description": "Paketkennung: WF2210250475 (Wort 1-6), beobachtet in 90er-Paketblöcken.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1096": {
+    "description": "Paketkennung: WF2210250475 (Wort 1-6), beobachtet in 90er-Paketblöcken.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1097": {
+    "description": "Reserviertes Wort im Paket-/Blockkopf; typischerweise 0.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1098": {
+    "description": "Reserviertes Wort im Paket-/Blockkopf; typischerweise 0.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1099": {
+    "description": "Paketkopf-Wort; beobachtet meist 0x0210 / 528. Bedeutung vermutlich Marker/Länge/Strukturkennung.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1100": {
+    "description": "Paketkopf-Wort zeigt auf den Anfang dieses Blockkopfs: 1091 / 0x0443.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1101": {
+    "default": "8",
+    "description": "-30 bis 60°C",
+    "source_app_video": "App-Video F/D-Block ScreenRecording_06-13-2026 12-47-25; v39"
+  },
+  "1102": {
+    "default": "-30°C",
+    "description": "-30 bis 60°C",
+    "source_app_video": "App-Video F/D-Block ScreenRecording_06-13-2026 12-47-25; v39"
+  },
+  "1103": {
+    "default": "700г",
+    "description": "10 bis 1300 F25 Einheit rpm.",
+    "source_app_video": "App-Video F/D-Block ScreenRecording_06-13-2026 12-47-25; v39",
+    "source": "User correction 2026-06-19"
+  },
+  "1104": {
+    "default": "700г",
+    "description": "10 bis 1300 F26 Einheit rpm.",
+    "source_app_video": "App-Video F/D-Block ScreenRecording_06-13-2026 12-47-25; v39",
+    "source": "User correction 2026-06-19"
+  },
+  "1105": {
+    "default": "12.5°C",
+    "description": "-37 bis 45°C",
+    "source_app_video": "App-Video F/D-Block ScreenRecording_06-13-2026 12-47-25; v39"
+  },
+  "1106": {
+    "default": "26min",
+    "description": "0 bis 120 min D02 Einheit Minuten.",
+    "source_app_video": "App-Video F/D-Block ScreenRecording_06-13-2026 12-47-25; v39",
+    "source": "User correction 2026-06-19"
+  },
+  "1107": {
+    "default": "45min",
+    "description": "30 bis 90 min D03 Einheit Minuten.",
+    "source_app_video": "App-Video F/D-Block ScreenRecording_06-13-2026 12-47-25; v39",
+    "source": "User correction 2026-06-19"
+  },
+  "1108": {
+    "default": "110°C",
+    "description": "0 bis 150°C",
+    "source_app_video": "App-Video F/D-Block ScreenRecording_06-13-2026 12-47-25; v39"
+  },
+  "1109": {
+    "default": "2.6bar",
+    "description": "0 bis 45 Bar",
+    "source_app_video": "App-Video F/D-Block ScreenRecording_06-13-2026 12-47-25; v39"
+  },
+  "1110": {
+    "default": "1.7bar",
+    "description": "0 bis 45 Bar",
+    "source_app_video": "App-Video F/D-Block ScreenRecording_06-13-2026 12-47-25; v39"
+  },
+  "1111": {
+    "default": "15min",
+    "description": "0 bis 120 min",
+    "source_app_video": "App-Video F/D-Block ScreenRecording_06-13-2026 12-47-25; v39"
+  },
+  "1112": {
+    "default": "6.1 C",
+    "description": "-37 bis 45°C",
+    "source_app_video": "App-Video F/D-Block ScreenRecording_06-13-2026 12-47-25; v39"
+  },
+  "1113": {
+    "default": "-4.1℃",
+    "description": "-37 bis 45°C",
+    "source_app_video": "App-Video F/D-Block ScreenRecording_06-13-2026 12-47-25; v39"
+  },
+  "1114": {
+    "default": "-26.1℃",
+    "description": "-37 bis 45°C",
+    "source_app_video": "App-Video F/D-Block ScreenRecording_06-13-2026 12-47-25; v39"
+  },
+  "1115": {
+    "default": "-28.1°C",
+    "description": "-37 bis 45°C",
+    "source_app_video": "App-Video F/D-Block ScreenRecording_06-13-2026 12-47-25; v39"
+  },
+  "1116": {
+    "default": "23°C",
+    "description": "4 bis 65°C D11 Einheit °C.",
+    "source_app_video": "App-Video F/D-Block ScreenRecording_06-13-2026 12-47-25; v39",
+    "source": "User correction 2026-06-19"
+  },
+  "1117": {
+    "default": "2bar",
+    "description": "0 bis 45 Bar D12 Einheit bar.",
+    "source_app_video": "App-Video F/D-Block ScreenRecording_06-13-2026 12-47-25; v39",
+    "source": "User correction 2026-06-19"
+  },
+  "1118": {
+    "default": "120min",
+    "description": "0 bis 240 min D13 Einheit Minuten.",
+    "source_app_video": "App-Video F/D-Block ScreenRecording_06-13-2026 12-47-25; v39",
+    "source": "User correction 2026-06-19"
+  },
+  "1119": {
+    "default": "1,3",
+    "description": "0 bis 5.00 D14 Skalierung Wert / 100.",
+    "source_app_video": "App-Video F/D-Block ScreenRecording_06-13-2026 12-47-25; v39",
+    "source": "User correction 2026-06-19"
+  },
+  "1120": {
+    "default": "1,5",
+    "description": "0 bis 5.00 D15 Skalierung Wert / 100.",
+    "source_app_video": "App-Video F/D-Block ScreenRecording_06-13-2026 12-47-25; v39",
+    "source": "User correction 2026-06-19"
+  },
+  "1121": {
+    "default": "200W",
+    "description": "50-1000W D16 Einheit Watt.",
+    "source_app_video": "App-Video F/D-Block ScreenRecording_06-13-2026 12-47-25; v39",
+    "source": "User correction 2026-06-19"
+  },
+  "1122": {
+    "default": "13℃",
+    "description": "-37 bis 45°C | Hatte 23,5 jetzt 19 -> Testen",
+    "source_app_video": "App-Video F/D-Block ScreenRecording_06-13-2026 12-47-25; v39"
+  },
+  "1123": {
+    "default": "33 °C",
+    "description": "-37 bis 45°C",
+    "source_app_video": "App-Video F/D-Block ScreenRecording_06-13-2026 12-47-25; v39"
+  },
+  "1124": {
+    "default": "8min",
+    "description": "0 bis 20 min D19 Einheit Minuten.",
+    "source_app_video": "App-Video F/D-Block ScreenRecording_06-13-2026 12-47-25; v39",
+    "source": "User correction 2026-06-19"
+  },
+  "1125": {
+    "default": "70Hz",
+    "description": "30 - 90 hz  | Hatte 80 jetzt 77 -> Testen D20 Einheit Hz.",
+    "source_app_video": "App-Video F/D-Block ScreenRecording_06-13-2026 12-47-25; v39",
+    "source": "User correction 2026-06-19"
+  },
+  "1126": {
+    "default": "1",
+    "description": "0-Nein/1-Ja",
+    "source": "v36 Beschreibung/App-Review",
+    "source_app_video": "App-Video F/D-Block ScreenRecording_06-13-2026 12-47-25; v39"
+  },
+  "1127": {
+    "default": "0",
+    "description": "0 bis 50 D22 Skalierung 0,0 m³/h.",
+    "knowledge": "D22 ist der Wasserdurchfluss beim Abtauen bzw. der Mindestdurchfluss-Bezug für die Pumpenregelung. Wenn D22 ungleich 0 ist, gilt Mindestdurchfluss = D22. Wenn D22 = 0, gilt Mindestdurchfluss = A40 × 0,8.",
+    "notes": "Wenn D22 = 0, läuft Defrost mit 100 % Pumpenleistung. Nach Defrost vermutlich ebenfalls ca. 10 Minuten 100 %. Wenn der Durchfluss noch weiter vom Soll entfernt ist, ebenfalls 100 % Pumpenleistung möglich.",
+    "source": "Projektwissen DosOrDie / Pumpen-PWM-Regelung",
+    "source_app_video": "App-Video F/D-Block ScreenRecording_06-13-2026 12-47-25; v39"
+  },
+  "1128": {
+    "default": "120min",
+    "description": "0 bis 240 min D23 Einheit Minuten.",
+    "source_app_video": "App-Video F/D-Block ScreenRecording_06-13-2026 12-47-25; v39",
+    "source": "User correction 2026-06-19"
+  },
+  "1129": {
+    "default": "0",
+    "description": "0-nicht umschalten1-WW-Seite (WW-Tank) 2-Heizseite (Pufferspeicher)",
+    "source": "v36 Beschreibung/App-Review",
+    "source_app_video": "App-Video F/D-Block ScreenRecording_06-13-2026 12-47-25; v39"
+  },
+  "1130": {
+    "default": "7°C",
+    "description": "2 bis 65°C",
+    "source_app_video": "App-Video F/D-Block ScreenRecording_06-13-2026 12-47-25; v39"
+  },
+  "1131": {
+    "default": "1",
+    "description": "0-Manual/1-Auto/2-Smart",
+    "knowledge": "Vermutung, noch nicht verifiziert: Smart wirkt vermutlich wie eine erweiterte Auto-Regelung. Während Auto klassisch auf Ziel-Überhitzung regelt, berücksichtigt Smart wahrscheinlich zusätzlich Betriebszustände wie Kompressorfrequenz, Startphase, Heiz-/Kühl-/WW-Modus sowie Temperatur-/Druckverhältnisse.",
+    "source": "Projektdeutung + Warmlink-App",
+    "source_app_video": "ScreenRecording_06-13-2026_Parameterblock1"
+  },
+  "1132": {
+    "default": "5",
+    "description": "-20 bis 20 °C",
+    "source_app_video": "ScreenRecording_06-13-2026_Parameterblock1"
+  },
+  "1133": {
+    "default": "350",
+    "description": "0 bis 500N",
+    "source_app_video": "ScreenRecording_06-13-2026_Parameterblock1"
+  },
+  "1134": {
+    "default": "0%",
+    "description": "Z14 / Steps of Mixing Valve in Cooling (Warmlink-App Z-Block). Sichtbarer App-Default: 0%. Alte Notiz: selbst getestet / Quelle ASM; vorher: Reserviert",
+    "source": "Warmlink-App Video 2026-06-14 + vorhandene ASM/XLS-Zuordnung"
+  },
+  "1135": {
+    "default": "40.0°C",
+    "description": "Z15 / Zone 2 Max. Water Target Temp. (Warmlink-App Z-Block). Sichtbarer App-Default: 40.0°C. Alte Notiz: selbst getestet - jetzt 400 / Quelle ASM; vorher: Reserviert",
+    "source": "Warmlink-App Video 2026-06-14 + vorhandene ASM/XLS-Zuordnung"
+  },
+  "1136": {
+    "default": "0",
+    "description": "Z16 / Mischventil Regel-I (DIGI5 laut ASM-Kommentar). Nicht mit H36 / Register 1236 verwechseln.",
+    "source": "ASM/Altbestand; Z16-App-Zuordnung aus Video nicht bestätigt, da App Z16 nicht setzbar war"
+  },
+  "1137": {
+    "default": "100",
+    "description": "0 bis 500N",
+    "source_app_video": "ScreenRecording_06-13-2026_Parameterblock1"
+  },
+  "1138": {
+    "default": "200",
+    "description": "0 bis 500N",
+    "source_app_video": "ScreenRecording_06-13-2026_Parameterblock1"
+  },
+  "1139": {
+    "default": "1",
+    "description": "0-Manuell/1-Auto",
+    "source": "v36 Beschreibung/App-Review",
+    "source_app_video": "ScreenRecording_06-13-2026_Parameterblock1"
+  },
+  "1140": {
+    "default": "350",
+    "description": "0 bis 500N",
+    "source_app_video": "ScreenRecording_06-13-2026_Parameterblock1"
+  },
+  "1141": {
+    "default": "125",
+    "description": "Kommentar in V1.3: 2475H System2增焓, 0=keins, sonst vorhanden. Wert kann deshalb kein reines 0/1 sein.",
+    "source": "ASM DEMONS_V1.3.ASM"
+  },
+  "1142": {
+    "default": "185",
+    "description": "selbst getestet / Quelle ASM; vorher: Reserviert e03-2",
+    "source": "ASM DEMONS.ASM"
+  },
+  "1143": {
+    "default": "3",
+    "description": "-20,0 bis 20,0 °C",
+    "source_app_video": "ScreenRecording_06-13-2026_Parameterblock1"
+  },
+  "1144": {
+    "default": "100",
+    "description": "0 bis 500N"
+  },
+  "1145": {
+    "default": "0",
+    "description": "selbst getestet; ASM: Para_E15_Col 0479H -> 2479H",
+    "source": "ASM DEMONS.ASM"
+  },
+  "1146": {
+    "default": "0",
+    "description": "selbst getestet; ASM: Para_E16_Col 047AH -> 247AH",
+    "source": "ASM DEMONS.ASM"
+  },
+  "1147": {
+    "default": "480",
+    "description": "10 bis 500N | war 430, Frost zu niedrig, jetzt 460"
+  },
+  "1148": {
+    "default": "3",
+    "description": "-10 bis 10°C"
+  },
+  "1149": {
+    "default": "20%",
+    "description": "0 bis 300%",
+    "knowledge": "Vermutung, noch nicht verifiziert: E19 begrenzt vermutlich, wie stark der Smart-Algorithmus vom normalen/Auto-EEV-Wert abweichen darf. Bei Default 20 % dürfte Smart den berechneten EEV-Wert vermutlich um bis zu ca. 20 % korrigieren."
+  },
+  "1150": {
+    "default": "0",
+    "description": "selbst getestet"
+  },
+  "1151": {
+    "default": "0",
+    "description": "selbst getestet"
+  },
+  "1152": {
+    "default": "63",
+    "description": "60 bis 70 °C",
+    "source": "Warmlink-App Video + XLS"
+  },
+  "1153": {
+    "default": "0",
+    "description": "0 bis 60 min",
+    "source": "Warmlink-App Video + XLS"
+  },
+  "1154": {
+    "default": "1",
+    "description": "0 bis 23 h",
+    "source": "Warmlink-App Video + XLS"
+  },
+  "1155": {
+    "default": "30",
+    "description": "1 bis 30 Tage",
+    "source": "Warmlink-App Video + XLS"
+  },
+  "1156": {
+    "default": "1",
+    "description": "0-NO/1-YES",
+    "source": "Warmlink-App Video + XLS"
+  },
+  "1157": {
+    "default": "55",
+    "description": "R36 bis R37"
+  },
+  "1158": {
+    "default": "45",
+    "description": "R10 bis R11"
+  },
+  "1159": {
+    "default": "7",
+    "description": "R08 bis R09"
+  },
+  "1160": {
+    "default": "2",
+    "description": "0 bis 10°C"
+  },
+  "1161": {
+    "default": "1",
+    "description": "0 bis 10°C"
+  },
+  "1162": {
+    "default": "5",
+    "description": "-30,0 bis R9"
+  },
+  "1163": {
+    "default": "28",
+    "description": "R8 bis 80,0"
+  },
+  "1164": {
+    "default": "15",
+    "description": "-30,0 bis R11"
+  },
+  "1165": {
+    "default": "60",
+    "description": "R10 bis 99"
+  },
+  "1166": {
+    "default": "2",
+    "description": "0 bis 15 °C"
+  },
+  "1167": {
+    "default": "-5",
+    "description": "R 30 bis4°C"
+  },
+  "1168": {
+    "default": "-23",
+    "description": "-35 bis R 29°C"
+  },
+  "1169": {
+    "default": "40",
+    "description": "20 bis 60°C"
+  },
+  "1170": {
+    "default": "55",
+    "description": "10 bis R 33°C"
+  },
+  "1171": {
+    "default": "55",
+    "description": "R 32 bis 60°C"
+  },
+  "1172": {
+    "default": "45",
+    "description": "20 bis 60°C"
+  },
+  "1173": {
+    "default": "0",
+    "description": "0-nicht verwendet/1-Wasserheizkreislauf /2-Wassertankheizung/Puffer Tankheizung,",
+    "source": "v36 Beschreibung/App-Review"
+  },
+  "1174": {
+    "default": "2",
+    "description": "0,0 bis 10,0°C"
+  },
+  "1175": {
+    "default": "1",
+    "description": "0,0 bis 10,0°C"
+  },
+  "1176": {
+    "default": "15",
+    "description": "0 bis 37°C"
+  },
+  "1177": {
+    "default": "58",
+    "description": "36 bis 75°C"
+  },
+  "1178": {
+    "default": "0",
+    "description": "selbst getestet; ASM: Para_R12_Col 049AH -> 249AH In App nicht sichtbar.",
+    "source": "ASM DEMONS.ASM"
+  },
+  "1179": {
+    "default": "0",
+    "description": "selbst getestet; ASM: Para_R13_Col 049BH -> 249BH In App nicht sichtbar.",
+    "source": "ASM DEMONS.ASM"
+  },
+  "1180": {
+    "default": "0",
+    "description": "selbst getestet; ASM: Para_R14_Col 049CH -> 249CH In App nicht sichtbar.",
+    "source": "ASM DEMONS.ASM"
+  },
+  "1181": {
+    "description": "Paketkennung: WF2210250475 (Wort 1-6), beobachtet in 90er-Paketblöcken.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1182": {
+    "description": "Paketkennung: WF2210250475 (Wort 1-6), beobachtet in 90er-Paketblöcken.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1183": {
+    "description": "Paketkennung: WF2210250475 (Wort 1-6), beobachtet in 90er-Paketblöcken.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1184": {
+    "description": "Paketkennung: WF2210250475 (Wort 1-6), beobachtet in 90er-Paketblöcken.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1185": {
+    "description": "Paketkennung: WF2210250475 (Wort 1-6), beobachtet in 90er-Paketblöcken.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1186": {
+    "description": "Paketkennung: WF2210250475 (Wort 1-6), beobachtet in 90er-Paketblöcken.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1187": {
+    "description": "Reserviertes Wort im Paket-/Blockkopf; typischerweise 0.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1188": {
+    "description": "Reserviertes Wort im Paket-/Blockkopf; typischerweise 0.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1189": {
+    "description": "Paketkopf-Wort; beobachtet meist 0x0210 / 528. Bedeutung vermutlich Marker/Länge/Strukturkennung.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1190": {
+    "description": "Paketkopf-Wort zeigt auf den Anfang dieses Blockkopfs: 1181 / 0x049D.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1191": {
+    "default": "23205",
+    "description": "Marker 0x5AA5 am Beginn des Nutzbereichs von Paket 3; vermutlich Sync-/Gültigkeitsmarker, kein normaler Parameter.",
+    "knowledge": "Paket-3 Sync-/Gültigkeitsmarker. 0x5AA5 ist ein bekannter Kommunikations-/Gültigkeitsmarker und kein normaler Einstellparameter.",
+    "source": "Live beobachtet + ASM-Paketlogik / 0x5AA5 Kommunikationsmarker"
+  },
+  "1192": {
+    "default": "10",
+    "description": "5 bis 20 °C"
+  },
+  "1193": {
+    "default": "0",
+    "description": "V1.3 begrenzt R40 in Celsius auf 60 °C; Fahrenheit-Minimum 14 °F.",
+    "source": "ASM DEMONS.ASM"
+  },
+  "1194": {
+    "default": "0",
+    "description": "V1.3 begrenzt R41 in Celsius auf 60 °C; Fahrenheit-Minimum 14 °F.",
+    "source": "ASM DEMONS.ASM"
+  },
+  "1195": {
+    "default": "5",
+    "description": "0 bis 10°C"
+  },
+  "1196": {
+    "default": "2",
+    "description": "0 bis 10°C"
+  },
+  "1197": {
+    "default": "2",
+    "description": "0-Always On/1-Saving/2-Interval",
+    "source": "Warmlink-App Video + XLS"
+  },
+  "1198": {
+    "default": "30",
+    "description": "0 bis 120 min",
+    "source": "Warmlink-App Video + XLS"
+  },
+  "1199": {
+    "default": "3",
+    "description": "0 bis 30 min",
+    "source": "Warmlink-App Video + XLS"
+  },
+  "1200": {
+    "default": "250",
+    "description": "Aus Display Firmware; ASM: E03-1; EVV/EEV Initial Steps Heating1",
+    "source": "ASM DEMONS.ASM"
+  },
+  "1201": {
+    "default": "2",
+    "description": "0-Always On/1-Saving/2-Interval",
+    "source": "Warmlink-App Video + XLS"
+  },
+  "1202": {
+    "default": "0",
+    "description": "0-NO/1-YES",
+    "source": "Warmlink-App Video + XLS"
+  },
+  "1203": {
+    "default": "0",
+    "description": "0 bis 30 Tage",
+    "source": "Warmlink-App Video + XLS"
+  },
+  "1204": {
+    "default": "0",
+    "description": "P08 Main Circulation Pump Rated Power / Nennleistung Hauptumwaelzpumpe. Einheit: Watt.",
+    "notes": "Einheit sicher: Watt.",
+    "source": "User confirmed 2026-06-14"
+  },
+  "1205": {
+    "default": "100",
+    "description": "0 bis 100%",
+    "knowledge": "P10 muss 0 sein, damit die automatische Pumpen-PWM-/Drehzahlregelung möglich ist. Wenn P10 fest auf einen Wert ungleich 0 gesetzt ist, arbeitet die Pumpe als feste Drehzahlvorgabe und die Regelung kann nicht aktiv werden.",
+    "notes": "Wichtig für die Fehlersuche: Bei fehlender Pumpenregelung zuerst P10 prüfen.",
+    "source": "Warmlink-App Video + XLS"
+  },
+  "1206": {
+    "default": "10",
+    "description": "0-NEIN/1-JA",
+    "source": "v36 Beschreibung/App-Review"
+  },
+  "1207": {
+    "default": "0",
+    "description": "00 bis 23"
+  },
+  "1208": {
+    "default": "0",
+    "description": "0-NEIN/1-JA",
+    "source": "v36 Beschreibung/App-Review"
+  },
+  "1209": {
+    "default": "10",
+    "description": "00 bis 23"
+  },
+  "1210": {
+    "default": "10",
+    "description": "00 bis 59"
+  },
+  "1211": {
+    "default": "10",
+    "description": "00 bis 59"
+  },
+  "1212": {
+    "default": "0",
+    "description": "Selbst getestet"
+  },
+  "1213": {
+    "default": "0",
+    "description": "Selbst getestet"
+  },
+  "1214": {
+    "default": "0",
+    "description": "Selbst getestet"
+  },
+  "1215": {
+    "default": "90",
+    "description": "Aus Display Firmware  - Stimmt mit WarmeLink überein; ASM: E07-4; EVV/EEV min Steps4",
+    "source": "ASM DEMONS.ASM"
+  },
+  "1216": {
+    "default": "85",
+    "description": "Aus Display Firmware - Stimmt mit WarmeLink überein; ASM: E07-5; EVV/EEV min Steps5",
+    "source": "ASM DEMONS.ASM"
+  },
+  "1217": {
+    "default": "66",
+    "description": "0 bis 120 Hz",
+    "source": "Warmlink-App Video + XLS"
+  },
+  "1218": {
+    "default": "10",
+    "description": "0 bis 120 Hz",
+    "source": "Warmlink-App Video + XLS"
+  },
+  "1219": {
+    "default": "30",
+    "description": "20 bis 60 Hz",
+    "source": "Warmlink-App Video + XLS"
+  },
+  "1220": {
+    "default": "90",
+    "description": "30 bis 120 Hz",
+    "source": "Warmlink-App Video + XLS"
+  },
+  "1221": {
+    "default": "0",
+    "description": "0 bis 99",
+    "source": "Warmlink-App Video + XLS"
+  },
+  "1222": {
+    "default": "50",
+    "description": "0 bis 60 Hz",
+    "source": "Warmlink-App Video + XLS"
+  },
+  "1223": {
+    "default": "1",
+    "description": "0 bis 120; in der Warmlink-App-Ansicht dieses Videos nicht sichtbar."
+  },
+  "1224": {
+    "description": "0 bis 120 Hz",
+    "source": "Warmlink-App Video + XLS"
+  },
+  "1225": {
+    "description": "0 bis 120 Hz",
+    "source": "Warmlink-App Video + XLS"
+  },
+  "1226": {
+    "description": "0 bis 120 Hz",
+    "source": "Warmlink-App Video + XLS"
+  },
+  "1227": {
+    "default": "60",
+    "description": "0 bis 120 Hz",
+    "source": "Warmlink-App Video + XLS"
+  },
+  "1228": {
+    "default": "55",
+    "description": "20 bis 60°C"
+  },
+  "1229": {
+    "default": "50",
+    "description": "20 bis 60°C"
+  },
+  "1230": {
+    "default": "40",
+    "description": "20 bis 60°C"
+  },
+  "1231": {
+    "default": "-10",
+    "description": "-50 bis 20°C"
+  },
+  "1232": {
+    "default": "5",
+    "description": "0 bis 150°C"
+  },
+  "1233": {
+    "default": "25",
+    "description": "0 bis 60°C"
+  },
+  "1234": {
+    "description": "AT-Kompensation Slope / Steigung. Vermutete Formel aus App-Screenshot: Ziel = Offset - Slope × Außentemperatur, mit Mindestbegrenzung."
+  },
+  "1235": {
+    "description": "AT-Kompensation Offset / Versatz in °C. Vermutete Formel aus App-Screenshot: Ziel = Offset - Slope × Außentemperatur, mit Mindestbegrenzung."
+  },
+  "1236": {
+    "default": "NO",
+    "description": "H36 / AT-Kompensationskurve Zone 1 aktivieren. 0=Aus, 1=Ein. Selbst getestet: Register 1236 = H36.",
+    "source": "User-Test 2026-06-14 + ASM-Hinweis H36 Parameter bei 1236",
+    "source_app_video": "ScreenRecording_06-13-2026_Parameterblock1",
+    "source_user_test": "H36 = Register 1236 selbst getestet"
+  },
+  "1237": {
+    "default": "45",
+    "description": "0 bis 60°C"
+  },
+  "1238": {
+    "default": "62",
+    "description": "45 bis 95 °C"
+  },
+  "1239": {
+    "default": "20°C",
+    "description": "5 bis 27 °C"
+  },
+  "1240": {
+    "default": "0.5 C",
+    "description": "0.1 bis 3C"
+  },
+  "1241": {
+    "default": "0.5°C",
+    "description": "0.1 bis 3C"
+  },
+  "1242": {
+    "default": "0.5°C",
+    "description": "0.1 bis 3C"
+  },
+  "1243": {
+    "default": "0.5℃",
+    "description": "0.1 bis 3C"
+  },
+  "1244": {
+    "description": "0-aus/1-ein",
+    "source": "v36 Beschreibung/App-Review"
+  },
+  "1245": {
+    "description": "0-23h"
+  },
+  "1246": {
+    "description": "0-59min"
+  },
+  "1247": {
+    "description": "0-aus/1-ein",
+    "source": "v36 Beschreibung/App-Review"
+  },
+  "1248": {
+    "description": "0-23h"
+  },
+  "1249": {
+    "description": "0-59min"
+  },
+  "1250": {
+    "description": "0-nein/1-ja",
+    "source": "v36 Beschreibung/App-Review"
+  },
+  "1251": {
+    "description": "0-59"
+  },
+  "1252": {
+    "description": "0-23"
+  },
+  "1253": {
+    "description": "0-31"
+  },
+  "1254": {
+    "description": "0-12"
+  },
+  "1255": {
+    "description": "0-99, Beispiel: 2022 ist 22"
+  },
+  "1256": {
+    "description": "Ältere 6-Segment-Timerlogik aus DEMONS_V1.3; nicht identisch mit neuem Timerblock 1281–1325.",
+    "source": "ASM V1.3 / User-Test"
+  },
+  "1257": {
+    "description": "Ältere 6-Segment-Timerlogik aus DEMONS_V1.3; nicht identisch mit neuem Timerblock 1281–1325.",
+    "source": "ASM V1.3 / User-Test"
+  },
+  "1258": {
+    "description": "Ältere 6-Segment-Timerlogik aus DEMONS_V1.3; nicht identisch mit neuem Timerblock 1281–1325.",
+    "source": "ASM V1.3 / User-Test"
+  },
+  "1259": {
+    "description": "Ältere 6-Segment-Timerlogik aus DEMONS_V1.3; nicht identisch mit neuem Timerblock 1281–1325.",
+    "source": "ASM V1.3 / User-Test"
+  },
+  "1260": {
+    "description": "Ältere 6-Segment-Timerlogik aus DEMONS_V1.3; nicht identisch mit neuem Timerblock 1281–1325.",
+    "source": "ASM V1.3 / User-Test"
+  },
+  "1261": {
+    "description": "Ältere 6-Segment-Timerlogik aus DEMONS_V1.3; nicht identisch mit neuem Timerblock 1281–1325.",
+    "source": "ASM V1.3 / User-Test"
+  },
+  "1262": {
+    "description": "Ältere 6-Segment-Timerlogik aus DEMONS_V1.3; nicht identisch mit neuem Timerblock 1281–1325.",
+    "source": "ASM V1.3 / User-Test"
+  },
+  "1263": {
+    "description": "Ältere 6-Segment-Timerlogik aus DEMONS_V1.3; nicht identisch mit neuem Timerblock 1281–1325.",
+    "source": "ASM V1.3 / User-Test"
+  },
+  "1264": {
+    "description": "Ältere 6-Segment-Timerlogik aus DEMONS_V1.3; nicht identisch mit neuem Timerblock 1281–1325.",
+    "source": "ASM V1.3 / User-Test"
+  },
+  "1265": {
+    "description": "Ältere 6-Segment-Timerlogik aus DEMONS_V1.3; nicht identisch mit neuem Timerblock 1281–1325.",
+    "source": "ASM V1.3 / User-Test"
+  },
+  "1266": {
+    "description": "Ältere 6-Segment-Timerlogik aus DEMONS_V1.3; nicht identisch mit neuem Timerblock 1281–1325.",
+    "source": "ASM V1.3 / User-Test"
+  },
+  "1267": {
+    "description": "Ältere 6-Segment-Timerlogik aus DEMONS_V1.3; nicht identisch mit neuem Timerblock 1281–1325.",
+    "source": "ASM V1.3 / User-Test"
+  },
+  "1268": {
+    "description": "Ältere 6-Segment-Timerlogik; Sammel-/Bitfeldblock, genaue Bitbelegung noch nicht vollständig decodiert.",
+    "source": "ASM V1.3 / User-Test"
+  },
+  "1269": {
+    "description": "Ältere 6-Segment-Timerlogik; Sammel-/Bitfeldblock, genaue Bitbelegung noch nicht vollständig decodiert.",
+    "source": "ASM V1.3 / User-Test"
+  },
+  "1270": {
+    "description": "Ältere 6-Segment-Timerlogik; Sammel-/Bitfeldblock, genaue Bitbelegung noch nicht vollständig decodiert.",
+    "source": "ASM V1.3 / User-Test"
+  },
+  "1271": {
+    "description": "Paketkennung: WF2210250475 (Wort 1-6), beobachtet in 90er-Paketblöcken.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1272": {
+    "description": "Paketkennung: WF2210250475 (Wort 1-6), beobachtet in 90er-Paketblöcken.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1273": {
+    "description": "Paketkennung: WF2210250475 (Wort 1-6), beobachtet in 90er-Paketblöcken.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1274": {
+    "description": "Paketkennung: WF2210250475 (Wort 1-6), beobachtet in 90er-Paketblöcken.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1275": {
+    "description": "Paketkennung: WF2210250475 (Wort 1-6), beobachtet in 90er-Paketblöcken.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1276": {
+    "description": "Paketkennung: WF2210250475 (Wort 1-6), beobachtet in 90er-Paketblöcken.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1277": {
+    "description": "Reserviertes Wort im Paket-/Blockkopf; typischerweise 0.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1278": {
+    "description": "Reserviertes Wort im Paket-/Blockkopf; typischerweise 0.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1279": {
+    "description": "Paketkopf-Wort; beobachtet meist 0x0210 / 528. Bedeutung vermutlich Marker/Länge/Strukturkennung.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1280": {
+    "description": "Paketkopf-Wort zeigt auf den Anfang dieses Blockkopfs: 1271 / 0x04F7.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1281": {
+    "source": "Display-FW ASM Timer CFxx"
+  },
+  "1282": {
+    "source": "Display-FW ASM Timer CFxx"
+  },
+  "1283": {
+    "source": "Display-FW ASM Timer CFxx"
+  },
+  "1284": {
+    "source": "Display-FW ASM Timer CFxx"
+  },
+  "1285": {
+    "source": "Display-FW ASM Timer CFxx"
+  },
+  "1286": {
+    "source": "Display-FW ASM Timer CFxx",
+    "description": "Timer-Modus-Code. Code 9 bedeutet: keinen Modus ändern / aktuellen Modus nicht überschreiben."
+  },
+  "1287": {
+    "source": "Display-FW ASM Timer CFxx"
+  },
+  "1288": {
+    "source": "Display-FW ASM Timer CFxx"
+  },
+  "1289": {
+    "source": "Display-FW ASM Timer CFxx"
+  },
+  "1290": {
+    "source": "Display-FW ASM Timer CFxx"
+  },
+  "1291": {
+    "source": "Display-FW ASM Timer CFxx"
+  },
+  "1292": {
+    "source": "Display-FW ASM Timer CFxx"
+  },
+  "1293": {
+    "source": "Display-FW ASM Timer CFxx",
+    "description": "Timer-Modus-Code. Code 9 bedeutet: keinen Modus ändern / aktuellen Modus nicht überschreiben."
+  },
+  "1294": {
+    "source": "Display-FW ASM Timer CFxx"
+  },
+  "1295": {
+    "source": "Display-FW ASM Timer CFxx"
+  },
+  "1296": {
+    "source": "Display-FW ASM Timer CFxx"
+  },
+  "1297": {
+    "source": "Display-FW ASM Timer CFxx"
+  },
+  "1298": {
+    "source": "Display-FW ASM Timer CFxx"
+  },
+  "1299": {
+    "source": "Display-FW ASM Timer CFxx"
+  },
+  "1300": {
+    "source": "Display-FW ASM Timer CFxx",
+    "description": "Timer-Modus-Code. Code 9 bedeutet: keinen Modus ändern / aktuellen Modus nicht überschreiben."
+  },
+  "1301": {
+    "source": "Display-FW ASM Timer CFxx"
+  },
+  "1302": {
+    "source": "Display-FW ASM Timer CFxx"
+  },
+  "1303": {
+    "source": "Display-FW ASM Timer CFxx"
+  },
+  "1304": {
+    "source": "Display-FW ASM Timer CFxx"
+  },
+  "1305": {
+    "source": "Display-FW ASM Timer CFxx"
+  },
+  "1306": {
+    "source": "Display-FW ASM Timer CFxx"
+  },
+  "1307": {
+    "source": "Display-FW ASM Timer CFxx",
+    "description": "Timer-Modus-Code. Code 9 bedeutet: keinen Modus ändern / aktuellen Modus nicht überschreiben."
+  },
+  "1308": {
+    "source": "Display-FW ASM Timer CFxx"
+  },
+  "1309": {
+    "source": "Display-FW ASM Timer CFxx"
+  },
+  "1310": {
+    "source": "Display-FW ASM Timer CFxx"
+  },
+  "1311": {
+    "source": "Display-FW ASM Timer CFxx"
+  },
+  "1312": {
+    "source": "Display-FW ASM Timer CFxx"
+  },
+  "1313": {
+    "source": "Display-FW ASM Timer CFxx"
+  },
+  "1314": {
+    "source": "Display-FW ASM Timer CFxx",
+    "description": "Timer-Modus-Code. Code 9 bedeutet: keinen Modus ändern / aktuellen Modus nicht überschreiben."
+  },
+  "1315": {
+    "source": "Display-FW ASM Timer CFxx"
+  },
+  "1316": {
+    "source": "Display-FW ASM Timer CFxx"
+  },
+  "1317": {
+    "source": "Display-FW ASM Timer CFxx"
+  },
+  "1318": {
+    "source": "Display-FW ASM Timer CFxx"
+  },
+  "1319": {
+    "source": "Display-FW ASM Timer CFxx"
+  },
+  "1320": {
+    "source": "Display-FW ASM Timer CFxx"
+  },
+  "1321": {
+    "source": "Display-FW ASM Timer CFxx",
+    "description": "Timer-Modus-Code. Code 9 bedeutet: keinen Modus ändern / aktuellen Modus nicht überschreiben."
+  },
+  "1322": {
+    "source": "Display-FW ASM Timer CFxx"
+  },
+  "1323": {
+    "source": "Display-FW ASM Timer CFE"
+  },
+  "1324": {
+    "source": "Display-FW ASM Timer CFE"
+  },
+  "1325": {
+    "source": "Display-FW ASM Timer CFE"
+  },
+  "1326": {
+    "source": "Display-FW ReturnPumpTimer / 0x052E"
+  },
+  "1327": {
+    "source": "Display-FW ReturnPumpTimer / 0x052F"
+  },
+  "1328": {
+    "source": "Display-FW ReturnPumpTimer / 0x0530"
+  },
+  "1329": {
+    "source": "Display-FW ReturnPumpTimer / 0x0531"
+  },
+  "1330": {
+    "source": "Display-FW ReturnPumpTimer / 0x0532"
+  },
+  "1331": {
+    "source": "Display-FW ReturnPumpTimer / 0x0533"
+  },
+  "1332": {
+    "source": "Display-FW ReturnPumpTimer / 0x0534"
+  },
+  "1333": {
+    "source": "Display-FW ReturnPumpTimer / 0x0535"
+  },
+  "1334": {
+    "knowledge": "Legt fest, ob SG Ready deaktiviert ist oder mit 1 bzw. 2 Kontakten arbeitet. Bei Zweifach/2 Kontakte werden die Kontaktzustände über das Schalter-/Kontakt-Bitfeld 2034 ausgewertet.",
+    "source": "Display-FW ASM SG01-SG08"
+  },
+  "1335": {
+    "source": "Display-FW ASM SG01-SG08"
+  },
+  "1336": {
+    "source": "Display-FW ASM SG01-SG08"
+  },
+  "1337": {
+    "source": "Display-FW ASM SG01-SG08"
+  },
+  "1338": {
+    "knowledge": "Temperaturanhebung für Warmwasser im SG-Ready Mode 4. Wirkt zusammen mit SG01/SG08 und den SG-Kontaktzuständen.",
+    "source": "Display-FW ASM SG01-SG08"
+  },
+  "1339": {
+    "knowledge": "Temperaturanhebung für Heizen im SG-Ready Mode 4. Wert ist eine Differenz, nicht der absolute Sollwert.",
+    "source": "Display-FW ASM SG01-SG08"
+  },
+  "1340": {
+    "knowledge": "Temperaturanhebung bzw. Anpassung für Kühlen im SG-Ready Mode 4. Wert ist eine Differenz, nicht der absolute Sollwert.",
+    "source": "Display-FW ASM SG01-SG08"
+  },
+  "1341": {
+    "knowledge": "SG08: Heizstab ein bei SG Mode4. Werte: 0=Nein, 1=Ja.",
+    "source": "User confirmed 2026-06-19 + Display-FW ASM SG01-SG08"
+  },
+  "1342": {
+    "description": "App: Low Pressure of Limiting Frequency; Anzeige in bar, vermutlich raw/10",
+    "source": "ASM DEMONS.ASM",
+    "source_app_video": "App-Video A-Block ScreenRecording_06-13-2026 10-50-12; v38"
+  },
+  "1343": {
+    "description": "App: Max. Current Value; Picker in 0.5-A-Schritten, vermutlich raw/2",
+    "source": "ASM DEMONS.ASM",
+    "source_app_video": "App-Video A-Block ScreenRecording_06-13-2026 10-50-12; v38"
+  },
+  "1344": {
+    "default": "60",
+    "description": "App: Rated Water Flow; raw/100 = m³/h, z. B. raw 50 = 0.5 m³/h",
+    "knowledge": "A40 ist der Nenn-Wasserdurchfluss. Nach Kompressorstart muss der tatsächliche Durchfluss 10 Minuten lang durchgehend über A40 × 1,2 liegen, erst dann wird die Pumpendrehzahl-Regelung aktiv. Während der Regelung wird zusätzlich ein Mindestdurchfluss erzwungen.",
+    "notes": "Wenn D22 = 0, gilt Mindestdurchfluss = A40 × 0,8. Fällt der Ist-Durchfluss unter den Mindestdurchfluss, darf die Pumpendrehzahl nicht weiter reduziert werden.",
+    "source": "Projektwissen DosOrDie / Pumpen-PWM-Regelung",
+    "source_app_video": "App-Video A-Block ScreenRecording_06-13-2026 10-50-12; v38"
+  },
+  "1345": {
+    "description": "H40: External Pump Selection / Externe Pumpenauswahl. Live getestet. Werte: 0=Hot Water Pump, 1=Warm Water Circulation Pump, 2=Off Signal when defrosting. ASM-Zusatz: 2541H beeinflusst Timer-/Pumpen-Seitenauswahl.",
+    "source": "User live test 2026-06-19 + Display-FW ASM"
+  },
+  "1346": {
+    "default": "66",
+    "description": "H41 bestätigt. Supervisor-Passwort: 66.",
+    "source": "User confirmed 2026-06-19"
+  },
+  "1347": {
+    "default": "90",
+    "description": "0 bis C03/max. Kompressorfrequenz; ASM begrenzt C12 auf C03.",
+    "notes": "ASM: C12_Process nutzt Kommunikationsadresse 0543H / Parameteradresse 2543H und begrenzt oben auf C03. Sicher bestätigt: C12 = Register 1347.",
+    "source": "Warmlink-App Video + ASM DEMONS.ASM + user live test 2026-06-14"
+  },
+  "1348": {
+    "description": "C13: Display-Firmware Parameter. In App nicht sichtbar.",
+    "source": "User correction 2026-06-19 + ASM"
+  },
+  "1349": {
+    "description": "C14: Display-Firmware Parameter. In App nicht sichtbar.",
+    "source": "User correction 2026-06-19 + ASM"
+  },
+  "1350": {
+    "description": "C15: Display-Firmware Parameter. In App nicht sichtbar.",
+    "source": "User correction 2026-06-19 + ASM"
+  },
+  "1351": {
+    "description": "E20: Display-Firmware Parameter. In App nicht sichtbar.",
+    "source": "User correction 2026-06-19 + ASM"
+  },
+  "1352": {
+    "description": "E21: Display-Firmware Parameter. In App nicht sichtbar.",
+    "source": "User correction 2026-06-19 + ASM"
+  },
+  "1353": {
+    "description": "Zwischen E21 (1352/0x0548) und H42 (1356/0x054C). In ASM/DWIN-Seitenkonfiguration bisher keine belastbare Verwendung gefunden.",
+    "source": "ASM/DWIN Binäranalyse v23"
+  },
+  "1354": {
+    "description": "Zwischen E21 (1352/0x0548) und H42 (1356/0x054C). In ASM/DWIN-Seitenkonfiguration bisher keine belastbare Verwendung gefunden.",
+    "source": "ASM/DWIN Binäranalyse v23"
+  },
+  "1355": {
+    "description": "Zwischen E21 (1352/0x0548) und H42 (1356/0x054C). In ASM/DWIN-Seitenkonfiguration bisher keine belastbare Verwendung gefunden.",
+    "source": "ASM/DWIN Binäranalyse v23"
+  },
+  "1356": {
+    "default": "4",
+    "description": "H42 Einschalt-Außentemperatur Gehaeusewannenheizung. D30/1437 wirkt erst, wenn AT kleiner als H42/1356 ist. H42 Einheit °C.",
+    "notes": "Text korrigiert: der Bezug ist D30/1437, nicht ein unklarer H..-Minutenwert.",
+    "source": "User correction 2026-06-19"
+  },
+  "1357": {
+    "default": "2.0°C",
+    "description": "Z19 / Diff. of No Pump On at Low Water Temp. (Warmlink-App Z-Block). Sichtbarer App-Default: 2.0°C. Alte Notiz: ASM: 低水温不开水泵偏差; Hysterese/Differenz, max. 25.0 °C",
+    "source": "Warmlink-App Video 2026-06-14 + vorhandene ASM/XLS-Zuordnung"
+  },
+  "1358": {
+    "default": "NO",
+    "description": "Z20 / Enable Zone 1 Water Pump in Cooling (Warmlink-App Z-Block). Sichtbarer App-Default: NO. Alte Notiz: Quelle ASM",
+    "source": "Warmlink-App Video 2026-06-14 + vorhandene ASM/XLS-Zuordnung"
+  },
+  "1361": {
+    "description": "Paketkennung: WF2210250475 (Wort 1-6), beobachtet in 90er-Paketblöcken.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1362": {
+    "description": "Paketkennung: WF2210250475 (Wort 1-6), beobachtet in 90er-Paketblöcken.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1363": {
+    "description": "Paketkennung: WF2210250475 (Wort 1-6), beobachtet in 90er-Paketblöcken.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1364": {
+    "description": "Paketkennung: WF2210250475 (Wort 1-6), beobachtet in 90er-Paketblöcken.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1365": {
+    "description": "Paketkennung: WF2210250475 (Wort 1-6), beobachtet in 90er-Paketblöcken.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1366": {
+    "description": "Paketkennung: WF2210250475 (Wort 1-6), beobachtet in 90er-Paketblöcken.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1367": {
+    "description": "Reserviertes Wort im Paket-/Blockkopf; typischerweise 0.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1368": {
+    "description": "Reserviertes Wort im Paket-/Blockkopf; typischerweise 0.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1369": {
+    "description": "Paketkopf-Wort; beobachtet meist 0x0210 / 528. Bedeutung vermutlich Marker/Länge/Strukturkennung.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1370": {
+    "description": "Paketkopf-Wort zeigt auf den Anfang dieses Blockkopfs: 1361 / 0x0551.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1371": {
+    "description": "ASM: 工厂测试模式; Versionskommentar: Schreiben 1371 = 2 manuell",
+    "source": "ASM DEMONS.ASM"
+  },
+  "1372": {
+    "description": "ASM: 自动商检开关机",
+    "source": "ASM DEMONS.ASM"
+  },
+  "1373": {
+    "description": "ASM: 自动商检模式",
+    "source": "ASM DEMONS.ASM"
+  },
+  "1374": {
+    "description": "ASM: 自动商检目标温度",
+    "source": "ASM DEMONS.ASM"
+  },
+  "1375": {
+    "description": "ASM: 自动商检压缩机频率",
+    "source": "ASM DEMONS.ASM"
+  },
+  "1376": {
+    "description": "ASM: 自动商检风机1转速",
+    "source": "ASM DEMONS.ASM"
+  },
+  "1377": {
+    "description": "ASM: 自动商检风机2转速",
+    "source": "ASM DEMONS.ASM"
+  },
+  "1378": {
+    "description": "ASM: 自动商检主路电子膨胀阀",
+    "source": "ASM DEMONS.ASM"
+  },
+  "1379": {
+    "description": "ASM: 自动商检增焓电子膨胀阀",
+    "source": "ASM DEMONS.ASM"
+  },
+  "1380": {
+    "description": "ASM: 自动商检水泵转速",
+    "source": "ASM DEMONS.ASM"
+  },
+  "1432": {
+    "default": "4.4",
+    "description": "0,0 bis 10,0 °C",
+    "source": "Warmlink-App Video"
+  },
+  "1433": {
+    "default": "2",
+    "description": "App zeigt N; vermutlich Schritt-/Anpasswert pro Regelperiode.",
+    "notes": "Projektdeutung alt: Um diesen Wert steigt/sinkt PWM bzw. Pumpenstellwert pro Periode.",
+    "source": "Warmlink-App Video"
+  },
+  "1435": {
+    "default": "30",
+    "description": "0 bis 30 Tage",
+    "source": "Warmlink-App Video"
+  },
+  "1436": {
+    "default": "30",
+    "description": "0 bis 300 s",
+    "source": "Warmlink-App Video"
+  },
+  "1437": {
+    "description": "D30 Gehaeusewannenheizung / Button Heater Delays OFF Time after Defrost. Einheit: Minuten.",
+    "notes": "Sicher bestätigt: 1437 ist D30, nicht P15. Einheit sicher: Minuten. Erst wirksam, wenn AT kleiner H42/1356 ist.",
+    "source": "User confirmed 2026-06-14; live system use"
+  },
+  "1438": {
+    "default": "1.0",
+    "description": "P15 Ziel-Wasserdruck fuer IDU-Nachfuellung; Wert im Video 1.0 bar.",
+    "notes": "Sicher bestätigt: P15 = Register 1438.",
+    "source": "Warmlink-App Video + user live test 2026-06-14"
+  },
+  "1444": {
+    "default": "0.5",
+    "description": "P16 Druckdifferenz zum Stoppen der IDU-Nachfuellung; Wert im Video 0.5 bar.",
+    "notes": "Sicher bestätigt: P16 = Register 1444.",
+    "source": "Warmlink-App Video + user live test 2026-06-14"
+  },
+  "1451": {
+    "description": "Paketkennung: WF2210250475 (Wort 1-6), beobachtet in 90er-Paketblöcken.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1452": {
+    "description": "Paketkennung: WF2210250475 (Wort 1-6), beobachtet in 90er-Paketblöcken.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1453": {
+    "description": "Paketkennung: WF2210250475 (Wort 1-6), beobachtet in 90er-Paketblöcken.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1454": {
+    "description": "Paketkennung: WF2210250475 (Wort 1-6), beobachtet in 90er-Paketblöcken.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1455": {
+    "description": "Paketkennung: WF2210250475 (Wort 1-6), beobachtet in 90er-Paketblöcken.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1456": {
+    "description": "Paketkennung: WF2210250475 (Wort 1-6), beobachtet in 90er-Paketblöcken.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1457": {
+    "description": "Reserviertes Wort im Paket-/Blockkopf; typischerweise 0.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1458": {
+    "description": "Reserviertes Wort im Paket-/Blockkopf; typischerweise 0.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1459": {
+    "description": "Paketkopf-Wort; beobachtet meist 0x0210 / 528. Bedeutung vermutlich Marker/Länge/Strukturkennung.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1460": {
+    "description": "Paketkopf-Wort zeigt auf den Anfang dieses Blockkopfs: 1451 / 0x05AB.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1541": {
+    "description": "Paketkennung: WF2210250475 (Wort 1-6), beobachtet in 90er-Paketblöcken. Optionaler Extra-Block; nicht auf jeder Anlage vollständig vorhanden.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1542": {
+    "description": "Paketkennung: WF2210250475 (Wort 1-6), beobachtet in 90er-Paketblöcken. Optionaler Extra-Block; nicht auf jeder Anlage vollständig vorhanden.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1543": {
+    "description": "Paketkennung: WF2210250475 (Wort 1-6), beobachtet in 90er-Paketblöcken. Optionaler Extra-Block; nicht auf jeder Anlage vollständig vorhanden.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1544": {
+    "description": "Paketkennung: WF2210250475 (Wort 1-6), beobachtet in 90er-Paketblöcken. Optionaler Extra-Block; nicht auf jeder Anlage vollständig vorhanden.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1545": {
+    "description": "Paketkennung: WF2210250475 (Wort 1-6), beobachtet in 90er-Paketblöcken. Optionaler Extra-Block; nicht auf jeder Anlage vollständig vorhanden.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1546": {
+    "description": "Paketkennung: WF2210250475 (Wort 1-6), beobachtet in 90er-Paketblöcken. Optionaler Extra-Block; nicht auf jeder Anlage vollständig vorhanden.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1547": {
+    "description": "Reserviertes Wort im Paket-/Blockkopf; typischerweise 0. Optionaler Extra-Block; nicht auf jeder Anlage vollständig vorhanden.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1548": {
+    "description": "Reserviertes Wort im Paket-/Blockkopf; typischerweise 0. Optionaler Extra-Block; nicht auf jeder Anlage vollständig vorhanden.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1549": {
+    "description": "Paketkopf-Wort; beobachtet meist 0x0210 / 528. Bedeutung vermutlich Marker/Länge/Strukturkennung. Optionaler Extra-Block; nicht auf jeder Anlage vollständig vorhanden.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "1550": {
+    "description": "Paketkopf-Wort zeigt auf den Anfang dieses Blockkopfs: 1541 / 0x0605. Optionaler Extra-Block; nicht auf jeder Anlage vollständig vorhanden.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "200": {
+    "description": "Zyklisch beobachteter interner Display/HMI-Kommunikationsblock; vermutlich Kennung/String/Logo-/Seitenpuffer, Bedeutung noch nicht sicher. Nicht als WP-Parameter verwenden.",
+    "source": "Live beobachtet; Register 200-215, Bus 0x63, Frame 0x00C8"
+  },
+  "2001": {
+    "description": "Paketkennung: WF2210250475 (Wort 1-6), beobachtet in 90er-Paketblöcken.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "2002": {
+    "description": "Paketkennung: WF2210250475 (Wort 1-6), beobachtet in 90er-Paketblöcken.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "2003": {
+    "description": "Paketkennung: WF2210250475 (Wort 1-6), beobachtet in 90er-Paketblöcken.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "2004": {
+    "description": "Paketkennung: WF2210250475 (Wort 1-6), beobachtet in 90er-Paketblöcken.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "2005": {
+    "description": "Paketkennung: WF2210250475 (Wort 1-6), beobachtet in 90er-Paketblöcken.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "2006": {
+    "description": "Paketkennung: WF2210250475 (Wort 1-6), beobachtet in 90er-Paketblöcken.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "2007": {
+    "description": "Reserviertes Wort im Paket-/Blockkopf; typischerweise 0.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "2008": {
+    "description": "Reserviertes Wort im Paket-/Blockkopf; typischerweise 0.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "2009": {
+    "description": "Paketkopf-Wort; beobachtet meist 0x0210 / 528. Bedeutung vermutlich Marker/Länge/Strukturkennung.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "201": {
+    "description": "Zyklisch beobachteter interner Display/HMI-Kommunikationsblock; vermutlich Kennung/String/Logo-/Seitenpuffer, Bedeutung noch nicht sicher. Nicht als WP-Parameter verwenden.",
+    "source": "Live beobachtet; Register 200-215, Bus 0x63, Frame 0x00C8"
+  },
+  "2010": {
+    "description": "Paketkopf-Wort zeigt auf den Anfang dieses Blockkopfs: 2001 / 0x07D1.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "2011": {
+    "description": "0-aus/1-ein",
+    "source": "v36 Beschreibung/App-Review"
+  },
+  "2012": {
+    "description": "Aktueller Betriebsstatus: 0=Kühlen, 1=Heizen, 2=Abtauen, 3=Sterilisieren, 4=Warmwasser. Nicht identisch mit Modus-Setzregister 1012.",
+    "source": "ASM DEMONS.ASM"
+  },
+  "2013": {},
+  "2014": {},
+  "2015": {
+    "description": "0-nein/1-Abtau-Modus verfügbar",
+    "source": "v36 Beschreibung/App-Review"
+  },
+  "2016": {
+    "description": "Solltemperatur wie 2013/2014, °C, Skalierung /10.",
+    "source": "User correction 2026-06-19"
+  },
+  "2017": {
+    "description": "0"
+  },
+  "2018": {
+    "description": "0 Aus 1 Ein Read-only Statusregister (>2000), nicht als WP-Schreibregister verwenden.",
+    "source": "bisheriges Mapping + ASM"
+  },
+  "2019": {
+    "description": "0=AUS, 1=EIN je Bit. Vollständige Lastausgangsliste vom User bestätigt. Register 2019 / 0x07E3. Read-only Statusregister (>2000), nicht als WP-Schreibregister verwenden.",
+    "knowledge": "Lastausgangs-Bitfeld. Bit 10 ist der Alarm-Ausgang/Sammelstörung und wird für den Störungsbutton ausgewertet.",
+    "source": "User bestätigte Lastausgang-Bitliste + ASM judge_comp_on/Statusanalyse"
+  },
+  "202": {
+    "description": "Zyklisch beobachteter interner Display/HMI-Kommunikationsblock; vermutlich Kennung/String/Logo-/Seitenpuffer, Bedeutung noch nicht sicher. Nicht als WP-Parameter verwenden.",
+    "source": "Live beobachtet; Register 200-215, Bus 0x63, Frame 0x00C8"
+  },
+  "2020": {
+    "description": "0 bis 500N"
+  },
+  "2021": {},
+  "2022": {
+    "description": "0 bis 500N"
+  },
+  "2023": {
+    "description": "2"
+  },
+  "2024": {
+    "description": "0; ASM: 07E8H -> Anzeige System2 Ventil",
+    "source": "ASM DEMONS.ASM"
+  },
+  "2025": {
+    "description": "0; ASM: 07E9H -> Anzeige System2 EVI/Enthalpie",
+    "source": "ASM DEMONS.ASM"
+  },
+  "2026": {
+    "description": "12"
+  },
+  "2027": {
+    "description": "0"
+  },
+  "2028": {
+    "description": "17"
+  },
+  "2029": {
+    "description": "Eingangsstromwert in A."
+  },
+  "203": {
+    "description": "Zyklisch beobachteter interner Display/HMI-Kommunikationsblock; vermutlich Kennung/String/Logo-/Seitenpuffer, Bedeutung noch nicht sicher. Nicht als WP-Parameter verwenden.",
+    "source": "Live beobachtet; Register 200-215, Bus 0x63, Frame 0x00C8"
+  },
+  "2030": {
+    "description": "Eingangsstromwert in A."
+  },
+  "2031": {
+    "description": "Eingangsstromwert in A."
+  },
+  "2032": {
+    "description": "Registergruppe h (Stunden). Laufzeitwert in Stunden."
+  },
+  "2033": {
+    "description": "0"
+  },
+  "2034": {
+    "description": "Read-only Status-/Eingangsbitfeld. DWIN-Seiten 237/238 zeigen SG-Kontaktstatus direkt aus 07F2H: Maske 0x1000 und 0x2000. 0/1 je Bit als LOW/HIGH bzw. AUS/EIN interpretieren; Polarität real prüfen.",
+    "knowledge": "Schalter- und Kontakt-Bitfeld. Enthält u. a. Wasserflussschalter sowie SG Kontakt 1/2. SG Kontakt 1 liegt auf Bit 12, SG Kontakt 2 auf Bit 13.",
+    "source": "DWIN 14.bin Seitenanalyse + Display/Statusanalyse + User-Hinweis"
+  },
+  "2035": {
+    "description": "tatsächlicher Testwert"
+  },
+  "2036": {
+    "description": "tatsächlicher Testwert"
+  },
+  "2037": {
+    "description": "tatsächlicher Testwert"
+  },
+  "2038": {
+    "description": "tatsächlicher Testwert"
+  },
+  "2039": {
+    "description": "tatsächlicher Testwert"
+  },
+  "204": {
+    "description": "Zyklisch beobachteter interner Display/HMI-Kommunikationsblock; vermutlich Kennung/String/Logo-/Seitenpuffer, Bedeutung noch nicht sicher. Nicht als WP-Parameter verwenden.",
+    "source": "Live beobachtet; Register 200-215, Bus 0x63, Frame 0x00C8"
+  },
+  "2040": {
+    "description": "0"
+  },
+  "2041": {
+    "description": "0"
+  },
+  "2042": {
+    "description": "tatsächlicher Testwert T36 Einheit A / Ampere.",
+    "source": "User correction 2026-06-19"
+  },
+  "2043": {
+    "description": "DC-Power-Bus-Spannung. Einheit vom User bestätigt: V / Volt. Einheit V / Volt.",
+    "source": "User correction 2026-06-19"
+  },
+  "2044": {
+    "description": "tatsächlicher Testwert"
+  },
+  "2045": {
+    "description": "tatsächlicher Testwert"
+  },
+  "2046": {
+    "description": "tatsächlicher Testwert"
+  },
+  "2047": {
+    "description": "tatsächlicher Testwert"
+  },
+  "2048": {
+    "description": "tatsächlicher Testwert"
+  },
+  "2049": {
+    "description": "tatsächlicher Testwert"
+  },
+  "205": {
+    "description": "Zyklisch beobachteter interner Display/HMI-Kommunikationsblock; vermutlich Kennung/String/Logo-/Seitenpuffer, Bedeutung noch nicht sicher. Nicht als WP-Parameter verwenden.",
+    "source": "Live beobachtet; Register 200-215, Bus 0x63, Frame 0x00C8"
+  },
+  "2050": {
+    "description": "tatsächlicher Testwert"
+  },
+  "2051": {
+    "description": "tatsächlicher Testwert"
+  },
+  "2052": {
+    "description": "tatsächlicher Testwert"
+  },
+  "2053": {
+    "description": "tatsächlicher Testwert"
+  },
+  "2054": {
+    "description": "Elektrische Leistung / Unit Power. Vermutung aus Livewert: signed /10 kW; Beispiel raw 5 = 0,5 kW = 500 W.",
+    "source": "Live-Beobachtung / User"
+  },
+  "2055": {
+    "description": "tatsächlicher Testwert"
+  },
+  "2056": {
+    "description": "V1.3 konvertiert 0x0808 als Temperatur; Fault-Avoid setzt dazu Anzeigeadresse 120C für System1 Frostschutztemperatur 2.",
+    "source": "ASM DEMONS_V1.3.ASM"
+  },
+  "2057": {
+    "description": "tatsächlicher Testwert Nicht T34; Bedeutung unbestätigt.",
+    "source": "User correction 2026-06-19"
+  },
+  "2058": {
+    "description": "tatsächlicher Testwert"
+  },
+  "2059": {
+    "description": "Wärmeleistung / Unit Capacity. Vermutung aus Livewert: signed /10 kW; Beispiel raw 26 = 2,6 kW.",
+    "source": "Live-Beobachtung / User"
+  },
+  "206": {
+    "description": "Zyklisch beobachteter interner Display/HMI-Kommunikationsblock; aktuell leer/Reserve. Nicht als WP-Parameter verwenden.",
+    "source": "Live beobachtet; Register 200-215, Bus 0x63, Frame 0x00C8"
+  },
+  "2060": {
+    "description": "COP. Vermutung aus Livewert: signed /100; Beispiel raw 458 = COP 4,58.",
+    "source": "Live-Beobachtung / User"
+  },
+  "2061": {
+    "description": "tatsächlicher Testwert"
+  },
+  "2062": {
+    "description": "AC-Eingangsspannung. Einheit vom User bestätigt: V / Volt, nicht °C. T34 Einheit V / Volt; 2057 ist nicht T34.",
+    "source": "User correction 2026-06-19"
+  },
+  "2063": {
+    "description": "EVI-Einlasstemperatur. Einheit vom User bestätigt: °C; Skalierung als TEMP1 (/10) plausibel."
+  },
+  "2064": {
+    "description": "tatsächlicher Testwert"
+  },
+  "2065": {
+    "description": "Verdampfungstemperatur ASM. Vermutlich aus Niederdrucksensor und Kältemittel-Sättigungstabelle berechnet; hilfreich für Vereisungsneigung, Abtauverhalten und Effizienzdiagnose.",
+    "source": "ASM DEMONS.ASM / Diagnose-Hypothese"
+  },
+  "2066": {
+    "description": "Exhaust Superheat ASM / Austrittsüberhitzung. Vermutlich modellierter Diagnosewert, weil die Anlage offenbar keinen Hochdrucksensor besitzt. Beobachtung: Heißgas ca. 51,2 °C, WP-Austritt ca. 39 °C -> Differenz ca. 12 K; Register zeigte ca. 11,3 K. Daher vermutlich Heißgas minus WP-Austritt/Kondensator-Referenztemperatur.",
+    "source": "Live-Beobachtung / Diagnose-Hypothese"
+  },
+  "2067": {
+    "description": "Suction Superheat ASM / Saugüberhitzung. Wichtiger EEV-/Saugseitenwert; vermutlich Sauggastemperatur minus Verdampfungstemperatur. Niedrige Werte können auf geringe Überhitzung/Flüssigkeitsrisiko deuten, hohe Werte auf EEV/Kältemittel-/Verdampferproblem.",
+    "source": "ASM DEMONS.ASM / Diagnose-Hypothese"
+  },
+  "2068": {
+    "description": "0; ASM: 0814H -> Anzeige System2 current",
+    "source": "ASM DEMONS.ASM"
+  },
+  "2069": {
+    "description": "tatsächlicher Testwert T15 Einheit bar.",
+    "source": "User correction 2026-06-19"
+  },
+  "207": {
+    "description": "Zyklisch beobachteter interner Display/HMI-Kommunikationsblock; aktuell leer/Reserve. Nicht als WP-Parameter verwenden.",
+    "source": "Live beobachtet; Register 200-215, Bus 0x63, Frame 0x00C8"
+  },
+  "2070": {
+    "description": "0; ASM: 0816H -> Anzeige System2 pressure",
+    "source": "ASM DEMONS.ASM"
+  },
+  "2071": {
+    "description": "tatsächlicher Testwert"
+  },
+  "2072": {
+    "description": "tatsächlicher Testwert"
+  },
+  "2073": {
+    "description": "tatsächlicher Testwert"
+  },
+  "2074": {
+    "description": "tatsächlicher Testwert"
+  },
+  "2075": {
+    "description": "tatsächlicher Testwert"
+  },
+  "2076": {
+    "description": "tatsächlicher Testwert"
+  },
+  "2077": {
+    "description": "Wasserdurchfluss. Beobachtung: raw 64 entspricht vermutlich 0,64 m³/h, daher /100 m³/h.",
+    "source": "Live-Beobachtung / User"
+  },
+  "2078": {
+    "description": "High 16 kWh"
+  },
+  "2079": {
+    "description": "Low16 Einheit kW/h.",
+    "source": "User correction 2026-06-19"
+  },
+  "208": {
+    "description": "Zyklisch beobachteter interner Display/HMI-Kommunikationsblock; aktuell leer/Reserve. Nicht als WP-Parameter verwenden.",
+    "source": "Live beobachtet; Register 200-215, Bus 0x63, Frame 0x00C8"
+  },
+  "2080": {
+    "description": "3"
+  },
+  "2081": {
+    "description": "Bitfeld-Decoder: sichere Klartexte wo bekannt, sonst markierte Node-RED-Bitpositionen als Platzhalter bis vollständiger Function-Code vorliegt.",
+    "source": "Node-RED Projektkontext + ASM DEMONS_V1.3.ASM, v21 zusammengeführt"
+  },
+  "2082": {
+    "description": "Bitfeld-Decoder: sichere Klartexte wo bekannt, sonst markierte Node-RED-Bitpositionen als Platzhalter bis vollständiger Function-Code vorliegt.",
+    "source": "Node-RED Projektkontext + ASM DEMONS_V1.3.ASM, v21 zusammengeführt"
+  },
+  "2083": {
+    "description": "Bitfeld-Decoder: sichere Klartexte wo bekannt, sonst markierte Node-RED-Bitpositionen als Platzhalter bis vollständiger Function-Code vorliegt.",
+    "source": "Node-RED Projektkontext + ASM DEMONS_V1.3.ASM, v21 zusammengeführt"
+  },
+  "2084": {},
+  "2085": {
+    "description": "Bitfeld-Decoder: sichere Klartexte wo bekannt, sonst markierte Node-RED-Bitpositionen als Platzhalter bis vollständiger Function-Code vorliegt.",
+    "source": "Node-RED Projektkontext + ASM DEMONS_V1.3.ASM, v21 zusammengeführt"
+  },
+  "2086": {
+    "description": "Bitfeld-Decoder: sichere Klartexte wo bekannt, sonst markierte Node-RED-Bitpositionen als Platzhalter bis vollständiger Function-Code vorliegt.",
+    "source": "Node-RED Projektkontext + ASM DEMONS_V1.3.ASM, v21 zusammengeführt"
+  },
+  "2087": {
+    "description": "Bitfeld-Decoder: sichere Klartexte wo bekannt, sonst markierte Node-RED-Bitpositionen als Platzhalter bis vollständiger Function-Code vorliegt.",
+    "source": "Node-RED Projektkontext + ASM DEMONS_V1.3.ASM, v21 zusammengeführt"
+  },
+  "2088": {
+    "description": "Bitfeld-Decoder: sichere Klartexte wo bekannt, sonst markierte Node-RED-Bitpositionen als Platzhalter bis vollständiger Function-Code vorliegt.",
+    "source": "Node-RED Projektkontext + ASM DEMONS_V1.3.ASM, v21 zusammengeführt"
+  },
+  "2089": {
+    "description": "Bitfeld-Decoder: sichere Klartexte wo bekannt, sonst markierte Node-RED-Bitpositionen als Platzhalter bis vollständiger Function-Code vorliegt.",
+    "source": "Node-RED Projektkontext + ASM DEMONS_V1.3.ASM, v21 zusammengeführt"
+  },
+  "209": {
+    "description": "Zyklisch beobachteter interner Display/HMI-Kommunikationsblock; aktuell leer/Reserve. Nicht als WP-Parameter verwenden.",
+    "source": "Live beobachtet; Register 200-215, Bus 0x63, Frame 0x00C8"
+  },
+  "2090": {
+    "description": "Bitfeld-Decoder: sichere Klartexte wo bekannt, sonst markierte Node-RED-Bitpositionen als Platzhalter bis vollständiger Function-Code vorliegt.",
+    "source": "Node-RED Projektkontext + ASM DEMONS_V1.3.ASM, v21 zusammengeführt"
+  },
+  "2091": {
+    "description": "Paketkennung: WF2210250475 (Wort 1-6), beobachtet in 90er-Paketblöcken.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "2092": {
+    "description": "Paketkennung: WF2210250475 (Wort 1-6), beobachtet in 90er-Paketblöcken.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "2093": {
+    "description": "Paketkennung: WF2210250475 (Wort 1-6), beobachtet in 90er-Paketblöcken.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "2094": {
+    "description": "Paketkennung: WF2210250475 (Wort 1-6), beobachtet in 90er-Paketblöcken.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "2095": {
+    "description": "Paketkennung: WF2210250475 (Wort 1-6), beobachtet in 90er-Paketblöcken.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "2096": {
+    "description": "Paketkennung: WF2210250475 (Wort 1-6), beobachtet in 90er-Paketblöcken.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "2097": {
+    "description": "Reserviertes Wort im Paket-/Blockkopf; typischerweise 0.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "2098": {
+    "description": "Reserviertes Wort im Paket-/Blockkopf; typischerweise 0.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "2099": {
+    "description": "Paketkopf-Wort; beobachtet meist 0x0210 / 528. Bedeutung vermutlich Marker/Länge/Strukturkennung.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "210": {
+    "description": "Zyklisch beobachteter interner Display/HMI-Kommunikationsblock; aktuell leer/Reserve. Nicht als WP-Parameter verwenden.",
+    "source": "Live beobachtet; Register 200-215, Bus 0x63, Frame 0x00C8"
+  },
+  "2100": {
+    "description": "Paketkopf-Wort zeigt auf den Anfang dieses Blockkopfs: 2091 / 0x082B.",
+    "source": "Live beobachtet + Display-Firmware Paketlogik"
+  },
+  "2101": {},
+  "2102": {},
+  "2103": {
+    "description": "ASM: 0837H 主控软件代码",
+    "source": "ASM DEMONS.ASM"
+  },
+  "2104": {
+    "default": "33"
+  },
+  "2105": {
+    "default": "644"
+  },
+  "2106": {
+    "default": "0",
+    "status": "Beobachtung/Hypothese; nicht bestätigt",
+    "knowledge": "Beim Start der Wärmepumpe startet die Pumpen-PWM offenbar zunächst mit 100 %. Später wurde Register 2115 stabil bei 50 % beobachtet. Register 2106 pulste anschließend weiterhin ungefähr alle 5 Minuten für etwa 9–11 Sekunden, ohne dass 2115 weiter reduziert wurde. Mögliche Deutung: 2106 zeigt ein zyklisches Pumpenregel-/PWM-Regelfenster; P12 könnte die Änderung pro Regelperiode beeinflussen; 50 % könnte eine aktive Untergrenze oder aktuelle Regelgrenze sein. Die Absenkung von 100 % auf 50 % wurde nicht lückenlos aufgezeichnet. Für eine Bestätigung ist ein neuer Start mit dauerhaftem Raw-Logging nötig.",
+    "source": "Live-Beobachtung FoxAir / Phnix Control App V0.2.53 am 2026-07-15 im Kühlbetrieb"
+  },
+  "2107": {
+    "default": "0",
+    "description": "ASM: 083BH 通信协议5AA5; wird bei OK gelöscht/ausgewertet",
+    "source": "ASM DEMONS.ASM"
+  },
+  "2108": {
+    "default": "0",
+    "description": "ASM: 083CH 风机静音标志位",
+    "source": "ASM DEMONS.ASM"
+  },
+  "2109": {
+    "default": "63"
+  },
+  "211": {
+    "description": "Zyklisch beobachteter interner Display/HMI-Kommunikationsblock; aktuell leer/Reserve. Nicht als WP-Parameter verwenden.",
+    "source": "Live beobachtet; Register 200-215, Bus 0x63, Frame 0x00C8"
+  },
+  "2110": {
+    "default": "0"
+  },
+  "2111": {
+    "default": "463"
+  },
+  "2112": {
+    "default": "17",
+    "description": "Evtl display Firmware"
+  },
+  "2113": {
+    "default": "0"
+  },
+  "2114": {
+    "default": "0"
+  },
+  "2115": {
+    "description": "tatsächlicher Testwert, bei Pumpe aus wird 100 angezeigt Einheit %.",
+    "source": "User correction 2026-06-19"
+  },
+  "2116": {},
+  "2117": {},
+  "2118": {},
+  "2119": {},
+  "212": {
+    "description": "Zyklisch beobachteter interner Display/HMI-Kommunikationsblock; aktuell leer/Reserve. Nicht als WP-Parameter verwenden.",
+    "source": "Live beobachtet; Register 200-215, Bus 0x63, Frame 0x00C8"
+  },
+  "2120": {},
+  "2121": {},
+  "2122": {},
+  "2123": {},
+  "2124": {},
+  "2125": {},
+  "2126": {},
+  "2127": {},
+  "2128": {},
+  "2129": {},
+  "213": {
+    "description": "Zyklisch beobachteter interner Display/HMI-Kommunikationsblock; aktuell leer/Reserve. Nicht als WP-Parameter verwenden.",
+    "source": "Live beobachtet; Register 200-215, Bus 0x63, Frame 0x00C8"
+  },
+  "2130": {},
+  "2131": {},
+  "2132": {},
+  "214": {
+    "description": "Zyklisch beobachteter interner Display/HMI-Kommunikationsblock; aktuell leer/Reserve. Nicht als WP-Parameter verwenden.",
+    "source": "Live beobachtet; Register 200-215, Bus 0x63, Frame 0x00C8"
+  },
+  "215": {
+    "description": "Zyklisch beobachteter interner Display/HMI-Kommunikationsblock; aktuell leer/Reserve. Nicht als WP-Parameter verwenden.",
+    "source": "Live beobachtet; Register 200-215, Bus 0x63, Frame 0x00C8"
+  },
+  "__meta__": {
+    "default_device": "foxair_green_gl9_1",
+    "description": "Wissensdatenbank und Defaultwerte. Allgemeiner default gilt für alle Geräte, default_by_device überschreibt je Geräteauswahl.",
+    "device_default_rule": "default gilt allgemein, default_by_device überschreibt je Gerät. Register ab 2011 zeigen keine Defaultwerte an.",
+    "device_hint": "GL = R290, BL = R32. Auswahl nur für Defaultwerte relevant.",
+    "device_models": {
+      "foxair_blue_bl12_3": "FoxAir Blue Line BL12-3",
+      "foxair_blue_bl23_3": "FoxAir Blue Line BL23-3",
+      "foxair_blue_bl8_1": "FoxAir Blue Line BL8-1",
+      "foxair_green_gl15_3": "FoxAir Green Line GL15-3",
+      "foxair_green_gl22_3": "FoxAir Green Line GL22-3",
+      "foxair_green_gl9_1": "FoxAir Green Line GL9-1"
+    },
+    "devices": {
+      "foxair_blue_bl12_3": "FoxAir Blue Line BL12-3 (BL=R32)",
+      "foxair_blue_bl23_3": "FoxAir Blue Line BL23-3 (BL=R32)",
+      "foxair_blue_bl8_1": "FoxAir Blue Line BL8-1 (BL=R32)",
+      "foxair_green_gl15_3": "FoxAir Green Line GL15-3 (GL=R290)",
+      "foxair_green_gl22_3": "FoxAir Green Line GL22-3 (GL=R290)",
+      "foxair_green_gl9_1": "FoxAir Green Line GL9-1 (GL=R290)"
+    },
+    "format": "foxair_phnix_knowledge_v2",
+    "last_private_update": "0.2.32 z-block video 2026-06-14",
+    "note": "Beschreibungen, Hinweise, Quellen und Defaultwerte getrennt vom technischen Register-Mapping."
+  }
+}

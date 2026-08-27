@@ -1,0 +1,15 @@
+{
+  "config": {
+    "step": { "user": { "title": "FoxAir Heat Pump", "description": "Modbus TCP to EW11-host:8899", "data": {"host":"Host","port":"Port","slave":"Slave ID"} } },
+    "abort": { "already_configured": "Already configured" }
+  },
+  "entity": {
+    "sensor": {
+      "foxair_2045": {"name": "Inlet water temperature T01"},
+      "foxair_2046": {"name": "Outlet water temperature T02"},
+      "foxair_2048": {"name": "Ambient temperature"},
+      "foxair_2049": {"name": "Coil temperature"},
+      "foxair_2053": {"name": "Exhaust temperature"}
+    }
+  }
+}
