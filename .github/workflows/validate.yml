@@ -13,3 +13,14 @@ jobs:
       - uses: hacs/action@main
         with:
           category: integration
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m py_compile custom_components/foxair/*.py
+      - run: python -m json.tool custom_components/foxair/manifest.json > /dev/null && echo "manifest json ok"
+      - run: python -m json.tool hacs.json > /dev/null && echo "hacs json ok"
+      - run: python -m json.tool custom_components/foxair/translations/en.json > /dev/null && echo "en ok"
