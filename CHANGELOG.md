@@ -1,3 +1,8 @@
+## 0.2.5
+- translations: entity_id stays English (foxair_{addr}), friendly names now properly localized in 3 languages
+- strings.json/en.json English (source), de.json German, ru.json Russian (was German/English fallback)
+- Russian: full translation for all visible/popular sensors (T, R, H, P, SG) + block headers, fallback English only for 189 diagnostic internals
+
 ## 0.2.4
 - fix translations: all 573 entity names now English in strings.json/en.json (replaces remaining German like Abgastemperatur, Auslasswassertemperatur, Niederdruck, etc.)
 - fix orphan devices: auto-cleanup legacy per-block devices (foxair_H, foxair_A…) left from <0.2.3 - they appeared as 11 unavailable "FoxAir Modbus Heat Pump" devices
