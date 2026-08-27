@@ -48,14 +48,6 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     entry.async_on_unload(entry.add_update_listener(async_reload_entry))
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
     hass.async_create_task(_cleanup_orphaned_devices(hass))
-    # expose local brand assets explicitly so frontend can load them directly instead of relying on HACS resource copies or CDN
-    try:
-        from pathlib import Path
-        brand_dir = Path(__file__).parent / "brand"
-        if brand_dir.is_dir():
-            hass.http.register_static_path("/foxair/brand", str(brand_dir), cache_headers=False)
-    except Exception:
-        pass
     return True
 
 async def async_reload_entry(hass: HomeAssistant, entry: ConfigEntry):

@@ -1,3 +1,6 @@
+## 0.3.26
+- fix: HACS store icon — add `"icon": "mdi:heat-pump"` to manifest.json (HACS reads manifest icon for the repository card); remove ineffective `/foxair/brand` static-path registration (HA 2026.3 serves brand/ PNGs automatically via local brands API)
+
 ## 0.3.25
 - fix: heating curve image now always draws a line — AT-compensation curve (blue, clamped to R10/R11) when H36=1, constant line at R02 (amber) when H36=0, faint curve preview in fixed mode; slope normalized and offset respected; standalone SVG view aligned
 
