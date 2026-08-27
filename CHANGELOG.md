@@ -1,3 +1,6 @@
+## 0.3.23
+- fix: serve local brand assets from integration via `/foxair/brand` so device icon/logo load even if HACS frontend resource cache or CDN brand lookup fails
+
 ## 0.3.22
 - fix: heating curve image renders as sharp SVG instead of raster PNG; redraws only when curve values change (slope/offset/mode/AT/fixed/after-comp/R10/R11) and shows a placeholder when data is missing
 
