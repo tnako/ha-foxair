@@ -1,3 +1,6 @@
+## 0.3.6
+- i18n: fix SG & all 61 dropdowns German-only — options now use HA state translation slugs (off/on/single_contact/dhw etc) with proper en/de/ru; 1334 Single/Dual contact, 1011 Off/On, 1012 DHW/Heating/Cooling etc; select.py now uses translation_key + slug maps + legacy fallback; strings + translations for 86 selects
+
 ## 0.3.5
 - ci: fix hassfest dependencies — add http (views) + frontend (panel) to dependencies (was only frontend), fixes [DEPENDENCIES] Using component http error from 0.3.4
 

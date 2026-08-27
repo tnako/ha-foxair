@@ -2442,94 +2442,228 @@
     },
     "select": {
       "foxair_1011": {
-        "name": "ВКЛ/ВЫКЛ"
+        "name": "ВКЛ/ВЫКЛ",
+        "state": {
+          "off": "Выкл",
+          "on": "Вкл"
+        }
       },
       "foxair_1012": {
-        "name": "Установка режима"
+        "name": "Установка режима",
+        "state": {
+          "dhw": "ГВС",
+          "heating": "Отопление",
+          "cooling": "Охлаждение",
+          "dhw_heating": "ГВС + отопление",
+          "dhw_cooling": "ГВС + охлаждение"
+        }
       },
       "foxair_1014": {
-        "name": "Разрешить разморозку центр. контроллера при D26=1"
+        "name": "Разрешить разморозку центр. контроллера при D26=1",
+        "state": {
+          "disabled": "Запрещено",
+          "enabled": "Разрешено"
+        }
       },
       "foxair_1016": {
         "name": "Ручное управление / Тихий режим"
       },
       "foxair_1018": {
-        "name": "Автозапуск [H01]"
+        "name": "Автозапуск [H01]",
+        "state": {
+          "no": "Нет",
+          "yes": "Да"
+        }
       },
       "foxair_1019": {
-        "name": "Интегр. привод вентилятора и компрессора [H33]"
+        "name": "Интегр. привод вентилятора и компрессора [H33]",
+        "state": {
+          "no": "Нет",
+          "yes": "Да"
+        }
       },
       "foxair_1020": {
-        "name": "Код параметра [H34]"
+        "name": "Код параметра [H34]",
+        "state": {
+          "no_erp_test": "Без ERP теста",
+          "opt_35_c_test_condition": "35°C Test Condition",
+          "opt_55_c_test_condition": "55°C Test Condition"
+        }
       },
       "foxair_1021": {
-        "name": "Режим охлаждения [H05]"
+        "name": "Режим охлаждения [H05]",
+        "state": {
+          "no": "Охлаждение выкл",
+          "yes": "Охлаждение вкл"
+        }
       },
       "foxair_1023": {
-        "name": "Сухой контакт [H07]"
+        "name": "Сухой контакт [H07]",
+        "state": {
+          "display_control": "Главный",
+          "remote_control": "Ведомый"
+        }
       },
       "foxair_1024": {
         "name": "Адрес устройства [H10]"
       },
       "foxair_1027": {
-        "name": "EVI включен [H27]"
+        "name": "EVI включен [H27]",
+        "state": {
+          "no_evi": "Без EVI",
+          "evi_for_cooling": "EVI for cooling",
+          "evi_for_heating": "EVI for heating",
+          "evi_for_heating_and_cooling": "EVI for Heating and Cooling"
+        }
       },
       "foxair_1028": {
-        "name": "Функция отопл./охлажд. и ГВС вкл [H28]"
+        "name": "Функция отопл./охлажд. и ГВС вкл [H28]",
+        "state": {
+          "no": "No",
+          "yes": "Yes",
+          "only_dhw": "Only DHW"
+        }
       },
       "foxair_1029": {
-        "name": "Единица темп. [H21]"
+        "name": "Единица темп. [H21]",
+        "state": {
+          "c": "°C",
+          "f": "°F"
+        }
       },
       "foxair_1030": {
-        "name": "Тихий режим [H22]"
+        "name": "Тихий режим [H22]",
+        "state": {
+          "no": "Тихий выкл",
+          "yes": "Тихий вкл"
+        }
       },
       "foxair_1032": {
-        "name": "Ступень мощн. электронагревателя [H18]"
+        "name": "Ступень мощн. электронагревателя [H18]",
+        "state": {
+          "stage1": "Ступень 1",
+          "stage2": "Ступень 2",
+          "stage3": "Ступень 3"
+        }
       },
       "foxair_1033": {
-        "name": "Полярность 3-ходового клапана [H20]"
+        "name": "Полярность 3-ходового клапана [H20]",
+        "state": {
+          "hot_water_on": "Hot Water-ON",
+          "hot_water_off": "Hot Water-OFF"
+        }
       },
       "foxair_1034": {
         "name": "Режим работы [H29]"
       },
       "foxair_1035": {
-        "name": "Выбор темп. кондиционера [H25]"
+        "name": "Выбор темп. кондиционера [H25]",
+        "state": {
+          "outlet_water_temp": "Темп. подачи",
+          "room_temp": "Комнатная темп.",
+          "buffer_tank_temp": "Темп. буфера",
+          "inlet_water_temp": "Inlet Water Temp."
+        }
       },
       "foxair_1041": {
-        "name": "Тип насоса [H31]"
+        "name": "Тип насоса [H31]",
+        "state": {
+          "no_flow_detection": "Нет датчика потока",
+          "grundfos_25_75": "Grundfos(25~75)",
+          "grundfos_25_105": "Grundfos(25~105)",
+          "grundfos_25_125": "Grundfos(25~125)",
+          "apm25_9_130": "APM25(9~130)",
+          "apm25_12_130": "APM25(12~130)"
+        }
       },
       "foxair_1042": {
-        "name": "Датчик низкого давления [A11]"
+        "name": "Датчик низкого давления [A11]",
+        "state": {
+          "no": "Нет",
+          "yes": "Да"
+        }
       },
       "foxair_1045": {
         "name": "Время принуд. перекл. отопл./ГВС [H32]"
       },
       "foxair_1046": {
-        "name": "Источник темп. ГВС [H37]"
+        "name": "Источник темп. ГВС [H37]",
+        "state": {
+          "heat_pump_tank_sensor": "Датчик ТН/бака",
+          "modbus_central_controller": "Modbus / Central Controller"
+        }
       },
       "foxair_1047": {
-        "name": "Разреш. связь разморозки в каскаде [D26]"
+        "name": "Разреш. связь разморозки в каскаде [D26]",
+        "state": {
+          "no": "Нет",
+          "yes": "Да"
+        }
       },
       "foxair_1052": {
-        "name": "Датчик AT/всасыв./змеевика [A21]"
+        "name": "Датчик AT/всасыв./змеевика [A21]",
+        "state": {
+          "opt_5k": "5K",
+          "opt_2k": "2K"
+        }
       },
       "foxair_1054": {
-        "name": "Тип хладагента [A26]"
+        "name": "Тип хладагента [A26]",
+        "state": {
+          "r32": "R32",
+          "r290": "R290",
+          "r32_1": "R32-1",
+          "r290_1": "R290-1",
+          "r32_2": "R32-2",
+          "r290_2": "R290-2",
+          "r32_3": "R32-3",
+          "r290_3": "R290-3"
+        }
       },
       "foxair_1058": {
-        "name": "Вкл. датчик высокого давления [A29]"
+        "name": "Вкл. датчик высокого давления [A29]",
+        "state": {
+          "no": "Нет",
+          "yes": "Да"
+        }
       },
       "foxair_1059": {
-        "name": "Тип мотора вентилятора [F01]"
+        "name": "Тип мотора вентилятора [F01]",
+        "state": {
+          "legacy_high_speed_fan": "Legacy: High-Speed Fan",
+          "legacy_2_stage_fan": "Legacy: 2-Stage Fan",
+          "dc_fan_motor": "DC Fan Motor",
+          "dc_fan_external": "DC Fan External"
+        }
       },
       "foxair_1069": {
-        "name": "Вкл. многозонное управление [Z01]"
+        "name": "Вкл. многозонное управление [Z01]",
+        "state": {
+          "none": "Без зоны",
+          "zone_1_s": "Zone 1-S",
+          "zone_2_s": "Zone 2-S",
+          "zone_1_2_s": "Zone 1+2-S",
+          "zone_1_t": "Zone 1-T",
+          "zone_2_t": "Zone 2-T",
+          "zone_1_2_t": "Zone 1+2-T",
+          "zone_1_p": "Zone 1-P",
+          "zone_2_p": "Zone 2-P",
+          "zone_1_2_p": "Zone 1+2-P"
+        }
       },
       "foxair_1074": {
-        "name": "Количество [F10]"
+        "name": "Количество [F10]",
+        "state": {
+          "single": "Single",
+          "double": "Double"
+        }
       },
       "foxair_1077": {
-        "name": "Вкл. кривую компенсации AT Зона2 [Z17]"
+        "name": "Вкл. кривую компенсации AT Зона2 [Z17]",
+        "state": {
+          "no": "Нет",
+          "yes": "Да"
+        }
       },
       "foxair_1081": {
         "name": "Мин. скорость вент. охлаждения [F18]"
@@ -2538,10 +2672,18 @@
         "name": "Мин. скорость вент. в отоплении [F19]"
       },
       "foxair_1086": {
-        "name": "Таймер тишины Вкл (ASM V1.3: 243E) [F21]"
+        "name": "Таймер тишины Вкл (ASM V1.3: 243E) [F21]",
+        "state": {
+          "off": "Выкл",
+          "on": "Вкл"
+        }
       },
       "foxair_1087": {
-        "name": "Ручная скорость вентилятора [F22]"
+        "name": "Ручная скорость вентилятора [F22]",
+        "state": {
+          "no": "Нет",
+          "yes": "Да"
+        }
       },
       "foxair_1089": {
         "name": "Номин. скорость DC/AC вентилятора [F23]"
@@ -2550,31 +2692,72 @@
         "name": "Коррекция времени цикла разморозки [D06]"
       },
       "foxair_1126": {
-        "name": "Вкл. электронагреватель при разморозке [D21]"
+        "name": "Вкл. электронагреватель при разморозке [D21]",
+        "state": {
+          "no": "Нет",
+          "yes": "Да"
+        }
       },
       "foxair_1129": {
-        "name": "Источник тепла разморозки в реж. отопл./ГВС [D24]"
+        "name": "Источник тепла разморозки в реж. отопл./ГВС [D24]",
+        "state": {
+          "stay_current_circuit": "Stay Current Circuit",
+          "dhw_circuit": "Сторона ГВС/бак",
+          "heating_circuit": "Сторона отопления/буфер"
+        }
       },
       "foxair_1131": {
-        "name": "Режим управления EEV [E17]"
+        "name": "Режим управления EEV [E17]",
+        "state": {
+          "manual": "Вручную",
+          "auto": "Auto",
+          "smart": "Smart"
+        }
       },
       "foxair_1139": {
-        "name": "EVI EEV: Режим регулировки [E09]"
+        "name": "EVI EEV: Режим регулировки [E09]",
+        "state": {
+          "manual": "Вручную",
+          "auto": "Auto"
+        }
       },
       "foxair_1156": {
-        "name": "Enable Disinfection [G05]"
+        "name": "Enable Disinfection [G05]",
+        "state": {
+          "no": "No",
+          "yes": "Yes"
+        }
       },
       "foxair_1173": {
-        "name": "Расположение электронагревателя [R35]"
+        "name": "Расположение электронагревателя [R35]",
+        "state": {
+          "not_available": "Not Available",
+          "heating_water_circuit": "Heating water circuit",
+          "tank_buffer_heater": "Tank/buffer heater"
+        }
       },
       "foxair_1197": {
-        "name": "Режим работы осн. циркул. насоса [P01]"
+        "name": "Режим работы осн. циркул. насоса [P01]",
+        "state": {
+          "always_on": "Always On",
+          "saving": "Saving",
+          "interval": "Interval"
+        }
       },
       "foxair_1201": {
-        "name": "DHW Pump Operation Mode [P05]"
+        "name": "DHW Pump Operation Mode [P05]",
+        "state": {
+          "always_on": "Always On",
+          "saving": "Saving",
+          "interval": "Interval"
+        }
       },
       "foxair_1202": {
-        "name": "Main Circulation Pump Manual Control [P06]"
+        "name": "Main Circulation Pump Manual Control [P06]",
+        "state": {
+          "no": "No",
+          "yes": "Yes"
+        }
       },
       "foxair_1221": {
         "name": "Model Selection [C04]"
@@ -2583,10 +2766,18 @@
         "name": "Frequenzregelungsmodus [C06]"
       },
       "foxair_1236": {
-        "name": "Enable AT Compensation Curve Zone 1 [H36]"
+        "name": "Enable AT Compensation Curve Zone 1 [H36]",
+        "state": {
+          "no": "Нет",
+          "yes": "Да"
+        }
       },
       "foxair_1244": {
-        "name": "Таймер тихого режима Старт Вкл"
+        "name": "Таймер тихого режима Старт Вкл",
+        "state": {
+          "off": "Выкл",
+          "on": "Вкл"
+        }
       },
       "foxair_1245": {
         "name": "Таймер тихого режима Час старта"
@@ -2595,7 +2786,11 @@
         "name": "Таймер тихого режима Минута старта"
       },
       "foxair_1247": {
-        "name": "Таймер тихого режима Стоп Вкл"
+        "name": "Таймер тихого режима Стоп Вкл",
+        "state": {
+          "off": "Выкл",
+          "on": "Вкл"
+        }
       },
       "foxair_1248": {
         "name": "Таймер тихого режима Час стопа"
@@ -2604,7 +2799,11 @@
         "name": "Таймер тихого режима Минута стопа"
       },
       "foxair_1250": {
-        "name": "Включение системного времени"
+        "name": "Включение системного времени",
+        "state": {
+          "no": "Нет",
+          "yes": "Да"
+        }
       },
       "foxair_1251": {
         "name": "Текущая системная минута"
@@ -2628,22 +2827,70 @@
         "name": "WP Ein/Aus Timer 5+6 Aktiv/Tage Bitmaske [KG45-KG60]"
       },
       "foxair_1286": {
-        "name": "Таймер 1 Код режима (ASM; 9 = без смены режима)"
+        "name": "Таймер 1 Код режима (ASM; 9 = без смены режима)",
+        "state": {
+          "dhw": "ГВС",
+          "heating": "Отопление",
+          "cooling": "Охлаждение",
+          "dhw_heating": "ГВС + отопление",
+          "dhw_cooling": "ГВС + охлаждение",
+          "keep_mode_code_9": "Keep Mode / Code 9"
+        }
       },
       "foxair_1293": {
-        "name": "Таймер 2 Режим (ASM) (9 = без смены режима)"
+        "name": "Таймер 2 Режим (ASM) (9 = без смены режима)",
+        "state": {
+          "dhw": "ГВС",
+          "heating": "Отопление",
+          "cooling": "Охлаждение",
+          "dhw_heating": "ГВС + отопление",
+          "dhw_cooling": "ГВС + охлаждение",
+          "keep_mode_code_9": "Keep Mode / Code 9"
+        }
       },
       "foxair_1300": {
-        "name": "Таймер 3 Режим (ASM) (9 = без смены режима)"
+        "name": "Таймер 3 Режим (ASM) (9 = без смены режима)",
+        "state": {
+          "dhw": "ГВС",
+          "heating": "Отопление",
+          "cooling": "Охлаждение",
+          "dhw_heating": "ГВС + отопление",
+          "dhw_cooling": "ГВС + охлаждение",
+          "keep_mode_code_9": "Keep Mode / Code 9"
+        }
       },
       "foxair_1307": {
-        "name": "Таймер 4 Режим (ASM) (9 = без смены режима)"
+        "name": "Таймер 4 Режим (ASM) (9 = без смены режима)",
+        "state": {
+          "dhw": "ГВС",
+          "heating": "Отопление",
+          "cooling": "Охлаждение",
+          "dhw_heating": "ГВС + отопление",
+          "dhw_cooling": "ГВС + охлаждение",
+          "keep_mode_code_9": "Keep Mode / Code 9"
+        }
       },
       "foxair_1314": {
-        "name": "Таймер 5 Режим (ASM) (9 = без смены режима)"
+        "name": "Таймер 5 Режим (ASM) (9 = без смены режима)",
+        "state": {
+          "dhw": "ГВС",
+          "heating": "Отопление",
+          "cooling": "Охлаждение",
+          "dhw_heating": "ГВС + отопление",
+          "dhw_cooling": "ГВС + охлаждение",
+          "keep_mode_code_9": "Keep Mode / Code 9"
+        }
       },
       "foxair_1321": {
-        "name": "Таймер 6 Режим (ASM) (9 = без смены режима)"
+        "name": "Таймер 6 Режим (ASM) (9 = без смены режима)",
+        "state": {
+          "dhw": "ГВС",
+          "heating": "Отопление",
+          "cooling": "Охлаждение",
+          "dhw_heating": "ГВС + отопление",
+          "dhw_cooling": "ГВС + охлаждение",
+          "keep_mode_code_9": "Keep Mode / Code 9"
+        }
       },
       "foxair_1323": {
         "name": "Таймер 1+2 Актив/Дни Битмаска (ASM; Low байт Таймер1, High Таймер2)"
@@ -2655,16 +2902,124 @@
         "name": "Таймер 5+6 Актив/Дни Битмаска (ASM; Low Таймер5, High Таймер6)"
       },
       "foxair_1334": {
-        "name": "Выбор SG Ready [SG01]"
+        "name": "Выбор SG Ready [SG01]",
+        "state": {
+          "off": "Выкл",
+          "single_contact": "Один контакт",
+          "dual_contacts": "Два контакта"
+        }
       },
       "foxair_1341": {
-        "name": "Electric Heater On in SG Mode4 [SG08]"
+        "name": "Electric Heater On in SG Mode4 [SG08]",
+        "state": {
+          "no": "Нет",
+          "yes": "Да"
+        }
       },
       "foxair_1345": {
-        "name": "External Pump Selection [H40]"
+        "name": "External Pump Selection [H40]",
+        "state": {
+          "hot_water_pump": "Hot Water Pump",
+          "warm_water_circulation_pump": "Warm Water Circulation Pump",
+          "off_signal_when_defrosting": "Off Signal when defrosting"
+        }
       },
       "foxair_1358": {
-        "name": "Enable Zone 1 Water Pump in Cooling [Z20]"
+        "name": "Enable Zone 1 Water Pump in Cooling [Z20]",
+        "state": {
+          "no": "Нет",
+          "yes": "Да"
+        }
+      },
+      "foxair_1036": {
+        "name": "Indoor Unit Type / Hydraulikmodul-Typ",
+        "state": {
+          "none": "None",
+          "opt_1st_type": "1st Type",
+          "opt_2nd_type": "2nd Type",
+          "opt_3rd_type": "3rd Type"
+        }
+      },
+      "foxair_1080": {
+        "name": "Mischventil manuelle Stellrate (0% = Auto-Regelung)",
+        "state": {
+          "manual": "Вручную",
+          "auto": "Auto"
+        }
+      },
+      "foxair_1206": {
+        "name": "EEV Anfangsschritte Heizen 3",
+        "state": {
+          "no": "Нет",
+          "yes": "Да"
+        }
+      },
+      "foxair_1208": {
+        "name": "EEV Anfangsschritte Heizen 5",
+        "state": {
+          "no": "Нет",
+          "yes": "Да"
+        }
+      },
+      "foxair_2011": {
+        "name": "Gerätezustand",
+        "state": {
+          "off": "Выкл",
+          "on": "Вкл"
+        }
+      },
+      "foxair_2012": {
+        "name": "Aktueller Betriebsstatus",
+        "state": {
+          "cooling": "Охлаждение",
+          "heating": "Отопление",
+          "defrost": "Defrost",
+          "sterilization": "Стерилизация",
+          "dhw": "ГВС"
+        }
+      },
+      "foxair_2015": {
+        "name": "Zentrale Abtauautomatik anwenden",
+        "state": {
+          "no": "Нет",
+          "defrost_available": "Defrost Available"
+        }
+      },
+      "foxair_2018": {
+        "name": "025 / Lastausgang (Elektrischer Wassertankheizer)",
+        "state": {
+          "off": "Выкл",
+          "on": "Вкл"
+        }
+      },
+      "foxair_2133": {
+        "name": "SG Ready aktiver Modus",
+        "state": {
+          "off_disabled": "ТН выкл / SG выкл",
+          "sg1_sleep": "SG 1 / сон",
+          "sg2_low_pv": "SG 2 / мало PV",
+          "sg3_medium_pv": "SG 3 / средне PV",
+          "sg4_high_pv": "SG 4 / много PV",
+          "normal": "Обычный режим"
+        }
+      },
+      "foxair_2134": {
+        "name": "Timer State Leistungsbegrenzungstimer 1-6",
+        "state": {
+          "disabled": "Disabled",
+          "enabled": "Enabled"
+        }
+      },
+      "foxair_8801": {
+        "name": "SG Ready Active Mode",
+        "state": {
+          "off_disabled": "ТН выкл / SG выкл",
+          "sg1_sleep": "SG 1 / сон",
+          "sg2_low_pv": "SG 2 / мало PV",
+          "sg3_medium_pv": "SG 3 / средне PV",
+          "sg4_high_pv": "SG 4 / много PV",
+          "normal": "Обычный режим"
+        }
       }
     }
   },
