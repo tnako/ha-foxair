@@ -9,11 +9,14 @@ import json, pathlib
 _LOGGER = logging.getLogger(__name__)
 DEVICE = DeviceInfo(identifiers={(DOMAIN, "foxair")}, name="FoxAir Modbus Heat Pump", manufacturer="FoxAir/PHNIX", model="Modbus TCP Heat Pump")
 
+_VM_CACHE=None
 def load_value_map(addr):
+    global _VM_CACHE
     try:
-        p = pathlib.Path(__file__).parent / "data/foxair_phnix_registers.json"
-        regs = json.loads(p.read_text(encoding="utf-8-sig"))
-        rec = regs.get(str(addr), {})
+        if _VM_CACHE is None:
+            p = pathlib.Path(__file__).parent / "data/foxair_phnix_registers.json"
+            _VM_CACHE = json.loads(p.read_text(encoding="utf-8-sig"))
+        rec = _VM_CACHE.get(str(addr), {})
         return rec.get("value_map")
     except: return None
 
@@ -80,7 +83,7 @@ class FoxSelect(CoordinatorEntity, SelectEntity):
 
     async def async_select_option(self, option: str) -> None:
         # option is like "1: Ja" or "1"
-        raw_str=option.split(":")[0].strip()
+        raw_str=option.split(":",1)[0].strip()
         try: val=int(raw_str)
         except: val=int(option)
         ok=await self.coordinator.async_write_register(self._addr, float(val))

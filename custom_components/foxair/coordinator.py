@@ -59,31 +59,6 @@ class FoxAirCoordinator(DataUpdateCoordinator):
         self._regmap=None
         self._lock = asyncio.Lock()
 
-    async def _load_map(self):
-        p=pathlib.Path(__file__).parent/"data/foxair_phnix_registers.json"
-        text = await self.hass.async_add_executor_job(lambda: p.read_text(encoding="utf-8-sig"))
-        self._regmap = json.loads(text)
-        # load v0.3 metadata sidecar (editable, min/max, group, risk)
-        try:
-            mp=pathlib.Path(__file__).parent/"data/foxair_metadata.json"
-            mtext = await self.hass.async_add_executor_job(lambda: mp.read_text(encoding="utf-8-sig"))
-            self._metadata = json.loads(mtext)
-        except Exception:
-            self._metadata = {}
-
-
-    async def _load_map(self):
-        p=pathlib.Path(__file__).parent/"data/foxair_phnix_registers.json"
-        text = await self.hass.async_add_executor_job(lambda: p.read_text(encoding="utf-8-sig"))
-        self._regmap = json.loads(text)
-        # load v0.3 metadata sidecar (editable, min/max, group, risk)
-        try:
-            mp=pathlib.Path(__file__).parent/"data/foxair_metadata.json"
-            mtext = await self.hass.async_add_executor_job(lambda: mp.read_text(encoding="utf-8-sig"))
-            self._metadata = json.loads(mtext)
-        except Exception:
-            self._metadata = {}
-
     def get_metadata(self, addr: int) -> dict:
         return (getattr(self, "_metadata", {}) or {}).get(str(addr), {})
 
@@ -124,9 +99,11 @@ class FoxAirCoordinator(DataUpdateCoordinator):
                 raw = int(round(value*5))
             else:
                 raw = int(round(value))
-            raw = int(raw) & 0xFFFF
+            # signed to unsigned for modbus u16
             if raw < 0:
-                raw = (raw + 0x10000) & 0xFFFF
+                raw = (raw & 0xFFFF)
+            else:
+                raw = int(raw) & 0xFFFF
         except Exception as e:
             _LOGGER.error("Write conversion failed %s: %s", addr, e)
             return False

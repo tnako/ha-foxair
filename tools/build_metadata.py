@@ -85,22 +85,18 @@ def parse_range(desc: str, dtype: str):
     if not desc:
         return None, None
     d = desc.replace(",", ".").strip()
-    # patterns: "X bis Y", "X..Y", "X - Y"
+    # must be pure numeric bis numeric, not "R10 bis R11"
+    if re.search(r"R\d", d):
+        # limit regs like R10..R11 are interdependent, not absolute - fallback
+        return None, None
     m = re.search(r"(-?\d+(?:\.\d+)?)\s*(?:bis|..|–|—|-)\s*(-?\d+(?:\.\d+)?)", d)
     if m:
         try:
             lo, hi = float(m.group(1)), float(m.group(2))
             if lo > hi:
                 lo, hi = hi, lo
-            # sanity: ignore absurd ranges like 0..97 handled elsewhere, but keep
-            if abs(hi-lo) < 500:
+            if abs(hi-lo) < 500 and abs(lo) < 500 and abs(hi) < 500:
                 return lo, hi
-        except: pass
-    # fallback "1 bis 32" without degree
-    m = re.search(r"(\d+)\s*bis\s*(\d+)", d)
-    if m:
-        try:
-            return float(m.group(1)), float(m.group(2))
         except: pass
     return None, None
 
