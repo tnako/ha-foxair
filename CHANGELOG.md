@@ -1,3 +1,6 @@
+## 0.2.9
+- fix CI hassfest: manifest keys sorted (domain, name, then alphabetical) - previous error: Manifest keys are not sorted correctly
+
 ## 0.2.8
 - fix CI hassfest: remove invalid 'icon' from manifest (hassfest error: not a valid option at 'icon'), HACS now passes
 
