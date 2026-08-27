@@ -13,6 +13,8 @@ jobs:
       - uses: hacs/action@main
         with:
           category: integration
+          # topics and brands require GitHub repo settings / brands PR - ignore until configured
+          ignore: topics brands
   lint:
     runs-on: ubuntu-latest
     steps:
