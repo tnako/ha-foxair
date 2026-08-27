@@ -133,19 +133,19 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
         def clamp(v, lo, hi):
             return max(lo, min(hi, v))
 
-        # light theme — matches  white bg, grey grid
-        BG = (255, 255, 255)
-        GRID = (229, 231, 235)   # #e5e7eb
-        GRID_MINOR = (243, 244, 246)
-        AXIS = (55, 65, 81)      # #374151
-        TEXT = (75, 85, 99)      # #4b5563
-        TEXT_DARK = (17, 24, 39)
-        TITLE_CLR = (17, 24, 39)
-        CURVE = (37, 99, 235)    # #2563eb blue
-        CURVE_FILL = (219, 234, 254)  # #dbeafe light blue
-        FIXED_COL = (234, 88, 12)     # #ea580c orange dashed
-        DOT = (220, 38, 38)      # #dc2626 red live
-        AFTER_COL = (124, 58, 237)
+        # dark theme — matches  if dark display, larger 1200x720 not icon
+        BG = (15, 23, 42)        # #0f172a
+        GRID = (30, 41, 59)      # #1e293b
+        GRID_MINOR = (23, 33, 54)
+        AXIS = (51, 65, 85)      # #334155
+        TEXT = (148, 163, 184)   # #94a3b8
+        TEXT_DARK = (226, 232, 240)
+        TITLE_CLR = (226, 232, 240)
+        CURVE = (96, 165, 250)   # muted blue -> #60a5fa
+        CURVE_FILL = (30, 58, 95)
+        FIXED_COL = (251, 146, 60)   # orange
+        DOT = (248, 113, 113)    # red-400 live
+        AFTER_COL = (167, 139, 250)
 
         im = Image.new("RGB", (W, H), BG)
         draw = ImageDraw.Draw(im)
@@ -199,10 +199,10 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
         y_r10 = y_flow(r10)
         overlay = Image.new("RGBA", (W, H), (0,0,0,0))
         od = ImageDraw.Draw(overlay)
-        od.rectangle([(pad_l, y_r11), (W - pad_r, y_r10)], fill=(219, 234, 254, 110))
+        od.rectangle([(pad_l, y_r11), (W - pad_r, y_r10)], fill=CURVE_FILL + (70,))
         # subtle border of band
-        od.line([(pad_l, y_r11), (W - pad_r, y_r11)], fill=(37,99,235,70), width=1)
-        od.line([(pad_l, y_r10), (W - pad_r, y_r10)], fill=(37,99,235,70), width=1)
+        od.line([(pad_l, y_r11), (W - pad_r, y_r11)], fill=CURVE + (90,), width=1)
+        od.line([(pad_l, y_r10), (W - pad_r, y_r10)], fill=CURVE + (90,), width=1)
         im = Image.alpha_composite(im.convert("RGBA"), overlay).convert("RGB")
         draw = ImageDraw.Draw(im)
         try: draw.text((W - pad_r - 6, y_r11 + 6), f"R10 {r10:.0f}° — R11 {r11:.0f}°", fill=CURVE, font=f_tiny, anchor="rt")
@@ -220,7 +220,7 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
             poly = pts + [(pts[-1][0], H - pad_b), (pts[0][0], H - pad_b)]
             overlay2 = Image.new("RGBA", (W, H), (0,0,0,0))
             od2 = ImageDraw.Draw(overlay2)
-            od2.polygon(poly, fill=(219,234,254,80))
+            od2.polygon(poly, fill=CURVE_FILL + (55,))
             im = Image.alpha_composite(im.convert("RGBA"), overlay2).convert("RGB")
             draw = ImageDraw.Draw(im)
         # curve line
@@ -262,7 +262,7 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
                     # label bg
                     bbox = draw.textbbox((lx, ly), txt, font=f_small, anchor=anchor) if f_small else (lx-50, ly-10, lx+50, ly+10)
                     pad = 6
-                    draw.rounded_rectangle([(bbox[0]-pad, bbox[1]-pad), (bbox[2]+pad, bbox[3]+pad)], radius=6, fill=(255,255,255), outline=(229,231,235))
+                    draw.rounded_rectangle([(bbox[0]-pad, bbox[1]-pad), (bbox[2]+pad, bbox[3]+pad)], radius=6, fill=(30,41,59), outline=(51,65,85))
                     try: draw.text((lx, ly), txt, fill=DOT, font=f_small, anchor=anchor)
                     except: draw.text((lx, ly), txt, fill=DOT, anchor=anchor)
                     if after_comp is not None:
