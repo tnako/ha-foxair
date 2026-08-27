@@ -1,3 +1,6 @@
+## 0.3.34
+- feat: heating-curve image — labelled data points every 10 °C (−30,−20,−10,0,10,20) showing the flow value on the curve. AT=0 already covered by the anchor cross; right-edge label kept inside the plot.
+
 ## 0.3.33
 - fix: slope (1234) slider range now 0..3.5 (was 0..100 — raw DIGI5 range shown unscaled). Added RANGE_OVERRIDES in build_metadata; DIGI5 generic fallback corrected to displayed 0..10.
 

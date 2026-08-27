@@ -243,6 +243,30 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
             c = clamp(raw, r10, r11)
             curve_pts.append((round(x_at(at_step), 1), round(y_flow(c), 1)))
 
+        # ---- labelled data points every 10 °C (major gridlines) ----
+        point_markers = ""
+        for at_g in range(-30, 21, 10):
+            try:
+                raw = calc_curve_target(float(at_g), slope, offset, base=0.0)
+                c = clamp(raw, r10, r11)
+                px = round(x_at(float(at_g)), 1)
+                py = round(y_flow(c), 1)
+                if at_g == 0:
+                    continue  # AT=0 anchor already drawn by the reference cross
+                # keep label inside the plot: right-edge points get left-aligned text
+                at_right_edge = at_g >= 20
+                lx = px - 9 if at_right_edge else px + 9
+                anchor = "end" if at_right_edge else "start"
+                point_markers += (
+                    f'<circle cx="{px}" cy="{py}" r="5" fill="#38bdf8" '
+                    f'stroke="#0f172a" stroke-width="2"/>\n'
+                    f'<text x="{lx}" y="{py - 9}" fill="#e2e8f0" '
+                    f'text-anchor="{anchor}" font-family="sans-serif" font-size="13" '
+                    f'font-weight="bold">{float(c):.1f}°</text>\n'
+                )
+            except Exception:
+                continue
+
         # ---- fixed (constant) point ----
         fixed_y = round(y_flow(clamp(fixed, r10, r11)), 1)
 
@@ -333,7 +357,7 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
 <line x1="{pad_l}" y1="{H - pad_b}" x2="{W - pad_r}" y2="{H - pad_b}" stroke="{AXIS}" stroke-width="2"/>
 {grid_lines}{ref_cross}{ticks}<rect x="{pad_l}" y="{band_top}" width="{plot_w}" height="{band_h}" fill="{CURVE_FILL}"/>
 <text x="{W - pad_r - 6}" y="{band_top + 14}" text-anchor="end" fill="{CURVE}" font-family="sans-serif" font-size="12">R10 {r10:.0f} — R11 {r11:.0f}</text>
-{main_line}{preview}{banner}{dot_svg}<text x="{pad_l + plot_w // 2}" y="{H - 10}" text-anchor="middle" fill="{TEXT_DARK}" font-family="sans-serif" font-size="13">Outdoor temperature AT  [°C]</text>
+{main_line}{preview}{point_markers}{banner}{dot_svg}<text x="{pad_l + plot_w // 2}" y="{H - 10}" text-anchor="middle" fill="{TEXT_DARK}" font-family="sans-serif" font-size="13">Outdoor temperature AT  [°C]</text>
 <text x="18" y="{pad_t + plot_h // 2}" text-anchor="middle" fill="{TEXT_DARK}" font-family="sans-serif" font-size="14" transform="rotate(-90 18,{pad_t + plot_h // 2})">Flow °C</text>
 </svg>"""
 
