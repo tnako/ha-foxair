@@ -1,3 +1,6 @@
+## 0.3.22
+- fix: heating curve image renders as sharp SVG instead of raster PNG; redraws only when curve values change (slope/offset/mode/AT/fixed/after-comp/R10/R11) and shows a placeholder when data is missing
+
 ## 0.3.21
 - fix: improve register grouping to match official app tab split (H/A/F/D/E/R/P/G/C/Z/O/S/T) — entities now organized by app tabs instead of legacy block-only grouping; metadata and device names updated accordingly
 
