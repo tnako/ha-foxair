@@ -170,7 +170,7 @@ class FoxAirCoordinator(DataUpdateCoordinator):
                 try:
                     slave_id=cfg.get("slave",1)
                     # Elfin EW11 bridge is half-duplex Modbus RTU; 50ms caused transaction_id desync (see logs 17:43 FC16 ACK but read stale). Use 120ms like FoxAir_Control post_delay.
-                    await asyncio.sleep(0.12)
+                    await asyncio.sleep(0.22)
                     try:
                         rr=await self.client.read_holding_registers(address=addr, count=qty, slave=slave_id)
                     except TypeError:
