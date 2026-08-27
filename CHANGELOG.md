@@ -1,3 +1,6 @@
+## 0.3.17
+- feat: fast write cycle — after FC16, 350ms single-register read-back on ephemeral client patches coordinator.data + async_update_listeners (≈0.8s UI update) instead of waiting 30s full poll. Background full refresh still scheduled.
+
 ## 0.3.16
 - fix: slope write still reverting after FC16 — use ephemeral write client (poll client polluted by Elfin broadcast extra data) + 600ms post-write refresh. Live-tested 0.22s gap reduces but not eliminates desync; write isolation fixes persistence.
 

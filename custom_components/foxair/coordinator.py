@@ -147,10 +147,25 @@ class FoxAirCoordinator(DataUpdateCoordinator):
                 _LOGGER.error("Write %s error %s", addr, rr)
                 return False
             _LOGGER.warning("Write OK FC16 %s [%s] -> raw %s (scaled %.2f)", addr, meta.get("code"), raw, value)
-            await asyncio.sleep(0.6)
-            # refresh via main poll client
-            async with self._lock:
-                await self.async_request_refresh()
+            # fast single-register read-back on same clean connection — ~300ms instead of waiting 30s full 12-block poll (Elfin broadcast-polluted)
+            await asyncio.sleep(0.35)
+            try:
+                try:
+                    rr2 = await write_client.read_holding_registers(address=addr, count=1, slave=sid)
+                except TypeError:
+                    rr2 = await write_client.read_holding_registers(address=addr, count=1, device_id=sid)
+                if not rr2.isError() and getattr(rr2, "registers", None):
+                    raw2 = rr2.registers[0]
+                    info = (self._regmap or {}).get(str(addr)) or {"type": dtype}
+                    val2 = scaled(info.get("type", dtype), raw2)
+                    self.data[addr] = {"raw": raw2, "value": val2, "info": info}
+                    # push to entities immediately
+                    self.async_update_listeners()
+                    _LOGGER.warning("Write verify %s -> raw %s (scaled %.2f) fast-path", addr, raw2, val2)
+            except Exception as e:
+                _LOGGER.debug("fast readback %s failed %s", addr, e)
+            # also schedule full poll soon for consistency (don't block)
+            self.hass.async_create_task(self.async_request_refresh())
             return True
         except Exception as e:
             _LOGGER.error("Write %s exception %s", addr, e)
