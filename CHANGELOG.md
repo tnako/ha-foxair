@@ -1,3 +1,6 @@
+## 0.3.36
+- fix: add repository-root `brand/` directory (icon.png + @2x, logo) so the HACS store card shows the integration icon. The inner `custom_components/foxair/brand/` feeds HA's local /api/brands; HACS store listing needs the root-level `brand/` (see HACS issue #5171).
+
 ## 0.3.35
 - feat: optimistic UI updates for number + select writes — slider/mode shows the new value instantly on release instead of waiting for the Modbus round-trip (can be ~1-2s). Failed writes roll back; coordinator read-back/poll reconciles to the real device value.
 
