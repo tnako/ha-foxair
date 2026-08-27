@@ -1482,13 +1482,13 @@
         "name": "Темп. выхода EVI [T11]"
       },
       "foxair_2065": {
-        "name": "Evaporating Temp (ASM) [T-Diag1]"
+        "name": "Температура испарения (ASM) [T-Diag1]"
       },
       "foxair_2066": {
-        "name": "Exhaust Superheat (ASM) [T-Diag2]"
+        "name": "Перегрев выхлопа (ASM) [T-Diag2]"
       },
       "foxair_2067": {
-        "name": "Suction Superheat (ASM) [T-Diag3]"
+        "name": "Перегрев всасывания (ASM) [T-Diag3]"
       },
       "foxair_2068": {
         "name": "Система 2 Ток (ASM)"

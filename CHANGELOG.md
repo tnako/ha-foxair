@@ -1,3 +1,6 @@
+## 0.2.11
+- RU: T-Diag1-3 popular sensors now Russian (were English fallback)
+
 ## 0.2.10
 - fix translations: remaining 9 German names (SG Ready Auswahl/aktiver Modus/Schlafmodus/Leistung, Heizungsvorlauf/Raumtemperatur/AC-Spannung/DC-Bus etc.) now EN/RU
 
