@@ -1,7 +1,7 @@
 from homeassistant.components.sensor import SensorEntity, SensorDeviceClass, SensorStateClass
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.helpers.entity import DeviceInfo, EntityCategory
-from .const import DOMAIN, POPULAR_ADDRS, BLOCK_SHORT
+from .const import DOMAIN, POPULAR_ADDRS
 
 DTYPE_MAP = {
     "TEMP1": (SensorDeviceClass.TEMPERATURE, "°C", SensorStateClass.MEASUREMENT),
@@ -27,20 +27,7 @@ DTYPE_MAP = {
 }
 
 HIDDEN = {2057}
-
-def device_for_block(block):
-    if not block or block == "?": block = "Other"
-    name = f"FoxAir {block}"
-    desc = BLOCK_SHORT.get(block, block)
-    if block in BLOCK_SHORT:
-        name = f"FoxAir {block} - {desc}"
-    return DeviceInfo(
-        identifiers={(DOMAIN, f"foxair_{block}")},
-        name=name,
-        manufacturer="FoxAir/PHNIX",
-        model=f"Block {block}",
-        via_device=(DOMAIN, "foxair"),
-    )
+DEVICE = DeviceInfo(identifiers={(DOMAIN, "foxair")}, name="FoxAir Modbus Heat Pump", manufacturer="FoxAir/PHNIX", model="Modbus TCP Heat Pump")
 
 async def async_setup_entry(hass, entry, add_entities):
     coord = hass.data["foxair"][entry.entry_id]
@@ -60,10 +47,7 @@ class FoxSensor(CoordinatorEntity, SensorEntity):
         info = rec.get("info", {}) if rec else {}
         self._attr_unique_id = f"foxair_{addr}"
         self._attr_translation_key = f"foxair_{addr}"
-        block = info.get("block") or "Other"
-        if info.get("type") == "BLOCK":
-            block = "Other"
-        self._attr_device_info = device_for_block(block)
+        self._attr_device_info = DEVICE
         dtype = info.get("type","RAW")
         dc, unit, sc = DTYPE_MAP.get(dtype, (None, info.get("unit") or None, None))
         if dc: self._attr_device_class = dc
