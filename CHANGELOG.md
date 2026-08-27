@@ -1,3 +1,6 @@
+## 0.3.24
+- fix: align register tab assignments with official app split (H/A/F/D/E/R/P/G/C/Z/O/S/T); added authoritative `modbus/tabs.txt` from official app docs; regenerated `foxair_metadata.json` so device pages and entity grouping match official UI
+
 ## 0.3.23
 - fix: serve local brand assets from integration via `/foxair/brand` so device icon/logo load even if HACS frontend resource cache or CDN brand lookup fails
 
