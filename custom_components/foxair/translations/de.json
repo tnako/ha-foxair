@@ -1,20 +1,57 @@
 {
   "config": {
-    "step": { "user": { "title": "FoxAir Modbus Wärmepumpe", "description": "FoxAir / PHNIX über Modbus TCP verbinden", "data": {"host":"Host","port":"Port","slave":"Slave-ID"} } },
-    "abort": { "already_configured": "Bereits konfiguriert" }
+    "step": {
+      "user": {
+        "title": "FoxAir Modbus Wärmepumpe",
+        "description": "FoxAir / PHNIX über Modbus TCP verbinden",
+        "data": {
+          "host": "Host",
+          "port": "Port",
+          "slave": "Slave-ID"
+        }
+      }
+    },
+    "abort": {
+      "already_configured": "Bereits konfiguriert"
+    }
   },
   "entity": {
     "sensor": {
-      "foxair_2045": {"name": "Einlasswassertemperatur [T01]"},
-      "foxair_2046": {"name": "Auslasswassertemperatur [T02]"},
-      "foxair_2048": {"name": "Umgebungstemperatur [T04]"},
-      "foxair_2049": {"name": "Verdampfertemperatur [T03]"},
-      "foxair_2051": {"name": "Ansaugtemperatur [T05]"},
-      "foxair_2053": {"name": "Abgastemperatur [T12]"},
-      "foxair_2044": {"name": "IPM-Temperatur [T38]"},
-      "foxair_2057": {"name": "Live-Wert 2057"},
-      "foxair_2062": {"name": "AC-Eingangsspannung [T34]"},
-      "foxair_2072": {"name": "Betriebsfrequenz Verdichter [T31]"}
+      "foxair_2045": {
+        "name": "Einlasswassertemperatur [T01]"
+      },
+      "foxair_2046": {
+        "name": "Auslasswassertemperatur [T02]"
+      },
+      "foxair_2048": {
+        "name": "Umgebungstemperatur [T04]"
+      },
+      "foxair_2049": {
+        "name": "Verdampfertemperatur [T03]"
+      },
+      "foxair_2051": {
+        "name": "Ansaugtemperatur [T05]"
+      },
+      "foxair_2053": {
+        "name": "Abgastemperatur [T12]"
+      },
+      "foxair_2044": {
+        "name": "IPM-Temperatur [T38]"
+      },
+      "foxair_2057": {
+        "name": "Live-Wert 2057 [diagnose versteckt]"
+      },
+      "foxair_2062": {
+        "name": "AC-Eingangsspannung [T34]"
+      },
+      "foxair_2072": {
+        "name": "Betriebsfrequenz Verdichter [T31]"
+      }
+    },
+    "climate": {
+      "foxair_climate": {
+        "name": "Wärmepumpe"
+      }
     }
   }
 }

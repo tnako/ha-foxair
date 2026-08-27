@@ -2,7 +2,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from .coordinator import FoxAirCoordinator
 
-PLATFORMS = ["sensor"]
+PLATFORMS = ["sensor", "climate"]
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     coord = FoxAirCoordinator(hass, entry)

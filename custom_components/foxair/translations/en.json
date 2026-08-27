@@ -1,20 +1,57 @@
 {
   "config": {
-    "step": { "user": { "title": "FoxAir Modbus Heat Pump", "description": "Connect to FoxAir / PHNIX via Modbus TCP", "data": {"host":"Host","port":"Port","slave":"Slave ID"} } },
-    "abort": { "already_configured": "Already configured" }
+    "step": {
+      "user": {
+        "title": "FoxAir Modbus Heat Pump",
+        "description": "Connect to FoxAir / PHNIX via Modbus TCP",
+        "data": {
+          "host": "Host",
+          "port": "Port",
+          "slave": "Slave ID"
+        }
+      }
+    },
+    "abort": {
+      "already_configured": "Already configured"
+    }
   },
   "entity": {
     "sensor": {
-      "foxair_2045": {"name": "Inlet water temperature [T01]"},
-      "foxair_2046": {"name": "Outlet water temperature [T02]"},
-      "foxair_2048": {"name": "Ambient temperature [T04]"},
-      "foxair_2049": {"name": "Evaporator temperature [T03]"},
-      "foxair_2051": {"name": "Suction temperature [T05]"},
-      "foxair_2053": {"name": "Exhaust temperature [T12]"},
-      "foxair_2044": {"name": "IPM temperature [T38]"},
-      "foxair_2057": {"name": "Live value 2057"},
-      "foxair_2062": {"name": "AC input voltage [T34]"},
-      "foxair_2072": {"name": "Compressor operating frequency [T31]"}
+      "foxair_2045": {
+        "name": "Inlet water temperature [T01]"
+      },
+      "foxair_2046": {
+        "name": "Outlet water temperature [T02]"
+      },
+      "foxair_2048": {
+        "name": "Ambient temperature [T04]"
+      },
+      "foxair_2049": {
+        "name": "Evaporator temperature [T03]"
+      },
+      "foxair_2051": {
+        "name": "Suction temperature [T05]"
+      },
+      "foxair_2053": {
+        "name": "Exhaust temperature [T12]"
+      },
+      "foxair_2044": {
+        "name": "IPM temperature [T38]"
+      },
+      "foxair_2057": {
+        "name": "Live value 2057 [hidden diagnostic]"
+      },
+      "foxair_2062": {
+        "name": "AC input voltage [T34]"
+      },
+      "foxair_2072": {
+        "name": "Compressor operating frequency [T31]"
+      }
+    },
+    "climate": {
+      "foxair_climate": {
+        "name": "Heat pump"
+      }
     }
   }
 }
