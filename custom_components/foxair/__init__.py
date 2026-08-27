@@ -8,10 +8,6 @@ from .views import FoxAirCurveSvgView, FoxAirCurvePanelView
 PLATFORMS = ["sensor", "climate", "number", "select"]
 
 async def _cleanup_orphaned_devices(hass: HomeAssistant):
-    """Remove legacy per-block devices from <0.2.3 but keep 0.3.7+ block devices.
-    0.3.7+ identifiers are (DOMAIN, entry_id) and (DOMAIN, f"{entry_id}_{BLOCK}");
-    legacy were (DOMAIN, "foxair") and (DOMAIN, "foxair_H").
-    """
     try:
         registry = dr.async_get(hass)
         for device in list(registry.devices.values()):
@@ -26,17 +22,14 @@ async def _cleanup_orphaned_devices(hass: HomeAssistant):
         pass
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
-    # register HTTP views (idempotent)
     try:
         hass.http.register_view(FoxAirCurveSvgView())
         hass.http.register_view(FoxAirCurvePanelView())
     except Exception as e:
         import logging
         logging.getLogger(__name__).debug("FoxAir views already registered: %s", e)
-    # auto sidebar panel (iframe) — no Lovelace edit required
     try:
         from homeassistant.components.frontend import async_register_built_in_panel
-        # frontend is optional in some core installs
         if hasattr(hass, "components") and hasattr(hass.components, "frontend"):
             await async_register_built_in_panel(
                 hass,

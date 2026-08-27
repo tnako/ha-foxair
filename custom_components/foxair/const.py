@@ -20,7 +20,6 @@ BLOCK_SHORT = {
     "ERR": "Fault",
 }
 
-# German labels matching FoxAir_Control dialogs/parameter_settings_dialog.py BLOCK_SHORT_DESCRIPTIONS
 BLOCK_SHORT_DE = {
     "H": "Basis/Hardware",
     "A": "Schutz/Grenzen",
@@ -38,7 +37,6 @@ BLOCK_SHORT_DE = {
     "ERR": "Fault",
 }
 
-# Main heat pump device (climate + core controls) - kept as primary via_device parent
 def main_device(entry_id: str | None = None) -> DeviceInfo:
     ident = (DOMAIN, entry_id) if entry_id else (DOMAIN, "foxair")
     return DeviceInfo(
@@ -48,19 +46,11 @@ def main_device(entry_id: str | None = None) -> DeviceInfo:
         model="Modbus TCP Heat Pump",
     )
 
-# Single device fallback for legacy callers (tests)
 DEVICE = main_device()
 
 def device_for_block(block: str, entry_id: str | None = None) -> DeviceInfo:
-    """Return DeviceInfo for a given register block.
-
-    - Empty/unknown block or core controls (1011/1012) -> Main Heat Pump
-    - Known BLOCK_SHORT -> sub-device FoxAir — <label> [BLOCK] via Main
-    - Mirrors FoxAir_Control ParameterSettingsDialog grouping; H/A/F/D/E/C/R/T/Z/G/P/SG/KG/ERR
-    """
     ident_main = (DOMAIN, entry_id) if entry_id else (DOMAIN, "foxair")
     if not block or block not in BLOCK_SHORT:
-        # Header/Reserved or core ON/OFF/mode live on Main
         return main_device(entry_id)
     label = BLOCK_SHORT.get(block, block)
     return DeviceInfo(
@@ -72,15 +62,11 @@ def device_for_block(block: str, entry_id: str | None = None) -> DeviceInfo:
     )
 
 def device_for_addr(addr: int, block: str | None, entry_id: str | None = None) -> DeviceInfo:
-    """Convenience: core control addrs always on Main, else by block."""
-    # Core climate controls stay on Main for UX (climate card on top)
     CORE_MAIN_ADDRS = {1011, 1012, 1157, 1158, 1159, 1234, 1235, 1236, 8801, 2133, 2012, 2048, 2046}
     if addr in CORE_MAIN_ADDRS:
         return main_device(entry_id)
     return device_for_block(block or "", entry_id)
 
-# Bulk poll blocks (qty <=125) covering 1001-1540 and 2001-2149
-# Mirrors FoxAir_Control 8x90 init blocks but merged for efficiency (max 125 per Modbus frame).
 POLL_BLOCKS = [
     (1001, 125, "B1 H/A/F/D"),
     (1126, 125, "B2 E/R"),
@@ -90,7 +76,6 @@ POLL_BLOCKS = [
     (2001, 125, "B6 T live"),
     (2126, 24, "B7 ERR tail"),
 ]
-# Everyday controls stay visible, installer controls are Diagnostic and disabled by default
 POPULAR_ADDRS = {
     1011,1012,1016,1018,1021,1030,1035,
     *range(1157, 1200),  # R

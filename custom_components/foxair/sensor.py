@@ -55,11 +55,9 @@ async def async_setup_entry(hass, entry, add_entities):
         meta = coord.get_metadata(addr) if hasattr(coord, "get_metadata") else {}
         if meta.get("risk") == "blocked":
             continue
-        # 0.3.7: no duplicate sensor when editable number/select exists — number/select owns the entity
         if meta.get("editable") and meta.get("platform") in ("number", "select"):
             continue
         ents.append(FoxSensor(coord, addr))
-    # heating curve computed target lives on Main Heat Pump (climate area)
     ents.append(FoxHeatingCurveTargetSensor(coord))
     add_entities(ents)
 
@@ -72,7 +70,6 @@ class FoxSensor(CoordinatorEntity, SensorEntity):
         info = rec.get("info", {}) if rec else {}
         self._attr_unique_id = f"foxair_{addr}"
         self._attr_translation_key = f"foxair_{addr}"
-        # 0.3.7 per-block device (mirrors FoxAir_Control ParameterSettingsDialog BLOCK_SHORT)
         try:
             meta = coord.get_metadata(addr) if hasattr(coord, "get_metadata") else {}
         except: meta = {}
@@ -81,7 +78,6 @@ class FoxSensor(CoordinatorEntity, SensorEntity):
         # coordinator stores entry_id via hass.data key; fallback to None -> main
         if not entry_id and hasattr(coord, "_entry_id"):
             entry_id = coord._entry_id
-        # sensor entities keep main as fallback if entry_id unknown at init (device re-bound on update)
         self._attr_device_info = device_for_addr(addr, block, entry_id)
         dtype = info.get("type","RAW")
         dc, unit, sc = DTYPE_MAP.get(dtype, (None, info.get("unit") or None, None))
@@ -137,7 +133,6 @@ class FoxHeatingCurveTargetSensor(CoordinatorEntity, SensorEntity):
     def __init__(self, coord):
         super().__init__(coord)
         self._attr_unique_id = "foxair_heating_curve_target"
-        # curve target lives on Main Heat Pump (together with climate)
         entry_id = getattr(coord, "_entry_id", None) or getattr(coord, "config_entry", None) and getattr(coord.config_entry, "entry_id", None)
         self._attr_device_info = main_device(entry_id)
     @property

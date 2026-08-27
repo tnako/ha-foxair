@@ -1,3 +1,6 @@
+## 0.3.8
+- chore: remove versioned code comments added in 0.3.7 (no functional change, same per-block devices + dedup)
+
 ## 0.3.7
 - refactor: reorganize into per-block HA devices mirroring FoxAir_Control ParameterSettingsDialog BLOCK_SHORT (H/A/F/D/E/C/R/T/Z/G/P/SG/KG/ERR) + Main Heat Pump on top
 - Main device [climate + 1011 ON/OFF + 1012 mode + 1157-1159 setpoints + 1234-1236 curve + 2048/2046 live] stays first (climate card)
