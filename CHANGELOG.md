@@ -1,3 +1,6 @@
+## 0.3.27
+- fix: restore heating-curve controls on main device — 1234 (slope), 1235 (offset), 1236 (H36 fixed/AT-compensation) and R02/R10/R11 (target/min/max water temp) are now `safe` and not expert-gated, so they appear without enabling expert mode (regression from expert-gate added after 0.3.9)
+
 ## 0.3.26
 - fix: HACS store icon — add `"icon": "mdi:heat-pump"` to manifest.json (HACS reads manifest icon for the repository card); remove ineffective `/foxair/brand` static-path registration (HA 2026.3 serves brand/ PNGs automatically via local brands API)
 

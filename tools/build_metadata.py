@@ -72,6 +72,16 @@ RISK_OVERRIDES = {
     1074: "dangerous",  # F10 quantity fan count
     1059: "dangerous",  # F01 fan type
     1086: "advanced",   # F21 timer mute
+    # Heating-curve controls are safe, everyday user settings (NOT hardware/brick risks):
+    1234: "safe",       # AT-compensation slope
+    1235: "safe",       # AT-compensation offset
+    1236: "safe",       # H36 fixed vs AT-compensation mode selector
+    # Heating setpoint limits are safe installer/end-user settings:
+    1158: "safe",       # R02 heating target temp
+    1164: "safe",       # R10 min heating target temp
+    1165: "safe",       # R11 max heating target temp
+    1157: "safe",       # R01 DHW target temp
+    1159: "safe",       # R03 cooling target temp
 }
 
 TYPE_TO_PLATFORM = {
@@ -164,7 +174,7 @@ def main():
         risk = RISK_OVERRIDES.get(addr, RISK_BY_BLOCK.get(block, "advanced" if editable else "safe"))
         if dtype == "BLOCK":
             risk = "blocked"
-        requires_expert = risk in ("advanced","dangerous") or addr in RISK_OVERRIDES
+        requires_expert = risk in ("advanced", "dangerous")
         if risk == "dangerous":
             requires_expert = True
         # min/max from knowledge
