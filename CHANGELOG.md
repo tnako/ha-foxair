@@ -1,3 +1,7 @@
+## 0.3.11
+- fix: AT Compensation Slope/Offset show unknown — poll 1126×125 truncated by Elfin bridge to 90 regs so 1234 sat at offset 108 outside reply; split POLL_BLOCKS to 60/65 (12 blocks) so 1234-1236 now via 1186×65
+- fix: Offset 37.0 exceeded old -5..5 limit — widen 1235 to -30..70°C (live raw 370 → 37.0) so number shows value; slope 0.3 (raw 3, DIGI5/10) already in 0.1..3.0
+
 ## 0.3.10
 - i18n: fix Timer (KG) German-only — 1256-1270 WP Ein/Aus Timer Startzeit/Stopzeit and Aktiv/Tage Bitmaske now HP On/Off Timer Start/End and Active/Days Bitmask in en (de keeps WP Ein/Aus), ru transliteration; sensor/select duplicate for TIMER_BITPAIR already hidden via sensor dedup
 

@@ -68,13 +68,18 @@ def device_for_addr(addr: int, block: str | None, entry_id: str | None = None) -
     return device_for_block(block or "", entry_id)
 
 POLL_BLOCKS = [
-    (1001, 125, "B1 H/A/F/D"),
-    (1126, 125, "B2 E/R"),
-    (1251, 125, "B3 R/C/SG/P 1251-1375"),
-    (1376, 125, "B4 factory/test+P 1376-1500"),
-    (1501, 40, "B5 extra 1501-1540"),
-    (2001, 125, "B6 T live"),
-    (2126, 24, "B7 ERR tail"),
+    (1001, 60, "B1 H/A"),
+    (1061, 65, "B1b"),
+    (1126, 60, "B2 E/R start"),
+    (1186, 65, "B2b E/R tail inc 1234"),
+    (1251, 60, "B3 R/C/SG/P"),
+    (1311, 65, "B3b"),
+    (1376, 60, "B4 factory"),
+    (1436, 65, "B4b"),
+    (1501, 40, "B5 extra"),
+    (2001, 60, "B6 T"),
+    (2061, 65, "B6b T tail"),
+    (2126, 24, "B7 ERR"),
 ]
 POPULAR_ADDRS = {
     1011,1012,1016,1018,1021,1030,1035,
