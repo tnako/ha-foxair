@@ -59,6 +59,10 @@ async def async_setup_entry(hass, entry, add_entities):
             continue
         ents.append(FoxSensor(coord, addr))
     ents.append(FoxHeatingCurveTargetSensor(coord))
+    # computed (derived) sensors: heating power, electrical power, COP
+    ents.append(FoxHeatingPowerSensor(coord))
+    ents.append(FoxElectricalPowerSensor(coord))
+    ents.append(FoxCopSensor(coord))
     add_entities(ents)
 
 class FoxSensor(CoordinatorEntity, SensorEntity):
@@ -125,6 +129,7 @@ class FoxSensor(CoordinatorEntity, SensorEntity):
         try: meta = self.coordinator.get_metadata(self._addr)
         except: pass
         return {"raw": rec.get("raw"), "address": self._addr, "block": info.get("block"), "code": info.get("code"), "type": info.get("type"), "group": meta.get("group"), "risk": meta.get("risk"), "editable": meta.get("editable"), "min": meta.get("min"), "max": meta.get("max")}
+
 class FoxHeatingCurveTargetSensor(CoordinatorEntity, SensorEntity):
     _attr_has_entity_name = True
     _attr_translation_key = "foxair_heating_curve_target"
@@ -161,3 +166,211 @@ class FoxHeatingCurveTargetSensor(CoordinatorEntity, SensorEntity):
             return {"at": at, "slope": slope, "offset": offset, "h36_enable": en, "fixed_r02": fixed, "after_comp_2014": after, "r10_min": r10, "r11_max": r11, "panel": "/api/foxair/heating-curve-panel", "svg": "/api/foxair/heating_curve.svg"}
         except: return {}
 
+
+# ---------------------------------------------------------------------------
+# Computed (derived) sensors: heating power, electrical power, COP.
+# These are calculated from raw FoxAir register values rather than read directly.
+#
+# Heating power uses the classic water-side formula
+#     P[W] = (flow_m3h / 3600) * rho * cp * dT
+# with an EMA smoother + "hold-last-good" guard on the (flaky) water-flow
+# reading, and a hard zero when the compressor is off.
+#
+# Electrical power used for COP has a configurable source (see Options):
+#   - "foxair_register" : the device's own Unit Power register 2054 (/10 kW) —
+#                         accurate, no calibration needed (default).
+#   - "foxair_v_a"      : V(2062) x I(2057) with user-tunable gain/offset.
+#   - "external_meter"  : an external HA power-meter entity.
+# COP = heating_power / electrical_power, guarded against standby/garbage values.
+# ---------------------------------------------------------------------------
+
+# --- physical constants (water) ---
+_RHO = 1000.0     # kg/m^3
+_CP = 4186.0      # J/(kg*K)
+
+# --- register addresses (values already pre-scaled by coordinator.scaled) ---
+_ADDR_FLOW = 2077       # FLOW_M3H_X100 -> m3/h
+_ADDR_T_IN = 2045       # Einlasswassertemperatur (inlet)  TEMP1 -> degC
+_ADDR_T_OUT = 2046      # outlet water temp               TEMP1 -> degC
+_ADDR_FREQ = 2072       # compressor operation frequency  HZ   -> Hz
+_ADDR_VOLT = 2062       # AC input voltage                VOLT -> V
+_ADDR_I = 2057          # AC input current (legacy)       RAW  -> raw counts (calibrate!)
+_ADDR_UNIT_POWER = 2054 # Unit Power                   POWER_KW_X10 -> /10 kW
+
+# --- defaults for the V/A calibration option ---
+_DEFAULT_V_GAIN = 1.0
+_DEFAULT_V_OFFSET = 0.0
+_DEFAULT_I_GAIN = 0.1   # 2057 raw counts -> ~A (legacy modbus used scale 0.1)
+_DEFAULT_I_OFFSET = 0.0
+
+_EMA_ALPHA = 0.3        # flow smoother factor
+_FLOW_MIN = 0.3         # m3/h below this the flow signal is meaningless
+_FLOW_MAX = 10.0        # m3/h above this the flow signal is clearly bogus
+_P_MAX = 20000.0        # W, sanity clamp on heating power
+_COP_MAX = 8.0          # COP above this is physically implausible
+_ELEC_MIN_FOR_COP = 300.0  # W; ignore COP while essentially idle
+
+
+def _cval(coord, addr):
+    rec = coord.data.get(addr)
+    if not rec:
+        return None
+    v = rec.get("value")
+    try:
+        return float(v)
+    except (TypeError, ValueError):
+        return None
+
+
+def compute_heating_power(coord):
+    """Heating power in W from water flow x dT, or None.
+
+    EMA smoother + "hold-last-good" guard on the flaky flow reading; forced
+    zero when the compressor is off. EMA state lives on the coordinator so it
+    survives entity re-setup.
+    """
+    flow = _cval(coord, _ADDR_FLOW)
+    t_in = _cval(coord, _ADDR_T_IN)
+    t_out = _cval(coord, _ADDR_T_OUT)
+    freq = _cval(coord, _ADDR_FREQ)
+    if None in (flow, t_in, t_out, freq):
+        return None
+    ema = getattr(coord, "_flow_ema", 0.0)
+    if freq <= 0:
+        coord._flow_ema = 0.0
+        return None
+    if flow > 0:
+        if ema <= 0:
+            ema = flow
+        else:
+            ema = ema + _EMA_ALPHA * (flow - ema)
+    coord._flow_ema = ema
+    if ema < _FLOW_MIN or ema > _FLOW_MAX:
+        return None
+    dT = t_out - t_in
+    if dT <= 0:
+        return None
+    p = (ema / 3600.0) * _RHO * _CP * dT
+    if not (0 < p < _P_MAX):
+        return None
+    return p
+
+
+def compute_electrical_power(coord, options):
+    """Return electrical power in W from the configured source, or None."""
+    source = (options or {}).get("elec_source", "foxair_register")
+    if source == "external_meter":
+        ent = (options or {}).get("external_meter_entity")
+        if not ent:
+            return None
+        state = coord.hass.states.get(ent)
+        if state is None:
+            return None
+        try:
+            val = float(state.state)
+        except (TypeError, ValueError):
+            return None
+        return val if val > 0 else None
+    if source == "foxair_v_a":
+        v_raw = _cval(coord, _ADDR_VOLT)
+        i_raw = _cval(coord, _ADDR_I)
+        if v_raw is None or i_raw is None:
+            return None
+        v_gain = float((options or {}).get("v_gain", _DEFAULT_V_GAIN))
+        v_off = float((options or {}).get("v_offset", _DEFAULT_V_OFFSET))
+        i_gain = float((options or {}).get("i_gain", _DEFAULT_I_GAIN))
+        i_off = float((options or {}).get("i_offset", _DEFAULT_I_OFFSET))
+        v = (v_raw + v_off) * v_gain
+        i = (i_raw + i_off) * i_gain
+        if v <= 0 or i <= 0:
+            return None
+        return v * i
+    # default: device Unit Power register (/10 kW -> W)
+    p = _cval(coord, _ADDR_UNIT_POWER)
+    if p is None:
+        return None
+    w = p * 1000.0
+    return w if w >= 0 else None
+
+
+class FoxComputedSensor(CoordinatorEntity, SensorEntity):
+    _attr_has_entity_name = True
+
+    def __init__(self, coord):
+        super().__init__(coord)
+        entry_id = getattr(coord, "_entry_id", None) or (
+            getattr(coord, "config_entry", None)
+            and coord.config_entry.entry_id
+        )
+        self._attr_device_info = main_device(entry_id)
+
+    @property
+    def _opts(self):
+        return self.coordinator.entry.options
+
+
+class FoxHeatingPowerSensor(FoxComputedSensor):
+    _attr_unique_id = "foxair_heating_power"
+    _attr_translation_key = "foxair_heating_power"
+    _attr_device_class = SensorDeviceClass.POWER
+    _attr_native_unit_of_measurement = "W"
+    _attr_state_class = SensorStateClass.MEASUREMENT
+    _attr_icon = "mdi:radiator"
+
+    @property
+    def native_value(self):
+        p = compute_heating_power(self.coordinator)
+        return None if p is None else round(p, 1)
+
+    @property
+    def extra_state_attributes(self):
+        try:
+            flow = _cval(self.coordinator, _ADDR_FLOW)
+            freq = _cval(self.coordinator, _ADDR_FREQ)
+            ema = getattr(self.coordinator, "_flow_ema", 0.0)
+            return {
+                "flow_raw_m3h": flow,
+                "flow_smoothed_m3h": round(ema, 3),
+                "compressor_freq_hz": freq,
+            }
+        except Exception:
+            return {}
+
+
+class FoxElectricalPowerSensor(FoxComputedSensor):
+    _attr_unique_id = "foxair_electrical_power"
+    _attr_translation_key = "foxair_electrical_power"
+    _attr_device_class = SensorDeviceClass.POWER
+    _attr_native_unit_of_measurement = "W"
+    _attr_state_class = SensorStateClass.MEASUREMENT
+    _attr_icon = "mdi:flash"
+
+    @property
+    def native_value(self):
+        p = compute_electrical_power(self.coordinator, self._opts)
+        return None if p is None else round(p, 1)
+
+    @property
+    def extra_state_attributes(self):
+        source = (self._opts or {}).get("elec_source", "foxair_register")
+        return {"source": source}
+
+
+class FoxCopSensor(FoxComputedSensor):
+    _attr_unique_id = "foxair_cop"
+    _attr_translation_key = "foxair_cop"
+    _attr_state_class = SensorStateClass.MEASUREMENT
+    _attr_icon = "mdi:sigma"
+
+    @property
+    def native_value(self):
+        hp = compute_heating_power(self.coordinator)
+        if hp is None:
+            return None
+        ep = compute_electrical_power(self.coordinator, self._opts)
+        if ep is None or ep <= _ELEC_MIN_FOR_COP:
+            return None
+        cop = hp / ep
+        if 0 < cop <= _COP_MAX:
+            return round(cop, 2)
+        return None

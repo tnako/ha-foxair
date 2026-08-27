@@ -1,3 +1,7 @@
+## 0.3.42
+- fix: removed the phantom `computed` platform that broke integration load ("Setup failed for 'computed': Integration not found"). The heating-power / electrical-power / COP sensors now live on the standard `sensor` platform (moved into sensor.py). `computed.py` deleted.
+- note: `foxair_heating_power` / `foxair_electrical_power` / `foxair_cop` keep the same unique_ids as the old YAML template sensors — once the old modbus/template block is removed from configuration.yaml the new integration versions take over the same entity_ids (continuous InfluxDB history). Until then the old template sensors win the duplicate-id.
+
 ## 0.3.41
 - fix(climate): AT-compensation target now reads the heat pump's own computed curve target (reg 2014, "Temperaturwert nach Wetterkompensation") — exact parity with the vendor app (was off by a constant ~0.8°C from the linear offset/slope recompute). Formula retained as fallback.
 - fix(climate): separated On/Off from the mode selector. The climate card is now purely the operation-mode selector (Heat / Cool / HeatCool + DHW presets); power On/Off lives exclusively on the separate `switch.foxair_power` (reg 1011). Setting a mode no longer toggles power.
