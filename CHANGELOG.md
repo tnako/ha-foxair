@@ -1,3 +1,9 @@
+## 0.2.4
+- fix translations: all 573 entity names now English in strings.json/en.json (replaces remaining German like Abgastemperatur, Auslasswassertemperatur, Niederdruck, etc.)
+- fix orphan devices: auto-cleanup legacy per-block devices (foxair_H, foxair_A…) left from <0.2.3 - they appeared as 11 unavailable "FoxAir Modbus Heat Pump" devices
+- ru.json synced to English fallback (was German) so Russian UI no longer shows German names
+- BLOCK_SHORT labels translated to English
+
 # Changelog
 
 ## 0.2.3 - 2026-08-27

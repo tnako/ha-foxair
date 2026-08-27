@@ -1,20 +1,20 @@
 """FoxAir constants - block names and poll layout identical to FoxAir_Control."""
 DOMAIN = "foxair"
 BLOCK_SHORT = {
-    "H": "Basis/Hardware",
-    "A": "Schutz/Grenzen",
+    "H": "Base/Hardware",
+    "A": "Protection/Limits",
     "F": "Fan",
-    "D": "Abtauen",
+    "D": "Defrost",
     "E": "EVI/EEV",
     "C": "Compressor",
-    "R": "Sollwerte",
-    "T": "Diagnose/Live",
+    "R": "Setpoints",
+    "T": "Diagnostics/Live",
     "Z": "Zone",
-    "G": "Legionellen",
-    "P": "Pumpe",
+    "G": "Legionella",
+    "P": "Pump",
     "SG": "SG Ready",
     "KG": "Timer",
-    "ERR": "Fehler",
+    "ERR": "Fault",
 }
 # Bulk poll blocks (qty <=125) covering 1001-1358 and 2001-2149
 POLL_BLOCKS = [

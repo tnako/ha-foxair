@@ -2,119 +2,119 @@
   "config": {
     "step": {
       "user": {
-        "title": "Тепловой насос FoxAir Modbus",
-        "description": "Подключение FoxAir / PHNIX по Modbus TCP",
+        "title": "FoxAir Modbus Heat Pump",
+        "description": "Connect to FoxAir / PHNIX via Modbus TCP",
         "data": {
-          "host": "Хост",
-          "port": "Порт",
+          "host": "Host",
+          "port": "Port",
           "slave": "Slave ID"
         }
       }
     },
     "abort": {
-      "already_configured": "Уже настроено"
+      "already_configured": "Already configured"
     }
   },
   "entity": {
     "sensor": {
       "foxair_200": {
-        "name": "Interner HMI-Kommunikationsblock / Kennung Wort 1 / ASCII Zeichen 1-2"
+        "name": "HMI Comm Block ID Word 1 ASCII Char 1-2"
       },
       "foxair_201": {
-        "name": "Interner HMI-Kommunikationsblock / Kennung Wort 2 / ASCII Zeichen 3-4"
+        "name": "HMI Comm Block ID Word 2 ASCII Char 3-4"
       },
       "foxair_202": {
-        "name": "Interner HMI-Kommunikationsblock / Kennung Wort 3 / ASCII Zeichen 5-6"
+        "name": "HMI Comm Block ID Word 3 ASCII Char 5-6"
       },
       "foxair_203": {
-        "name": "Interner HMI-Kommunikationsblock / Kennung Wort 4 / ASCII Zeichen 7-8"
+        "name": "HMI Comm Block ID Word 4 ASCII Char 7-8"
       },
       "foxair_204": {
-        "name": "Interner HMI-Kommunikationsblock / Kennung Wort 5 / ASCII Zeichen 9-10"
+        "name": "HMI Comm Block ID Word 5 ASCII Char 9-10"
       },
       "foxair_205": {
-        "name": "Interner HMI-Kommunikationsblock / Kennung Wort 6 / ASCII Zeichen 11-12"
+        "name": "HMI Comm Block ID Word 6 ASCII Char 11-12"
       },
       "foxair_206": {
-        "name": "Interner HMI-Kommunikationsblock / Reserve"
+        "name": "HMI Comm Block Reserved [206]"
       },
       "foxair_207": {
-        "name": "Interner HMI-Kommunikationsblock / Reserve"
+        "name": "HMI Comm Block Reserved [207]"
       },
       "foxair_208": {
-        "name": "Interner HMI-Kommunikationsblock / Reserve"
+        "name": "HMI Comm Block Reserved [208]"
       },
       "foxair_209": {
-        "name": "Interner HMI-Kommunikationsblock / Reserve"
+        "name": "HMI Comm Block Reserved [209]"
       },
       "foxair_210": {
-        "name": "Interner HMI-Kommunikationsblock / Reserve"
+        "name": "HMI Comm Block Reserved [210]"
       },
       "foxair_211": {
-        "name": "Interner HMI-Kommunikationsblock / Reserve"
+        "name": "HMI Comm Block Reserved [211]"
       },
       "foxair_212": {
-        "name": "Interner HMI-Kommunikationsblock / Reserve"
+        "name": "HMI Comm Block Reserved [212]"
       },
       "foxair_213": {
-        "name": "Interner HMI-Kommunikationsblock / Reserve"
+        "name": "HMI Comm Block Reserved [213]"
       },
       "foxair_214": {
-        "name": "Interner HMI-Kommunikationsblock / Reserve"
+        "name": "HMI Comm Block Reserved [214]"
       },
       "foxair_215": {
-        "name": "Interner HMI-Kommunikationsblock / Reserve"
+        "name": "HMI Comm Block Reserved [215]"
       },
       "foxair_1001": {
-        "name": "Blockkopf Paket 1 / Kennung Wort 1 / WiFi Barcode ASCII Zeichen 1-2"
+        "name": "Block Header Packet 1 ID Word 1 WiFi Barcode ASCII Char 1-2"
       },
       "foxair_1002": {
-        "name": "Blockkopf Paket 1 / Kennung Wort 2 / WiFi Barcode ASCII Zeichen 3-4"
+        "name": "Block Header Packet 1 ID Word 2 WiFi Barcode ASCII Char 3-4"
       },
       "foxair_1003": {
-        "name": "Blockkopf Paket 1 / Kennung Wort 3 / WiFi Barcode ASCII Zeichen 5-6"
+        "name": "Block Header Packet 1 ID Word 3 WiFi Barcode ASCII Char 5-6"
       },
       "foxair_1004": {
-        "name": "Blockkopf Paket 1 / Kennung Wort 4 / WiFi Barcode ASCII Zeichen 7-8"
+        "name": "Block Header Packet 1 ID Word 4 WiFi Barcode ASCII Char 7-8"
       },
       "foxair_1005": {
-        "name": "Blockkopf Paket 1 / Kennung Wort 5 / WiFi Barcode ASCII Zeichen 9-10"
+        "name": "Block Header Packet 1 ID Word 5 WiFi Barcode ASCII Char 9-10"
       },
       "foxair_1006": {
-        "name": "Blockkopf Paket 1 / Kennung Wort 6 / WiFi Barcode ASCII Zeichen 11-12"
+        "name": "Block Header Packet 1 ID Word 6 WiFi Barcode ASCII Char 11-12"
       },
       "foxair_1007": {
-        "name": "Blockkopf Paket 1 / Kennung Wort 7 / WiFi Barcode ASCII Reserve/Ende"
+        "name": "Block Header Packet 1 ID Word 7 WiFi Barcode ASCII Reserved/End"
       },
       "foxair_1008": {
-        "name": "Blockkopf Paket 1 / Reserve 2"
+        "name": "Block Header Packet 1 Reserved 2"
       },
       "foxair_1009": {
-        "name": "Blockkopf Paket 1 / Marker-Länge"
+        "name": "Block Header Packet 1 Marker Length"
       },
       "foxair_1010": {
-        "name": "Blockkopf Paket 1 / erstes Blockkopf-Register"
+        "name": "Block Header Packet 1 First Header Register"
       },
       "foxair_1011": {
-        "name": "AN/AUS"
+        "name": "ON/OFF"
       },
       "foxair_1012": {
-        "name": "Modus setzen"
+        "name": "Set Mode"
       },
       "foxair_1013": {
-        "name": "Wassertanktemperatur (vom Zentralregler bei H37-1)"
+        "name": "DHW Tank Temperature (from central controller H37=1)"
       },
       "foxair_1014": {
-        "name": "Zentralregler zum Abtauen zulassen bei D26-1"
+        "name": "Allow Central Controller Defrost at D26=1"
       },
       "foxair_1015": {
-        "name": "Sprachauswahl"
+        "name": "Language Selection"
       },
       "foxair_1016": {
-        "name": "Manuelle Steuerung / Silent Status"
+        "name": "Manual Control / Silent Status"
       },
       "foxair_1017": {
-        "name": "Logo-Auswahl"
+        "name": "Logo Selection"
       },
       "foxair_1018": {
         "name": "Auto start [H01]"
@@ -129,7 +129,7 @@
         "name": "Cooling Mode [H05]"
       },
       "foxair_1022": {
-        "name": "Reserviert"
+        "name": "Reserved [1022]"
       },
       "foxair_1023": {
         "name": "Dry Contact [H07]"
@@ -141,7 +141,7 @@
         "name": "Language choice [H38]"
       },
       "foxair_1026": {
-        "name": "Logo-Auswahl / Kundenlogo-Code (ASM) [H39]"
+        "name": "Logo Selection / Customer Logo Code (ASM) [H39]"
       },
       "foxair_1027": {
         "name": "EVI Enabled [H27]"
@@ -189,7 +189,7 @@
         "name": "Pump Type [H31]"
       },
       "foxair_1042": {
-        "name": "Niederspannungsdrucksensor [A11]"
+        "name": "Low Voltage Pressure Sensor [A11]"
       },
       "foxair_1043": {
         "name": "Antifreeze Min Temp [A23]"
@@ -222,7 +222,7 @@
         "name": "Ambient/Suction/Coil Sensor [A21]"
       },
       "foxair_1053": {
-        "name": "Niedrige Wassertemperatur Schutzwert [A22]"
+        "name": "Low Water Temperature Protection [A22]"
       },
       "foxair_1054": {
         "name": "Refrigerant Type [A26]"
@@ -258,13 +258,13 @@
         "name": "Crank Preheating Time [A34]"
       },
       "foxair_1065": {
-        "name": "Reserviert"
+        "name": "Reserved [1065]"
       },
       "foxair_1066": {
         "name": "Max Heat Coil Temp [F05]"
       },
       "foxair_1067": {
-        "name": "Reserviert"
+        "name": "Reserved [1067]"
       },
       "foxair_1068": {
         "name": "Min Heat Coil Temp [F06]"
@@ -297,10 +297,10 @@
         "name": "Enable AT Compensation Curve Zone 2 [Z17]"
       },
       "foxair_1078": {
-        "name": "Zone2 Heizkurve K / Raumtemperatur-Kompensation (ASM)"
+        "name": "Zone 2 Heating Curve K / Room Temp Compensation (ASM)"
       },
       "foxair_1079": {
-        "name": "Zone2 Heizkurve B / Raumtemperatur-Kompensation (ASM)"
+        "name": "Zone 2 Heating Curve B / Room Temp Compensation (ASM)"
       },
       "foxair_1080": {
         "name": "Mixing Valve Manual Adjustment Ratio (0% for Auto Control) [Z08]"
@@ -321,7 +321,7 @@
         "name": "Mixing Valve Adjustment P(PID) [Z11]"
       },
       "foxair_1086": {
-        "name": "Timer-Stummschaltung aktivieren (ASM V1.3: 243E) [F21]"
+        "name": "Timer Mute Enable (ASM V1.3: 243E) [F21]"
       },
       "foxair_1087": {
         "name": "Manual Control Fan Speed [F22]"
@@ -336,34 +336,34 @@
         "name": "Mixing Valve PID Period [Z13]"
       },
       "foxair_1091": {
-        "name": "Blockkopf Paket 2 / Kennung Wort 1 / ASCII Zeichen 1-2"
+        "name": "Block Header Packet 2 ID Word 1 ASCII Char 1-2"
       },
       "foxair_1092": {
-        "name": "Blockkopf Paket 2 / Kennung Wort 2 / ASCII Zeichen 3-4"
+        "name": "Block Header Packet 2 ID Word 2 ASCII Char 3-4"
       },
       "foxair_1093": {
-        "name": "Blockkopf Paket 2 / Kennung Wort 3 / ASCII Zeichen 5-6"
+        "name": "Block Header Packet 2 ID Word 3 ASCII Char 5-6"
       },
       "foxair_1094": {
-        "name": "Blockkopf Paket 2 / Kennung Wort 4 / ASCII Zeichen 7-8"
+        "name": "Block Header Packet 2 ID Word 4 ASCII Char 7-8"
       },
       "foxair_1095": {
-        "name": "Blockkopf Paket 2 / Kennung Wort 5 / ASCII Zeichen 9-10"
+        "name": "Block Header Packet 2 ID Word 5 ASCII Char 9-10"
       },
       "foxair_1096": {
-        "name": "Blockkopf Paket 2 / Kennung Wort 6 / ASCII Zeichen 11-12"
+        "name": "Block Header Packet 2 ID Word 6 ASCII Char 11-12"
       },
       "foxair_1097": {
-        "name": "Blockkopf Paket 2 / Reserve 1"
+        "name": "Block Header Packet 2 Reserved 1"
       },
       "foxair_1098": {
-        "name": "Blockkopf Paket 2 / Reserve 2"
+        "name": "Block Header Packet 2 Reserved 2"
       },
       "foxair_1099": {
-        "name": "Blockkopf Paket 2 / Marker-Länge"
+        "name": "Block Header Packet 2 Marker Length"
       },
       "foxair_1100": {
-        "name": "Blockkopf Paket 2 / erstes Blockkopf-Register"
+        "name": "Block Header Packet 2 First Header Register"
       },
       "foxair_1101": {
         "name": "CT to Reduce Top Fans in Cooling [F28]"
@@ -471,7 +471,7 @@
         "name": "Zone 2 Max. Water Target Temp. [Z15]"
       },
       "foxair_1136": {
-        "name": "Mischventil Regel-I (DIGI5 laut ASM-Kommentar) (ASM) [Z16]"
+        "name": "Mixing Valve I-Gain (DIGI5 per ASM) [Z16]"
       },
       "foxair_1137": {
         "name": "Min Initial Steps [E07]"
@@ -486,7 +486,7 @@
         "name": "EVI EEV: Initial Steps [E10]"
       },
       "foxair_1141": {
-        "name": "System 2 EVI/Enthalpie vorhanden wenn Wert != 0 (ASM V1.3)"
+        "name": "System 2 EVI / Enthalpy Present if Value != 0 (ASM V1.3)"
       },
       "foxair_1142": {
         "name": "EEV Initial Steps for Heating2 [E03-2]"
@@ -498,10 +498,10 @@
         "name": "EVI EEV Min. Steps [E14]"
       },
       "foxair_1145": {
-        "name": "Temperatur-/Hystereseparameter (ASM) [E15]"
+        "name": "Temperature / Hysteresis Parameter (ASM) [E15]"
       },
       "foxair_1146": {
-        "name": "Temperatur-/Hystereseparameter (ASM) [E16]"
+        "name": "Temperature / Hysteresis Parameter (ASM) [E16]"
       },
       "foxair_1147": {
         "name": "Defrosting EEV Steps [E17]"
@@ -513,10 +513,10 @@
         "name": "EEV Adjustment Range In Smart Mode [E19]"
       },
       "foxair_1150": {
-        "name": "Reserviert"
+        "name": "Reserved [1150]"
       },
       "foxair_1151": {
-        "name": "Reserviert"
+        "name": "Reserved [1151]"
       },
       "foxair_1152": {
         "name": "Disinfection Water Temp. [G01]"
@@ -597,13 +597,13 @@
         "name": "Max. DHW Target Temp. [R37]"
       },
       "foxair_1178": {
-        "name": "Temperatur-/Hystereseparameter R12 [R12]"
+        "name": "Temperature / Hysteresis Parameter R12 [R12]"
       },
       "foxair_1179": {
-        "name": "Temperatur-/Hystereseparameter R13 [R13]"
+        "name": "Temperature / Hysteresis Parameter R13 [R13]"
       },
       "foxair_1180": {
-        "name": "Temperatur-/Hystereseparameter R14 [R14]"
+        "name": "Temperature / Hysteresis Parameter R14 [R14]"
       },
       "foxair_1181": {
         "name": "Blockkopf Paket 3 / Kennung Wort 1 / ASCII Zeichen 1-2"
@@ -630,22 +630,22 @@
         "name": "Blockkopf Paket 3 / Reserve 2"
       },
       "foxair_1189": {
-        "name": "Blockkopf Paket 3 / Marker-Länge"
+        "name": "Block Header Packet 3 Marker Length"
       },
       "foxair_1190": {
-        "name": "Blockkopf Paket 3 / erstes Blockkopf-Register"
+        "name": "Block Header Packet 3 First Header Register"
       },
       "foxair_1191": {
-        "name": "Paketmarker / Syncwort / Blockkopfkennung"
+        "name": "Packet Marker / Sync Word / Block Header ID"
       },
       "foxair_1192": {
         "name": "AT for Auto-start Heating Mode [R39]"
       },
       "foxair_1193": {
-        "name": "Temperaturparameter, Celsius-Grenze 60 °C (ASM V1.3) [R40]"
+        "name": "Temperature Parameter, Celsius Limit 60 °C (ASM V1.3) [R40]"
       },
       "foxair_1194": {
-        "name": "Temperaturparameter, Celsius-Grenze 60 °C (ASM V1.3) [R41]"
+        "name": "Temperature Parameter, Celsius Limit 60 °C (ASM V1.3) [R41]"
       },
       "foxair_1195": {
         "name": "Power-on Return Difference of Tank Water [R16]"
@@ -699,13 +699,13 @@
         "name": "EEV Min. Steps3 [E07-3]"
       },
       "foxair_1212": {
-        "name": "Offset Inlet Temperatur"
+        "name": "Inlet Temperature Offset"
       },
       "foxair_1213": {
-        "name": "Offset outlet Temperatur"
+        "name": "Outlet Temperature Offset"
       },
       "foxair_1214": {
-        "name": "Offset WW Temperatur"
+        "name": "DHW Temperature Offset"
       },
       "foxair_1215": {
         "name": "EEV Min. Steps4 [E07-4]"
@@ -765,10 +765,10 @@
         "name": "AT to Start Frequency Limit in Cooling [R60]"
       },
       "foxair_1234": {
-        "name": "AT-Kompensation Slope / Steigung"
+        "name": "AT Compensation Slope"
       },
       "foxair_1235": {
-        "name": "AT-Kompensation Offset / Versatz"
+        "name": "AT Compensation Offset"
       },
       "foxair_1236": {
         "name": "Enable AT Compensation Curve Zone 1 [H36]"
@@ -795,40 +795,40 @@
         "name": "Room Temp. Diff. for Standby in Cooling [R74]"
       },
       "foxair_1244": {
-        "name": "Silentmodus Timer Start aktivieren"
+        "name": "Silent Mode Timer Start Enable"
       },
       "foxair_1245": {
-        "name": "Silentmodus Timer Start Stunde"
+        "name": "Silent Mode Timer Start Hour"
       },
       "foxair_1246": {
-        "name": "Silentmodus Timer Start Minute"
+        "name": "Silent Mode Timer Start Minute"
       },
       "foxair_1247": {
-        "name": "Silentmodus Timer Stop aktivieren"
+        "name": "Silent Mode Timer Stop Enable"
       },
       "foxair_1248": {
-        "name": "Silentmodus Timer Stop Stunde"
+        "name": "Silent Mode Timer Stop Hour"
       },
       "foxair_1249": {
-        "name": "Silentmodus Timer Stop Minute"
+        "name": "Silent Mode Timer Stop Minute"
       },
       "foxair_1250": {
-        "name": "Systemzeit aktivieren"
+        "name": "System Time Enable"
       },
       "foxair_1251": {
-        "name": "Aktuelle Systemminute"
+        "name": "Current System Minute"
       },
       "foxair_1252": {
-        "name": "Aktuelle Systemstunde"
+        "name": "Current System Hour"
       },
       "foxair_1253": {
-        "name": "Aktueller Systemtag"
+        "name": "Current System Day"
       },
       "foxair_1254": {
-        "name": "Aktueller Systemmonat"
+        "name": "Current System Month"
       },
       "foxair_1255": {
-        "name": "Aktuelles Systemjahr"
+        "name": "Current System Year"
       },
       "foxair_1256": {
         "name": "WP Ein/Aus Timer 1 Startzeit [KG1]"
@@ -900,169 +900,169 @@
         "name": "Blockkopf Paket 4 / Reserve 2"
       },
       "foxair_1279": {
-        "name": "Blockkopf Paket 4 / Marker-Länge"
+        "name": "Block Header Packet 4 Marker Length"
       },
       "foxair_1280": {
-        "name": "Blockkopf Paket 4 / erstes Blockkopf-Register"
+        "name": "Block Header Packet 4 First Header Register"
       },
       "foxair_1281": {
-        "name": "Timer 1 Einschaltzeit (HH:MM aus High-/Low-Byte) (ASM)"
+        "name": "Timer 1 On Time (HH:MM from High/Low Byte) (ASM)"
       },
       "foxair_1282": {
-        "name": "Timer 1 Ausschaltzeit (HH:MM aus High-/Low-Byte) (ASM)"
+        "name": "Timer 1 Off Time (HH:MM from High/Low Byte) (ASM)"
       },
       "foxair_1283": {
-        "name": "Timer 1 WW-Zieltemperatur (ASM)"
+        "name": "Timer 1 DHW Target Temperature (ASM)"
       },
       "foxair_1284": {
-        "name": "Timer 1 HZ-Zieltemperatur (ASM)"
+        "name": "Timer 1 Heating Target Temperature (ASM)"
       },
       "foxair_1285": {
-        "name": "Timer 1 Kühlen-Zieltemperatur (ASM)"
+        "name": "Timer 1 Cooling Target Temperature (ASM)"
       },
       "foxair_1286": {
-        "name": "Timer 1 Modus-Code (ASM; 9 = keinen Modus ändern)"
+        "name": "Timer 1 Mode Code (ASM; 9 = no mode change)"
       },
       "foxair_1287": {
-        "name": "Timer 1 max. Leistung (ASM)"
+        "name": "Timer 1 Max Power (ASM)"
       },
       "foxair_1288": {
-        "name": "Timer 2 Einschaltzeit (HH:MM aus High-/Low-Byte) (ASM)"
+        "name": "Timer 2 On Time (HH:MM from High/Low Byte) (ASM)"
       },
       "foxair_1289": {
-        "name": "Timer 2 Ausschaltzeit (HH:MM aus High-/Low-Byte) (ASM)"
+        "name": "Timer 2 Off Time (HH:MM from High/Low Byte) (ASM)"
       },
       "foxair_1290": {
-        "name": "Timer 2 WW-Zieltemperatur (ASM)"
+        "name": "Timer 2 DHW Target Temperature (ASM)"
       },
       "foxair_1291": {
-        "name": "Timer 2 HZ-Zieltemperatur (ASM)"
+        "name": "Timer 2 Heating Target Temperature (ASM)"
       },
       "foxair_1292": {
-        "name": "Timer 2 Kühlen-Zieltemperatur (ASM)"
+        "name": "Timer 2 Cooling Target Temperature (ASM)"
       },
       "foxair_1293": {
-        "name": "Timer 2 Modus (ASM) (9 = keinen Modus ändern)"
+        "name": "Timer 2 Mode (ASM) (9 = no mode change)"
       },
       "foxair_1294": {
-        "name": "Timer 2 max. Leistung (ASM)"
+        "name": "Timer 2 Max Power (ASM)"
       },
       "foxair_1295": {
-        "name": "Timer 3 Einschaltzeit (HH:MM aus High-/Low-Byte) (ASM)"
+        "name": "Timer 3 On Time (HH:MM from High/Low Byte) (ASM)"
       },
       "foxair_1296": {
-        "name": "Timer 3 Ausschaltzeit (HH:MM aus High-/Low-Byte) (ASM)"
+        "name": "Timer 3 Off Time (HH:MM from High/Low Byte) (ASM)"
       },
       "foxair_1297": {
-        "name": "Timer 3 WW-Zieltemperatur (ASM)"
+        "name": "Timer 3 DHW Target Temperature (ASM)"
       },
       "foxair_1298": {
-        "name": "Timer 3 HZ-Zieltemperatur (ASM)"
+        "name": "Timer 3 Heating Target Temperature (ASM)"
       },
       "foxair_1299": {
-        "name": "Timer 3 Kühlen-Zieltemperatur (ASM)"
+        "name": "Timer 3 Cooling Target Temperature (ASM)"
       },
       "foxair_1300": {
-        "name": "Timer 3 Modus (ASM) (9 = keinen Modus ändern)"
+        "name": "Timer 3 Mode (ASM) (9 = no mode change)"
       },
       "foxair_1301": {
-        "name": "Timer 3 max. Leistung (ASM)"
+        "name": "Timer 3 Max Power (ASM)"
       },
       "foxair_1302": {
-        "name": "Timer 4 Einschaltzeit (HH:MM aus High-/Low-Byte) (ASM)"
+        "name": "Timer 4 On Time (HH:MM from High/Low Byte) (ASM)"
       },
       "foxair_1303": {
-        "name": "Timer 4 Ausschaltzeit (HH:MM aus High-/Low-Byte) (ASM)"
+        "name": "Timer 4 Off Time (HH:MM from High/Low Byte) (ASM)"
       },
       "foxair_1304": {
-        "name": "Timer 4 WW-Zieltemperatur (ASM)"
+        "name": "Timer 4 DHW Target Temperature (ASM)"
       },
       "foxair_1305": {
-        "name": "Timer 4 HZ-Zieltemperatur (ASM)"
+        "name": "Timer 4 Heating Target Temperature (ASM)"
       },
       "foxair_1306": {
-        "name": "Timer 4 Kühlen-Zieltemperatur (ASM)"
+        "name": "Timer 4 Cooling Target Temperature (ASM)"
       },
       "foxair_1307": {
-        "name": "Timer 4 Modus (ASM) (9 = keinen Modus ändern)"
+        "name": "Timer 4 Mode (ASM) (9 = no mode change)"
       },
       "foxair_1308": {
-        "name": "Timer 4 max. Leistung (ASM)"
+        "name": "Timer 4 Max Power (ASM)"
       },
       "foxair_1309": {
-        "name": "Timer 5 Einschaltzeit (HH:MM aus High-/Low-Byte) (ASM)"
+        "name": "Timer 5 On Time (HH:MM from High/Low Byte) (ASM)"
       },
       "foxair_1310": {
-        "name": "Timer 5 Ausschaltzeit (HH:MM aus High-/Low-Byte) (ASM)"
+        "name": "Timer 5 Off Time (HH:MM from High/Low Byte) (ASM)"
       },
       "foxair_1311": {
-        "name": "Timer 5 WW-Zieltemperatur (ASM)"
+        "name": "Timer 5 DHW Target Temperature (ASM)"
       },
       "foxair_1312": {
-        "name": "Timer 5 HZ-Zieltemperatur (ASM)"
+        "name": "Timer 5 Heating Target Temperature (ASM)"
       },
       "foxair_1313": {
-        "name": "Timer 5 Kühlen-Zieltemperatur (ASM)"
+        "name": "Timer 5 Cooling Target Temperature (ASM)"
       },
       "foxair_1314": {
-        "name": "Timer 5 Modus (ASM) (9 = keinen Modus ändern)"
+        "name": "Timer 5 Mode (ASM) (9 = no mode change)"
       },
       "foxair_1315": {
-        "name": "Timer 5 max. Leistung (ASM)"
+        "name": "Timer 5 Max Power (ASM)"
       },
       "foxair_1316": {
-        "name": "Timer 6 Einschaltzeit (HH:MM aus High-/Low-Byte) (ASM)"
+        "name": "Timer 6 On Time (HH:MM from High/Low Byte) (ASM)"
       },
       "foxair_1317": {
-        "name": "Timer 6 Ausschaltzeit (HH:MM aus High-/Low-Byte) (ASM)"
+        "name": "Timer 6 Off Time (HH:MM from High/Low Byte) (ASM)"
       },
       "foxair_1318": {
-        "name": "Timer 6 WW-Zieltemperatur (ASM)"
+        "name": "Timer 6 DHW Target Temperature (ASM)"
       },
       "foxair_1319": {
-        "name": "Timer 6 HZ-Zieltemperatur (ASM)"
+        "name": "Timer 6 Heating Target Temperature (ASM)"
       },
       "foxair_1320": {
-        "name": "Timer 6 Kühlen-Zieltemperatur (ASM)"
+        "name": "Timer 6 Cooling Target Temperature (ASM)"
       },
       "foxair_1321": {
-        "name": "Timer 6 Modus (ASM) (9 = keinen Modus ändern)"
+        "name": "Timer 6 Mode (ASM) (9 = no mode change)"
       },
       "foxair_1322": {
-        "name": "Timer 6 max. Leistung (ASM)"
+        "name": "Timer 6 Max Power (ASM)"
       },
       "foxair_1323": {
-        "name": "Timer 1+2 Aktiv/Tage Bitmaske (ASM; Low-Byte erster Timer, High-Byte zweiter Timer)"
+        "name": "Timer 1+2 Active/Days Bitmask (ASM; Low Byte Timer 1, High Byte Timer 2)"
       },
       "foxair_1324": {
-        "name": "Timer 3+4 Aktiv/Tage Bitmaske (ASM; Low-Byte erster Timer, High-Byte zweiter Timer)"
+        "name": "Timer 3+4 Active/Days Bitmask (ASM; Low Byte Timer 3, High Byte Timer 4)"
       },
       "foxair_1325": {
-        "name": "Timer 5+6 Aktiv/Tage Bitmaske (ASM; Low-Byte erster Timer, High-Byte zweiter Timer)"
+        "name": "Timer 5+6 Active/Days Bitmask (ASM; Low Byte Timer 5, High Byte Timer 6)"
       },
       "foxair_1326": {
-        "name": "Zirkulationspumpe Timer 1 Startzeit"
+        "name": "Circulation Pump Timer 1 Start Time"
       },
       "foxair_1327": {
-        "name": "Zirkulationspumpe Timer 1 Stopzeit"
+        "name": "Circulation Pump Timer 1 Stop Time"
       },
       "foxair_1328": {
-        "name": "Zirkulationspumpe Timer 2 Startzeit"
+        "name": "Circulation Pump Timer 2 Start Time"
       },
       "foxair_1329": {
-        "name": "Zirkulationspumpe Timer 2 Stopzeit"
+        "name": "Circulation Pump Timer 2 Stop Time"
       },
       "foxair_1330": {
-        "name": "Zirkulationspumpe Timer 3 Startzeit"
+        "name": "Circulation Pump Timer 3 Start Time"
       },
       "foxair_1331": {
-        "name": "Zirkulationspumpe Timer 3 Stopzeit"
+        "name": "Circulation Pump Timer 3 Stop Time"
       },
       "foxair_1332": {
-        "name": "Zirkulationspumpe Timer 1+2 Aktiv-Bitmaske"
+        "name": "Circulation Pump Timer 1+2 Active Bitmask"
       },
       "foxair_1333": {
-        "name": "Zirkulationspumpe Timer 3 Aktiv-Bitmaske"
+        "name": "Circulation Pump Timer 3 Active Bitmask"
       },
       "foxair_1334": {
         "name": "SG Ready Auswahl [SG01]"
@@ -1077,13 +1077,13 @@
         "name": "SG Mode 3 Leistung / mittel PV [SG04]"
       },
       "foxair_1338": {
-        "name": "SG Mode 4 WW-Zieltemperatur-Anhebung [SG05]"
+        "name": "SG Mode 4 DHW Target Temp Boost [SG05]"
       },
       "foxair_1339": {
-        "name": "SG Mode 4 HZ-Zieltemperatur-Anhebung [SG06]"
+        "name": "SG Mode 4 Heating Target Temp Boost [SG06]"
       },
       "foxair_1340": {
-        "name": "SG Mode 4 Kühlen-Zieltemperatur-Anhebung [SG07]"
+        "name": "SG Mode 4 Cooling Target Temp Boost [SG07]"
       },
       "foxair_1341": {
         "name": "Electric Heater On in SG Mode4 [SG08]"
@@ -1101,7 +1101,7 @@
         "name": "External Pump Selection [H40]"
       },
       "foxair_1346": {
-        "name": "Supervisor-Passwort: 66 [H41]"
+        "name": "Supervisor Password: 66 [H41]"
       },
       "foxair_1347": {
         "name": "Max. Comp. Frequency in DHW mode [C12]"
@@ -1122,13 +1122,13 @@
         "name": "Display-Firmware Parameter E21 [E21]"
       },
       "foxair_1353": {
-        "name": "Reserviert"
+        "name": "Reserved [1353]"
       },
       "foxair_1354": {
-        "name": "Reserviert"
+        "name": "Reserved [1354]"
       },
       "foxair_1355": {
-        "name": "Reserviert"
+        "name": "Reserved [1355]"
       },
       "foxair_1356": {
         "name": "H42 Einschalt-AT Gehaeusewannenheizung (D30/1437 erst wirksam, wenn AT kleiner H42 ist) [H42]"
@@ -1164,40 +1164,40 @@
         "name": "Blockkopf Paket 5 / Reserve 2"
       },
       "foxair_1369": {
-        "name": "Blockkopf Paket 5 / Marker-Länge"
+        "name": "Block Header Packet 5 Marker Length"
       },
       "foxair_1370": {
-        "name": "Blockkopf Paket 5 / erstes Blockkopf-Register"
+        "name": "Block Header Packet 5 First Header Register"
       },
       "foxair_1371": {
-        "name": "Werkstestmodus / manuelle Steuerung (ASM)"
+        "name": "Factory Test Mode / Manual Control (ASM)"
       },
       "foxair_1372": {
-        "name": "Automatischer Werkstest Ein/Aus (ASM)"
+        "name": "Auto Factory Test On/Off (ASM)"
       },
       "foxair_1373": {
-        "name": "Automatischer Werkstest Modus (ASM)"
+        "name": "Auto Factory Test Mode (ASM)"
       },
       "foxair_1374": {
-        "name": "Automatischer Werkstest Zieltemperatur (ASM)"
+        "name": "Auto Factory Test Target Temperature (ASM)"
       },
       "foxair_1375": {
-        "name": "Automatischer Werkstest Kompressorfrequenz (ASM)"
+        "name": "Auto Factory Test Compressor Frequency (ASM)"
       },
       "foxair_1376": {
-        "name": "Automatischer Werkstest Lüfter 1 Drehzahl (ASM)"
+        "name": "Auto Factory Test Fan 1 Speed (ASM)"
       },
       "foxair_1377": {
-        "name": "Automatischer Werkstest Lüfter 2 Drehzahl (ASM)"
+        "name": "Auto Factory Test Fan 2 Speed (ASM)"
       },
       "foxair_1378": {
-        "name": "Automatischer Werkstest Haupt-EEV Schritte (ASM)"
+        "name": "Auto Factory Test Main EEV Steps (ASM)"
       },
       "foxair_1379": {
-        "name": "Automatischer Werkstest EVI-EEV Schritte (ASM)"
+        "name": "Auto Factory Test EVI EEV Steps (ASM)"
       },
       "foxair_1380": {
-        "name": "Automatischer Werkstest Wasserpumpe Drehzahl (ASM)"
+        "name": "Auto Factory Test Water Pump Speed (ASM)"
       },
       "foxair_1432": {
         "name": "Target Temp. Diff. for Pump Speed Control [P11]"
@@ -1245,37 +1245,37 @@
         "name": "Blockkopf Paket 6 / Reserve 2"
       },
       "foxair_1459": {
-        "name": "Blockkopf Paket 6 / Marker-Länge"
+        "name": "Block Header Packet 6 Marker Length"
       },
       "foxair_1460": {
-        "name": "Blockkopf Paket 6 / erstes Blockkopf-Register"
+        "name": "Block Header Packet 6 First Header Register"
       },
       "foxair_1464": {
-        "name": "Funktion unbekannt"
+        "name": "Unknown Function [1464]"
       },
       "foxair_1466": {
-        "name": "Funktion unbekannt"
+        "name": "Unknown Function [1466]"
       },
       "foxair_1476": {
-        "name": "Funktion unbekannt"
+        "name": "Unknown Function [1476]"
       },
       "foxair_1541": {
-        "name": "Blockkopf Paket 7 / Kennung Wort 1"
+        "name": "Block Header Packet 7 ID Word 1"
       },
       "foxair_1542": {
-        "name": "Blockkopf Paket 7 / Kennung Wort 2"
+        "name": "Block Header Packet 7 ID Word 2"
       },
       "foxair_1543": {
-        "name": "Blockkopf Paket 7 / Kennung Wort 3"
+        "name": "Block Header Packet 7 ID Word 3"
       },
       "foxair_1544": {
-        "name": "Blockkopf Paket 7 / Kennung Wort 4"
+        "name": "Block Header Packet 7 ID Word 4"
       },
       "foxair_1545": {
-        "name": "Blockkopf Paket 7 / Kennung Wort 5"
+        "name": "Block Header Packet 7 ID Word 5"
       },
       "foxair_1546": {
-        "name": "Blockkopf Paket 7 / Kennung Wort 6"
+        "name": "Block Header Packet 7 ID Word 6"
       },
       "foxair_1547": {
         "name": "Blockkopf Paket 7 / Reserve 1"
@@ -1284,10 +1284,10 @@
         "name": "Blockkopf Paket 7 / Reserve 2"
       },
       "foxair_1549": {
-        "name": "Blockkopf Paket 7 / Marker-Länge"
+        "name": "Block Header Packet 7 Marker Length"
       },
       "foxair_1550": {
-        "name": "Blockkopf Paket 7 / erstes Blockkopf-Register"
+        "name": "Block Header Packet 7 First Header Register"
       },
       "foxair_2001": {
         "name": "Blockkopf Paket 7 / Kennung Wort 1 / ASCII Zeichen 1-2"
@@ -1314,64 +1314,64 @@
         "name": "Blockkopf Paket Status 1 / Reserve 2"
       },
       "foxair_2009": {
-        "name": "Blockkopf Paket Status 1 / Marker-Länge"
+        "name": "Block Header Status Packet 1 Marker Length"
       },
       "foxair_2010": {
-        "name": "Blockkopf Paket Status 1 / erstes Blockkopf-Register"
+        "name": "Block Header Status Packet 1 First Header Register"
       },
       "foxair_2011": {
-        "name": "Gerätezustand"
+        "name": "Device State"
       },
       "foxair_2012": {
-        "name": "Aktueller Betriebsstatus"
+        "name": "Current Operating Status"
       },
       "foxair_2013": {
-        "name": "Temperaturwert nach Begrenzung"
+        "name": "Temperature Value After Limiting"
       },
       "foxair_2014": {
-        "name": "Temperaturwert nach Wetterkompensation während des Heizens"
+        "name": "Temperature Value After Weather Compensation (Heating)"
       },
       "foxair_2015": {
-        "name": "Zentrale Abtauautomatik anwenden"
+        "name": "Apply Central Defrost Automation"
       },
       "foxair_2016": {
-        "name": "Solltemperatur wie 2013 / 2014"
+        "name": "Setpoint Temperature as 2013 / 2014"
       },
       "foxair_2017": {
-        "name": "Reserviert"
+        "name": "Reserved [2017]"
       },
       "foxair_2018": {
-        "name": "025 / Lastausgang (Elektrischer Wassertankheizer)"
+        "name": "025 / Load Output (Electric DHW Tank Heater)"
       },
       "foxair_2019": {
-        "name": "001 bis 023 / Lastausgänge Bitfeld (vollständig decodiert)"
+        "name": "001-023 / Load Outputs Bitfield (fully decoded)"
       },
       "foxair_2020": {
-        "name": "015 / EEV-Schritte"
+        "name": "015 / EEV Steps"
       },
       "foxair_2021": {
-        "name": "Reserviert"
+        "name": "Reserved [2021]"
       },
       "foxair_2022": {
-        "name": "017 / EVI EEV-Schritte"
+        "name": "017 / EVI EEV Steps"
       },
       "foxair_2023": {
-        "name": "Anzahl Verdichter-Starts"
+        "name": "Number of Compressor Starts"
       },
       "foxair_2024": {
-        "name": "System 2 Ventil-/EEV-Anzeige Wert (ASM)"
+        "name": "System 2 Valve / EEV Display Value (ASM)"
       },
       "foxair_2025": {
-        "name": "System 2 EVI-/Enthalpie-Anzeige Wert (ASM)"
+        "name": "System 2 EVI / Enthalpy Display Value (ASM)"
       },
       "foxair_2026": {
-        "name": "9"
+        "name": "Unknown (value 9) [2026]"
       },
       "foxair_2027": {
-        "name": "9"
+        "name": "Unknown (value 9) [2027]"
       },
       "foxair_2028": {
-        "name": "9"
+        "name": "Unknown (value 9) [2028]"
       },
       "foxair_2029": {
         "name": "Eingangsstrom L1 [T-Diag5]"
@@ -1383,70 +1383,70 @@
         "name": "Eingangsstrom L3 [T-Diag7]"
       },
       "foxair_2032": {
-        "name": "Kompressor-Laufzeit [T-Diag8]"
+        "name": "Compressor Runtime [T-Diag8]"
       },
       "foxair_2033": {
-        "name": "Reserviert"
+        "name": "Reserved [2033]"
       },
       "foxair_2034": {
-        "name": "Schalterzustände / Kontakte / SG Ready [S01]"
+        "name": "Switch States / Contacts / SG Ready [S01]"
       },
       "foxair_2035": {
-        "name": "Heizungsrücklauftemperatur [T40]"
+        "name": "Heating Return Temperature [T40]"
       },
       "foxair_2036": {
         "name": "Heizungsvorlauftemperatur [T41]"
       },
       "foxair_2037": {
-        "name": "Mischrohrauslasswassertemperatur [T42]"
+        "name": "Mixing Pipe Outlet Water Temperature [T42]"
       },
       "foxair_2038": {
-        "name": "WW-Rücklauftemperatur [T43]"
+        "name": "DHW Return Temperature [T43]"
       },
       "foxair_2039": {
         "name": "WW-Vorlauftemperatur [T44]"
       },
       "foxair_2040": {
-        "name": "Reserviert"
+        "name": "Reserved [2040]"
       },
       "foxair_2041": {
-        "name": "Reserviert"
+        "name": "Reserved [2041]"
       },
       "foxair_2042": {
-        "name": "Phasenstrom des Kompressors [T36]"
+        "name": "Compressor Phase Current [T36]"
       },
       "foxair_2043": {
         "name": "DC-Power-Bus-Spannung [T37]"
       },
       "foxair_2044": {
-        "name": "IPM-Temperatur. [T38]"
+        "name": "IPM Temperature [T38]"
       },
       "foxair_2045": {
-        "name": "Einlasswassertemperatur [T01]"
+        "name": "Inlet Water Temperature [T01]"
       },
       "foxair_2046": {
-        "name": "Auslasswassertemperatur [T02]"
+        "name": "Outlet Water Temperature [T02]"
       },
       "foxair_2047": {
         "name": "WW-Tanktemperatur [T08]"
       },
       "foxair_2048": {
-        "name": "Umgebungstemperatur (AT) [T04]"
+        "name": "Ambient Temperature (AT) [T04]"
       },
       "foxair_2049": {
-        "name": "Verdampfertemperatur [T03]"
+        "name": "Evaporator Temperature [T03]"
       },
       "foxair_2050": {
         "name": "Verteilerrohrtemperatur [T14]"
       },
       "foxair_2051": {
-        "name": "Saugsungstemperatur [T05]"
+        "name": "Suction Temperature [T05]"
       },
       "foxair_2052": {
         "name": "Puffertanktemperatur [T07]"
       },
       "foxair_2053": {
-        "name": "Abgastemperatur [T12]"
+        "name": "Exhaust Gas Temperature [T12]"
       },
       "foxair_2054": {
         "name": "Unit Power [T54]"
@@ -1455,10 +1455,10 @@
         "name": "Frostschutztemperatur (Am PlattenWT) [T06]"
       },
       "foxair_2056": {
-        "name": "T? / System 1 Frostschutztemperatur 2 / Coil/Frost Temp 2 (ASM V1.3)"
+        "name": "T? / System 1 Frost Protection Temp 2 / Coil/Frost Temp 2 (ASM V1.3)"
       },
       "foxair_2057": {
-        "name": "Значение 2057 [скрыто]"
+        "name": "Live value 2057 [hidden diagnostic]"
       },
       "foxair_2058": {
         "name": "Raumtemperatur [T09]"
@@ -1470,16 +1470,16 @@
         "name": "COP [T60]"
       },
       "foxair_2061": {
-        "name": "IPM-Hochfehler-Temperatur [T33]"
+        "name": "IPM High Fault Temperature [T33]"
       },
       "foxair_2062": {
         "name": "AC-Eingangsspannung [T34]"
       },
       "foxair_2063": {
-        "name": "EVI-Einlasstemperatur [T10]"
+        "name": "EVI Inlet Temperature [T10]"
       },
       "foxair_2064": {
-        "name": "EVI-Auslasstemperatur [T11]"
+        "name": "EVI Outlet Temperature [T11]"
       },
       "foxair_2065": {
         "name": "Evaporating Temp (ASM) [T-Diag1]"
@@ -1491,73 +1491,73 @@
         "name": "Suction Superheat (ASM) [T-Diag3]"
       },
       "foxair_2068": {
-        "name": "System 2 Strom / Current (ASM)"
+        "name": "System 2 Current (ASM)"
       },
       "foxair_2069": {
-        "name": "Niederdruck [T15]"
+        "name": "Low Pressure [T15]"
       },
       "foxair_2070": {
-        "name": "System 2 Druck / Pressure (ASM)"
+        "name": "System 2 Pressure (ASM)"
       },
       "foxair_2071": {
-        "name": "Kompressorfrequenz [T30]"
+        "name": "Compressor Frequency [T30]"
       },
       "foxair_2072": {
-        "name": "Betriebsfrequenz des Kompressors [T31]"
+        "name": "Compressor Operating Frequency [T31]"
       },
       "foxair_2073": {
-        "name": "Max. Frequenz vom Kompressortreiber [T32]"
+        "name": "Max Frequency from Compressor Driver [T32]"
       },
       "foxair_2074": {
-        "name": "Drehzahl des Lüftermotors 1 [T27]"
+        "name": "Fan Motor 1 Speed [T27]"
       },
       "foxair_2075": {
-        "name": "Drehzahl des Lüftermotors 2 [T28]"
+        "name": "Fan Motor 2 Speed [T28]"
       },
       "foxair_2076": {
-        "name": "Zieldrehzahl des Lüftermotors [T29]"
+        "name": "Fan Motor Target Speed [T29]"
       },
       "foxair_2077": {
         "name": "Water Flow Rate [T39]"
       },
       "foxair_2078": {
-        "name": "Energiezähler elektrisch high bits"
+        "name": "Energy Meter Electric High Bits"
       },
       "foxair_2079": {
-        "name": "Energiezähler elektrisch low bits / total"
+        "name": "Energy Meter Electric Low Bits / Total"
       },
       "foxair_2080": {
-        "name": "Status-/Datenwort (wie Displaybus 91099)"
+        "name": "Status / Data Word (like Display Bus 91099)"
       },
       "foxair_2081": {
-        "name": "Fehler 7 / Störmeldebits [ERR07]"
+        "name": "Error 7 / Fault Bits [ERR07]"
       },
       "foxair_2082": {
-        "name": "Fehler 8 / Störmeldebits [ERR08]"
+        "name": "Error 8 / Fault Bits [ERR08]"
       },
       "foxair_2083": {
-        "name": "Fehler 9 / Störmeldebits [ERR09]"
+        "name": "Error 9 / Fault Bits [ERR09]"
       },
       "foxair_2084": {
-        "name": "9"
+        "name": "Unknown (value 9) [2084]"
       },
       "foxair_2085": {
-        "name": "Fehler 1 / Störmeldebits [ERR01]"
+        "name": "Error 1 / Fault Bits [ERR01]"
       },
       "foxair_2086": {
-        "name": "Fehler 2 / Störmeldebits [ERR02]"
+        "name": "Error 2 / Fault Bits [ERR02]"
       },
       "foxair_2087": {
-        "name": "Fehler 3 / Störmeldebits [ERR03]"
+        "name": "Error 3 / Fault Bits [ERR03]"
       },
       "foxair_2088": {
-        "name": "Fehler 4 / Störmeldebits [ERR04]"
+        "name": "Error 4 / Fault Bits [ERR04]"
       },
       "foxair_2089": {
-        "name": "Fehler 5 / Störmeldebits [ERR05]"
+        "name": "Error 5 / Fault Bits [ERR05]"
       },
       "foxair_2090": {
-        "name": "Fehler 6 / Störmeldebits [ERR06]"
+        "name": "Error 6 / Fault Bits [ERR06]"
       },
       "foxair_2091": {
         "name": "Blockkopf Paket 8 / Kennung Wort 1 / ASCII Zeichen 1-2"
@@ -1584,162 +1584,162 @@
         "name": "Blockkopf Paket Status 2 / Reserve 2"
       },
       "foxair_2099": {
-        "name": "Blockkopf Paket Status 2 / Marker-Länge"
+        "name": "Block Header Status Packet 2 Marker Length"
       },
       "foxair_2100": {
-        "name": "Blockkopf Paket Status 2 / erstes Blockkopf-Register"
+        "name": "Block Header Status Packet 2 First Header Register"
       },
       "foxair_2101": {
-        "name": "Reserviert"
+        "name": "Reserved [2101]"
       },
       "foxair_2102": {
-        "name": "Reserviert"
+        "name": "Reserved [2102]"
       },
       "foxair_2103": {
-        "name": "Hauptcontroler Softwarecode (ASM)"
+        "name": "Main Controller Software Code (ASM)"
       },
       "foxair_2104": {
-        "name": "Hauptsoftwareversion"
+        "name": "Main Software Version"
       },
       "foxair_2105": {
-        "name": "Softwarecode"
+        "name": "Software Code"
       },
       "foxair_2106": {
-        "name": "Pumpenregel-/PWM-Regelzyklus Flag (Kandidat)"
+        "name": "Pump Control / PWM Cycle Flag (candidate)"
       },
       "foxair_2107": {
-        "name": "Kommunikations-Heartbeat / WP-Paket gültig 0x5AA5 (Merker Display-Init)"
+        "name": "Communication Heartbeat / HP Packet Valid 0x5AA5 (Display Init Marker)"
       },
       "foxair_2108": {
-        "name": "Lüfter-Stummschalt-Flag / Fan Mute Flag (ASM)"
+        "name": "Fan Mute Flag (ASM)"
       },
       "foxair_2109": {
-        "name": "Reserviert"
+        "name": "Reserved [2109]"
       },
       "foxair_2110": {
-        "name": "Reserviert"
+        "name": "Reserved [2110]"
       },
       "foxair_2111": {
-        "name": "Display Nr."
+        "name": "Display Number"
       },
       "foxair_2112": {
         "name": "Display Version"
       },
       "foxair_2113": {
-        "name": "Reserviert"
+        "name": "Reserved [2113]"
       },
       "foxair_2114": {
-        "name": "Reserviert"
+        "name": "Reserved [2114]"
       },
       "foxair_2115": {
-        "name": "UP PWM aktuell"
+        "name": "UP PWM Current"
       },
       "foxair_2116": {
-        "name": "PWM-Rückmeldung der Pumpe"
+        "name": "Pump PWM Feedback"
       },
       "foxair_2117": {
-        "name": "Reserviert"
+        "name": "Reserved [2117]"
       },
       "foxair_2118": {
-        "name": "Energiezähler elektrisch Heizen"
+        "name": "Energy Meter Electric Heating"
       },
       "foxair_2119": {
-        "name": "Reserviert"
+        "name": "Reserved [2119]"
       },
       "foxair_2120": {
-        "name": "Energiezähler Wärmemenge Heizen"
+        "name": "Energy Meter Heat Quantity Heating"
       },
       "foxair_2121": {
-        "name": "Reserviert"
+        "name": "Reserved [2121]"
       },
       "foxair_2122": {
-        "name": "Energiezähler elektrisch Kühlen"
+        "name": "Energy Meter Electric Cooling"
       },
       "foxair_2123": {
-        "name": "Reserviert"
+        "name": "Reserved [2123]"
       },
       "foxair_2124": {
-        "name": "Energiezähler Wärmemenge Kühlen"
+        "name": "Energy Meter Heat Quantity Cooling"
       },
       "foxair_2125": {
-        "name": "Reserviert"
+        "name": "Reserved [2125]"
       },
       "foxair_2126": {
-        "name": "Reserviert"
+        "name": "Reserved [2126]"
       },
       "foxair_2127": {
-        "name": "Reserviert"
+        "name": "Reserved [2127]"
       },
       "foxair_2128": {
-        "name": "Reserviert"
+        "name": "Reserved [2128]"
       },
       "foxair_2129": {
-        "name": "Reserviert"
+        "name": "Reserved [2129]"
       },
       "foxair_2130": {
-        "name": "IPM-Temperatur des externen Lüftermotorantriebs [T46]"
+        "name": "IPM Temperature of External Fan Motor Drive [T46]"
       },
       "foxair_2131": {
-        "name": "Leistung des externen Lüftermotorantriebs [T47]"
+        "name": "Power of External Fan Motor Drive [T47]"
       },
       "foxair_2132": {
-        "name": "Strom des externen Lüftermotorantriebs. [T48]"
+        "name": "Current of External Fan Motor Drive [T48]"
       },
       "foxair_2133": {
         "name": "SG Ready aktiver Modus [SGstatus]"
       },
       "foxair_2134": {
-        "name": "Timer State Leistungsbegrenzungstimer 1-6"
+        "name": "Timer State Power Limit Timers 1-6"
       },
       "foxair_2135": {
-        "name": "Funktion unbekannt"
+        "name": "Unknown Function [2135]"
       },
       "foxair_2136": {
-        "name": "Berechneter x0,1-Regel-/Modulwert (Kandidat)"
+        "name": "Calculated x0.1 Control / Module Value (candidate)"
       },
       "foxair_2137": {
-        "name": "Elektrische Leistung / Spiegel von 2054 (Kandidat)"
+        "name": "Electric Power / Mirror of 2054 (candidate)"
       },
       "foxair_2138": {
-        "name": "Thermische Leistung / Spiegel von 2059 (Kandidat)"
+        "name": "Thermal Power / Mirror of 2059 (candidate)"
       },
       "foxair_2139": {
-        "name": "Funktion unbekannt"
+        "name": "Unknown Function [2139]"
       },
       "foxair_2140": {
-        "name": "Funktion unbekannt"
+        "name": "Unknown Function [2140]"
       },
       "foxair_2141": {
-        "name": "Funktion unbekannt"
+        "name": "Unknown Function [2141]"
       },
       "foxair_2142": {
-        "name": "Funktion unbekannt"
+        "name": "Unknown Function [2142]"
       },
       "foxair_2143": {
-        "name": "Funktion unbekannt"
+        "name": "Unknown Function [2143]"
       },
       "foxair_2144": {
-        "name": "Funktion unbekannt"
+        "name": "Unknown Function [2144]"
       },
       "foxair_2145": {
-        "name": "Funktion unbekannt"
+        "name": "Unknown Function [2145]"
       },
       "foxair_2146": {
-        "name": "Funktion unbekannt"
+        "name": "Unknown Function [2146]"
       },
       "foxair_2147": {
-        "name": "Funktion unbekannt"
+        "name": "Unknown Function [2147]"
       },
       "foxair_2148": {
-        "name": "Funktion unbekannt"
+        "name": "Unknown Function [2148]"
       },
       "foxair_2149": {
-        "name": "Funktion unbekannt"
+        "name": "Unknown Function [2149]"
       }
     },
     "climate": {
       "foxair_climate": {
-        "name": "Тепловой насос"
+        "name": "Heat pump"
       }
     }
   }
