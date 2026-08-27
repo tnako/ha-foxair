@@ -1,15 +1,20 @@
 {
   "config": {
-    "step": { "user": { "title": "FoxAir Heat Pump", "description": "Modbus TCP to EW11-host:8899", "data": {"host":"Host","port":"Port","slave":"Slave ID"} } },
-    "abort": { "already_configured": "Already configured" }
+    "step": { "user": { "title": "FoxAir Modbus Wärmepumpe", "description": "FoxAir / PHNIX über Modbus TCP verbinden", "data": {"host":"Host","port":"Port","slave":"Slave-ID"} } },
+    "abort": { "already_configured": "Bereits konfiguriert" }
   },
   "entity": {
     "sensor": {
-      "foxair_2045": {"name": "Inlet water temperature T01"},
-      "foxair_2046": {"name": "Outlet water temperature T02"},
-      "foxair_2048": {"name": "Ambient temperature"},
-      "foxair_2049": {"name": "Coil temperature"},
-      "foxair_2053": {"name": "Exhaust temperature"}
+      "foxair_2045": {"name": "Einlasswassertemperatur [T01]"},
+      "foxair_2046": {"name": "Auslasswassertemperatur [T02]"},
+      "foxair_2048": {"name": "Umgebungstemperatur [T04]"},
+      "foxair_2049": {"name": "Verdampfertemperatur [T03]"},
+      "foxair_2051": {"name": "Ansaugtemperatur [T05]"},
+      "foxair_2053": {"name": "Abgastemperatur [T12]"},
+      "foxair_2044": {"name": "IPM-Temperatur [T38]"},
+      "foxair_2057": {"name": "Live-Wert 2057"},
+      "foxair_2062": {"name": "AC-Eingangsspannung [T34]"},
+      "foxair_2072": {"name": "Betriebsfrequenz Verdichter [T31]"}
     }
   }
 }
