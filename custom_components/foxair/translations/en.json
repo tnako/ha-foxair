@@ -831,49 +831,49 @@
         "name": "Current System Year"
       },
       "foxair_1256": {
-        "name": "WP Ein/Aus Timer 1 Startzeit [KG1]"
+        "name": "HP On/Off Timer 1 Start [KG1]"
       },
       "foxair_1257": {
-        "name": "WP Ein/Aus Timer 1 Stopzeit [KG2]"
+        "name": "HP On/Off Timer 1 End [KG2]"
       },
       "foxair_1258": {
-        "name": "WP Ein/Aus Timer 2 Startzeit [KG3]"
+        "name": "HP On/Off Timer 2 Start [KG3]"
       },
       "foxair_1259": {
-        "name": "WP Ein/Aus Timer 2 Stopzeit [KG4]"
+        "name": "HP On/Off Timer 2 End [KG4]"
       },
       "foxair_1260": {
-        "name": "WP Ein/Aus Timer 3 Startzeit [KG5]"
+        "name": "HP On/Off Timer 3 Start [KG5]"
       },
       "foxair_1261": {
-        "name": "WP Ein/Aus Timer 3 Stopzeit [KG6]"
+        "name": "HP On/Off Timer 3 End [KG6]"
       },
       "foxair_1262": {
-        "name": "WP Ein/Aus Timer 4 Startzeit [KG7]"
+        "name": "HP On/Off Timer 4 Start [KG7]"
       },
       "foxair_1263": {
-        "name": "WP Ein/Aus Timer 4 Stopzeit [KG8]"
+        "name": "HP On/Off Timer 4 End [KG8]"
       },
       "foxair_1264": {
-        "name": "WP Ein/Aus Timer 5 Startzeit [KG9]"
+        "name": "HP On/Off Timer 5 Start [KG9]"
       },
       "foxair_1265": {
-        "name": "WP Ein/Aus Timer 5 Stopzeit [KG10]"
+        "name": "HP On/Off Timer 5 End [KG10]"
       },
       "foxair_1266": {
-        "name": "WP Ein/Aus Timer 6 Startzeit [KG11]"
+        "name": "HP On/Off Timer 6 Start [KG11]"
       },
       "foxair_1267": {
-        "name": "WP Ein/Aus Timer 6 Stopzeit [KG12]"
+        "name": "HP On/Off Timer 6 End [KG12]"
       },
       "foxair_1268": {
-        "name": "WP Ein/Aus Timer 1+2 Aktiv/Tage Bitmaske [KG13-KG28]"
+        "name": "HP On/Off Timer 1+2 Active/Days Bitmask [KG13-KG28]"
       },
       "foxair_1269": {
-        "name": "WP Ein/Aus Timer 3+4 Aktiv/Tage Bitmaske [KG29-KG44]"
+        "name": "HP On/Off Timer 3+4 Active/Days Bitmask [KG29-KG44]"
       },
       "foxair_1270": {
-        "name": "WP Ein/Aus Timer 5+6 Aktiv/Tage Bitmaske [KG45-KG60]"
+        "name": "HP On/Off Timer 5+6 Active/Days Bitmask [KG45-KG60]"
       },
       "foxair_1271": {
         "name": "Blockkopf Paket 4 / Kennung Wort 1 / ASCII Zeichen 1-2"
@@ -2818,13 +2818,13 @@
         "name": "Current System Month"
       },
       "foxair_1268": {
-        "name": "WP Ein/Aus Timer 1+2 Aktiv/Tage Bitmaske [KG13-KG28]"
+        "name": "HP On/Off Timer 1+2 Active/Days Bitmask [KG13-KG28]"
       },
       "foxair_1269": {
-        "name": "WP Ein/Aus Timer 3+4 Aktiv/Tage Bitmaske [KG29-KG44]"
+        "name": "HP On/Off Timer 3+4 Active/Days Bitmask [KG29-KG44]"
       },
       "foxair_1270": {
-        "name": "WP Ein/Aus Timer 5+6 Aktiv/Tage Bitmaske [KG45-KG60]"
+        "name": "HP On/Off Timer 5+6 Active/Days Bitmask [KG45-KG60]"
       },
       "foxair_1286": {
         "name": "Timer 1 Mode Code (ASM; 9 = no mode change)",

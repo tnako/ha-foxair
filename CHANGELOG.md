@@ -1,3 +1,6 @@
+## 0.3.10
+- i18n: fix Timer (KG) German-only — 1256-1270 WP Ein/Aus Timer Startzeit/Stopzeit and Aktiv/Tage Bitmaske now HP On/Off Timer Start/End and Active/Days Bitmask in en (de keeps WP Ein/Aus), ru transliteration; sensor/select duplicate for TIMER_BITPAIR already hidden via sensor dedup
+
 ## 0.3.9
 - ux: surface heating curve on Main Heat Pump — 1234 Slope (K) 0.1-3.0 and 1235 Offset (B) -5..5°C and 1236 Mode fixed/curve now on FoxAir Heat Pump device as normal controls (was hidden as AT Compensation under config)
 - rename 1234/1235 to Heating Curve Slope/Offset and 1236 to Heating Curve Mode with fixed vs Weather compensation (was No/Yes), plus Heating Curve Target sensor name fix; 1236 select now fixed/curve slugs matching translations
