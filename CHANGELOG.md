@@ -1,3 +1,6 @@
+## 0.3.18
+- feat: light-theme 1200×720 heating curve image — white bg, grey major/minor grid, blue 4px curve with light-blue fill, orange dashed fixed R02, red live dot with halo+label box, larger fonts via DejaVuSans, crisp on device page near slope/offset controls.
+
 ## 0.3.17
 - feat: fast write cycle — after FC16, 350ms single-register read-back on ephemeral client patches coordinator.data + async_update_listeners (≈0.8s UI update) instead of waiting 30s full poll. Background full refresh still scheduled.
 
