@@ -13,11 +13,14 @@ def scaled(dtype, raw):
     dtype=(dtype or "RAW").upper()
     sv=s16(raw)
     if dtype in ("TEMP","TEMP1"): return sv/10.0
+    if dtype=="TEMP05": return sv/2.0
     if dtype in ("HZ",): return sv
     if dtype=="PERCENT": return sv
     if dtype=="FLOW_M3H_X100": return sv/100.0
+    if dtype=="FLOW_M3H_X10": return sv/10.0
     if dtype in ("POWER_KW_X10","BAR_X10","AMP_X10"): return sv/10.0
     if dtype in ("DIGI5",): return sv/10.0
+    if dtype=="AMP_X2": return sv/2.0
     if dtype=="DIGI1": return sv
     return sv
 
@@ -57,6 +60,7 @@ class FoxAirCoordinator(DataUpdateCoordinator):
                     a=addr+i
                     info=self.regmap.get(str(a))
                     if not info: continue
+                    if info.get("type")=="BLOCK": continue
                     out[a]={"raw":raw, "value":scaled(info.get("type","RAW"),raw), "info":info}
                 await asyncio.sleep(0.05)
             except Exception as e:

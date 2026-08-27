@@ -1,7 +1,7 @@
 from homeassistant.components.sensor import SensorEntity, SensorDeviceClass, SensorStateClass
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.helpers.entity import DeviceInfo, EntityCategory
-from .const import DOMAIN, POPULAR_ADDRS
+from .const import DOMAIN, POPULAR_ADDRS, BLOCK_SHORT
 
 DTYPE_MAP = {
     "TEMP1": (SensorDeviceClass.TEMPERATURE, "°C", SensorStateClass.MEASUREMENT),
@@ -13,20 +13,41 @@ DTYPE_MAP = {
     "DIGI1": (None, None, SensorStateClass.MEASUREMENT),
     "DIGI5": (None, None, SensorStateClass.MEASUREMENT),
     "FLOW_M3H_X100": (None, "m³/h", SensorStateClass.MEASUREMENT),
+    "FLOW_M3H_X10": (None, "m³/h", SensorStateClass.MEASUREMENT),
     "BAR_X10": (SensorDeviceClass.PRESSURE, "bar", SensorStateClass.MEASUREMENT),
     "AMP_X10": (SensorDeviceClass.CURRENT, "A", SensorStateClass.MEASUREMENT),
+    "AMP_X2": (SensorDeviceClass.CURRENT, "A", SensorStateClass.MEASUREMENT),
+    "POWER_KW_X10": (SensorDeviceClass.POWER, "kW", SensorStateClass.MEASUREMENT),
+    "KWH": (SensorDeviceClass.ENERGY, "kWh", SensorStateClass.TOTAL_INCREASING),
+    "WATT": (SensorDeviceClass.POWER, "W", SensorStateClass.MEASUREMENT),
+    "RPM": (None, "rpm", SensorStateClass.MEASUREMENT),
+    "COP_X100": (None, None, SensorStateClass.MEASUREMENT),
     "RAW": (None, None, None),
+    "BLOCK": (None, None, None),
 }
 
-# 2057 is unknown - keep but disabled
 HIDDEN = {2057}
+
+def device_for_block(block):
+    if not block or block == "?": block = "Other"
+    name = f"FoxAir {block}"
+    desc = BLOCK_SHORT.get(block, block)
+    if block in BLOCK_SHORT:
+        name = f"FoxAir {block} - {desc}"
+    return DeviceInfo(
+        identifiers={(DOMAIN, f"foxair_{block}")},
+        name=name,
+        manufacturer="FoxAir/PHNIX",
+        model=f"Block {block}",
+        via_device=(DOMAIN, "foxair"),
+    )
 
 async def async_setup_entry(hass, entry, add_entities):
     coord = hass.data["foxair"][entry.entry_id]
     ents = []
     for addr, rec in coord.data.items():
-        # only sensor entities (read or r/w that are readable)
-        # keep all, but hide 2057 and unsafe will be diagnostic disabled
+        if rec.get("info", {}).get("type") == "BLOCK":
+            continue
         ents.append(FoxSensor(coord, addr))
     add_entities(ents)
 
@@ -39,17 +60,19 @@ class FoxSensor(CoordinatorEntity, SensorEntity):
         info = rec.get("info", {}) if rec else {}
         self._attr_unique_id = f"foxair_{addr}"
         self._attr_translation_key = f"foxair_{addr}"
-        # keep object_id English - will be derived from strings.json English
-        self._attr_device_info = DeviceInfo(identifiers={(DOMAIN, "foxair")}, name="FoxAir Modbus Heat Pump", manufacturer="FoxAir/PHNIX", model="Modbus TCP")
+        block = info.get("block") or "Other"
+        if info.get("type") == "BLOCK":
+            block = "Other"
+        self._attr_device_info = device_for_block(block)
         dtype = info.get("type","RAW")
-        dc, unit, sc = DTYPE_MAP.get(dtype, (None, info.get("unit") or None, SensorStateClass.MEASUREMENT))
+        dc, unit, sc = DTYPE_MAP.get(dtype, (None, info.get("unit") or None, None))
         if dc: self._attr_device_class = dc
         if unit: self._attr_native_unit_of_measurement = unit
         elif info.get("unit"): self._attr_native_unit_of_measurement = info.get("unit")
         if sc: self._attr_state_class = sc
         if dtype in ("TEMP1","TEMP","TEMP05"): self._attr_suggested_display_precision = 1
-        elif dtype in ("VOLT","BAR_X10"): self._attr_suggested_display_precision = 1
-        # 2057 and unsafe hidden
+        elif dtype in ("VOLT","BAR_X10","POWER_KW_X10"): self._attr_suggested_display_precision = 1
+        elif dtype == "FLOW_M3H_X100": self._attr_suggested_display_precision = 2
         if addr in HIDDEN:
             self._attr_entity_registry_enabled_default = False
             self._attr_entity_category = EntityCategory.DIAGNOSTIC

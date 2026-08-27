@@ -19,7 +19,7 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
     def __init__(self, coord):
         super().__init__(coord)
         self._attr_unique_id = "foxair_climate"
-        self._attr_device_info = DeviceInfo(identifiers={(DOMAIN, "foxair")}, name="FoxAir Modbus Heat Pump", manufacturer="FoxAir/PHNIX", model="Modbus TCP")
+        self._attr_device_info = DeviceInfo(identifiers={(DOMAIN, "foxair")}, name="FoxAir Modbus Heat Pump", model="Heat Pump", manufacturer="FoxAir/PHNIX", model="Modbus TCP")
 
     @property
     def current_temperature(self):
