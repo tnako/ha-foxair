@@ -1,3 +1,6 @@
+## 0.3.29
+- fix: remove invalid `icon` key from manifest.json (HA manifest schema rejects it; CI "Invalid manifest" error). In-HA icon is served from `brand/`; HACS card icon remains a known HACS limitation (issue #5171)
+
 ## 0.3.28
 - feat: offer "Enable expert mode" boolean during first integration setup (config flow) and carry it into entry options so advanced/dangerous parameters are exposed immediately; also available in Options
 
