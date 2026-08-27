@@ -43,7 +43,11 @@ class FoxAirCoordinator(DataUpdateCoordinator):
         out={}; t0=time.monotonic()
         for addr,qty,_ in POLL_BLOCKS:
             try:
-                rr=await self.client.read_holding_registers(address=addr, count=qty, slave=cfg.get("slave",1))
+                slave_id=cfg.get("slave",1)
+                try:
+                    rr=await self.client.read_holding_registers(address=addr, count=qty, slave=slave_id)
+                except TypeError:
+                    rr=await self.client.read_holding_registers(address=addr, count=qty, device_id=slave_id)
                 if rr.isError():
                     self.stats["errors"]+=1
                     _LOGGER.warning("read %s/%s error %s", addr, qty, rr)

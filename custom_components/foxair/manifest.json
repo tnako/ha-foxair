@@ -1,12 +1,16 @@
 {
   "domain": "foxair",
   "name": "FoxAir Modbus Heat Pump",
-  "codeowners": ["@tnako"],
+  "codeowners": [
+    "@tnako"
+  ],
   "config_flow": true,
   "dependencies": [],
   "documentation": "https://github.com/tnako/ha-foxair",
   "iot_class": "local_polling",
   "issue_tracker": "https://github.com/tnako/ha-foxair/issues",
-  "requirements": ["pymodbus>=3.6.0"],
-  "version": "0.1.1"
+  "requirements": [
+    "pymodbus>=3.6.0"
+  ],
+  "version": "0.1.2"
 }
