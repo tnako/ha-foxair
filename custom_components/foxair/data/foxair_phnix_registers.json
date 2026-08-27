@@ -1,4 +1,4 @@
-{
+﻿{
   "_comment": "Hier sind alle Register welche auf allen Modbussen gleich sind. 1xxx les-/schreibbar, 2xxx nur lesen.",
   "200": {
     "function": "03",
@@ -7,7 +7,8 @@
     "type": "BLOCK",
     "ascii_group": "block_header",
     "ascii_pos": "1-2",
-    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt."
+    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt.",
+    "tab": ""
   },
   "201": {
     "function": "03",
@@ -16,7 +17,8 @@
     "type": "BLOCK",
     "ascii_group": "block_header",
     "ascii_pos": "3-4",
-    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt."
+    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt.",
+    "tab": ""
   },
   "202": {
     "function": "03",
@@ -25,7 +27,8 @@
     "type": "BLOCK",
     "ascii_group": "block_header",
     "ascii_pos": "5-6",
-    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt."
+    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt.",
+    "tab": ""
   },
   "203": {
     "function": "03",
@@ -34,7 +37,8 @@
     "type": "BLOCK",
     "ascii_group": "block_header",
     "ascii_pos": "7-8",
-    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt."
+    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt.",
+    "tab": ""
   },
   "204": {
     "function": "03",
@@ -43,7 +47,8 @@
     "type": "BLOCK",
     "ascii_group": "block_header",
     "ascii_pos": "9-10",
-    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt."
+    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt.",
+    "tab": ""
   },
   "205": {
     "function": "03",
@@ -52,67 +57,78 @@
     "type": "BLOCK",
     "ascii_group": "block_header",
     "ascii_pos": "11-12",
-    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt."
+    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt.",
+    "tab": ""
   },
   "206": {
     "function": "03",
     "mode": "read",
     "name": "Interner HMI-Kommunikationsblock / Reserve",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "207": {
     "function": "03",
     "mode": "read",
     "name": "Interner HMI-Kommunikationsblock / Reserve",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "208": {
     "function": "03",
     "mode": "read",
     "name": "Interner HMI-Kommunikationsblock / Reserve",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "209": {
     "function": "03",
     "mode": "read",
     "name": "Interner HMI-Kommunikationsblock / Reserve",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "210": {
     "function": "03",
     "mode": "read",
     "name": "Interner HMI-Kommunikationsblock / Reserve",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "211": {
     "function": "03",
     "mode": "read",
     "name": "Interner HMI-Kommunikationsblock / Reserve",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "212": {
     "function": "03",
     "mode": "read",
     "name": "Interner HMI-Kommunikationsblock / Reserve",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "213": {
     "function": "03",
     "mode": "read",
     "name": "Interner HMI-Kommunikationsblock / Reserve",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "214": {
     "function": "03",
     "mode": "read",
     "name": "Interner HMI-Kommunikationsblock / Reserve",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "215": {
     "function": "03",
     "mode": "read",
     "name": "Interner HMI-Kommunikationsblock / Reserve",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "1001": {
     "function": "03",
@@ -121,7 +137,8 @@
     "type": "BLOCK",
     "ascii_group": "wifi_barcode",
     "ascii_pos": "1-2",
-    "notes": "Teil der WiFi-Barcode-/Warmlink-Modulkennung; Blockkopf/Kennung bleibt ebenfalls gültig. Nicht als Geräte-Serial-No. interpretieren."
+    "notes": "Teil der WiFi-Barcode-/Warmlink-Modulkennung; Blockkopf/Kennung bleibt ebenfalls gültig. Nicht als Geräte-Serial-No. interpretieren.",
+    "tab": ""
   },
   "1002": {
     "function": "03",
@@ -130,7 +147,8 @@
     "type": "BLOCK",
     "ascii_group": "wifi_barcode",
     "ascii_pos": "3-4",
-    "notes": "Teil der WiFi-Barcode-/Warmlink-Modulkennung; Blockkopf/Kennung bleibt ebenfalls gültig. Nicht als Geräte-Serial-No. interpretieren."
+    "notes": "Teil der WiFi-Barcode-/Warmlink-Modulkennung; Blockkopf/Kennung bleibt ebenfalls gültig. Nicht als Geräte-Serial-No. interpretieren.",
+    "tab": ""
   },
   "1003": {
     "function": "03",
@@ -139,7 +157,8 @@
     "type": "BLOCK",
     "ascii_group": "wifi_barcode",
     "ascii_pos": "5-6",
-    "notes": "Teil der WiFi-Barcode-/Warmlink-Modulkennung; Blockkopf/Kennung bleibt ebenfalls gültig. Nicht als Geräte-Serial-No. interpretieren."
+    "notes": "Teil der WiFi-Barcode-/Warmlink-Modulkennung; Blockkopf/Kennung bleibt ebenfalls gültig. Nicht als Geräte-Serial-No. interpretieren.",
+    "tab": ""
   },
   "1004": {
     "function": "03",
@@ -148,7 +167,8 @@
     "type": "BLOCK",
     "ascii_group": "wifi_barcode",
     "ascii_pos": "7-8",
-    "notes": "Teil der WiFi-Barcode-/Warmlink-Modulkennung; Blockkopf/Kennung bleibt ebenfalls gültig. Nicht als Geräte-Serial-No. interpretieren."
+    "notes": "Teil der WiFi-Barcode-/Warmlink-Modulkennung; Blockkopf/Kennung bleibt ebenfalls gültig. Nicht als Geräte-Serial-No. interpretieren.",
+    "tab": ""
   },
   "1005": {
     "function": "03",
@@ -157,7 +177,8 @@
     "type": "BLOCK",
     "ascii_group": "wifi_barcode",
     "ascii_pos": "9-10",
-    "notes": "Teil der WiFi-Barcode-/Warmlink-Modulkennung; Blockkopf/Kennung bleibt ebenfalls gültig. Nicht als Geräte-Serial-No. interpretieren."
+    "notes": "Teil der WiFi-Barcode-/Warmlink-Modulkennung; Blockkopf/Kennung bleibt ebenfalls gültig. Nicht als Geräte-Serial-No. interpretieren.",
+    "tab": ""
   },
   "1006": {
     "function": "03",
@@ -166,7 +187,8 @@
     "type": "BLOCK",
     "ascii_group": "wifi_barcode",
     "ascii_pos": "11-12",
-    "notes": "Teil der WiFi-Barcode-/Warmlink-Modulkennung; Blockkopf/Kennung bleibt ebenfalls gültig. Nicht als Geräte-Serial-No. interpretieren."
+    "notes": "Teil der WiFi-Barcode-/Warmlink-Modulkennung; Blockkopf/Kennung bleibt ebenfalls gültig. Nicht als Geräte-Serial-No. interpretieren.",
+    "tab": ""
   },
   "1007": {
     "function": "03",
@@ -175,25 +197,29 @@
     "type": "BLOCK",
     "ascii_group": "wifi_barcode",
     "ascii_pos": "Reserve/Ende",
-    "notes": "Teil der WiFi-Barcode-/Warmlink-Modulkennung; Blockkopf/Kennung bleibt ebenfalls gültig. Nicht als Geräte-Serial-No. interpretieren."
+    "notes": "Teil der WiFi-Barcode-/Warmlink-Modulkennung; Blockkopf/Kennung bleibt ebenfalls gültig. Nicht als Geräte-Serial-No. interpretieren.",
+    "tab": ""
   },
   "1008": {
     "function": "03",
     "mode": "read",
     "name": "Blockkopf Paket 1 / Reserve 2",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "1009": {
     "function": "03",
     "mode": "read",
     "name": "Blockkopf Paket 1 / Marker-Länge",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "1010": {
     "function": "03",
     "mode": "read",
     "name": "Blockkopf Paket 1 / erstes Blockkopf-Register",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "1011": {
     "function": "03/16",
@@ -203,7 +229,8 @@
     "value_map": {
       "0": "Aus",
       "1": "Ein"
-    }
+    },
+    "tab": ""
   },
   "1012": {
     "function": "03/16",
@@ -217,13 +244,15 @@
       "3": "Warmwasser + Heizen",
       "4": "Warmwasser + Kühlen"
     },
-    "description": "Soll-/Einstellmodus. Nicht identisch mit aktuellem Betriebsstatus 2012."
+    "description": "Soll-/Einstellmodus. Nicht identisch mit aktuellem Betriebsstatus 2012.",
+    "tab": ""
   },
   "1013": {
     "function": "06",
     "mode": "r/w",
     "name": "Wassertanktemperatur (vom Zentralregler bei H37-1)",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": ""
   },
   "1014": {
     "function": "06",
@@ -233,13 +262,15 @@
     "value_map": {
       "0": "nicht zulassen",
       "1": "zulassen"
-    }
+    },
+    "tab": ""
   },
   "1015": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Sprachauswahl",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "1016": {
     "bit_map": {
@@ -251,13 +282,15 @@
     "mode": "r/w",
     "name": "Manuelle Steuerung / Silent Status",
     "type": "DIGI1",
-    "description": "Bit 1 (0x0002) ist Silent Mode. Derselbe Wert ist auch der Status; per Read-Modify-Write ändern."
+    "description": "Bit 1 (0x0002) ist Silent Mode. Derselbe Wert ist auch der Status; per Read-Modify-Write ändern.",
+    "tab": ""
   },
   "1017": {
     "function": "03/06",
     "mode": "r/w",
     "name": "Logo-Auswahl",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "1018": {
     "app_label": "Auto start",
@@ -336,7 +369,8 @@
     "function": "03/16",
     "mode": "r/w",
     "name": "Reserviert",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "1023": {
     "app_label": "Dry Contact",
@@ -982,7 +1016,8 @@
     "function": "03/16",
     "mode": "r/w",
     "name": "Reserviert",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "1066": {
     "app_label": "Max Heat Coil Temp",
@@ -999,7 +1034,8 @@
     "function": "03/16",
     "mode": "r/w",
     "name": "Reserviert",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "1068": {
     "app_label": "Min Heat Coil Temp",
@@ -1173,13 +1209,15 @@
     "function": "03/16",
     "mode": "r/w",
     "name": "Zone2 Heizkurve K / Raumtemperatur-Kompensation (ASM)",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "1079": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Zone2 Heizkurve B / Raumtemperatur-Kompensation (ASM)",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "1080": {
     "app_label": "Mixing Valve Manual Adjustment Ratio (0% for Auto Control)",
@@ -1342,7 +1380,8 @@
     "type": "BLOCK",
     "ascii_group": "block_header",
     "ascii_pos": "1-2",
-    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt."
+    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt.",
+    "tab": ""
   },
   "1092": {
     "function": "03",
@@ -1351,7 +1390,8 @@
     "type": "BLOCK",
     "ascii_group": "block_header",
     "ascii_pos": "3-4",
-    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt."
+    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt.",
+    "tab": ""
   },
   "1093": {
     "function": "03",
@@ -1360,7 +1400,8 @@
     "type": "BLOCK",
     "ascii_group": "block_header",
     "ascii_pos": "5-6",
-    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt."
+    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt.",
+    "tab": ""
   },
   "1094": {
     "function": "03",
@@ -1369,7 +1410,8 @@
     "type": "BLOCK",
     "ascii_group": "block_header",
     "ascii_pos": "7-8",
-    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt."
+    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt.",
+    "tab": ""
   },
   "1095": {
     "function": "03",
@@ -1378,7 +1420,8 @@
     "type": "BLOCK",
     "ascii_group": "block_header",
     "ascii_pos": "9-10",
-    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt."
+    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt.",
+    "tab": ""
   },
   "1096": {
     "function": "03",
@@ -1387,31 +1430,36 @@
     "type": "BLOCK",
     "ascii_group": "block_header",
     "ascii_pos": "11-12",
-    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt."
+    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt.",
+    "tab": ""
   },
   "1097": {
     "function": "03",
     "mode": "read",
     "name": "Blockkopf Paket 2 / Reserve 1",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "1098": {
     "function": "03",
     "mode": "read",
     "name": "Blockkopf Paket 2 / Reserve 2",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "1099": {
     "function": "03",
     "mode": "read",
     "name": "Blockkopf Paket 2 / Marker-Länge",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "1100": {
     "function": "03",
     "mode": "read",
     "name": "Blockkopf Paket 2 / erstes Blockkopf-Register",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "1101": {
     "app_label": "CT to Reduce Top Fans in Cooling",
@@ -1943,7 +1991,8 @@
     "last_review": "v0.2.32 video 2026-06-14",
     "mode": "r/w",
     "name": "System 2 EVI/Enthalpie vorhanden wenn Wert != 0 (ASM V1.3)",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "1142": {
     "app_current_video_value": "185 N",
@@ -2048,13 +2097,15 @@
     "function": "03/16",
     "mode": "r/w",
     "name": "Reserviert",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "1151": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Reserviert",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "1152": {
     "app_current_video_value": "62.5 °C",
@@ -2451,7 +2502,8 @@
     "type": "BLOCK",
     "ascii_group": "block_header",
     "ascii_pos": "1-2",
-    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt."
+    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt.",
+    "tab": ""
   },
   "1182": {
     "function": "03",
@@ -2460,7 +2512,8 @@
     "type": "BLOCK",
     "ascii_group": "block_header",
     "ascii_pos": "3-4",
-    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt."
+    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt.",
+    "tab": ""
   },
   "1183": {
     "function": "03",
@@ -2469,7 +2522,8 @@
     "type": "BLOCK",
     "ascii_group": "block_header",
     "ascii_pos": "5-6",
-    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt."
+    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt.",
+    "tab": ""
   },
   "1184": {
     "function": "03",
@@ -2478,7 +2532,8 @@
     "type": "BLOCK",
     "ascii_group": "block_header",
     "ascii_pos": "7-8",
-    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt."
+    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt.",
+    "tab": ""
   },
   "1185": {
     "function": "03",
@@ -2487,7 +2542,8 @@
     "type": "BLOCK",
     "ascii_group": "block_header",
     "ascii_pos": "9-10",
-    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt."
+    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt.",
+    "tab": ""
   },
   "1186": {
     "function": "03",
@@ -2496,38 +2552,44 @@
     "type": "BLOCK",
     "ascii_group": "block_header",
     "ascii_pos": "11-12",
-    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt."
+    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt.",
+    "tab": ""
   },
   "1187": {
     "function": "03",
     "mode": "read",
     "name": "Blockkopf Paket 3 / Reserve 1",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "1188": {
     "function": "03",
     "mode": "read",
     "name": "Blockkopf Paket 3 / Reserve 2",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "1189": {
     "function": "03",
     "mode": "read",
     "name": "Blockkopf Paket 3 / Marker-Länge",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "1190": {
     "function": "03",
     "mode": "read",
     "name": "Blockkopf Paket 3 / erstes Blockkopf-Register",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "1191": {
     "function": "03",
     "mode": "read",
     "name": "Paketmarker / Syncwort / Blockkopfkennung",
     "type": "BLOCK",
-    "note": "Beobachtet: 0x5AA5. Nicht als Text/ASCII anzeigen; 0x5A wäre Z, 0xA5 ist kein druckbares Standard-ASCII."
+    "note": "Beobachtet: 0x5AA5. Nicht als Text/ASCII anzeigen; 0x5A wäre Z, 0xA5 ist kein druckbares Standard-ASCII.",
+    "tab": ""
   },
   "1192": {
     "app_current_video_value": "5.0 °C",
@@ -2807,7 +2869,8 @@
     "name": "Offset Inlet Temperatur",
     "type": "TEMP1",
     "unit": "K",
-    "note": "Anzeige als Kelvin-Differenz: RAW / 10 K."
+    "note": "Anzeige als Kelvin-Differenz: RAW / 10 K.",
+    "tab": ""
   },
   "1213": {
     "function": "03/16",
@@ -2815,7 +2878,8 @@
     "name": "Offset outlet Temperatur",
     "type": "TEMP1",
     "unit": "K",
-    "note": "Anzeige als Kelvin-Differenz: RAW / 10 K."
+    "note": "Anzeige als Kelvin-Differenz: RAW / 10 K.",
+    "tab": ""
   },
   "1214": {
     "function": "03/16",
@@ -2823,7 +2887,8 @@
     "name": "Offset WW Temperatur",
     "type": "TEMP1",
     "unit": "K",
-    "note": "Anzeige als Kelvin-Differenz: RAW / 10 K."
+    "note": "Anzeige als Kelvin-Differenz: RAW / 10 K.",
+    "tab": ""
   },
   "1215": {
     "app_current_video_value": "90 N",
@@ -3075,7 +3140,8 @@
     "name": "AT-Kompensation Slope / Steigung",
     "type": "DIGI5",
     "unit": "",
-    "description": "Slope der AT-Kompensationskurve Zone 1. Vermutete Formel: Ziel = Offset - Slope × AT."
+    "description": "Slope der AT-Kompensationskurve Zone 1. Vermutete Formel: Ziel = Offset - Slope × AT.",
+    "tab": ""
   },
   "1235": {
     "function": "03/16",
@@ -3083,7 +3149,8 @@
     "name": "AT-Kompensation Offset / Versatz",
     "type": "TEMP1",
     "unit": "°C",
-    "description": "Offset der AT-Kompensationskurve Zone 1. Vermutete Formel: Ziel = Offset - Slope × AT."
+    "description": "Offset der AT-Kompensationskurve Zone 1. Vermutete Formel: Ziel = Offset - Slope × AT.",
+    "tab": ""
   },
   "1236": {
     "app_label": "Enable AT Compensation Curve Zone 1",
@@ -3209,19 +3276,22 @@
     "value_map": {
       "0": "Aus",
       "1": "Ein"
-    }
+    },
+    "tab": ""
   },
   "1245": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Silentmodus Timer Start Stunde",
-    "type": "DIGI1"
+    "type": "DIGI1",
+    "tab": ""
   },
   "1246": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Silentmodus Timer Start Minute",
-    "type": "DIGI1"
+    "type": "DIGI1",
+    "tab": ""
   },
   "1247": {
     "function": "03/16",
@@ -3232,19 +3302,22 @@
     "value_map": {
       "0": "Aus",
       "1": "Ein"
-    }
+    },
+    "tab": ""
   },
   "1248": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Silentmodus Timer Stop Stunde",
-    "type": "DIGI1"
+    "type": "DIGI1",
+    "tab": ""
   },
   "1249": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Silentmodus Timer Stop Minute",
-    "type": "DIGI1"
+    "type": "DIGI1",
+    "tab": ""
   },
   "1250": {
     "function": "03/16",
@@ -3254,37 +3327,43 @@
     "value_map": {
       "0": "Nein",
       "1": "Ja"
-    }
+    },
+    "tab": ""
   },
   "1251": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Aktuelle Systemminute",
-    "type": "DIGI1"
+    "type": "DIGI1",
+    "tab": ""
   },
   "1252": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Aktuelle Systemstunde",
-    "type": "DIGI1"
+    "type": "DIGI1",
+    "tab": ""
   },
   "1253": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Aktueller Systemtag",
-    "type": "DIGI1"
+    "type": "DIGI1",
+    "tab": ""
   },
   "1254": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Aktueller Systemmonat",
-    "type": "DIGI1"
+    "type": "DIGI1",
+    "tab": ""
   },
   "1255": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Aktuelles Systemjahr",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "1256": {
     "block": "KG",
@@ -3293,7 +3372,8 @@
     "info": "Quelle: ASM V1.3 / User-Test. Zeitformat High-Byte=Stunde, Low-Byte=Minute.",
     "mode": "r/w",
     "name": "WP Ein/Aus Timer 1 Startzeit",
-    "type": "TIME_HHMM"
+    "type": "TIME_HHMM",
+    "tab": "KG"
   },
   "1257": {
     "block": "KG",
@@ -3302,7 +3382,8 @@
     "info": "Quelle: ASM V1.3 / User-Test. Zeitformat High-Byte=Stunde, Low-Byte=Minute.",
     "mode": "r/w",
     "name": "WP Ein/Aus Timer 1 Stopzeit",
-    "type": "TIME_HHMM"
+    "type": "TIME_HHMM",
+    "tab": "KG"
   },
   "1258": {
     "block": "KG",
@@ -3311,7 +3392,8 @@
     "info": "Quelle: ASM V1.3 / User-Test. Zeitformat High-Byte=Stunde, Low-Byte=Minute.",
     "mode": "r/w",
     "name": "WP Ein/Aus Timer 2 Startzeit",
-    "type": "TIME_HHMM"
+    "type": "TIME_HHMM",
+    "tab": "KG"
   },
   "1259": {
     "block": "KG",
@@ -3320,7 +3402,8 @@
     "info": "Quelle: ASM V1.3 / User-Test. Zeitformat High-Byte=Stunde, Low-Byte=Minute.",
     "mode": "r/w",
     "name": "WP Ein/Aus Timer 2 Stopzeit",
-    "type": "TIME_HHMM"
+    "type": "TIME_HHMM",
+    "tab": "KG"
   },
   "1260": {
     "block": "KG",
@@ -3329,7 +3412,8 @@
     "info": "Quelle: ASM V1.3 / User-Test. Zeitformat High-Byte=Stunde, Low-Byte=Minute.",
     "mode": "r/w",
     "name": "WP Ein/Aus Timer 3 Startzeit",
-    "type": "TIME_HHMM"
+    "type": "TIME_HHMM",
+    "tab": "KG"
   },
   "1261": {
     "block": "KG",
@@ -3338,7 +3422,8 @@
     "info": "Quelle: ASM V1.3 / User-Test. Zeitformat High-Byte=Stunde, Low-Byte=Minute.",
     "mode": "r/w",
     "name": "WP Ein/Aus Timer 3 Stopzeit",
-    "type": "TIME_HHMM"
+    "type": "TIME_HHMM",
+    "tab": "KG"
   },
   "1262": {
     "block": "KG",
@@ -3347,7 +3432,8 @@
     "info": "Quelle: ASM V1.3 / User-Test. Zeitformat High-Byte=Stunde, Low-Byte=Minute.",
     "mode": "r/w",
     "name": "WP Ein/Aus Timer 4 Startzeit",
-    "type": "TIME_HHMM"
+    "type": "TIME_HHMM",
+    "tab": "KG"
   },
   "1263": {
     "block": "KG",
@@ -3356,7 +3442,8 @@
     "info": "Quelle: ASM V1.3 / User-Test. Zeitformat High-Byte=Stunde, Low-Byte=Minute.",
     "mode": "r/w",
     "name": "WP Ein/Aus Timer 4 Stopzeit",
-    "type": "TIME_HHMM"
+    "type": "TIME_HHMM",
+    "tab": "KG"
   },
   "1264": {
     "block": "KG",
@@ -3365,7 +3452,8 @@
     "info": "Quelle: ASM V1.3 / User-Test. Zeitformat High-Byte=Stunde, Low-Byte=Minute.",
     "mode": "r/w",
     "name": "WP Ein/Aus Timer 5 Startzeit",
-    "type": "TIME_HHMM"
+    "type": "TIME_HHMM",
+    "tab": "KG"
   },
   "1265": {
     "block": "KG",
@@ -3374,7 +3462,8 @@
     "info": "Quelle: ASM V1.3 / User-Test. Zeitformat High-Byte=Stunde, Low-Byte=Minute.",
     "mode": "r/w",
     "name": "WP Ein/Aus Timer 5 Stopzeit",
-    "type": "TIME_HHMM"
+    "type": "TIME_HHMM",
+    "tab": "KG"
   },
   "1266": {
     "block": "KG",
@@ -3383,7 +3472,8 @@
     "info": "Quelle: ASM V1.3 / User-Test. Zeitformat High-Byte=Stunde, Low-Byte=Minute.",
     "mode": "r/w",
     "name": "WP Ein/Aus Timer 6 Startzeit",
-    "type": "TIME_HHMM"
+    "type": "TIME_HHMM",
+    "tab": "KG"
   },
   "1267": {
     "block": "KG",
@@ -3392,7 +3482,8 @@
     "info": "Quelle: ASM V1.3 / User-Test. Zeitformat High-Byte=Stunde, Low-Byte=Minute.",
     "mode": "r/w",
     "name": "WP Ein/Aus Timer 6 Stopzeit",
-    "type": "TIME_HHMM"
+    "type": "TIME_HHMM",
+    "tab": "KG"
   },
   "1268": {
     "block": "KG",
@@ -3401,7 +3492,8 @@
     "info": "Quelle: ASM V1.3 / User-Test. Pro Byte: Bit7 aktiv, Bit0-6 Mo-So; Low-Byte erster Timer im Paar, High-Byte zweiter Timer.",
     "mode": "r/w",
     "name": "WP Ein/Aus Timer 1+2 Aktiv/Tage Bitmaske",
-    "type": "TIMER_BITPAIR"
+    "type": "TIMER_BITPAIR",
+    "tab": "KG"
   },
   "1269": {
     "block": "KG",
@@ -3410,7 +3502,8 @@
     "info": "Quelle: ASM V1.3 / User-Test. Pro Byte: Bit7 aktiv, Bit0-6 Mo-So; Low-Byte erster Timer im Paar, High-Byte zweiter Timer.",
     "mode": "r/w",
     "name": "WP Ein/Aus Timer 3+4 Aktiv/Tage Bitmaske",
-    "type": "TIMER_BITPAIR"
+    "type": "TIMER_BITPAIR",
+    "tab": "KG"
   },
   "1270": {
     "block": "KG",
@@ -3419,7 +3512,8 @@
     "info": "Quelle: ASM V1.3 / User-Test. Pro Byte: Bit7 aktiv, Bit0-6 Mo-So; Low-Byte erster Timer im Paar, High-Byte zweiter Timer.",
     "mode": "r/w",
     "name": "WP Ein/Aus Timer 5+6 Aktiv/Tage Bitmaske",
-    "type": "TIMER_BITPAIR"
+    "type": "TIMER_BITPAIR",
+    "tab": "KG"
   },
   "1271": {
     "function": "03",
@@ -3428,7 +3522,8 @@
     "type": "BLOCK",
     "ascii_group": "block_header",
     "ascii_pos": "1-2",
-    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt."
+    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt.",
+    "tab": ""
   },
   "1272": {
     "function": "03",
@@ -3437,7 +3532,8 @@
     "type": "BLOCK",
     "ascii_group": "block_header",
     "ascii_pos": "3-4",
-    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt."
+    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt.",
+    "tab": ""
   },
   "1273": {
     "function": "03",
@@ -3446,7 +3542,8 @@
     "type": "BLOCK",
     "ascii_group": "block_header",
     "ascii_pos": "5-6",
-    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt."
+    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt.",
+    "tab": ""
   },
   "1274": {
     "function": "03",
@@ -3455,7 +3552,8 @@
     "type": "BLOCK",
     "ascii_group": "block_header",
     "ascii_pos": "7-8",
-    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt."
+    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt.",
+    "tab": ""
   },
   "1275": {
     "function": "03",
@@ -3464,7 +3562,8 @@
     "type": "BLOCK",
     "ascii_group": "block_header",
     "ascii_pos": "9-10",
-    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt."
+    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt.",
+    "tab": ""
   },
   "1276": {
     "function": "03",
@@ -3473,61 +3572,71 @@
     "type": "BLOCK",
     "ascii_group": "block_header",
     "ascii_pos": "11-12",
-    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt."
+    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt.",
+    "tab": ""
   },
   "1277": {
     "function": "03",
     "mode": "read",
     "name": "Blockkopf Paket 4 / Reserve 1",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "1278": {
     "function": "03",
     "mode": "read",
     "name": "Blockkopf Paket 4 / Reserve 2",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "1279": {
     "function": "03",
     "mode": "read",
     "name": "Blockkopf Paket 4 / Marker-Länge",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "1280": {
     "function": "03",
     "mode": "read",
     "name": "Blockkopf Paket 4 / erstes Blockkopf-Register",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "1281": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Timer 1 Einschaltzeit (HH:MM aus High-/Low-Byte) (ASM)",
-    "type": "TIME_HHMM"
+    "type": "TIME_HHMM",
+    "tab": ""
   },
   "1282": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Timer 1 Ausschaltzeit (HH:MM aus High-/Low-Byte) (ASM)",
-    "type": "TIME_HHMM"
+    "type": "TIME_HHMM",
+    "tab": ""
   },
   "1283": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Timer 1 WW-Zieltemperatur (ASM)",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": ""
   },
   "1284": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Timer 1 HZ-Zieltemperatur (ASM)",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": ""
   },
   "1285": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Timer 1 Kühlen-Zieltemperatur (ASM)",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": ""
   },
   "1286": {
     "function": "03/16",
@@ -3541,43 +3650,50 @@
       "3": "Warmwasser + Heizen",
       "4": "Warmwasser + Kühlen",
       "9": "keinen Modus ändern / Code 9"
-    }
+    },
+    "tab": ""
   },
   "1287": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Timer 1 max. Leistung (ASM)",
-    "type": "POWER_KW_X10"
+    "type": "POWER_KW_X10",
+    "tab": ""
   },
   "1288": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Timer 2 Einschaltzeit (HH:MM aus High-/Low-Byte) (ASM)",
-    "type": "TIME_HHMM"
+    "type": "TIME_HHMM",
+    "tab": ""
   },
   "1289": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Timer 2 Ausschaltzeit (HH:MM aus High-/Low-Byte) (ASM)",
-    "type": "TIME_HHMM"
+    "type": "TIME_HHMM",
+    "tab": ""
   },
   "1290": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Timer 2 WW-Zieltemperatur (ASM)",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": ""
   },
   "1291": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Timer 2 HZ-Zieltemperatur (ASM)",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": ""
   },
   "1292": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Timer 2 Kühlen-Zieltemperatur (ASM)",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": ""
   },
   "1293": {
     "function": "03/16",
@@ -3591,43 +3707,50 @@
       "3": "Warmwasser + Heizen",
       "4": "Warmwasser + Kühlen",
       "9": "keinen Modus ändern / Code 9"
-    }
+    },
+    "tab": ""
   },
   "1294": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Timer 2 max. Leistung (ASM)",
-    "type": "POWER_KW_X10"
+    "type": "POWER_KW_X10",
+    "tab": ""
   },
   "1295": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Timer 3 Einschaltzeit (HH:MM aus High-/Low-Byte) (ASM)",
-    "type": "TIME_HHMM"
+    "type": "TIME_HHMM",
+    "tab": ""
   },
   "1296": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Timer 3 Ausschaltzeit (HH:MM aus High-/Low-Byte) (ASM)",
-    "type": "TIME_HHMM"
+    "type": "TIME_HHMM",
+    "tab": ""
   },
   "1297": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Timer 3 WW-Zieltemperatur (ASM)",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": ""
   },
   "1298": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Timer 3 HZ-Zieltemperatur (ASM)",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": ""
   },
   "1299": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Timer 3 Kühlen-Zieltemperatur (ASM)",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": ""
   },
   "1300": {
     "function": "03/16",
@@ -3641,43 +3764,50 @@
       "3": "Warmwasser + Heizen",
       "4": "Warmwasser + Kühlen",
       "9": "keinen Modus ändern / Code 9"
-    }
+    },
+    "tab": ""
   },
   "1301": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Timer 3 max. Leistung (ASM)",
-    "type": "POWER_KW_X10"
+    "type": "POWER_KW_X10",
+    "tab": ""
   },
   "1302": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Timer 4 Einschaltzeit (HH:MM aus High-/Low-Byte) (ASM)",
-    "type": "TIME_HHMM"
+    "type": "TIME_HHMM",
+    "tab": ""
   },
   "1303": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Timer 4 Ausschaltzeit (HH:MM aus High-/Low-Byte) (ASM)",
-    "type": "TIME_HHMM"
+    "type": "TIME_HHMM",
+    "tab": ""
   },
   "1304": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Timer 4 WW-Zieltemperatur (ASM)",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": ""
   },
   "1305": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Timer 4 HZ-Zieltemperatur (ASM)",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": ""
   },
   "1306": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Timer 4 Kühlen-Zieltemperatur (ASM)",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": ""
   },
   "1307": {
     "function": "03/16",
@@ -3691,43 +3821,50 @@
       "3": "Warmwasser + Heizen",
       "4": "Warmwasser + Kühlen",
       "9": "keinen Modus ändern / Code 9"
-    }
+    },
+    "tab": ""
   },
   "1308": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Timer 4 max. Leistung (ASM)",
-    "type": "POWER_KW_X10"
+    "type": "POWER_KW_X10",
+    "tab": ""
   },
   "1309": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Timer 5 Einschaltzeit (HH:MM aus High-/Low-Byte) (ASM)",
-    "type": "TIME_HHMM"
+    "type": "TIME_HHMM",
+    "tab": ""
   },
   "1310": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Timer 5 Ausschaltzeit (HH:MM aus High-/Low-Byte) (ASM)",
-    "type": "TIME_HHMM"
+    "type": "TIME_HHMM",
+    "tab": ""
   },
   "1311": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Timer 5 WW-Zieltemperatur (ASM)",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": ""
   },
   "1312": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Timer 5 HZ-Zieltemperatur (ASM)",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": ""
   },
   "1313": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Timer 5 Kühlen-Zieltemperatur (ASM)",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": ""
   },
   "1314": {
     "function": "03/16",
@@ -3741,43 +3878,50 @@
       "3": "Warmwasser + Heizen",
       "4": "Warmwasser + Kühlen",
       "9": "keinen Modus ändern / Code 9"
-    }
+    },
+    "tab": ""
   },
   "1315": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Timer 5 max. Leistung (ASM)",
-    "type": "POWER_KW_X10"
+    "type": "POWER_KW_X10",
+    "tab": ""
   },
   "1316": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Timer 6 Einschaltzeit (HH:MM aus High-/Low-Byte) (ASM)",
-    "type": "TIME_HHMM"
+    "type": "TIME_HHMM",
+    "tab": ""
   },
   "1317": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Timer 6 Ausschaltzeit (HH:MM aus High-/Low-Byte) (ASM)",
-    "type": "TIME_HHMM"
+    "type": "TIME_HHMM",
+    "tab": ""
   },
   "1318": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Timer 6 WW-Zieltemperatur (ASM)",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": ""
   },
   "1319": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Timer 6 HZ-Zieltemperatur (ASM)",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": ""
   },
   "1320": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Timer 6 Kühlen-Zieltemperatur (ASM)",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": ""
   },
   "1321": {
     "function": "03/16",
@@ -3791,79 +3935,92 @@
       "3": "Warmwasser + Heizen",
       "4": "Warmwasser + Kühlen",
       "9": "keinen Modus ändern / Code 9"
-    }
+    },
+    "tab": ""
   },
   "1322": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Timer 6 max. Leistung (ASM)",
-    "type": "POWER_KW_X10"
+    "type": "POWER_KW_X10",
+    "tab": ""
   },
   "1323": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Timer 1+2 Aktiv/Tage Bitmaske (ASM; Low-Byte erster Timer, High-Byte zweiter Timer)",
-    "type": "TIMER_BITPAIR"
+    "type": "TIMER_BITPAIR",
+    "tab": ""
   },
   "1324": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Timer 3+4 Aktiv/Tage Bitmaske (ASM; Low-Byte erster Timer, High-Byte zweiter Timer)",
-    "type": "TIMER_BITPAIR"
+    "type": "TIMER_BITPAIR",
+    "tab": ""
   },
   "1325": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Timer 5+6 Aktiv/Tage Bitmaske (ASM; Low-Byte erster Timer, High-Byte zweiter Timer)",
-    "type": "TIMER_BITPAIR"
+    "type": "TIMER_BITPAIR",
+    "tab": ""
   },
   "1326": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Zirkulationspumpe Timer 1 Startzeit",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "1327": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Zirkulationspumpe Timer 1 Stopzeit",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "1328": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Zirkulationspumpe Timer 2 Startzeit",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "1329": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Zirkulationspumpe Timer 2 Stopzeit",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "1330": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Zirkulationspumpe Timer 3 Startzeit",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "1331": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Zirkulationspumpe Timer 3 Stopzeit",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "1332": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Zirkulationspumpe Timer 1+2 Aktiv-Bitmaske",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "1333": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Zirkulationspumpe Timer 3 Aktiv-Bitmaske",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "1334": {
     "block": "SG",
@@ -3877,7 +4034,8 @@
       "1": "Einfach / 1 Kontakt",
       "2": "2 Kontakte"
     },
-    "description": "Aktivierung/Auswahl SG Ready: Aus / 1 Kontakt / 2 Kontakte"
+    "description": "Aktivierung/Auswahl SG Ready: Aus / 1 Kontakt / 2 Kontakte",
+    "tab": "SG"
   },
   "1335": {
     "block": "SG",
@@ -3887,7 +4045,8 @@
     "name": "SG Mode 1 Schlafmodus Zeit",
     "type": "RAW",
     "unit": "min",
-    "description": "Zeitdauer Schlafmodus bei SG Mode 1"
+    "description": "Zeitdauer Schlafmodus bei SG Mode 1",
+    "tab": "SG"
   },
   "1336": {
     "block": "SG",
@@ -3898,7 +4057,8 @@
     "type": "POWER_KW_X10",
     "unit": "kW",
     "scale": "RAW / 10",
-    "description": "Leistungsgrenze bzw. Leistungsvorgabe bei SG Mode 2 / wenig PV"
+    "description": "Leistungsgrenze bzw. Leistungsvorgabe bei SG Mode 2 / wenig PV",
+    "tab": "SG"
   },
   "1337": {
     "block": "SG",
@@ -3909,7 +4069,8 @@
     "type": "POWER_KW_X10",
     "unit": "kW",
     "scale": "RAW / 10",
-    "description": "Leistungsgrenze bzw. Leistungsvorgabe bei SG Mode 3 / mittel PV"
+    "description": "Leistungsgrenze bzw. Leistungsvorgabe bei SG Mode 3 / mittel PV",
+    "tab": "SG"
   },
   "1338": {
     "block": "SG",
@@ -3918,7 +4079,8 @@
     "mode": "r/w",
     "name": "SG Mode 4 WW-Zieltemperatur-Anhebung",
     "type": "TEMP1",
-    "description": "Temperatur-Offset/Sollwertanhebung bei SG Mode 4 / High PV"
+    "description": "Temperatur-Offset/Sollwertanhebung bei SG Mode 4 / High PV",
+    "tab": "SG"
   },
   "1339": {
     "block": "SG",
@@ -3927,7 +4089,8 @@
     "mode": "r/w",
     "name": "SG Mode 4 HZ-Zieltemperatur-Anhebung",
     "type": "TEMP1",
-    "description": "Temperatur-Offset/Sollwertanhebung bei SG Mode 4 / High PV"
+    "description": "Temperatur-Offset/Sollwertanhebung bei SG Mode 4 / High PV",
+    "tab": "SG"
   },
   "1340": {
     "block": "SG",
@@ -3937,7 +4100,8 @@
     "name": "SG Mode 4 Kühlen-Zieltemperatur-Anhebung",
     "notes": "Wirkungsweise: Positiver Wert = kleinere Kühl-Solltemperatur. Der Wert wird bei aktivem SG Ready vom Kühl-Sollwert abgezogen.",
     "type": "TEMP1",
-    "description": "Temperatur-Offset/Sollwertanhebung bei SG Mode 4 / High PV. Im Kühlbetrieb kann ein positiver Wert den Kühl-Sollwert effektiv senken, weil der Offset vom Kühl-Sollwert abgezogen wird."
+    "description": "Temperatur-Offset/Sollwertanhebung bei SG Mode 4 / High PV. Im Kühlbetrieb kann ein positiver Wert den Kühl-Sollwert effektiv senken, weil der Offset vom Kühl-Sollwert abgezogen wird.",
+    "tab": "SG"
   },
   "1341": {
     "block": "SG",
@@ -3956,7 +4120,8 @@
     },
     "app_label": "Electric Heater On in SG Mode4",
     "last_review": "v0.2.41 fix8 user confirmed",
-    "description": "Zusatzfunktion/E-Heizer-Freigabe für SG Mode 4"
+    "description": "Zusatzfunktion/E-Heizer-Freigabe für SG Mode 4",
+    "tab": "SG"
   },
   "1342": {
     "app_current_video_value": "0.0 bar",
@@ -4021,7 +4186,8 @@
     "name": "Supervisor-Passwort: 66",
     "type": "RAW",
     "last_review": "v0.2.41 fix8 user confirmed",
-    "notes": "H41 bestätigt."
+    "notes": "H41 bestätigt.",
+    "tab": "H"
   },
   "1347": {
     "app_current_video_value": "90 Hz",
@@ -4044,7 +4210,8 @@
     "name": "Display-Firmware Parameter C13",
     "type": "RAW",
     "last_review": "v0.2.41 fix8",
-    "notes": "In App nicht sichtbar."
+    "notes": "In App nicht sichtbar.",
+    "tab": "C"
   },
   "1349": {
     "block": "C",
@@ -4054,7 +4221,8 @@
     "name": "Display-Firmware Parameter C14",
     "type": "RAW",
     "last_review": "v0.2.41 fix8",
-    "notes": "In App nicht sichtbar."
+    "notes": "In App nicht sichtbar.",
+    "tab": "C"
   },
   "1350": {
     "block": "C",
@@ -4064,7 +4232,8 @@
     "name": "Display-Firmware Parameter C15",
     "type": "RAW",
     "last_review": "v0.2.41 fix8",
-    "notes": "In App nicht sichtbar."
+    "notes": "In App nicht sichtbar.",
+    "tab": "C"
   },
   "1351": {
     "block": "E",
@@ -4074,7 +4243,8 @@
     "name": "Display-Firmware Parameter E20",
     "type": "RAW",
     "last_review": "v0.2.41 fix8",
-    "notes": "In App nicht sichtbar."
+    "notes": "In App nicht sichtbar.",
+    "tab": "E"
   },
   "1352": {
     "block": "E",
@@ -4084,25 +4254,29 @@
     "name": "Display-Firmware Parameter E21",
     "type": "RAW",
     "last_review": "v0.2.41 fix8",
-    "notes": "In App nicht sichtbar."
+    "notes": "In App nicht sichtbar.",
+    "tab": "E"
   },
   "1353": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Reserviert",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "1354": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Reserviert",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "1355": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Reserviert",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "1356": {
     "block": "H",
@@ -4157,7 +4331,8 @@
     "type": "BLOCK",
     "ascii_group": "block_header",
     "ascii_pos": "1-2",
-    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt."
+    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt.",
+    "tab": ""
   },
   "1362": {
     "function": "03",
@@ -4166,7 +4341,8 @@
     "type": "BLOCK",
     "ascii_group": "block_header",
     "ascii_pos": "3-4",
-    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt."
+    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt.",
+    "tab": ""
   },
   "1363": {
     "function": "03",
@@ -4175,7 +4351,8 @@
     "type": "BLOCK",
     "ascii_group": "block_header",
     "ascii_pos": "5-6",
-    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt."
+    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt.",
+    "tab": ""
   },
   "1364": {
     "function": "03",
@@ -4184,7 +4361,8 @@
     "type": "BLOCK",
     "ascii_group": "block_header",
     "ascii_pos": "7-8",
-    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt."
+    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt.",
+    "tab": ""
   },
   "1365": {
     "function": "03",
@@ -4193,7 +4371,8 @@
     "type": "BLOCK",
     "ascii_group": "block_header",
     "ascii_pos": "9-10",
-    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt."
+    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt.",
+    "tab": ""
   },
   "1366": {
     "function": "03",
@@ -4202,91 +4381,106 @@
     "type": "BLOCK",
     "ascii_group": "block_header",
     "ascii_pos": "11-12",
-    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt."
+    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt.",
+    "tab": ""
   },
   "1367": {
     "function": "03",
     "mode": "read",
     "name": "Blockkopf Paket 5 / Reserve 1",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "1368": {
     "function": "03",
     "mode": "read",
     "name": "Blockkopf Paket 5 / Reserve 2",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "1369": {
     "function": "03",
     "mode": "read",
     "name": "Blockkopf Paket 5 / Marker-Länge",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "1370": {
     "function": "03",
     "mode": "read",
     "name": "Blockkopf Paket 5 / erstes Blockkopf-Register",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "1371": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Werkstestmodus / manuelle Steuerung (ASM)",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "1372": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Automatischer Werkstest Ein/Aus (ASM)",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "1373": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Automatischer Werkstest Modus (ASM)",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "1374": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Automatischer Werkstest Zieltemperatur (ASM)",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": ""
   },
   "1375": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Automatischer Werkstest Kompressorfrequenz (ASM)",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "1376": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Automatischer Werkstest Lüfter 1 Drehzahl (ASM)",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "1377": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Automatischer Werkstest Lüfter 2 Drehzahl (ASM)",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "1378": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Automatischer Werkstest Haupt-EEV Schritte (ASM)",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "1379": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Automatischer Werkstest EVI-EEV Schritte (ASM)",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "1380": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Automatischer Werkstest Wasserpumpe Drehzahl (ASM)",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "1432": {
     "app_current_video_value": "4.4 °C",
@@ -4392,7 +4586,8 @@
     "type": "BLOCK",
     "ascii_group": "block_header",
     "ascii_pos": "1-2",
-    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt."
+    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt.",
+    "tab": ""
   },
   "1452": {
     "function": "03",
@@ -4401,7 +4596,8 @@
     "type": "BLOCK",
     "ascii_group": "block_header",
     "ascii_pos": "3-4",
-    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt."
+    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt.",
+    "tab": ""
   },
   "1453": {
     "function": "03",
@@ -4410,7 +4606,8 @@
     "type": "BLOCK",
     "ascii_group": "block_header",
     "ascii_pos": "5-6",
-    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt."
+    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt.",
+    "tab": ""
   },
   "1454": {
     "function": "03",
@@ -4419,7 +4616,8 @@
     "type": "BLOCK",
     "ascii_group": "block_header",
     "ascii_pos": "7-8",
-    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt."
+    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt.",
+    "tab": ""
   },
   "1455": {
     "function": "03",
@@ -4428,7 +4626,8 @@
     "type": "BLOCK",
     "ascii_group": "block_header",
     "ascii_pos": "9-10",
-    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt."
+    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt.",
+    "tab": ""
   },
   "1456": {
     "function": "03",
@@ -4437,112 +4636,130 @@
     "type": "BLOCK",
     "ascii_group": "block_header",
     "ascii_pos": "11-12",
-    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt."
+    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt.",
+    "tab": ""
   },
   "1457": {
     "function": "03",
     "mode": "read",
     "name": "Blockkopf Paket 6 / Reserve 1",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "1458": {
     "function": "03",
     "mode": "read",
     "name": "Blockkopf Paket 6 / Reserve 2",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "1459": {
     "function": "03",
     "mode": "read",
     "name": "Blockkopf Paket 6 / Marker-Länge",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "1460": {
     "function": "03",
     "mode": "read",
     "name": "Blockkopf Paket 6 / erstes Blockkopf-Register",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "1464": {
     "function": "03",
     "mode": "read",
     "type": "RAW",
     "name": "Funktion unbekannt",
-    "note": "Funktion unbekannt; keine spekulative Bezeichnung vergeben."
+    "note": "Funktion unbekannt; keine spekulative Bezeichnung vergeben.",
+    "tab": ""
   },
   "1466": {
     "function": "03",
     "mode": "read",
     "type": "RAW",
     "name": "Funktion unbekannt",
-    "note": "Funktion unbekannt; keine spekulative Bezeichnung vergeben."
+    "note": "Funktion unbekannt; keine spekulative Bezeichnung vergeben.",
+    "tab": ""
   },
   "1476": {
     "function": "03",
     "mode": "read",
     "type": "RAW",
     "name": "Funktion unbekannt",
-    "note": "Funktion unbekannt; keine spekulative Bezeichnung vergeben."
+    "note": "Funktion unbekannt; keine spekulative Bezeichnung vergeben.",
+    "tab": ""
   },
   "1541": {
     "function": "03",
     "mode": "read",
     "name": "Blockkopf Paket 7 / Kennung Wort 1",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "1542": {
     "function": "03",
     "mode": "read",
     "name": "Blockkopf Paket 7 / Kennung Wort 2",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "1543": {
     "function": "03",
     "mode": "read",
     "name": "Blockkopf Paket 7 / Kennung Wort 3",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "1544": {
     "function": "03",
     "mode": "read",
     "name": "Blockkopf Paket 7 / Kennung Wort 4",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "1545": {
     "function": "03",
     "mode": "read",
     "name": "Blockkopf Paket 7 / Kennung Wort 5",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "1546": {
     "function": "03",
     "mode": "read",
     "name": "Blockkopf Paket 7 / Kennung Wort 6",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "1547": {
     "function": "03",
     "mode": "read",
     "name": "Blockkopf Paket 7 / Reserve 1",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "1548": {
     "function": "03",
     "mode": "read",
     "name": "Blockkopf Paket 7 / Reserve 2",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "1549": {
     "function": "03",
     "mode": "read",
     "name": "Blockkopf Paket 7 / Marker-Länge",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "1550": {
     "function": "03",
     "mode": "read",
     "name": "Blockkopf Paket 7 / erstes Blockkopf-Register",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "2001": {
     "function": "03",
@@ -4551,7 +4768,8 @@
     "type": "BLOCK",
     "ascii_group": "block_header",
     "ascii_pos": "1-2",
-    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt."
+    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt.",
+    "tab": ""
   },
   "2002": {
     "function": "03",
@@ -4560,7 +4778,8 @@
     "type": "BLOCK",
     "ascii_group": "block_header",
     "ascii_pos": "3-4",
-    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt."
+    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt.",
+    "tab": ""
   },
   "2003": {
     "function": "03",
@@ -4569,7 +4788,8 @@
     "type": "BLOCK",
     "ascii_group": "block_header",
     "ascii_pos": "5-6",
-    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt."
+    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt.",
+    "tab": ""
   },
   "2004": {
     "function": "03",
@@ -4578,7 +4798,8 @@
     "type": "BLOCK",
     "ascii_group": "block_header",
     "ascii_pos": "7-8",
-    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt."
+    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt.",
+    "tab": ""
   },
   "2005": {
     "function": "03",
@@ -4587,7 +4808,8 @@
     "type": "BLOCK",
     "ascii_group": "block_header",
     "ascii_pos": "9-10",
-    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt."
+    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt.",
+    "tab": ""
   },
   "2006": {
     "function": "03",
@@ -4596,31 +4818,36 @@
     "type": "BLOCK",
     "ascii_group": "block_header",
     "ascii_pos": "11-12",
-    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt."
+    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt.",
+    "tab": ""
   },
   "2007": {
     "function": "03",
     "mode": "read",
     "name": "Blockkopf Paket Status 1 / Reserve 1",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "2008": {
     "function": "03",
     "mode": "read",
     "name": "Blockkopf Paket Status 1 / Reserve 2",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "2009": {
     "function": "03",
     "mode": "read",
     "name": "Blockkopf Paket Status 1 / Marker-Länge",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "2010": {
     "function": "03",
     "mode": "read",
     "name": "Blockkopf Paket Status 1 / erstes Blockkopf-Register",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "2011": {
     "function": "16",
@@ -4630,7 +4857,8 @@
     "value_map": {
       "0": "Aus",
       "1": "Ein"
-    }
+    },
+    "tab": ""
   },
   "2012": {
     "function": "16",
@@ -4644,19 +4872,22 @@
       "3": "Sterilisieren",
       "4": "Warmwasser"
     },
-    "description": "Aktueller Lauf-/Ist-Modus der WP."
+    "description": "Aktueller Lauf-/Ist-Modus der WP.",
+    "tab": ""
   },
   "2013": {
     "function": "16",
     "mode": "read",
     "name": "Temperaturwert nach Begrenzung",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": ""
   },
   "2014": {
     "function": "16",
     "mode": "read",
     "name": "Temperaturwert nach Wetterkompensation während des Heizens",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": ""
   },
   "2015": {
     "function": "16",
@@ -4666,7 +4897,8 @@
     "value_map": {
       "0": "Nein",
       "1": "Abtau-Modus verfügbar"
-    }
+    },
+    "tab": ""
   },
   "2016": {
     "function": "16",
@@ -4674,13 +4906,15 @@
     "name": "Solltemperatur wie 2013 / 2014",
     "type": "TEMP1",
     "unit": "°C",
-    "notes": "Skalierung /10 wie 2013/2014."
+    "notes": "Skalierung /10 wie 2013/2014.",
+    "tab": ""
   },
   "2017": {
     "function": "16",
     "mode": "read",
     "name": "Reserviert",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "2018": {
     "function": "03",
@@ -4690,7 +4924,8 @@
     "value_map": {
       "0": "Aus",
       "1": "Ein"
-    }
+    },
+    "tab": ""
   },
   "2019": {
     "bit_map": {
@@ -4714,62 +4949,72 @@
     "function": "03",
     "mode": "read-only",
     "name": "001 bis 023 / Lastausgänge Bitfeld (vollständig decodiert)",
-    "type": "BITFIELD"
+    "type": "BITFIELD",
+    "tab": ""
   },
   "2020": {
     "function": "16",
     "mode": "read",
     "name": "015 / EEV-Schritte",
-    "type": "DIGI1"
+    "type": "DIGI1",
+    "tab": ""
   },
   "2021": {
     "function": "16",
     "mode": "read",
     "name": "Reserviert",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "2022": {
     "function": "16",
     "mode": "read",
     "name": "017 / EVI EEV-Schritte",
-    "type": "DIGI1"
+    "type": "DIGI1",
+    "tab": ""
   },
   "2023": {
     "function": "16",
     "mode": "read",
     "name": "Anzahl Verdichter-Starts",
     "type": "RAW",
-    "note": "Quelle: Forum / Endif; Hinweis: Erst ab Firmware V3.3 vorhanden; Status: selbst getestet."
+    "note": "Quelle: Forum / Endif; Hinweis: Erst ab Firmware V3.3 vorhanden; Status: selbst getestet.",
+    "tab": ""
   },
   "2024": {
     "function": "16",
     "mode": "read",
     "name": "System 2 Ventil-/EEV-Anzeige Wert (ASM)",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "2025": {
     "function": "16",
     "mode": "read",
     "name": "System 2 EVI-/Enthalpie-Anzeige Wert (ASM)",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "2026": {
     "function": "16",
     "mode": "read",
     "name": "9",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "2027": {
     "function": "16",
     "mode": "read",
     "name": "9",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "2028": {
     "function": "16",
     "mode": "read",
     "name": "9",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "2029": {
     "function": "16",
@@ -4779,7 +5024,8 @@
     "block": "T",
     "code": "T-Diag5",
     "unit": "A",
-    "note": "Quelle: Forum / Endif; Status: selbst ungetestet."
+    "note": "Quelle: Forum / Endif; Status: selbst ungetestet.",
+    "tab": "T"
   },
   "2030": {
     "function": "16",
@@ -4789,7 +5035,8 @@
     "block": "T",
     "code": "T-Diag6",
     "unit": "A",
-    "note": "Quelle: Forum / Endif; Hinweis: nur bei 3Ph-Geräten; Status: selbst getestet."
+    "note": "Quelle: Forum / Endif; Hinweis: nur bei 3Ph-Geräten; Status: selbst getestet.",
+    "tab": "T"
   },
   "2031": {
     "function": "16",
@@ -4799,7 +5046,8 @@
     "unit": "A",
     "block": "T",
     "code": "T-Diag7",
-    "note": "Quelle: Forum / Endif; Hinweis: nur bei 3Ph-Geräten; Status: selbst getestet."
+    "note": "Quelle: Forum / Endif; Hinweis: nur bei 3Ph-Geräten; Status: selbst getestet.",
+    "tab": "T"
   },
   "2032": {
     "function": "16",
@@ -4808,13 +5056,15 @@
     "type": "RAW",
     "block": "T",
     "code": "T-Diag8",
-    "unit": "h"
+    "unit": "h",
+    "tab": "T"
   },
   "2033": {
     "function": "16",
     "mode": "read",
     "name": "Reserviert",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "2034": {
     "bit_map": {
@@ -4850,7 +5100,8 @@
     "function": "16",
     "mode": "read",
     "name": "Heizungsrücklauftemperatur",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "T"
   },
   "2036": {
     "block": "T",
@@ -4858,7 +5109,8 @@
     "function": "16",
     "mode": "read",
     "name": "Heizungsvorlauftemperatur",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "T"
   },
   "2037": {
     "block": "T",
@@ -4866,7 +5118,8 @@
     "function": "16",
     "mode": "read",
     "name": "Mischrohrauslasswassertemperatur",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "T"
   },
   "2038": {
     "block": "T",
@@ -4874,7 +5127,8 @@
     "function": "16",
     "mode": "read",
     "name": "WW-Rücklauftemperatur",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "T"
   },
   "2039": {
     "block": "T",
@@ -4882,19 +5136,22 @@
     "function": "16",
     "mode": "read",
     "name": "WW-Vorlauftemperatur",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "T"
   },
   "2040": {
     "function": "16",
     "mode": "read",
     "name": "Reserviert",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "2041": {
     "function": "16",
     "mode": "read",
     "name": "Reserviert",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "2042": {
     "block": "T",
@@ -4950,7 +5207,8 @@
     "function": "16",
     "mode": "read",
     "name": "WW-Tanktemperatur",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "T"
   },
   "2048": {
     "block": "T",
@@ -4976,7 +5234,8 @@
     "function": "16",
     "mode": "read",
     "name": "Verteilerrohrtemperatur",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "T"
   },
   "2051": {
     "block": "T",
@@ -5014,7 +5273,8 @@
     "code": "T54",
     "unit": "kW",
     "description": "Live-/Diagnosewert. Vermutlich signed /10 kW; Beispiel 5 = 0,5 kW = 500 W.",
-    "app_label": "Unit Power"
+    "app_label": "Unit Power",
+    "tab": "T"
   },
   "2055": {
     "block": "T",
@@ -5029,7 +5289,8 @@
     "function": "16",
     "mode": "read",
     "name": "T? / System 1 Frostschutztemperatur 2 / Coil/Frost Temp 2 (ASM V1.3)",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": ""
   },
   "2057": {
     "function": "16",
@@ -5038,7 +5299,8 @@
     "type": "RAW",
     "unit": "",
     "notes": "Korrektur V0.2.41 fix8: 2057 ist nicht T34. T34 / AC-Spannung ist 2062.",
-    "last_review": "v0.2.41 fix8 user correction"
+    "last_review": "v0.2.41 fix8 user correction",
+    "tab": ""
   },
   "2058": {
     "block": "T",
@@ -5046,7 +5308,8 @@
     "function": "16",
     "mode": "read",
     "name": "Raumtemperatur",
-    "type": "DIGI5"
+    "type": "DIGI5",
+    "tab": "T"
   },
   "2059": {
     "function": "16",
@@ -5057,7 +5320,8 @@
     "code": "T59",
     "unit": "kW",
     "description": "Live-/Diagnosewert. Vermutlich signed /10 kW; Beispiel 26 = 2,6 kW.",
-    "app_label": "Unit Capacity"
+    "app_label": "Unit Capacity",
+    "tab": "T"
   },
   "2060": {
     "function": "16",
@@ -5068,7 +5332,8 @@
     "code": "T60",
     "unit": "COP",
     "description": "Live-/Diagnosewert. Vermutlich signed /100; Beispiel 458 = COP 4,58.",
-    "app_label": "COP"
+    "app_label": "COP",
+    "tab": "T"
   },
   "2061": {
     "block": "T",
@@ -5119,7 +5384,8 @@
     "code": "T-Diag1",
     "unit": "°C",
     "description": "ASM-Diagnosewert. Vermutlich aus Niederdruck und Kältemittel-Sättigungstabelle berechnete Verdampfungstemperatur.",
-    "app_label": "Evaporating Temp (ASM)"
+    "app_label": "Evaporating Temp (ASM)",
+    "tab": "T"
   },
   "2066": {
     "function": "16",
@@ -5130,7 +5396,8 @@
     "code": "T-Diag2",
     "unit": "K",
     "description": "ASM-Diagnosewert. Vermutlich modellierter Wert, da kein Hochdrucksensor vorhanden; Beobachtung: etwa Heißgas minus WP-Austritt/Kondensator-Referenz.",
-    "app_label": "Exhaust Superheat (ASM)"
+    "app_label": "Exhaust Superheat (ASM)",
+    "tab": "T"
   },
   "2067": {
     "function": "16",
@@ -5141,13 +5408,15 @@
     "code": "T-Diag3",
     "unit": "K",
     "description": "Wichtiger EEV-/Saugseiten-Diagnosewert. Vermutlich Sauggastemperatur minus Verdampfungstemperatur.",
-    "app_label": "Suction Superheat (ASM)"
+    "app_label": "Suction Superheat (ASM)",
+    "tab": "T"
   },
   "2068": {
     "function": "16",
     "mode": "read",
     "name": "System 2 Strom / Current (ASM)",
-    "type": "DIGI5"
+    "type": "DIGI5",
+    "tab": ""
   },
   "2069": {
     "block": "T",
@@ -5163,7 +5432,8 @@
     "function": "16",
     "mode": "read",
     "name": "System 2 Druck / Pressure (ASM)",
-    "type": "DIGI5"
+    "type": "DIGI5",
+    "tab": ""
   },
   "2071": {
     "block": "T",
@@ -5207,7 +5477,8 @@
     "function": "16",
     "mode": "read",
     "name": "Drehzahl des Lüftermotors 2",
-    "type": "DIGI1"
+    "type": "DIGI1",
+    "tab": "T"
   },
   "2076": {
     "block": "T",
@@ -5236,7 +5507,8 @@
     "name": "Energiezähler elektrisch high bits",
     "type": "KWH",
     "note": "Quelle: Forum / Endif; Status: selbst ungetestet.",
-    "unit": "kWh"
+    "unit": "kWh",
+    "tab": ""
   },
   "2079": {
     "function": "16",
@@ -5244,7 +5516,8 @@
     "name": "Energiezähler elektrisch low bits / total",
     "type": "KWH",
     "unit": "kWh",
-    "note": "Quelle: Forum / Endif; Status: selbst ungetestet."
+    "note": "Quelle: Forum / Endif; Status: selbst ungetestet.",
+    "tab": ""
   },
   "2080": {
     "function": "16",
@@ -5252,7 +5525,8 @@
     "name": "Status-/Datenwort (wie Displaybus 91099)",
     "type": "RAW",
     "unit": "raw",
-    "notes": "Live-Ergänzung 2026-07-17: bisher als reserviert geführt. Beobachtet 8 Änderungen, Rohwertbereich 0 bis 531. Verläuft identisch zur virtuellen Displaybus-ID 91099; möglicherweise Bitfeld oder zusammengesetzter Status."
+    "notes": "Live-Ergänzung 2026-07-17: bisher als reserviert geführt. Beobachtet 8 Änderungen, Rohwertbereich 0 bis 531. Verläuft identisch zur virtuellen Displaybus-ID 91099; möglicherweise Bitfeld oder zusammengesetzter Status.",
+    "tab": ""
   },
   "2081": {
     "bit_map": {
@@ -5279,7 +5553,8 @@
     "type": "BITFIELD",
     "block": "ERR",
     "code": "ERR07",
-    "description": "Störmelde-/Fehlerregister. Klartexte aus Node-RED/Forumsliste übernommen."
+    "description": "Störmelde-/Fehlerregister. Klartexte aus Node-RED/Forumsliste übernommen.",
+    "tab": "ERR"
   },
   "2082": {
     "bit_map": {
@@ -5296,7 +5571,8 @@
     "type": "BITFIELD",
     "block": "ERR",
     "code": "ERR08",
-    "description": "Störmelde-/Fehlerregister. Klartexte aus Node-RED/Forumsliste übernommen."
+    "description": "Störmelde-/Fehlerregister. Klartexte aus Node-RED/Forumsliste übernommen.",
+    "tab": "ERR"
   },
   "2083": {
     "bit_map": {
@@ -5312,13 +5588,15 @@
     "type": "BITFIELD",
     "block": "ERR",
     "code": "ERR09",
-    "description": "Störmelde-/Fehlerregister. Klartexte aus Node-RED/Forumsliste übernommen."
+    "description": "Störmelde-/Fehlerregister. Klartexte aus Node-RED/Forumsliste übernommen.",
+    "tab": "ERR"
   },
   "2084": {
     "function": "16",
     "mode": "read",
     "name": "9",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "2085": {
     "bit_map": {
@@ -5339,7 +5617,8 @@
     "type": "BITFIELD",
     "block": "ERR",
     "code": "ERR01",
-    "description": "Störmelde-/Fehlerregister. Klartexte aus Node-RED/Forumsliste übernommen."
+    "description": "Störmelde-/Fehlerregister. Klartexte aus Node-RED/Forumsliste übernommen.",
+    "tab": "ERR"
   },
   "2086": {
     "bit_map": {
@@ -5357,7 +5636,8 @@
     "type": "BITFIELD",
     "block": "ERR",
     "code": "ERR02",
-    "description": "Störmelde-/Fehlerregister. Klartexte aus Node-RED/Forumsliste übernommen."
+    "description": "Störmelde-/Fehlerregister. Klartexte aus Node-RED/Forumsliste übernommen.",
+    "tab": "ERR"
   },
   "2087": {
     "bit_map": {
@@ -5373,7 +5653,8 @@
     "type": "BITFIELD",
     "block": "ERR",
     "code": "ERR03",
-    "description": "Störmelde-/Fehlerregister. Klartexte aus Node-RED/Forumsliste übernommen."
+    "description": "Störmelde-/Fehlerregister. Klartexte aus Node-RED/Forumsliste übernommen.",
+    "tab": "ERR"
   },
   "2088": {
     "bit_map": {
@@ -5387,7 +5668,8 @@
     "type": "BITFIELD",
     "block": "ERR",
     "code": "ERR04",
-    "description": "Störmelde-/Fehlerregister. Klartexte aus Node-RED/Forumsliste übernommen."
+    "description": "Störmelde-/Fehlerregister. Klartexte aus Node-RED/Forumsliste übernommen.",
+    "tab": "ERR"
   },
   "2089": {
     "bit_map": {
@@ -5411,7 +5693,8 @@
     "type": "BITFIELD",
     "block": "ERR",
     "code": "ERR05",
-    "description": "Störmelde-/Fehlerregister. Klartexte aus Node-RED/Forumsliste übernommen."
+    "description": "Störmelde-/Fehlerregister. Klartexte aus Node-RED/Forumsliste übernommen.",
+    "tab": "ERR"
   },
   "2090": {
     "bit_map": {
@@ -5427,7 +5710,8 @@
     "type": "BITFIELD",
     "block": "ERR",
     "code": "ERR06",
-    "description": "Störmelde-/Fehlerregister. Klartexte aus Node-RED/Forumsliste übernommen."
+    "description": "Störmelde-/Fehlerregister. Klartexte aus Node-RED/Forumsliste übernommen.",
+    "tab": "ERR"
   },
   "2091": {
     "function": "03",
@@ -5436,7 +5720,8 @@
     "type": "BLOCK",
     "ascii_group": "block_header",
     "ascii_pos": "1-2",
-    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt."
+    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt.",
+    "tab": ""
   },
   "2092": {
     "function": "03",
@@ -5445,7 +5730,8 @@
     "type": "BLOCK",
     "ascii_group": "block_header",
     "ascii_pos": "3-4",
-    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt."
+    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt.",
+    "tab": ""
   },
   "2093": {
     "function": "03",
@@ -5454,7 +5740,8 @@
     "type": "BLOCK",
     "ascii_group": "block_header",
     "ascii_pos": "5-6",
-    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt."
+    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt.",
+    "tab": ""
   },
   "2094": {
     "function": "03",
@@ -5463,7 +5750,8 @@
     "type": "BLOCK",
     "ascii_group": "block_header",
     "ascii_pos": "7-8",
-    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt."
+    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt.",
+    "tab": ""
   },
   "2095": {
     "function": "03",
@@ -5472,7 +5760,8 @@
     "type": "BLOCK",
     "ascii_group": "block_header",
     "ascii_pos": "9-10",
-    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt."
+    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt.",
+    "tab": ""
   },
   "2096": {
     "function": "03",
@@ -5481,126 +5770,146 @@
     "type": "BLOCK",
     "ascii_group": "block_header",
     "ascii_pos": "11-12",
-    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt."
+    "info": "ASCII Big Endian je 16-Bit-Wort; nur druckbare ASCII-Zeichen werden in der Wertspalte angezeigt.",
+    "tab": ""
   },
   "2097": {
     "function": "03",
     "mode": "read",
     "name": "Blockkopf Paket Status 2 / Reserve 1",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "2098": {
     "function": "03",
     "mode": "read",
     "name": "Blockkopf Paket Status 2 / Reserve 2",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "2099": {
     "function": "03",
     "mode": "read",
     "name": "Blockkopf Paket Status 2 / Marker-Länge",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "2100": {
     "function": "03",
     "mode": "read",
     "name": "Blockkopf Paket Status 2 / erstes Blockkopf-Register",
-    "type": "BLOCK"
+    "type": "BLOCK",
+    "tab": ""
   },
   "2101": {
     "function": "16",
     "mode": "read",
     "name": "Reserviert",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "2102": {
     "function": "16",
     "mode": "read",
     "name": "Reserviert",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "2103": {
     "function": "16",
     "mode": "read",
     "name": "Hauptcontroler Softwarecode (ASM)",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "2104": {
     "function": "16",
     "mode": "read",
     "name": "Hauptsoftwareversion",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "2105": {
     "function": "16",
     "mode": "read",
     "name": "Softwarecode",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "2106": {
     "function": "16",
     "mode": "read",
     "name": "Pumpenregel-/PWM-Regelzyklus Flag (Kandidat)",
     "type": "RAW",
-    "note": "Live-Beobachtung 2026-07-15 im Kühlbetrieb: Register pulste zyklisch ungefähr alle 5 Minuten von 0 auf 1 und nach etwa 9–11 Sekunden zurück auf 0. Beobachtete Pulse u. a. um 13:30, 13:35, 13:40, 13:45, 13:50, 13:55, 14:00 und 14:05 Uhr. Währenddessen blieb Register 2115 stabil bei 50 % Pumpen-PWM. Starker Kandidat für zyklisches Pumpenregel-/PWM-Regelfenster bzw. einen P12-Regelentscheid. Bedeutung noch unbestätigt."
+    "note": "Live-Beobachtung 2026-07-15 im Kühlbetrieb: Register pulste zyklisch ungefähr alle 5 Minuten von 0 auf 1 und nach etwa 9–11 Sekunden zurück auf 0. Beobachtete Pulse u. a. um 13:30, 13:35, 13:40, 13:45, 13:50, 13:55, 14:00 und 14:05 Uhr. Währenddessen blieb Register 2115 stabil bei 50 % Pumpen-PWM. Starker Kandidat für zyklisches Pumpenregel-/PWM-Regelfenster bzw. einen P12-Regelentscheid. Bedeutung noch unbestätigt.",
+    "tab": ""
   },
   "2107": {
     "function": "16",
     "mode": "read",
     "name": "Kommunikations-Heartbeat / WP-Paket gültig 0x5AA5 (Merker Display-Init)",
     "type": "RAW",
-    "note": "Merker V0.2.38: In validierten Broadcast-Paketblöcken 2091ff steht hier 0x5AA5; aktive Display-/HMI-Readpfade können 0 liefern. Für Display-Init/Neustart später beobachten."
+    "note": "Merker V0.2.38: In validierten Broadcast-Paketblöcken 2091ff steht hier 0x5AA5; aktive Display-/HMI-Readpfade können 0 liefern. Für Display-Init/Neustart später beobachten.",
+    "tab": ""
   },
   "2108": {
     "function": "16",
     "mode": "read",
     "name": "Lüfter-Stummschalt-Flag / Fan Mute Flag (ASM)",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "2109": {
     "function": "16",
     "mode": "read",
     "name": "Reserviert",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "2110": {
     "function": "16",
     "mode": "read",
     "name": "Reserviert",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "2111": {
     "function": "16",
     "mode": "read",
     "name": "Display Nr.",
     "type": "RAW",
-    "note": "Quelle: Forum / Endif; Status: selbst ungetestet."
+    "note": "Quelle: Forum / Endif; Status: selbst ungetestet.",
+    "tab": ""
   },
   "2112": {
     "function": "16",
     "mode": "read",
     "name": "Display Version",
     "type": "RAW",
-    "note": "Quelle: Forum / Endif; Status: selbst ungetestet."
+    "note": "Quelle: Forum / Endif; Status: selbst ungetestet.",
+    "tab": ""
   },
   "2113": {
     "function": "16",
     "mode": "read",
     "name": "Reserviert",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "2114": {
     "function": "16",
     "mode": "read",
     "name": "Reserviert",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "2115": {
     "function": "16",
     "mode": "read",
     "name": "UP PWM aktuell",
     "type": "PERCENT",
-    "unit": "%"
+    "unit": "%",
+    "tab": ""
   },
   "2116": {
     "function": "16",
@@ -5608,13 +5917,15 @@
     "name": "PWM-Rückmeldung der Pumpe",
     "type": "PERCENT",
     "unit": "%",
-    "notes": "Live-Ergänzung 2026-07-17: vermutlich PWM-Rückmeldung der Umwälzpumpe in Prozent."
+    "notes": "Live-Ergänzung 2026-07-17: vermutlich PWM-Rückmeldung der Umwälzpumpe in Prozent.",
+    "tab": ""
   },
   "2117": {
     "function": "16",
     "mode": "read",
     "name": "Reserviert",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "2118": {
     "function": "16",
@@ -5622,13 +5933,15 @@
     "name": "Energiezähler elektrisch Heizen",
     "type": "KWH",
     "note": "Quelle: Forum / Endif; Status: selbst ungetestet.",
-    "unit": "kWh"
+    "unit": "kWh",
+    "tab": ""
   },
   "2119": {
     "function": "16",
     "mode": "read",
     "name": "Reserviert",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "2120": {
     "function": "16",
@@ -5636,13 +5949,15 @@
     "name": "Energiezähler Wärmemenge Heizen",
     "type": "KWH",
     "note": "Quelle: Forum / Endif; Status: selbst ungetestet.",
-    "unit": "kWh"
+    "unit": "kWh",
+    "tab": ""
   },
   "2121": {
     "function": "16",
     "mode": "read",
     "name": "Reserviert",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "2122": {
     "function": "16",
@@ -5650,13 +5965,15 @@
     "name": "Energiezähler elektrisch Kühlen",
     "type": "KWH",
     "note": "Quelle: selbst getestet; Status: sehr wahrscheinlich richtig. Reiner gelesener Energiezähler, nicht manuell schreibbar.",
-    "unit": "kWh"
+    "unit": "kWh",
+    "tab": ""
   },
   "2123": {
     "function": "16",
     "mode": "read",
     "name": "Reserviert",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "2124": {
     "function": "16",
@@ -5664,37 +5981,43 @@
     "name": "Energiezähler Wärmemenge Kühlen",
     "type": "KWH",
     "note": "Quelle: selbst getestet; Status: sehr wahrscheinlich richtig. Reiner gelesener Energiezähler, nicht manuell schreibbar.",
-    "unit": "kWh"
+    "unit": "kWh",
+    "tab": ""
   },
   "2125": {
     "function": "16",
     "mode": "read",
     "name": "Reserviert",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "2126": {
     "function": "16",
     "mode": "read",
     "name": "Reserviert",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "2127": {
     "function": "16",
     "mode": "read",
     "name": "Reserviert",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "2128": {
     "function": "16",
     "mode": "read",
     "name": "Reserviert",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "2129": {
     "function": "16",
     "mode": "read",
     "name": "Reserviert",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": ""
   },
   "2130": {
     "block": "T",
@@ -5702,7 +6025,8 @@
     "function": "16",
     "mode": "read",
     "name": "IPM-Temperatur des externen Lüftermotorantriebs",
-    "type": "DIGI5"
+    "type": "DIGI5",
+    "tab": "T"
   },
   "2131": {
     "block": "T",
@@ -5710,7 +6034,8 @@
     "function": "16",
     "mode": "read",
     "name": "Leistung des externen Lüftermotorantriebs",
-    "type": "DIGI1"
+    "type": "DIGI1",
+    "tab": "T"
   },
   "2132": {
     "block": "T",
@@ -5718,7 +6043,8 @@
     "function": "16",
     "mode": "read",
     "name": "Strom des externen Lüftermotorantriebs.",
-    "type": "DIGI6"
+    "type": "DIGI6",
+    "tab": "T"
   },
   "2133": {
     "block": "SG",
@@ -5735,7 +6061,8 @@
       "4": "SG Mode 4 / High PV",
       "5": "Normalbetrieb"
     },
-    "description": "Zeigt den aktiven SG-Ready-/Betriebsstatus. Reagiert zeitverzögert nach Kontaktänderung; der Klemmstatus ist sofort in Register 2034 sichtbar."
+    "description": "Zeigt den aktiven SG-Ready-/Betriebsstatus. Reagiert zeitverzögert nach Kontaktänderung; der Klemmstatus ist sofort in Register 2034 sichtbar.",
+    "tab": "SG"
   },
   "2134": {
     "function": "03",
@@ -5746,14 +6073,16 @@
       "0": "disabled",
       "1": "enabled"
     },
-    "note": "Quelle: Forum / Endif; Status: selbst ungetestet."
+    "note": "Quelle: Forum / Endif; Status: selbst ungetestet.",
+    "tab": ""
   },
   "2135": {
     "function": "03",
     "mode": "read",
     "type": "RAW",
     "name": "Funktion unbekannt",
-    "note": "Funktion unbekannt; keine spekulative Bezeichnung vergeben."
+    "note": "Funktion unbekannt; keine spekulative Bezeichnung vergeben.",
+    "tab": ""
   },
   "2136": {
     "function": "03",
@@ -5761,7 +6090,8 @@
     "type": "TEMP1",
     "unit": "°C",
     "name": "Berechneter x0,1-Regel-/Modulwert (Kandidat)",
-    "note": "Live-Beobachtung 2026-07-15 im Kühlbetrieb: Wert driftete langsam ungefähr im Bereich 286–301. Live-Ergänzung 2026-07-17: als 0,1 °C in der Wertspalte formatieren; Interpretation als 30,3 bis 31,4 °C ist plausibel. Denkbar sind Temperatur-, Leistungs-, Modul- oder berechnete Regelgrößen. Funktion und Einheit unbestätigt."
+    "note": "Live-Beobachtung 2026-07-15 im Kühlbetrieb: Wert driftete langsam ungefähr im Bereich 286–301. Live-Ergänzung 2026-07-17: als 0,1 °C in der Wertspalte formatieren; Interpretation als 30,3 bis 31,4 °C ist plausibel. Denkbar sind Temperatur-, Leistungs-, Modul- oder berechnete Regelgrößen. Funktion und Einheit unbestätigt.",
+    "tab": ""
   },
   "2137": {
     "function": "03",
@@ -5769,7 +6099,8 @@
     "type": "POWER_KW_X10",
     "name": "Elektrische Leistung / Spiegel von 2054 (Kandidat)",
     "unit": "kW",
-    "note": "Live-Beobachtung 2026-07-15 im Kühlbetrieb: Register 2137 folgte Register 2054 sehr eng. Starker Kandidat für einen Spiegelwert von 2054 und damit vermutlich elektrische Leistung bzw. aktuelle Leistungsaufnahme. Skalierung und exakte Einheit noch nicht abschließend bestätigt."
+    "note": "Live-Beobachtung 2026-07-15 im Kühlbetrieb: Register 2137 folgte Register 2054 sehr eng. Starker Kandidat für einen Spiegelwert von 2054 und damit vermutlich elektrische Leistung bzw. aktuelle Leistungsaufnahme. Skalierung und exakte Einheit noch nicht abschließend bestätigt.",
+    "tab": ""
   },
   "2138": {
     "function": "03",
@@ -5777,83 +6108,95 @@
     "type": "POWER_KW_X10",
     "name": "Thermische Leistung / Spiegel von 2059 (Kandidat)",
     "unit": "kW",
-    "note": "Live-Beobachtung 2026-07-15 im Kühlbetrieb: Register 2138 folgte Register 2059 sehr eng. Starker Kandidat für einen Spiegelwert von 2059 und damit vermutlich thermische Leistung. Skalierung und exakte Einheit noch nicht abschließend bestätigt."
+    "note": "Live-Beobachtung 2026-07-15 im Kühlbetrieb: Register 2138 folgte Register 2059 sehr eng. Starker Kandidat für einen Spiegelwert von 2059 und damit vermutlich thermische Leistung. Skalierung und exakte Einheit noch nicht abschließend bestätigt.",
+    "tab": ""
   },
   "2139": {
     "function": "03",
     "mode": "read",
     "type": "RAW",
     "name": "Funktion unbekannt",
-    "note": "Funktion unbekannt; keine spekulative Bezeichnung vergeben."
+    "note": "Funktion unbekannt; keine spekulative Bezeichnung vergeben.",
+    "tab": ""
   },
   "2140": {
     "function": "03",
     "mode": "read",
     "type": "RAW",
     "name": "Funktion unbekannt",
-    "note": "Funktion unbekannt; keine spekulative Bezeichnung vergeben."
+    "note": "Funktion unbekannt; keine spekulative Bezeichnung vergeben.",
+    "tab": ""
   },
   "2141": {
     "function": "03",
     "mode": "read",
     "type": "RAW",
     "name": "Funktion unbekannt",
-    "note": "Funktion unbekannt; keine spekulative Bezeichnung vergeben."
+    "note": "Funktion unbekannt; keine spekulative Bezeichnung vergeben.",
+    "tab": ""
   },
   "2142": {
     "function": "03",
     "mode": "read",
     "type": "RAW",
     "name": "Funktion unbekannt",
-    "note": "Funktion unbekannt; keine spekulative Bezeichnung vergeben."
+    "note": "Funktion unbekannt; keine spekulative Bezeichnung vergeben.",
+    "tab": ""
   },
   "2143": {
     "function": "03",
     "mode": "read",
     "type": "RAW",
     "name": "Funktion unbekannt",
-    "note": "Funktion unbekannt; keine spekulative Bezeichnung vergeben."
+    "note": "Funktion unbekannt; keine spekulative Bezeichnung vergeben.",
+    "tab": ""
   },
   "2144": {
     "function": "03",
     "mode": "read",
     "type": "RAW",
     "name": "Funktion unbekannt",
-    "note": "Funktion unbekannt; keine spekulative Bezeichnung vergeben."
+    "note": "Funktion unbekannt; keine spekulative Bezeichnung vergeben.",
+    "tab": ""
   },
   "2145": {
     "function": "03",
     "mode": "read",
     "type": "RAW",
     "name": "Funktion unbekannt",
-    "note": "Funktion unbekannt; keine spekulative Bezeichnung vergeben."
+    "note": "Funktion unbekannt; keine spekulative Bezeichnung vergeben.",
+    "tab": ""
   },
   "2146": {
     "function": "03",
     "mode": "read",
     "type": "RAW",
     "name": "Funktion unbekannt",
-    "note": "Funktion unbekannt; keine spekulative Bezeichnung vergeben."
+    "note": "Funktion unbekannt; keine spekulative Bezeichnung vergeben.",
+    "tab": ""
   },
   "2147": {
     "function": "03",
     "mode": "read",
     "type": "RAW",
     "name": "Funktion unbekannt",
-    "note": "Funktion unbekannt; keine spekulative Bezeichnung vergeben."
+    "note": "Funktion unbekannt; keine spekulative Bezeichnung vergeben.",
+    "tab": ""
   },
   "2148": {
     "function": "03",
     "mode": "read",
     "type": "RAW",
     "name": "Funktion unbekannt",
-    "note": "Funktion unbekannt; keine spekulative Bezeichnung vergeben."
+    "note": "Funktion unbekannt; keine spekulative Bezeichnung vergeben.",
+    "tab": ""
   },
   "2149": {
     "function": "03",
     "mode": "read",
     "type": "RAW",
     "name": "Funktion unbekannt",
-    "note": "Funktion unbekannt; keine spekulative Bezeichnung vergeben."
+    "note": "Funktion unbekannt; keine spekulative Bezeichnung vergeben.",
+    "tab": ""
   }
 }

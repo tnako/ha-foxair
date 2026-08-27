@@ -1,0 +1,245 @@
+Tab H
+ * H01: Enable Power-off Memory — YES
+ * H05: Enable Cooling Function — YES
+ * H07: Display Control/Remote Control — Display Control
+ * H10: Unit Address — 1
+ * H18: Electric Heater Stage — Stage3
+ * H20: 3-Way Valve Polarity — Hot Water-ON
+ * H21: Temperature Unit — °C
+ * H22: Enable Silent Mode — YES
+ * H25: Temp. Control Selection — Outlet Water Temp.
+ * H27: Enable EVI — no EVI
+ * H28: Heating/Cooling and Hot Water Function Enabled — NO
+ * H29: Operation Code — 0
+ * H30: Indoor Unit Type — None
+ * H31: Circulation Pump Type — APM25(9-130)
+ * H32: Force Switch Mode Time — 120min
+ * H33: Fan Motor Driver and Comp. Driver Integrated — YES
+ * H36: Enable Positive Weather Compensation — YES
+ * H37: DHW Temp. Sourcing — DHW Tank Sensor
+ * H40: External Pump Selection — Hot Water Pump
+ * H42: AT for bottom plate heater turned on — 3.0°C
+ * H43: Normal/Eco — Normal
+Tab A
+ * A03: Shutdown Ambient Temp. — -30.0°C
+ * A04: Antifreeze Temp. — -0.5°C
+ * A05: Antifreeze Temp. Difference — 3.5°C
+ * A06: Max. Exhaust Temp. — 90.0°C
+ * A11: Low Voltage Pressure Sensor — YES
+ * A21: Ambient/Suction/Coil Sensor Type — 5K
+ * A22: Min. Antifreeze Temp. — -2.0°C
+ * A23: Min. Outlet Water Temp. Protect — 5.0°C
+ * A24: Excess Temp. Diff. Between Inlet and Outlet Temp. — 15.0°C
+ * A25: Minimum Evaporation Temp. of Cooling — -5.5°C
+ * A26: Refrigerant Type — R290
+ * A27: Temp. Diff. of Limiting Frequency — 12.0°C
+ * A28: Temp. Diff. Between Outlet and DHW Temp. — 4.0°C
+ * A29: Enable The High Pressure Sensor — NO
+ * A30: Min. AT for Cooling — 10.0°C
+ * A31: Electric Heater On AT — -8.0°C
+ * A32: Electric Heater Delays Comp. On Time — 60min
+ * A33: Electric Heater Opening Temp. Diff — 3.5°C
+ * A34: Crank Preheating Time — 7min
+ * A35: Electric Heater Off Temp. Diff — 0.0°C
+ * A38: Low Pressure of Limiting Frequency — 0.0bar
+ * A39: Max. Current Value — 0.0A
+ * A40: Rated Water Flow — 1.1m³/h
+Tab F
+ * F01: Fan Motor Type — DC
+ * F02: Coil Temp. for Max. Fan Speed in Cooling — 42.0°C
+ * F03: Coil Temp. for Min. Fan Speed in Cooling — 22.0°C
+ * F05: Coil Temp. for Max. Fan Speed in Heating — -4.0°C
+ * F06: Coil Temp. for Min. Fan Speed in Heating — 10.0°C
+ * F10: Fan Quantity — One fan
+ * F18: Min. Fan Speed in Cooling — 220r
+ * F19: Min. Fan Speed in Heating — 200r
+ * F22: Enable Manual-Control Fan Speed — NO
+ * F23: Rated DC Fan Motor Speed — 830r
+ * F25: Max. Fan Speed in Cooling — 580r
+ * F26: Max. Fan Speed in Heating — 600r
+ * F27: Fan Motor Power Curve
+ * F28: CT to Reduce Two Fans to One in Cooling — 8.0°C
+ * F29: CT to Stop Single Fan in Cooling — 6.0°C
+Tab D
+ * D01: Ambient Temp. of Starting Defrosting — 10.0°C
+ * D02: Heating Operation Time Before Defrosting — 30min
+ * D03: Interval Time Between Defrosting Cycles — 45min
+ * D04: Exhaust Temp. Correction for Defrosting Cycle — 105.0°C
+ * D05-1: Defrosting Suction Pressure 1 — 1.3bar
+ * D05-2: Defrosting Suction Pressure 2 — 0.5bar
+ * D06: Defrosting Cycle Time Correction — 0min
+ * D07: Ambient Temp. of Start Sliding Defrosting — 6.1°C
+ * D08: Suction Temp. of Start Sliding Defrosting — -4.1°C
+ * D09: Ambient Temp. of Stop Sliding Defrosting — -26.1°C
+ * D14: Fan Motor Power Ratio to Extend Defrosting Cycle — 1.3
+ * D15: Fan Motor Power Ratio to Enter Forced Defrosting — 1.5
+ * D16: Max. Fan Motor Power to Enter Forced Defrosting — 200W
+ * D17: Coil Temp. of Exit Defrosting — 32.0°C
+ * D18: Distributor Tube Temp. of Exit Defrosting — 33.0°C
+ * D19: Max. Defrosting Time — 16min
+ * D20: Defrosting Frequency — 68Hz
+ * D21: Enable Electric Heater During Defrosting — NO
+ * D22: Water Flow of Defrosting — 0.0m³/h
+ * D23: Max. Defrosting Cycle by Fan Motor Power — 120min
+ * D24: Defrosting Heating Source in Heating / DHW Mode — Heating Circuit
+ * D25: Max. Water Temp. Decrease during Defrosting — 38.0°C
+ * D26: Enable Defrosting Communication in Cascade — NO
+ * D30: Bottom Heater Delay …
+Tab E
+ * E01: EEV Adjust Mode — Auto
+ * E02: Target Superheat for Heating — 3.5°C
+ * E03: EEV Initial Steps for Heating — ON
+ * E07: EEV Min. Steps — 40N
+ * E08: EEV Initial Steps for Cooling — 350N
+ * E09: EVI EEV: Adjustment Mode — Auto
+ * E10: EVI EEV: Initial Steps — 200N
+ * E13: EVI EEV Target Superheat Degree — 3.0°C
+ * E14: EVI EEV Min. Steps — 50N
+ * E17: Defrosting EEV Steps — 480N
+ * E18: Target Superheat For Cooling — 3.0°C
+ * E19: EEV Adjustment Range In Smart Mode — 15%
+ * E03-1: EEV Initial Steps for Heating1 — 230N
+ * E03-2: EEV Initial Steps for Heating2 — 160N
+ * E03-3: EEV Initial Steps for Heating3 — 120N
+ * E03-4: EEV Initial Steps for Heating4 — 110N
+ * E03-5: EEV Initial Steps for Heating5 — 90N
+ * E07-1: EEV Min. Steps1 — 110N
+ * E07-2: EEV Min. Steps2 — 110N
+ * E07-3: EEV Min. Steps3 — 90N
+ * E07-4: EEV Min. Steps4 — 70N
+ * E07-5: EEV Min. Steps5 — 60N
+Tab R
+ * R01: DHW Target Temp. — 40.0°C
+ * R02: Heating Target Temp. — 30.0°C
+ * R03: Cooling Target Temp. — 14.0°C
+ * R04: Temp. Diff. for Power-on in Heating — 5.0°C
+ * R05: Temp. Diff. for Standby in Heating — 4.5°C
+ * R06: Temp. Diff. for Power-on in Cooling — 2.0°C
+ * R07: Temp. Diff. for Standby in Cooling — 3.5°C
+ * R08: Min. Cooling Target Temp. — 7.0°C
+ * R09: Max. Cooling Target Temp. — 28.0°C
+ * R10: Min. Heating Target Temp. — 20.0°C
+ * R11: Max. Heating Target Temp. — 49.0°C
+ * R15: Temp. Diff. of Exiting Overhigh Outlet Temp. — 3.0°C
+ * R16: Temp. Diff. for Power-on in DHW — 4.0°C
+ * R17: Temp. Diff. for Standby in DHW — 2.0°C
+ * R29: Low AT for Water Temp. Limit On — -7.0°C
+ * R30: Low AT for Water Temp. Limit Off — -20.0°C
+ * R31: Max. Limit Outlet Water Temp. at Low AT — 60.0°C
+ * R32: High AT for Water Temp. Limit On — 55.0°C
+ * R33: High AT for Water Temp. Limit Off — 55.0°C
+ * R34: Max. Limit Outlet Water Temp. at High AT — 55.0°C
+ * R35: Location of Electric Heater — Not Available
+ * R36: Min. DHW Target Temp. — 15.0°C
+ * R37: Max. DHW Target Temp. — 70.0°C
+ * R39: AT for Auto-start Heating Mode — 5.5°C
+ * R43: Max. Limit Target Water Temp. at Low AT in Heating — 60.0°C
+ * R44: Max. Limit Target Water Temp. at High AT in Heating — 45.0°C
+ * R45: AT to Start Electric Heater Without Delay — -10.0°C
+ * R46: Temp. Diff. between Max. DHW Target Temp. & Max. Outlet Temp. — 7.0°C
+ * R60: AT to Start Frequency Limit in Cooling — 25.0°C
+ * R61: AT to Stop Frequency Limit in Cooling — 43.0°C
+ * R62: Max. Heat Pump Outlet Water Temp. — 62.0°C
+ * R70: Target Room Temp. — 24.5°C
+ * R71: Room Temp. Diff. for Power-on in Heating — 1.0°C
+ * R72: Room Temp. Diff. for Standby in Heating — 1.0°C
+ * R73: Room Temp. Diff. for Power-on in Cooling — 0.5°C
+ * R74: Room Temp. Diff. for Standby in Cooling — 0.5°C
+Tab P
+ * P01: Main Circulation Pump Operation Mode — Interval
+ * P02: Interval Time — 25min
+ * P03: Operation Duration Time — 3min
+ * P05: DHW Pump Operation Mode — Interval
+ * P06: Main Circulation Pump Manual Control — NO
+ * P08: Main Circulation Pump Rated Power
+ * P09: Circulation Pump Protection Period — 10Days
+ * P10: Speed of Circulation Pump — 0%
+ * P11: Target Temp. Diff. for Pump Speed Control — 2.5°C
+ * P12: Pump Speed Adjust Range for Each Period — 2N
+ * P13: Refill Valve Start Cycle (for IDU) — 30Days
+ * P14: Refill Valve Working Duration (for IDU) — 30s
+ * P15: Target Water Pressure (for IDU) — 1.0bar
+ * P16: Stop Refilling Pressure Diff. (for IDU) — 0.5bar
+Tab G
+ * G01: Disinfection Water Temp. — 63.0°C
+ * G02: Time Duration of Disinfection — 0min
+ * G03: Disinfection Starting Time — 11h
+ * G04: Interval Period of Disinfection — 30Days
+ * G05: Enable Disinfection — NO
+Tab C
+ * C01: Manual Comp. Frequency — 0Hz
+ * C02: Min. Comp. Frequency — 27Hz
+ * C03: Max. Comp. Frequency — 90Hz
+ * C04: Model Selection — 13
+ * C05: Min. Comp. Frequency in Cooling at Low Ambient Temp. — 50Hz
+ * C07: Resonance Point 1 — 20Hz
+ * C08: Resonance Point 2 — 22Hz
+ * C09: Resonance Point 3 — 24Hz
+ * C10: Min. Comp. Frequency in Heating at Low Ambient Temp. — 35Hz
+ * C11: Max. Comp. Frequency in Cooling at High Ambient Temp. — 55Hz
+ * C12: Max. Comp. Frequency in DHW mode — 90Hz
+Tab Z
+ * Z01: Enable Multi-Zone Control — None
+ * Z02: Zone 1 Target RT — 20.0°C
+ * Z03: Zone 1 RT Diff. to Start — 2.0°C
+ * Z04: Zone 2 Target RT — 20.0°C
+ * Z05: Zone 2 RT Diff. to Start — 2.0°C
+ * Z06: Zone 1 Heating Target Outlet WT — 45.0°C
+ * Z07: Zone 2 Mixing Target Outlet WT — 35.0°C
+ * Z08: Mixing Valve Manual Adjustment Ratio (0% for Auto Control) — 0%
+ * Z09: Mixing Valve Opening Time — 150s
+ * Z10: Mixing Valve Closing Time — 150s
+ * Z11: Mixing Valve Adjustment P(PID) — 2.0
+ * Z12: Mixing Valve Adjustment I(PID) — 0.2
+ * Z13: Mixing Valve PID Period — 2min
+ * Z14: Steps of Mixing Valve in Cooling — 0%
+ * Z15: Zone 2 Max. Water Target Temp. — 40.0°C
+ * Z16: Enable AT Compensation Curve Zone 1 — YES
+ * Z17: Enable AT Compensation Curve Zone 2 — NO
+ * Z19: Diff. of No Pump On at Low Water Temp. — 2.0°C
+ * Z20: Enable Zone 1 Water Pump in Cooling — NO
+Tab O
+ * O05: Main Circulation Pump — OFF
+ * O06: DHW Pump — OFF
+ * O07: 4-Way Valve — OFF
+ * O08: Electric Heater Stage 1 — OFF
+ * O09: Electric Heater Stage 2 — OFF
+ * O10: Hot Water 3-Way Valve — OFF
+ * O11: Alarm — OFF
+ * O12: Crankcase Heater — OFF
+ * O13: Bottom Plate Heater — OFF
+ * O15: EEV Steps — ON
+ * O17: EEV(EVI): Steps — ON
+Tab S
+ * S01: High Pressure Switch — Closed
+ * S02: Low Pressure Switch — Closed
+ * S03: Flow Switch — Open
+ * S04: Electric Heater Overload — Closed
+ * S05: Remote Switch — Closed
+ * S06: Air Conditioning Mode Switch — Open
+ * S07: DHW Switch — Open
+ * S10: Air Conditioning Switch — Closed
+Tab T
+ * T01: Inlet Water Temp — 27.9°C
+ * T02: Outlet Water Temp — 33.3°C
+ * T03: Coil Temp — 31.4°C
+ * T04: Ambient Temp — 37.8°C
+ * T05: Suction Temp — 33.1°C
+ * T06: Antifreeze Temp — 29.1°C
+ * T07: Buffer Tank Temp — 0.0°C
+ * T10: Inlet Temp(EVI) — 17.3°C
+ * T11: Outlet Temp(EVI) — 17.5°C
+ * T12: Exhaust Temp — 32.6°C
+ * T15: Pressure — 8.9bar
+ * T27: Speed of Fan Motor1 — 0r
+ * T29: Target Speed of Fan Motor — 0r
+ * T30: Compressor Frequency — 0Hz
+ * T31: Operation Frequency of Compressor — 0Hz
+ * T32: Max Frequency Allowed for Driver — 0Hz
+ * T33: IPM Shutdown Protection Temp. Due to Overheat — -55.0°C
+ * T34: AC Input Voltage — 226V
+ * T35: AC Input Current — 0.2A
+ * T36: Phase Current of Compressor — 0.0A
+ * T37: DC Bus Voltage — 301V
+ * T38: IPM Temp. — 43.0°C
+ * T39: Water Flow — 0.0m³/h
