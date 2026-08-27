@@ -58,6 +58,18 @@ class FoxAirCoordinator(DataUpdateCoordinator):
         self.stats={"polls":0,"errors":0,"last_ms":0}
         self._regmap=None
         self._lock = asyncio.Lock()
+        self._metadata={}
+
+    async def _load_map(self):
+        p=pathlib.Path(__file__).parent/"data/foxair_phnix_registers.json"
+        text = await self.hass.async_add_executor_job(lambda: p.read_text(encoding="utf-8-sig"))
+        self._regmap = json.loads(text)
+        try:
+            mp=pathlib.Path(__file__).parent/"data/foxair_metadata.json"
+            mtext = await self.hass.async_add_executor_job(lambda: mp.read_text(encoding="utf-8-sig"))
+            self._metadata = json.loads(mtext)
+        except Exception:
+            self._metadata = {}
 
     def get_metadata(self, addr: int) -> dict:
         return (getattr(self, "_metadata", {}) or {}).get(str(addr), {})

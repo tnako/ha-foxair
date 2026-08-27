@@ -1,3 +1,7 @@
+## 0.3.2
+- hotfix: restore missing _load_map after dedup regression (0.3.1 coordinator had 0 _load_map -> UpdateFailed); verified 1 _load_map + get_metadata + async_write_register
+- validate: py_compile all platforms, coordinator now correctly loads 573 metadata entries, climate heating/cooling verified R02 20-60 R03 7-28
+
 ## 0.3.1
 - audit fixes: dedup coordinator _load_map, climate heating/cooling flows (target R02 vs R03 mode-aware RAW 0-4 DHW/Heat/Cool mapping, hvac_action from compressor freq 2072, validated writes via coordinator), const 2057 popular conflict removed, select value_map cached (75× file IO -> 1), metadata R02/R03 limits corrected to R10/R11 R08/R09 (20-60 / 7-28), build_metadata now ignores Rxx bis Ryy interdependent ranges
 - optimisation: shield-alert remains for dangerous, number BOX for dangerous, slider for safe; device info centralized; translation keys preserved de/ru
