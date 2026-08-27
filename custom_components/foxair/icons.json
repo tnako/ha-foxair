@@ -1328,7 +1328,7 @@
         "default": "mdi:numeric-1-box-outline"
       },
       "foxair_2019": {
-        "default": "mdi:binary"
+        "default": "mdi:logic-gate"
       },
       "foxair_2020": {
         "default": "mdi:numeric-1-box-outline"
@@ -1514,34 +1514,34 @@
         "default": "mdi:heat-pump"
       },
       "foxair_2081": {
-        "default": "mdi:binary"
+        "default": "mdi:logic-gate"
       },
       "foxair_2082": {
-        "default": "mdi:binary"
+        "default": "mdi:logic-gate"
       },
       "foxair_2083": {
-        "default": "mdi:binary"
+        "default": "mdi:logic-gate"
       },
       "foxair_2084": {
         "default": "mdi:heat-pump"
       },
       "foxair_2085": {
-        "default": "mdi:binary"
+        "default": "mdi:logic-gate"
       },
       "foxair_2086": {
-        "default": "mdi:binary"
+        "default": "mdi:logic-gate"
       },
       "foxair_2087": {
-        "default": "mdi:binary"
+        "default": "mdi:logic-gate"
       },
       "foxair_2088": {
-        "default": "mdi:binary"
+        "default": "mdi:logic-gate"
       },
       "foxair_2089": {
-        "default": "mdi:binary"
+        "default": "mdi:logic-gate"
       },
       "foxair_2090": {
-        "default": "mdi:binary"
+        "default": "mdi:logic-gate"
       },
       "foxair_2091": {
         "default": "mdi:heat-pump"
@@ -1719,6 +1719,9 @@
       },
       "foxair_2149": {
         "default": "mdi:heat-pump"
+      },
+      "foxair_heating_curve_target": {
+        "default": "mdi:chart-bell-curve"
       }
     },
     "climate": {

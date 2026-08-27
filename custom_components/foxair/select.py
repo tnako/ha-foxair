@@ -2,22 +2,24 @@
 import logging
 from homeassistant.components.select import SelectEntity
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
-from homeassistant.helpers.entity import DeviceInfo, EntityCategory
-from .const import DOMAIN
+from homeassistant.helpers.entity import EntityCategory
+from .const import DOMAIN, DEVICE, POPULAR_ADDRS
 import json, pathlib
 
 _LOGGER = logging.getLogger(__name__)
-DEVICE = DeviceInfo(identifiers={(DOMAIN, "foxair")}, name="FoxAir Modbus Heat Pump", manufacturer="FoxAir/PHNIX", model="Modbus TCP Heat Pump")
 
-_VM_CACHE=None
-def load_value_map(addr):
-    global _VM_CACHE
+def load_value_map(coord, addr):
     try:
-        if _VM_CACHE is None:
-            p = pathlib.Path(__file__).parent / "data/foxair_phnix_registers.json"
-            _VM_CACHE = json.loads(p.read_text(encoding="utf-8-sig"))
-        rec = _VM_CACHE.get(str(addr), {})
-        return rec.get("value_map")
+        # prefer live regmap from coordinator (cached)
+        if getattr(coord, "_regmap", None):
+            rec = coord._regmap.get(str(addr), {})
+            vm = rec.get("value_map")
+            if vm: return vm
+        # fallback to file cache
+        import pathlib as _pl, json as _j
+        p = _pl.Path(__file__).parent / "data/foxair_phnix_registers.json"
+        regs = _j.loads(p.read_text(encoding="utf-8-sig"))
+        return regs.get(str(addr), {}).get("value_map")
     except: return None
 
 async def async_setup_entry(hass, entry, add_entities):
@@ -52,7 +54,7 @@ class FoxSelect(CoordinatorEntity, SelectEntity):
         elif risk=="advanced":
             self._attr_entity_category=EntityCategory.CONFIG
         # options from value_map or fallback 0..max
-        vm = load_value_map(addr)
+        vm = load_value_map(coord, addr)
         if vm:
             # value_map keys are raw strings like "0","1"
             self._attr_options=[f"{k}: {v}" for k,v in sorted(vm.items(), key=lambda x: int(x[0]) if x[0].lstrip('-').isdigit() else x[0])]

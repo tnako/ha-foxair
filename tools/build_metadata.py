@@ -89,12 +89,17 @@ def parse_range(desc: str, dtype: str):
     if re.search(r"R\d", d):
         # limit regs like R10..R11 are interdependent, not absolute - fallback
         return None, None
+    # skip BLOCK type already handled outside, but also skip hex like 0x0210
+    if "0x" in d.lower():
+        return None, None
     m = re.search(r"(-?\d+(?:\.\d+)?)\s*(?:bis|..|–|—|-)\s*(-?\d+(?:\.\d+)?)", d)
     if m:
         try:
             lo, hi = float(m.group(1)), float(m.group(2))
             if lo > hi:
                 lo, hi = hi, lo
+            if hi-lo < 0.01:
+                return None, None  # degenerate 0-0
             if abs(hi-lo) < 500 and abs(lo) < 500 and abs(hi) < 500:
                 return lo, hi
         except: pass

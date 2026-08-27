@@ -59,8 +59,8 @@ class FoxAirCurveSvgView(HomeAssistantView):
 
         # build curve polyline -20..20 step 1
         pts = []
+        from .heating_curve import calc_curve_target
         for at_step in range(-20, 21):
-            from .heating_curve import calc_curve_target, clamp
             raw = calc_curve_target(at_step, slope, offset)
             # clamp same as helper
             clamped = max(r10, min(r11, raw))

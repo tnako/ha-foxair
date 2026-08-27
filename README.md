@@ -40,3 +40,6 @@ Register maps, block names and value scaling are based on the amazing reverse-en
 ## License
 
 MIT - see LICENSE
+
+## Heating Curve Panel
+After install a sidebar **FoxAir Curve** appears (iframe `/api/foxair/heating-curve-panel`) with live chart `Slope/Offset/Fixed R02` and SVG `/api/foxair/heating_curve.svg` — no dashboard YAML needed.

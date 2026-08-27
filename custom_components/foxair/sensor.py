@@ -1,7 +1,7 @@
 from homeassistant.components.sensor import SensorEntity, SensorDeviceClass, SensorStateClass
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
-from homeassistant.helpers.entity import DeviceInfo, EntityCategory
-from .const import DOMAIN, POPULAR_ADDRS
+from homeassistant.helpers.entity import EntityCategory
+from .const import DOMAIN, DEVICE, POPULAR_ADDRS
 
 DTYPE_MAP = {
     "TEMP1": (SensorDeviceClass.TEMPERATURE, "°C", SensorStateClass.MEASUREMENT),
@@ -26,10 +26,10 @@ DTYPE_MAP = {
     "RPM": (None, "rpm", SensorStateClass.MEASUREMENT),
     "COP_X100": (None, None, SensorStateClass.MEASUREMENT),
     "STEPS_N": (None, "steps", SensorStateClass.MEASUREMENT),
-    "MINUTES": (SensorDeviceClass.DURATION, "min", SensorStateClass.MEASUREMENT),
-    "SECONDS": (SensorDeviceClass.DURATION, "s", SensorStateClass.MEASUREMENT),
-    "HOURS": (SensorDeviceClass.DURATION, "h", SensorStateClass.MEASUREMENT),
-    "DAYS": (SensorDeviceClass.DURATION, "days", SensorStateClass.MEASUREMENT),
+    "MINUTES": (None, "min", SensorStateClass.MEASUREMENT),
+    "SECONDS": (None, "s", SensorStateClass.MEASUREMENT),
+    "HOURS": (None, "h", SensorStateClass.MEASUREMENT),
+    "DAYS": (None, "days", SensorStateClass.MEASUREMENT),
     "TIME_HHMM": (None, None, None),
     "BITFIELD": (None, None, None),
     "TIMER_BITPAIR": (None, None, None),
@@ -41,7 +41,6 @@ DTYPE_MAP = {
 }
 
 HIDDEN = {2057}
-DEVICE = DeviceInfo(identifiers={(DOMAIN, "foxair")}, name="FoxAir Modbus Heat Pump", manufacturer="FoxAir/PHNIX", model="Modbus TCP Heat Pump")
 
 async def async_setup_entry(hass, entry, add_entities):
     coord = hass.data["foxair"][entry.entry_id]

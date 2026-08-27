@@ -2,11 +2,10 @@
 import logging
 from homeassistant.components.number import NumberEntity, NumberMode, NumberDeviceClass
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
-from homeassistant.helpers.entity import DeviceInfo, EntityCategory
-from .const import DOMAIN
+from homeassistant.helpers.entity import EntityCategory
+from .const import DOMAIN, DEVICE, POPULAR_ADDRS
 
 _LOGGER = logging.getLogger(__name__)
-DEVICE = DeviceInfo(identifiers={(DOMAIN, "foxair")}, name="FoxAir Modbus Heat Pump", manufacturer="FoxAir/PHNIX", model="Modbus TCP Heat Pump")
 
 # map type to device class/icon fallback
 DTYPE_CLASS = {
@@ -16,6 +15,14 @@ DTYPE_CLASS = {
     "BAR_X10": NumberDeviceClass.PRESSURE,
     "POWER_KW_X10": NumberDeviceClass.POWER,
     "HZ": NumberDeviceClass.FREQUENCY,
+    "MINUTES": None,
+    "SECONDS": None,
+    "HOURS": None,
+    "DAYS": None,
+    "PERCENT": None,
+    "STEPS_N": None,
+    "RPM": None,
+    "BAR_X10": NumberDeviceClass.PRESSURE,
 }
 
 async def async_setup_entry(hass, entry, add_entities):
@@ -45,17 +52,22 @@ class FoxNumber(CoordinatorEntity, NumberEntity):
         self._attr_unique_id = f"foxair_num_{addr}"
         self._attr_translation_key = f"foxair_{addr}"
         self._attr_device_info = DEVICE
-        # category by risk
+        # category by risk (aligned with sensor.py)
         risk = meta.get("risk")
         if risk == "dangerous":
             self._attr_entity_category = EntityCategory.DIAGNOSTIC
             self._attr_entity_registry_enabled_default = False
         elif risk == "advanced":
             self._attr_entity_category = EntityCategory.CONFIG
-            self._attr_entity_registry_enabled_default = True
+            self._attr_entity_registry_enabled_default = addr in POPULAR_ADDRS
         else:
-            self._attr_entity_category = None
-            self._attr_entity_registry_enabled_default = True
+            # safe: visible only if popular, else diagnostic hidden
+            if addr in POPULAR_ADDRS:
+                self._attr_entity_category = None
+                self._attr_entity_registry_enabled_default = True
+            else:
+                self._attr_entity_category = EntityCategory.DIAGNOSTIC
+                self._attr_entity_registry_enabled_default = False
         # limits
         lo, hi, step = meta.get("min"), meta.get("max"), meta.get("step") or 1
         if lo is not None: self._attr_native_min_value = float(lo)

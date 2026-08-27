@@ -62,12 +62,14 @@ class FoxAirCoordinator(DataUpdateCoordinator):
 
     async def _load_map(self):
         p=pathlib.Path(__file__).parent/"data/foxair_phnix_registers.json"
-        text = await self.hass.async_add_executor_job(lambda: p.read_text(encoding="utf-8-sig"))
-        self._regmap = json.loads(text)
+        def _load_reg():
+            return json.loads(p.read_text(encoding="utf-8-sig"))
+        self._regmap = await self.hass.async_add_executor_job(_load_reg)
         try:
             mp=pathlib.Path(__file__).parent/"data/foxair_metadata.json"
-            mtext = await self.hass.async_add_executor_job(lambda: mp.read_text(encoding="utf-8-sig"))
-            self._metadata = json.loads(mtext)
+            def _load_meta():
+                return json.loads(mp.read_text(encoding="utf-8-sig"))
+            self._metadata = await self.hass.async_add_executor_job(_load_meta)
         except Exception:
             self._metadata = {}
 
@@ -83,7 +85,15 @@ class FoxAirCoordinator(DataUpdateCoordinator):
         if meta.get("requires_expert") and not self.entry.options.get("enable_expert"):
             _LOGGER.error("Write blocked: %s [%s] requires expert mode (enable in Options)", addr, meta.get("code"))
             return False
+        import math
+        if not math.isfinite(value):
+            _LOGGER.error("Write blocked: %s non-finite %.2f", addr, value)
+            return False
         lo, hi = meta.get("min"), meta.get("max")
+        # fail-closed if bounds missing for editable dangerous: require limits
+        if meta.get("editable") and lo is None and hi is None:
+            _LOGGER.error("Write blocked: %s [%s] missing limits (metadata null)", addr, meta.get("code"))
+            return False
         if lo is not None and hi is not None:
             if not (lo - 1e-9 <= value <= hi + 1e-9):
                 _LOGGER.error("Write blocked: %s=%.2f out of range [%.2f, %.2f]", addr, value, lo, hi)
@@ -141,7 +151,12 @@ class FoxAirCoordinator(DataUpdateCoordinator):
         if self._regmap is None:
             await self._load_map()
         cfg=self.entry.data
-        if not self.client:
+        # reconnect if client missing or not connected
+        if not self.client or not getattr(self.client, "connected", False):
+            if self.client:
+                try: self.client.close()
+                except: pass
+                self.client = None
             self.client=AsyncModbusTcpClient(host=cfg["host"], port=cfg["port"], timeout=8)
             ok=await self.client.connect()
             if not ok:
@@ -152,7 +167,7 @@ class FoxAirCoordinator(DataUpdateCoordinator):
                 try:
                     slave_id=cfg.get("slave",1)
                     # small pause to let bridge breathe - 300ms like Control 900ms init
-                    await asyncio.sleep(0.3)
+                    await asyncio.sleep(0.05)
                     try:
                         rr=await self.client.read_holding_registers(address=addr, count=qty, slave=slave_id)
                     except TypeError:
@@ -170,9 +185,19 @@ class FoxAirCoordinator(DataUpdateCoordinator):
                         out[a]={"raw":raw, "value":scaled(info.get("type","RAW"),raw), "info":info}
                 except Exception as e:
                     self.stats["errors"]+=1
+                    self.stats["last_error"]=str(e)
                     _LOGGER.warning("poll %s exception %s", addr, e)
-                    raise UpdateFailed(str(e)) from e
+                    continue
             self.stats["polls"]+=1
             self.stats["last_ms"]=int((time.monotonic()-t0)*1000)
-            self.data=out
-            return out
+            # merge partial: keep prior values for blocks that failed this cycle
+            if not out and self.data:
+                _LOGGER.debug("Poll returned empty, keeping prior data")
+                return self.data
+            if self.data and len(out) < len(self._regmap or {}):
+                merged = dict(self.data)
+                merged.update(out)
+                self.data = merged
+            else:
+                self.data=out
+            return self.data

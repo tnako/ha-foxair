@@ -1,5 +1,10 @@
 """FoxAir constants - block names and poll layout identical to FoxAir_Control."""
+from homeassistant.helpers.entity import DeviceInfo
+
 DOMAIN = "foxair"
+# Central device info - single device for all entities
+DEVICE = DeviceInfo(identifiers={(DOMAIN, "foxair")}, name="FoxAir Modbus Heat Pump", manufacturer="FoxAir/PHNIX", model="Modbus TCP Heat Pump")
+
 BLOCK_SHORT = {
     "H": "Base/Hardware",
     "A": "Protection/Limits",

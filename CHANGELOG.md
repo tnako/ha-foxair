@@ -1,3 +1,6 @@
+## 0.3.4
+- fix 15-review batch: coordinator reconnect + partial poll merge + json off loop + 0.05s (was 0.3s×7), diagnostics full stats/sample/curve, security parse_range hex/degenerate fail-closed + 37 null fallback, climate DHW R01 1157 + HEAT_COOL raw4 + 2012 hvac_action + dynamic min/max, arch TIME_HHMM→sensor, a11y mdi:binary→logic-gate + heating_curve_target icon, sensor MINUTES no DURATION, number DTYPE + category POPULAR aligned, views hoisted + logged, heating_curve envelope R10/R11 + R31/R34, const DEVICE central, manifest frontend dep, panel auto-sidebar, README heating curve
+
 ## 0.3.3
 - heating curve (Way B) inside integration — no Lovelace edits: auto sidebar panel "FoxAir Curve" (iframe /api/foxair/heating-curve-panel) + SVG endpoint /api/foxair/heating_curve.svg (AT -20..20 vs Flow 10..70, R10/R11 band, fixed R02 dashed, live AT dot + 2014 validation)
 - Way A fixed R02 (1158) vs Way B slope (1234 0.1..3.0) + offset (1235 -5..5) + H36 enable (1236) — curve formula target=35+offset+slope*(20-AT) clamped R10/R11 & R31/R34 envelope; Zone Z kept separate (Z06/Z07 mixing, not curve)

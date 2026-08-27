@@ -25,8 +25,9 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     try:
         hass.http.register_view(FoxAirCurveSvgView())
         hass.http.register_view(FoxAirCurvePanelView())
-    except Exception:
-        pass
+    except Exception as e:
+        import logging
+        logging.getLogger(__name__).debug("FoxAir views already registered: %s", e)
     # auto sidebar panel (iframe) — no Lovelace edit required
     try:
         from homeassistant.components.frontend import async_register_built_in_panel
@@ -55,10 +56,10 @@ async def async_reload_entry(hass: HomeAssistant, entry: ConfigEntry):
     await hass.config_entries.async_reload(entry.entry_id)
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry):
-    await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
-    hass.data["foxair"].pop(entry.entry_id, None)
     coord = hass.data.get("foxair", {}).get(entry.entry_id)
+    ok = await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
+    hass.data.get("foxair", {}).pop(entry.entry_id, None)
     if coord and getattr(coord, "client", None):
         try: coord.client.close()
         except: pass
-    return True
+    return ok
