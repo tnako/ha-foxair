@@ -20,7 +20,7 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
     _attr_temperature_unit = UnitOfTemperature.CELSIUS
     _attr_supported_features = ClimateEntityFeature.TARGET_TEMPERATURE | ClimateEntityFeature.PRESET_MODE
     _attr_icon = "mdi:heat-pump"
-    _attr_hvac_modes = [HVACMode.OFF, HVACMode.HEAT, HVACMode.COOL, HVACMode.HEAT_COOL]
+    _attr_hvac_modes = [HVACMode.HEAT, HVACMode.COOL, HVACMode.HEAT_COOL]
     _attr_preset_modes = ["dhw_only","heat_only","cool_only","dhw+heat","dhw+cool"]
 
     def __init__(self, coord):
@@ -64,7 +64,19 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
         return rec["value"] if rec else None
 
     def _curve_target(self):
-        """Live AT-compensation target = offset - slope*AT (reg 2048). None if unavailable."""
+        """Live AT-compensation target.
+
+        Prefer the heat pump's own computed target in register 2014
+        ("Temperaturwert nach Wetterkompensation während des Heizens", TEMP1 ->
+        °C) — this is the exact value the vendor app shows, so it guarantees
+        parity. Fall back to the offset/slope formula only if 2014 is missing.
+        """
+        try:
+            dev = self.coordinator.data.get(2014, {}).get("value")
+            if dev is not None:
+                return round(float(dev), 1)
+        except Exception:
+            pass
         try:
             at = self.coordinator.data.get(AT_ADDR, {}).get("value")
             if at is None:
@@ -103,11 +115,15 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
     def hvac_mode(self):
         if self._opt_hvac is not None:
             return self._opt_hvac
-        off = self.coordinator.data.get(1011)
-        if off and off["raw"] == 0:
-            return HVACMode.OFF
+        # On/Off is handled by the separate power switch (switch.foxair_power,
+        # reg 1011). The climate card is purely the operation-mode selector
+        # (Heat/Cool/HeatCool), so we never report OFF here even when the unit
+        # is powered down — the power switch conveys that state instead.
         raw = self._raw_mode()
         if raw == 0:
+            # DHW-only: no space-heating operation selected -> report HEAT so the
+            # card stays consistent with the available modes (pure DHW has no
+            # hvac-mode equivalent in HA).
             return HVACMode.HEAT
         return HVAC_MAP.get(raw, HVACMode.HEAT)
 
@@ -180,16 +196,13 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
         self._attr_assumed_state = True
         self.async_write_ha_state()
         try:
-            if hvac_mode == HVACMode.OFF:
-                ok = await self.coordinator.async_write_register(1011, 0)
-                if not ok: raise ValueError("Failed to set OFF")
-                return
-            ok = await self.coordinator.async_write_register(1011, 1)
-            if not ok: raise ValueError("Failed to set ON")
+            # Operation mode only (reg 1012). Power On/Off is the separate
+            # switch.foxair_power entity — we must NOT write 1011 here, otherwise
+            # the mode selector would also toggle power.
             raw_target = HVAC_REV.get(hvac_mode, 1)
             if hvac_mode == HVACMode.HEAT_COOL:
                 prev_raw = self._raw_mode()
-                if prev_raw in (4,2):
+                if prev_raw in (4, 2):
                     raw_target = 4
                 else:
                     raw_target = 3

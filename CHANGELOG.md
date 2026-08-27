@@ -1,3 +1,7 @@
+## 0.3.41
+- fix(climate): AT-compensation target now reads the heat pump's own computed curve target (reg 2014, "Temperaturwert nach Wetterkompensation") — exact parity with the vendor app (was off by a constant ~0.8°C from the linear offset/slope recompute). Formula retained as fallback.
+- fix(climate): separated On/Off from the mode selector. The climate card is now purely the operation-mode selector (Heat / Cool / HeatCool + DHW presets); power On/Off lives exclusively on the separate `switch.foxair_power` (reg 1011). Setting a mode no longer toggles power.
+
 ## 0.3.40
 - feat: computed (derived) sensors — `foxair_heating_power`, `foxair_electrical_power`, `foxair_cop`.
   - Heating power = (flow/3600)·ρ·cp·ΔT from registers 2077/2045/2046, with an EMA flow smoother + "hold-last-good" guard for the flaky water-flow sensor and forced zero when the compressor is off.
