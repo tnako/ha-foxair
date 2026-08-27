@@ -190,13 +190,43 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
                 f'stroke="{stroke}" stroke-width="1"/>\n'
             )
 
+        # ---- reference cross at design point (AT=0 -> flow=offset) ----
+        # highlights that the curve is anchored at 0 °C outside = `offset` flow
+        ref_cross = ""
+        try:
+            x0 = round(x_at(0.0), 1)
+            y0 = round(y_flow(float(offset)), 1)
+            # vertical line at AT=0 (brighter than minor grid)
+            ref_cross += (
+                f'<line x1="{x0}" y1="{pad_t}" x2="{x0}" y2="{H - pad_b}" '
+                f'stroke="#e2e8f0" stroke-width="1.5" stroke-dasharray="2 4" opacity="0.6"/>\n'
+            )
+            # horizontal line at flow=offset
+            ref_cross += (
+                f'<line x1="{pad_l}" y1="{y0}" x2="{W - pad_r}" y2="{y0}" '
+                f'stroke="#e2e8f0" stroke-width="1.5" stroke-dasharray="2 4" opacity="0.6"/>\n'
+            )
+            # label the anchor point
+            ref_cross += (
+                f'<circle cx="{x0}" cy="{y0}" r="6" fill="#e2e8f0" '
+                f'stroke="#0f172a" stroke-width="2"/>\n'
+                f'<text x="{x0 + 12}" y="{y0 - 10}" fill="#e2e8f0" '
+                f'font-family="sans-serif" font-size="14" font-weight="bold">'
+                f'0° → {float(offset):.1f}°C (offset)</text>\n'
+            )
+        except Exception:
+            ref_cross = ""
+
         # ---- ticks ----
+
         ticks = ""
         for at_g in (-30, -20, -10, 0, 10, 20):
             x = round(x_at(at_g), 1)
+            label = f"0°→{float(offset):.0f}°" if at_g == 0 else f"{at_g}°"
             ticks += (
                 f'<text x="{x}" y="{H - pad_b + 18}" text-anchor="middle" '
-                f'fill="{TEXT}" font-family="sans-serif" font-size="14">{at_g}°</text>\n'
+                f'fill="{TEXT_DARK if at_g == 0 else TEXT}" font-family="sans-serif" '
+                f'font-size="14" font-weight="bold">{label}</text>\n'
             )
         for f in (10, 20, 30, 40, 50, 60, 70):
             y = round(y_flow(f), 1)
@@ -301,7 +331,7 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
 <text x="{W // 2}" y="28" text-anchor="middle" fill="{TEXT_DARK}" font-family="sans-serif" font-size="22">{subtitle}</text>
 <line x1="{pad_l}" y1="{pad_t}" x2="{pad_l}" y2="{H - pad_b}" stroke="{AXIS}" stroke-width="2"/>
 <line x1="{pad_l}" y1="{H - pad_b}" x2="{W - pad_r}" y2="{H - pad_b}" stroke="{AXIS}" stroke-width="2"/>
-{grid_lines}{ticks}<rect x="{pad_l}" y="{band_top}" width="{plot_w}" height="{band_h}" fill="{CURVE_FILL}"/>
+{grid_lines}{ref_cross}{ticks}<rect x="{pad_l}" y="{band_top}" width="{plot_w}" height="{band_h}" fill="{CURVE_FILL}"/>
 <text x="{W - pad_r - 6}" y="{band_top + 14}" text-anchor="end" fill="{CURVE}" font-family="sans-serif" font-size="12">R10 {r10:.0f} — R11 {r11:.0f}</text>
 {main_line}{preview}{banner}{dot_svg}<text x="{pad_l + plot_w // 2}" y="{H - 10}" text-anchor="middle" fill="{TEXT_DARK}" font-family="sans-serif" font-size="13">Outdoor temperature AT  [°C]</text>
 <text x="18" y="{pad_t + plot_h // 2}" text-anchor="middle" fill="{TEXT_DARK}" font-family="sans-serif" font-size="14" transform="rotate(-90 18,{pad_t + plot_h // 2})">Flow °C</text>

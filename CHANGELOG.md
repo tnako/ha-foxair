@@ -1,3 +1,6 @@
+## 0.3.32
+- feat: heating-curve image — add reference cross at design point (AT=0 → flow=offset), so it's clear the curve is anchored at 0 °C outside = offset flow. Dashed vertical (AT=0) + horizontal (offset) lines, labeled dot, and the AT=0 x-axis tick now reads "0°→37°".
+
 ## 0.3.31
 - fix: heating-curve formula — reference point is AT = 0, not AT = 20. Correct formula `flow(AT) = offset - slope·AT` (offset = flow at 0 °C outside temp). Previous `offset + slope·(20-AT)` drew the line ~6 °C too high. Verified against reference points -30:46 … 20:31.
 
