@@ -27,6 +27,22 @@ BLOCK_SHORT = {
     "KG": "Timer",
     "ERR": "Fault",
 }
+APP_TAB_TITLES = {
+    "H": "Base/Hardware",
+    "A": "Protection/Limits",
+    "F": "Fan",
+    "D": "Defrost",
+    "E": "EVI/EEV",
+    "C": "Compressor",
+    "R": "Setpoints",
+    "T": "Diagnostics/Live",
+    "Z": "Zone",
+    "G": "Legionella",
+    "P": "Pump",
+    "SG": "SG Ready",
+    "KG": "Timer",
+    "ERR": "Fault",
+}
 
 # Risk tiers: safe (everyday), advanced (installer), dangerous (can damage/brick)
 RISK_BY_BLOCK = {
@@ -133,8 +149,9 @@ def main():
         dtype = rec.get("type","RAW")
         code = rec.get("code","")
         block = rec.get("block","") or (re.match(r"^([A-Z]+)", code).group(1) if re.match(r"^([A-Z]+)", code) else "")
-        # derive group
-        group = BLOCK_SHORT.get(block, "Other" if block else "Header/Reserved")
+        tab = rec.get("tab") or block
+        # derive group from app tab when available
+        group = APP_TAB_TITLES.get(tab, BLOCK_SHORT.get(block, "Other" if block else "Header/Reserved"))
         if dtype == "BLOCK" or not code:
             group = "Header/Reserved"
         mode = rec.get("mode","read")
@@ -180,7 +197,7 @@ def main():
         # value_map hint
         has_map = bool(rec.get("value_map"))
         out[addr_str] = {
-            "addr": addr, "code": code, "block": block, "group": group,
+            "addr": addr, "code": code, "block": block, "tab": tab, "group": group,
             "editable": editable, "platform": platform, "risk": risk,
             "requires_expert": requires_expert, "type": dtype,
             "unit": unit, "min": lo, "max": hi, "step": step,

@@ -275,7 +275,8 @@
     "value_map": {
       "0": "Nein",
       "1": "Ja"
-    }
+    },
+    "tab": "H"
   },
   "1019": {
     "app_label": "Fan Motor Driver and Comp. Driver Integrated",
@@ -293,7 +294,8 @@
     "value_map": {
       "0": "Nein",
       "1": "Ja"
-    }
+    },
+    "tab": "H"
   },
   "1020": {
     "app_label": "Parameter Code",
@@ -308,7 +310,8 @@
       "0": "Nein / kein ERP-Test",
       "1": "35 °C Testbedingung",
       "2": "55 °C Testbedingung"
-    }
+    },
+    "tab": "H"
   },
   "1021": {
     "app_label": "Cooling Mode",
@@ -326,7 +329,8 @@
     "value_map": {
       "0": "Kühlfunktion nicht vorhanden/aus",
       "1": "Kühlfunktion vorhanden/ein"
-    }
+    },
+    "tab": "H"
   },
   "1022": {
     "function": "03/16",
@@ -350,7 +354,8 @@
     "value_map": {
       "0": "Master/Hauptregler",
       "1": "Slave/Nebenregler"
-    }
+    },
+    "tab": "H"
   },
   "1024": {
     "app_label": "Unit Address",
@@ -360,7 +365,8 @@
     "function": "03/16",
     "mode": "r/w",
     "name": "Geräteadresse",
-    "type": "DIGI1"
+    "type": "DIGI1",
+    "tab": "H"
   },
   "1025": {
     "block": "H",
@@ -371,7 +377,8 @@
     "type": "RAW",
     "last_review": "v0.2.41 fix8",
     "notes": "Aus Display-Firmware: H38 nutzt Kommunikationsvariable 0401H = 1025 dez. Value Map noch offen, da Werte nicht sicher bekannt sind. H38 ist nicht External Pump Selection.",
-    "app_label": "Language choice"
+    "app_label": "Language choice",
+    "tab": "H"
   },
   "1026": {
     "block": "H",
@@ -379,7 +386,8 @@
     "function": "03/16",
     "mode": "r/w",
     "name": "Logo-Auswahl / Kundenlogo-Code (ASM)",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": "H"
   },
   "1027": {
     "app_label": "EVI Enabled",
@@ -401,7 +409,8 @@
       "1": "EVI bei Kühlung",
       "2": "EVI bei Heizung",
       "3": "EVI bei Heizung und Kühlung"
-    }
+    },
+    "tab": "H"
   },
   "1028": {
     "app_label": "Heating/Cooling and Hot Water Function Enabled",
@@ -421,7 +430,8 @@
       "0": "ohne Warmwasserfunktion",
       "1": "mit Warmwasserfunktion",
       "2": "Nur Warmwasser / Only DHW"
-    }
+    },
+    "tab": "H"
   },
   "1029": {
     "app_label": "Temperature Unit",
@@ -439,7 +449,8 @@
     "value_map": {
       "0": "Celsius",
       "1": "Fahrenheit"
-    }
+    },
+    "tab": "H"
   },
   "1030": {
     "app_label": "Silence Mode",
@@ -457,7 +468,8 @@
     "value_map": {
       "0": "Silent-Modus aus",
       "1": "Silent-Modus ein"
-    }
+    },
+    "tab": "H"
   },
   "1031": {
     "app_current_video_value": "0.0 °C",
@@ -470,7 +482,8 @@
     "name": "Electric Heater Off Temp Diff / E-Heizer Ausschalt-Temperaturdifferenz",
     "step": "0.5",
     "type": "TEMP05",
-    "unit": "°C"
+    "unit": "°C",
+    "tab": "A"
   },
   "1032": {
     "app_label": "Electric Heater Energy Stage",
@@ -490,7 +503,8 @@
       "1": "Elektrische Heizstufe 1",
       "2": "Elektrische Heizstufe 2",
       "3": "Elektrische Heizstufe 3"
-    }
+    },
+    "tab": "H"
   },
   "1033": {
     "app_label": "3-Way Valve Polarity",
@@ -509,7 +523,8 @@
     "value_map": {
       "0": "3-Wege-Ventil EIN im Warmwasser-Modus",
       "1": "3-Wege-Ventil AUS im Warmwasser-Modus"
-    }
+    },
+    "tab": "H"
   },
   "1034": {
     "app_label": "Mode Running",
@@ -519,7 +534,8 @@
     "function": "03/16",
     "mode": "r/w",
     "name": "Operationscode",
-    "type": "DIGI1"
+    "type": "DIGI1",
+    "tab": "H"
   },
   "1035": {
     "app_label": "Air Conditioner Tempt. Choice",
@@ -541,7 +557,8 @@
       "1": "Raumtemperatur",
       "2": "Puffertanktemperatur",
       "3": "Einlasswassertemperatur"
-    }
+    },
+    "tab": "H"
   },
   "1036": {
     "app_label": "Indoor Unit Type",
@@ -562,7 +579,8 @@
       "1": "1st Type",
       "2": "2nd Type",
       "3": "3rd Type"
-    }
+    },
+    "tab": "H"
   },
   "1037": {
     "app_current_video_value": "-25.0 °C",
@@ -572,7 +590,8 @@
     "function": "03/16",
     "mode": "r/w",
     "name": "Abschalttemperatur Umgebung",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "A"
   },
   "1038": {
     "app_current_video_value": "4.0 °C",
@@ -583,7 +602,8 @@
     "mode": "r/w",
     "my_value": "4",
     "name": "Frostschutztemperatur",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "A"
   },
   "1039": {
     "app_current_video_value": "3.0 °C",
@@ -593,7 +613,8 @@
     "function": "03/16",
     "mode": "r/w",
     "name": "Frostschutztemperaturdifferenz",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "A"
   },
   "1040": {
     "app_current_video_value": "110 °C",
@@ -603,7 +624,8 @@
     "function": "03/16",
     "mode": "r/w",
     "name": "Max. Abgastemperatur",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "A"
   },
   "1041": {
     "app_label": "Pump Type",
@@ -629,7 +651,8 @@
       "3": "Grundfos 25-125",
       "4": "APM25 9-130",
       "5": "APM25 12-130"
-    }
+    },
+    "tab": "H"
   },
   "1042": {
     "app_current_video_value": "YES",
@@ -647,7 +670,8 @@
     "value_map": {
       "0": "Nein",
       "1": "Ja"
-    }
+    },
+    "tab": "A"
   },
   "1043": {
     "app_current_video_value": "3.0 °C",
@@ -657,7 +681,8 @@
     "function": "03/16",
     "mode": "r/w",
     "name": "Min. Auslasswassertemperatur schutz",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "A"
   },
   "1044": {
     "app_current_video_value": "10.0 °C",
@@ -667,7 +692,8 @@
     "function": "03/16",
     "mode": "r/w",
     "name": "Übermäßige Temperaturdifferenz zwischen Einlass- und Auslasswasser",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "A"
   },
   "1045": {
     "app_label": "Heating and hot water forced switching time",
@@ -678,7 +704,8 @@
     "mode": "r/w",
     "my_value": "180",
     "name": "Erzwungene Umschaltzeit",
-    "type": "DIGI1"
+    "type": "DIGI1",
+    "tab": "H"
   },
   "1046": {
     "app_label": "DHW Temp. Sourcing",
@@ -693,7 +720,8 @@
     "value_map": {
       "0": "Wärmepumpe / Wassertank-Temperatursensor",
       "1": "Modbus / Zentralregler"
-    }
+    },
+    "tab": "H"
   },
   "1047": {
     "app_label": "Enable Defrosting Communication in Cascade",
@@ -711,19 +739,21 @@
     "value_map": {
       "0": "Nein",
       "1": "Ja"
-    }
+    },
+    "tab": "D"
   },
   "1048": {
     "app_label": "External Pump Selection",
     "app_mapping_mode": "app_label_only; code intentionally cleared because H37 is confirmed as register 1046",
-    "block": "",
-    "code": "",
+    "block": "H",
+    "code": "H40",
     "function": "03/16",
     "last_review": "v0.2.32-user-fix-h37",
     "mode": "r/w",
     "name": "External Pump Selection (Code unbekannt / nicht H37)",
     "source_user_test": "2026-06-14: 1048 ist nicht H37; H37 = 1046 bestätigt",
-    "type": "RAW"
+    "type": "RAW",
+    "tab": "H"
   },
   "1049": {
     "app_current_video_value": "-8.0 °C",
@@ -733,7 +763,8 @@
     "function": "03/16",
     "mode": "r/w",
     "name": "Electric-Heater-On AT Grenzwert / Temperaturparameter (ASM)",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "A"
   },
   "1050": {
     "app_current_video_value": "60 min",
@@ -744,7 +775,8 @@
     "mode": "r/w",
     "name": "Electric Heater Delays Comp on Time",
     "type": "MINUTES",
-    "unit": "min"
+    "unit": "min",
+    "tab": "A"
   },
   "1051": {
     "app_current_video_value": "10.0 °C",
@@ -754,7 +786,8 @@
     "function": "03/16",
     "mode": "r/w",
     "name": "Min. Umgebungstemperatur im Kühlmodus",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "A"
   },
   "1052": {
     "app_current_video_value": "5K",
@@ -772,7 +805,8 @@
     "value_map": {
       "0": "5K Sensortyp",
       "1": "2K Sensortyp"
-    }
+    },
+    "tab": "A"
   },
   "1053": {
     "app_current_video_value": "5.0 °C",
@@ -782,7 +816,8 @@
     "function": "03/16",
     "mode": "r/w",
     "name": "Min. Frostschutztemperatur",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "A"
   },
   "1054": {
     "app_current_video_value": "R290",
@@ -812,7 +847,8 @@
       "5": "R290-2",
       "6": "R32-3",
       "7": "R290-3"
-    }
+    },
+    "tab": "A"
   },
   "1055": {
     "app_current_video_value": "-4.5 °C",
@@ -822,7 +858,8 @@
     "function": "03/16",
     "mode": "r/w",
     "name": "Minimale Verdampfungstemperatur der Kühlung",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "A"
   },
   "1056": {
     "app_current_video_value": "7.0 °C",
@@ -832,7 +869,8 @@
     "function": "03/16",
     "mode": "r/w",
     "name": "Temperaturdifferenz der Begrenzungsfrequenz",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "A"
   },
   "1057": {
     "app_current_video_value": "7.0 °C",
@@ -843,7 +881,8 @@
     "mode": "r/w",
     "name": "Temperaturdifferenz zwischen Auslass- und WW-Temperatur",
     "type": "TEMP1",
-    "app_note": "Technische Bezeichnung nach Issue #85 korrigiert; alter App-Video-Text \"Temp Difference B Of Limiting Frequency\" war irreführend."
+    "app_note": "Technische Bezeichnung nach Issue #85 korrigiert; alter App-Video-Text \"Temp Difference B Of Limiting Frequency\" war irreführend.",
+    "tab": "A"
   },
   "1058": {
     "app_current_video_value": "NO",
@@ -861,7 +900,8 @@
     "value_map": {
       "0": "Nein",
       "1": "Ja"
-    }
+    },
+    "tab": "A"
   },
   "1059": {
     "app_label": "Fan Motor Type",
@@ -877,7 +917,8 @@
       "1": "Legacy: zweistufiger Lüfter",
       "3": "DC Fan Motor",
       "4": "DC Fan Motor External Drive"
-    }
+    },
+    "tab": "F"
   },
   "1060": {
     "app_label": "Max Cool Coil Temp",
@@ -887,7 +928,8 @@
     "last_review": "v39",
     "mode": "r/w",
     "name": "Verdampfertemperatur für maximale Lüfterdrehzahl im Kühlbetrieb",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "F"
   },
   "1061": {
     "app_label": "Fan Motor Power Curve",
@@ -898,7 +940,8 @@
     "mode": "r/w",
     "name": "Fan Motor Power Curve / Lüftermotor-Leistungskurve",
     "type": "RAW",
-    "unit": "rpm"
+    "unit": "rpm",
+    "tab": "F"
   },
   "1062": {
     "app_label": "Min Cool Coil Temp",
@@ -908,7 +951,8 @@
     "last_review": "v39",
     "mode": "r/w",
     "name": "Verdampfertemperatur für minimale Lüfterdrehzahl im Kühlbetrieb",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "F"
   },
   "1063": {
     "app_current_video_value": "3.0 °C",
@@ -919,7 +963,8 @@
     "mode": "r/w",
     "name": "E-Heizer Einschalt-Temperaturdifferenz",
     "type": "TEMP1",
-    "unit": "°C"
+    "unit": "°C",
+    "tab": "A"
   },
   "1064": {
     "app_current_video_value": "5 min",
@@ -930,7 +975,8 @@
     "mode": "r/w",
     "name": "Kurbelgehäuseheizung Vorheizzeit",
     "type": "MINUTES",
-    "unit": "min"
+    "unit": "min",
+    "tab": "A"
   },
   "1065": {
     "function": "03/16",
@@ -946,7 +992,8 @@
     "last_review": "v39",
     "mode": "r/w",
     "name": "Verdampfertemperatur für maximale Lüfterdrehzahl im Heizbetrieb",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "F"
   },
   "1067": {
     "function": "03/16",
@@ -962,7 +1009,8 @@
     "last_review": "v39",
     "mode": "r/w",
     "name": "Verdampfertemperatur für minimale Lüfterdrehzahl im Heizbetrieb",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "F"
   },
   "1069": {
     "app_label": "Enable Multi-Zone Control",
@@ -998,7 +1046,8 @@
       "7": "Zone 1-P",
       "8": "Zone 2-P",
       "9": "Zone 1+2-P"
-    }
+    },
+    "tab": "Z"
   },
   "1070": {
     "app_label": "Zone 1 Target RT",
@@ -1010,7 +1059,8 @@
     "mode": "r/w",
     "name": "Zone 1 Raumtemperatur-Sollwert",
     "source_app_video": "ScreenRecording_06-14-2026 18-17-00",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "Z"
   },
   "1071": {
     "app_label": "Zone 1 RT Diff. to Start",
@@ -1023,7 +1073,8 @@
     "name": "Zone 1 Raumtemperatur-Differenz zum Start",
     "source_app_video": "ScreenRecording_06-14-2026 18-17-00",
     "type": "TEMP1",
-    "unit": "K"
+    "unit": "K",
+    "tab": "Z"
   },
   "1072": {
     "app_label": "Zone 2 Target RT",
@@ -1035,7 +1086,8 @@
     "mode": "r/w",
     "name": "Zone 2 Raumtemperatur-Sollwert",
     "source_app_video": "ScreenRecording_06-14-2026 18-17-00",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "Z"
   },
   "1073": {
     "app_label": "Zone 2 RT Diff. to Start",
@@ -1048,7 +1100,8 @@
     "name": "Zone 2 Raumtemperatur-Differenz zum Start",
     "source_app_video": "ScreenRecording_06-14-2026 18-17-00",
     "type": "TEMP1",
-    "unit": "K"
+    "unit": "K",
+    "tab": "Z"
   },
   "1074": {
     "app_label": "Quantity",
@@ -1066,7 +1119,8 @@
     "value_map": {
       "0": "Einzellüfter",
       "1": "Doppellüfter"
-    }
+    },
+    "tab": "F"
   },
   "1075": {
     "app_label": "Zone 1 Heating Target Outlet WT",
@@ -1078,7 +1132,8 @@
     "mode": "r/w",
     "name": "Zone 1 Heizungs-Auslasswasser-Sollwert",
     "source_app_video": "ScreenRecording_06-14-2026 18-17-00",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "Z"
   },
   "1076": {
     "app_label": "Zone 2 Mixing Target Outlet WT",
@@ -1090,7 +1145,8 @@
     "mode": "r/w",
     "name": "Zone 2 Mischwasser-Auslasswasser-Sollwert",
     "source_app_video": "ScreenRecording_06-14-2026 18-17-00",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "Z"
   },
   "1077": {
     "app_label": "Enable AT Compensation Curve Zone 2",
@@ -1110,7 +1166,8 @@
     "value_map": {
       "0": "Nein",
       "1": "Ja"
-    }
+    },
+    "tab": "Z"
   },
   "1078": {
     "function": "03/16",
@@ -1139,7 +1196,8 @@
     "value_map": {
       "0": "Manuell",
       "1": "Auto"
-    }
+    },
+    "tab": "Z"
   },
   "1081": {
     "app_label": "Cooling Fan Min Speed",
@@ -1150,7 +1208,8 @@
     "mode": "r/w",
     "name": "Min. Lüfterdrehzahl im Kühlbetrieb",
     "type": "DIGI1",
-    "unit": "rpm"
+    "unit": "rpm",
+    "tab": "F"
   },
   "1082": {
     "app_label": "Mixing Valve Opening Time",
@@ -1163,7 +1222,8 @@
     "name": "Mischventil Öffnungszeit",
     "source_app_video": "ScreenRecording_06-14-2026 18-17-00",
     "type": "SECONDS",
-    "unit": "s"
+    "unit": "s",
+    "tab": "Z"
   },
   "1083": {
     "app_label": "Min. Fan Speed in Heating",
@@ -1174,7 +1234,8 @@
     "mode": "r/w",
     "name": "Min. Lüfterdrehzahl im Heizbetrieb",
     "type": "DIGI1",
-    "unit": "rpm"
+    "unit": "rpm",
+    "tab": "F"
   },
   "1084": {
     "app_label": "Mixing Valve Closing Time",
@@ -1187,7 +1248,8 @@
     "name": "Mischventil Schließzeit",
     "source_app_video": "ScreenRecording_06-14-2026 18-17-00",
     "type": "SECONDS",
-    "unit": "s"
+    "unit": "s",
+    "tab": "Z"
   },
   "1085": {
     "app_label": "Mixing Valve Adjustment P(PID)",
@@ -1199,7 +1261,8 @@
     "mode": "r/w",
     "name": "Mischventil Regelung P-Anteil (PID)",
     "source_app_video": "ScreenRecording_06-14-2026 18-17-00",
-    "type": "DIGI5"
+    "type": "DIGI5",
+    "tab": "Z"
   },
   "1086": {
     "block": "F",
@@ -1211,7 +1274,8 @@
     "value_map": {
       "0": "Aus",
       "1": "Ein"
-    }
+    },
+    "tab": "F"
   },
   "1087": {
     "app_label": "Manual Control Fan Speed",
@@ -1229,7 +1293,8 @@
     "value_map": {
       "0": "Nein",
       "1": "Ja"
-    }
+    },
+    "tab": "F"
   },
   "1088": {
     "app_label": "Mixing Valve Adjustment I(PID)",
@@ -1241,7 +1306,8 @@
     "mode": "r/w",
     "name": "Mischventil Regelung I-Anteil (PID)",
     "source_app_video": "ScreenRecording_06-14-2026 18-17-00",
-    "type": "DIGI5"
+    "type": "DIGI5",
+    "tab": "Z"
   },
   "1089": {
     "app_label": "DC/AC Fan Rated Speed",
@@ -1252,7 +1318,8 @@
     "mode": "r/w",
     "name": "Nenn-DC-Lüftermotordrehzahl",
     "type": "DIGI1",
-    "unit": "rpm"
+    "unit": "rpm",
+    "tab": "F"
   },
   "1090": {
     "app_label": "Mixing Valve PID Period",
@@ -1265,7 +1332,8 @@
     "name": "Mischventil PID-Zyklus",
     "source_app_video": "ScreenRecording_06-14-2026 18-17-00",
     "type": "MINUTES",
-    "unit": "min"
+    "unit": "min",
+    "tab": "Z"
   },
   "1091": {
     "function": "03",
@@ -1353,7 +1421,8 @@
     "last_review": "v39",
     "mode": "r/w",
     "name": "Verdampfertemperatur des Einzel-/Doppellüfterschalters im Kühlbetrieb",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "F"
   },
   "1102": {
     "app_label": "CT to Stop Single Fan in Cooling",
@@ -1363,7 +1432,8 @@
     "last_review": "v39",
     "mode": "r/w",
     "name": "Verdampfertemperatur des Einzellüfterstopps im Kühlbetrieb",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "F"
   },
   "1103": {
     "app_label": "Cooling Fan Max Speed",
@@ -1374,7 +1444,8 @@
     "mode": "r/w",
     "name": "Max. Lüfterdrehzahl im Kühlbetrieb",
     "type": "RPM",
-    "unit": "rpm"
+    "unit": "rpm",
+    "tab": "F"
   },
   "1104": {
     "app_label": "Heating Fan Max Speed",
@@ -1385,7 +1456,8 @@
     "mode": "r/w",
     "name": "Max. Lüfterdrehzahl im Heizbetrieb",
     "type": "RPM",
-    "unit": "rpm"
+    "unit": "rpm",
+    "tab": "F"
   },
   "1105": {
     "app_label": "Ambient Temp. of Starting Defrosting",
@@ -1395,7 +1467,8 @@
     "last_review": "v39",
     "mode": "r/w",
     "name": "Umgebungstemperatur des Start-Abtauens",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "D"
   },
   "1106": {
     "app_label": "Heating Operation Time Before Defrosting",
@@ -1406,7 +1479,8 @@
     "mode": "r/w",
     "name": "Heizbetriebszeit vor dem Abtauen",
     "type": "MINUTES",
-    "unit": "min"
+    "unit": "min",
+    "tab": "D"
   },
   "1107": {
     "app_label": "Defrosting Cycle",
@@ -1417,7 +1491,8 @@
     "mode": "r/w",
     "name": "Intervallzeit zwischen den Abtauzyklen",
     "type": "MINUTES",
-    "unit": "min"
+    "unit": "min",
+    "tab": "D"
   },
   "1108": {
     "app_label": "Exhaust Temp. Correction for Defrosting Cycle",
@@ -1427,7 +1502,8 @@
     "last_review": "v39",
     "mode": "r/w",
     "name": "Heißgastemperaturkorrektur für den Abtauzyklus",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "D"
   },
   "1109": {
     "app_label": "Defrosting Suction Pressure 1",
@@ -1437,7 +1513,8 @@
     "last_review": "v39",
     "mode": "r/w",
     "name": "Abtau-Saugsdruck 1",
-    "type": "DIGI5"
+    "type": "DIGI5",
+    "tab": "D"
   },
   "1110": {
     "app_label": "Defrosting Suction Pressure 2",
@@ -1447,7 +1524,8 @@
     "last_review": "v39",
     "mode": "r/w",
     "name": "Abtau-Saugsdruck 2",
-    "type": "DIGI5"
+    "type": "DIGI5",
+    "tab": "D"
   },
   "1111": {
     "app_label": "Defrosting Cycle Time Correction",
@@ -1458,7 +1536,8 @@
     "mode": "r/w",
     "my_value": "2min",
     "name": "Abtauzykluszeitkorrektur",
-    "type": "DIGI1"
+    "type": "DIGI1",
+    "tab": "D"
   },
   "1112": {
     "app_label": "Ambient Temp. of Start Sliding Defrosting",
@@ -1468,7 +1547,8 @@
     "last_review": "v39",
     "mode": "r/w",
     "name": "Umgebungstemperatur des Start-Gleitabtauens",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "D"
   },
   "1113": {
     "app_label": "Suction Temp. of Start Sliding Defrosting",
@@ -1478,7 +1558,8 @@
     "last_review": "v39",
     "mode": "r/w",
     "name": "Saugsungstemperatur des Start-Gleitabtauens",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "D"
   },
   "1114": {
     "app_label": "Ambient Temp. of Stop Sliding Defrosting",
@@ -1488,7 +1569,8 @@
     "last_review": "v39",
     "mode": "r/w",
     "name": "Umgebungstemperatur des Stopp-Gleitabtauens",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "D"
   },
   "1115": {
     "app_label": "Suction Temp. of Stop Sliding Defrosting",
@@ -1498,7 +1580,8 @@
     "last_review": "v39",
     "mode": "r/w",
     "name": "Saugsungstemperatur des Stopp-Gleitabtauens",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "D"
   },
   "1116": {
     "app_label": "Min. Inlet Water Temp. of Defrosting",
@@ -1510,7 +1593,8 @@
     "my_value": "19°C",
     "name": "Min. Einlasswassertemperatur des Abtauens",
     "type": "TEMP1",
-    "unit": "°C"
+    "unit": "°C",
+    "tab": "D"
   },
   "1117": {
     "app_label": "Suction Pressure of Forced Defrosting",
@@ -1521,7 +1605,8 @@
     "mode": "r/w",
     "name": "Saugsdruck des erzwungenen Abtauens",
     "type": "BAR_X10",
-    "unit": "bar"
+    "unit": "bar",
+    "tab": "D"
   },
   "1118": {
     "app_label": "Heating Operation Time Before Forced Defrosting",
@@ -1533,7 +1618,8 @@
     "my_value": "210min",
     "name": "Heizbetriebszeit vor dem erzwungenen Abtauen",
     "type": "MINUTES",
-    "unit": "min"
+    "unit": "min",
+    "tab": "D"
   },
   "1119": {
     "app_label": "Fan Motor Power Ratio to Extend Defrosting Cycle",
@@ -1545,7 +1631,8 @@
     "name": "Lüftermotorleistungsverhältnis zur Verlängerung des Abtauzyklus",
     "type": "DIGI19",
     "unit": "",
-    "notes": "Skalierung: Wert / 100."
+    "notes": "Skalierung: Wert / 100.",
+    "tab": "D"
   },
   "1120": {
     "app_label": "Fan Motor Power Ratio to Enter Forced Defrosting",
@@ -1557,7 +1644,8 @@
     "name": "Lüftermotorleistungsverhältnis zum Eintritt in das erzwungene Abtauen",
     "type": "DIGI19",
     "unit": "",
-    "notes": "Skalierung: Wert / 100."
+    "notes": "Skalierung: Wert / 100.",
+    "tab": "D"
   },
   "1121": {
     "app_label": "Max. Fan Motor Power to Enter Forced Defrosting",
@@ -1568,7 +1656,8 @@
     "mode": "r/w",
     "name": "Max. Lüftermotorleistung zum Eintritt in das erzwungene Abtauen",
     "type": "WATT",
-    "unit": "W"
+    "unit": "W",
+    "tab": "D"
   },
   "1122": {
     "app_label": "Coil Temp. of Exit Defrosting",
@@ -1579,7 +1668,8 @@
     "mode": "r/w",
     "my_value": "19",
     "name": "Verdampfertemperatur des Abtauausgangs",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "D"
   },
   "1123": {
     "app_label": "Distributor Tube Temp. of Exit Defrosting",
@@ -1589,7 +1679,8 @@
     "last_review": "v39",
     "mode": "r/w",
     "name": "Verteilerrohrtemperatur des Abtauausgangs",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "D"
   },
   "1124": {
     "app_label": "Max. Defrosting Time",
@@ -1600,7 +1691,8 @@
     "mode": "r/w",
     "name": "Max. Abtauzeit",
     "type": "MINUTES",
-    "unit": "min"
+    "unit": "min",
+    "tab": "D"
   },
   "1125": {
     "app_label": "Defrosting Frequency",
@@ -1612,7 +1704,8 @@
     "my_value": "77Hz",
     "name": "Abtaufrequenz",
     "type": "HZ",
-    "unit": "Hz"
+    "unit": "Hz",
+    "tab": "D"
   },
   "1126": {
     "app_label": "Enable Electric Heater During Defrosting",
@@ -1630,7 +1723,8 @@
     "value_map": {
       "0": "Nein",
       "1": "Ja"
-    }
+    },
+    "tab": "D"
   },
   "1127": {
     "app_label": "Water Flow of Defrosting",
@@ -1642,7 +1736,8 @@
     "my_value": "0",
     "name": "Wasserdurchfluss beim Abtauen",
     "type": "FLOW_M3H_X10",
-    "unit": "m³/h"
+    "unit": "m³/h",
+    "tab": "D"
   },
   "1128": {
     "app_label": "Max. Defrosting Cycle by Fan Motor Power",
@@ -1654,7 +1749,8 @@
     "my_value": "135min",
     "name": "Max. Abtauzyklus durch Lüftermotorleistung",
     "type": "MINUTES",
-    "unit": "min"
+    "unit": "min",
+    "tab": "D"
   },
   "1129": {
     "app_label": "Defrosting Heating Source in Heating / DHW Mode",
@@ -1674,7 +1770,8 @@
       "0": "nicht umschalten",
       "1": "WW-Seite / WW-Tank",
       "2": "Heizseite / Pufferspeicher"
-    }
+    },
+    "tab": "D"
   },
   "1130": {
     "app_label": "Max. Water Temp. Decrease during Defrosting",
@@ -1685,7 +1782,8 @@
     "mode": "r/w",
     "my_value": "30°C",
     "name": "Max. Einlasswassertemperaturabfall beim Abtauen",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "D"
   },
   "1131": {
     "app_current_video_value": "Smart/Auto umschaltbar",
@@ -1707,7 +1805,8 @@
       "0": "Manual",
       "1": "Auto",
       "2": "Smart"
-    }
+    },
+    "tab": "E"
   },
   "1132": {
     "app_current_video_value": "3.0 °C",
@@ -1720,7 +1819,8 @@
     "mode": "r/w",
     "name": "Ziel-Überhitzung Heizen",
     "type": "TEMP1",
-    "unit": "°C"
+    "unit": "°C",
+    "tab": "E"
   },
   "1133": {
     "app_current_video_value": "0 N",
@@ -1733,7 +1833,8 @@
     "mode": "r/w",
     "name": "EEV Anfangsschritte Heizen",
     "type": "STEPS_N",
-    "unit": "N"
+    "unit": "N",
+    "tab": "E"
   },
   "1134": {
     "app_label": "Steps of Mixing Valve in Cooling",
@@ -1746,7 +1847,8 @@
     "name": "Mischventil-Stellwert im Kühlbetrieb",
     "source_app_video": "ScreenRecording_06-14-2026 18-17-00",
     "type": "PERCENT",
-    "unit": "%"
+    "unit": "%",
+    "tab": "Z"
   },
   "1135": {
     "app_label": "Zone 2 Max. Water Target Temp.",
@@ -1758,7 +1860,8 @@
     "mode": "r/w",
     "name": "Zone 2 maximale Wasser-Solltemperatur",
     "source_app_video": "ScreenRecording_06-14-2026 18-17-00",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "Z"
   },
   "1136": {
     "block": "Z",
@@ -1768,7 +1871,8 @@
     "mode": "r/w",
     "name": "Mischventil Regel-I (DIGI5 laut ASM-Kommentar) (ASM)",
     "note": "Nicht mit H36 / Register 1236 verwechseln.",
-    "type": "DIGI5"
+    "type": "DIGI5",
+    "tab": "Z"
   },
   "1137": {
     "app_current_video_value": "60 N",
@@ -1781,7 +1885,8 @@
     "mode": "r/w",
     "name": "EEV minimale Anfangsschritte",
     "type": "STEPS_N",
-    "unit": "N"
+    "unit": "N",
+    "tab": "E"
   },
   "1138": {
     "app_current_video_value": "350 N",
@@ -1794,7 +1899,8 @@
     "mode": "r/w",
     "name": "EEV Anfangsschritte Kühlen",
     "type": "STEPS_N",
-    "unit": "N"
+    "unit": "N",
+    "tab": "E"
   },
   "1139": {
     "app_current_video_value": "Auto",
@@ -1814,7 +1920,8 @@
     "value_map": {
       "0": "Manual",
       "1": "Auto"
-    }
+    },
+    "tab": "E"
   },
   "1140": {
     "app_current_video_value": "200 N",
@@ -1827,7 +1934,8 @@
     "mode": "r/w",
     "name": "EVI-EEV Anfangsschritte",
     "type": "STEPS_N",
-    "unit": "N"
+    "unit": "N",
+    "tab": "E"
   },
   "1141": {
     "app_current_video_value": "140 N",
@@ -1847,7 +1955,8 @@
     "mode": "r/w",
     "name": "EEV Anfangsschritte Heizen 2",
     "type": "STEPS_N",
-    "unit": "N"
+    "unit": "N",
+    "tab": "E"
   },
   "1143": {
     "app_current_video_value": "3.0 °C",
@@ -1860,7 +1969,8 @@
     "mode": "r/w",
     "name": "EVI-EEV Ziel-Überhitzungsgrad",
     "type": "TEMP1",
-    "unit": "°C"
+    "unit": "°C",
+    "tab": "E"
   },
   "1144": {
     "app_current_video_value": "50 N",
@@ -1872,7 +1982,8 @@
     "mode": "r/w",
     "name": "EVI-EEV minimale Schritte",
     "type": "STEPS_N",
-    "unit": "N"
+    "unit": "N",
+    "tab": "E"
   },
   "1145": {
     "block": "E",
@@ -1880,7 +1991,8 @@
     "function": "03/16",
     "mode": "r/w",
     "name": "Temperatur-/Hystereseparameter (ASM)",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "E"
   },
   "1146": {
     "block": "E",
@@ -1888,7 +2000,8 @@
     "function": "03/16",
     "mode": "r/w",
     "name": "Temperatur-/Hystereseparameter (ASM)",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "E"
   },
   "1147": {
     "app_current_video_value": "470 N",
@@ -1901,7 +2014,8 @@
     "my_value": "460",
     "name": "Abtau-EEV Schritte",
     "type": "STEPS_N",
-    "unit": "N"
+    "unit": "N",
+    "tab": "E"
   },
   "1148": {
     "app_current_video_value": "3.0 °C",
@@ -1913,7 +2027,8 @@
     "mode": "r/w",
     "name": "Ziel-Überhitzung Kühlen",
     "type": "TEMP1",
-    "unit": "°C"
+    "unit": "°C",
+    "tab": "E"
   },
   "1149": {
     "app_current_video_value": "20 %",
@@ -1926,7 +2041,8 @@
     "name": "EEV Anpassungsbereich im Smart-Modus",
     "notes": "Vermutung, noch nicht verifiziert: E19 begrenzt vermutlich, wie stark der Smart-Algorithmus vom normalen/Auto-EEV-Wert abweichen darf. Bei Default 20 % dürfte Smart den berechneten EEV-Wert vermutlich um bis zu ca. 20 % korrigieren.",
     "type": "PERCENT",
-    "unit": "%"
+    "unit": "%",
+    "tab": "E"
   },
   "1150": {
     "function": "03/16",
@@ -1950,7 +2066,8 @@
     "mode": "r/w",
     "name": "Desinfektionswassertemperatur",
     "type": "TEMP1",
-    "unit": "°C"
+    "unit": "°C",
+    "tab": "G"
   },
   "1153": {
     "app_current_video_value": "0 min",
@@ -1962,7 +2079,8 @@
     "mode": "r/w",
     "name": "Desinfektionsdauer",
     "type": "MINUTES",
-    "unit": "min"
+    "unit": "min",
+    "tab": "G"
   },
   "1154": {
     "app_current_video_value": "1 h",
@@ -1974,7 +2092,8 @@
     "mode": "r/w",
     "name": "Desinfektionsstartzeit",
     "type": "HOURS",
-    "unit": "h"
+    "unit": "h",
+    "tab": "G"
   },
   "1155": {
     "app_current_video_value": "30 days",
@@ -1986,7 +2105,8 @@
     "mode": "r/w",
     "name": "Intervallzeit der Desinfektion",
     "type": "DAYS",
-    "unit": "days"
+    "unit": "days",
+    "tab": "G"
   },
   "1156": {
     "app_current_video_value": "NO",
@@ -2001,7 +2121,8 @@
     "value_map": {
       "0": "NO",
       "1": "YES"
-    }
+    },
+    "tab": "G"
   },
   "1157": {
     "app_current_video_value": "16.0 °C",
@@ -2014,7 +2135,8 @@
     "name": "Warmwasser-Solltemperatur",
     "type": "TEMP1",
     "unit": "°C",
-    "notes": "Warmwasser-Solltemperatur für WP-Steuerung"
+    "notes": "Warmwasser-Solltemperatur für WP-Steuerung",
+    "tab": "R"
   },
   "1158": {
     "app_current_video_value": "35.0 °C",
@@ -2027,7 +2149,8 @@
     "name": "Heizungssolltemperatur",
     "type": "TEMP1",
     "unit": "°C",
-    "notes": "Heizungssolltemperatur für WP-Steuerung"
+    "notes": "Heizungssolltemperatur für WP-Steuerung",
+    "tab": "R"
   },
   "1159": {
     "app_current_video_value": "14.9 °C",
@@ -2040,7 +2163,8 @@
     "name": "Kühlsolltemperatur",
     "type": "TEMP1",
     "unit": "°C",
-    "notes": "Kühlsolltemperatur für WP-Steuerung"
+    "notes": "Kühlsolltemperatur für WP-Steuerung",
+    "tab": "R"
   },
   "1160": {
     "app_current_video_value": "3.0 °C",
@@ -2052,7 +2176,8 @@
     "mode": "r/w",
     "name": "Heizung Einschalt-Rücklaufdifferenz",
     "type": "TEMP1",
-    "unit": "°C"
+    "unit": "°C",
+    "tab": "R"
   },
   "1161": {
     "app_current_video_value": "3.5 °C",
@@ -2064,7 +2189,8 @@
     "mode": "r/w",
     "name": "Heizung Standby-/Abschalt-Temperaturdifferenz",
     "type": "TEMP1",
-    "unit": "°C"
+    "unit": "°C",
+    "tab": "R"
   },
   "1162": {
     "app_current_video_value": "10.0 °C",
@@ -2076,7 +2202,8 @@
     "mode": "r/w",
     "name": "Min. Kühlsolltemperatur",
     "type": "TEMP1",
-    "unit": "°C"
+    "unit": "°C",
+    "tab": "R"
   },
   "1163": {
     "app_current_video_value": "28.0 °C",
@@ -2088,7 +2215,8 @@
     "mode": "r/w",
     "name": "Max. Kühlsolltemperatur",
     "type": "TEMP1",
-    "unit": "°C"
+    "unit": "°C",
+    "tab": "R"
   },
   "1164": {
     "app_current_video_value": "15.0 °C",
@@ -2100,7 +2228,8 @@
     "mode": "r/w",
     "name": "Min. Heizungssolltemperatur",
     "type": "TEMP1",
-    "unit": "°C"
+    "unit": "°C",
+    "tab": "R"
   },
   "1165": {
     "app_current_video_value": "64.0 °C",
@@ -2112,7 +2241,8 @@
     "mode": "r/w",
     "name": "Max. Heizungssolltemperatur",
     "type": "TEMP1",
-    "unit": "°C"
+    "unit": "°C",
+    "tab": "R"
   },
   "1166": {
     "app_current_video_value": "2.0 °C",
@@ -2124,7 +2254,8 @@
     "mode": "r/w",
     "name": "Rückkehrdifferenz zum Verlassen des Hochtemperatur-Modus",
     "type": "TEMP1",
-    "unit": "°C"
+    "unit": "°C",
+    "tab": "R"
   },
   "1167": {
     "app_current_video_value": "-7.0 °C",
@@ -2136,7 +2267,8 @@
     "mode": "r/w",
     "name": "Niedrige AT für Wassertemperaturbegrenzung EIN",
     "type": "TEMP1",
-    "unit": "°C"
+    "unit": "°C",
+    "tab": "R"
   },
   "1168": {
     "app_current_video_value": "-20.0 °C",
@@ -2148,7 +2280,8 @@
     "mode": "r/w",
     "name": "Niedrige AT für Wassertemperaturbegrenzung AUS",
     "type": "TEMP1",
-    "unit": "°C"
+    "unit": "°C",
+    "tab": "R"
   },
   "1169": {
     "app_current_video_value": "62.0 °C",
@@ -2160,7 +2293,8 @@
     "mode": "r/w",
     "name": "Max. Auslasswassertemperaturbegrenzung bei niedriger AT",
     "type": "TEMP1",
-    "unit": "°C"
+    "unit": "°C",
+    "tab": "R"
   },
   "1170": {
     "app_current_video_value": "15.0 °C",
@@ -2172,7 +2306,8 @@
     "mode": "r/w",
     "name": "Hohe AT für Wassertemperaturbegrenzung EIN",
     "type": "TEMP1",
-    "unit": "°C"
+    "unit": "°C",
+    "tab": "R"
   },
   "1171": {
     "app_current_video_value": "43.0 °C",
@@ -2184,7 +2319,8 @@
     "mode": "r/w",
     "name": "Hohe AT für Wassertemperaturbegrenzung AUS",
     "type": "TEMP1",
-    "unit": "°C"
+    "unit": "°C",
+    "tab": "R"
   },
   "1172": {
     "app_current_video_value": "67.0 °C",
@@ -2196,7 +2332,8 @@
     "mode": "r/w",
     "name": "Max. Auslasswassertemperaturbegrenzung bei hoher AT",
     "type": "TEMP1",
-    "unit": "°C"
+    "unit": "°C",
+    "tab": "R"
   },
   "1173": {
     "app_current_video_value": "Not Available",
@@ -2216,7 +2353,8 @@
       "0": "Not Available",
       "1": "Heating water circuit",
       "2": "Tank/buffer heater"
-    }
+    },
+    "tab": "R"
   },
   "1174": {
     "app_current_video_value": "2.0 °C",
@@ -2228,7 +2366,8 @@
     "mode": "r/w",
     "name": "Kühlung Einschalt-Rücklaufdifferenz",
     "type": "TEMP1",
-    "unit": "°C"
+    "unit": "°C",
+    "tab": "R"
   },
   "1175": {
     "app_current_video_value": "1.0 °C",
@@ -2240,7 +2379,8 @@
     "mode": "r/w",
     "name": "Kühlung Standby-/Abschalt-Temperaturdifferenz",
     "type": "TEMP1",
-    "unit": "°C"
+    "unit": "°C",
+    "tab": "R"
   },
   "1176": {
     "app_current_video_value": "15.0 °C",
@@ -2252,7 +2392,8 @@
     "mode": "r/w",
     "name": "Min. WW-Solltemperatur",
     "type": "TEMP1",
-    "unit": "°C"
+    "unit": "°C",
+    "tab": "R"
   },
   "1177": {
     "app_current_video_value": "53.0 °C",
@@ -2264,7 +2405,8 @@
     "mode": "r/w",
     "name": "Max. WW-Solltemperatur",
     "type": "TEMP1",
-    "unit": "°C"
+    "unit": "°C",
+    "tab": "R"
   },
   "1178": {
     "block": "R",
@@ -2275,7 +2417,8 @@
     "type": "TEMP1",
     "unit": "°C",
     "last_review": "v0.2.41 fix8",
-    "notes": "In App nicht sichtbar."
+    "notes": "In App nicht sichtbar.",
+    "tab": "R"
   },
   "1179": {
     "block": "R",
@@ -2286,7 +2429,8 @@
     "type": "TEMP1",
     "unit": "°C",
     "last_review": "v0.2.41 fix8",
-    "notes": "In App nicht sichtbar."
+    "notes": "In App nicht sichtbar.",
+    "tab": "R"
   },
   "1180": {
     "block": "R",
@@ -2297,7 +2441,8 @@
     "type": "TEMP1",
     "unit": "°C",
     "last_review": "v0.2.41 fix8",
-    "notes": "In App nicht sichtbar."
+    "notes": "In App nicht sichtbar.",
+    "tab": "R"
   },
   "1181": {
     "function": "03",
@@ -2394,7 +2539,8 @@
     "mode": "r/w",
     "name": "AT für Auto-Start Heizmodus",
     "type": "TEMP1",
-    "unit": "°C"
+    "unit": "°C",
+    "tab": "R"
   },
   "1193": {
     "block": "R",
@@ -2402,7 +2548,8 @@
     "function": "03/16",
     "mode": "r/w",
     "name": "Temperaturparameter, Celsius-Grenze 60 °C (ASM V1.3)",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "R"
   },
   "1194": {
     "block": "R",
@@ -2410,7 +2557,8 @@
     "function": "03/16",
     "mode": "r/w",
     "name": "Temperaturparameter, Celsius-Grenze 60 °C (ASM V1.3)",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "R"
   },
   "1195": {
     "app_current_video_value": "2.0 °C",
@@ -2422,7 +2570,8 @@
     "mode": "r/w",
     "name": "WW-Tank Einschalt-Rücklaufdifferenz",
     "type": "TEMP1",
-    "unit": "°C"
+    "unit": "°C",
+    "tab": "R"
   },
   "1196": {
     "app_current_video_value": "0.0 °C",
@@ -2434,7 +2583,8 @@
     "mode": "r/w",
     "name": "WW-Tank Standby-Temperaturdifferenz",
     "type": "TEMP1",
-    "unit": "°C"
+    "unit": "°C",
+    "tab": "R"
   },
   "1197": {
     "app_current_video_value": "Interval",
@@ -2450,7 +2600,8 @@
       "0": "Always On",
       "1": "Saving",
       "2": "Interval"
-    }
+    },
+    "tab": "P"
   },
   "1198": {
     "app_current_video_value": "35 min",
@@ -2462,7 +2613,8 @@
     "mode": "r/w",
     "name": "Intervallzeit",
     "type": "MINUTES",
-    "unit": "min"
+    "unit": "min",
+    "tab": "P"
   },
   "1199": {
     "app_current_video_value": "1 min",
@@ -2474,7 +2626,8 @@
     "mode": "r/w",
     "name": "Betriebsdauer",
     "type": "MINUTES",
-    "unit": "min"
+    "unit": "min",
+    "tab": "P"
   },
   "1200": {
     "app_current_video_value": "250 N",
@@ -2486,7 +2639,8 @@
     "mode": "r/w",
     "name": "EEV Anfangsschritte Heizen 1",
     "type": "STEPS_N",
-    "unit": "N"
+    "unit": "N",
+    "tab": "E"
   },
   "1201": {
     "app_current_video_value": "Interval",
@@ -2502,7 +2656,8 @@
       "0": "Always On",
       "1": "Saving",
       "2": "Interval"
-    }
+    },
+    "tab": "P"
   },
   "1202": {
     "app_current_video_value": "NO",
@@ -2517,7 +2672,8 @@
     "value_map": {
       "0": "NO",
       "1": "YES"
-    }
+    },
+    "tab": "P"
   },
   "1203": {
     "app_current_video_value": "30 days",
@@ -2529,7 +2685,8 @@
     "mode": "r/w",
     "name": "Schutzintervall der Umwälzpumpe",
     "type": "DAYS",
-    "unit": "days"
+    "unit": "days",
+    "tab": "P"
   },
   "1204": {
     "app_current_video_value": "",
@@ -2542,7 +2699,8 @@
     "name": "Nennleistung Hauptumwälzpumpe",
     "notes": "Einheit sicher: Watt.",
     "type": "RAW",
-    "unit": "W"
+    "unit": "W",
+    "tab": "P"
   },
   "1205": {
     "app_current_video_value": "0 %",
@@ -2554,7 +2712,8 @@
     "mode": "r/w",
     "name": "Drehzahl der Umwälzpumpe",
     "type": "PERCENT",
-    "unit": "%"
+    "unit": "%",
+    "tab": "P"
   },
   "1206": {
     "app_current_video_value": "140 N",
@@ -2570,7 +2729,8 @@
     "value_map": {
       "0": "Nein",
       "1": "Ja"
-    }
+    },
+    "tab": "E"
   },
   "1207": {
     "app_current_video_value": "125 N",
@@ -2582,7 +2742,8 @@
     "mode": "r/w",
     "name": "EEV Anfangsschritte Heizen 4",
     "type": "STEPS_N",
-    "unit": "N"
+    "unit": "N",
+    "tab": "E"
   },
   "1208": {
     "app_current_video_value": "110 N",
@@ -2598,7 +2759,8 @@
     "value_map": {
       "0": "Nein",
       "1": "Ja"
-    }
+    },
+    "tab": "E"
   },
   "1209": {
     "app_current_video_value": "130 N",
@@ -2610,7 +2772,8 @@
     "mode": "r/w",
     "name": "EEV Min. Schritte 1",
     "type": "STEPS_N",
-    "unit": "N"
+    "unit": "N",
+    "tab": "E"
   },
   "1210": {
     "app_current_video_value": "130 N",
@@ -2622,7 +2785,8 @@
     "mode": "r/w",
     "name": "EEV Min. Schritte 2",
     "type": "STEPS_N",
-    "unit": "N"
+    "unit": "N",
+    "tab": "E"
   },
   "1211": {
     "app_current_video_value": "110 N",
@@ -2634,7 +2798,8 @@
     "mode": "r/w",
     "name": "EEV Min. Schritte 3",
     "type": "STEPS_N",
-    "unit": "N"
+    "unit": "N",
+    "tab": "E"
   },
   "1212": {
     "function": "03/16",
@@ -2670,7 +2835,8 @@
     "mode": "r/w",
     "name": "EEV Min. Schritte 4",
     "type": "STEPS_N",
-    "unit": "N"
+    "unit": "N",
+    "tab": "E"
   },
   "1216": {
     "app_current_video_value": "85 N",
@@ -2682,7 +2848,8 @@
     "mode": "r/w",
     "name": "EEV Min. Schritte 5",
     "type": "STEPS_N",
-    "unit": "N"
+    "unit": "N",
+    "tab": "E"
   },
   "1217": {
     "app_current_video_value": "72 Hz",
@@ -2694,7 +2861,8 @@
     "mode": "r/w",
     "name": "Max. Kompressorfrequenz im Kühlbetrieb bei hoher Umgebungstemperatur",
     "type": "HZ",
-    "unit": "Hz"
+    "unit": "Hz",
+    "tab": "C"
   },
   "1218": {
     "app_current_video_value": "0 Hz",
@@ -2706,7 +2874,8 @@
     "mode": "r/w",
     "name": "Manuelle Kompressorfrequenz",
     "type": "HZ",
-    "unit": "Hz"
+    "unit": "Hz",
+    "tab": "C"
   },
   "1219": {
     "app_current_video_value": "29 Hz",
@@ -2718,7 +2887,8 @@
     "mode": "r/w",
     "name": "Min. Kompressorfrequenz",
     "type": "HZ",
-    "unit": "Hz"
+    "unit": "Hz",
+    "tab": "C"
   },
   "1220": {
     "app_current_video_value": "90 Hz",
@@ -2730,7 +2900,8 @@
     "mode": "r/w",
     "name": "Max. Kompressorfrequenz",
     "type": "HZ",
-    "unit": "Hz"
+    "unit": "Hz",
+    "tab": "C"
   },
   "1221": {
     "app_current_video_value": "13",
@@ -2741,7 +2912,8 @@
     "last_review": "v0.2.32 video2 2026-06-14",
     "mode": "r/w",
     "name": "Kompressormodellauswahl",
-    "type": "DIGI1"
+    "type": "DIGI1",
+    "tab": "C"
   },
   "1222": {
     "app_current_video_value": "50 Hz",
@@ -2753,7 +2925,8 @@
     "mode": "r/w",
     "name": "Min. Kompressorfrequenz im Kühlbetrieb bei niedriger Umgebungstemperatur",
     "type": "HZ",
-    "unit": "Hz"
+    "unit": "Hz",
+    "tab": "C"
   },
   "1223": {
     "app_label": "",
@@ -2763,7 +2936,8 @@
     "last_review": "XLS / nicht im Video sichtbar",
     "mode": "r/w",
     "name": "Frequenzregelungsmodus",
-    "type": "DIGI1"
+    "type": "DIGI1",
+    "tab": "C"
   },
   "1224": {
     "app_current_video_value": "27 Hz",
@@ -2775,7 +2949,8 @@
     "mode": "r/w",
     "name": "Resonanzpunkt 1",
     "type": "HZ",
-    "unit": "Hz"
+    "unit": "Hz",
+    "tab": "C"
   },
   "1225": {
     "app_current_video_value": "0 Hz",
@@ -2787,7 +2962,8 @@
     "mode": "r/w",
     "name": "Resonanzpunkt 2",
     "type": "HZ",
-    "unit": "Hz"
+    "unit": "Hz",
+    "tab": "C"
   },
   "1226": {
     "app_current_video_value": "0 Hz",
@@ -2799,7 +2975,8 @@
     "mode": "r/w",
     "name": "Resonanzpunkt 3",
     "type": "HZ",
-    "unit": "Hz"
+    "unit": "Hz",
+    "tab": "C"
   },
   "1227": {
     "app_current_video_value": "40 Hz",
@@ -2811,7 +2988,8 @@
     "mode": "r/w",
     "name": "Min. Kompressorfrequenz im Heizbetrieb bei niedriger Umgebungstemperatur",
     "type": "HZ",
-    "unit": "Hz"
+    "unit": "Hz",
+    "tab": "C"
   },
   "1228": {
     "app_current_video_value": "58.0 °C",
@@ -2823,7 +3001,8 @@
     "mode": "r/w",
     "name": "Max. Auslasswassertemperatur im Heizbetrieb",
     "type": "TEMP1",
-    "unit": "°C"
+    "unit": "°C",
+    "tab": "R"
   },
   "1229": {
     "app_current_video_value": "60.0 °C",
@@ -2835,7 +3014,8 @@
     "mode": "r/w",
     "name": "Max. Zielwassertemperaturbegrenzung bei niedriger AT im Heizbetrieb",
     "type": "TEMP1",
-    "unit": "°C"
+    "unit": "°C",
+    "tab": "R"
   },
   "1230": {
     "app_current_video_value": "65.0 °C",
@@ -2847,7 +3027,8 @@
     "mode": "r/w",
     "name": "Max. Zielwassertemperaturbegrenzung bei hoher AT im Heizbetrieb",
     "type": "TEMP1",
-    "unit": "°C"
+    "unit": "°C",
+    "tab": "R"
   },
   "1231": {
     "app_current_video_value": "-10.0 °C",
@@ -2859,7 +3040,8 @@
     "mode": "r/w",
     "name": "AT zum Starten des elektrischen Heizers ohne Verzögerung",
     "type": "TEMP1",
-    "unit": "°C"
+    "unit": "°C",
+    "tab": "R"
   },
   "1232": {
     "app_current_video_value": "5.0 °C",
@@ -2871,7 +3053,8 @@
     "mode": "r/w",
     "name": "Temp.-Differenz zwischen max. WW-Solltemp. und max. Auslasstemp.",
     "type": "TEMP1",
-    "unit": "°C"
+    "unit": "°C",
+    "tab": "R"
   },
   "1233": {
     "app_current_video_value": "25.0 °C",
@@ -2883,7 +3066,8 @@
     "mode": "r/w",
     "name": "AT zum Start der Frequenzbegrenzung im Kühlbetrieb",
     "type": "TEMP1",
-    "unit": "°C"
+    "unit": "°C",
+    "tab": "R"
   },
   "1234": {
     "function": "03/16",
@@ -2922,7 +3106,8 @@
       "0": "Nein",
       "1": "Ja"
     },
-    "description": "H36: AT-Kompensationskurve Zone 1 aktivieren. 0=Aus, 1=Ein. Selbst getestet: 1236 ist H36."
+    "description": "H36: AT-Kompensationskurve Zone 1 aktivieren. 0=Aus, 1=Ein. Selbst getestet: 1236 ist H36.",
+    "tab": "H"
   },
   "1237": {
     "app_current_video_value": "43.0 °C",
@@ -2934,7 +3119,8 @@
     "mode": "r/w",
     "name": "AT zum Stoppen der Frequenzbegrenzung im Kühlbetrieb",
     "type": "TEMP1",
-    "unit": "°C"
+    "unit": "°C",
+    "tab": "R"
   },
   "1238": {
     "app_current_video_value": "64.0 °C",
@@ -2946,7 +3132,8 @@
     "mode": "r/w",
     "name": "Max. Wärmepumpen-Auslasswassertemperatur",
     "type": "TEMP1",
-    "unit": "°C"
+    "unit": "°C",
+    "tab": "R"
   },
   "1239": {
     "app_current_video_value": "20.0 °C",
@@ -2958,7 +3145,8 @@
     "mode": "r/w",
     "name": "Ziel-Raumtemperatur",
     "type": "TEMP1",
-    "unit": "°C"
+    "unit": "°C",
+    "tab": "R"
   },
   "1240": {
     "app_current_video_value": "0.5 °C",
@@ -2970,7 +3158,8 @@
     "mode": "r/w",
     "name": "Raumtemperaturdifferenz zum Einschalten im Heizbetrieb",
     "type": "TEMP1",
-    "unit": "°C"
+    "unit": "°C",
+    "tab": "R"
   },
   "1241": {
     "app_current_video_value": "0.5 °C",
@@ -2982,7 +3171,8 @@
     "mode": "r/w",
     "name": "Raumtemperaturdifferenz für Standby im Heizbetrieb",
     "type": "TEMP1",
-    "unit": "°C"
+    "unit": "°C",
+    "tab": "R"
   },
   "1242": {
     "app_current_video_value": "0.5 °C",
@@ -2994,7 +3184,8 @@
     "mode": "r/w",
     "name": "Raumtemperaturdifferenz zum Einschalten im Kühlbetrieb",
     "type": "TEMP1",
-    "unit": "°C"
+    "unit": "°C",
+    "tab": "R"
   },
   "1243": {
     "app_current_video_value": "0.5 °C",
@@ -3006,7 +3197,8 @@
     "mode": "r/w",
     "name": "Raumtemperaturdifferenz für Standby im Kühlbetrieb",
     "type": "TEMP1",
-    "unit": "°C"
+    "unit": "°C",
+    "tab": "R"
   },
   "1244": {
     "function": "03/16",
@@ -3775,7 +3967,8 @@
     "mode": "r/w",
     "name": "Niederdruck-Grenzwert für Frequenzbegrenzung",
     "type": "BAR_X10",
-    "unit": "bar"
+    "unit": "bar",
+    "tab": "A"
   },
   "1343": {
     "app_current_video_value": "0.0 A",
@@ -3786,7 +3979,8 @@
     "mode": "r/w",
     "name": "Maximaler Stromwert",
     "type": "AMP_X2",
-    "unit": "A"
+    "unit": "A",
+    "tab": "A"
   },
   "1344": {
     "app_current_video_value": "0.5 m³/h",
@@ -3796,7 +3990,8 @@
     "last_review": "v026",
     "name": "Nenn-Wasserdurchfluss",
     "type": "FLOW_M3H_X100",
-    "unit": "m³/h"
+    "unit": "m³/h",
+    "tab": "A"
   },
   "1345": {
     "block": "H",
@@ -3817,7 +4012,8 @@
       "2": "Off Signal when defrosting"
     },
     "last_review": "v0.2.41 fix8 user live test",
-    "notes": "Live getestet. Nicht H38. ASM-Zusatz: 2541H beeinflusst Timer-/Pumpen-Seitenauswahl."
+    "notes": "Live getestet. Nicht H38. ASM-Zusatz: 2541H beeinflusst Timer-/Pumpen-Seitenauswahl.",
+    "tab": "H"
   },
   "1346": {
     "block": "H",
@@ -3837,7 +4033,8 @@
     "mode": "r/w",
     "name": "Max. Kompressorfrequenz im Warmwasserbetrieb",
     "type": "HZ",
-    "unit": "Hz"
+    "unit": "Hz",
+    "tab": "C"
   },
   "1348": {
     "block": "C",
@@ -3915,7 +4112,8 @@
     "notes": "H42 ist die Außentemperatur-Schwelle. D30/1437 (Gehaeusewannenheizung Nachlauf nach Abtauen) wirkt erst, wenn AT kleiner als H42/1356 ist. Einheit °C.",
     "function": "03/16",
     "mode": "r/w",
-    "unit": "°C"
+    "unit": "°C",
+    "tab": "H"
   },
   "1357": {
     "app_label": "Diff. of No Pump On at Low Water Temp.",
@@ -3928,7 +4126,8 @@
     "name": "Differenz: Keine Pumpe Ein bei niedriger Wassertemperatur",
     "source_app_video": "ScreenRecording_06-14-2026 18-17-00",
     "type": "TEMP1",
-    "unit": "K"
+    "unit": "K",
+    "tab": "Z"
   },
   "1358": {
     "app_label": "Enable Zone 1 Water Pump in Cooling",
@@ -3948,7 +4147,8 @@
     "value_map": {
       "0": "Nein",
       "1": "Ja"
-    }
+    },
+    "tab": "Z"
   },
   "1361": {
     "function": "03",
@@ -4098,7 +4298,8 @@
     "mode": "r/w",
     "name": "Ziel-Temperaturdifferenz für Pumpendrehzahlregelung",
     "type": "TEMP1",
-    "unit": "°C"
+    "unit": "°C",
+    "tab": "P"
   },
   "1433": {
     "app_current_video_value": "2 N",
@@ -4110,7 +4311,8 @@
     "mode": "r/w",
     "name": "Pumpendrehzahl-Anpassbereich je Periode",
     "type": "STEPS_N",
-    "unit": "N"
+    "unit": "N",
+    "tab": "P"
   },
   "1435": {
     "app_current_video_value": "30 days",
@@ -4122,7 +4324,8 @@
     "mode": "r/w",
     "name": "Nachfüllventil Startzyklus (IDU)",
     "type": "DAYS",
-    "unit": "days"
+    "unit": "days",
+    "tab": "P"
   },
   "1436": {
     "app_current_video_value": "30 s",
@@ -4134,7 +4337,8 @@
     "mode": "r/w",
     "name": "Nachfüllventil Arbeitsdauer (IDU)",
     "type": "SECONDS",
-    "unit": "s"
+    "unit": "s",
+    "tab": "P"
   },
   "1437": {
     "app_current_video_value": "",
@@ -4148,7 +4352,8 @@
     "notes": "Achtung: nicht P15. 1437 ist sicher D30. Einheit sicher: Minuten. Erst wirksam, wenn AT kleiner H42/1356 ist.",
     "source": "User confirmed; used in live system",
     "type": "MINUTES",
-    "unit": "min"
+    "unit": "min",
+    "tab": "D"
   },
   "1438": {
     "app_current_video_value": "1.0 bar",
@@ -4162,7 +4367,8 @@
     "notes": "User tested: P15 = Register 1438.",
     "source": "Warmlink-App Video + user live test",
     "type": "BAR_X10",
-    "unit": "bar"
+    "unit": "bar",
+    "tab": "P"
   },
   "1444": {
     "app_current_video_value": "0.5 bar",
@@ -4176,7 +4382,8 @@
     "notes": "User tested: P16 = Register 1444.",
     "source": "Warmlink-App Video + user live test",
     "type": "BAR_X10",
-    "unit": "bar"
+    "unit": "bar",
+    "tab": "P"
   },
   "1451": {
     "function": "03",
@@ -4634,7 +4841,8 @@
     "mode": "read-only",
     "name": "Schalterzustände / Kontakte / SG Ready",
     "type": "BITFIELD",
-    "description": "Bitfeld der Eingangskontakte. Bit 12 = SG Kontakt 1 / AI-DI16 / Fernschalter / Klemme 1–2. Bit 13 = SG Kontakt 2 / DIN_1 / Heat/Cool On/Off / PV-Kontakt / Klemme 7–8. Bit 12/13 sind active-high: Rohbit 0 = Aus, Rohbit 1 = Ein. Bestehende S01–S10 Kontaktlogik bleibt active-low."
+    "description": "Bitfeld der Eingangskontakte. Bit 12 = SG Kontakt 1 / AI-DI16 / Fernschalter / Klemme 1–2. Bit 13 = SG Kontakt 2 / DIN_1 / Heat/Cool On/Off / PV-Kontakt / Klemme 7–8. Bit 12/13 sind active-high: Rohbit 0 = Aus, Rohbit 1 = Ein. Bestehende S01–S10 Kontaktlogik bleibt active-low.",
+    "tab": "S"
   },
   "2035": {
     "block": "T",
@@ -4695,7 +4903,8 @@
     "mode": "read",
     "name": "Phasenstrom des Kompressors",
     "type": "AMP_X10",
-    "unit": "A"
+    "unit": "A",
+    "tab": "T"
   },
   "2043": {
     "block": "T",
@@ -4705,7 +4914,8 @@
     "name": "DC-Power-Bus-Spannung",
     "type": "VOLT",
     "unit": "V",
-    "notes": "User confirmed unit V/Volt in v0.2.35"
+    "notes": "User confirmed unit V/Volt in v0.2.35",
+    "tab": "T"
   },
   "2044": {
     "block": "T",
@@ -4713,7 +4923,8 @@
     "function": "16",
     "mode": "read",
     "name": "IPM-Temperatur.",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "T"
   },
   "2045": {
     "block": "T",
@@ -4721,7 +4932,8 @@
     "function": "16",
     "mode": "read",
     "name": "Einlasswassertemperatur",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "T"
   },
   "2046": {
     "block": "T",
@@ -4729,7 +4941,8 @@
     "function": "16",
     "mode": "read",
     "name": "Auslasswassertemperatur",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "T"
   },
   "2047": {
     "block": "T",
@@ -4745,7 +4958,8 @@
     "function": "16",
     "mode": "read",
     "name": "Umgebungstemperatur (AT)",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "T"
   },
   "2049": {
     "block": "T",
@@ -4753,7 +4967,8 @@
     "function": "16",
     "mode": "read",
     "name": "Verdampfertemperatur",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "T"
   },
   "2050": {
     "block": "T",
@@ -4769,7 +4984,8 @@
     "function": "16",
     "mode": "read",
     "name": "Saugsungstemperatur",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "T"
   },
   "2052": {
     "block": "T",
@@ -4777,7 +4993,8 @@
     "function": "16",
     "mode": "read",
     "name": "Puffertanktemperatur",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "T"
   },
   "2053": {
     "block": "T",
@@ -4785,7 +5002,8 @@
     "function": "16",
     "mode": "read",
     "name": "Abgastemperatur",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "T"
   },
   "2054": {
     "function": "16",
@@ -4804,7 +5022,8 @@
     "function": "16",
     "mode": "read",
     "name": "Frostschutztemperatur (Am PlattenWT)",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "T"
   },
   "2056": {
     "function": "16",
@@ -4857,7 +5076,8 @@
     "function": "16",
     "mode": "read",
     "name": "IPM-Hochfehler-Temperatur",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "T"
   },
   "2062": {
     "block": "T",
@@ -4867,7 +5087,8 @@
     "name": "AC-Eingangsspannung",
     "type": "VOLT",
     "unit": "V",
-    "notes": "User confirmed unit V/Volt in v0.2.35 T34 bestätigt hier; 2057 ist nicht T34."
+    "notes": "User confirmed unit V/Volt in v0.2.35 T34 bestätigt hier; 2057 ist nicht T34.",
+    "tab": "T"
   },
   "2063": {
     "block": "T",
@@ -4877,7 +5098,8 @@
     "name": "EVI-Einlasstemperatur",
     "type": "TEMP1",
     "unit": "°C",
-    "notes": "User confirmed unit °C in v0.2.35"
+    "notes": "User confirmed unit °C in v0.2.35",
+    "tab": "T"
   },
   "2064": {
     "block": "T",
@@ -4885,7 +5107,8 @@
     "function": "16",
     "mode": "read",
     "name": "EVI-Auslasstemperatur",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "tab": "T"
   },
   "2065": {
     "function": "16",
@@ -4933,7 +5156,8 @@
     "mode": "read",
     "name": "Niederdruck",
     "type": "BAR_X10",
-    "unit": "bar"
+    "unit": "bar",
+    "tab": "T"
   },
   "2070": {
     "function": "16",
@@ -4947,7 +5171,8 @@
     "function": "16",
     "mode": "read",
     "name": "Kompressorfrequenz",
-    "type": "DIGI1"
+    "type": "DIGI1",
+    "tab": "T"
   },
   "2072": {
     "block": "T",
@@ -4955,7 +5180,8 @@
     "function": "16",
     "mode": "read",
     "name": "Betriebsfrequenz des Kompressors",
-    "type": "DIGI1"
+    "type": "DIGI1",
+    "tab": "T"
   },
   "2073": {
     "block": "T",
@@ -4963,7 +5189,8 @@
     "function": "16",
     "mode": "read",
     "name": "Max. Frequenz vom Kompressortreiber",
-    "type": "DIGI1"
+    "type": "DIGI1",
+    "tab": "T"
   },
   "2074": {
     "block": "T",
@@ -4971,7 +5198,8 @@
     "function": "16",
     "mode": "read",
     "name": "Drehzahl des Lüftermotors 1",
-    "type": "DIGI1"
+    "type": "DIGI1",
+    "tab": "T"
   },
   "2075": {
     "block": "T",
@@ -4987,7 +5215,8 @@
     "function": "16",
     "mode": "read",
     "name": "Zieldrehzahl des Lüftermotors",
-    "type": "DIGI1"
+    "type": "DIGI1",
+    "tab": "T"
   },
   "2077": {
     "block": "T",
@@ -4998,7 +5227,8 @@
     "type": "FLOW_M3H_X100",
     "unit": "m³/h",
     "description": "Wasserdurchfluss. Beobachtung: raw 64 entspricht vermutlich 0,64 m³/h.",
-    "app_label": "Water Flow Rate"
+    "app_label": "Water Flow Rate",
+    "tab": "T"
   },
   "2078": {
     "function": "16",

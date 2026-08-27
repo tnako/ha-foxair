@@ -19,6 +19,22 @@ BLOCK_SHORT = {
     "KG": "Timer",
     "ERR": "Fault",
 }
+APP_TAB_TITLES = {
+    "H": "Base/Hardware",
+    "A": "Protection/Limits",
+    "F": "Fan",
+    "D": "Defrost",
+    "E": "EVI/EEV",
+    "C": "Compressor",
+    "R": "Setpoints",
+    "T": "Diagnostics/Live",
+    "Z": "Zone",
+    "G": "Legionella",
+    "P": "Pump",
+    "SG": "SG Ready",
+    "KG": "Timer",
+    "ERR": "Fault",
+}
 
 BLOCK_SHORT_DE = {
     "H": "Basis/Hardware",
@@ -48,24 +64,25 @@ def main_device(entry_id: str | None = None) -> DeviceInfo:
 
 DEVICE = main_device()
 
-def device_for_block(block: str, entry_id: str | None = None) -> DeviceInfo:
+def device_for_block(block: str, entry_id: str | None = None, tab: str | None = None) -> DeviceInfo:
     ident_main = (DOMAIN, entry_id) if entry_id else (DOMAIN, "foxair")
     if not block or block not in BLOCK_SHORT:
         return main_device(entry_id)
-    label = BLOCK_SHORT.get(block, block)
+    label = APP_TAB_TITLES.get(tab or block, BLOCK_SHORT.get(block, block))
+    suffix = tab or block
     return DeviceInfo(
-        identifiers={(DOMAIN, f"{ident_main[1]}_{block}")},
-        name=f"FoxAir — {label} [{block}]",
+        identifiers={(DOMAIN, f"{ident_main[1]}_{suffix}")},
+        name=f"FoxAir — {label} [{suffix}]",
         manufacturer="FoxAir/PHNIX",
-        model=f"Block {block}",
+        model=f"Tab {suffix}",
         via_device=ident_main,
     )
 
-def device_for_addr(addr: int, block: str | None, entry_id: str | None = None) -> DeviceInfo:
+def device_for_addr(addr: int, block: str | None, entry_id: str | None = None, tab: str | None = None) -> DeviceInfo:
     CORE_MAIN_ADDRS = {1011, 1012, 1157, 1158, 1159, 1234, 1235, 1236, 8801, 2133, 2012, 2048, 2046}
     if addr in CORE_MAIN_ADDRS:
         return main_device(entry_id)
-    return device_for_block(block or "", entry_id)
+    return device_for_block(block or "", entry_id, tab)
 
 POLL_BLOCKS = [
     (1001, 60, "B1 H/A"),

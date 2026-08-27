@@ -74,11 +74,12 @@ class FoxSensor(CoordinatorEntity, SensorEntity):
             meta = coord.get_metadata(addr) if hasattr(coord, "get_metadata") else {}
         except: meta = {}
         block = (meta.get("block") or info.get("block") or "")
+        tab = (meta.get("tab") or info.get("tab") or block)
         entry_id = getattr(coord, "_entry_id", None) or getattr(coord, "config_entry", None) and getattr(coord.config_entry, "entry_id", None)
         # coordinator stores entry_id via hass.data key; fallback to None -> main
         if not entry_id and hasattr(coord, "_entry_id"):
             entry_id = coord._entry_id
-        self._attr_device_info = device_for_addr(addr, block, entry_id)
+        self._attr_device_info = device_for_addr(addr, block, entry_id, tab)
         dtype = info.get("type","RAW")
         dc, unit, sc = DTYPE_MAP.get(dtype, (None, info.get("unit") or None, None))
         if dc: self._attr_device_class = dc

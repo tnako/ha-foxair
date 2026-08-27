@@ -188,7 +188,8 @@ class FoxSelect(CoordinatorEntity, SelectEntity):
         self._attr_translation_key = f"foxair_{addr}"
         entry_id = getattr(coord, "_entry_id", None) or getattr(coord, "config_entry", None) and getattr(coord.config_entry, "entry_id", None)
         block = meta.get("block") or ""
-        self._attr_device_info = device_for_addr(addr, block, entry_id)
+        tab = meta.get("tab") or block
+        self._attr_device_info = device_for_addr(addr, block, entry_id, tab)
         risk = meta.get("risk")
         if addr == 1236:
             self._attr_entity_category = None

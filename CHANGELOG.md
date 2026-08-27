@@ -1,3 +1,6 @@
+## 0.3.21
+- fix: improve register grouping to match official app tab split (H/A/F/D/E/R/P/G/C/Z/O/S/T) — entities now organized by app tabs instead of legacy block-only grouping; metadata and device names updated accordingly
+
 ## 0.3.20
 - fix: image curve now -30..+20 step 10° (was -20..+20), minor grid 5° retained. Curve drawn -30..+20 with 0.5° smoothness. Fixed R02 dashed now only when H36=0 (fixed mode); in curve mode (H36=1) only blue curve shows per user report 'you draw only fixed while mode = curve'.
 
