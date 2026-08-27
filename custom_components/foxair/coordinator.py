@@ -53,6 +53,7 @@ class FoxAirCoordinator(DataUpdateCoordinator):
     def __init__(self, hass, entry):
         super().__init__(hass, _LOGGER, name="FoxAir", update_interval=timedelta(seconds=30))
         self.entry=entry
+        self._entry_id = entry.entry_id
         self.client=None
         self.data={}
         self.stats={"polls":0,"errors":0,"last_ms":0}

@@ -8,7 +8,7 @@ from homeassistant.components.select import SelectEntity
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from .const import DEVICE, POPULAR_ADDRS
+from .const import DEVICE, POPULAR_ADDRS, device_for_addr, main_device
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -185,7 +185,9 @@ class FoxSelect(CoordinatorEntity, SelectEntity):
         self._meta = meta
         self._attr_unique_id = f"foxair_sel_{addr}"
         self._attr_translation_key = f"foxair_{addr}"
-        self._attr_device_info = DEVICE
+        entry_id = getattr(coord, "_entry_id", None) or getattr(coord, "config_entry", None) and getattr(coord.config_entry, "entry_id", None)
+        block = meta.get("block") or ""
+        self._attr_device_info = device_for_addr(addr, block, entry_id)
         risk = meta.get("risk")
         if risk == "dangerous":
             self._attr_entity_category = EntityCategory.DIAGNOSTIC

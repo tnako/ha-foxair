@@ -1,3 +1,10 @@
+## 0.3.7
+- refactor: reorganize into per-block HA devices mirroring FoxAir_Control ParameterSettingsDialog BLOCK_SHORT (H/A/F/D/E/C/R/T/Z/G/P/SG/KG/ERR) + Main Heat Pump on top
+- Main device [climate + 1011 ON/OFF + 1012 mode + 1157-1159 setpoints + 1234-1236 curve + 2048/2046 live] stays first (climate card)
+- each block becomes sub-device FoxAir — <label> [BLOCK] via Main (e.g. Setpoints [R], Diagnostics/Live [T], Pump [P], Defrost [D], Compressor [C], EVI/EEV [E], Fan [F], Protection [A], Hardware [H], Zone [Z], SG Ready [SG], Legionella [G]); grouping uses metadata.block identical to FoxAir_Control data/foxair_phnix_registers.json + BLOCK_SHORT_DE
+- fix duplication: sensor no longer created for editable number/select (was R06 1174 sensor + number both foxair_1174) — writable owns entity only — cuts ~70 duplicates, editable stays number/select, read-only stays sensor
+- min/max still from FoxAir_Control data/foxair_phnix_knowledge.json description parsing (e.g. "-40.0 10.0°C,TEMP1" -> -40/10, "0,0 bis 10,0°C" -> 0/10, "1 180min" -> 1/180) via build_metadata.py parse_range + per-type fallbacks; unbounded or Rxx-bounded (R36 bis R37) fallback to safe range so write fail-closed
+
 ## 0.3.6
 - i18n: fix SG & all 61 dropdowns German-only — options now use HA state translation slugs (off/on/single_contact/dhw etc) with proper en/de/ru; 1334 Single/Dual contact, 1011 Off/On, 1012 DHW/Heating/Cooling etc; select.py now uses translation_key + slug maps + legacy fallback; strings + translations for 86 selects
 

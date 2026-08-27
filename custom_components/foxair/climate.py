@@ -1,7 +1,7 @@
 from homeassistant.components.climate import ClimateEntity, HVACMode, ClimateEntityFeature, HVACAction
 from homeassistant.const import UnitOfTemperature
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
-from .const import DOMAIN, DEVICE
+from .const import main_device
 import logging
 _LOGGER = logging.getLogger(__name__)
 
@@ -22,7 +22,8 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
     def __init__(self, coord):
         super().__init__(coord)
         self._attr_unique_id = "foxair_climate"
-        self._attr_device_info = DEVICE
+        entry_id = getattr(coord, "_entry_id", None) or getattr(coord, "config_entry", None) and getattr(coord.config_entry, "entry_id", None)
+        self._attr_device_info = main_device(entry_id)
 
     def _raw_mode(self):
         rec = self.coordinator.data.get(1012)

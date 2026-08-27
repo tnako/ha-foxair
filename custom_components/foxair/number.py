@@ -3,7 +3,7 @@ import logging
 from homeassistant.components.number import NumberEntity, NumberMode, NumberDeviceClass
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.helpers.entity import EntityCategory
-from .const import DOMAIN, DEVICE, POPULAR_ADDRS
+from .const import DOMAIN, DEVICE, POPULAR_ADDRS, device_for_addr
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -51,7 +51,10 @@ class FoxNumber(CoordinatorEntity, NumberEntity):
         self._meta = meta
         self._attr_unique_id = f"foxair_num_{addr}"
         self._attr_translation_key = f"foxair_{addr}"
-        self._attr_device_info = DEVICE
+        # 0.3.7 per-block device (mirrors FoxAir_Control ParameterSettingsDialog)
+        entry_id = getattr(coord, "_entry_id", None) or getattr(coord, "config_entry", None) and getattr(coord.config_entry, "entry_id", None)
+        block = meta.get("block") or ""
+        self._attr_device_info = device_for_addr(addr, block, entry_id)
         # category by risk (aligned with sensor.py)
         risk = meta.get("risk")
         if risk == "dangerous":
