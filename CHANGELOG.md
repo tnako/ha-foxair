@@ -1,3 +1,6 @@
+## 0.4.8
+- fix(poll): swap rare intervals — less data when non-expert → 300s (10×30s), more data when expert (352 rare) → 600s (20×30s) to keep bus calm (was vice versa 300s expert / skip non-expert).
+
 ## 0.4.7
 - feat(poll): 3-tier polling (quick 30s / medium 120s / rare 300s) — 75 quick (R setpoints 1157-1243 + 1011/1012 power/mode + 1234-1236 curve + T primary 2045/2046/AT/flow/power/COP 2054/2059/2060/2077 + 2013/2014 curve) / 42 medium (T secondary EVI/pressures/fan + Z targets + P10 + KWH) / 352 rare (H/A/C/F/D/E/Z/G/P/SG/KG/ERR) — `poll_tier` in `foxair_metadata.json` for easy tuning, expert `rare` only if `enable_expert` (saves ~18 batches when off). First poll quick+medium only (117 regs, 13 batches) to avoid EW11 overload; write stays optimistic 0.35s + verify.
 - fix: `max_span 45` kept (65→45 in 0.4.6) + tiered cuts avg bus from ~31 batches/30s to ~8/30s (quick) + 5/120s + 18/300s.

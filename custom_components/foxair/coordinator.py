@@ -171,11 +171,12 @@ class FoxAirCoordinator(DataUpdateCoordinator):
             # Determine which tiers to poll this cycle
             self._poll_counter += 1
             is_first = self.stats["polls"] == 0
-            # Quick always, medium every 4 (and on first poll to seed), rare every 10 (expert only, not on first to keep first poll light: 75+42=117 regs vs 469)
+            # Quick always, medium every 4 (and on first poll to seed), rare vice versa: less data when non-expert -> 300s, more data when expert -> 600s
             do_quick = True
             do_medium = is_first or (self._poll_counter % self.MEDIUM_INTERVAL == 0)
             enable_expert = bool(self.entry.options.get("enable_expert"))
-            do_rare = enable_expert and (self._poll_counter % self.RARE_INTERVAL == 0)
+            rare_interval = self.RARE_INTERVAL * 2 if enable_expert else self.RARE_INTERVAL  # 600s if expert (352 regs), 300s if non-expert (less data)
+            do_rare = (self._poll_counter % rare_interval == 0)
             # Build addr set for this poll
             addrs: set[int] = set()
             if do_quick:
@@ -183,14 +184,10 @@ class FoxAirCoordinator(DataUpdateCoordinator):
             if do_medium:
                 addrs.update(self._tier_addrs("medium"))
             if do_rare:
-                # When non-expert and not first, skip rare entirely (saves ~18 batches)
                 rare_addrs = self._tier_addrs("rare")
-                if not enable_expert and not is_first:
-                    # Keep only safe rare for non-expert (e.g., fault codes) - or skip all to save bus
+                if not enable_expert:
+                    # Non-expert: less data, still poll rare but only safe (faults) — ~9 regs vs 352
                     rare_addrs = {a for a in rare_addrs if self._metadata.get(str(a), {}).get("risk") == "safe"}
-                    # If still many, skip entirely for non-expert to maximize bus calmness
-                    # Uncomment next line to skip rare completely when non-expert:
-                    # rare_addrs = set()
                     if not rare_addrs:
                         do_rare = False
                     else:
