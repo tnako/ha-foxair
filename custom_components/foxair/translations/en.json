@@ -1813,11 +1813,7 @@
         "name": "Heat pump",
         "state": {
           "off": "Off",
-          "heat": "On",
-          "hvac_mode": {
-            "off": "Off",
-            "heat": "On"
-          }
+          "heat": "On"
         }
       }
     },

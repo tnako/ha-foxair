@@ -1,3 +1,6 @@
+## 0.4.17
+- fix(ci): `entity.climate.foxair_climate.state.hvac_mode` object → flat `state.off/heat` strings (hassfest `value should be a string`).
+
 ## 0.4.16
 - fix(devices): add `O` (Outputs) and `S` (Switches) per `modbus/tabs.txt` — `2034` and future `O/S` addrs no longer fall back to main device; matches `H/A/F/D/E/C/R/T/Z/G/P` + `SG/KG` layout.
 
