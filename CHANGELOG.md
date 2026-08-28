@@ -1,3 +1,11 @@
+## 0.4.1
+- sync: registers/knowledge from FoxAir_Control 0.2.62 (up to 5607b5a) — 18 new, 300+ corrections
+  - new read-only diagnostics: humidity sensor 2178 (°C), relative humidity 2179 (% rF), dewpoint 2180 (°C); DHW energy 32-bit counters 2125-2128 (electric/thermal high/low); T04 second path 2136, WP power 2137/2138 without booster
+  - corrected: 2057 AC Input Current, 2071 compressor setpoint freq (2072 is actual), 2109 internal status, 2125-2128 naming, 2136-2138 vs placeholder
+  - relabeled: 200-215 from BLOCK to PHNIX/Aliyun ProductKey ASCII (privacy — excluded from HA poll, not polled), 50500-50512 C544 board info + 50043-50044 C37B OTA status (excluded from poll — direct Modbus only), SG Ready 1334 virtual mode 8801 documented in knowledge (10-min hold)
+  - cleanup: removed empty `tab:""` (256 entries) and per-code `tab:"H"/"A"` noise, fixed WiFi barcode serial WF2210250475→WF2403150123 in knowledge, sensor DTYPE for U16/ASCII
+- vendor: foxair_modbus regenerated 469 fields (+3 humidity, product/service ranges excluded from poll), metadata 574→591 entries, diagnostics group for new T sensors
+
 ## 0.4.0
 - feat(modbus): migrate to pip `modbus-connection` model via vendored `foxair-modbus` (HA ≥2026.3). Own `ModbusConnection(ModbusTcpParams)` via `modbus_connection.pymodbus` — no 2026.9 required.
 - feat(lib): new standalone `foxair-modbus` vendor — single source from `foxair_phnix_registers.json`, 466 `Component` fields (`gauge`/`integer`), pooled reads via `max_span=65`/`max_gap=12` (one per space vs 12 `POLL_BLOCKS`).

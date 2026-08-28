@@ -36,6 +36,8 @@ DTYPE_MAP = {
     "TIMER_MODE": (None, None, None),
     "SG_MODE": (None, None, None),
     "MODE_0_4": (None, None, None),
+    "U16": (None, None, None),
+    "ASCII": (None, None, None),
     "RAW": (None, None, None),
     "BLOCK": (None, None, None),
 }

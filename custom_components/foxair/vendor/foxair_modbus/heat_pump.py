@@ -44,7 +44,7 @@ class FoxAir(Component):
     reg_1045 = integer(1045, signed=True, writable=True)  # H32 DIGI1
     reg_1046 = integer(1046, signed=True, writable=True)  # H37 DIGI1
     reg_1047 = integer(1047, signed=True, writable=True)  # D26 DIGI1
-    reg_1048 = gauge(1048, 1.0, writable=True)  # H40 RAW
+    reg_1048 = gauge(1048, 1.0, writable=True)  #  RAW
     reg_1049 = gauge(1049, 0.1, writable=True)  # A31 TEMP1 Electric-Heater-On AT Grenzwert / Temperaturparameter (ASM)
     reg_1050 = gauge(1050, 1.0, writable=True, unit="min")  # A32 MINUTES
     reg_1051 = gauge(1051, 0.1, writable=True)  # A30 TEMP1 Min. Umgebungstemperatur im Kühlmodus
@@ -390,7 +390,7 @@ class FoxAir(Component):
     reg_2054 = gauge(2054, 0.1, writable=False, unit="kW")  # T54 POWER_KW_X10 Elektrische Leistung / Unit Power
     reg_2055 = gauge(2055, 0.1, writable=False)  # T06 TEMP1 Frostschutztemperatur (Am PlattenWT)
     reg_2056 = gauge(2056, 0.1, writable=False)  #  TEMP1 T? / System 1 Frostschutztemperatur 2 / Coil/Frost Temp 2 (ASM V1.3)
-    reg_2057 = gauge(2057, 1.0, writable=False)  #  RAW
+    reg_2057 = gauge(2057, 1.0, writable=False, unit="A")  #  RAW
     reg_2058 = gauge(2058, 0.1, writable=False)  # T09 DIGI5 Raumtemperatur
     reg_2059 = gauge(2059, 0.1, writable=False, unit="kW")  # T59 POWER_KW_X10 Wärmeleistung / Unit Capacity
     reg_2060 = gauge(2060, 0.01, writable=False, unit="COP")  # T60 COP_X100 COP
@@ -459,9 +459,9 @@ class FoxAir(Component):
     reg_2133 = gauge(2133, 1.0, writable=False)  # SGstatus RAW
     reg_2134 = gauge(2134, 1.0, writable=False)  #  RAW
     reg_2135 = gauge(2135, 1.0, writable=False)  #  RAW
-    reg_2136 = gauge(2136, 0.1, writable=False, unit="°C")  #  TEMP1 Berechneter x0,1-Regel-/Modulwert (Kandidat)
-    reg_2137 = gauge(2137, 0.1, writable=False, unit="kW")  #  POWER_KW_X10 Elektrische Leistung / Spiegel von 2054 (Kandidat)
-    reg_2138 = gauge(2138, 0.1, writable=False, unit="kW")  #  POWER_KW_X10 Thermische Leistung / Spiegel von 2059 (Kandidat)
+    reg_2136 = gauge(2136, 0.1, writable=False, unit="°C")  #  TEMP1 T04 Außentemperatur – zweiter Veröffentlichungsweg
+    reg_2137 = gauge(2137, 0.1, writable=False, unit="kW")  #  POWER_KW_X10 Elektrische WP-/Inverterleistung ohne Zusatzanteil
+    reg_2138 = gauge(2138, 0.1, writable=False, unit="kW")  #  POWER_KW_X10 Thermische WP-Leistung ohne Zusatzanteil
     reg_2139 = gauge(2139, 1.0, writable=False)  #  RAW
     reg_2140 = gauge(2140, 1.0, writable=False)  #  RAW
     reg_2141 = gauge(2141, 1.0, writable=False)  #  RAW
@@ -473,6 +473,9 @@ class FoxAir(Component):
     reg_2147 = gauge(2147, 1.0, writable=False)  #  RAW
     reg_2148 = gauge(2148, 1.0, writable=False)  #  RAW
     reg_2149 = gauge(2149, 1.0, writable=False)  #  RAW
+    reg_2178 = gauge(2178, 0.1, writable=False, unit="°C")  #  TEMP1 Temperatur des Temperatur-/Feuchtesensors
+    reg_2179 = gauge(2179, 0.1, writable=False, unit="% rF")  #  DIGI5 Relative Luftfeuchtigkeit
+    reg_2180 = gauge(2180, 0.1, writable=False, unit="°C")  #  TEMP1 Berechneter Taupunkt
 
     def as_dict(self, regmap=None):
         """Compat shim: return {addr: {raw, value, info}} like old coordinator.data."""

@@ -93,7 +93,13 @@ __all__ = ["FoxAir"]
         if v.get("type")=="BLOCK":
             # skip BLOCK headers — they are not real registers
             continue
-        # also skip ascii group 200-205? They are BLOCK type already
+        # Exclude privacy/service diagnostics that are not part of normal HA polling:
+        # 200-215 ProductKey ASCII (sensitive, requires special read, not polled in FoxAir_Control main loop)
+        # 50043+ service/OTA and 50500+ C544 board info (only direct Modbus / not Warmlink)
+        if 200 <= addr <= 215:
+            continue
+        if addr >= 50000:
+            continue
         items.append((addr,v))
     items.sort()
 

@@ -94,6 +94,8 @@ RANGE_OVERRIDES = {
 TYPE_TO_PLATFORM = {
     "BLOCK": "sensor",
     "BITFIELD": "sensor",
+    "ASCII": "sensor",
+    "U16": "sensor",
     "TEMP1": "number", "TEMP": "number", "TEMP05": "number",
     "BAR_X10": "number", "POWER_KW_X10": "number",
     "FLOW_M3H_X100": "number", "FLOW_M3H_X10": "number",
@@ -166,10 +168,13 @@ def main():
         dtype = rec.get("type","RAW")
         code = rec.get("code","")
         block = rec.get("block","") or (re.match(r"^([A-Z]+)", code).group(1) if re.match(r"^([A-Z]+)", code) else "")
+        # 2178-2180 humidity/dewpoint + 2125-2138 energy/T live without block have no block/code in register json — assign to Diagnostics/Live
+        if addr in (2125, 2126, 2127, 2128, 2136, 2137, 2138, 2178, 2179, 2180):
+            block = "T"
         tab = rec.get("tab") or block
         # derive group from app tab when available
         group = APP_TAB_TITLES.get(tab, BLOCK_SHORT.get(block, "Other" if block else "Header/Reserved"))
-        if dtype == "BLOCK" or not code:
+        if dtype == "BLOCK" or (not code and addr not in (2125, 2126, 2127, 2128, 2136, 2137, 2138, 2178, 2179, 2180)):
             group = "Header/Reserved"
         mode = rec.get("mode","read")
         editable = mode == "r/w" and dtype != "BLOCK"
