@@ -1,3 +1,7 @@
+## 0.4.18
+- feat(order): strict `tabs.txt` order `H→A→F→D→E→R→P→G→C→Z→O→S→T` — `BLOCK_SHORT`/`APP_TAB_TITLES` reordered, `TABS_CODE_ORDER[232]` + `entity_sort_key` in `const.py`; `sensor/number/select` now `sorted(..., key=entity_sort_key)` instead of random dict order — each menu and each entity in required order, fixes hoas random order. `FoxAir_Control` main table now also `code_sort_key` + `_register_sort_key` sorted by tabs order not numeric.
+- fix(devices): `2046 T02`/`2048 T04` removed from `CORE_MAIN_ADDRS` — all `T` now strictly under device `FoxAir — Diagnostics/Live [T]` (was 2 addrs forced to MAIN for curve convenience, now 1:1 with `tabs.txt`).
+
 ## 0.4.17
 - fix(ci): `entity.climate.foxair_climate.state.hvac_mode` object → flat `state.off/heat` strings (hassfest `value should be a string`).
 

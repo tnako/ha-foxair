@@ -8,7 +8,7 @@ from homeassistant.components.select import SelectEntity
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from .const import DEVICE, POPULAR_ADDRS, device_for_addr, main_device
+from .const import DEVICE, POPULAR_ADDRS, device_for_addr, main_device, entity_sort_key
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -164,7 +164,7 @@ async def async_setup_entry(hass, entry, add_entities):
     if not getattr(coord, "_metadata", None):
         await coord._load_map()
     ents = []
-    for addr_str, meta in (coord._metadata or {}).items():
+    for addr_str, meta in sorted((coord._metadata or {}).items(), key=lambda kv: entity_sort_key(int(kv[0]) if kv[0].isdigit() else 99999, kv[1].get("code",""), kv[1].get("block",""))):
         try:
             addr = int(addr_str)
         except ValueError:

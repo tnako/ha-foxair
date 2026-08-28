@@ -3,42 +3,30 @@ from homeassistant.helpers.entity import DeviceInfo
 
 DOMAIN = "foxair"
 
+# Order MUST match tabs.txt Tab sequence: H, A, F, D, E, R, P, G, C, Z, O, S, T
+# SG/KG/ERR are appended after (not in tabs.txt)
+BLOCK_ORDER = ["H", "A", "F", "D", "E", "R", "P", "G", "C", "Z", "O", "S", "T", "SG", "KG", "ERR"]
+BLOCK_ORDER_INDEX = {b: i for i, b in enumerate(BLOCK_ORDER)}
+
 BLOCK_SHORT = {
     "H": "Base/Hardware",
     "A": "Protection/Limits",
     "F": "Fan",
     "D": "Defrost",
     "E": "EVI/EEV",
-    "C": "Compressor",
     "R": "Setpoints",
-    "T": "Diagnostics/Live",
-    "Z": "Zone",
-    "G": "Legionella",
     "P": "Pump",
-    "SG": "SG Ready",
-    "KG": "Timer",
+    "G": "Legionella",
+    "C": "Compressor",
+    "Z": "Zone",
     "O": "Outputs",
     "S": "Switches",
-    "ERR": "Fault",
-}
-APP_TAB_TITLES = {
-    "H": "Base/Hardware",
-    "A": "Protection/Limits",
-    "F": "Fan",
-    "D": "Defrost",
-    "E": "EVI/EEV",
-    "C": "Compressor",
-    "R": "Setpoints",
     "T": "Diagnostics/Live",
-    "Z": "Zone",
-    "G": "Legionella",
-    "P": "Pump",
     "SG": "SG Ready",
     "KG": "Timer",
-    "O": "Outputs",
-    "S": "Switches",
     "ERR": "Fault",
 }
+APP_TAB_TITLES = dict(BLOCK_SHORT)
 
 BLOCK_SHORT_DE = {
     "H": "Basis/Hardware",
@@ -48,16 +36,46 @@ BLOCK_SHORT_DE = {
     "E": "EVI/EEV",
     "C": "Compressor",
     "R": "Sollwerte",
-    "T": "Diagnose/Live",
-    "Z": "Zone",
-    "G": "Legionellen",
     "P": "Pumpe",
-    "SG": "SG Ready",
-    "KG": "Timer",
+    "G": "Legionellen",
+    "Z": "Zone",
     "O": "Ausgänge",
     "S": "Schalter",
+    "T": "Diagnose/Live",
+    "SG": "SG Ready",
+    "KG": "Timer",
     "ERR": "Fault",
 }
+
+# Exact code sequence from /work/modbus/tabs.txt — each menu and entity in required order
+TABS_CODE_ORDER = [
+    "H01","H05","H07","H10","H18","H20","H21","H22","H25","H27","H28","H29","H30","H31","H32","H33","H36","H37","H40","H42","H43",
+    "A03","A04","A05","A06","A11","A21","A22","A23","A24","A25","A26","A27","A28","A29","A30","A31","A32","A33","A34","A35","A38","A39","A40",
+    "F01","F02","F03","F05","F06","F10","F18","F19","F22","F23","F25","F26","F27","F28","F29",
+    "D01","D02","D03","D04","D05-1","D05-2","D06","D07","D08","D09","D14","D15","D16","D17","D18","D19","D20","D21","D22","D23","D24","D25","D26","D30",
+    "E01","E02","E03","E07","E08","E09","E10","E13","E14","E17","E18","E19","E03-1","E03-2","E03-3","E03-4","E03-5","E07-1","E07-2","E07-3","E07-4","E07-5",
+    "R01","R02","R03","R04","R05","R06","R07","R08","R09","R10","R11","R15","R16","R17","R29","R30","R31","R32","R33","R34","R35","R36","R37","R39","R43","R44","R45","R46","R60","R61","R62","R70","R71","R72","R73","R74",
+    "P01","P02","P03","P05","P06","P08","P09","P10","P11","P12","P13","P14","P15","P16",
+    "G01","G02","G03","G04","G05",
+    "C01","C02","C03","C04","C05","C07","C08","C09","C10","C11","C12",
+    "Z01","Z02","Z03","Z04","Z05","Z06","Z07","Z08","Z09","Z10","Z11","Z12","Z13","Z14","Z15","Z16","Z17","Z19","Z20",
+    "O05","O06","O07","O08","O09","O10","O11","O12","O13","O15","O17",
+    "S01","S02","S03","S04","S05","S06","S07","S10",
+    "T01","T02","T03","T04","T05","T06","T07","T10","T11","T12","T15","T27","T29","T30","T31","T32","T33","T34","T35","T36","T37","T38","T39",
+]
+CODE_ORDER_INDEX = {c: i for i, c in enumerate(TABS_CODE_ORDER)}
+
+def block_sort_key(block: str) -> int:
+    return BLOCK_ORDER_INDEX.get(block or "", 999)
+
+def code_sort_key(code: str) -> int:
+    if not code:
+        return 9999
+    # normalize dash variants already exact
+    return CODE_ORDER_INDEX.get(code, 9999)
+
+def entity_sort_key(addr: int, code: str = "", block: str = "") -> tuple:
+    return (block_sort_key(block), code_sort_key(code), int(addr))
 
 def main_device(entry_id: str | None = None) -> DeviceInfo:
     ident = (DOMAIN, entry_id) if entry_id else (DOMAIN, "foxair")
@@ -85,7 +103,7 @@ def device_for_block(block: str, entry_id: str | None = None, tab: str | None = 
     )
 
 def device_for_addr(addr: int, block: str | None, entry_id: str | None = None, tab: str | None = None) -> DeviceInfo:
-    CORE_MAIN_ADDRS = {1011, 1012, 1157, 1158, 1159, 1234, 1235, 1236, 8801, 2133, 2012, 2048, 2046}
+    CORE_MAIN_ADDRS = {1011, 1012, 1157, 1158, 1159, 1234, 1235, 1236, 8801, 2133, 2012}
     if addr in CORE_MAIN_ADDRS:
         return main_device(entry_id)
     return device_for_block(block or "", entry_id, tab)

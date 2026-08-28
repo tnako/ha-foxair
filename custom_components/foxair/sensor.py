@@ -1,7 +1,7 @@
 from homeassistant.components.sensor import SensorEntity, SensorDeviceClass, SensorStateClass
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.helpers.entity import EntityCategory
-from .const import DOMAIN, DEVICE, POPULAR_ADDRS, device_for_addr, main_device
+from .const import DOMAIN, DEVICE, POPULAR_ADDRS, device_for_addr, main_device, entity_sort_key
 
 DTYPE_MAP = {
     "TEMP1": (SensorDeviceClass.TEMPERATURE, "°C", SensorStateClass.MEASUREMENT),
@@ -50,7 +50,15 @@ async def async_setup_entry(hass, entry, add_entities):
     if not getattr(coord, "_metadata", None):
         await coord._load_map()
     ents = []
-    for addr, rec in coord.data.items():
+    # sort by tabs.txt order: each menu and each entity in required order
+    def _sensor_key(item):
+        addr, rec = item
+        info = rec.get("info", {}) if isinstance(rec, dict) else {}
+        meta = coord.get_metadata(addr) if hasattr(coord, "get_metadata") else {}
+        block = (meta.get("block") or info.get("block") or "")
+        code = (meta.get("code") or info.get("code") or "")
+        return entity_sort_key(addr, code, block)
+    for addr, rec in sorted(coord.data.items(), key=_sensor_key):
         if rec.get("info", {}).get("type") == "BLOCK":
             continue
         # honor metadata blocked

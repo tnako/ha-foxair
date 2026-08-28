@@ -3,7 +3,7 @@ import logging
 from homeassistant.components.number import NumberEntity, NumberMode, NumberDeviceClass
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.helpers.entity import EntityCategory
-from .const import DOMAIN, DEVICE, POPULAR_ADDRS, device_for_addr
+from .const import DOMAIN, DEVICE, POPULAR_ADDRS, device_for_addr, entity_sort_key
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -31,7 +31,8 @@ async def async_setup_entry(hass, entry, add_entities):
     if not getattr(coord, "_metadata", None):
         await coord._load_map()
     ents = []
-    for addr_str, meta in (coord._metadata or {}).items():
+    # each menu and each entity in needed order (tabs.txt)
+    for addr_str, meta in sorted((coord._metadata or {}).items(), key=lambda kv: entity_sort_key(int(kv[0]) if kv[0].isdigit() else 99999, kv[1].get("code",""), kv[1].get("block",""))):
         try:
             addr = int(addr_str)
         except: continue
