@@ -1,3 +1,7 @@
+## 0.4.21
+- fix(i18n): de-dup `CODE: CODE ...` double prefix (`H42: H42 Einschalt...`, `D30: D30 ...`) and add missing `T-Diag`/`H30`/`Z08`/`E03-*` prefixes — all `strings.json`/`en`/`de`/`ru` now strictly `CODE: Name` like `modbus/tabs.txt` for strong friendly-name sort; no `entity_id` change (stable).
+- fix(devices): validate `T`/`O`/`S`/`ERR` still create `FoxAir — Diagnostics/Live [T]` etc via `device_for_addr` — `T`/`O` missing on `HA-host` was `modbus` yaml overlap, `ha-foxair` `T` now 54 `quick+medium` polled and shown.
+
 ## 0.4.20
 - fix(order): revert `0.4.19` `entity_id` (`object_id`) to `0.4.18` — keep `entity_id` stable (`dont change entity names`), only friendly names control order.
 - feat(order): friendly names now `CODE: Name` prefix (`H01: Auto start`, `T02: Outlet...`) exactly like `modbus/tabs.txt` — alphabetical by friendly name == `H→A→F→D→E→R→P→G→C→Z→O→S→T` strong order; `sensor`/`number`/`select` still `sorted(..., key=entity_sort_key)` for creation order.

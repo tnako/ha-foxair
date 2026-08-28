@@ -1136,7 +1136,7 @@
         "name": "Reserviert"
       },
       "foxair_1356": {
-        "name": "H42: H42 Einschalt-AT Gehaeusewannenheizung (D30/1437 erst wirksam, wenn AT kleiner H42 ist)"
+        "name": "H42: Einschalt-AT Gehaeusewannenheizung (D30/1437 erst wirksam, wenn AT kleiner H42 ist)"
       },
       "foxair_1357": {
         "name": "Z19: Differenz: Keine Pumpe Ein bei niedriger Wassertemperatur"
@@ -1217,7 +1217,7 @@
         "name": "P14: Nachfüllventil Arbeitsdauer (IDU)"
       },
       "foxair_1437": {
-        "name": "D30: D30 Gehaeusewannenheizung Delays Off Time after Defrost"
+        "name": "D30: Gehaeusewannenheizung Delays Off Time after Defrost"
       },
       "foxair_1438": {
         "name": "P15: Ziel-Wasserdruck (IDU)"
@@ -2460,7 +2460,7 @@
         "name": "Reserviert"
       },
       "foxair_1356": {
-        "name": "H42: H42 Einschalt-AT Gehaeusewannenheizung (D30/1437 erst wirksam, wenn AT kleiner H42 ist)"
+        "name": "H42: Einschalt-AT Gehaeusewannenheizung (D30/1437 erst wirksam, wenn AT kleiner H42 ist)"
       },
       "foxair_1357": {
         "name": "Z19: Differenz: Keine Pumpe Ein bei niedriger Wassertemperatur"
@@ -2508,7 +2508,7 @@
         "name": "P14: Nachfüllventil Arbeitsdauer (IDU)"
       },
       "foxair_1437": {
-        "name": "D30: D30 Gehaeusewannenheizung Delays Off Time after Defrost"
+        "name": "D30: Gehaeusewannenheizung Delays Off Time after Defrost"
       },
       "foxair_1438": {
         "name": "P15: Ziel-Wasserdruck (IDU)"

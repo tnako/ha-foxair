@@ -1136,7 +1136,7 @@
         "name": "1355: Reserved"
       },
       "foxair_1356": {
-        "name": "H42: H42 Einschalt-AT Gehaeusewannenheizung (D30/1437 erst wirksam, wenn AT kleiner H42 ist)"
+        "name": "H42: Einschalt-AT Gehaeusewannenheizung (D30/1437 erst wirksam, wenn AT kleiner H42 ist)"
       },
       "foxair_1357": {
         "name": "Z19: Diff. of No Pump On at Low Water Temp."
@@ -1379,16 +1379,16 @@
         "name": "2028: Неизвестно (значение 9)"
       },
       "foxair_2029": {
-        "name": "Eingangsstrom L1 [T-Diag5]"
+        "name": "T-Diag5: Eingangsstrom L1"
       },
       "foxair_2030": {
-        "name": "Eingangsstrom L2 [T-Diag6]"
+        "name": "T-Diag6: Eingangsstrom L2"
       },
       "foxair_2031": {
-        "name": "Eingangsstrom L3 [T-Diag7]"
+        "name": "T-Diag7: Eingangsstrom L3"
       },
       "foxair_2032": {
-        "name": "Время работы компрессора [T-Diag8]"
+        "name": "T-Diag8: Время работы компрессора"
       },
       "foxair_2033": {
         "name": "2033: Reserved"
@@ -1487,13 +1487,13 @@
         "name": "T11: Темп. выхода EVI"
       },
       "foxair_2065": {
-        "name": "Температура испарения (ASM) [T-Diag1]"
+        "name": "T-Diag1: Температура испарения (ASM)"
       },
       "foxair_2066": {
-        "name": "Перегрев выхлопа (ASM) [T-Diag2]"
+        "name": "T-Diag2: Перегрев выхлопа (ASM)"
       },
       "foxair_2067": {
-        "name": "Перегрев всасывания (ASM) [T-Diag3]"
+        "name": "T-Diag3: Перегрев всасывания (ASM)"
       },
       "foxair_2068": {
         "name": "Система 2 Ток (ASM)"
@@ -1691,7 +1691,7 @@
         "name": "T48: Ток внешнего привода вентилятора"
       },
       "foxair_2133": {
-        "name": "Активный режим SG Ready [SGstatus]"
+        "name": "SGstatus: Активный режим SG Ready"
       },
       "foxair_2134": {
         "name": "Состояние таймеров лимита мощности 1-6"
@@ -2460,7 +2460,7 @@
         "name": "1355: Reserved"
       },
       "foxair_1356": {
-        "name": "H42: H42 Einschalt-AT Gehaeusewannenheizung (D30/1437 erst wirksam, wenn AT kleiner H42 ist)"
+        "name": "H42: Einschalt-AT Gehaeusewannenheizung (D30/1437 erst wirksam, wenn AT kleiner H42 ist)"
       },
       "foxair_1357": {
         "name": "Z19: Diff. of No Pump On at Low Water Temp."
@@ -2643,7 +2643,7 @@
         }
       },
       "foxair_1036": {
-        "name": "Indoor Unit Type / Hydraulikmodul-Typ",
+        "name": "H30: Indoor Unit Type / Hydraulikmodul-Typ",
         "state": {
           "none": "None",
           "opt_1st_type": "1st Type",
@@ -2752,7 +2752,7 @@
         }
       },
       "foxair_1080": {
-        "name": "Mischventil manuelle Stellrate (0% = Auto-Regelung)",
+        "name": "Z08: Mischventil manuelle Stellrate (0% = Auto-Regelung)",
         "state": {
           "manual": "Вручную",
           "auto": "Auto"
@@ -2853,14 +2853,14 @@
         }
       },
       "foxair_1206": {
-        "name": "EEV Anfangsschritte Heizen 3",
+        "name": "E03-3: EEV Anfangsschritte Heizen 3",
         "state": {
           "no": "Нет",
           "yes": "Да"
         }
       },
       "foxair_1208": {
-        "name": "EEV Anfangsschritte Heizen 5",
+        "name": "E03-5: EEV Anfangsschritte Heizen 5",
         "state": {
           "no": "Нет",
           "yes": "Да"
@@ -3070,7 +3070,7 @@
         }
       },
       "foxair_2133": {
-        "name": "SG Ready aktiver Modus",
+        "name": "SGstatus: SG Ready aktiver Modus",
         "state": {
           "off_disabled": "ТН выкл / SG выкл",
           "sg1_sleep": "SG 1 / сон",
