@@ -1,3 +1,6 @@
+## 0.4.19
+- feat(order): strong `entity_id` order via `entity_object_id` — `sensor`/`number`/`select` now `foxair_{block:02d}_{code:03d}_{code}_{addr:05d}` lexically == `modbus/tabs.txt` (handles `E03-1` after `E19`, `Z→O→S→T` vs alphabetical, `H→A` etc) — reinstall (delete+add) recreates `entity_id`s in strict tab order; friendly names unchanged (`Name [CODE]` suffix).
+
 ## 0.4.18
 - feat(order): strict `tabs.txt` order `H→A→F→D→E→R→P→G→C→Z→O→S→T` — `BLOCK_SHORT`/`APP_TAB_TITLES` reordered, `TABS_CODE_ORDER[232]` + `entity_sort_key` in `const.py`; `sensor/number/select` now `sorted(..., key=entity_sort_key)` instead of random dict order — each menu and each entity in required order, fixes hoas random order. `FoxAir_Control` main table now also `code_sort_key` + `_register_sort_key` sorted by tabs order not numeric.
 - fix(devices): `2046 T02`/`2048 T04` removed from `CORE_MAIN_ADDRS` — all `T` now strictly under device `FoxAir — Diagnostics/Live [T]` (was 2 addrs forced to MAIN for curve convenience, now 1:1 with `tabs.txt`).

@@ -77,6 +77,13 @@ def code_sort_key(code: str) -> int:
 def entity_sort_key(addr: int, code: str = "", block: str = "") -> tuple:
     return (block_sort_key(block), code_sort_key(code), int(addr))
 
+def entity_object_id(addr: int, code: str = "", block: str = "") -> str:
+    """Stable object_id whose lexical order == tabs.txt order."""
+    b = BLOCK_ORDER_INDEX.get(block or "", 99)
+    c = CODE_ORDER_INDEX.get(code, 999)
+    slug = code.lower().replace("-", "_") if code else f"addr{addr}"
+    return f"foxair_{b:02d}_{c:03d}_{slug}_{addr:05d}"
+
 def main_device(entry_id: str | None = None) -> DeviceInfo:
     ident = (DOMAIN, entry_id) if entry_id else (DOMAIN, "foxair")
     return DeviceInfo(
