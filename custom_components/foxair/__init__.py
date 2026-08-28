@@ -56,7 +56,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     host = entry.data.get("host", "EW11-host")
     port = int(entry.data.get("port", 8899))
     slave = int(entry.data.get("slave", 1))
-    conn = ModbusConnection(ModbusTcpParams(host=host, port=port), timeout=8)
+    conn = ModbusConnection(ModbusTcpParams(host=host, port=port), timeout=8, message_spacing=0.22)
     unit = conn.for_unit(slave)
     coord = FoxAirCoordinator(hass, entry, unit, conn)
     await coord.async_config_entry_first_refresh()

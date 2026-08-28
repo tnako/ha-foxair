@@ -1,3 +1,6 @@
+## 0.4.9
+- fix(modbus): restore EW11 half-duplex gap `message_spacing=0.22s` (was 0) in `ModbusConnection` for both poll and config_flow probe — fixes `transaction_id mismatch` / `Repeating` / `No response` on EW11 that caused `1011×65` then `2029×45` failures after 0.4.0 (0.3 had `sleep 0.22` between POLL_BLOCKS).
+
 ## 0.4.8
 - fix(poll): swap rare intervals — less data when non-expert → 300s (10×30s), more data when expert (352 rare) → 600s (20×30s) to keep bus calm (was vice versa 300s expert / skip non-expert).
 

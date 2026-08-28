@@ -54,7 +54,7 @@ class FoxAirConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                     from modbus_connection import ModbusTcpParams
                     from modbus_connection.pymodbus import ModbusConnection
 
-                    conn = ModbusConnection(ModbusTcpParams(host=host, port=port), timeout=5)
+                    conn = ModbusConnection(ModbusTcpParams(host=host, port=port), timeout=5, message_spacing=0.22)
                     unit = conn.for_unit(slave)
                     try:
                         await unit.read_holding_registers(1011, 1)
