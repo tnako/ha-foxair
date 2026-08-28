@@ -1,3 +1,11 @@
+## 0.4.0
+- feat(modbus): migrate to pip `modbus-connection` model via vendored `foxair-modbus` (HA ≥2026.3). Own `ModbusConnection(ModbusTcpParams)` via `modbus_connection.pymodbus` — no 2026.9 required.
+- feat(lib): new standalone `foxair-modbus` vendor — single source from `foxair_phnix_registers.json`, 466 `Component` fields (`gauge`/`integer`), pooled reads via `max_span=65`/`max_gap=12` (one per space vs 12 `POLL_BLOCKS`).
+- perf: pooled reads (fewer Modbus round-trips, lower bridge load) via `Component.async_update()`.
+- refactor: coordinator owns `ModbusUnit` (not `AsyncModbusTcpClient`), drops manual `POLL_BLOCKS`/`scaled()`/`_lock` connect logic (~40% slimmer); config_flow probes via owned `ModbusConnection`; `__init__.py` lifecycle `await conn.close()` on unload.
+- fix: retains 0.3.45 500 fix + 0.3.46 climate On/Off + i18n.
+- note: v0.5 will switch to HA-bundled `modbus-connection` and require 2026.9, dropping pip install.
+
 ## 0.3.46
 - fix(climate): hvac is now pure On/Off — `hvac_modes=[Off, Heat]` where Heat means On (1011=1, 1012 kept). Presets are the 4 DHW combos: `Heating` (1), `Cooling` (2), `Heating + Hot Water` (3), `Cooling + Hot Water` (4). `Hot Water only` (0) is legacy read-only mapped to Heating+Hot Water and not selectable. `async_set_hvac_mode` Off writes 1011=0, On writes 1011=1 (0->defaults to Heating). `async_set_preset_mode` powers on and writes 1012. No more Heating-vs-Cooling conflict between mode and preset.
 - fix(i18n): add missing `elec_source`/`external_meter_entity`/`v_gain`/`v_offset`/`i_gain`/`i_offset` translations to `en`/`ru`/`de` so Options shows friendly labels instead of raw `elec_source`.

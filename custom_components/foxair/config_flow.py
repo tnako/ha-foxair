@@ -1,7 +1,6 @@
 import voluptuous as vol
 from homeassistant import config_entries
 from homeassistant.core import callback
-from pymodbus.client import AsyncModbusTcpClient
 from .const import DOMAIN
 
 class FoxAirConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
@@ -9,14 +8,28 @@ class FoxAirConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     async def async_step_user(self, user_input=None):
         errors={}
         if user_input is not None:
-            client=AsyncModbusTcpClient(host=user_input["host"], port=user_input["port"], timeout=3)
-            ok=await client.connect()
+            host=user_input.get("host","EW11-host")
+            port=int(user_input.get("port",8899))
+            slave=int(user_input.get("slave",1))
+            # v0.4 probe via owned ModbusConnection
+            try:
+                from modbus_connection import ModbusTcpParams
+                from modbus_connection.pymodbus import ModbusConnection
+                conn = ModbusConnection(ModbusTcpParams(host=host, port=port), timeout=3)
+                unit = conn.for_unit(slave)
+                try:
+                    await unit.read_holding_registers(1011, 1)
+                    ok=True
+                finally:
+                    try: await conn.close()
+                    except: pass
+            except Exception as e:
+                import logging
+                logging.getLogger(__name__).debug("probe failed %s", e)
+                ok=False
             if ok:
-                try: client.close()
-                except: pass
-                # carry enable_expert into options so it applies immediately after setup
                 return self.async_create_entry(
-                    title=f"FoxAir {user_input['host']}",
+                    title=f"FoxAir {host}",
                     data=user_input,
                     options={"enable_expert": bool(user_input.get("enable_expert", False))},
                 )
@@ -48,12 +61,9 @@ class FoxAirOptionsFlow(config_entries.OptionsFlow):
     async def async_step_init(self, user_input=None):
         errors={}
         if user_input is not None:
-            # require ack if enabling expert
             if user_input.get("enable_expert") and not user_input.get("expert_ack"):
                 errors["base"]="need_ack"
             else:
-                # normalize empty strings -> keep existing / default so power calibration
-                # remains optional when merely enabling expert
                 for k, default in (
                     ("elec_source", "foxair_register"),
                     ("external_meter_entity", ""),
@@ -67,7 +77,6 @@ class FoxAirOptionsFlow(config_entries.OptionsFlow):
                             user_input[k] = self._entry.options[k]
                         else:
                             user_input[k] = default
-                # merge: keep existing options for any field the user did not submit
                 opts = {**self._entry.options, **user_input}
                 opts.pop("expert_ack", None)
                 return self.async_create_entry(title="", data=opts)
@@ -77,7 +86,6 @@ class FoxAirOptionsFlow(config_entries.OptionsFlow):
             data_schema=vol.Schema({
                 vol.Required("enable_expert", default=cur.get("enable_expert", False)): bool,
                 vol.Optional("expert_ack", default=cur.get("expert_ack", False)): bool,
-                # --- computed electrical-power source for COP (all optional, defaults keep COP working) ---
                 vol.Optional(
                     "elec_source",
                     default=cur.get("elec_source", "foxair_register"),

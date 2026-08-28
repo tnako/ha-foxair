@@ -1,9 +1,7 @@
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import device_registry as dr
-from .coordinator import FoxAirCoordinator
 from .const import DOMAIN
-from .views import FoxAirCurveSvgView, FoxAirCurvePanelView
 
 PLATFORMS = ["sensor", "climate", "number", "select", "image"]
 
@@ -23,6 +21,7 @@ async def _cleanup_orphaned_devices(hass: HomeAssistant):
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     try:
+        from .views import FoxAirCurveSvgView, FoxAirCurvePanelView
         hass.http.register_view(FoxAirCurveSvgView())
         hass.http.register_view(FoxAirCurvePanelView())
     except Exception as e:
@@ -42,9 +41,22 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
             )
     except Exception:
         pass
-    coord = FoxAirCoordinator(hass, entry)
+    # v0.4: own ModbusConnection via modbus_connection.pymodbus
+    from modbus_connection import ModbusTcpParams
+    from modbus_connection.pymodbus import ModbusConnection
+    from .coordinator import FoxAirCoordinator
+
+    host = entry.data.get("host", "EW11-host")
+    port = int(entry.data.get("port", 8899))
+    slave = int(entry.data.get("slave", 1))
+    conn = ModbusConnection(ModbusTcpParams(host=host, port=port), timeout=8)
+    unit = conn.for_unit(slave)
+    # coordinator owns unit + conn for lifecycle
+    coord = FoxAirCoordinator(hass, entry, unit, conn)
     await coord.async_config_entry_first_refresh()
     hass.data.setdefault("foxair", {})[entry.entry_id] = coord
+    # store conn for unload close
+    hass.data.setdefault("foxair_conn", {})[entry.entry_id] = conn
     entry.async_on_unload(entry.add_update_listener(async_reload_entry))
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
     hass.async_create_task(_cleanup_orphaned_devices(hass))
@@ -55,9 +67,18 @@ async def async_reload_entry(hass: HomeAssistant, entry: ConfigEntry):
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry):
     coord = hass.data.get("foxair", {}).get(entry.entry_id)
+    conn = hass.data.get("foxair_conn", {}).pop(entry.entry_id, None)
     ok = await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
     hass.data.get("foxair", {}).pop(entry.entry_id, None)
-    if coord and getattr(coord, "client", None):
-        try: coord.client.close()
+    # close owned connection
+    if conn is not None:
+        try:
+            await conn.close()
+        except: pass
+    elif coord and getattr(coord, "_conn", None):
+        try: await coord._conn.close()
+        except: pass
+    elif coord and getattr(coord, "unit", None):
+        try: await coord.unit.disconnect()
         except: pass
     return ok

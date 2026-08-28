@@ -8,9 +8,14 @@ Add this to your `configuration.yaml` and restart:
 logger:
   logs:
     custom_components.foxair: debug
+    modbus_connection: debug
 ```
 
 To help troubleshooting, go to **Settings -> Devices -> FoxAir -> Download diagnostics**. The file contains the host address, poll statistics and a few raw values - no passwords.
+
+## v0.4 Modbus
+
+`custom_components.foxair` now owns a `ModbusConnection(ModbusTcpParams(host,port))` via `modbus_connection.pymodbus` (pip `modbus-connection[pymodbus]>=4.8`, HA ≥2026.3). Polling is `await foxair.async_update()` pooled per space (`max_span=65`/`max_gap=12`) instead of 12 manual `POLL_BLOCKS`. Config flow probes via a short-lived owned `ModbusConnection` (no HA `modbus` integration yet — that moves to `async_get_unit`/`async_get_temporary_unit` in v0.5 on HA 2026.9+).
 
 ## Why some controls are hidden
 

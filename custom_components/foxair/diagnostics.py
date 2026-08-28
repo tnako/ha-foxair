@@ -19,6 +19,19 @@ async def async_get_config_entry_diagnostics(hass: HomeAssistant, entry: ConfigE
             curve = {"at": at, "curve_target": ct, "slope": (coord.data.get(1234) or {}).get("value"), "offset": (coord.data.get(1235) or {}).get("value"), "h36": (coord.data.get(1236) or {}).get("raw")}
     except Exception as e:
         curve = {"error": str(e)}
+    # v0.4: expose foxair model stats if available
+    foxair_info = {}
+    try:
+        fox = getattr(coord, "foxair", None)
+        if fox is not None:
+            foxair_info = {
+                "fields": len(getattr(fox, "declared_fields", {})),
+                "has_unit": getattr(coord, "unit", None) is not None,
+                "max_span": getattr(fox, "max_span", None),
+                "max_gap": getattr(fox, "max_gap", None),
+            }
+    except: pass
+    conn = hass.data.get("foxair_conn", {}).get(entry.entry_id)
     return {
         "poll_blocks": getattr(coord, "POLL_BLOCKS", []),
         "stats": getattr(coord, "stats", {}),
@@ -28,6 +41,7 @@ async def async_get_config_entry_diagnostics(hass: HomeAssistant, entry: ConfigE
         "curve": curve,
         "options": dict(entry.options),
         "data": {"host": entry.data.get("host"), "port": entry.data.get("port"), "slave": entry.data.get("slave")},
-        "connected": getattr(getattr(coord, "client", None), "connected", False) if getattr(coord, "client", None) else False,
+        "connected": bool(getattr(conn, "_client", None) is not None) if conn else (getattr(getattr(coord, "client", None), "connected", False) if getattr(coord, "client", None) else bool(getattr(coord, "unit", None))),
         "last_error": getattr(getattr(coord, "stats", {}), "get", lambda *a,**k: None)("last_error") if hasattr(coord, "stats") else None,
+        "foxair_model": foxair_info,
     }
