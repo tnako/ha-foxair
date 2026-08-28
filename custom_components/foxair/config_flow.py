@@ -72,8 +72,6 @@ class FoxAirOptionsFlow(config_entries.OptionsFlow):
                 opts.pop("expert_ack", None)
                 return self.async_create_entry(title="", data=opts)
         cur = self._entry.options
-        # permissive validators: empty string is allowed and treated as "use default / keep current"
-        # so enabling expert does NOT require touching any power calibration fields
         return self.async_show_form(
             step_id="init",
             data_schema=vol.Schema({
@@ -83,30 +81,19 @@ class FoxAirOptionsFlow(config_entries.OptionsFlow):
                 vol.Optional(
                     "elec_source",
                     default=cur.get("elec_source", "foxair_register"),
-                ): vol.Any(
-                    vol.In({
-                        "foxair_register": "FoxAir Unit Power register (2054) — accurate, no calibration",
-                        "foxair_v_a": "Voltage x Current (2062 x 2057) — calibratable",
-                        "external_meter": "External HA power-meter entity",
-                    }),
-                    "",
-                ),
+                ): vol.In({
+                    "foxair_register": "FoxAir Unit Power register (2054) — accurate, no calibration",
+                    "foxair_v_a": "Voltage x Current (2062 x 2057) — calibratable",
+                    "external_meter": "External HA power-meter entity",
+                }),
                 vol.Optional(
                     "external_meter_entity",
                     default=cur.get("external_meter_entity", ""),
-                ): vol.Any(str, ""),
-                vol.Optional("v_gain", default=cur.get("v_gain", 1.0)): vol.Any(
-                    vol.Coerce(float), ""
-                ),
-                vol.Optional("v_offset", default=cur.get("v_offset", 0.0)): vol.Any(
-                    vol.Coerce(float), ""
-                ),
-                vol.Optional("i_gain", default=cur.get("i_gain", 0.1)): vol.Any(
-                    vol.Coerce(float), ""
-                ),
-                vol.Optional("i_offset", default=cur.get("i_offset", 0.0)): vol.Any(
-                    vol.Coerce(float), ""
-                ),
+                ): str,
+                vol.Optional("v_gain", default=cur.get("v_gain", 1.0)): vol.Coerce(float),
+                vol.Optional("v_offset", default=cur.get("v_offset", 0.0)): vol.Coerce(float),
+                vol.Optional("i_gain", default=cur.get("i_gain", 0.1)): vol.Coerce(float),
+                vol.Optional("i_offset", default=cur.get("i_offset", 0.0)): vol.Coerce(float),
             }),
             errors=errors,
             description_placeholders={"warn": "Dangerous: A/C/E/F/D/H can damage heat pump. Only enable if you know limits.\n\nElectrical-power source is used by the COP sensor. Choose the FoxAir register for best accuracy, or V x A / an external meter and calibrate against a real power meter."},

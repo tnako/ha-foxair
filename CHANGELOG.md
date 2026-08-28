@@ -1,3 +1,6 @@
+## 0.3.45
+- fix(config_flow): fix 500 on Options flow — HA cannot convert `vol.Any(In(...), "")` to UI schema. Reverted to plain `vol.In` / `vol.Coerce(float)` validators (all power fields stay `Optional` with defaults) so enabling Expert with just the ack works and the form loads.
+
 ## 0.3.44
 - fix(config_flow): COP calibration no longer blocks Expert mode — all power fields (`elec_source`, `external_meter_entity`, `v_gain`/`v_offset`/`i_gain`/`i_offset`) are now truly optional with permissive validators (`vol.Any` + empty-string allowed) and empty values keep existing/defaults. `expert_ack` is Optional, `elec_source` defaults to `foxair_register` (no calibration). Enabling expert with just the ack now succeeds.
 - i18n: added missing options strings for the 6 power fields so they show as optional in the UI.
