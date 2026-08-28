@@ -10,6 +10,4 @@
 
 **0.5** - Require **HA 2026.9+**, switch to HA-bundled `modbus-connection` + shared `modbus` bus (`async_get_unit`/`async_get_temporary_unit`). Add `dependencies: ["modbus"]`, set `homeassistant: "2026.9.0"` in `hacs.json`/`manifest.json`, **remove** `modbus-connection`/`pymodbus` from pip `requirements` and delete any system-wide `pip install modbus-connection` (HA now bundles it). Same `foxair-modbus` model, just `ModbusUnit` source changes — sharing socket with Fronius/Sofar/Flexit on same gateway.
 
-Details: `.hermes/plans/2026-08-28-v0.4-modbus-connection-migration.md` (11 tasks) · https://developers.home-assistant.io/docs/modbus/introduction · https://developers.home-assistant.io/blog/2026/07/05/modernizing-modbus
-
 Have an idea? Open an issue at https://github.com/tnako/ha-foxair/issues
