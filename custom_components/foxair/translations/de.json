@@ -3,16 +3,21 @@
     "step": {
       "user": {
         "title": "FoxAir Modbus Heat Pump",
-        "description": "Connect to FoxAir / PHNIX via Modbus TCP",
+        "description": "Mit FoxAir / PHNIX über Modbus TCP verbinden. {warn}",
         "data": {
           "host": "Host",
           "port": "Port",
-          "slave": "Slave ID"
+          "slave": "Slave-ID",
+          "enable_expert": "Expertenmodus aktivieren (erweiterte / gefährliche Parameter)"
         }
       }
     },
     "abort": {
       "already_configured": "Already configured"
+    },
+    "error": {
+      "cannot_connect": "Verbindung fehlgeschlagen — Host, Port und Slave-ID prüfen",
+      "need_ack": "Sie müssen das Risiko bestätigen, um den Expertenmodus zu aktivieren"
     }
   },
   "entity": {
@@ -3109,7 +3114,7 @@
       }
     },
     "error": {
-      "need_ack": "You must acknowledge the risk to enable expert mode"
+      "need_ack": "Sie müssen das Risiko bestätigen, um den Expertenmodus zu aktivieren"
     }
   }
 }

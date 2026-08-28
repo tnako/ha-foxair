@@ -1,3 +1,4 @@
+import asyncio
 import voluptuous as vol
 from homeassistant import config_entries
 from homeassistant.core import callback
@@ -17,6 +18,22 @@ def _validate_host(host: str) -> bool:
     return True
 
 
+async def _tcp_can_connect(host: str, port: int, timeout: float = 3.0) -> bool:
+    try:
+        reader, writer = await asyncio.wait_for(asyncio.open_connection(host, port), timeout=timeout)
+        try:
+            writer.close()
+            try:
+                await writer.wait_closed()
+            except Exception:
+                pass
+        except Exception:
+            pass
+        return True
+    except Exception:
+        return False
+
+
 class FoxAirConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     VERSION = 1
 
@@ -31,11 +48,13 @@ class FoxAirConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             elif not (1 <= port <= 65535) or not (1 <= slave <= 247):
                 errors["base"] = "cannot_connect"
             else:
+                ok = False
+                modbus_error = None
                 try:
                     from modbus_connection import ModbusTcpParams
                     from modbus_connection.pymodbus import ModbusConnection
 
-                    conn = ModbusConnection(ModbusTcpParams(host=host, port=port), timeout=3)
+                    conn = ModbusConnection(ModbusTcpParams(host=host, port=port), timeout=5)
                     unit = conn.for_unit(slave)
                     try:
                         await unit.read_holding_registers(1011, 1)
@@ -46,8 +65,15 @@ class FoxAirConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                         except Exception:
                             pass
                 except Exception as e:
-                    _LOGGER.debug("probe failed %s:%s slave %s: %s", host, port, slave, e)
+                    modbus_error = e
+                    _LOGGER.debug("Modbus probe failed %s:%s slave %s: %s", host, port, slave, e)
                     ok = False
+                if not ok:
+                    # Fallback: raw TCP connect — restores pre-0.4 behavior where TCP accept was enough.
+                    # Modbus read can fail for timing/slave quirks while the gateway still accepts TCP.
+                    if await _tcp_can_connect(host, port, timeout=3):
+                        _LOGGER.debug("Modbus read failed (%s) but TCP %s:%s reachable — accepting", modbus_error, host, port)
+                        ok = True
                 if ok:
                     user_input["host"] = host
                     return self.async_create_entry(
@@ -62,8 +88,8 @@ class FoxAirConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             data_schema=vol.Schema(
                 {
                     vol.Optional("host", default="EW11-host"): str,
-                    vol.Optional("port", default=8899): vol.All(int, vol.Range(min=1, max=65535)),
-                    vol.Optional("slave", default=1): vol.All(int, vol.Range(min=1, max=247)),
+                    vol.Optional("port", default=8899): int,
+                    vol.Optional("slave", default=1): int,
                     vol.Required("enable_expert", default=cur_opts.get("enable_expert", False)): bool,
                 }
             ),

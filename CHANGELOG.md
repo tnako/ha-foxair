@@ -1,3 +1,8 @@
+## 0.4.5
+- fix(config_flow): connectivity `cannot_connect` after 0.4 migration — Modbus read timeout 3s→5s + TCP fallback (raw `open_connection`) restoring pre-0.4 `connect()` behavior; fixes false negatives when gateway accepts TCP but register 1011 read races
+- fix(config_flow): slave ID (and port) were slider due to `vol.Range` — now plain `int` number box with manual 1-247 / 1-65535 validation; shows `Slave ID = 1` as expected
+- fix(i18n): restore `enable_expert` friendly text in setup (was raw `enable_expert` key) — add `config.user.data.enable_expert` + `config.user.description {warn}` + `config.error.cannot_connect/need_ack` in strings/en/de/ru (EN/DE/RU localized); options `need_ack` also localized
+
 ## 0.4.4
 - chore(repo): audit and clean leftovers — update README/docs to 0.4.3, archive v0.3 reviews, validate tools, update data/README
   - README 0.4.3 (591 regs, pooled reads, humidity/energy, vendor, curve panel, HA ≥2026.3) replacing outdated 0.4 roadmap blurb
