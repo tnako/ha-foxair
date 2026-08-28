@@ -1,4 +1,4 @@
-"""FoxAir coordinator — tiered pymodbus polling (quick 30s / medium 120s / rare 300/600s) — reverted from modbus_connection due to EW11 extra data handling."""
+"""FoxAir coordinator — tiered pymodbus polling (quick 30s / medium 120s / rare 300/600s) — revert from modbus_connection."""
 
 import json
 import pathlib
@@ -74,6 +74,12 @@ class FoxAirCoordinator(DataUpdateCoordinator):
         self._lock = asyncio.Lock()
         self._poll_counter = 0
         self._flow_ema = 0.0
+        # debounced write coalescer: 3s window merges rapid changes into one FC16
+        self._write_pending: dict[int, int] = {}
+        self._write_pending_metas: dict[int, dict] = {}
+        self._write_futures: list[asyncio.Future] = []
+        self._write_flush_task: asyncio.Task | None = None
+        self._write_delay = 3.0
 
     async def _load_map(self):
         p = pathlib.Path(__file__).parent / "data/foxair_phnix_registers.json"
@@ -144,53 +150,142 @@ class FoxAirCoordinator(DataUpdateCoordinator):
             raw = int(raw) & 0xFFFF
         return raw
 
+    # ── debounced batch writer ──────────────────────────────────
+    def _schedule_flush(self):
+        if self._write_flush_task and not self._write_flush_task.done():
+            self._write_flush_task.cancel()
+        self._write_flush_task = asyncio.create_task(self._delayed_flush())
+
+    async def _delayed_flush(self):
+        try:
+            await asyncio.sleep(self._write_delay)
+            await self._do_flush()
+        except asyncio.CancelledError:
+            pass
+
+    async def _do_flush(self):
+        if not self._write_pending:
+            # nothing to do, resolve futures as ok
+            futs = list(self._write_futures)
+            self._write_futures.clear()
+            for f in futs:
+                if not f.done():
+                    f.set_result(True)
+            self._write_flush_task = None
+            return
+        pending = dict(self._write_pending)
+        metas = dict(self._write_pending_metas)
+        futs = list(self._write_futures)
+        self._write_pending.clear()
+        self._write_pending_metas.clear()
+        self._write_futures.clear()
+        self._write_flush_task = None
+        # group contiguous addrs into single FC16 blocks
+        sorted_addrs = sorted(pending.keys())
+        blocks: list[tuple[int, list[int]]] = []
+        cur_start = sorted_addrs[0]
+        cur_vals = [pending[cur_start]]
+        cur_end = cur_start
+        for a in sorted_addrs[1:]:
+            if a == cur_end + 1:
+                cur_vals.append(pending[a])
+                cur_end = a
+            else:
+                blocks.append((cur_start, cur_vals))
+                cur_start = a
+                cur_vals = [pending[a]]
+                cur_end = a
+        blocks.append((cur_start, cur_vals))
+        cfg = self.entry.data
+        sid = cfg.get("slave", 1)
+        overall_ok = True
+        write_client = AsyncModbusTcpClient(host=cfg["host"], port=cfg["port"], timeout=8)
+        try:
+            okc = await write_client.connect()
+            if not okc:
+                _LOGGER.error("Write batch connect failed %s:%s", cfg["host"], cfg["port"])
+                overall_ok = False
+            else:
+                for addr, vals in blocks:
+                    try:
+                        try:
+                            rr = await write_client.write_registers(address=addr, values=vals, slave=sid)
+                        except TypeError:
+                            rr = await write_client.write_registers(address=addr, values=vals, device_id=sid)
+                        if rr.isError():
+                            _LOGGER.error("Write batch %s %s error %s", addr, vals, rr)
+                            overall_ok = False
+                        else:
+                            codes = [metas.get(addr + i, {}).get("code", str(addr + i)) for i in range(len(vals))]
+                            _LOGGER.warning("Write OK FC16 %s (+%s) %s -> %s", addr, len(vals) - 1, codes, vals)
+                    except Exception as e:
+                        _LOGGER.error("Write batch %s exception %s", addr, e)
+                        overall_ok = False
+                if overall_ok:
+                    await asyncio.sleep(0.35)
+                    for addr in pending:
+                        try:
+                            try:
+                                rr2 = await write_client.read_holding_registers(address=addr, count=1, slave=sid)
+                            except TypeError:
+                                rr2 = await write_client.read_holding_registers(address=addr, count=1, device_id=sid)
+                            if not rr2.isError() and getattr(rr2, "registers", None):
+                                raw2 = rr2.registers[0]
+                                info = (self._regmap or {}).get(str(addr)) or {"type": metas[addr].get("type", "RAW")}
+                                val2 = scaled(info.get("type", metas[addr].get("type", "RAW")), raw2)
+                                self.data[addr] = {"raw": raw2, "value": val2, "info": info}
+                        except Exception as e:
+                            _LOGGER.debug("readback %s failed %s", addr, e)
+                    self.async_update_listeners()
+                    self.hass.async_create_task(self.async_request_refresh())
+        except Exception as e:
+            _LOGGER.error("Write flush exception %s", e)
+            overall_ok = False
+        finally:
+            try:
+                write_client.close()
+            except Exception:
+                pass
+            for f in futs:
+                if not f.done():
+                    f.set_result(overall_ok)
+
     async def async_write_register(self, addr: int, value: float) -> bool:
         ok, meta, reason = self._validate_write(addr, value)
         if not ok:
             _LOGGER.error("Write blocked: %s %s", addr, reason)
             return False
         raw = self._coerce_write_value(addr, value, meta)
-        cfg = self.entry.data
-        sid = cfg.get("slave", 1)
-        write_client = AsyncModbusTcpClient(host=cfg["host"], port=cfg["port"], timeout=8)
-        try:
-            okc = await write_client.connect()
-            if not okc:
-                _LOGGER.error("Write %s connect failed %s:%s", addr, cfg["host"], cfg["port"])
-                return False
-            try:
-                rr = await write_client.write_registers(address=addr, values=[raw], slave=sid)
-            except TypeError:
-                rr = await write_client.write_registers(address=addr, values=[raw], device_id=sid)
-            if rr.isError():
-                _LOGGER.error("Write %s error %s", addr, rr)
-                return False
-            _LOGGER.warning("Write OK FC16 %s [%s] -> raw %s (scaled %.2f)", addr, meta.get("code"), raw, value)
-            await asyncio.sleep(0.35)
-            try:
-                try:
-                    rr2 = await write_client.read_holding_registers(address=addr, count=1, slave=sid)
-                except TypeError:
-                    rr2 = await write_client.read_holding_registers(address=addr, count=1, device_id=sid)
-                if not rr2.isError() and getattr(rr2, "registers", None):
-                    raw2 = rr2.registers[0]
-                    info = (self._regmap or {}).get(str(addr)) or {"type": meta.get("type", "RAW")}
-                    val2 = scaled(info.get("type", meta.get("type", "RAW")), raw2)
-                    self.data[addr] = {"raw": raw2, "value": val2, "info": info}
-                    self.async_update_listeners()
-                    _LOGGER.warning("Write verify %s -> raw %s (scaled %.2f) fast-path", addr, raw2, val2)
-            except Exception as e:
-                _LOGGER.debug("fast readback %s failed %s", addr, e)
-            self.hass.async_create_task(self.async_request_refresh())
+        fut = self.hass.loop.create_future()
+        self._write_pending[addr] = raw
+        self._write_pending_metas[addr] = meta
+        self._write_futures.append(fut)
+        self._schedule_flush()
+        _LOGGER.debug("Write queued %s -> %s (delay %.1fs) pending=%s", addr, raw, self._write_delay, sorted(self._write_pending.keys()))
+        return await fut
+
+    async def async_write_many(self, mapping: dict[int, float]) -> bool:
+        """Batch write: mapping addr->scaled value, coalesced into one FC16 if contiguous, debounced 3s."""
+        if not mapping:
             return True
-        except Exception as e:
-            _LOGGER.error("Write %s exception %s", addr, e)
-            return False
-        finally:
-            try:
-                write_client.close()
-            except Exception:
-                pass
+        metas: dict[int, dict] = {}
+        raws: dict[int, int] = {}
+        for addr, value in mapping.items():
+            ok, meta, reason = self._validate_write(addr, float(value))
+            if not ok:
+                _LOGGER.error("Write blocked: %s %s", addr, reason)
+                return False
+            raw = self._coerce_write_value(addr, float(value), meta)
+            raws[addr] = raw
+            metas[addr] = meta
+        fut = self.hass.loop.create_future()
+        for addr, raw in raws.items():
+            self._write_pending[addr] = raw
+            self._write_pending_metas[addr] = metas[addr]
+        self._write_futures.append(fut)
+        self._schedule_flush()
+        _LOGGER.debug("Write many queued %s pending=%s", raws, sorted(self._write_pending.keys()))
+        return await fut
 
     def _batches_for_addrs(self, addrs: set[int], max_span=45, max_gap=8) -> list[tuple[int, int]]:
         if not addrs:

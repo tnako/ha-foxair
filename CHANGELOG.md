@@ -1,3 +1,8 @@
+## 0.4.11
+- fix(climate): `hvac_modes` now shows **Off/On** (was Off/Heating) via `state.hvac_mode heat→On` translations (en/de/ru); `Off` is pure `1011=0`.
+- fix(climate): presets (Heating/Cooling/…+Hot Water) via single `FC16 1011+1012` batched write — no "conflict with registry" when switching to cooling while Off.
+- feat(core): 3s debounced write coalescer in coordinator (`async_write_many`) — rapid `1011+1012` / number/select changes merge into one `FC16` per contiguous block (e.g. `1011+1012` = one call), restores EW11 calm.
+
 ## 0.4.10
 - fix(modbus): revert transport `modbus_connection` → `pymodbus AsyncModbusTcpClient` for polling — EW11 `extra data`/`transaction_id mismatch` makes `modbus_connection` drop `1011×2`/`2029×45` even with `message_spacing 0.22` (proven live: `pymodbus` 1011×45 ok, `modbus_connection` fail). Keep `0.22s` gap between batches (as 0.3) and tiered `poll_tier` (quick 30s 75 regs / medium 120s 42 regs / rare 300s/600s via `foxair_metadata.json`) with `pymodbus`. Config flow probe also reverted to simple `connect()` (was `read 1011,1`).
 

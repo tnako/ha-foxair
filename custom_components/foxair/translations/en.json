@@ -1810,7 +1810,13 @@
     },
     "climate": {
       "foxair_climate": {
-        "name": "Heat pump"
+        "name": "Heat pump",
+        "state": {
+          "hvac_mode": {
+            "off": "Off",
+            "heat": "On"
+          }
+        }
       }
     },
     "switch": {

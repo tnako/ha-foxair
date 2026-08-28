@@ -200,7 +200,7 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
             raise ValueError(f"Set temp {temp} rejected (addr {addr})")
 
     async def async_set_hvac_mode(self, hvac_mode):
-        # hvac is pure On/Off — Off writes 1011=0, On writes 1011=1 and keeps current preset
+        # hvac is pure On/Off — batched with 3s debounce in coordinator (1011+1012 -> one FC16)
         self._opt_hvac = hvac_mode
         self._attr_assumed_state = True
         self.async_write_ha_state()
@@ -211,14 +211,13 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
                     raise ValueError("Failed to set OFF")
                 return
             # On: power on, keep existing preset (if 0, default to Heating)
-            ok = await self.coordinator.async_write_register(1011, 1)
-            if not ok:
-                raise ValueError("Failed to power ON")
             raw = self._raw_mode()
             if raw == 0:
-                ok = await self.coordinator.async_write_register(1012, 1.0)
-                if not ok:
-                    raise ValueError(f"Failed to set mode {hvac_mode}")
+                ok = await self.coordinator.async_write_many({1011: 1.0, 1012: 1.0})
+            else:
+                ok = await self.coordinator.async_write_register(1011, 1)
+            if not ok:
+                raise ValueError("Failed to power ON")
         finally:
             self._opt_hvac = None
             self._attr_assumed_state = False
@@ -233,10 +232,8 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
         self._attr_assumed_state = True
         self.async_write_ha_state()
         try:
-            ok = await self.coordinator.async_write_register(1011, 1)
-            if not ok:
-                raise ValueError("Failed power ON")
-            ok = await self.coordinator.async_write_register(1012, float(raw))
+            # Batch 1011+1012 into one FC16 (debounced 3s) — avoids conflict where 1012 written while still Off
+            ok = await self.coordinator.async_write_many({1011: 1.0, 1012: float(raw)})
             if not ok:
                 raise ValueError(f"Failed set preset {preset_mode}")
         finally:
