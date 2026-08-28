@@ -1,3 +1,8 @@
+## 0.3.43
+- fix(climate): On/Off is now a proper climate mode (`hvac_modes=[Off, Heat, Cool]` via reg 1011) instead of a separate boolean switch. `switch.foxair_power` removed from PLATFORMS — power is controlled via the climate card. `async_set_hvac_mode` now writes 1011 for Off and 1011+1012 (preserving DHW bit) for Heat/Cool.
+- fix(climate): preset friendly names — `Hot Water only`, `Heating`, `Heating + Hot Water`, `Cooling`, `Cooling + Hot Water` (raw 0..4). Display, attributes and setters all use the same names.
+- fix(config_flow): COP calibration no longer mandatory for Expert mode — `elec_source` is now `Optional` (defaults to `foxair_register`, no calibration). All COP fields keep defaults and existing options are merged, not discarded, when expert is toggled.
+
 ## 0.3.42
 - fix: removed the phantom `computed` platform that broke integration load ("Setup failed for 'computed': Integration not found"). The heating-power / electrical-power / COP sensors now live on the standard `sensor` platform (moved into sensor.py). `computed.py` deleted.
 - note: `foxair_heating_power` / `foxair_electrical_power` / `foxair_cop` keep the same unique_ids as the old YAML template sensors — once the old modbus/template block is removed from configuration.yaml the new integration versions take over the same entity_ids (continuous InfluxDB history). Until then the old template sensors win the duplicate-id.

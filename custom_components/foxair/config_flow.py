@@ -25,10 +25,10 @@ class FoxAirConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         return self.async_show_form(
             step_id="user",
             data_schema=vol.Schema({
-                vol.Required("host", default="EW11-host"): str,
-                vol.Required("port", default=8899): int,
+                vol.Optional("host", default="EW11-host"): str,
+                vol.Optional("port", default=8899): int,
                 vol.Optional("slave", default=1): int,
-                vol.Optional("enable_expert", default=cur_opts.get("enable_expert", False)): bool,
+                vol.Required("enable_expert", default=cur_opts.get("enable_expert", False)): bool,
             }),
             errors=errors,
             description_placeholders={
@@ -52,9 +52,10 @@ class FoxAirOptionsFlow(config_entries.OptionsFlow):
             if user_input.get("enable_expert") and not user_input.get("expert_ack"):
                 errors["base"]="need_ack"
             else:
-                # persist all options (expert + computed-power config)
-                opts = dict(user_input)
-                # drop one-time ack
+                # merge: keep existing options for any field the user did not submit
+                # (e.g. toggling expert mode should not lose a previously-set
+                #  elec_source / calibration / external meter entity)
+                opts = {**self._entry.options, **user_input}
                 opts.pop("expert_ack", None)
                 return self.async_create_entry(title="", data=opts)
         cur = self._entry.options
@@ -64,7 +65,7 @@ class FoxAirOptionsFlow(config_entries.OptionsFlow):
                 vol.Required("enable_expert", default=cur.get("enable_expert", False)): bool,
                 vol.Required("expert_ack", default=False): bool,
                 # --- computed electrical-power source for COP ---
-                vol.Required(
+                vol.Optional(
                     "elec_source",
                     default=cur.get("elec_source", "foxair_register"),
                 ): vol.In({

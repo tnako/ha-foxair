@@ -9,10 +9,20 @@ _LOGGER = logging.getLogger(__name__)
 AT_ADDR = 2048  # outdoor / ambient temperature used for weather compensation
 
 # 1011 ON/OFF, 1012 mode: 0=DHW only,1=Heat,2=Cool,3=DHW+Heat,4=DHW+Cool
-HVAC_MAP = {0: HVACMode.HEAT, 1: HVACMode.HEAT, 2: HVACMode.COOL, 3: HVACMode.HEAT_COOL, 4: HVACMode.HEAT_COOL}
+HVAC_MAP = {0: HVACMode.HEAT, 1: HVACMode.HEAT, 2: HVACMode.COOL, 3: HVACMode.HEAT, 4: HVACMode.COOL}
 MODE_TO_TEMP_ADDR = {HVACMode.HEAT: 1158, HVACMode.COOL: 1159, HVACMode.HEAT_COOL: 1158, HVACMode.OFF: 1158}
 RAW_MODE_TO_TARGET = {0: 1157, 1: 1158, 2: 1159, 3: 1158, 4: 1159}
-HVAC_REV = {HVACMode.HEAT: 1, HVACMode.COOL: 2, HVACMode.HEAT_COOL: 3, HVACMode.OFF: 0}
+# hvac mode -> raw 1012 (DHW bit preserved when possible)
+HVAC_REV = {HVACMode.OFF: 0, HVACMode.HEAT: 1, HVACMode.COOL: 2, HVACMode.HEAT_COOL: 3}
+# friendly preset names for the DHW-inclusive operation modes
+PRESET_RAW = {
+    "Hot Water only": 0,
+    "Heating": 1,
+    "Cooling": 2,
+    "Heating + Hot Water": 3,
+    "Cooling + Hot Water": 4,
+}
+RAW_PRESET = {v: k for k, v in PRESET_RAW.items()}
 
 class FoxAirClimate(CoordinatorEntity, ClimateEntity):
     _attr_has_entity_name = True
@@ -20,8 +30,8 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
     _attr_temperature_unit = UnitOfTemperature.CELSIUS
     _attr_supported_features = ClimateEntityFeature.TARGET_TEMPERATURE | ClimateEntityFeature.PRESET_MODE
     _attr_icon = "mdi:heat-pump"
-    _attr_hvac_modes = [HVACMode.HEAT, HVACMode.COOL, HVACMode.HEAT_COOL]
-    _attr_preset_modes = ["dhw_only","heat_only","cool_only","dhw+heat","dhw+cool"]
+    _attr_hvac_modes = [HVACMode.OFF, HVACMode.HEAT, HVACMode.COOL]
+    _attr_preset_modes = ["Hot Water only", "Heating", "Heating + Hot Water", "Cooling", "Cooling + Hot Water"]
 
     def __init__(self, coord):
         super().__init__(coord)
@@ -115,16 +125,11 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
     def hvac_mode(self):
         if self._opt_hvac is not None:
             return self._opt_hvac
-        # On/Off is handled by the separate power switch (switch.foxair_power,
-        # reg 1011). The climate card is purely the operation-mode selector
-        # (Heat/Cool/HeatCool), so we never report OFF here even when the unit
-        # is powered down — the power switch conveys that state instead.
+        # OFF is a first-class mode: power register 1011 == 0.
+        off = self.coordinator.data.get(1011)
+        if off and off["raw"] == 0:
+            return HVACMode.OFF
         raw = self._raw_mode()
-        if raw == 0:
-            # DHW-only: no space-heating operation selected -> report HEAT so the
-            # card stays consistent with the available modes (pure DHW has no
-            # hvac-mode equivalent in HA).
-            return HVACMode.HEAT
         return HVAC_MAP.get(raw, HVACMode.HEAT)
 
     @property
@@ -132,7 +137,7 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
         if self._opt_preset is not None:
             return self._opt_preset
         raw = self._raw_mode()
-        return {0:"dhw_only",1:"heat_only",2:"cool_only",3:"dhw+heat",4:"dhw+cool"}.get(raw)
+        return RAW_PRESET.get(raw)
 
     @property
     def hvac_action(self):
@@ -150,7 +155,7 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
         freq = self.coordinator.data.get(2072)
         if freq and freq.get("value", 0) > 0:
             raw_mode = self._raw_mode()
-            if raw_mode in (2,4): return HVACAction.COOLING
+            if raw_mode in (2, 4): return HVACAction.COOLING
             return HVACAction.HEATING
         return HVACAction.IDLE
 
@@ -160,16 +165,17 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
         at = self.coordinator.data.get(AT_ADDR, {}).get("value")
         return {
             "raw_mode": raw_mode,
-            "mode_code": {0:"DHW",1:"Heat",2:"Cool",3:"DHW+Heat",4:"DHW+Cool"}.get(raw_mode, str(raw_mode)),
+            "mode_code": {0: "Hot Water only", 1: "Heating", 2: "Cooling", 3: "Heating + Hot Water", 4: "Cooling + Hot Water"}.get(raw_mode, str(raw_mode)),
             "target_addr": RAW_MODE_TO_TARGET.get(raw_mode),
-            "dhw_mode": raw_mode in (0,3,4),
+            "dhw_mode": raw_mode in (0, 3, 4),
             "control_mode": self.control_mode,
             "at": at,
         }
 
     async def async_set_temperature(self, **kwargs):
         temp = kwargs.get("temperature")
-        if temp is None: return
+        if temp is None:
+            return
         # In AT-compensation mode the target is derived from the curve
         # (offset/slope + outdoor temp), so it cannot be set directly.
         # The fixed setpoint register is ignored by the device in this mode.
@@ -196,36 +202,46 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
         self._attr_assumed_state = True
         self.async_write_ha_state()
         try:
-            # Operation mode only (reg 1012). Power On/Off is the separate
-            # switch.foxair_power entity — we must NOT write 1011 here, otherwise
-            # the mode selector would also toggle power.
-            raw_target = HVAC_REV.get(hvac_mode, 1)
-            if hvac_mode == HVACMode.HEAT_COOL:
-                prev_raw = self._raw_mode()
-                if prev_raw in (4, 2):
-                    raw_target = 4
-                else:
-                    raw_target = 3
-            ok = await self.coordinator.async_write_register(1012, float(raw_target))
-            if not ok: raise ValueError(f"Failed to set mode {hvac_mode}")
+            if hvac_mode == HVACMode.OFF:
+                # ON/OFF is a climate mode: power off (reg 1011 = 0), leave 1012.
+                ok = await self.coordinator.async_write_register(1011, 0)
+                if not ok:
+                    raise ValueError("Failed to set OFF")
+                return
+            # HEAT / COOL: ensure power on (1011 = 1) then set operation mode
+            # (1012), preserving any DHW bit that is already set.
+            ok = await self.coordinator.async_write_register(1011, 1)
+            if not ok:
+                raise ValueError("Failed to power ON")
+            raw = self._raw_mode()
+            has_dhw = raw in (0, 3, 4)
+            if hvac_mode == HVACMode.COOL:
+                target = 4 if has_dhw else 2
+            else:
+                target = 3 if has_dhw else 1
+            ok = await self.coordinator.async_write_register(1012, float(target))
+            if not ok:
+                raise ValueError(f"Failed to set mode {hvac_mode}")
         finally:
             self._opt_hvac = None
             self._attr_assumed_state = False
             self.async_write_ha_state()
 
     async def async_set_preset_mode(self, preset_mode):
-        mapping = {"dhw_only":0,"heat_only":1,"cool_only":2,"dhw+heat":3,"dhw+cool":4}
-        raw = mapping.get(preset_mode)
-        if raw is None: raise ValueError(f"Unknown preset {preset_mode}")
+        raw = PRESET_RAW.get(preset_mode)
+        if raw is None:
+            raise ValueError(f"Unknown preset {preset_mode}")
         # show the new preset instantly during the write round-trip
         self._opt_preset = preset_mode
         self._attr_assumed_state = True
         self.async_write_ha_state()
         try:
             ok = await self.coordinator.async_write_register(1011, 1)
-            if not ok: raise ValueError("Failed power ON")
+            if not ok:
+                raise ValueError("Failed power ON")
             ok = await self.coordinator.async_write_register(1012, float(raw))
-            if not ok: raise ValueError(f"Failed set preset {preset_mode}")
+            if not ok:
+                raise ValueError(f"Failed set preset {preset_mode}")
         finally:
             self._opt_preset = None
             self._attr_assumed_state = False
