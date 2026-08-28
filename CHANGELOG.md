@@ -1,3 +1,6 @@
+## 0.4.16
+- fix(devices): add `O` (Outputs) and `S` (Switches) per `modbus/tabs.txt` — `2034` and future `O/S` addrs no longer fall back to main device; matches `H/A/F/D/E/C/R/T/Z/G/P` + `SG/KG` layout.
+
 ## 0.4.15
 - fix(H36): `1236` AT-Kompensation `1-6` → `0-1` (Nein/Ja) — `select 1236` from fixed (`0`) was rejected as out of range; same for `1046 H37`. Both now `0-1` in `foxair_metadata.json` (proven via `foxair_phnix_registers.json` value_map).
 

@@ -17,6 +17,8 @@ BLOCK_SHORT = {
     "P": "Pump",
     "SG": "SG Ready",
     "KG": "Timer",
+    "O": "Outputs",
+    "S": "Switches",
     "ERR": "Fault",
 }
 APP_TAB_TITLES = {
@@ -33,6 +35,8 @@ APP_TAB_TITLES = {
     "P": "Pump",
     "SG": "SG Ready",
     "KG": "Timer",
+    "O": "Outputs",
+    "S": "Switches",
     "ERR": "Fault",
 }
 
@@ -50,6 +54,8 @@ BLOCK_SHORT_DE = {
     "P": "Pumpe",
     "SG": "SG Ready",
     "KG": "Timer",
+    "O": "Ausgänge",
+    "S": "Schalter",
     "ERR": "Fault",
 }
 
