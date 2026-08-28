@@ -1,3 +1,7 @@
+## 0.3.46
+- fix(climate): hvac is now pure On/Off — `hvac_modes=[Off, Heat]` where Heat means On (1011=1, 1012 kept). Presets are the 4 DHW combos: `Heating` (1), `Cooling` (2), `Heating + Hot Water` (3), `Cooling + Hot Water` (4). `Hot Water only` (0) is legacy read-only mapped to Heating+Hot Water and not selectable. `async_set_hvac_mode` Off writes 1011=0, On writes 1011=1 (0->defaults to Heating). `async_set_preset_mode` powers on and writes 1012. No more Heating-vs-Cooling conflict between mode and preset.
+- fix(i18n): add missing `elec_source`/`external_meter_entity`/`v_gain`/`v_offset`/`i_gain`/`i_offset` translations to `en`/`ru`/`de` so Options shows friendly labels instead of raw `elec_source`.
+
 ## 0.3.45
 - fix(config_flow): fix 500 on Options flow — HA cannot convert `vol.Any(In(...), "")` to UI schema. Reverted to plain `vol.In` / `vol.Coerce(float)` validators (all power fields stay `Optional` with defaults) so enabling Expert with just the ack works and the form loads.
 

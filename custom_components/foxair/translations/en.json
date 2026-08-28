@@ -3044,7 +3044,13 @@
         "description": "Enable write for Protection, Compressor, Fan, Defrost, EVI/EEV and Base/Hardware. Risk: wrong values can damage the heat pump. {warn}",
         "data": {
           "enable_expert": "Enable expert mode (advanced/dangerous parameters)",
-          "expert_ack": "I understand the risk and have a backup"
+          "expert_ack": "I understand the risk and have a backup",
+          "elec_source": "Electrical power source for COP",
+          "external_meter_entity": "External power meter entity (if source = external_meter)",
+          "v_gain": "Voltage gain",
+          "v_offset": "Voltage offset",
+          "i_gain": "Current gain (raw → A)",
+          "i_offset": "Current offset"
         }
       }
     },
