@@ -2,6 +2,8 @@ __pycache__/
 *.pyc
 .venv/
 *.zip
+# hermes local state (plans cache, sessions)
+.hermes/
 # secrets
 *.token
 *.secret
