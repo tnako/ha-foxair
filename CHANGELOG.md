@@ -1,3 +1,6 @@
+## 0.4.13
+- fix(climate): preset `Cooling` failed "1012 missing limits" — metadata has no min/max for 1012; add hard limits `1011 0-1`, `1012 0-4` bypass in `_validate_write` (also fixes `1011+1012` batch).
+
 ## 0.4.12
 - fix(i18n): climate `Off/On` (`Выкл/Вкл`, `Aus/Ein`) — flat `state.off/heat` + nested `state.hvac_mode` for HA 2026.8 (was only nested, still showed "Обогрев"). Clear browser cache / reload translations after update.
 

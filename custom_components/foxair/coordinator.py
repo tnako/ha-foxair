@@ -109,6 +109,18 @@ class FoxAirCoordinator(DataUpdateCoordinator):
 
     def _validate_write(self, addr: int, value: float) -> tuple[bool, dict, str]:
         meta = self.get_metadata(addr)
+        # special: 1011 On/Off and 1012 mode have known limits even if metadata lacks them
+        if addr == 1011:
+            if not math.isfinite(value) or not (0 <= value <= 1):
+                return False, meta, f"1011 out of range [0,1] got {value}"
+            return True, meta, ""
+        if addr == 1012:
+            if not math.isfinite(value) or not (0 <= value <= 4):
+                return False, meta, f"1012 out of range [0,4] got {value}"
+            if not meta.get("editable"):
+                # allow even if metadata says not editable/empty code — this is core hvac preset
+                meta = {**meta, "editable": True}
+            return True, meta, ""
         if not meta.get("editable"):
             return False, meta, f"not editable group={meta.get('group')} risk={meta.get('risk')}"
         if meta.get("requires_expert") and not self.entry.options.get("enable_expert"):
