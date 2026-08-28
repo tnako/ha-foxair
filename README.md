@@ -4,6 +4,8 @@ Control and monitor your FoxAir / PHNIX heat pump directly from Home Assistant o
 
 This integration reads the heat pump in efficient bulk blocks, so the Modbus bus stays calm and responsive. The register layout and scaling are the same as used in FoxAir_Control.
 
+**Roadmap:** `0.4` ships now on pip `modbus-connection` (HA ≥2026.3) — `0.5` moves to HA 2026.9+ built-in shared bus (see `docs/ROADMAP.md`).
+
 **What you get**
 - Live temperatures, pressures, flow and compressor state
 - Heating / hot water setpoints you can safely adjust
