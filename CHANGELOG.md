@@ -1,3 +1,6 @@
+## 0.4.10
+- fix(modbus): revert transport `modbus_connection` → `pymodbus AsyncModbusTcpClient` for polling — EW11 `extra data`/`transaction_id mismatch` makes `modbus_connection` drop `1011×2`/`2029×45` even with `message_spacing 0.22` (proven live: `pymodbus` 1011×45 ok, `modbus_connection` fail). Keep `0.22s` gap between batches (as 0.3) and tiered `poll_tier` (quick 30s 75 regs / medium 120s 42 regs / rare 300s/600s via `foxair_metadata.json`) with `pymodbus`. Config flow probe also reverted to simple `connect()` (was `read 1011,1`).
+
 ## 0.4.9
 - fix(modbus): restore EW11 half-duplex gap `message_spacing=0.22s` (was 0) in `ModbusConnection` for both poll and config_flow probe — fixes `transaction_id mismatch` / `Repeating` / `No response` on EW11 that caused `1011×65` then `2029×45` failures after 0.4.0 (0.3 had `sleep 0.22` between POLL_BLOCKS).
 

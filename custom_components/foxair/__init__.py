@@ -49,19 +49,11 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
         _LOGGER.debug("frontend panel not available: %s", e)
     except Exception as e:
         _LOGGER.debug("panel registration failed: %s", e)
-    from modbus_connection import ModbusTcpParams
-    from modbus_connection.pymodbus import ModbusConnection
     from .coordinator import FoxAirCoordinator
 
-    host = entry.data.get("host", "EW11-host")
-    port = int(entry.data.get("port", 8899))
-    slave = int(entry.data.get("slave", 1))
-    conn = ModbusConnection(ModbusTcpParams(host=host, port=port), timeout=8, message_spacing=0.22)
-    unit = conn.for_unit(slave)
-    coord = FoxAirCoordinator(hass, entry, unit, conn)
+    coord = FoxAirCoordinator(hass, entry)
     await coord.async_config_entry_first_refresh()
     hass.data.setdefault("foxair", {})[entry.entry_id] = coord
-    hass.data.setdefault("foxair_conn", {})[entry.entry_id] = conn
     entry.async_on_unload(entry.add_update_listener(async_reload_entry))
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
     hass.async_create_task(_cleanup_orphaned_devices(hass))
@@ -74,22 +66,11 @@ async def async_reload_entry(hass: HomeAssistant, entry: ConfigEntry):
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry):
     coord = hass.data.get("foxair", {}).get(entry.entry_id)
-    conn = hass.data.get("foxair_conn", {}).pop(entry.entry_id, None)
     ok = await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
     hass.data.get("foxair", {}).pop(entry.entry_id, None)
-    if conn is not None:
+    if coord and getattr(coord, "client", None):
         try:
-            await conn.close()
+            coord.client.close()
         except Exception as e:
-            _LOGGER.debug("conn close failed: %s", e)
-    elif coord and getattr(coord, "_conn", None):
-        try:
-            await coord._conn.close()
-        except Exception as e:
-            _LOGGER.debug("coord conn close failed: %s", e)
-    elif coord and getattr(coord, "unit", None):
-        try:
-            await coord.unit.disconnect()
-        except Exception as e:
-            _LOGGER.debug("unit disconnect failed: %s", e)
+            _LOGGER.debug("client close failed: %s", e)
     return ok

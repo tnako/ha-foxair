@@ -1,7 +1,7 @@
-import asyncio
 import voluptuous as vol
 from homeassistant import config_entries
 from homeassistant.core import callback
+from pymodbus.client import AsyncModbusTcpClient
 from .const import DOMAIN
 import logging
 import re
@@ -18,22 +18,6 @@ def _validate_host(host: str) -> bool:
     return True
 
 
-async def _tcp_can_connect(host: str, port: int, timeout: float = 3.0) -> bool:
-    try:
-        reader, writer = await asyncio.wait_for(asyncio.open_connection(host, port), timeout=timeout)
-        try:
-            writer.close()
-            try:
-                await writer.wait_closed()
-            except Exception:
-                pass
-        except Exception:
-            pass
-        return True
-    except Exception:
-        return False
-
-
 class FoxAirConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     VERSION = 1
 
@@ -48,32 +32,17 @@ class FoxAirConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             elif not (1 <= port <= 65535) or not (1 <= slave <= 247):
                 errors["base"] = "cannot_connect"
             else:
-                ok = False
-                modbus_error = None
+                client = AsyncModbusTcpClient(host=host, port=port, timeout=5)
                 try:
-                    from modbus_connection import ModbusTcpParams
-                    from modbus_connection.pymodbus import ModbusConnection
-
-                    conn = ModbusConnection(ModbusTcpParams(host=host, port=port), timeout=5, message_spacing=0.22)
-                    unit = conn.for_unit(slave)
-                    try:
-                        await unit.read_holding_registers(1011, 1)
-                        ok = True
-                    finally:
-                        try:
-                            await conn.close()
-                        except Exception:
-                            pass
+                    ok = await client.connect()
                 except Exception as e:
-                    modbus_error = e
-                    _LOGGER.debug("Modbus probe failed %s:%s slave %s: %s", host, port, slave, e)
+                    _LOGGER.debug("probe connect failed %s:%s %s", host, port, e)
                     ok = False
-                if not ok:
-                    # Fallback: raw TCP connect — restores pre-0.4 behavior where TCP accept was enough.
-                    # Modbus read can fail for timing/slave quirks while the gateway still accepts TCP.
-                    if await _tcp_can_connect(host, port, timeout=3):
-                        _LOGGER.debug("Modbus read failed (%s) but TCP %s:%s reachable — accepting", modbus_error, host, port)
-                        ok = True
+                finally:
+                    try:
+                        client.close()
+                    except Exception:
+                        pass
                 if ok:
                     user_input["host"] = host
                     return self.async_create_entry(

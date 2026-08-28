@@ -15,7 +15,7 @@
   "issue_tracker": "https://github.com/tnako/ha-foxair/issues",
   "quality_scale": "custom",
   "requirements": [
-    "modbus-connection[pymodbus]>=4.8"
+    "pymodbus>=3.6.0"
   ],
-  "version": "0.4.9"
+  "version": "0.4.10"
 }
