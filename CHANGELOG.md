@@ -1,3 +1,7 @@
+## 0.3.44
+- fix(config_flow): COP calibration no longer blocks Expert mode — all power fields (`elec_source`, `external_meter_entity`, `v_gain`/`v_offset`/`i_gain`/`i_offset`) are now truly optional with permissive validators (`vol.Any` + empty-string allowed) and empty values keep existing/defaults. `expert_ack` is Optional, `elec_source` defaults to `foxair_register` (no calibration). Enabling expert with just the ack now succeeds.
+- i18n: added missing options strings for the 6 power fields so they show as optional in the UI.
+
 ## 0.3.43
 - fix(climate): On/Off is now a proper climate mode (`hvac_modes=[Off, Heat, Cool]` via reg 1011) instead of a separate boolean switch. `switch.foxair_power` removed from PLATFORMS — power is controlled via the climate card. `async_set_hvac_mode` now writes 1011 for Off and 1011+1012 (preserving DHW bit) for Heat/Cool.
 - fix(climate): preset friendly names — `Hot Water only`, `Heating`, `Heating + Hot Water`, `Cooling`, `Cooling + Hot Water` (raw 0..4). Display, attributes and setters all use the same names.
