@@ -1810,8 +1810,10 @@
     },
     "climate": {
       "foxair_climate": {
-        "name": "Heat pump",
+        "name": "Тепловой насос",
         "state": {
+          "off": "Выкл",
+          "heat": "Вкл",
           "hvac_mode": {
             "off": "Выкл",
             "heat": "Вкл"

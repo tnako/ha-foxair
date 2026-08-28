@@ -1,3 +1,6 @@
+## 0.4.12
+- fix(i18n): climate `Off/On` (`Выкл/Вкл`, `Aus/Ein`) — flat `state.off/heat` + nested `state.hvac_mode` for HA 2026.8 (was only nested, still showed "Обогрев"). Clear browser cache / reload translations after update.
+
 ## 0.4.11
 - fix(climate): `hvac_modes` now shows **Off/On** (was Off/Heating) via `state.hvac_mode heat→On` translations (en/de/ru); `Off` is pure `1011=0`.
 - fix(climate): presets (Heating/Cooling/…+Hot Water) via single `FC16 1011+1012` batched write — no "conflict with registry" when switching to cooling while Off.

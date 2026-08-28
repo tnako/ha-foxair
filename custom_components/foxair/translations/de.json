@@ -1812,6 +1812,8 @@
       "foxair_climate": {
         "name": "Wärmepumpe",
         "state": {
+          "off": "Aus",
+          "heat": "Ein",
           "hvac_mode": {
             "off": "Aus",
             "heat": "Ein"
