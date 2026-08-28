@@ -1,3 +1,6 @@
+## 0.4.6
+- fix(modbus): EW11 gateway drops large reads — `read_holding_registers(1011,65)` → `Modbus Error: No response` then `1346,13` transaction_id mismatch (your log). `max_span 65→45, max_gap 12→8` (live tested EW11-host:8899: 65/60 fail, 55/45/30 ok). Reduces per-request words and fragmentation; pooled reads now align with pre-0.4 `POLL_BLOCKS` 45-60 sizes.
+
 ## 0.4.5
 - fix(config_flow): connectivity `cannot_connect` after 0.4 migration — Modbus read timeout 3s→5s + TCP fallback (raw `open_connection`) restoring pre-0.4 `connect()` behavior; fixes false negatives when gateway accepts TCP but register 1011 read races
 - fix(config_flow): slave ID (and port) were slider due to `vol.Range` — now plain `int` number box with manual 1-247 / 1-65535 validation; shows `Slave ID = 1` as expected

@@ -3,8 +3,8 @@ from modbus_connection.model import Component, gauge, integer
 
 class FoxAir(Component):
     """FoxAir/PHNIX heat pump — all holding registers."""
-    max_span = 65  # heat pump caps per-request
-    max_gap = 12   # merge nearby registers
+    max_span = 45  # EW11 gateway drops >60, 65 fails, 45 stable (tested live EW11-host:8899)
+    max_gap = 8   # merge nearby registers
     register_space = "holding"
 
     reg_1011 = integer(1011, signed=True, writable=True)  #  DIGI1

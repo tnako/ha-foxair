@@ -76,8 +76,8 @@ __all__ = ["FoxAir"]
     lines.append("")
     lines.append("class FoxAir(Component):")
     lines.append('    """FoxAir/PHNIX heat pump — all holding registers."""')
-    lines.append("    max_span = 65  # heat pump caps per-request")
-    lines.append("    max_gap = 12   # merge nearby registers")
+    lines.append("    max_span = 45  # EW11 gateway drops >60, 65 fails, 45 stable (tested live EW11-host:8899)")
+    lines.append("    max_gap = 8   # merge nearby registers")
     lines.append("    register_space = \"holding\"")
     lines.append("")
 
