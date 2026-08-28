@@ -1520,15 +1520,6 @@
       "foxair_2077": {
         "name": "Wasserdurchflussrate"
       },
-      "foxair_heating_power": {
-        "name": "Heizleistung (berechnet)"
-      },
-      "foxair_electrical_power": {
-        "name": "Elektrische Leistung (berechnet)"
-      },
-      "foxair_cop": {
-        "name": "COP (berechnet)"
-      },
       "foxair_2078": {
         "name": "Energiezähler elektrisch high bits"
       },
@@ -1745,8 +1736,14 @@
       "foxair_2149": {
         "name": "Funktion unbekannt"
       },
-      "foxair_heating_curve_target": {
-        "name": "Heizkurven-Zieltemperatur"
+      "foxair_2178": {
+        "name": "Temperatur des Temperatur-/Feuchtesensors"
+      },
+      "foxair_2179": {
+        "name": "Relative Luftfeuchtigkeit"
+      },
+      "foxair_2180": {
+        "name": "Berechneter Taupunkt"
       },
       "foxair_50043": {
         "name": "Service-/OTA-SSID (C37B)"
@@ -1793,14 +1790,17 @@
       "foxair_50512": {
         "name": "Interne Softwareversion ASCII Wort 2/2"
       },
-      "foxair_2178": {
-        "name": "Temperatur des Temperatur-/Feuchtesensors"
+      "foxair_cop": {
+        "name": "COP (berechnet)"
       },
-      "foxair_2179": {
-        "name": "Relative Luftfeuchtigkeit"
+      "foxair_electrical_power": {
+        "name": "Elektrische Leistung (berechnet)"
       },
-      "foxair_2180": {
-        "name": "Berechneter Taupunkt"
+      "foxair_heating_curve_target": {
+        "name": "Heizkurven-Zieltemperatur"
+      },
+      "foxair_heating_power": {
+        "name": "Heizleistung (berechnet)"
       }
     },
     "climate": {
@@ -2633,6 +2633,15 @@
           "inlet_water_temp": "Einlasswassertemperatur"
         }
       },
+      "foxair_1036": {
+        "name": "Indoor Unit Type / Hydraulikmodul-Typ",
+        "state": {
+          "none": "None",
+          "opt_1st_type": "1st Type",
+          "opt_2nd_type": "2nd Type",
+          "opt_3rd_type": "3rd Type"
+        }
+      },
       "foxair_1041": {
         "name": "Zirkulationswasserpumpentyp",
         "state": {
@@ -2733,6 +2742,13 @@
           "yes": "Ja"
         }
       },
+      "foxair_1080": {
+        "name": "Mischventil manuelle Stellrate (0% = Auto-Regelung)",
+        "state": {
+          "manual": "Manuell",
+          "auto": "Auto"
+        }
+      },
       "foxair_1081": {
         "name": "Min. Lüfterdrehzahl im Kühlbetrieb"
       },
@@ -2825,6 +2841,20 @@
         "state": {
           "no": "NO",
           "yes": "YES"
+        }
+      },
+      "foxair_1206": {
+        "name": "EEV Anfangsschritte Heizen 3",
+        "state": {
+          "no": "Nein",
+          "yes": "Ja"
+        }
+      },
+      "foxair_1208": {
+        "name": "EEV Anfangsschritte Heizen 5",
+        "state": {
+          "no": "Nein",
+          "yes": "Ja"
         }
       },
       "foxair_1221": {
@@ -2994,36 +3024,6 @@
       },
       "foxair_1358": {
         "name": "Zone 1 Wasserpumpe im Kühlbetrieb aktivieren",
-        "state": {
-          "no": "Nein",
-          "yes": "Ja"
-        }
-      },
-      "foxair_1036": {
-        "name": "Indoor Unit Type / Hydraulikmodul-Typ",
-        "state": {
-          "none": "None",
-          "opt_1st_type": "1st Type",
-          "opt_2nd_type": "2nd Type",
-          "opt_3rd_type": "3rd Type"
-        }
-      },
-      "foxair_1080": {
-        "name": "Mischventil manuelle Stellrate (0% = Auto-Regelung)",
-        "state": {
-          "manual": "Manuell",
-          "auto": "Auto"
-        }
-      },
-      "foxair_1206": {
-        "name": "EEV Anfangsschritte Heizen 3",
-        "state": {
-          "no": "Nein",
-          "yes": "Ja"
-        }
-      },
-      "foxair_1208": {
-        "name": "EEV Anfangsschritte Heizen 5",
         "state": {
           "no": "Nein",
           "yes": "Ja"

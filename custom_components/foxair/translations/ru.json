@@ -1520,15 +1520,6 @@
       "foxair_2077": {
         "name": "Расход воды [T39]"
       },
-      "foxair_heating_power": {
-        "name": "Тепловая мощность (расчёт)"
-      },
-      "foxair_electrical_power": {
-        "name": "Электрическая мощность (расчёт)"
-      },
-      "foxair_cop": {
-        "name": "COP (расчёт)"
-      },
       "foxair_2078": {
         "name": "Счётчик электроэнергии старшие биты"
       },
@@ -1745,8 +1736,14 @@
       "foxair_2149": {
         "name": "Unknown Function [2149]"
       },
-      "foxair_heating_curve_target": {
-        "name": "Цель кривой отопления"
+      "foxair_2178": {
+        "name": "Температура датчика влажности"
+      },
+      "foxair_2179": {
+        "name": "Относительная влажность"
+      },
+      "foxair_2180": {
+        "name": "Расчётная точка росы"
       },
       "foxair_50043": {
         "name": "Service/OTA SSID (C37B)"
@@ -1793,14 +1790,17 @@
       "foxair_50512": {
         "name": "Внутр. версия ПО ASCII Слово 2/2"
       },
-      "foxair_2178": {
-        "name": "Температура датчика влажности"
+      "foxair_cop": {
+        "name": "COP (расчёт)"
       },
-      "foxair_2179": {
-        "name": "Относительная влажность"
+      "foxair_electrical_power": {
+        "name": "Электрическая мощность (расчёт)"
       },
-      "foxair_2180": {
-        "name": "Расчётная точка росы"
+      "foxair_heating_curve_target": {
+        "name": "Цель кривой отопления"
+      },
+      "foxair_heating_power": {
+        "name": "Тепловая мощность (расчёт)"
       }
     },
     "climate": {
@@ -2633,6 +2633,15 @@
           "inlet_water_temp": "Inlet Water Temp."
         }
       },
+      "foxair_1036": {
+        "name": "Indoor Unit Type / Hydraulikmodul-Typ",
+        "state": {
+          "none": "None",
+          "opt_1st_type": "1st Type",
+          "opt_2nd_type": "2nd Type",
+          "opt_3rd_type": "3rd Type"
+        }
+      },
       "foxair_1041": {
         "name": "Тип насоса [H31]",
         "state": {
@@ -2733,6 +2742,13 @@
           "yes": "Да"
         }
       },
+      "foxair_1080": {
+        "name": "Mischventil manuelle Stellrate (0% = Auto-Regelung)",
+        "state": {
+          "manual": "Вручную",
+          "auto": "Auto"
+        }
+      },
       "foxair_1081": {
         "name": "Мин. скорость вент. охлаждения [F18]"
       },
@@ -2825,6 +2841,20 @@
         "state": {
           "no": "No",
           "yes": "Yes"
+        }
+      },
+      "foxair_1206": {
+        "name": "EEV Anfangsschritte Heizen 3",
+        "state": {
+          "no": "Нет",
+          "yes": "Да"
+        }
+      },
+      "foxair_1208": {
+        "name": "EEV Anfangsschritte Heizen 5",
+        "state": {
+          "no": "Нет",
+          "yes": "Да"
         }
       },
       "foxair_1221": {
@@ -2994,36 +3024,6 @@
       },
       "foxair_1358": {
         "name": "Enable Zone 1 Water Pump in Cooling [Z20]",
-        "state": {
-          "no": "Нет",
-          "yes": "Да"
-        }
-      },
-      "foxair_1036": {
-        "name": "Indoor Unit Type / Hydraulikmodul-Typ",
-        "state": {
-          "none": "None",
-          "opt_1st_type": "1st Type",
-          "opt_2nd_type": "2nd Type",
-          "opt_3rd_type": "3rd Type"
-        }
-      },
-      "foxair_1080": {
-        "name": "Mischventil manuelle Stellrate (0% = Auto-Regelung)",
-        "state": {
-          "manual": "Вручную",
-          "auto": "Auto"
-        }
-      },
-      "foxair_1206": {
-        "name": "EEV Anfangsschritte Heizen 3",
-        "state": {
-          "no": "Нет",
-          "yes": "Да"
-        }
-      },
-      "foxair_1208": {
-        "name": "EEV Anfangsschritte Heizen 5",
         "state": {
           "no": "Нет",
           "yes": "Да"

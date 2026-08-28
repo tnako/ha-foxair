@@ -1,3 +1,6 @@
+## 0.4.3
+- chore(i18n): reorder translations by numeric key (2127→2136→2178→50043→50500) — fixes 50043-50512 inserted between 2128 and 2136; sort all entity domains (sensor/number/select) numerically, non-numeric (cop etc) after; update fix_translations generator to sort on save
+
 ## 0.4.2
 - i18n: validate & fix translations — English default everywhere, no German leak
   - added 18 missing sensors (2178-2180 humidity/dewpoint, 50043-50512 C37B/C544, productkey 200-215 updated) + 3 computed (heating_power/electrical_power/cop) to strings.json; strings↔en now 1:1 (595 sensor, 231 number, 86 select) with English default

@@ -283,10 +283,15 @@ for addr_str, meta_rec in meta.items():
 # Ensure en translations mirror strings for config/options
 # Validate select state completeness: keep as is
 
-# Save
+# Save — sort keys numerically (foxair_2127 < foxair_2136 < foxair_50043) for deterministic diffs
+def _sort_key(k: str):
+    m = re.match(r"foxair_(\d+)", k)
+    return (0, int(m.group(1)), k) if m else (1, k)
+
 for path, data in [(BASE/"strings.json", strings), (BASE/"translations/en.json", en), (BASE/"translations/de.json", de), (BASE/"translations/ru.json", ru)]:
-    # sort keys for deterministic output? keep original order but ensure json pretty
-    # HA expects strings.json top-level order: config, entity, options
+    if "entity" in data:
+        for domain in list(data["entity"].keys()):
+            data["entity"][domain] = dict(sorted(data["entity"][domain].items(), key=lambda kv: _sort_key(kv[0])))
     path.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
 print(f"Fixed: {fixed}")

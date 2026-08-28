@@ -1520,15 +1520,6 @@
       "foxair_2077": {
         "name": "Water Flow Rate [T39]"
       },
-      "foxair_heating_power": {
-        "name": "Heating Power (calculated)"
-      },
-      "foxair_electrical_power": {
-        "name": "Electrical Power (calculated)"
-      },
-      "foxair_cop": {
-        "name": "COP (calculated)"
-      },
       "foxair_2078": {
         "name": "Energy Meter Electric High Bits"
       },
@@ -1745,8 +1736,14 @@
       "foxair_2149": {
         "name": "Unknown Function [2149]"
       },
-      "foxair_heating_curve_target": {
-        "name": "Heating Curve Target"
+      "foxair_2178": {
+        "name": "Temperature/Humidity Sensor Temperature"
+      },
+      "foxair_2179": {
+        "name": "Relative Humidity"
+      },
+      "foxair_2180": {
+        "name": "Calculated Dew Point"
       },
       "foxair_50043": {
         "name": "Service/OTA SSID (C37B)"
@@ -1793,14 +1790,17 @@
       "foxair_50512": {
         "name": "Internal Software Version ASCII Word 2/2"
       },
-      "foxair_2178": {
-        "name": "Temperature/Humidity Sensor Temperature"
+      "foxair_cop": {
+        "name": "COP (calculated)"
       },
-      "foxair_2179": {
-        "name": "Relative Humidity"
+      "foxair_electrical_power": {
+        "name": "Electrical Power (calculated)"
       },
-      "foxair_2180": {
-        "name": "Calculated Dew Point"
+      "foxair_heating_curve_target": {
+        "name": "Heating Curve Target"
+      },
+      "foxair_heating_power": {
+        "name": "Heating Power (calculated)"
       }
     },
     "climate": {
@@ -2633,6 +2633,15 @@
           "inlet_water_temp": "Inlet Water Temp."
         }
       },
+      "foxair_1036": {
+        "name": "Indoor Unit Type / Hydraulikmodul-Typ",
+        "state": {
+          "none": "None",
+          "opt_1st_type": "1st Type",
+          "opt_2nd_type": "2nd Type",
+          "opt_3rd_type": "3rd Type"
+        }
+      },
       "foxair_1041": {
         "name": "Pump Type [H31]",
         "state": {
@@ -2733,6 +2742,13 @@
           "yes": "Yes"
         }
       },
+      "foxair_1080": {
+        "name": "Mischventil manuelle Stellrate (0% = Auto-Regelung)",
+        "state": {
+          "manual": "Manual",
+          "auto": "Auto"
+        }
+      },
       "foxair_1081": {
         "name": "Cooling Fan Min Speed [F18]"
       },
@@ -2822,6 +2838,20 @@
       },
       "foxair_1202": {
         "name": "Main Circulation Pump Manual Control [P06]",
+        "state": {
+          "no": "No",
+          "yes": "Yes"
+        }
+      },
+      "foxair_1206": {
+        "name": "EEV Anfangsschritte Heizen 3",
+        "state": {
+          "no": "No",
+          "yes": "Yes"
+        }
+      },
+      "foxair_1208": {
+        "name": "EEV Anfangsschritte Heizen 5",
         "state": {
           "no": "No",
           "yes": "Yes"
@@ -2994,36 +3024,6 @@
       },
       "foxair_1358": {
         "name": "Enable Zone 1 Water Pump in Cooling [Z20]",
-        "state": {
-          "no": "No",
-          "yes": "Yes"
-        }
-      },
-      "foxair_1036": {
-        "name": "Indoor Unit Type / Hydraulikmodul-Typ",
-        "state": {
-          "none": "None",
-          "opt_1st_type": "1st Type",
-          "opt_2nd_type": "2nd Type",
-          "opt_3rd_type": "3rd Type"
-        }
-      },
-      "foxair_1080": {
-        "name": "Mischventil manuelle Stellrate (0% = Auto-Regelung)",
-        "state": {
-          "manual": "Manual",
-          "auto": "Auto"
-        }
-      },
-      "foxair_1206": {
-        "name": "EEV Anfangsschritte Heizen 3",
-        "state": {
-          "no": "No",
-          "yes": "Yes"
-        }
-      },
-      "foxair_1208": {
-        "name": "EEV Anfangsschritte Heizen 5",
         "state": {
           "no": "No",
           "yes": "Yes"
