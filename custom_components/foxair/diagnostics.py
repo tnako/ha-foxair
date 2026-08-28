@@ -19,7 +19,6 @@ async def async_get_config_entry_diagnostics(hass: HomeAssistant, entry: ConfigE
             curve = {"at": at, "curve_target": ct, "slope": (coord.data.get(1234) or {}).get("value"), "offset": (coord.data.get(1235) or {}).get("value"), "h36": (coord.data.get(1236) or {}).get("raw")}
     except Exception as e:
         curve = {"error": str(e)}
-    # v0.4: expose foxair model stats if available
     foxair_info = {}
     try:
         fox = getattr(coord, "foxair", None)

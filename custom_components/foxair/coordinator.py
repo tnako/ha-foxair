@@ -1,4 +1,4 @@
-"""FoxAir coordinator — v0.4 ModbusConnection + foxair-modbus pooled reads."""
+"""FoxAir coordinator — ModbusConnection + foxair-modbus pooled reads."""
 import json, pathlib, asyncio, logging, time, math
 from datetime import timedelta
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed

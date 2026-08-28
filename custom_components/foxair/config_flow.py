@@ -11,7 +11,6 @@ class FoxAirConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             host=user_input.get("host","EW11-host")
             port=int(user_input.get("port",8899))
             slave=int(user_input.get("slave",1))
-            # v0.4 probe via owned ModbusConnection
             try:
                 from modbus_connection import ModbusTcpParams
                 from modbus_connection.pymodbus import ModbusConnection

@@ -41,7 +41,6 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
             )
     except Exception:
         pass
-    # v0.4: own ModbusConnection via modbus_connection.pymodbus
     from modbus_connection import ModbusTcpParams
     from modbus_connection.pymodbus import ModbusConnection
     from .coordinator import FoxAirCoordinator
