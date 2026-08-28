@@ -1,3 +1,10 @@
+## 0.4.2
+- i18n: validate & fix translations — English default everywhere, no German leak
+  - added 18 missing sensors (2178-2180 humidity/dewpoint, 50043-50512 C37B/C544, productkey 200-215 updated) + 3 computed (heating_power/electrical_power/cop) to strings.json; strings↔en now 1:1 (595 sensor, 231 number, 86 select) with English default
+  - fixed German leak in en: Block Header Packet 3-8 (1181-1190,1271-1278,1361-1368,1451-1458,1547-1548,2001-2008,2091-2098) were still German; also 50501-50512 Hardwarecode etc; 2125-2128 & 2136-2138 outdated candidate/Reserved now DHW energy & T04/power
+  - de/ru completeness: 0 missing keys vs en; de German, ru Russian (Cyrillic) for popular, English fallback for diagnostics as before; switch foxair_power added to all
+  - edge: de/ru block headers now correct (German vs English fallback for ru diagnostics), all select states verified
+
 ## 0.4.1
 - sync: registers/knowledge from FoxAir_Control 0.2.62 (up to 5607b5a) — 18 new, 300+ corrections
   - new read-only diagnostics: humidity sensor 2178 (°C), relative humidity 2179 (% rF), dewpoint 2180 (°C); DHW energy 32-bit counters 2125-2128 (electric/thermal high/low); T04 second path 2136, WP power 2137/2138 without booster

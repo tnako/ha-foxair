@@ -18,52 +18,52 @@
   "entity": {
     "sensor": {
       "foxair_200": {
-        "name": "HMI Comm Block ID Word 1 ASCII Char 1-2"
+        "name": "PHNIX/Aliyun ProductKey Word 1/16"
       },
       "foxair_201": {
-        "name": "HMI Comm Block ID Word 2 ASCII Char 3-4"
+        "name": "PHNIX/Aliyun ProductKey Word 2/16"
       },
       "foxair_202": {
-        "name": "HMI Comm Block ID Word 3 ASCII Char 5-6"
+        "name": "PHNIX/Aliyun ProductKey Word 3/16"
       },
       "foxair_203": {
-        "name": "HMI Comm Block ID Word 4 ASCII Char 7-8"
+        "name": "PHNIX/Aliyun ProductKey Word 4/16"
       },
       "foxair_204": {
-        "name": "HMI Comm Block ID Word 5 ASCII Char 9-10"
+        "name": "PHNIX/Aliyun ProductKey Word 5/16"
       },
       "foxair_205": {
-        "name": "HMI Comm Block ID Word 6 ASCII Char 11-12"
+        "name": "PHNIX/Aliyun ProductKey Word 6/16"
       },
       "foxair_206": {
-        "name": "HMI Comm Block Reserved [206]"
+        "name": "PHNIX/Aliyun ProductKey Word 7/16"
       },
       "foxair_207": {
-        "name": "HMI Comm Block Reserved [207]"
+        "name": "PHNIX/Aliyun ProductKey Word 8/16"
       },
       "foxair_208": {
-        "name": "HMI Comm Block Reserved [208]"
+        "name": "PHNIX/Aliyun ProductKey Word 9/16"
       },
       "foxair_209": {
-        "name": "HMI Comm Block Reserved [209]"
+        "name": "PHNIX/Aliyun ProductKey Word 10/16"
       },
       "foxair_210": {
-        "name": "HMI Comm Block Reserved [210]"
+        "name": "PHNIX/Aliyun ProductKey Word 11/16"
       },
       "foxair_211": {
-        "name": "HMI Comm Block Reserved [211]"
+        "name": "PHNIX/Aliyun ProductKey Word 12/16"
       },
       "foxair_212": {
-        "name": "HMI Comm Block Reserved [212]"
+        "name": "PHNIX/Aliyun ProductKey Word 13/16"
       },
       "foxair_213": {
-        "name": "HMI Comm Block Reserved [213]"
+        "name": "PHNIX/Aliyun ProductKey Word 14/16"
       },
       "foxair_214": {
-        "name": "HMI Comm Block Reserved [214]"
+        "name": "PHNIX/Aliyun ProductKey Word 15/16"
       },
       "foxair_215": {
-        "name": "HMI Comm Block Reserved [215]"
+        "name": "PHNIX/Aliyun ProductKey Word 16/16"
       },
       "foxair_1001": {
         "name": "Block Header Packet 1 ID Word 1 WiFi Barcode ASCII Char 1-2"
@@ -606,28 +606,28 @@
         "name": "Temperature / Hysteresis Parameter R14 [R14]"
       },
       "foxair_1181": {
-        "name": "Blockkopf Paket 3 / Kennung Wort 1 / ASCII Zeichen 1-2"
+        "name": "Block Header Packet 3 ID Word 1 ASCII Char 1-2"
       },
       "foxair_1182": {
-        "name": "Blockkopf Paket 3 / Kennung Wort 2 / ASCII Zeichen 3-4"
+        "name": "Block Header Packet 3 ID Word 2 ASCII Char 3-4"
       },
       "foxair_1183": {
-        "name": "Blockkopf Paket 3 / Kennung Wort 3 / ASCII Zeichen 5-6"
+        "name": "Block Header Packet 3 ID Word 3 ASCII Char 5-6"
       },
       "foxair_1184": {
-        "name": "Blockkopf Paket 3 / Kennung Wort 4 / ASCII Zeichen 7-8"
+        "name": "Block Header Packet 3 ID Word 4 ASCII Char 7-8"
       },
       "foxair_1185": {
-        "name": "Blockkopf Paket 3 / Kennung Wort 5 / ASCII Zeichen 9-10"
+        "name": "Block Header Packet 3 ID Word 5 ASCII Char 9-10"
       },
       "foxair_1186": {
-        "name": "Blockkopf Paket 3 / Kennung Wort 6 / ASCII Zeichen 11-12"
+        "name": "Block Header Packet 3 ID Word 6 ASCII Char 11-12"
       },
       "foxair_1187": {
-        "name": "Blockkopf Paket 3 / Reserve 1"
+        "name": "Block Header Packet 3 Reserved 1"
       },
       "foxair_1188": {
-        "name": "Blockkopf Paket 3 / Reserve 2"
+        "name": "Block Header Packet 3 Reserved 2"
       },
       "foxair_1189": {
         "name": "Block Header Packet 3 Marker Length"
@@ -876,28 +876,28 @@
         "name": "HP On/Off Timer 5+6 Active/Days Bitmask [KG45-KG60]"
       },
       "foxair_1271": {
-        "name": "Blockkopf Paket 4 / Kennung Wort 1 / ASCII Zeichen 1-2"
+        "name": "Block Header Packet 4 ID Word 1 ASCII Char 1-2"
       },
       "foxair_1272": {
-        "name": "Blockkopf Paket 4 / Kennung Wort 2 / ASCII Zeichen 3-4"
+        "name": "Block Header Packet 4 ID Word 2 ASCII Char 3-4"
       },
       "foxair_1273": {
-        "name": "Blockkopf Paket 4 / Kennung Wort 3 / ASCII Zeichen 5-6"
+        "name": "Block Header Packet 4 ID Word 3 ASCII Char 5-6"
       },
       "foxair_1274": {
-        "name": "Blockkopf Paket 4 / Kennung Wort 4 / ASCII Zeichen 7-8"
+        "name": "Block Header Packet 4 ID Word 4 ASCII Char 7-8"
       },
       "foxair_1275": {
-        "name": "Blockkopf Paket 4 / Kennung Wort 5 / ASCII Zeichen 9-10"
+        "name": "Block Header Packet 4 ID Word 5 ASCII Char 9-10"
       },
       "foxair_1276": {
-        "name": "Blockkopf Paket 4 / Kennung Wort 6 / ASCII Zeichen 11-12"
+        "name": "Block Header Packet 4 ID Word 6 ASCII Char 11-12"
       },
       "foxair_1277": {
-        "name": "Blockkopf Paket 4 / Reserve 1"
+        "name": "Block Header Packet 4 Reserved 1"
       },
       "foxair_1278": {
-        "name": "Blockkopf Paket 4 / Reserve 2"
+        "name": "Block Header Packet 4 Reserved 2"
       },
       "foxair_1279": {
         "name": "Block Header Packet 4 Marker Length"
@@ -1140,28 +1140,28 @@
         "name": "Enable Zone 1 Water Pump in Cooling [Z20]"
       },
       "foxair_1361": {
-        "name": "Blockkopf Paket 5 / Kennung Wort 1 / ASCII Zeichen 1-2"
+        "name": "Block Header Packet 5 ID Word 1 ASCII Char 1-2"
       },
       "foxair_1362": {
-        "name": "Blockkopf Paket 5 / Kennung Wort 2 / ASCII Zeichen 3-4"
+        "name": "Block Header Packet 5 ID Word 2 ASCII Char 3-4"
       },
       "foxair_1363": {
-        "name": "Blockkopf Paket 5 / Kennung Wort 3 / ASCII Zeichen 5-6"
+        "name": "Block Header Packet 5 ID Word 3 ASCII Char 5-6"
       },
       "foxair_1364": {
-        "name": "Blockkopf Paket 5 / Kennung Wort 4 / ASCII Zeichen 7-8"
+        "name": "Block Header Packet 5 ID Word 4 ASCII Char 7-8"
       },
       "foxair_1365": {
-        "name": "Blockkopf Paket 5 / Kennung Wort 5 / ASCII Zeichen 9-10"
+        "name": "Block Header Packet 5 ID Word 5 ASCII Char 9-10"
       },
       "foxair_1366": {
-        "name": "Blockkopf Paket 5 / Kennung Wort 6 / ASCII Zeichen 11-12"
+        "name": "Block Header Packet 5 ID Word 6 ASCII Char 11-12"
       },
       "foxair_1367": {
-        "name": "Blockkopf Paket 5 / Reserve 1"
+        "name": "Block Header Packet 5 Reserved 1"
       },
       "foxair_1368": {
-        "name": "Blockkopf Paket 5 / Reserve 2"
+        "name": "Block Header Packet 5 Reserved 2"
       },
       "foxair_1369": {
         "name": "Block Header Packet 5 Marker Length"
@@ -1221,28 +1221,28 @@
         "name": "Stop Refilling Pressure Diff. (for IDU) [P16]"
       },
       "foxair_1451": {
-        "name": "Blockkopf Paket 6 / Kennung Wort 1 / ASCII Zeichen 1-2"
+        "name": "Block Header Packet 6 ID Word 1 ASCII Char 1-2"
       },
       "foxair_1452": {
-        "name": "Blockkopf Paket 6 / Kennung Wort 2 / ASCII Zeichen 3-4"
+        "name": "Block Header Packet 6 ID Word 2 ASCII Char 3-4"
       },
       "foxair_1453": {
-        "name": "Blockkopf Paket 6 / Kennung Wort 3 / ASCII Zeichen 5-6"
+        "name": "Block Header Packet 6 ID Word 3 ASCII Char 5-6"
       },
       "foxair_1454": {
-        "name": "Blockkopf Paket 6 / Kennung Wort 4 / ASCII Zeichen 7-8"
+        "name": "Block Header Packet 6 ID Word 4 ASCII Char 7-8"
       },
       "foxair_1455": {
-        "name": "Blockkopf Paket 6 / Kennung Wort 5 / ASCII Zeichen 9-10"
+        "name": "Block Header Packet 6 ID Word 5 ASCII Char 9-10"
       },
       "foxair_1456": {
-        "name": "Blockkopf Paket 6 / Kennung Wort 6 / ASCII Zeichen 11-12"
+        "name": "Block Header Packet 6 ID Word 6 ASCII Char 11-12"
       },
       "foxair_1457": {
-        "name": "Blockkopf Paket 6 / Reserve 1"
+        "name": "Block Header Packet 6 Reserved 1"
       },
       "foxair_1458": {
-        "name": "Blockkopf Paket 6 / Reserve 2"
+        "name": "Block Header Packet 6 Reserved 2"
       },
       "foxair_1459": {
         "name": "Block Header Packet 6 Marker Length"
@@ -1278,10 +1278,10 @@
         "name": "Block Header Packet 7 ID Word 6"
       },
       "foxair_1547": {
-        "name": "Blockkopf Paket 7 / Reserve 1"
+        "name": "Block Header Packet 7 Reserved 1"
       },
       "foxair_1548": {
-        "name": "Blockkopf Paket 7 / Reserve 2"
+        "name": "Block Header Packet 7 Reserved 2"
       },
       "foxair_1549": {
         "name": "Block Header Packet 7 Marker Length"
@@ -1290,28 +1290,28 @@
         "name": "Block Header Packet 7 First Header Register"
       },
       "foxair_2001": {
-        "name": "Blockkopf Paket 7 / Kennung Wort 1 / ASCII Zeichen 1-2"
+        "name": "Block Header Packet 7 ID Word 1 ASCII Char 1-2"
       },
       "foxair_2002": {
-        "name": "Blockkopf Paket 7 / Kennung Wort 2 / ASCII Zeichen 3-4"
+        "name": "Block Header Packet 7 ID Word 2 ASCII Char 3-4"
       },
       "foxair_2003": {
-        "name": "Blockkopf Paket 7 / Kennung Wort 3 / ASCII Zeichen 5-6"
+        "name": "Block Header Packet 7 ID Word 3 ASCII Char 5-6"
       },
       "foxair_2004": {
-        "name": "Blockkopf Paket 7 / Kennung Wort 4 / ASCII Zeichen 7-8"
+        "name": "Block Header Packet 7 ID Word 4 ASCII Char 7-8"
       },
       "foxair_2005": {
-        "name": "Blockkopf Paket 7 / Kennung Wort 5 / ASCII Zeichen 9-10"
+        "name": "Block Header Packet 7 ID Word 5 ASCII Char 9-10"
       },
       "foxair_2006": {
-        "name": "Blockkopf Paket 7 / Kennung Wort 6 / ASCII Zeichen 11-12"
+        "name": "Block Header Packet 7 ID Word 6 ASCII Char 11-12"
       },
       "foxair_2007": {
-        "name": "Blockkopf Paket Status 1 / Reserve 1"
+        "name": "Block Header Packet Status 1 Reserved 1"
       },
       "foxair_2008": {
-        "name": "Blockkopf Paket Status 1 / Reserve 2"
+        "name": "Block Header Packet Status 1 Reserved 2"
       },
       "foxair_2009": {
         "name": "Block Header Status Packet 1 Marker Length"
@@ -1569,28 +1569,28 @@
         "name": "Error 6 / Fault Bits [ERR06]"
       },
       "foxair_2091": {
-        "name": "Blockkopf Paket 8 / Kennung Wort 1 / ASCII Zeichen 1-2"
+        "name": "Block Header Packet 8 ID Word 1 ASCII Char 1-2"
       },
       "foxair_2092": {
-        "name": "Blockkopf Paket 8 / Kennung Wort 2 / ASCII Zeichen 3-4"
+        "name": "Block Header Packet 8 ID Word 2 ASCII Char 3-4"
       },
       "foxair_2093": {
-        "name": "Blockkopf Paket 8 / Kennung Wort 3 / ASCII Zeichen 5-6"
+        "name": "Block Header Packet 8 ID Word 3 ASCII Char 5-6"
       },
       "foxair_2094": {
-        "name": "Blockkopf Paket 8 / Kennung Wort 4 / ASCII Zeichen 7-8"
+        "name": "Block Header Packet 8 ID Word 4 ASCII Char 7-8"
       },
       "foxair_2095": {
-        "name": "Blockkopf Paket 8 / Kennung Wort 5 / ASCII Zeichen 9-10"
+        "name": "Block Header Packet 8 ID Word 5 ASCII Char 9-10"
       },
       "foxair_2096": {
-        "name": "Blockkopf Paket 8 / Kennung Wort 6 / ASCII Zeichen 11-12"
+        "name": "Block Header Packet 8 ID Word 6 ASCII Char 11-12"
       },
       "foxair_2097": {
-        "name": "Blockkopf Paket Status 2 / Reserve 1"
+        "name": "Block Header Packet Status 2 Reserved 1"
       },
       "foxair_2098": {
-        "name": "Blockkopf Paket Status 2 / Reserve 2"
+        "name": "Block Header Packet Status 2 Reserved 2"
       },
       "foxair_2099": {
         "name": "Block Header Status Packet 2 Marker Length"
@@ -1671,16 +1671,16 @@
         "name": "Energy Meter Heat Quantity Cooling"
       },
       "foxair_2125": {
-        "name": "Reserved [2125]"
+        "name": "DHW Electric Energy High Word"
       },
       "foxair_2126": {
-        "name": "Reserved [2126]"
+        "name": "DHW Electric Energy Low Word"
       },
       "foxair_2127": {
-        "name": "Reserved [2127]"
+        "name": "DHW Thermal Energy High Word"
       },
       "foxair_2128": {
-        "name": "Reserved [2128]"
+        "name": "DHW Thermal Energy Low Word"
       },
       "foxair_2129": {
         "name": "Reserved [2129]"
@@ -1704,13 +1704,13 @@
         "name": "Unknown Function [2135]"
       },
       "foxair_2136": {
-        "name": "Calculated x0.1 Control / Module Value (candidate)"
+        "name": "T04 Outdoor Temperature - Secondary Path"
       },
       "foxair_2137": {
-        "name": "Electric Power / Mirror of 2054 (candidate)"
+        "name": "Heat Pump Electrical Power (without booster)"
       },
       "foxair_2138": {
-        "name": "Thermal Power / Mirror of 2059 (candidate)"
+        "name": "Heat Pump Thermal Power (without booster)"
       },
       "foxair_2139": {
         "name": "Unknown Function [2139]"
@@ -1747,6 +1747,60 @@
       },
       "foxair_heating_curve_target": {
         "name": "Heating Curve Target"
+      },
+      "foxair_50043": {
+        "name": "Service/OTA SSID (C37B)"
+      },
+      "foxair_50044": {
+        "name": "C37B Acknowledge Status"
+      },
+      "foxair_50500": {
+        "name": "Service/OTA SSID (C544)"
+      },
+      "foxair_50501": {
+        "name": "Hardware Code ASCII Word 1/4"
+      },
+      "foxair_50502": {
+        "name": "Hardware Code ASCII Word 2/4"
+      },
+      "foxair_50503": {
+        "name": "Hardware Code ASCII Word 3/4"
+      },
+      "foxair_50504": {
+        "name": "Hardware Code ASCII Word 4/4"
+      },
+      "foxair_50505": {
+        "name": "Hardware Version ASCII Word 1/2"
+      },
+      "foxair_50506": {
+        "name": "Hardware Version ASCII Word 2/2"
+      },
+      "foxair_50507": {
+        "name": "Software Code ASCII Word 1/4"
+      },
+      "foxair_50508": {
+        "name": "Software Code ASCII Word 2/4"
+      },
+      "foxair_50509": {
+        "name": "Software Code ASCII Word 3/4"
+      },
+      "foxair_50510": {
+        "name": "Software Code ASCII Word 4/4"
+      },
+      "foxair_50511": {
+        "name": "Internal Software Version ASCII Word 1/2"
+      },
+      "foxair_50512": {
+        "name": "Internal Software Version ASCII Word 2/2"
+      },
+      "foxair_2178": {
+        "name": "Temperature/Humidity Sensor Temperature"
+      },
+      "foxair_2179": {
+        "name": "Relative Humidity"
+      },
+      "foxair_2180": {
+        "name": "Calculated Dew Point"
       }
     },
     "climate": {
@@ -2223,10 +2277,10 @@
         "name": "AT to Start Frequency Limit in Cooling [R60]"
       },
       "foxair_1234": {
-        "name": "Heating Curve Slope (K)"
+        "name": "AT Compensation Slope"
       },
       "foxair_1235": {
-        "name": "Heating Curve Offset (B)"
+        "name": "AT Compensation Offset"
       },
       "foxair_1237": {
         "name": "AT to Stop Frequency Limit in Cooling [R61]"
@@ -2780,7 +2834,7 @@
         "name": "Frequenzregelungsmodus [C06]"
       },
       "foxair_1236": {
-        "name": "Heating Curve Mode [H36]",
+        "name": "Enable AT Compensation Curve Zone 1 [H36]",
         "state": {
           "fixed": "Fixed temperature",
           "curve": "Weather compensation (curve)"

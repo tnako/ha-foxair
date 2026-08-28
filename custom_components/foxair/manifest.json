@@ -17,5 +17,5 @@
   "requirements": [
     "modbus-connection[pymodbus]>=4.8"
   ],
-  "version": "0.4.1"
+  "version": "0.4.2"
 }
