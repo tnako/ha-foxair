@@ -1,3 +1,6 @@
+## 0.4.15
+- fix(H36): `1236` AT-Kompensation `1-6` → `0-1` (Nein/Ja) — `select 1236` from fixed (`0`) was rejected as out of range; same for `1046 H37`. Both now `0-1` in `foxair_metadata.json` (proven via `foxair_phnix_registers.json` value_map).
+
 ## 0.4.14
 - fix(validate): allow `select`/`time`/`SG`/`Timer` without `min/max` (79 addrs had `missing limits` — e.g. `SG01`, `KG*`, `TIMER_MODE`, `TIME_HHMM`) — now permits `value_map`/`safe RAW 0-65535` instead of blocking (keeps `dangerous` RAW block).
 
