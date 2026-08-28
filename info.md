@@ -1,1 +1,1 @@
-FoxAir Modbus Heat Pump - bulk Modbus, calm bus, same groups as FoxAir_Control. Everyday controls visible, expert controls hidden until enabled.
+FoxAir Modbus Heat Pump — bulk Modbus via foxair-modbus (pooled reads, calm bus), same groups as FoxAir_Control (591 regs, 595 translations). Everyday controls visible, expert controls hidden until enabled. Heating curve panel with no YAML. Requires HA ≥2026.3 (0.5 → HA 2026.9+ for shared bus).

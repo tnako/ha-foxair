@@ -1,13 +1,19 @@
 # Roadmap
 
-**0.1** - Live diagnostics (temperatures, flow, compressor). Bulk reading, HACS install.
+**Current:** `0.4.3` — HA **≥2026.3** via pip `modbus-connection[pymodbus]>=4.8` + vendored `foxair-modbus` (owned `ModbusConnection`, pooled reads `max_span=65`/`max_gap=12`, 469 fields, 595 translations sorted numerically). No HA 2026.9 required.
 
-**0.2** - Full register set. Everyday controls stay visible, expert controls are hidden as Diagnostic until you enable them. Translations EN/DE/RU.
+What shipped in 0.4.x:
+- **0.4.0** — migrate from `AsyncModbusTcpClient`+12 `POLL_BLOCKS` to `modbus-connection` `Component` (`gauge`/`integer`), pooled reads, ~35% slimmer coordinator
+- **0.4.1** — sync registers/knowledge from FoxAir_Control 0.2.62 (2178-2180 humidity/dewpoint, 2125-2128 DHW energy, 2136-2138 T04/power, ProductKey/C544 labels)
+- **0.4.2** — i18n validation (English default, 0 German leak, 595 sensor parity)
+- **0.4.3** — reorder translations numerically (2127→2136→2178→50043→50500) + generator sort
 
-**0.3** - Safe writing with limits, SG Ready, pump modes and climate controls. On/Off as `hvac_mode: Off` (1011), 4 presets `Heating`/`Cooling`/`Heating+Hot Water`/`Cooling+Hot Water` (1012), curve panel.
+**Next:** `0.4.x` maintenance — register syncs, i18n, bugfixes, HA ≥2026.3 stays.
 
-**0.4** - Modern Modbus via `modbus-connection` + standalone `foxair-modbus` library (pip) — **HA ≥2026.3, no 2026.9 required**. Own `ModbusConnection(ModbusTcpParams)` via `modbus_connection.pymodbus`, pooled reads (one per space vs 12 `POLL_BLOCKS`), typed `Component` model (`gauge`/`coil`/`uint32`), pytest mock, ~30-35% less code in `custom_components/foxair`. Same entities; YAML `modbus:` still works. `manifest.json` adds `requirements: ["modbus-connection[pymodbus]>=4.8","foxair-modbus>=0.1.0"]`, no `dependencies: ["modbus"]`.
+---
 
-**0.5** - Require **HA 2026.9+**, switch to HA-bundled `modbus-connection` + shared `modbus` bus (`async_get_unit`/`async_get_temporary_unit`). Add `dependencies: ["modbus"]`, set `homeassistant: "2026.9.0"` in `hacs.json`/`manifest.json`, **remove** `modbus-connection`/`pymodbus` from pip `requirements` and delete any system-wide `pip install modbus-connection` (HA now bundles it). Same `foxair-modbus` model, just `ModbusUnit` source changes — sharing socket with Fronius/Sofar/Flexit on same gateway.
+**0.5** — Require **HA 2026.9+**, switch to HA-bundled `modbus-connection` + shared `modbus` bus (`async_get_unit`/`async_get_temporary_unit`). Add `dependencies: ["modbus"]`, set `homeassistant: "2026.9.0"` in `hacs.json`/`manifest.json`, **remove** `modbus-connection`/`pymodbus` from pip `requirements` and delete any system-wide `pip install modbus-connection` (HA now bundles it). Same `foxair-modbus` model, just `ModbusUnit` source changes — sharing socket with Fronius/Sofar/Flexit on same gateway.
+
+No YAML `modbus:` breakage — that still works. UI setup will share the bus automatically in 0.5.
 
 Have an idea? Open an issue at https://github.com/tnako/ha-foxair/issues

@@ -1,3 +1,5 @@
+# Official App Tab split (H/A/F/D/E/R/P/G/C/Z/O/S/T) — from FoxAir_Control app docs
+# Used by tools/build_metadata.py BLOCK_SHORT / APP_TAB_TITLES
 Tab H
  * H01: Enable Power-off Memory — YES
  * H05: Enable Cooling Function — YES

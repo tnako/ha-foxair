@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""Generate foxair_metadata.json for v0.3 — editable, min/max, group, risk.
+"""Generate foxair_metadata.json — editable, min/max, group, risk.
 
 Sources: data/foxair_phnix_registers.json + data/foxair_phnix_knowledge.json
 Extends with groups identical to FoxAir_Control BLOCK_SHORT and protection tiers.
+Run: python3 tools/build_metadata.py  (see tools/README.md)
 """
 import json, pathlib, re
 

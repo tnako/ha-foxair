@@ -1,3 +1,10 @@
+## 0.4.4
+- chore(repo): audit and clean leftovers — update README/docs to 0.4.3, archive v0.3 reviews, validate tools, update data/README
+  - README 0.4.3 (591 regs, pooled reads, humidity/energy, vendor, curve panel, HA ≥2026.3) replacing outdated 0.4 roadmap blurb
+  - docs/ROADMAP 0.4.3 current + 0.5 plan (HA 2026.9 shared bus)
+  - archive `ARCHITECTURE_REVIEW.md`/`SECURITY_REVIEW.md` v0.3 → `docs/archive/*_v0.3.md` + archive README (outdated POLL_BLOCKS/573 counts)
+  - tools kept: `build_metadata`+`gen_foxair_modbus` core, `fix_translations` maintenance — added `tools/README.md` with run command; `modbus/tabs.txt` header; `data/README` 591 table; `hacs.json` 2024.1→2026.3, `info.md` expanded; `icons.json`+`brand/` duplication kept intentionally (HACS vs HA runtime)
+
 ## 0.4.3
 - chore(i18n): reorder translations by numeric key (2127→2136→2178→50043→50500) — fixes 50043-50512 inserted between 2128 and 2136; sort all entity domains (sensor/number/select) numerically, non-numeric (cop etc) after; update fix_translations generator to sort on save
 
