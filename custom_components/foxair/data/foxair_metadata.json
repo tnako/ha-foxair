@@ -17,7 +17,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "PHNIX/Aliyun ProductKey Wort 1/16"
+    "name": "PHNIX/Aliyun ProductKey Wort 1/16",
+    "poll_tier": "rare"
   },
   "201": {
     "addr": 201,
@@ -37,7 +38,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "PHNIX/Aliyun ProductKey Wort 2/16"
+    "name": "PHNIX/Aliyun ProductKey Wort 2/16",
+    "poll_tier": "rare"
   },
   "202": {
     "addr": 202,
@@ -57,7 +59,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "PHNIX/Aliyun ProductKey Wort 3/16"
+    "name": "PHNIX/Aliyun ProductKey Wort 3/16",
+    "poll_tier": "rare"
   },
   "203": {
     "addr": 203,
@@ -77,7 +80,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "PHNIX/Aliyun ProductKey Wort 4/16"
+    "name": "PHNIX/Aliyun ProductKey Wort 4/16",
+    "poll_tier": "rare"
   },
   "204": {
     "addr": 204,
@@ -97,7 +101,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "PHNIX/Aliyun ProductKey Wort 5/16"
+    "name": "PHNIX/Aliyun ProductKey Wort 5/16",
+    "poll_tier": "rare"
   },
   "205": {
     "addr": 205,
@@ -117,7 +122,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "PHNIX/Aliyun ProductKey Wort 6/16"
+    "name": "PHNIX/Aliyun ProductKey Wort 6/16",
+    "poll_tier": "rare"
   },
   "206": {
     "addr": 206,
@@ -137,7 +143,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "PHNIX/Aliyun ProductKey Wort 7/16"
+    "name": "PHNIX/Aliyun ProductKey Wort 7/16",
+    "poll_tier": "rare"
   },
   "207": {
     "addr": 207,
@@ -157,7 +164,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "PHNIX/Aliyun ProductKey Wort 8/16"
+    "name": "PHNIX/Aliyun ProductKey Wort 8/16",
+    "poll_tier": "rare"
   },
   "208": {
     "addr": 208,
@@ -177,7 +185,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "PHNIX/Aliyun ProductKey Wort 9/16"
+    "name": "PHNIX/Aliyun ProductKey Wort 9/16",
+    "poll_tier": "rare"
   },
   "209": {
     "addr": 209,
@@ -197,7 +206,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "PHNIX/Aliyun ProductKey Wort 10/16"
+    "name": "PHNIX/Aliyun ProductKey Wort 10/16",
+    "poll_tier": "rare"
   },
   "210": {
     "addr": 210,
@@ -217,7 +227,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "PHNIX/Aliyun ProductKey Wort 11/16"
+    "name": "PHNIX/Aliyun ProductKey Wort 11/16",
+    "poll_tier": "rare"
   },
   "211": {
     "addr": 211,
@@ -237,7 +248,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "PHNIX/Aliyun ProductKey Wort 12/16"
+    "name": "PHNIX/Aliyun ProductKey Wort 12/16",
+    "poll_tier": "rare"
   },
   "212": {
     "addr": 212,
@@ -257,7 +269,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "PHNIX/Aliyun ProductKey Wort 13/16"
+    "name": "PHNIX/Aliyun ProductKey Wort 13/16",
+    "poll_tier": "rare"
   },
   "213": {
     "addr": 213,
@@ -277,7 +290,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "PHNIX/Aliyun ProductKey Wort 14/16"
+    "name": "PHNIX/Aliyun ProductKey Wort 14/16",
+    "poll_tier": "rare"
   },
   "214": {
     "addr": 214,
@@ -297,7 +311,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "PHNIX/Aliyun ProductKey Wort 15/16"
+    "name": "PHNIX/Aliyun ProductKey Wort 15/16",
+    "poll_tier": "rare"
   },
   "215": {
     "addr": 215,
@@ -317,7 +332,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "PHNIX/Aliyun ProductKey Wort 16/16"
+    "name": "PHNIX/Aliyun ProductKey Wort 16/16",
+    "poll_tier": "rare"
   },
   "1001": {
     "addr": 1001,
@@ -337,7 +353,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 1 / Kennung Wort 1 / WiFi Barcode ASCII Zeichen 1-2"
+    "name": "Blockkopf Paket 1 / Kennung Wort 1 / WiFi Barcode ASCII Zeichen 1-2",
+    "poll_tier": "rare"
   },
   "1002": {
     "addr": 1002,
@@ -357,7 +374,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 1 / Kennung Wort 2 / WiFi Barcode ASCII Zeichen 3-4"
+    "name": "Blockkopf Paket 1 / Kennung Wort 2 / WiFi Barcode ASCII Zeichen 3-4",
+    "poll_tier": "rare"
   },
   "1003": {
     "addr": 1003,
@@ -377,7 +395,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 1 / Kennung Wort 3 / WiFi Barcode ASCII Zeichen 5-6"
+    "name": "Blockkopf Paket 1 / Kennung Wort 3 / WiFi Barcode ASCII Zeichen 5-6",
+    "poll_tier": "rare"
   },
   "1004": {
     "addr": 1004,
@@ -397,7 +416,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 1 / Kennung Wort 4 / WiFi Barcode ASCII Zeichen 7-8"
+    "name": "Blockkopf Paket 1 / Kennung Wort 4 / WiFi Barcode ASCII Zeichen 7-8",
+    "poll_tier": "rare"
   },
   "1005": {
     "addr": 1005,
@@ -417,7 +437,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 1 / Kennung Wort 5 / WiFi Barcode ASCII Zeichen 9-10"
+    "name": "Blockkopf Paket 1 / Kennung Wort 5 / WiFi Barcode ASCII Zeichen 9-10",
+    "poll_tier": "rare"
   },
   "1006": {
     "addr": 1006,
@@ -437,7 +458,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 1 / Kennung Wort 6 / WiFi Barcode ASCII Zeichen 11-12"
+    "name": "Blockkopf Paket 1 / Kennung Wort 6 / WiFi Barcode ASCII Zeichen 11-12",
+    "poll_tier": "rare"
   },
   "1007": {
     "addr": 1007,
@@ -457,7 +479,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 1 / Kennung Wort 7 / WiFi Barcode ASCII Reserve/Ende"
+    "name": "Blockkopf Paket 1 / Kennung Wort 7 / WiFi Barcode ASCII Reserve/Ende",
+    "poll_tier": "rare"
   },
   "1008": {
     "addr": 1008,
@@ -477,7 +500,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 1 / Reserve 2"
+    "name": "Blockkopf Paket 1 / Reserve 2",
+    "poll_tier": "rare"
   },
   "1009": {
     "addr": 1009,
@@ -497,7 +521,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 1 / Marker-Länge"
+    "name": "Blockkopf Paket 1 / Marker-Länge",
+    "poll_tier": "rare"
   },
   "1010": {
     "addr": 1010,
@@ -517,7 +542,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 1 / erstes Blockkopf-Register"
+    "name": "Blockkopf Paket 1 / erstes Blockkopf-Register",
+    "poll_tier": "rare"
   },
   "1011": {
     "addr": 1011,
@@ -537,7 +563,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": true,
-    "name": "AN/AUS"
+    "name": "AN/AUS",
+    "poll_tier": "quick"
   },
   "1012": {
     "addr": 1012,
@@ -557,7 +584,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": true,
-    "name": "Modus setzen"
+    "name": "Modus setzen",
+    "poll_tier": "quick"
   },
   "1013": {
     "addr": 1013,
@@ -577,7 +605,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Wassertanktemperatur (vom Zentralregler bei H37-1)"
+    "name": "Wassertanktemperatur (vom Zentralregler bei H37-1)",
+    "poll_tier": "rare"
   },
   "1014": {
     "addr": 1014,
@@ -597,7 +626,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": true,
-    "name": "Zentralregler zum Abtauen zulassen bei D26-1"
+    "name": "Zentralregler zum Abtauen zulassen bei D26-1",
+    "poll_tier": "rare"
   },
   "1015": {
     "addr": 1015,
@@ -617,7 +647,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Sprachauswahl"
+    "name": "Sprachauswahl",
+    "poll_tier": "rare"
   },
   "1016": {
     "addr": 1016,
@@ -637,7 +668,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Manuelle Steuerung / Silent Status"
+    "name": "Manuelle Steuerung / Silent Status",
+    "poll_tier": "rare"
   },
   "1017": {
     "addr": 1017,
@@ -657,7 +689,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Logo-Auswahl"
+    "name": "Logo-Auswahl",
+    "poll_tier": "rare"
   },
   "1018": {
     "addr": 1018,
@@ -677,7 +710,8 @@
     "default": null,
     "icon": "mdi:chip",
     "has_value_map": true,
-    "name": "Power Off Memory aktivieren (Autostart)"
+    "name": "Power Off Memory aktivieren (Autostart)",
+    "poll_tier": "rare"
   },
   "1019": {
     "addr": 1019,
@@ -697,7 +731,8 @@
     "default": "0",
     "icon": "mdi:shield-alert",
     "has_value_map": true,
-    "name": "Lüftermotorantrieb und Kompressorantrieb integriert"
+    "name": "Lüftermotorantrieb und Kompressorantrieb integriert",
+    "poll_tier": "rare"
   },
   "1020": {
     "addr": 1020,
@@ -717,7 +752,8 @@
     "default": "0",
     "icon": "mdi:shield-alert",
     "has_value_map": true,
-    "name": "ERP Testmodus"
+    "name": "ERP Testmodus",
+    "poll_tier": "rare"
   },
   "1021": {
     "addr": 1021,
@@ -737,7 +773,8 @@
     "default": "1",
     "icon": "mdi:chip",
     "has_value_map": true,
-    "name": "Kühlfunktion aktivieren"
+    "name": "Kühlfunktion aktivieren",
+    "poll_tier": "rare"
   },
   "1022": {
     "addr": 1022,
@@ -757,7 +794,8 @@
     "default": "0",
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Reserviert"
+    "name": "Reserviert",
+    "poll_tier": "rare"
   },
   "1023": {
     "addr": 1023,
@@ -777,7 +815,8 @@
     "default": "0",
     "icon": "mdi:chip",
     "has_value_map": true,
-    "name": "Reglerwahl"
+    "name": "Reglerwahl",
+    "poll_tier": "rare"
   },
   "1024": {
     "addr": 1024,
@@ -797,7 +836,8 @@
     "default": "1",
     "icon": "mdi:shield-alert",
     "has_value_map": false,
-    "name": "Geräteadresse"
+    "name": "Geräteadresse",
+    "poll_tier": "rare"
   },
   "1025": {
     "addr": 1025,
@@ -817,7 +857,8 @@
     "default": "0",
     "icon": "mdi:chip",
     "has_value_map": false,
-    "name": "Spracheinstellung"
+    "name": "Spracheinstellung",
+    "poll_tier": "rare"
   },
   "1026": {
     "addr": 1026,
@@ -837,7 +878,8 @@
     "default": "2425",
     "icon": "mdi:chip",
     "has_value_map": false,
-    "name": "Logo-Auswahl / Kundenlogo-Code (ASM)"
+    "name": "Logo-Auswahl / Kundenlogo-Code (ASM)",
+    "poll_tier": "rare"
   },
   "1027": {
     "addr": 1027,
@@ -857,7 +899,8 @@
     "default": "3",
     "icon": "mdi:shield-alert",
     "has_value_map": true,
-    "name": "EVI aktivieren"
+    "name": "EVI aktivieren",
+    "poll_tier": "rare"
   },
   "1028": {
     "addr": 1028,
@@ -877,7 +920,8 @@
     "default": "1",
     "icon": "mdi:chip",
     "has_value_map": true,
-    "name": "Heiz-/Kühl- und Warmwasserfunktion aktiviert"
+    "name": "Heiz-/Kühl- und Warmwasserfunktion aktiviert",
+    "poll_tier": "rare"
   },
   "1029": {
     "addr": 1029,
@@ -897,7 +941,8 @@
     "default": "0",
     "icon": "mdi:chip",
     "has_value_map": true,
-    "name": "Temperatureinheit"
+    "name": "Temperatureinheit",
+    "poll_tier": "rare"
   },
   "1030": {
     "addr": 1030,
@@ -917,7 +962,8 @@
     "default": null,
     "icon": "mdi:chip",
     "has_value_map": true,
-    "name": "Silent-Modus aktivieren"
+    "name": "Silent-Modus aktivieren",
+    "poll_tier": "rare"
   },
   "1031": {
     "addr": 1031,
@@ -937,7 +983,8 @@
     "default": "0",
     "icon": "mdi:shield-alert",
     "has_value_map": false,
-    "name": "Electric Heater Off Temp Diff / E-Heizer Ausschalt-Temperaturdifferenz"
+    "name": "Electric Heater Off Temp Diff / E-Heizer Ausschalt-Temperaturdifferenz",
+    "poll_tier": "rare"
   },
   "1032": {
     "addr": 1032,
@@ -957,7 +1004,8 @@
     "default": "3",
     "icon": "mdi:chip",
     "has_value_map": true,
-    "name": "Elektrische Heizstufe"
+    "name": "Elektrische Heizstufe",
+    "poll_tier": "rare"
   },
   "1033": {
     "addr": 1033,
@@ -977,7 +1025,8 @@
     "default": "0",
     "icon": "mdi:chip",
     "has_value_map": true,
-    "name": "3-Wege-Ventil-Polarität"
+    "name": "3-Wege-Ventil-Polarität",
+    "poll_tier": "rare"
   },
   "1034": {
     "addr": 1034,
@@ -997,7 +1046,8 @@
     "default": "0",
     "icon": "mdi:chip",
     "has_value_map": false,
-    "name": "Operationscode"
+    "name": "Operationscode",
+    "poll_tier": "rare"
   },
   "1035": {
     "addr": 1035,
@@ -1017,7 +1067,8 @@
     "default": "0",
     "icon": "mdi:chip",
     "has_value_map": true,
-    "name": "Temp.-Regelauswahl"
+    "name": "Temp.-Regelauswahl",
+    "poll_tier": "rare"
   },
   "1036": {
     "addr": 1036,
@@ -1037,7 +1088,8 @@
     "default": "0",
     "icon": "mdi:chip",
     "has_value_map": true,
-    "name": "Indoor Unit Type / Hydraulikmodul-Typ"
+    "name": "Indoor Unit Type / Hydraulikmodul-Typ",
+    "poll_tier": "rare"
   },
   "1037": {
     "addr": 1037,
@@ -1057,7 +1109,8 @@
     "default": "-25 °C",
     "icon": "mdi:shield-alert",
     "has_value_map": false,
-    "name": "Abschalttemperatur Umgebung"
+    "name": "Abschalttemperatur Umgebung",
+    "poll_tier": "rare"
   },
   "1038": {
     "addr": 1038,
@@ -1077,7 +1130,8 @@
     "default": "4°C",
     "icon": "mdi:shield-alert",
     "has_value_map": false,
-    "name": "Frostschutztemperatur"
+    "name": "Frostschutztemperatur",
+    "poll_tier": "rare"
   },
   "1039": {
     "addr": 1039,
@@ -1097,7 +1151,8 @@
     "default": "3°C",
     "icon": "mdi:shield-alert",
     "has_value_map": false,
-    "name": "Frostschutztemperaturdifferenz"
+    "name": "Frostschutztemperaturdifferenz",
+    "poll_tier": "rare"
   },
   "1040": {
     "addr": 1040,
@@ -1117,7 +1172,8 @@
     "default": "120 °C",
     "icon": "mdi:shield-alert",
     "has_value_map": false,
-    "name": "Max. Abgastemperatur"
+    "name": "Max. Abgastemperatur",
+    "poll_tier": "rare"
   },
   "1041": {
     "addr": 1041,
@@ -1137,7 +1193,8 @@
     "default": "0",
     "icon": "mdi:chip",
     "has_value_map": true,
-    "name": "Zirkulationswasserpumpentyp"
+    "name": "Zirkulationswasserpumpentyp",
+    "poll_tier": "rare"
   },
   "1042": {
     "addr": 1042,
@@ -1157,7 +1214,8 @@
     "default": "0",
     "icon": "mdi:shield-alert",
     "has_value_map": true,
-    "name": "Niederdrucksensor aktivieren"
+    "name": "Niederdrucksensor aktivieren",
+    "poll_tier": "rare"
   },
   "1043": {
     "addr": 1043,
@@ -1177,7 +1235,8 @@
     "default": "5°C",
     "icon": "mdi:shield-alert",
     "has_value_map": false,
-    "name": "Min. Auslasswassertemperatur schutz"
+    "name": "Min. Auslasswassertemperatur schutz",
+    "poll_tier": "rare"
   },
   "1044": {
     "addr": 1044,
@@ -1197,7 +1256,8 @@
     "default": "10℃",
     "icon": "mdi:shield-alert",
     "has_value_map": false,
-    "name": "Übermäßige Temperaturdifferenz zwischen Einlass- und Auslasswasser"
+    "name": "Übermäßige Temperaturdifferenz zwischen Einlass- und Auslasswasser",
+    "poll_tier": "rare"
   },
   "1045": {
     "addr": 1045,
@@ -1217,7 +1277,8 @@
     "default": "120",
     "icon": "mdi:chip",
     "has_value_map": false,
-    "name": "Erzwungene Umschaltzeit"
+    "name": "Erzwungene Umschaltzeit",
+    "poll_tier": "rare"
   },
   "1046": {
     "addr": 1046,
@@ -1237,7 +1298,8 @@
     "default": "0",
     "icon": "mdi:chip",
     "has_value_map": true,
-    "name": "Wassertank-Temperaturquelle"
+    "name": "Wassertank-Temperaturquelle",
+    "poll_tier": "rare"
   },
   "1047": {
     "addr": 1047,
@@ -1257,7 +1319,8 @@
     "default": null,
     "icon": "mdi:snowflake-melt",
     "has_value_map": true,
-    "name": "Zentrale Abtaufunktion aktivieren"
+    "name": "Zentrale Abtaufunktion aktivieren",
+    "poll_tier": "rare"
   },
   "1048": {
     "addr": 1048,
@@ -1277,7 +1340,8 @@
     "default": "0",
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "External Pump Selection (Code unbekannt / nicht H37)"
+    "name": "External Pump Selection (Code unbekannt / nicht H37)",
+    "poll_tier": "rare"
   },
   "1049": {
     "addr": 1049,
@@ -1297,7 +1361,8 @@
     "default": "-80",
     "icon": "mdi:shield-alert",
     "has_value_map": false,
-    "name": "Electric-Heater-On AT Grenzwert / Temperaturparameter (ASM)"
+    "name": "Electric-Heater-On AT Grenzwert / Temperaturparameter (ASM)",
+    "poll_tier": "rare"
   },
   "1050": {
     "addr": 1050,
@@ -1317,7 +1382,8 @@
     "default": "60",
     "icon": "mdi:shield-alert",
     "has_value_map": false,
-    "name": "Electric Heater Delays Comp on Time"
+    "name": "Electric Heater Delays Comp on Time",
+    "poll_tier": "rare"
   },
   "1051": {
     "addr": 1051,
@@ -1337,7 +1403,8 @@
     "default": "21",
     "icon": "mdi:shield-alert",
     "has_value_map": false,
-    "name": "Min. Umgebungstemperatur im Kühlmodus"
+    "name": "Min. Umgebungstemperatur im Kühlmodus",
+    "poll_tier": "rare"
   },
   "1052": {
     "addr": 1052,
@@ -1357,7 +1424,8 @@
     "default": "0",
     "icon": "mdi:shield-alert",
     "has_value_map": true,
-    "name": "Umgebungs-/Saug-/Spulensensortyp"
+    "name": "Umgebungs-/Saug-/Spulensensortyp",
+    "poll_tier": "rare"
   },
   "1053": {
     "addr": 1053,
@@ -1377,7 +1445,8 @@
     "default": "4°C",
     "icon": "mdi:shield-alert",
     "has_value_map": false,
-    "name": "Min. Frostschutztemperatur"
+    "name": "Min. Frostschutztemperatur",
+    "poll_tier": "rare"
   },
   "1054": {
     "addr": 1054,
@@ -1397,7 +1466,8 @@
     "default": "1",
     "icon": "mdi:shield-alert",
     "has_value_map": true,
-    "name": "Kältemitteltyp"
+    "name": "Kältemitteltyp",
+    "poll_tier": "rare"
   },
   "1055": {
     "addr": 1055,
@@ -1417,7 +1487,8 @@
     "default": "-3.5°C",
     "icon": "mdi:shield-alert",
     "has_value_map": false,
-    "name": "Minimale Verdampfungstemperatur der Kühlung"
+    "name": "Minimale Verdampfungstemperatur der Kühlung",
+    "poll_tier": "rare"
   },
   "1056": {
     "addr": 1056,
@@ -1437,7 +1508,8 @@
     "default": "5C",
     "icon": "mdi:shield-alert",
     "has_value_map": false,
-    "name": "Temperaturdifferenz der Begrenzungsfrequenz"
+    "name": "Temperaturdifferenz der Begrenzungsfrequenz",
+    "poll_tier": "rare"
   },
   "1057": {
     "addr": 1057,
@@ -1457,7 +1529,8 @@
     "default": "7℃",
     "icon": "mdi:shield-alert",
     "has_value_map": false,
-    "name": "Temperaturdifferenz zwischen Auslass- und WW-Temperatur"
+    "name": "Temperaturdifferenz zwischen Auslass- und WW-Temperatur",
+    "poll_tier": "rare"
   },
   "1058": {
     "addr": 1058,
@@ -1477,7 +1550,8 @@
     "default": "0",
     "icon": "mdi:shield-alert",
     "has_value_map": true,
-    "name": "Hochdrucksensor aktivieren"
+    "name": "Hochdrucksensor aktivieren",
+    "poll_tier": "rare"
   },
   "1059": {
     "addr": 1059,
@@ -1497,7 +1571,8 @@
     "default": "3",
     "icon": "mdi:shield-alert",
     "has_value_map": true,
-    "name": "Lüftermotortyp"
+    "name": "Lüftermotortyp",
+    "poll_tier": "rare"
   },
   "1060": {
     "addr": 1060,
@@ -1517,7 +1592,8 @@
     "default": "50℃",
     "icon": "mdi:fan",
     "has_value_map": false,
-    "name": "Verdampfertemperatur für maximale Lüfterdrehzahl im Kühlbetrieb"
+    "name": "Verdampfertemperatur für maximale Lüfterdrehzahl im Kühlbetrieb",
+    "poll_tier": "rare"
   },
   "1061": {
     "addr": 1061,
@@ -1537,7 +1613,8 @@
     "default": "0",
     "icon": "mdi:fan",
     "has_value_map": false,
-    "name": "Fan Motor Power Curve / Lüftermotor-Leistungskurve"
+    "name": "Fan Motor Power Curve / Lüftermotor-Leistungskurve",
+    "poll_tier": "rare"
   },
   "1062": {
     "addr": 1062,
@@ -1557,7 +1634,8 @@
     "default": "10℃",
     "icon": "mdi:fan",
     "has_value_map": false,
-    "name": "Verdampfertemperatur für minimale Lüfterdrehzahl im Kühlbetrieb"
+    "name": "Verdampfertemperatur für minimale Lüfterdrehzahl im Kühlbetrieb",
+    "poll_tier": "rare"
   },
   "1063": {
     "addr": 1063,
@@ -1577,7 +1655,8 @@
     "default": "30",
     "icon": "mdi:shield-alert",
     "has_value_map": false,
-    "name": "E-Heizer Einschalt-Temperaturdifferenz"
+    "name": "E-Heizer Einschalt-Temperaturdifferenz",
+    "poll_tier": "rare"
   },
   "1064": {
     "addr": 1064,
@@ -1597,7 +1676,8 @@
     "default": "0",
     "icon": "mdi:shield-alert",
     "has_value_map": false,
-    "name": "Kurbelgehäuseheizung Vorheizzeit"
+    "name": "Kurbelgehäuseheizung Vorheizzeit",
+    "poll_tier": "rare"
   },
   "1065": {
     "addr": 1065,
@@ -1617,7 +1697,8 @@
     "default": "0",
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Reserviert"
+    "name": "Reserviert",
+    "poll_tier": "rare"
   },
   "1066": {
     "addr": 1066,
@@ -1637,7 +1718,8 @@
     "default": "10℃",
     "icon": "mdi:fan",
     "has_value_map": false,
-    "name": "Verdampfertemperatur für maximale Lüfterdrehzahl im Heizbetrieb"
+    "name": "Verdampfertemperatur für maximale Lüfterdrehzahl im Heizbetrieb",
+    "poll_tier": "rare"
   },
   "1067": {
     "addr": 1067,
@@ -1657,7 +1739,8 @@
     "default": "0",
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Reserviert"
+    "name": "Reserviert",
+    "poll_tier": "rare"
   },
   "1068": {
     "addr": 1068,
@@ -1677,7 +1760,8 @@
     "default": "20°C",
     "icon": "mdi:fan",
     "has_value_map": false,
-    "name": "Verdampfertemperatur für minimale Lüfterdrehzahl im Heizbetrieb"
+    "name": "Verdampfertemperatur für minimale Lüfterdrehzahl im Heizbetrieb",
+    "poll_tier": "rare"
   },
   "1069": {
     "addr": 1069,
@@ -1697,7 +1781,8 @@
     "default": "None",
     "icon": "mdi:home-thermometer",
     "has_value_map": true,
-    "name": "Mehrzonenregelung aktivieren"
+    "name": "Mehrzonenregelung aktivieren",
+    "poll_tier": "rare"
   },
   "1070": {
     "addr": 1070,
@@ -1717,7 +1802,8 @@
     "default": "20.0°C",
     "icon": "mdi:home-thermometer",
     "has_value_map": false,
-    "name": "Zone 1 Raumtemperatur-Sollwert"
+    "name": "Zone 1 Raumtemperatur-Sollwert",
+    "poll_tier": "medium"
   },
   "1071": {
     "addr": 1071,
@@ -1737,7 +1823,8 @@
     "default": "2.0°C",
     "icon": "mdi:home-thermometer",
     "has_value_map": false,
-    "name": "Zone 1 Raumtemperatur-Differenz zum Start"
+    "name": "Zone 1 Raumtemperatur-Differenz zum Start",
+    "poll_tier": "rare"
   },
   "1072": {
     "addr": 1072,
@@ -1757,7 +1844,8 @@
     "default": "20.0°C",
     "icon": "mdi:home-thermometer",
     "has_value_map": false,
-    "name": "Zone 2 Raumtemperatur-Sollwert"
+    "name": "Zone 2 Raumtemperatur-Sollwert",
+    "poll_tier": "medium"
   },
   "1073": {
     "addr": 1073,
@@ -1777,7 +1865,8 @@
     "default": "2.0°C",
     "icon": "mdi:home-thermometer",
     "has_value_map": false,
-    "name": "Zone 2 Raumtemperatur-Differenz zum Start"
+    "name": "Zone 2 Raumtemperatur-Differenz zum Start",
+    "poll_tier": "rare"
   },
   "1074": {
     "addr": 1074,
@@ -1797,7 +1886,8 @@
     "default": "0",
     "icon": "mdi:shield-alert",
     "has_value_map": true,
-    "name": "Lüfteranzahl"
+    "name": "Lüfteranzahl",
+    "poll_tier": "rare"
   },
   "1075": {
     "addr": 1075,
@@ -1817,7 +1907,8 @@
     "default": "45.0°C",
     "icon": "mdi:home-thermometer",
     "has_value_map": false,
-    "name": "Zone 1 Heizungs-Auslasswasser-Sollwert"
+    "name": "Zone 1 Heizungs-Auslasswasser-Sollwert",
+    "poll_tier": "medium"
   },
   "1076": {
     "addr": 1076,
@@ -1837,7 +1928,8 @@
     "default": "35.0°C",
     "icon": "mdi:home-thermometer",
     "has_value_map": false,
-    "name": "Zone 2 Mischwasser-Auslasswasser-Sollwert"
+    "name": "Zone 2 Mischwasser-Auslasswasser-Sollwert",
+    "poll_tier": "medium"
   },
   "1077": {
     "addr": 1077,
@@ -1857,7 +1949,8 @@
     "default": "NO",
     "icon": "mdi:home-thermometer",
     "has_value_map": true,
-    "name": "AT-Kompensationskurve Zone 2 aktivieren"
+    "name": "AT-Kompensationskurve Zone 2 aktivieren",
+    "poll_tier": "rare"
   },
   "1078": {
     "addr": 1078,
@@ -1877,7 +1970,8 @@
     "default": "0",
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Zone2 Heizkurve K / Raumtemperatur-Kompensation (ASM)"
+    "name": "Zone2 Heizkurve K / Raumtemperatur-Kompensation (ASM)",
+    "poll_tier": "rare"
   },
   "1079": {
     "addr": 1079,
@@ -1897,7 +1991,8 @@
     "default": "0",
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Zone2 Heizkurve B / Raumtemperatur-Kompensation (ASM)"
+    "name": "Zone2 Heizkurve B / Raumtemperatur-Kompensation (ASM)",
+    "poll_tier": "rare"
   },
   "1080": {
     "addr": 1080,
@@ -1917,7 +2012,8 @@
     "default": "0%",
     "icon": "mdi:home-thermometer",
     "has_value_map": true,
-    "name": "Mischventil manuelle Stellrate (0% = Auto-Regelung)"
+    "name": "Mischventil manuelle Stellrate (0% = Auto-Regelung)",
+    "poll_tier": "rare"
   },
   "1081": {
     "addr": 1081,
@@ -1937,7 +2033,8 @@
     "default": "300г",
     "icon": "mdi:fan",
     "has_value_map": false,
-    "name": "Min. Lüfterdrehzahl im Kühlbetrieb"
+    "name": "Min. Lüfterdrehzahl im Kühlbetrieb",
+    "poll_tier": "rare"
   },
   "1082": {
     "addr": 1082,
@@ -1957,7 +2054,8 @@
     "default": "150s",
     "icon": "mdi:home-thermometer",
     "has_value_map": false,
-    "name": "Mischventil Öffnungszeit"
+    "name": "Mischventil Öffnungszeit",
+    "poll_tier": "rare"
   },
   "1083": {
     "addr": 1083,
@@ -1977,7 +2075,8 @@
     "default": "300r",
     "icon": "mdi:fan",
     "has_value_map": false,
-    "name": "Min. Lüfterdrehzahl im Heizbetrieb"
+    "name": "Min. Lüfterdrehzahl im Heizbetrieb",
+    "poll_tier": "rare"
   },
   "1084": {
     "addr": 1084,
@@ -1997,7 +2096,8 @@
     "default": "150s",
     "icon": "mdi:home-thermometer",
     "has_value_map": false,
-    "name": "Mischventil Schließzeit"
+    "name": "Mischventil Schließzeit",
+    "poll_tier": "rare"
   },
   "1085": {
     "addr": 1085,
@@ -2017,7 +2117,8 @@
     "default": "2.0",
     "icon": "mdi:home-thermometer",
     "has_value_map": false,
-    "name": "Mischventil Regelung P-Anteil (PID)"
+    "name": "Mischventil Regelung P-Anteil (PID)",
+    "poll_tier": "rare"
   },
   "1086": {
     "addr": 1086,
@@ -2037,7 +2138,8 @@
     "default": "0",
     "icon": "mdi:fan",
     "has_value_map": true,
-    "name": "Timer-Stummschaltung aktivieren (ASM V1.3: 243E)"
+    "name": "Timer-Stummschaltung aktivieren (ASM V1.3: 243E)",
+    "poll_tier": "rare"
   },
   "1087": {
     "addr": 1087,
@@ -2057,7 +2159,8 @@
     "default": "0",
     "icon": "mdi:fan",
     "has_value_map": true,
-    "name": "Manuelle Lüfterdrehzahl aktivieren"
+    "name": "Manuelle Lüfterdrehzahl aktivieren",
+    "poll_tier": "rare"
   },
   "1088": {
     "addr": 1088,
@@ -2077,7 +2180,8 @@
     "default": "0.2",
     "icon": "mdi:home-thermometer",
     "has_value_map": false,
-    "name": "Mischventil Regelung I-Anteil (PID)"
+    "name": "Mischventil Regelung I-Anteil (PID)",
+    "poll_tier": "rare"
   },
   "1089": {
     "addr": 1089,
@@ -2097,7 +2201,8 @@
     "default": "600г",
     "icon": "mdi:fan",
     "has_value_map": false,
-    "name": "Nenn-DC-Lüftermotordrehzahl"
+    "name": "Nenn-DC-Lüftermotordrehzahl",
+    "poll_tier": "rare"
   },
   "1090": {
     "addr": 1090,
@@ -2117,7 +2222,8 @@
     "default": "2min",
     "icon": "mdi:home-thermometer",
     "has_value_map": false,
-    "name": "Mischventil PID-Zyklus"
+    "name": "Mischventil PID-Zyklus",
+    "poll_tier": "rare"
   },
   "1091": {
     "addr": 1091,
@@ -2137,7 +2243,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 2 / Kennung Wort 1 / ASCII Zeichen 1-2"
+    "name": "Blockkopf Paket 2 / Kennung Wort 1 / ASCII Zeichen 1-2",
+    "poll_tier": "rare"
   },
   "1092": {
     "addr": 1092,
@@ -2157,7 +2264,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 2 / Kennung Wort 2 / ASCII Zeichen 3-4"
+    "name": "Blockkopf Paket 2 / Kennung Wort 2 / ASCII Zeichen 3-4",
+    "poll_tier": "rare"
   },
   "1093": {
     "addr": 1093,
@@ -2177,7 +2285,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 2 / Kennung Wort 3 / ASCII Zeichen 5-6"
+    "name": "Blockkopf Paket 2 / Kennung Wort 3 / ASCII Zeichen 5-6",
+    "poll_tier": "rare"
   },
   "1094": {
     "addr": 1094,
@@ -2197,7 +2306,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 2 / Kennung Wort 4 / ASCII Zeichen 7-8"
+    "name": "Blockkopf Paket 2 / Kennung Wort 4 / ASCII Zeichen 7-8",
+    "poll_tier": "rare"
   },
   "1095": {
     "addr": 1095,
@@ -2217,7 +2327,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 2 / Kennung Wort 5 / ASCII Zeichen 9-10"
+    "name": "Blockkopf Paket 2 / Kennung Wort 5 / ASCII Zeichen 9-10",
+    "poll_tier": "rare"
   },
   "1096": {
     "addr": 1096,
@@ -2237,7 +2348,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 2 / Kennung Wort 6 / ASCII Zeichen 11-12"
+    "name": "Blockkopf Paket 2 / Kennung Wort 6 / ASCII Zeichen 11-12",
+    "poll_tier": "rare"
   },
   "1097": {
     "addr": 1097,
@@ -2257,7 +2369,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 2 / Reserve 1"
+    "name": "Blockkopf Paket 2 / Reserve 1",
+    "poll_tier": "rare"
   },
   "1098": {
     "addr": 1098,
@@ -2277,7 +2390,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 2 / Reserve 2"
+    "name": "Blockkopf Paket 2 / Reserve 2",
+    "poll_tier": "rare"
   },
   "1099": {
     "addr": 1099,
@@ -2297,7 +2411,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 2 / Marker-Länge"
+    "name": "Blockkopf Paket 2 / Marker-Länge",
+    "poll_tier": "rare"
   },
   "1100": {
     "addr": 1100,
@@ -2317,7 +2432,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 2 / erstes Blockkopf-Register"
+    "name": "Blockkopf Paket 2 / erstes Blockkopf-Register",
+    "poll_tier": "rare"
   },
   "1101": {
     "addr": 1101,
@@ -2337,7 +2453,8 @@
     "default": "8",
     "icon": "mdi:fan",
     "has_value_map": false,
-    "name": "Verdampfertemperatur des Einzel-/Doppellüfterschalters im Kühlbetrieb"
+    "name": "Verdampfertemperatur des Einzel-/Doppellüfterschalters im Kühlbetrieb",
+    "poll_tier": "rare"
   },
   "1102": {
     "addr": 1102,
@@ -2357,7 +2474,8 @@
     "default": "-30°C",
     "icon": "mdi:fan",
     "has_value_map": false,
-    "name": "Verdampfertemperatur des Einzellüfterstopps im Kühlbetrieb"
+    "name": "Verdampfertemperatur des Einzellüfterstopps im Kühlbetrieb",
+    "poll_tier": "rare"
   },
   "1103": {
     "addr": 1103,
@@ -2377,7 +2495,8 @@
     "default": "700г",
     "icon": "mdi:fan",
     "has_value_map": false,
-    "name": "Max. Lüfterdrehzahl im Kühlbetrieb"
+    "name": "Max. Lüfterdrehzahl im Kühlbetrieb",
+    "poll_tier": "rare"
   },
   "1104": {
     "addr": 1104,
@@ -2397,7 +2516,8 @@
     "default": "700г",
     "icon": "mdi:fan",
     "has_value_map": false,
-    "name": "Max. Lüfterdrehzahl im Heizbetrieb"
+    "name": "Max. Lüfterdrehzahl im Heizbetrieb",
+    "poll_tier": "rare"
   },
   "1105": {
     "addr": 1105,
@@ -2417,7 +2537,8 @@
     "default": "12.5°C",
     "icon": "mdi:snowflake-melt",
     "has_value_map": false,
-    "name": "Umgebungstemperatur des Start-Abtauens"
+    "name": "Umgebungstemperatur des Start-Abtauens",
+    "poll_tier": "rare"
   },
   "1106": {
     "addr": 1106,
@@ -2437,7 +2558,8 @@
     "default": "26min",
     "icon": "mdi:snowflake-melt",
     "has_value_map": false,
-    "name": "Heizbetriebszeit vor dem Abtauen"
+    "name": "Heizbetriebszeit vor dem Abtauen",
+    "poll_tier": "rare"
   },
   "1107": {
     "addr": 1107,
@@ -2457,7 +2579,8 @@
     "default": "45min",
     "icon": "mdi:snowflake-melt",
     "has_value_map": false,
-    "name": "Intervallzeit zwischen den Abtauzyklen"
+    "name": "Intervallzeit zwischen den Abtauzyklen",
+    "poll_tier": "rare"
   },
   "1108": {
     "addr": 1108,
@@ -2477,7 +2600,8 @@
     "default": "110°C",
     "icon": "mdi:snowflake-melt",
     "has_value_map": false,
-    "name": "Heißgastemperaturkorrektur für den Abtauzyklus"
+    "name": "Heißgastemperaturkorrektur für den Abtauzyklus",
+    "poll_tier": "rare"
   },
   "1109": {
     "addr": 1109,
@@ -2497,7 +2621,8 @@
     "default": "2.6bar",
     "icon": "mdi:snowflake-melt",
     "has_value_map": false,
-    "name": "Abtau-Saugsdruck 1"
+    "name": "Abtau-Saugsdruck 1",
+    "poll_tier": "rare"
   },
   "1110": {
     "addr": 1110,
@@ -2517,7 +2642,8 @@
     "default": "1.7bar",
     "icon": "mdi:snowflake-melt",
     "has_value_map": false,
-    "name": "Abtau-Saugsdruck 2"
+    "name": "Abtau-Saugsdruck 2",
+    "poll_tier": "rare"
   },
   "1111": {
     "addr": 1111,
@@ -2537,7 +2663,8 @@
     "default": "15min",
     "icon": "mdi:snowflake-melt",
     "has_value_map": false,
-    "name": "Abtauzykluszeitkorrektur"
+    "name": "Abtauzykluszeitkorrektur",
+    "poll_tier": "rare"
   },
   "1112": {
     "addr": 1112,
@@ -2557,7 +2684,8 @@
     "default": "6.1 C",
     "icon": "mdi:snowflake-melt",
     "has_value_map": false,
-    "name": "Umgebungstemperatur des Start-Gleitabtauens"
+    "name": "Umgebungstemperatur des Start-Gleitabtauens",
+    "poll_tier": "rare"
   },
   "1113": {
     "addr": 1113,
@@ -2577,7 +2705,8 @@
     "default": "-4.1℃",
     "icon": "mdi:snowflake-melt",
     "has_value_map": false,
-    "name": "Saugsungstemperatur des Start-Gleitabtauens"
+    "name": "Saugsungstemperatur des Start-Gleitabtauens",
+    "poll_tier": "rare"
   },
   "1114": {
     "addr": 1114,
@@ -2597,7 +2726,8 @@
     "default": "-26.1℃",
     "icon": "mdi:snowflake-melt",
     "has_value_map": false,
-    "name": "Umgebungstemperatur des Stopp-Gleitabtauens"
+    "name": "Umgebungstemperatur des Stopp-Gleitabtauens",
+    "poll_tier": "rare"
   },
   "1115": {
     "addr": 1115,
@@ -2617,7 +2747,8 @@
     "default": "-28.1°C",
     "icon": "mdi:snowflake-melt",
     "has_value_map": false,
-    "name": "Saugsungstemperatur des Stopp-Gleitabtauens"
+    "name": "Saugsungstemperatur des Stopp-Gleitabtauens",
+    "poll_tier": "rare"
   },
   "1116": {
     "addr": 1116,
@@ -2637,7 +2768,8 @@
     "default": "23°C",
     "icon": "mdi:snowflake-melt",
     "has_value_map": false,
-    "name": "Min. Einlasswassertemperatur des Abtauens"
+    "name": "Min. Einlasswassertemperatur des Abtauens",
+    "poll_tier": "rare"
   },
   "1117": {
     "addr": 1117,
@@ -2657,7 +2789,8 @@
     "default": "2bar",
     "icon": "mdi:snowflake-melt",
     "has_value_map": false,
-    "name": "Saugsdruck des erzwungenen Abtauens"
+    "name": "Saugsdruck des erzwungenen Abtauens",
+    "poll_tier": "rare"
   },
   "1118": {
     "addr": 1118,
@@ -2677,7 +2810,8 @@
     "default": "120min",
     "icon": "mdi:snowflake-melt",
     "has_value_map": false,
-    "name": "Heizbetriebszeit vor dem erzwungenen Abtauen"
+    "name": "Heizbetriebszeit vor dem erzwungenen Abtauen",
+    "poll_tier": "rare"
   },
   "1119": {
     "addr": 1119,
@@ -2697,7 +2831,8 @@
     "default": "1,3",
     "icon": "mdi:snowflake-melt",
     "has_value_map": false,
-    "name": "Lüftermotorleistungsverhältnis zur Verlängerung des Abtauzyklus"
+    "name": "Lüftermotorleistungsverhältnis zur Verlängerung des Abtauzyklus",
+    "poll_tier": "rare"
   },
   "1120": {
     "addr": 1120,
@@ -2717,7 +2852,8 @@
     "default": "1,5",
     "icon": "mdi:snowflake-melt",
     "has_value_map": false,
-    "name": "Lüftermotorleistungsverhältnis zum Eintritt in das erzwungene Abtauen"
+    "name": "Lüftermotorleistungsverhältnis zum Eintritt in das erzwungene Abtauen",
+    "poll_tier": "rare"
   },
   "1121": {
     "addr": 1121,
@@ -2737,7 +2873,8 @@
     "default": "200W",
     "icon": "mdi:snowflake-melt",
     "has_value_map": false,
-    "name": "Max. Lüftermotorleistung zum Eintritt in das erzwungene Abtauen"
+    "name": "Max. Lüftermotorleistung zum Eintritt in das erzwungene Abtauen",
+    "poll_tier": "rare"
   },
   "1122": {
     "addr": 1122,
@@ -2757,7 +2894,8 @@
     "default": "13℃",
     "icon": "mdi:snowflake-melt",
     "has_value_map": false,
-    "name": "Verdampfertemperatur des Abtauausgangs"
+    "name": "Verdampfertemperatur des Abtauausgangs",
+    "poll_tier": "rare"
   },
   "1123": {
     "addr": 1123,
@@ -2777,7 +2915,8 @@
     "default": "33 °C",
     "icon": "mdi:snowflake-melt",
     "has_value_map": false,
-    "name": "Verteilerrohrtemperatur des Abtauausgangs"
+    "name": "Verteilerrohrtemperatur des Abtauausgangs",
+    "poll_tier": "rare"
   },
   "1124": {
     "addr": 1124,
@@ -2797,7 +2936,8 @@
     "default": "8min",
     "icon": "mdi:snowflake-melt",
     "has_value_map": false,
-    "name": "Max. Abtauzeit"
+    "name": "Max. Abtauzeit",
+    "poll_tier": "rare"
   },
   "1125": {
     "addr": 1125,
@@ -2817,7 +2957,8 @@
     "default": "70Hz",
     "icon": "mdi:snowflake-melt",
     "has_value_map": false,
-    "name": "Abtaufrequenz"
+    "name": "Abtaufrequenz",
+    "poll_tier": "rare"
   },
   "1126": {
     "addr": 1126,
@@ -2837,7 +2978,8 @@
     "default": "1",
     "icon": "mdi:snowflake-melt",
     "has_value_map": true,
-    "name": "Elektrische Heizung während des Abtauens aktivieren"
+    "name": "Elektrische Heizung während des Abtauens aktivieren",
+    "poll_tier": "rare"
   },
   "1127": {
     "addr": 1127,
@@ -2857,7 +2999,8 @@
     "default": "0",
     "icon": "mdi:snowflake-melt",
     "has_value_map": false,
-    "name": "Wasserdurchfluss beim Abtauen"
+    "name": "Wasserdurchfluss beim Abtauen",
+    "poll_tier": "rare"
   },
   "1128": {
     "addr": 1128,
@@ -2877,7 +3020,8 @@
     "default": "120min",
     "icon": "mdi:snowflake-melt",
     "has_value_map": false,
-    "name": "Max. Abtauzyklus durch Lüftermotorleistung"
+    "name": "Max. Abtauzyklus durch Lüftermotorleistung",
+    "poll_tier": "rare"
   },
   "1129": {
     "addr": 1129,
@@ -2897,7 +3041,8 @@
     "default": "0",
     "icon": "mdi:snowflake-melt",
     "has_value_map": true,
-    "name": "Wassertank-Abtauquelle im Heizung+WW/Kühlung+WW-Modus"
+    "name": "Wassertank-Abtauquelle im Heizung+WW/Kühlung+WW-Modus",
+    "poll_tier": "rare"
   },
   "1130": {
     "addr": 1130,
@@ -2917,7 +3062,8 @@
     "default": "7°C",
     "icon": "mdi:snowflake-melt",
     "has_value_map": false,
-    "name": "Max. Einlasswassertemperaturabfall beim Abtauen"
+    "name": "Max. Einlasswassertemperaturabfall beim Abtauen",
+    "poll_tier": "rare"
   },
   "1131": {
     "addr": 1131,
@@ -2937,7 +3083,8 @@
     "default": "1",
     "icon": "mdi:valve",
     "has_value_map": true,
-    "name": "EEV Regelmodus"
+    "name": "EEV Regelmodus",
+    "poll_tier": "rare"
   },
   "1132": {
     "addr": 1132,
@@ -2957,7 +3104,8 @@
     "default": "5",
     "icon": "mdi:valve",
     "has_value_map": false,
-    "name": "Ziel-Überhitzung Heizen"
+    "name": "Ziel-Überhitzung Heizen",
+    "poll_tier": "rare"
   },
   "1133": {
     "addr": 1133,
@@ -2977,7 +3125,8 @@
     "default": "350",
     "icon": "mdi:valve",
     "has_value_map": false,
-    "name": "EEV Anfangsschritte Heizen"
+    "name": "EEV Anfangsschritte Heizen",
+    "poll_tier": "rare"
   },
   "1134": {
     "addr": 1134,
@@ -2997,7 +3146,8 @@
     "default": "0%",
     "icon": "mdi:home-thermometer",
     "has_value_map": false,
-    "name": "Mischventil-Stellwert im Kühlbetrieb"
+    "name": "Mischventil-Stellwert im Kühlbetrieb",
+    "poll_tier": "rare"
   },
   "1135": {
     "addr": 1135,
@@ -3017,7 +3167,8 @@
     "default": "40.0°C",
     "icon": "mdi:home-thermometer",
     "has_value_map": false,
-    "name": "Zone 2 maximale Wasser-Solltemperatur"
+    "name": "Zone 2 maximale Wasser-Solltemperatur",
+    "poll_tier": "rare"
   },
   "1136": {
     "addr": 1136,
@@ -3037,7 +3188,8 @@
     "default": "0",
     "icon": "mdi:home-thermometer",
     "has_value_map": false,
-    "name": "Mischventil Regel-I (DIGI5 laut ASM-Kommentar) (ASM)"
+    "name": "Mischventil Regel-I (DIGI5 laut ASM-Kommentar) (ASM)",
+    "poll_tier": "rare"
   },
   "1137": {
     "addr": 1137,
@@ -3057,7 +3209,8 @@
     "default": "100",
     "icon": "mdi:valve",
     "has_value_map": false,
-    "name": "EEV minimale Anfangsschritte"
+    "name": "EEV minimale Anfangsschritte",
+    "poll_tier": "rare"
   },
   "1138": {
     "addr": 1138,
@@ -3077,7 +3230,8 @@
     "default": "200",
     "icon": "mdi:valve",
     "has_value_map": false,
-    "name": "EEV Anfangsschritte Kühlen"
+    "name": "EEV Anfangsschritte Kühlen",
+    "poll_tier": "rare"
   },
   "1139": {
     "addr": 1139,
@@ -3097,7 +3251,8 @@
     "default": "1",
     "icon": "mdi:valve",
     "has_value_map": true,
-    "name": "EVI-EEV Anpassungsmodus"
+    "name": "EVI-EEV Anpassungsmodus",
+    "poll_tier": "rare"
   },
   "1140": {
     "addr": 1140,
@@ -3117,7 +3272,8 @@
     "default": "350",
     "icon": "mdi:valve",
     "has_value_map": false,
-    "name": "EVI-EEV Anfangsschritte"
+    "name": "EVI-EEV Anfangsschritte",
+    "poll_tier": "rare"
   },
   "1141": {
     "addr": 1141,
@@ -3137,7 +3293,8 @@
     "default": "125",
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "System 2 EVI/Enthalpie vorhanden wenn Wert != 0 (ASM V1.3)"
+    "name": "System 2 EVI/Enthalpie vorhanden wenn Wert != 0 (ASM V1.3)",
+    "poll_tier": "rare"
   },
   "1142": {
     "addr": 1142,
@@ -3157,7 +3314,8 @@
     "default": "185",
     "icon": "mdi:valve",
     "has_value_map": false,
-    "name": "EEV Anfangsschritte Heizen 2"
+    "name": "EEV Anfangsschritte Heizen 2",
+    "poll_tier": "rare"
   },
   "1143": {
     "addr": 1143,
@@ -3177,7 +3335,8 @@
     "default": "3",
     "icon": "mdi:valve",
     "has_value_map": false,
-    "name": "EVI-EEV Ziel-Überhitzungsgrad"
+    "name": "EVI-EEV Ziel-Überhitzungsgrad",
+    "poll_tier": "rare"
   },
   "1144": {
     "addr": 1144,
@@ -3197,7 +3356,8 @@
     "default": "100",
     "icon": "mdi:valve",
     "has_value_map": false,
-    "name": "EVI-EEV minimale Schritte"
+    "name": "EVI-EEV minimale Schritte",
+    "poll_tier": "rare"
   },
   "1145": {
     "addr": 1145,
@@ -3217,7 +3377,8 @@
     "default": "0",
     "icon": "mdi:valve",
     "has_value_map": false,
-    "name": "Temperatur-/Hystereseparameter (ASM)"
+    "name": "Temperatur-/Hystereseparameter (ASM)",
+    "poll_tier": "rare"
   },
   "1146": {
     "addr": 1146,
@@ -3237,7 +3398,8 @@
     "default": "0",
     "icon": "mdi:valve",
     "has_value_map": false,
-    "name": "Temperatur-/Hystereseparameter (ASM)"
+    "name": "Temperatur-/Hystereseparameter (ASM)",
+    "poll_tier": "rare"
   },
   "1147": {
     "addr": 1147,
@@ -3257,7 +3419,8 @@
     "default": "480",
     "icon": "mdi:valve",
     "has_value_map": false,
-    "name": "Abtau-EEV Schritte"
+    "name": "Abtau-EEV Schritte",
+    "poll_tier": "rare"
   },
   "1148": {
     "addr": 1148,
@@ -3277,7 +3440,8 @@
     "default": "3",
     "icon": "mdi:valve",
     "has_value_map": false,
-    "name": "Ziel-Überhitzung Kühlen"
+    "name": "Ziel-Überhitzung Kühlen",
+    "poll_tier": "rare"
   },
   "1149": {
     "addr": 1149,
@@ -3297,7 +3461,8 @@
     "default": "20%",
     "icon": "mdi:valve",
     "has_value_map": false,
-    "name": "EEV Anpassungsbereich im Smart-Modus"
+    "name": "EEV Anpassungsbereich im Smart-Modus",
+    "poll_tier": "rare"
   },
   "1150": {
     "addr": 1150,
@@ -3317,7 +3482,8 @@
     "default": "0",
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Reserviert"
+    "name": "Reserviert",
+    "poll_tier": "rare"
   },
   "1151": {
     "addr": 1151,
@@ -3337,7 +3503,8 @@
     "default": "0",
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Reserviert"
+    "name": "Reserviert",
+    "poll_tier": "rare"
   },
   "1152": {
     "addr": 1152,
@@ -3357,7 +3524,8 @@
     "default": "63",
     "icon": "mdi:water-thermometer",
     "has_value_map": false,
-    "name": "Desinfektionswassertemperatur"
+    "name": "Desinfektionswassertemperatur",
+    "poll_tier": "rare"
   },
   "1153": {
     "addr": 1153,
@@ -3377,7 +3545,8 @@
     "default": "0",
     "icon": "mdi:water-thermometer",
     "has_value_map": false,
-    "name": "Desinfektionsdauer"
+    "name": "Desinfektionsdauer",
+    "poll_tier": "rare"
   },
   "1154": {
     "addr": 1154,
@@ -3397,7 +3566,8 @@
     "default": "1",
     "icon": "mdi:water-thermometer",
     "has_value_map": false,
-    "name": "Desinfektionsstartzeit"
+    "name": "Desinfektionsstartzeit",
+    "poll_tier": "rare"
   },
   "1155": {
     "addr": 1155,
@@ -3417,7 +3587,8 @@
     "default": "30",
     "icon": "mdi:water-thermometer",
     "has_value_map": false,
-    "name": "Intervallzeit der Desinfektion"
+    "name": "Intervallzeit der Desinfektion",
+    "poll_tier": "rare"
   },
   "1156": {
     "addr": 1156,
@@ -3437,7 +3608,8 @@
     "default": "1",
     "icon": "mdi:water-thermometer",
     "has_value_map": true,
-    "name": "Desinfektion aktivieren"
+    "name": "Desinfektion aktivieren",
+    "poll_tier": "rare"
   },
   "1157": {
     "addr": 1157,
@@ -3457,7 +3629,8 @@
     "default": "55",
     "icon": "mdi:thermometer",
     "has_value_map": false,
-    "name": "Warmwasser-Solltemperatur"
+    "name": "Warmwasser-Solltemperatur",
+    "poll_tier": "quick"
   },
   "1158": {
     "addr": 1158,
@@ -3477,7 +3650,8 @@
     "default": "45",
     "icon": "mdi:thermometer",
     "has_value_map": false,
-    "name": "Heizungssolltemperatur"
+    "name": "Heizungssolltemperatur",
+    "poll_tier": "quick"
   },
   "1159": {
     "addr": 1159,
@@ -3497,7 +3671,8 @@
     "default": "7",
     "icon": "mdi:thermometer",
     "has_value_map": false,
-    "name": "Kühlsolltemperatur"
+    "name": "Kühlsolltemperatur",
+    "poll_tier": "quick"
   },
   "1160": {
     "addr": 1160,
@@ -3517,7 +3692,8 @@
     "default": "2",
     "icon": "mdi:thermometer",
     "has_value_map": false,
-    "name": "Heizung Einschalt-Rücklaufdifferenz"
+    "name": "Heizung Einschalt-Rücklaufdifferenz",
+    "poll_tier": "quick"
   },
   "1161": {
     "addr": 1161,
@@ -3537,7 +3713,8 @@
     "default": "1",
     "icon": "mdi:thermometer",
     "has_value_map": false,
-    "name": "Heizung Standby-/Abschalt-Temperaturdifferenz"
+    "name": "Heizung Standby-/Abschalt-Temperaturdifferenz",
+    "poll_tier": "quick"
   },
   "1162": {
     "addr": 1162,
@@ -3557,7 +3734,8 @@
     "default": "5",
     "icon": "mdi:thermometer",
     "has_value_map": false,
-    "name": "Min. Kühlsolltemperatur"
+    "name": "Min. Kühlsolltemperatur",
+    "poll_tier": "quick"
   },
   "1163": {
     "addr": 1163,
@@ -3577,7 +3755,8 @@
     "default": "28",
     "icon": "mdi:thermometer",
     "has_value_map": false,
-    "name": "Max. Kühlsolltemperatur"
+    "name": "Max. Kühlsolltemperatur",
+    "poll_tier": "quick"
   },
   "1164": {
     "addr": 1164,
@@ -3597,7 +3776,8 @@
     "default": "15",
     "icon": "mdi:thermometer",
     "has_value_map": false,
-    "name": "Min. Heizungssolltemperatur"
+    "name": "Min. Heizungssolltemperatur",
+    "poll_tier": "quick"
   },
   "1165": {
     "addr": 1165,
@@ -3617,7 +3797,8 @@
     "default": "60",
     "icon": "mdi:thermometer",
     "has_value_map": false,
-    "name": "Max. Heizungssolltemperatur"
+    "name": "Max. Heizungssolltemperatur",
+    "poll_tier": "quick"
   },
   "1166": {
     "addr": 1166,
@@ -3637,7 +3818,8 @@
     "default": "2",
     "icon": "mdi:thermometer",
     "has_value_map": false,
-    "name": "Rückkehrdifferenz zum Verlassen des Hochtemperatur-Modus"
+    "name": "Rückkehrdifferenz zum Verlassen des Hochtemperatur-Modus",
+    "poll_tier": "quick"
   },
   "1167": {
     "addr": 1167,
@@ -3657,7 +3839,8 @@
     "default": "-5",
     "icon": "mdi:thermometer",
     "has_value_map": false,
-    "name": "Niedrige AT für Wassertemperaturbegrenzung EIN"
+    "name": "Niedrige AT für Wassertemperaturbegrenzung EIN",
+    "poll_tier": "quick"
   },
   "1168": {
     "addr": 1168,
@@ -3677,7 +3860,8 @@
     "default": "-23",
     "icon": "mdi:thermometer",
     "has_value_map": false,
-    "name": "Niedrige AT für Wassertemperaturbegrenzung AUS"
+    "name": "Niedrige AT für Wassertemperaturbegrenzung AUS",
+    "poll_tier": "quick"
   },
   "1169": {
     "addr": 1169,
@@ -3697,7 +3881,8 @@
     "default": "40",
     "icon": "mdi:thermometer",
     "has_value_map": false,
-    "name": "Max. Auslasswassertemperaturbegrenzung bei niedriger AT"
+    "name": "Max. Auslasswassertemperaturbegrenzung bei niedriger AT",
+    "poll_tier": "quick"
   },
   "1170": {
     "addr": 1170,
@@ -3717,7 +3902,8 @@
     "default": "55",
     "icon": "mdi:thermometer",
     "has_value_map": false,
-    "name": "Hohe AT für Wassertemperaturbegrenzung EIN"
+    "name": "Hohe AT für Wassertemperaturbegrenzung EIN",
+    "poll_tier": "quick"
   },
   "1171": {
     "addr": 1171,
@@ -3737,7 +3923,8 @@
     "default": "55",
     "icon": "mdi:thermometer",
     "has_value_map": false,
-    "name": "Hohe AT für Wassertemperaturbegrenzung AUS"
+    "name": "Hohe AT für Wassertemperaturbegrenzung AUS",
+    "poll_tier": "quick"
   },
   "1172": {
     "addr": 1172,
@@ -3757,7 +3944,8 @@
     "default": "45",
     "icon": "mdi:thermometer",
     "has_value_map": false,
-    "name": "Max. Auslasswassertemperaturbegrenzung bei hoher AT"
+    "name": "Max. Auslasswassertemperaturbegrenzung bei hoher AT",
+    "poll_tier": "quick"
   },
   "1173": {
     "addr": 1173,
@@ -3777,7 +3965,8 @@
     "default": "0",
     "icon": "mdi:thermometer",
     "has_value_map": true,
-    "name": "Position des elektrischen Heizers"
+    "name": "Position des elektrischen Heizers",
+    "poll_tier": "quick"
   },
   "1174": {
     "addr": 1174,
@@ -3797,7 +3986,8 @@
     "default": "2",
     "icon": "mdi:thermometer",
     "has_value_map": false,
-    "name": "Kühlung Einschalt-Rücklaufdifferenz"
+    "name": "Kühlung Einschalt-Rücklaufdifferenz",
+    "poll_tier": "quick"
   },
   "1175": {
     "addr": 1175,
@@ -3817,7 +4007,8 @@
     "default": "1",
     "icon": "mdi:thermometer",
     "has_value_map": false,
-    "name": "Kühlung Standby-/Abschalt-Temperaturdifferenz"
+    "name": "Kühlung Standby-/Abschalt-Temperaturdifferenz",
+    "poll_tier": "quick"
   },
   "1176": {
     "addr": 1176,
@@ -3837,7 +4028,8 @@
     "default": "15",
     "icon": "mdi:thermometer",
     "has_value_map": false,
-    "name": "Min. WW-Solltemperatur"
+    "name": "Min. WW-Solltemperatur",
+    "poll_tier": "quick"
   },
   "1177": {
     "addr": 1177,
@@ -3857,7 +4049,8 @@
     "default": "58",
     "icon": "mdi:thermometer",
     "has_value_map": false,
-    "name": "Max. WW-Solltemperatur"
+    "name": "Max. WW-Solltemperatur",
+    "poll_tier": "quick"
   },
   "1178": {
     "addr": 1178,
@@ -3877,7 +4070,8 @@
     "default": "0",
     "icon": "mdi:thermometer",
     "has_value_map": false,
-    "name": "Temperatur-/Hystereseparameter R12"
+    "name": "Temperatur-/Hystereseparameter R12",
+    "poll_tier": "quick"
   },
   "1179": {
     "addr": 1179,
@@ -3897,7 +4091,8 @@
     "default": "0",
     "icon": "mdi:thermometer",
     "has_value_map": false,
-    "name": "Temperatur-/Hystereseparameter R13"
+    "name": "Temperatur-/Hystereseparameter R13",
+    "poll_tier": "quick"
   },
   "1180": {
     "addr": 1180,
@@ -3917,7 +4112,8 @@
     "default": "0",
     "icon": "mdi:thermometer",
     "has_value_map": false,
-    "name": "Temperatur-/Hystereseparameter R14"
+    "name": "Temperatur-/Hystereseparameter R14",
+    "poll_tier": "quick"
   },
   "1181": {
     "addr": 1181,
@@ -3937,7 +4133,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 3 / Kennung Wort 1 / ASCII Zeichen 1-2"
+    "name": "Blockkopf Paket 3 / Kennung Wort 1 / ASCII Zeichen 1-2",
+    "poll_tier": "rare"
   },
   "1182": {
     "addr": 1182,
@@ -3957,7 +4154,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 3 / Kennung Wort 2 / ASCII Zeichen 3-4"
+    "name": "Blockkopf Paket 3 / Kennung Wort 2 / ASCII Zeichen 3-4",
+    "poll_tier": "rare"
   },
   "1183": {
     "addr": 1183,
@@ -3977,7 +4175,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 3 / Kennung Wort 3 / ASCII Zeichen 5-6"
+    "name": "Blockkopf Paket 3 / Kennung Wort 3 / ASCII Zeichen 5-6",
+    "poll_tier": "rare"
   },
   "1184": {
     "addr": 1184,
@@ -3997,7 +4196,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 3 / Kennung Wort 4 / ASCII Zeichen 7-8"
+    "name": "Blockkopf Paket 3 / Kennung Wort 4 / ASCII Zeichen 7-8",
+    "poll_tier": "rare"
   },
   "1185": {
     "addr": 1185,
@@ -4017,7 +4217,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 3 / Kennung Wort 5 / ASCII Zeichen 9-10"
+    "name": "Blockkopf Paket 3 / Kennung Wort 5 / ASCII Zeichen 9-10",
+    "poll_tier": "rare"
   },
   "1186": {
     "addr": 1186,
@@ -4037,7 +4238,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 3 / Kennung Wort 6 / ASCII Zeichen 11-12"
+    "name": "Blockkopf Paket 3 / Kennung Wort 6 / ASCII Zeichen 11-12",
+    "poll_tier": "rare"
   },
   "1187": {
     "addr": 1187,
@@ -4057,7 +4259,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 3 / Reserve 1"
+    "name": "Blockkopf Paket 3 / Reserve 1",
+    "poll_tier": "rare"
   },
   "1188": {
     "addr": 1188,
@@ -4077,7 +4280,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 3 / Reserve 2"
+    "name": "Blockkopf Paket 3 / Reserve 2",
+    "poll_tier": "rare"
   },
   "1189": {
     "addr": 1189,
@@ -4097,7 +4301,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 3 / Marker-Länge"
+    "name": "Blockkopf Paket 3 / Marker-Länge",
+    "poll_tier": "rare"
   },
   "1190": {
     "addr": 1190,
@@ -4117,7 +4322,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 3 / erstes Blockkopf-Register"
+    "name": "Blockkopf Paket 3 / erstes Blockkopf-Register",
+    "poll_tier": "rare"
   },
   "1191": {
     "addr": 1191,
@@ -4137,7 +4343,8 @@
     "default": "23205",
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Paketmarker / Syncwort / Blockkopfkennung"
+    "name": "Paketmarker / Syncwort / Blockkopfkennung",
+    "poll_tier": "rare"
   },
   "1192": {
     "addr": 1192,
@@ -4157,7 +4364,8 @@
     "default": "10",
     "icon": "mdi:thermometer",
     "has_value_map": false,
-    "name": "AT für Auto-Start Heizmodus"
+    "name": "AT für Auto-Start Heizmodus",
+    "poll_tier": "quick"
   },
   "1193": {
     "addr": 1193,
@@ -4177,7 +4385,8 @@
     "default": "0",
     "icon": "mdi:thermometer",
     "has_value_map": false,
-    "name": "Temperaturparameter, Celsius-Grenze 60 °C (ASM V1.3)"
+    "name": "Temperaturparameter, Celsius-Grenze 60 °C (ASM V1.3)",
+    "poll_tier": "quick"
   },
   "1194": {
     "addr": 1194,
@@ -4197,7 +4406,8 @@
     "default": "0",
     "icon": "mdi:thermometer",
     "has_value_map": false,
-    "name": "Temperaturparameter, Celsius-Grenze 60 °C (ASM V1.3)"
+    "name": "Temperaturparameter, Celsius-Grenze 60 °C (ASM V1.3)",
+    "poll_tier": "quick"
   },
   "1195": {
     "addr": 1195,
@@ -4217,7 +4427,8 @@
     "default": "5",
     "icon": "mdi:thermometer",
     "has_value_map": false,
-    "name": "WW-Tank Einschalt-Rücklaufdifferenz"
+    "name": "WW-Tank Einschalt-Rücklaufdifferenz",
+    "poll_tier": "quick"
   },
   "1196": {
     "addr": 1196,
@@ -4237,7 +4448,8 @@
     "default": "2",
     "icon": "mdi:thermometer",
     "has_value_map": false,
-    "name": "WW-Tank Standby-Temperaturdifferenz"
+    "name": "WW-Tank Standby-Temperaturdifferenz",
+    "poll_tier": "quick"
   },
   "1197": {
     "addr": 1197,
@@ -4257,7 +4469,8 @@
     "default": "2",
     "icon": "mdi:water-pump",
     "has_value_map": true,
-    "name": "Betriebsmodus der Hauptumwälzpumpe"
+    "name": "Betriebsmodus der Hauptumwälzpumpe",
+    "poll_tier": "rare"
   },
   "1198": {
     "addr": 1198,
@@ -4277,7 +4490,8 @@
     "default": "30",
     "icon": "mdi:water-pump",
     "has_value_map": false,
-    "name": "Intervallzeit"
+    "name": "Intervallzeit",
+    "poll_tier": "rare"
   },
   "1199": {
     "addr": 1199,
@@ -4297,7 +4511,8 @@
     "default": "3",
     "icon": "mdi:water-pump",
     "has_value_map": false,
-    "name": "Betriebsdauer"
+    "name": "Betriebsdauer",
+    "poll_tier": "rare"
   },
   "1200": {
     "addr": 1200,
@@ -4317,7 +4532,8 @@
     "default": "250",
     "icon": "mdi:valve",
     "has_value_map": false,
-    "name": "EEV Anfangsschritte Heizen 1"
+    "name": "EEV Anfangsschritte Heizen 1",
+    "poll_tier": "rare"
   },
   "1201": {
     "addr": 1201,
@@ -4337,7 +4553,8 @@
     "default": "2",
     "icon": "mdi:water-pump",
     "has_value_map": true,
-    "name": "WW-Pumpenbetriebsmodus"
+    "name": "WW-Pumpenbetriebsmodus",
+    "poll_tier": "rare"
   },
   "1202": {
     "addr": 1202,
@@ -4357,7 +4574,8 @@
     "default": "0",
     "icon": "mdi:water-pump",
     "has_value_map": true,
-    "name": "Manuelle Steuerung der Hauptumwälzpumpe"
+    "name": "Manuelle Steuerung der Hauptumwälzpumpe",
+    "poll_tier": "rare"
   },
   "1203": {
     "addr": 1203,
@@ -4377,7 +4595,8 @@
     "default": "0",
     "icon": "mdi:water-pump",
     "has_value_map": false,
-    "name": "Schutzintervall der Umwälzpumpe"
+    "name": "Schutzintervall der Umwälzpumpe",
+    "poll_tier": "rare"
   },
   "1204": {
     "addr": 1204,
@@ -4397,7 +4616,8 @@
     "default": "0",
     "icon": "mdi:water-pump",
     "has_value_map": false,
-    "name": "Nennleistung Hauptumwälzpumpe"
+    "name": "Nennleistung Hauptumwälzpumpe",
+    "poll_tier": "rare"
   },
   "1205": {
     "addr": 1205,
@@ -4417,7 +4637,8 @@
     "default": "100",
     "icon": "mdi:water-pump",
     "has_value_map": false,
-    "name": "Drehzahl der Umwälzpumpe"
+    "name": "Drehzahl der Umwälzpumpe",
+    "poll_tier": "medium"
   },
   "1206": {
     "addr": 1206,
@@ -4437,7 +4658,8 @@
     "default": "10",
     "icon": "mdi:valve",
     "has_value_map": true,
-    "name": "EEV Anfangsschritte Heizen 3"
+    "name": "EEV Anfangsschritte Heizen 3",
+    "poll_tier": "rare"
   },
   "1207": {
     "addr": 1207,
@@ -4457,7 +4679,8 @@
     "default": "0",
     "icon": "mdi:valve",
     "has_value_map": false,
-    "name": "EEV Anfangsschritte Heizen 4"
+    "name": "EEV Anfangsschritte Heizen 4",
+    "poll_tier": "rare"
   },
   "1208": {
     "addr": 1208,
@@ -4477,7 +4700,8 @@
     "default": "0",
     "icon": "mdi:valve",
     "has_value_map": true,
-    "name": "EEV Anfangsschritte Heizen 5"
+    "name": "EEV Anfangsschritte Heizen 5",
+    "poll_tier": "rare"
   },
   "1209": {
     "addr": 1209,
@@ -4497,7 +4721,8 @@
     "default": "10",
     "icon": "mdi:valve",
     "has_value_map": false,
-    "name": "EEV Min. Schritte 1"
+    "name": "EEV Min. Schritte 1",
+    "poll_tier": "rare"
   },
   "1210": {
     "addr": 1210,
@@ -4517,7 +4742,8 @@
     "default": "10",
     "icon": "mdi:valve",
     "has_value_map": false,
-    "name": "EEV Min. Schritte 2"
+    "name": "EEV Min. Schritte 2",
+    "poll_tier": "rare"
   },
   "1211": {
     "addr": 1211,
@@ -4537,7 +4763,8 @@
     "default": "10",
     "icon": "mdi:valve",
     "has_value_map": false,
-    "name": "EEV Min. Schritte 3"
+    "name": "EEV Min. Schritte 3",
+    "poll_tier": "rare"
   },
   "1212": {
     "addr": 1212,
@@ -4557,7 +4784,8 @@
     "default": "0",
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Offset Inlet Temperatur"
+    "name": "Offset Inlet Temperatur",
+    "poll_tier": "medium"
   },
   "1213": {
     "addr": 1213,
@@ -4577,7 +4805,8 @@
     "default": "0",
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Offset outlet Temperatur"
+    "name": "Offset outlet Temperatur",
+    "poll_tier": "medium"
   },
   "1214": {
     "addr": 1214,
@@ -4597,7 +4826,8 @@
     "default": "0",
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Offset WW Temperatur"
+    "name": "Offset WW Temperatur",
+    "poll_tier": "rare"
   },
   "1215": {
     "addr": 1215,
@@ -4617,7 +4847,8 @@
     "default": "90",
     "icon": "mdi:valve",
     "has_value_map": false,
-    "name": "EEV Min. Schritte 4"
+    "name": "EEV Min. Schritte 4",
+    "poll_tier": "rare"
   },
   "1216": {
     "addr": 1216,
@@ -4637,7 +4868,8 @@
     "default": "85",
     "icon": "mdi:valve",
     "has_value_map": false,
-    "name": "EEV Min. Schritte 5"
+    "name": "EEV Min. Schritte 5",
+    "poll_tier": "rare"
   },
   "1217": {
     "addr": 1217,
@@ -4657,7 +4889,8 @@
     "default": "66",
     "icon": "mdi:air-conditioner",
     "has_value_map": false,
-    "name": "Max. Kompressorfrequenz im Kühlbetrieb bei hoher Umgebungstemperatur"
+    "name": "Max. Kompressorfrequenz im Kühlbetrieb bei hoher Umgebungstemperatur",
+    "poll_tier": "rare"
   },
   "1218": {
     "addr": 1218,
@@ -4677,7 +4910,8 @@
     "default": "10",
     "icon": "mdi:air-conditioner",
     "has_value_map": false,
-    "name": "Manuelle Kompressorfrequenz"
+    "name": "Manuelle Kompressorfrequenz",
+    "poll_tier": "rare"
   },
   "1219": {
     "addr": 1219,
@@ -4697,7 +4931,8 @@
     "default": "30",
     "icon": "mdi:air-conditioner",
     "has_value_map": false,
-    "name": "Min. Kompressorfrequenz"
+    "name": "Min. Kompressorfrequenz",
+    "poll_tier": "rare"
   },
   "1220": {
     "addr": 1220,
@@ -4717,7 +4952,8 @@
     "default": "90",
     "icon": "mdi:air-conditioner",
     "has_value_map": false,
-    "name": "Max. Kompressorfrequenz"
+    "name": "Max. Kompressorfrequenz",
+    "poll_tier": "rare"
   },
   "1221": {
     "addr": 1221,
@@ -4737,7 +4973,8 @@
     "default": "0",
     "icon": "mdi:air-conditioner",
     "has_value_map": false,
-    "name": "Kompressormodellauswahl"
+    "name": "Kompressormodellauswahl",
+    "poll_tier": "rare"
   },
   "1222": {
     "addr": 1222,
@@ -4757,7 +4994,8 @@
     "default": "50",
     "icon": "mdi:air-conditioner",
     "has_value_map": false,
-    "name": "Min. Kompressorfrequenz im Kühlbetrieb bei niedriger Umgebungstemperatur"
+    "name": "Min. Kompressorfrequenz im Kühlbetrieb bei niedriger Umgebungstemperatur",
+    "poll_tier": "rare"
   },
   "1223": {
     "addr": 1223,
@@ -4777,7 +5015,8 @@
     "default": "1",
     "icon": "mdi:air-conditioner",
     "has_value_map": false,
-    "name": "Frequenzregelungsmodus"
+    "name": "Frequenzregelungsmodus",
+    "poll_tier": "rare"
   },
   "1224": {
     "addr": 1224,
@@ -4797,7 +5036,8 @@
     "default": null,
     "icon": "mdi:air-conditioner",
     "has_value_map": false,
-    "name": "Resonanzpunkt 1"
+    "name": "Resonanzpunkt 1",
+    "poll_tier": "rare"
   },
   "1225": {
     "addr": 1225,
@@ -4817,7 +5057,8 @@
     "default": null,
     "icon": "mdi:air-conditioner",
     "has_value_map": false,
-    "name": "Resonanzpunkt 2"
+    "name": "Resonanzpunkt 2",
+    "poll_tier": "rare"
   },
   "1226": {
     "addr": 1226,
@@ -4837,7 +5078,8 @@
     "default": null,
     "icon": "mdi:air-conditioner",
     "has_value_map": false,
-    "name": "Resonanzpunkt 3"
+    "name": "Resonanzpunkt 3",
+    "poll_tier": "rare"
   },
   "1227": {
     "addr": 1227,
@@ -4857,7 +5099,8 @@
     "default": "60",
     "icon": "mdi:air-conditioner",
     "has_value_map": false,
-    "name": "Min. Kompressorfrequenz im Heizbetrieb bei niedriger Umgebungstemperatur"
+    "name": "Min. Kompressorfrequenz im Heizbetrieb bei niedriger Umgebungstemperatur",
+    "poll_tier": "rare"
   },
   "1228": {
     "addr": 1228,
@@ -4877,7 +5120,8 @@
     "default": "55",
     "icon": "mdi:thermometer",
     "has_value_map": false,
-    "name": "Max. Auslasswassertemperatur im Heizbetrieb"
+    "name": "Max. Auslasswassertemperatur im Heizbetrieb",
+    "poll_tier": "quick"
   },
   "1229": {
     "addr": 1229,
@@ -4897,7 +5141,8 @@
     "default": "50",
     "icon": "mdi:thermometer",
     "has_value_map": false,
-    "name": "Max. Zielwassertemperaturbegrenzung bei niedriger AT im Heizbetrieb"
+    "name": "Max. Zielwassertemperaturbegrenzung bei niedriger AT im Heizbetrieb",
+    "poll_tier": "quick"
   },
   "1230": {
     "addr": 1230,
@@ -4917,7 +5162,8 @@
     "default": "40",
     "icon": "mdi:thermometer",
     "has_value_map": false,
-    "name": "Max. Zielwassertemperaturbegrenzung bei hoher AT im Heizbetrieb"
+    "name": "Max. Zielwassertemperaturbegrenzung bei hoher AT im Heizbetrieb",
+    "poll_tier": "quick"
   },
   "1231": {
     "addr": 1231,
@@ -4937,7 +5183,8 @@
     "default": "-10",
     "icon": "mdi:thermometer",
     "has_value_map": false,
-    "name": "AT zum Starten des elektrischen Heizers ohne Verzögerung"
+    "name": "AT zum Starten des elektrischen Heizers ohne Verzögerung",
+    "poll_tier": "quick"
   },
   "1232": {
     "addr": 1232,
@@ -4957,7 +5204,8 @@
     "default": "5",
     "icon": "mdi:thermometer",
     "has_value_map": false,
-    "name": "Temp.-Differenz zwischen max. WW-Solltemp. und max. Auslasstemp."
+    "name": "Temp.-Differenz zwischen max. WW-Solltemp. und max. Auslasstemp.",
+    "poll_tier": "quick"
   },
   "1233": {
     "addr": 1233,
@@ -4977,7 +5225,8 @@
     "default": "25",
     "icon": "mdi:thermometer",
     "has_value_map": false,
-    "name": "AT zum Start der Frequenzbegrenzung im Kühlbetrieb"
+    "name": "AT zum Start der Frequenzbegrenzung im Kühlbetrieb",
+    "poll_tier": "quick"
   },
   "1234": {
     "addr": 1234,
@@ -4997,7 +5246,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "AT-Kompensation Slope / Steigung"
+    "name": "AT-Kompensation Slope / Steigung",
+    "poll_tier": "quick"
   },
   "1235": {
     "addr": 1235,
@@ -5017,7 +5267,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "AT-Kompensation Offset / Versatz"
+    "name": "AT-Kompensation Offset / Versatz",
+    "poll_tier": "quick"
   },
   "1236": {
     "addr": 1236,
@@ -5037,7 +5288,8 @@
     "default": "NO",
     "icon": "mdi:chip",
     "has_value_map": true,
-    "name": "AT-Kompensationskurve Zone 1 aktivieren"
+    "name": "AT-Kompensationskurve Zone 1 aktivieren",
+    "poll_tier": "quick"
   },
   "1237": {
     "addr": 1237,
@@ -5057,7 +5309,8 @@
     "default": "45",
     "icon": "mdi:thermometer",
     "has_value_map": false,
-    "name": "AT zum Stoppen der Frequenzbegrenzung im Kühlbetrieb"
+    "name": "AT zum Stoppen der Frequenzbegrenzung im Kühlbetrieb",
+    "poll_tier": "quick"
   },
   "1238": {
     "addr": 1238,
@@ -5077,7 +5330,8 @@
     "default": "62",
     "icon": "mdi:thermometer",
     "has_value_map": false,
-    "name": "Max. Wärmepumpen-Auslasswassertemperatur"
+    "name": "Max. Wärmepumpen-Auslasswassertemperatur",
+    "poll_tier": "quick"
   },
   "1239": {
     "addr": 1239,
@@ -5097,7 +5351,8 @@
     "default": "20°C",
     "icon": "mdi:thermometer",
     "has_value_map": false,
-    "name": "Ziel-Raumtemperatur"
+    "name": "Ziel-Raumtemperatur",
+    "poll_tier": "quick"
   },
   "1240": {
     "addr": 1240,
@@ -5117,7 +5372,8 @@
     "default": "0.5 C",
     "icon": "mdi:thermometer",
     "has_value_map": false,
-    "name": "Raumtemperaturdifferenz zum Einschalten im Heizbetrieb"
+    "name": "Raumtemperaturdifferenz zum Einschalten im Heizbetrieb",
+    "poll_tier": "quick"
   },
   "1241": {
     "addr": 1241,
@@ -5137,7 +5393,8 @@
     "default": "0.5°C",
     "icon": "mdi:thermometer",
     "has_value_map": false,
-    "name": "Raumtemperaturdifferenz für Standby im Heizbetrieb"
+    "name": "Raumtemperaturdifferenz für Standby im Heizbetrieb",
+    "poll_tier": "quick"
   },
   "1242": {
     "addr": 1242,
@@ -5157,7 +5414,8 @@
     "default": "0.5°C",
     "icon": "mdi:thermometer",
     "has_value_map": false,
-    "name": "Raumtemperaturdifferenz zum Einschalten im Kühlbetrieb"
+    "name": "Raumtemperaturdifferenz zum Einschalten im Kühlbetrieb",
+    "poll_tier": "quick"
   },
   "1243": {
     "addr": 1243,
@@ -5177,7 +5435,8 @@
     "default": "0.5℃",
     "icon": "mdi:thermometer",
     "has_value_map": false,
-    "name": "Raumtemperaturdifferenz für Standby im Kühlbetrieb"
+    "name": "Raumtemperaturdifferenz für Standby im Kühlbetrieb",
+    "poll_tier": "quick"
   },
   "1244": {
     "addr": 1244,
@@ -5197,7 +5456,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": true,
-    "name": "Silentmodus Timer Start aktivieren"
+    "name": "Silentmodus Timer Start aktivieren",
+    "poll_tier": "rare"
   },
   "1245": {
     "addr": 1245,
@@ -5217,7 +5477,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Silentmodus Timer Start Stunde"
+    "name": "Silentmodus Timer Start Stunde",
+    "poll_tier": "rare"
   },
   "1246": {
     "addr": 1246,
@@ -5237,7 +5498,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Silentmodus Timer Start Minute"
+    "name": "Silentmodus Timer Start Minute",
+    "poll_tier": "rare"
   },
   "1247": {
     "addr": 1247,
@@ -5257,7 +5519,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": true,
-    "name": "Silentmodus Timer Stop aktivieren"
+    "name": "Silentmodus Timer Stop aktivieren",
+    "poll_tier": "rare"
   },
   "1248": {
     "addr": 1248,
@@ -5277,7 +5540,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Silentmodus Timer Stop Stunde"
+    "name": "Silentmodus Timer Stop Stunde",
+    "poll_tier": "rare"
   },
   "1249": {
     "addr": 1249,
@@ -5297,7 +5561,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Silentmodus Timer Stop Minute"
+    "name": "Silentmodus Timer Stop Minute",
+    "poll_tier": "rare"
   },
   "1250": {
     "addr": 1250,
@@ -5317,7 +5582,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": true,
-    "name": "Systemzeit aktivieren"
+    "name": "Systemzeit aktivieren",
+    "poll_tier": "rare"
   },
   "1251": {
     "addr": 1251,
@@ -5337,7 +5603,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Aktuelle Systemminute"
+    "name": "Aktuelle Systemminute",
+    "poll_tier": "rare"
   },
   "1252": {
     "addr": 1252,
@@ -5357,7 +5624,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Aktuelle Systemstunde"
+    "name": "Aktuelle Systemstunde",
+    "poll_tier": "rare"
   },
   "1253": {
     "addr": 1253,
@@ -5377,7 +5645,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Aktueller Systemtag"
+    "name": "Aktueller Systemtag",
+    "poll_tier": "rare"
   },
   "1254": {
     "addr": 1254,
@@ -5397,7 +5666,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Aktueller Systemmonat"
+    "name": "Aktueller Systemmonat",
+    "poll_tier": "rare"
   },
   "1255": {
     "addr": 1255,
@@ -5417,7 +5687,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Aktuelles Systemjahr"
+    "name": "Aktuelles Systemjahr",
+    "poll_tier": "rare"
   },
   "1256": {
     "addr": 1256,
@@ -5437,7 +5708,8 @@
     "default": null,
     "icon": "mdi:timer-outline",
     "has_value_map": false,
-    "name": "WP Ein/Aus Timer 1 Startzeit"
+    "name": "WP Ein/Aus Timer 1 Startzeit",
+    "poll_tier": "rare"
   },
   "1257": {
     "addr": 1257,
@@ -5457,7 +5729,8 @@
     "default": null,
     "icon": "mdi:timer-outline",
     "has_value_map": false,
-    "name": "WP Ein/Aus Timer 1 Stopzeit"
+    "name": "WP Ein/Aus Timer 1 Stopzeit",
+    "poll_tier": "rare"
   },
   "1258": {
     "addr": 1258,
@@ -5477,7 +5750,8 @@
     "default": null,
     "icon": "mdi:timer-outline",
     "has_value_map": false,
-    "name": "WP Ein/Aus Timer 2 Startzeit"
+    "name": "WP Ein/Aus Timer 2 Startzeit",
+    "poll_tier": "rare"
   },
   "1259": {
     "addr": 1259,
@@ -5497,7 +5771,8 @@
     "default": null,
     "icon": "mdi:timer-outline",
     "has_value_map": false,
-    "name": "WP Ein/Aus Timer 2 Stopzeit"
+    "name": "WP Ein/Aus Timer 2 Stopzeit",
+    "poll_tier": "rare"
   },
   "1260": {
     "addr": 1260,
@@ -5517,7 +5792,8 @@
     "default": null,
     "icon": "mdi:timer-outline",
     "has_value_map": false,
-    "name": "WP Ein/Aus Timer 3 Startzeit"
+    "name": "WP Ein/Aus Timer 3 Startzeit",
+    "poll_tier": "rare"
   },
   "1261": {
     "addr": 1261,
@@ -5537,7 +5813,8 @@
     "default": null,
     "icon": "mdi:timer-outline",
     "has_value_map": false,
-    "name": "WP Ein/Aus Timer 3 Stopzeit"
+    "name": "WP Ein/Aus Timer 3 Stopzeit",
+    "poll_tier": "rare"
   },
   "1262": {
     "addr": 1262,
@@ -5557,7 +5834,8 @@
     "default": null,
     "icon": "mdi:timer-outline",
     "has_value_map": false,
-    "name": "WP Ein/Aus Timer 4 Startzeit"
+    "name": "WP Ein/Aus Timer 4 Startzeit",
+    "poll_tier": "rare"
   },
   "1263": {
     "addr": 1263,
@@ -5577,7 +5855,8 @@
     "default": null,
     "icon": "mdi:timer-outline",
     "has_value_map": false,
-    "name": "WP Ein/Aus Timer 4 Stopzeit"
+    "name": "WP Ein/Aus Timer 4 Stopzeit",
+    "poll_tier": "rare"
   },
   "1264": {
     "addr": 1264,
@@ -5597,7 +5876,8 @@
     "default": null,
     "icon": "mdi:timer-outline",
     "has_value_map": false,
-    "name": "WP Ein/Aus Timer 5 Startzeit"
+    "name": "WP Ein/Aus Timer 5 Startzeit",
+    "poll_tier": "rare"
   },
   "1265": {
     "addr": 1265,
@@ -5617,7 +5897,8 @@
     "default": null,
     "icon": "mdi:timer-outline",
     "has_value_map": false,
-    "name": "WP Ein/Aus Timer 5 Stopzeit"
+    "name": "WP Ein/Aus Timer 5 Stopzeit",
+    "poll_tier": "rare"
   },
   "1266": {
     "addr": 1266,
@@ -5637,7 +5918,8 @@
     "default": null,
     "icon": "mdi:timer-outline",
     "has_value_map": false,
-    "name": "WP Ein/Aus Timer 6 Startzeit"
+    "name": "WP Ein/Aus Timer 6 Startzeit",
+    "poll_tier": "rare"
   },
   "1267": {
     "addr": 1267,
@@ -5657,7 +5939,8 @@
     "default": null,
     "icon": "mdi:timer-outline",
     "has_value_map": false,
-    "name": "WP Ein/Aus Timer 6 Stopzeit"
+    "name": "WP Ein/Aus Timer 6 Stopzeit",
+    "poll_tier": "rare"
   },
   "1268": {
     "addr": 1268,
@@ -5677,7 +5960,8 @@
     "default": null,
     "icon": "mdi:timer-outline",
     "has_value_map": false,
-    "name": "WP Ein/Aus Timer 1+2 Aktiv/Tage Bitmaske"
+    "name": "WP Ein/Aus Timer 1+2 Aktiv/Tage Bitmaske",
+    "poll_tier": "rare"
   },
   "1269": {
     "addr": 1269,
@@ -5697,7 +5981,8 @@
     "default": null,
     "icon": "mdi:timer-outline",
     "has_value_map": false,
-    "name": "WP Ein/Aus Timer 3+4 Aktiv/Tage Bitmaske"
+    "name": "WP Ein/Aus Timer 3+4 Aktiv/Tage Bitmaske",
+    "poll_tier": "rare"
   },
   "1270": {
     "addr": 1270,
@@ -5717,7 +6002,8 @@
     "default": null,
     "icon": "mdi:timer-outline",
     "has_value_map": false,
-    "name": "WP Ein/Aus Timer 5+6 Aktiv/Tage Bitmaske"
+    "name": "WP Ein/Aus Timer 5+6 Aktiv/Tage Bitmaske",
+    "poll_tier": "rare"
   },
   "1271": {
     "addr": 1271,
@@ -5737,7 +6023,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 4 / Kennung Wort 1 / ASCII Zeichen 1-2"
+    "name": "Blockkopf Paket 4 / Kennung Wort 1 / ASCII Zeichen 1-2",
+    "poll_tier": "rare"
   },
   "1272": {
     "addr": 1272,
@@ -5757,7 +6044,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 4 / Kennung Wort 2 / ASCII Zeichen 3-4"
+    "name": "Blockkopf Paket 4 / Kennung Wort 2 / ASCII Zeichen 3-4",
+    "poll_tier": "rare"
   },
   "1273": {
     "addr": 1273,
@@ -5777,7 +6065,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 4 / Kennung Wort 3 / ASCII Zeichen 5-6"
+    "name": "Blockkopf Paket 4 / Kennung Wort 3 / ASCII Zeichen 5-6",
+    "poll_tier": "rare"
   },
   "1274": {
     "addr": 1274,
@@ -5797,7 +6086,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 4 / Kennung Wort 4 / ASCII Zeichen 7-8"
+    "name": "Blockkopf Paket 4 / Kennung Wort 4 / ASCII Zeichen 7-8",
+    "poll_tier": "rare"
   },
   "1275": {
     "addr": 1275,
@@ -5817,7 +6107,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 4 / Kennung Wort 5 / ASCII Zeichen 9-10"
+    "name": "Blockkopf Paket 4 / Kennung Wort 5 / ASCII Zeichen 9-10",
+    "poll_tier": "rare"
   },
   "1276": {
     "addr": 1276,
@@ -5837,7 +6128,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 4 / Kennung Wort 6 / ASCII Zeichen 11-12"
+    "name": "Blockkopf Paket 4 / Kennung Wort 6 / ASCII Zeichen 11-12",
+    "poll_tier": "rare"
   },
   "1277": {
     "addr": 1277,
@@ -5857,7 +6149,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 4 / Reserve 1"
+    "name": "Blockkopf Paket 4 / Reserve 1",
+    "poll_tier": "rare"
   },
   "1278": {
     "addr": 1278,
@@ -5877,7 +6170,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 4 / Reserve 2"
+    "name": "Blockkopf Paket 4 / Reserve 2",
+    "poll_tier": "rare"
   },
   "1279": {
     "addr": 1279,
@@ -5897,7 +6191,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 4 / Marker-Länge"
+    "name": "Blockkopf Paket 4 / Marker-Länge",
+    "poll_tier": "rare"
   },
   "1280": {
     "addr": 1280,
@@ -5917,7 +6212,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 4 / erstes Blockkopf-Register"
+    "name": "Blockkopf Paket 4 / erstes Blockkopf-Register",
+    "poll_tier": "rare"
   },
   "1281": {
     "addr": 1281,
@@ -5937,7 +6233,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Timer 1 Einschaltzeit (HH:MM aus High-/Low-Byte) (ASM)"
+    "name": "Timer 1 Einschaltzeit (HH:MM aus High-/Low-Byte) (ASM)",
+    "poll_tier": "rare"
   },
   "1282": {
     "addr": 1282,
@@ -5957,7 +6254,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Timer 1 Ausschaltzeit (HH:MM aus High-/Low-Byte) (ASM)"
+    "name": "Timer 1 Ausschaltzeit (HH:MM aus High-/Low-Byte) (ASM)",
+    "poll_tier": "rare"
   },
   "1283": {
     "addr": 1283,
@@ -5977,7 +6275,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Timer 1 WW-Zieltemperatur (ASM)"
+    "name": "Timer 1 WW-Zieltemperatur (ASM)",
+    "poll_tier": "rare"
   },
   "1284": {
     "addr": 1284,
@@ -5997,7 +6296,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Timer 1 HZ-Zieltemperatur (ASM)"
+    "name": "Timer 1 HZ-Zieltemperatur (ASM)",
+    "poll_tier": "rare"
   },
   "1285": {
     "addr": 1285,
@@ -6017,7 +6317,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Timer 1 Kühlen-Zieltemperatur (ASM)"
+    "name": "Timer 1 Kühlen-Zieltemperatur (ASM)",
+    "poll_tier": "rare"
   },
   "1286": {
     "addr": 1286,
@@ -6037,7 +6338,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": true,
-    "name": "Timer 1 Modus-Code (ASM; 9 = keinen Modus ändern)"
+    "name": "Timer 1 Modus-Code (ASM; 9 = keinen Modus ändern)",
+    "poll_tier": "rare"
   },
   "1287": {
     "addr": 1287,
@@ -6057,7 +6359,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Timer 1 max. Leistung (ASM)"
+    "name": "Timer 1 max. Leistung (ASM)",
+    "poll_tier": "rare"
   },
   "1288": {
     "addr": 1288,
@@ -6077,7 +6380,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Timer 2 Einschaltzeit (HH:MM aus High-/Low-Byte) (ASM)"
+    "name": "Timer 2 Einschaltzeit (HH:MM aus High-/Low-Byte) (ASM)",
+    "poll_tier": "rare"
   },
   "1289": {
     "addr": 1289,
@@ -6097,7 +6401,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Timer 2 Ausschaltzeit (HH:MM aus High-/Low-Byte) (ASM)"
+    "name": "Timer 2 Ausschaltzeit (HH:MM aus High-/Low-Byte) (ASM)",
+    "poll_tier": "rare"
   },
   "1290": {
     "addr": 1290,
@@ -6117,7 +6422,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Timer 2 WW-Zieltemperatur (ASM)"
+    "name": "Timer 2 WW-Zieltemperatur (ASM)",
+    "poll_tier": "rare"
   },
   "1291": {
     "addr": 1291,
@@ -6137,7 +6443,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Timer 2 HZ-Zieltemperatur (ASM)"
+    "name": "Timer 2 HZ-Zieltemperatur (ASM)",
+    "poll_tier": "rare"
   },
   "1292": {
     "addr": 1292,
@@ -6157,7 +6464,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Timer 2 Kühlen-Zieltemperatur (ASM)"
+    "name": "Timer 2 Kühlen-Zieltemperatur (ASM)",
+    "poll_tier": "rare"
   },
   "1293": {
     "addr": 1293,
@@ -6177,7 +6485,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": true,
-    "name": "Timer 2 Modus (ASM) (9 = keinen Modus ändern)"
+    "name": "Timer 2 Modus (ASM) (9 = keinen Modus ändern)",
+    "poll_tier": "rare"
   },
   "1294": {
     "addr": 1294,
@@ -6197,7 +6506,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Timer 2 max. Leistung (ASM)"
+    "name": "Timer 2 max. Leistung (ASM)",
+    "poll_tier": "rare"
   },
   "1295": {
     "addr": 1295,
@@ -6217,7 +6527,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Timer 3 Einschaltzeit (HH:MM aus High-/Low-Byte) (ASM)"
+    "name": "Timer 3 Einschaltzeit (HH:MM aus High-/Low-Byte) (ASM)",
+    "poll_tier": "rare"
   },
   "1296": {
     "addr": 1296,
@@ -6237,7 +6548,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Timer 3 Ausschaltzeit (HH:MM aus High-/Low-Byte) (ASM)"
+    "name": "Timer 3 Ausschaltzeit (HH:MM aus High-/Low-Byte) (ASM)",
+    "poll_tier": "rare"
   },
   "1297": {
     "addr": 1297,
@@ -6257,7 +6569,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Timer 3 WW-Zieltemperatur (ASM)"
+    "name": "Timer 3 WW-Zieltemperatur (ASM)",
+    "poll_tier": "rare"
   },
   "1298": {
     "addr": 1298,
@@ -6277,7 +6590,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Timer 3 HZ-Zieltemperatur (ASM)"
+    "name": "Timer 3 HZ-Zieltemperatur (ASM)",
+    "poll_tier": "rare"
   },
   "1299": {
     "addr": 1299,
@@ -6297,7 +6611,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Timer 3 Kühlen-Zieltemperatur (ASM)"
+    "name": "Timer 3 Kühlen-Zieltemperatur (ASM)",
+    "poll_tier": "rare"
   },
   "1300": {
     "addr": 1300,
@@ -6317,7 +6632,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": true,
-    "name": "Timer 3 Modus (ASM) (9 = keinen Modus ändern)"
+    "name": "Timer 3 Modus (ASM) (9 = keinen Modus ändern)",
+    "poll_tier": "rare"
   },
   "1301": {
     "addr": 1301,
@@ -6337,7 +6653,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Timer 3 max. Leistung (ASM)"
+    "name": "Timer 3 max. Leistung (ASM)",
+    "poll_tier": "rare"
   },
   "1302": {
     "addr": 1302,
@@ -6357,7 +6674,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Timer 4 Einschaltzeit (HH:MM aus High-/Low-Byte) (ASM)"
+    "name": "Timer 4 Einschaltzeit (HH:MM aus High-/Low-Byte) (ASM)",
+    "poll_tier": "rare"
   },
   "1303": {
     "addr": 1303,
@@ -6377,7 +6695,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Timer 4 Ausschaltzeit (HH:MM aus High-/Low-Byte) (ASM)"
+    "name": "Timer 4 Ausschaltzeit (HH:MM aus High-/Low-Byte) (ASM)",
+    "poll_tier": "rare"
   },
   "1304": {
     "addr": 1304,
@@ -6397,7 +6716,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Timer 4 WW-Zieltemperatur (ASM)"
+    "name": "Timer 4 WW-Zieltemperatur (ASM)",
+    "poll_tier": "rare"
   },
   "1305": {
     "addr": 1305,
@@ -6417,7 +6737,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Timer 4 HZ-Zieltemperatur (ASM)"
+    "name": "Timer 4 HZ-Zieltemperatur (ASM)",
+    "poll_tier": "rare"
   },
   "1306": {
     "addr": 1306,
@@ -6437,7 +6758,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Timer 4 Kühlen-Zieltemperatur (ASM)"
+    "name": "Timer 4 Kühlen-Zieltemperatur (ASM)",
+    "poll_tier": "rare"
   },
   "1307": {
     "addr": 1307,
@@ -6457,7 +6779,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": true,
-    "name": "Timer 4 Modus (ASM) (9 = keinen Modus ändern)"
+    "name": "Timer 4 Modus (ASM) (9 = keinen Modus ändern)",
+    "poll_tier": "rare"
   },
   "1308": {
     "addr": 1308,
@@ -6477,7 +6800,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Timer 4 max. Leistung (ASM)"
+    "name": "Timer 4 max. Leistung (ASM)",
+    "poll_tier": "rare"
   },
   "1309": {
     "addr": 1309,
@@ -6497,7 +6821,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Timer 5 Einschaltzeit (HH:MM aus High-/Low-Byte) (ASM)"
+    "name": "Timer 5 Einschaltzeit (HH:MM aus High-/Low-Byte) (ASM)",
+    "poll_tier": "rare"
   },
   "1310": {
     "addr": 1310,
@@ -6517,7 +6842,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Timer 5 Ausschaltzeit (HH:MM aus High-/Low-Byte) (ASM)"
+    "name": "Timer 5 Ausschaltzeit (HH:MM aus High-/Low-Byte) (ASM)",
+    "poll_tier": "rare"
   },
   "1311": {
     "addr": 1311,
@@ -6537,7 +6863,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Timer 5 WW-Zieltemperatur (ASM)"
+    "name": "Timer 5 WW-Zieltemperatur (ASM)",
+    "poll_tier": "rare"
   },
   "1312": {
     "addr": 1312,
@@ -6557,7 +6884,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Timer 5 HZ-Zieltemperatur (ASM)"
+    "name": "Timer 5 HZ-Zieltemperatur (ASM)",
+    "poll_tier": "rare"
   },
   "1313": {
     "addr": 1313,
@@ -6577,7 +6905,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Timer 5 Kühlen-Zieltemperatur (ASM)"
+    "name": "Timer 5 Kühlen-Zieltemperatur (ASM)",
+    "poll_tier": "rare"
   },
   "1314": {
     "addr": 1314,
@@ -6597,7 +6926,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": true,
-    "name": "Timer 5 Modus (ASM) (9 = keinen Modus ändern)"
+    "name": "Timer 5 Modus (ASM) (9 = keinen Modus ändern)",
+    "poll_tier": "rare"
   },
   "1315": {
     "addr": 1315,
@@ -6617,7 +6947,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Timer 5 max. Leistung (ASM)"
+    "name": "Timer 5 max. Leistung (ASM)",
+    "poll_tier": "rare"
   },
   "1316": {
     "addr": 1316,
@@ -6637,7 +6968,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Timer 6 Einschaltzeit (HH:MM aus High-/Low-Byte) (ASM)"
+    "name": "Timer 6 Einschaltzeit (HH:MM aus High-/Low-Byte) (ASM)",
+    "poll_tier": "rare"
   },
   "1317": {
     "addr": 1317,
@@ -6657,7 +6989,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Timer 6 Ausschaltzeit (HH:MM aus High-/Low-Byte) (ASM)"
+    "name": "Timer 6 Ausschaltzeit (HH:MM aus High-/Low-Byte) (ASM)",
+    "poll_tier": "rare"
   },
   "1318": {
     "addr": 1318,
@@ -6677,7 +7010,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Timer 6 WW-Zieltemperatur (ASM)"
+    "name": "Timer 6 WW-Zieltemperatur (ASM)",
+    "poll_tier": "rare"
   },
   "1319": {
     "addr": 1319,
@@ -6697,7 +7031,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Timer 6 HZ-Zieltemperatur (ASM)"
+    "name": "Timer 6 HZ-Zieltemperatur (ASM)",
+    "poll_tier": "rare"
   },
   "1320": {
     "addr": 1320,
@@ -6717,7 +7052,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Timer 6 Kühlen-Zieltemperatur (ASM)"
+    "name": "Timer 6 Kühlen-Zieltemperatur (ASM)",
+    "poll_tier": "rare"
   },
   "1321": {
     "addr": 1321,
@@ -6737,7 +7073,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": true,
-    "name": "Timer 6 Modus (ASM) (9 = keinen Modus ändern)"
+    "name": "Timer 6 Modus (ASM) (9 = keinen Modus ändern)",
+    "poll_tier": "rare"
   },
   "1322": {
     "addr": 1322,
@@ -6757,7 +7094,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Timer 6 max. Leistung (ASM)"
+    "name": "Timer 6 max. Leistung (ASM)",
+    "poll_tier": "rare"
   },
   "1323": {
     "addr": 1323,
@@ -6777,7 +7115,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Timer 1+2 Aktiv/Tage Bitmaske (ASM; Low-Byte erster Timer, High-Byte zweiter Timer)"
+    "name": "Timer 1+2 Aktiv/Tage Bitmaske (ASM; Low-Byte erster Timer, High-Byte zweiter Timer)",
+    "poll_tier": "rare"
   },
   "1324": {
     "addr": 1324,
@@ -6797,7 +7136,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Timer 3+4 Aktiv/Tage Bitmaske (ASM; Low-Byte erster Timer, High-Byte zweiter Timer)"
+    "name": "Timer 3+4 Aktiv/Tage Bitmaske (ASM; Low-Byte erster Timer, High-Byte zweiter Timer)",
+    "poll_tier": "rare"
   },
   "1325": {
     "addr": 1325,
@@ -6817,7 +7157,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Timer 5+6 Aktiv/Tage Bitmaske (ASM; Low-Byte erster Timer, High-Byte zweiter Timer)"
+    "name": "Timer 5+6 Aktiv/Tage Bitmaske (ASM; Low-Byte erster Timer, High-Byte zweiter Timer)",
+    "poll_tier": "rare"
   },
   "1326": {
     "addr": 1326,
@@ -6837,7 +7178,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Zirkulationspumpe Timer 1 Startzeit"
+    "name": "Zirkulationspumpe Timer 1 Startzeit",
+    "poll_tier": "rare"
   },
   "1327": {
     "addr": 1327,
@@ -6857,7 +7199,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Zirkulationspumpe Timer 1 Stopzeit"
+    "name": "Zirkulationspumpe Timer 1 Stopzeit",
+    "poll_tier": "rare"
   },
   "1328": {
     "addr": 1328,
@@ -6877,7 +7220,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Zirkulationspumpe Timer 2 Startzeit"
+    "name": "Zirkulationspumpe Timer 2 Startzeit",
+    "poll_tier": "rare"
   },
   "1329": {
     "addr": 1329,
@@ -6897,7 +7241,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Zirkulationspumpe Timer 2 Stopzeit"
+    "name": "Zirkulationspumpe Timer 2 Stopzeit",
+    "poll_tier": "rare"
   },
   "1330": {
     "addr": 1330,
@@ -6917,7 +7262,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Zirkulationspumpe Timer 3 Startzeit"
+    "name": "Zirkulationspumpe Timer 3 Startzeit",
+    "poll_tier": "rare"
   },
   "1331": {
     "addr": 1331,
@@ -6937,7 +7283,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Zirkulationspumpe Timer 3 Stopzeit"
+    "name": "Zirkulationspumpe Timer 3 Stopzeit",
+    "poll_tier": "rare"
   },
   "1332": {
     "addr": 1332,
@@ -6957,7 +7304,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Zirkulationspumpe Timer 1+2 Aktiv-Bitmaske"
+    "name": "Zirkulationspumpe Timer 1+2 Aktiv-Bitmaske",
+    "poll_tier": "rare"
   },
   "1333": {
     "addr": 1333,
@@ -6977,7 +7325,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Zirkulationspumpe Timer 3 Aktiv-Bitmaske"
+    "name": "Zirkulationspumpe Timer 3 Aktiv-Bitmaske",
+    "poll_tier": "rare"
   },
   "1334": {
     "addr": 1334,
@@ -6997,7 +7346,8 @@
     "default": null,
     "icon": "mdi:power-socket-eu",
     "has_value_map": true,
-    "name": "SG Ready Auswahl"
+    "name": "SG Ready Auswahl",
+    "poll_tier": "rare"
   },
   "1335": {
     "addr": 1335,
@@ -7017,7 +7367,8 @@
     "default": null,
     "icon": "mdi:power-socket-eu",
     "has_value_map": false,
-    "name": "SG Mode 1 Schlafmodus Zeit"
+    "name": "SG Mode 1 Schlafmodus Zeit",
+    "poll_tier": "rare"
   },
   "1336": {
     "addr": 1336,
@@ -7037,7 +7388,8 @@
     "default": null,
     "icon": "mdi:power-socket-eu",
     "has_value_map": false,
-    "name": "SG Mode 2 Leistung / wenig PV"
+    "name": "SG Mode 2 Leistung / wenig PV",
+    "poll_tier": "rare"
   },
   "1337": {
     "addr": 1337,
@@ -7057,7 +7409,8 @@
     "default": null,
     "icon": "mdi:power-socket-eu",
     "has_value_map": false,
-    "name": "SG Mode 3 Leistung / mittel PV"
+    "name": "SG Mode 3 Leistung / mittel PV",
+    "poll_tier": "rare"
   },
   "1338": {
     "addr": 1338,
@@ -7077,7 +7430,8 @@
     "default": null,
     "icon": "mdi:power-socket-eu",
     "has_value_map": false,
-    "name": "SG Mode 4 WW-Zieltemperatur-Anhebung"
+    "name": "SG Mode 4 WW-Zieltemperatur-Anhebung",
+    "poll_tier": "rare"
   },
   "1339": {
     "addr": 1339,
@@ -7097,7 +7451,8 @@
     "default": null,
     "icon": "mdi:power-socket-eu",
     "has_value_map": false,
-    "name": "SG Mode 4 HZ-Zieltemperatur-Anhebung"
+    "name": "SG Mode 4 HZ-Zieltemperatur-Anhebung",
+    "poll_tier": "rare"
   },
   "1340": {
     "addr": 1340,
@@ -7117,7 +7472,8 @@
     "default": null,
     "icon": "mdi:power-socket-eu",
     "has_value_map": false,
-    "name": "SG Mode 4 Kühlen-Zieltemperatur-Anhebung"
+    "name": "SG Mode 4 Kühlen-Zieltemperatur-Anhebung",
+    "poll_tier": "rare"
   },
   "1341": {
     "addr": 1341,
@@ -7137,7 +7493,8 @@
     "default": null,
     "icon": "mdi:power-socket-eu",
     "has_value_map": true,
-    "name": "SG Mode 4 E-Heizer / Zusatzfunktion"
+    "name": "SG Mode 4 E-Heizer / Zusatzfunktion",
+    "poll_tier": "rare"
   },
   "1342": {
     "addr": 1342,
@@ -7157,7 +7514,8 @@
     "default": null,
     "icon": "mdi:shield-alert",
     "has_value_map": false,
-    "name": "Niederdruck-Grenzwert für Frequenzbegrenzung"
+    "name": "Niederdruck-Grenzwert für Frequenzbegrenzung",
+    "poll_tier": "rare"
   },
   "1343": {
     "addr": 1343,
@@ -7177,7 +7535,8 @@
     "default": null,
     "icon": "mdi:shield-alert",
     "has_value_map": false,
-    "name": "Maximaler Stromwert"
+    "name": "Maximaler Stromwert",
+    "poll_tier": "rare"
   },
   "1344": {
     "addr": 1344,
@@ -7197,7 +7556,8 @@
     "default": "60",
     "icon": "mdi:shield-alert",
     "has_value_map": false,
-    "name": "Nenn-Wasserdurchfluss"
+    "name": "Nenn-Wasserdurchfluss",
+    "poll_tier": "rare"
   },
   "1345": {
     "addr": 1345,
@@ -7217,7 +7577,8 @@
     "default": null,
     "icon": "mdi:chip",
     "has_value_map": true,
-    "name": "External Pump Selection / Externe Pumpenauswahl"
+    "name": "External Pump Selection / Externe Pumpenauswahl",
+    "poll_tier": "rare"
   },
   "1346": {
     "addr": 1346,
@@ -7237,7 +7598,8 @@
     "default": "66",
     "icon": "mdi:chip",
     "has_value_map": false,
-    "name": "Supervisor-Passwort: 66"
+    "name": "Supervisor-Passwort: 66",
+    "poll_tier": "rare"
   },
   "1347": {
     "addr": 1347,
@@ -7257,7 +7619,8 @@
     "default": "90",
     "icon": "mdi:air-conditioner",
     "has_value_map": false,
-    "name": "Max. Kompressorfrequenz im Warmwasserbetrieb"
+    "name": "Max. Kompressorfrequenz im Warmwasserbetrieb",
+    "poll_tier": "rare"
   },
   "1348": {
     "addr": 1348,
@@ -7277,7 +7640,8 @@
     "default": null,
     "icon": "mdi:air-conditioner",
     "has_value_map": false,
-    "name": "Display-Firmware Parameter C13"
+    "name": "Display-Firmware Parameter C13",
+    "poll_tier": "rare"
   },
   "1349": {
     "addr": 1349,
@@ -7297,7 +7661,8 @@
     "default": null,
     "icon": "mdi:air-conditioner",
     "has_value_map": false,
-    "name": "Display-Firmware Parameter C14"
+    "name": "Display-Firmware Parameter C14",
+    "poll_tier": "rare"
   },
   "1350": {
     "addr": 1350,
@@ -7317,7 +7682,8 @@
     "default": null,
     "icon": "mdi:air-conditioner",
     "has_value_map": false,
-    "name": "Display-Firmware Parameter C15"
+    "name": "Display-Firmware Parameter C15",
+    "poll_tier": "rare"
   },
   "1351": {
     "addr": 1351,
@@ -7337,7 +7703,8 @@
     "default": null,
     "icon": "mdi:valve",
     "has_value_map": false,
-    "name": "Display-Firmware Parameter E20"
+    "name": "Display-Firmware Parameter E20",
+    "poll_tier": "rare"
   },
   "1352": {
     "addr": 1352,
@@ -7357,7 +7724,8 @@
     "default": null,
     "icon": "mdi:valve",
     "has_value_map": false,
-    "name": "Display-Firmware Parameter E21"
+    "name": "Display-Firmware Parameter E21",
+    "poll_tier": "rare"
   },
   "1353": {
     "addr": 1353,
@@ -7377,7 +7745,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Reserviert"
+    "name": "Reserviert",
+    "poll_tier": "rare"
   },
   "1354": {
     "addr": 1354,
@@ -7397,7 +7766,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Reserviert"
+    "name": "Reserviert",
+    "poll_tier": "rare"
   },
   "1355": {
     "addr": 1355,
@@ -7417,7 +7787,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Reserviert"
+    "name": "Reserviert",
+    "poll_tier": "rare"
   },
   "1356": {
     "addr": 1356,
@@ -7437,7 +7808,8 @@
     "default": "4",
     "icon": "mdi:chip",
     "has_value_map": false,
-    "name": "H42 Einschalt-AT Gehaeusewannenheizung (D30/1437 erst wirksam, wenn AT kleiner H42 ist)"
+    "name": "H42 Einschalt-AT Gehaeusewannenheizung (D30/1437 erst wirksam, wenn AT kleiner H42 ist)",
+    "poll_tier": "rare"
   },
   "1357": {
     "addr": 1357,
@@ -7457,7 +7829,8 @@
     "default": "2.0°C",
     "icon": "mdi:home-thermometer",
     "has_value_map": false,
-    "name": "Differenz: Keine Pumpe Ein bei niedriger Wassertemperatur"
+    "name": "Differenz: Keine Pumpe Ein bei niedriger Wassertemperatur",
+    "poll_tier": "rare"
   },
   "1358": {
     "addr": 1358,
@@ -7477,7 +7850,8 @@
     "default": "NO",
     "icon": "mdi:home-thermometer",
     "has_value_map": true,
-    "name": "Zone 1 Wasserpumpe im Kühlbetrieb aktivieren"
+    "name": "Zone 1 Wasserpumpe im Kühlbetrieb aktivieren",
+    "poll_tier": "rare"
   },
   "1361": {
     "addr": 1361,
@@ -7497,7 +7871,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 5 / Kennung Wort 1 / ASCII Zeichen 1-2"
+    "name": "Blockkopf Paket 5 / Kennung Wort 1 / ASCII Zeichen 1-2",
+    "poll_tier": "rare"
   },
   "1362": {
     "addr": 1362,
@@ -7517,7 +7892,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 5 / Kennung Wort 2 / ASCII Zeichen 3-4"
+    "name": "Blockkopf Paket 5 / Kennung Wort 2 / ASCII Zeichen 3-4",
+    "poll_tier": "rare"
   },
   "1363": {
     "addr": 1363,
@@ -7537,7 +7913,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 5 / Kennung Wort 3 / ASCII Zeichen 5-6"
+    "name": "Blockkopf Paket 5 / Kennung Wort 3 / ASCII Zeichen 5-6",
+    "poll_tier": "rare"
   },
   "1364": {
     "addr": 1364,
@@ -7557,7 +7934,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 5 / Kennung Wort 4 / ASCII Zeichen 7-8"
+    "name": "Blockkopf Paket 5 / Kennung Wort 4 / ASCII Zeichen 7-8",
+    "poll_tier": "rare"
   },
   "1365": {
     "addr": 1365,
@@ -7577,7 +7955,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 5 / Kennung Wort 5 / ASCII Zeichen 9-10"
+    "name": "Blockkopf Paket 5 / Kennung Wort 5 / ASCII Zeichen 9-10",
+    "poll_tier": "rare"
   },
   "1366": {
     "addr": 1366,
@@ -7597,7 +7976,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 5 / Kennung Wort 6 / ASCII Zeichen 11-12"
+    "name": "Blockkopf Paket 5 / Kennung Wort 6 / ASCII Zeichen 11-12",
+    "poll_tier": "rare"
   },
   "1367": {
     "addr": 1367,
@@ -7617,7 +7997,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 5 / Reserve 1"
+    "name": "Blockkopf Paket 5 / Reserve 1",
+    "poll_tier": "rare"
   },
   "1368": {
     "addr": 1368,
@@ -7637,7 +8018,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 5 / Reserve 2"
+    "name": "Blockkopf Paket 5 / Reserve 2",
+    "poll_tier": "rare"
   },
   "1369": {
     "addr": 1369,
@@ -7657,7 +8039,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 5 / Marker-Länge"
+    "name": "Blockkopf Paket 5 / Marker-Länge",
+    "poll_tier": "rare"
   },
   "1370": {
     "addr": 1370,
@@ -7677,7 +8060,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 5 / erstes Blockkopf-Register"
+    "name": "Blockkopf Paket 5 / erstes Blockkopf-Register",
+    "poll_tier": "rare"
   },
   "1371": {
     "addr": 1371,
@@ -7697,7 +8081,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Werkstestmodus / manuelle Steuerung (ASM)"
+    "name": "Werkstestmodus / manuelle Steuerung (ASM)",
+    "poll_tier": "rare"
   },
   "1372": {
     "addr": 1372,
@@ -7717,7 +8102,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Automatischer Werkstest Ein/Aus (ASM)"
+    "name": "Automatischer Werkstest Ein/Aus (ASM)",
+    "poll_tier": "rare"
   },
   "1373": {
     "addr": 1373,
@@ -7737,7 +8123,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Automatischer Werkstest Modus (ASM)"
+    "name": "Automatischer Werkstest Modus (ASM)",
+    "poll_tier": "rare"
   },
   "1374": {
     "addr": 1374,
@@ -7757,7 +8144,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Automatischer Werkstest Zieltemperatur (ASM)"
+    "name": "Automatischer Werkstest Zieltemperatur (ASM)",
+    "poll_tier": "rare"
   },
   "1375": {
     "addr": 1375,
@@ -7777,7 +8165,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Automatischer Werkstest Kompressorfrequenz (ASM)"
+    "name": "Automatischer Werkstest Kompressorfrequenz (ASM)",
+    "poll_tier": "rare"
   },
   "1376": {
     "addr": 1376,
@@ -7797,7 +8186,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Automatischer Werkstest Lüfter 1 Drehzahl (ASM)"
+    "name": "Automatischer Werkstest Lüfter 1 Drehzahl (ASM)",
+    "poll_tier": "rare"
   },
   "1377": {
     "addr": 1377,
@@ -7817,7 +8207,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Automatischer Werkstest Lüfter 2 Drehzahl (ASM)"
+    "name": "Automatischer Werkstest Lüfter 2 Drehzahl (ASM)",
+    "poll_tier": "rare"
   },
   "1378": {
     "addr": 1378,
@@ -7837,7 +8228,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Automatischer Werkstest Haupt-EEV Schritte (ASM)"
+    "name": "Automatischer Werkstest Haupt-EEV Schritte (ASM)",
+    "poll_tier": "rare"
   },
   "1379": {
     "addr": 1379,
@@ -7857,7 +8249,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Automatischer Werkstest EVI-EEV Schritte (ASM)"
+    "name": "Automatischer Werkstest EVI-EEV Schritte (ASM)",
+    "poll_tier": "rare"
   },
   "1380": {
     "addr": 1380,
@@ -7877,7 +8270,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Automatischer Werkstest Wasserpumpe Drehzahl (ASM)"
+    "name": "Automatischer Werkstest Wasserpumpe Drehzahl (ASM)",
+    "poll_tier": "rare"
   },
   "1432": {
     "addr": 1432,
@@ -7897,7 +8291,8 @@
     "default": "4.4",
     "icon": "mdi:water-pump",
     "has_value_map": false,
-    "name": "Ziel-Temperaturdifferenz für Pumpendrehzahlregelung"
+    "name": "Ziel-Temperaturdifferenz für Pumpendrehzahlregelung",
+    "poll_tier": "rare"
   },
   "1433": {
     "addr": 1433,
@@ -7917,7 +8312,8 @@
     "default": "2",
     "icon": "mdi:water-pump",
     "has_value_map": false,
-    "name": "Pumpendrehzahl-Anpassbereich je Periode"
+    "name": "Pumpendrehzahl-Anpassbereich je Periode",
+    "poll_tier": "rare"
   },
   "1435": {
     "addr": 1435,
@@ -7937,7 +8333,8 @@
     "default": "30",
     "icon": "mdi:water-pump",
     "has_value_map": false,
-    "name": "Nachfüllventil Startzyklus (IDU)"
+    "name": "Nachfüllventil Startzyklus (IDU)",
+    "poll_tier": "rare"
   },
   "1436": {
     "addr": 1436,
@@ -7957,7 +8354,8 @@
     "default": "30",
     "icon": "mdi:water-pump",
     "has_value_map": false,
-    "name": "Nachfüllventil Arbeitsdauer (IDU)"
+    "name": "Nachfüllventil Arbeitsdauer (IDU)",
+    "poll_tier": "rare"
   },
   "1437": {
     "addr": 1437,
@@ -7977,7 +8375,8 @@
     "default": null,
     "icon": "mdi:snowflake-melt",
     "has_value_map": false,
-    "name": "D30 Gehaeusewannenheizung Delays Off Time after Defrost"
+    "name": "D30 Gehaeusewannenheizung Delays Off Time after Defrost",
+    "poll_tier": "rare"
   },
   "1438": {
     "addr": 1438,
@@ -7997,7 +8396,8 @@
     "default": "1.0",
     "icon": "mdi:water-pump",
     "has_value_map": false,
-    "name": "Ziel-Wasserdruck (IDU)"
+    "name": "Ziel-Wasserdruck (IDU)",
+    "poll_tier": "rare"
   },
   "1444": {
     "addr": 1444,
@@ -8017,7 +8417,8 @@
     "default": "0.5",
     "icon": "mdi:water-pump",
     "has_value_map": false,
-    "name": "Stopp-Nachfülldruckdifferenz (IDU)"
+    "name": "Stopp-Nachfülldruckdifferenz (IDU)",
+    "poll_tier": "rare"
   },
   "1451": {
     "addr": 1451,
@@ -8037,7 +8438,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 6 / Kennung Wort 1 / ASCII Zeichen 1-2"
+    "name": "Blockkopf Paket 6 / Kennung Wort 1 / ASCII Zeichen 1-2",
+    "poll_tier": "rare"
   },
   "1452": {
     "addr": 1452,
@@ -8057,7 +8459,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 6 / Kennung Wort 2 / ASCII Zeichen 3-4"
+    "name": "Blockkopf Paket 6 / Kennung Wort 2 / ASCII Zeichen 3-4",
+    "poll_tier": "rare"
   },
   "1453": {
     "addr": 1453,
@@ -8077,7 +8480,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 6 / Kennung Wort 3 / ASCII Zeichen 5-6"
+    "name": "Blockkopf Paket 6 / Kennung Wort 3 / ASCII Zeichen 5-6",
+    "poll_tier": "rare"
   },
   "1454": {
     "addr": 1454,
@@ -8097,7 +8501,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 6 / Kennung Wort 4 / ASCII Zeichen 7-8"
+    "name": "Blockkopf Paket 6 / Kennung Wort 4 / ASCII Zeichen 7-8",
+    "poll_tier": "rare"
   },
   "1455": {
     "addr": 1455,
@@ -8117,7 +8522,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 6 / Kennung Wort 5 / ASCII Zeichen 9-10"
+    "name": "Blockkopf Paket 6 / Kennung Wort 5 / ASCII Zeichen 9-10",
+    "poll_tier": "rare"
   },
   "1456": {
     "addr": 1456,
@@ -8137,7 +8543,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 6 / Kennung Wort 6 / ASCII Zeichen 11-12"
+    "name": "Blockkopf Paket 6 / Kennung Wort 6 / ASCII Zeichen 11-12",
+    "poll_tier": "rare"
   },
   "1457": {
     "addr": 1457,
@@ -8157,7 +8564,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 6 / Reserve 1"
+    "name": "Blockkopf Paket 6 / Reserve 1",
+    "poll_tier": "rare"
   },
   "1458": {
     "addr": 1458,
@@ -8177,7 +8585,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 6 / Reserve 2"
+    "name": "Blockkopf Paket 6 / Reserve 2",
+    "poll_tier": "rare"
   },
   "1459": {
     "addr": 1459,
@@ -8197,7 +8606,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 6 / Marker-Länge"
+    "name": "Blockkopf Paket 6 / Marker-Länge",
+    "poll_tier": "rare"
   },
   "1460": {
     "addr": 1460,
@@ -8217,7 +8627,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 6 / erstes Blockkopf-Register"
+    "name": "Blockkopf Paket 6 / erstes Blockkopf-Register",
+    "poll_tier": "rare"
   },
   "1464": {
     "addr": 1464,
@@ -8237,7 +8648,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Funktion unbekannt"
+    "name": "Funktion unbekannt",
+    "poll_tier": "rare"
   },
   "1466": {
     "addr": 1466,
@@ -8257,7 +8669,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Funktion unbekannt"
+    "name": "Funktion unbekannt",
+    "poll_tier": "rare"
   },
   "1476": {
     "addr": 1476,
@@ -8277,7 +8690,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Funktion unbekannt"
+    "name": "Funktion unbekannt",
+    "poll_tier": "rare"
   },
   "1541": {
     "addr": 1541,
@@ -8297,7 +8711,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 7 / Kennung Wort 1"
+    "name": "Blockkopf Paket 7 / Kennung Wort 1",
+    "poll_tier": "rare"
   },
   "1542": {
     "addr": 1542,
@@ -8317,7 +8732,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 7 / Kennung Wort 2"
+    "name": "Blockkopf Paket 7 / Kennung Wort 2",
+    "poll_tier": "rare"
   },
   "1543": {
     "addr": 1543,
@@ -8337,7 +8753,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 7 / Kennung Wort 3"
+    "name": "Blockkopf Paket 7 / Kennung Wort 3",
+    "poll_tier": "rare"
   },
   "1544": {
     "addr": 1544,
@@ -8357,7 +8774,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 7 / Kennung Wort 4"
+    "name": "Blockkopf Paket 7 / Kennung Wort 4",
+    "poll_tier": "rare"
   },
   "1545": {
     "addr": 1545,
@@ -8377,7 +8795,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 7 / Kennung Wort 5"
+    "name": "Blockkopf Paket 7 / Kennung Wort 5",
+    "poll_tier": "rare"
   },
   "1546": {
     "addr": 1546,
@@ -8397,7 +8816,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 7 / Kennung Wort 6"
+    "name": "Blockkopf Paket 7 / Kennung Wort 6",
+    "poll_tier": "rare"
   },
   "1547": {
     "addr": 1547,
@@ -8417,7 +8837,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 7 / Reserve 1"
+    "name": "Blockkopf Paket 7 / Reserve 1",
+    "poll_tier": "rare"
   },
   "1548": {
     "addr": 1548,
@@ -8437,7 +8858,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 7 / Reserve 2"
+    "name": "Blockkopf Paket 7 / Reserve 2",
+    "poll_tier": "rare"
   },
   "1549": {
     "addr": 1549,
@@ -8457,7 +8879,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 7 / Marker-Länge"
+    "name": "Blockkopf Paket 7 / Marker-Länge",
+    "poll_tier": "rare"
   },
   "1550": {
     "addr": 1550,
@@ -8477,7 +8900,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 7 / erstes Blockkopf-Register"
+    "name": "Blockkopf Paket 7 / erstes Blockkopf-Register",
+    "poll_tier": "rare"
   },
   "2001": {
     "addr": 2001,
@@ -8497,7 +8921,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 7 / Kennung Wort 1 / ASCII Zeichen 1-2"
+    "name": "Blockkopf Paket 7 / Kennung Wort 1 / ASCII Zeichen 1-2",
+    "poll_tier": "rare"
   },
   "2002": {
     "addr": 2002,
@@ -8517,7 +8942,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 7 / Kennung Wort 2 / ASCII Zeichen 3-4"
+    "name": "Blockkopf Paket 7 / Kennung Wort 2 / ASCII Zeichen 3-4",
+    "poll_tier": "rare"
   },
   "2003": {
     "addr": 2003,
@@ -8537,7 +8963,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 7 / Kennung Wort 3 / ASCII Zeichen 5-6"
+    "name": "Blockkopf Paket 7 / Kennung Wort 3 / ASCII Zeichen 5-6",
+    "poll_tier": "rare"
   },
   "2004": {
     "addr": 2004,
@@ -8557,7 +8984,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 7 / Kennung Wort 4 / ASCII Zeichen 7-8"
+    "name": "Blockkopf Paket 7 / Kennung Wort 4 / ASCII Zeichen 7-8",
+    "poll_tier": "rare"
   },
   "2005": {
     "addr": 2005,
@@ -8577,7 +9005,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 7 / Kennung Wort 5 / ASCII Zeichen 9-10"
+    "name": "Blockkopf Paket 7 / Kennung Wort 5 / ASCII Zeichen 9-10",
+    "poll_tier": "rare"
   },
   "2006": {
     "addr": 2006,
@@ -8597,7 +9026,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 7 / Kennung Wort 6 / ASCII Zeichen 11-12"
+    "name": "Blockkopf Paket 7 / Kennung Wort 6 / ASCII Zeichen 11-12",
+    "poll_tier": "rare"
   },
   "2007": {
     "addr": 2007,
@@ -8617,7 +9047,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket Status 1 / Reserve 1"
+    "name": "Blockkopf Paket Status 1 / Reserve 1",
+    "poll_tier": "rare"
   },
   "2008": {
     "addr": 2008,
@@ -8637,7 +9068,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket Status 1 / Reserve 2"
+    "name": "Blockkopf Paket Status 1 / Reserve 2",
+    "poll_tier": "rare"
   },
   "2009": {
     "addr": 2009,
@@ -8657,7 +9089,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket Status 1 / Marker-Länge"
+    "name": "Blockkopf Paket Status 1 / Marker-Länge",
+    "poll_tier": "rare"
   },
   "2010": {
     "addr": 2010,
@@ -8677,7 +9110,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket Status 1 / erstes Blockkopf-Register"
+    "name": "Blockkopf Paket Status 1 / erstes Blockkopf-Register",
+    "poll_tier": "rare"
   },
   "2011": {
     "addr": 2011,
@@ -8697,7 +9131,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": true,
-    "name": "Gerätezustand"
+    "name": "Gerätezustand",
+    "poll_tier": "rare"
   },
   "2012": {
     "addr": 2012,
@@ -8717,7 +9152,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": true,
-    "name": "Aktueller Betriebsstatus"
+    "name": "Aktueller Betriebsstatus",
+    "poll_tier": "rare"
   },
   "2013": {
     "addr": 2013,
@@ -8737,7 +9173,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Temperaturwert nach Begrenzung"
+    "name": "Temperaturwert nach Begrenzung",
+    "poll_tier": "quick"
   },
   "2014": {
     "addr": 2014,
@@ -8757,7 +9194,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Temperaturwert nach Wetterkompensation während des Heizens"
+    "name": "Temperaturwert nach Wetterkompensation während des Heizens",
+    "poll_tier": "quick"
   },
   "2015": {
     "addr": 2015,
@@ -8777,7 +9215,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": true,
-    "name": "Zentrale Abtauautomatik anwenden"
+    "name": "Zentrale Abtauautomatik anwenden",
+    "poll_tier": "rare"
   },
   "2016": {
     "addr": 2016,
@@ -8797,7 +9236,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Solltemperatur wie 2013 / 2014"
+    "name": "Solltemperatur wie 2013 / 2014",
+    "poll_tier": "quick"
   },
   "2017": {
     "addr": 2017,
@@ -8817,7 +9257,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Reserviert"
+    "name": "Reserviert",
+    "poll_tier": "rare"
   },
   "2018": {
     "addr": 2018,
@@ -8837,7 +9278,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": true,
-    "name": "025 / Lastausgang (Elektrischer Wassertankheizer)"
+    "name": "025 / Lastausgang (Elektrischer Wassertankheizer)",
+    "poll_tier": "rare"
   },
   "2019": {
     "addr": 2019,
@@ -8857,7 +9299,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "001 bis 023 / Lastausgänge Bitfeld (vollständig decodiert)"
+    "name": "001 bis 023 / Lastausgänge Bitfeld (vollständig decodiert)",
+    "poll_tier": "rare"
   },
   "2020": {
     "addr": 2020,
@@ -8877,7 +9320,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "015 / EEV-Schritte"
+    "name": "015 / EEV-Schritte",
+    "poll_tier": "rare"
   },
   "2021": {
     "addr": 2021,
@@ -8897,7 +9341,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Reserviert"
+    "name": "Reserviert",
+    "poll_tier": "rare"
   },
   "2022": {
     "addr": 2022,
@@ -8917,7 +9362,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "017 / EVI EEV-Schritte"
+    "name": "017 / EVI EEV-Schritte",
+    "poll_tier": "rare"
   },
   "2023": {
     "addr": 2023,
@@ -8937,7 +9383,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Anzahl Verdichter-Starts"
+    "name": "Anzahl Verdichter-Starts",
+    "poll_tier": "rare"
   },
   "2024": {
     "addr": 2024,
@@ -8957,7 +9404,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "System 2 Ventil-/EEV-Anzeige Wert (ASM)"
+    "name": "System 2 Ventil-/EEV-Anzeige Wert (ASM)",
+    "poll_tier": "rare"
   },
   "2025": {
     "addr": 2025,
@@ -8977,7 +9425,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "System 2 EVI-/Enthalpie-Anzeige Wert (ASM)"
+    "name": "System 2 EVI-/Enthalpie-Anzeige Wert (ASM)",
+    "poll_tier": "rare"
   },
   "2026": {
     "addr": 2026,
@@ -8997,7 +9446,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "9"
+    "name": "9",
+    "poll_tier": "rare"
   },
   "2027": {
     "addr": 2027,
@@ -9017,7 +9467,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "9"
+    "name": "9",
+    "poll_tier": "rare"
   },
   "2028": {
     "addr": 2028,
@@ -9037,7 +9488,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "9"
+    "name": "9",
+    "poll_tier": "rare"
   },
   "2029": {
     "addr": 2029,
@@ -9057,7 +9509,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "Eingangsstrom L1"
+    "name": "Eingangsstrom L1",
+    "poll_tier": "medium"
   },
   "2030": {
     "addr": 2030,
@@ -9077,7 +9530,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "Eingangsstrom L2"
+    "name": "Eingangsstrom L2",
+    "poll_tier": "medium"
   },
   "2031": {
     "addr": 2031,
@@ -9097,7 +9551,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "Eingangsstrom L3"
+    "name": "Eingangsstrom L3",
+    "poll_tier": "medium"
   },
   "2032": {
     "addr": 2032,
@@ -9117,7 +9572,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "Kompressor-Laufzeit"
+    "name": "Kompressor-Laufzeit",
+    "poll_tier": "medium"
   },
   "2033": {
     "addr": 2033,
@@ -9137,7 +9593,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Reserviert"
+    "name": "Reserviert",
+    "poll_tier": "rare"
   },
   "2034": {
     "addr": 2034,
@@ -9157,7 +9614,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Schalterzustände / Kontakte / SG Ready"
+    "name": "Schalterzustände / Kontakte / SG Ready",
+    "poll_tier": "rare"
   },
   "2035": {
     "addr": 2035,
@@ -9177,7 +9635,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "Heizungsrücklauftemperatur"
+    "name": "Heizungsrücklauftemperatur",
+    "poll_tier": "quick"
   },
   "2036": {
     "addr": 2036,
@@ -9197,7 +9656,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "Heizungsvorlauftemperatur"
+    "name": "Heizungsvorlauftemperatur",
+    "poll_tier": "quick"
   },
   "2037": {
     "addr": 2037,
@@ -9217,7 +9677,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "Mischrohrauslasswassertemperatur"
+    "name": "Mischrohrauslasswassertemperatur",
+    "poll_tier": "medium"
   },
   "2038": {
     "addr": 2038,
@@ -9237,7 +9698,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "WW-Rücklauftemperatur"
+    "name": "WW-Rücklauftemperatur",
+    "poll_tier": "medium"
   },
   "2039": {
     "addr": 2039,
@@ -9257,7 +9719,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "WW-Vorlauftemperatur"
+    "name": "WW-Vorlauftemperatur",
+    "poll_tier": "medium"
   },
   "2040": {
     "addr": 2040,
@@ -9277,7 +9740,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Reserviert"
+    "name": "Reserviert",
+    "poll_tier": "rare"
   },
   "2041": {
     "addr": 2041,
@@ -9297,7 +9761,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Reserviert"
+    "name": "Reserviert",
+    "poll_tier": "rare"
   },
   "2042": {
     "addr": 2042,
@@ -9317,7 +9782,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "Phasenstrom des Kompressors"
+    "name": "Phasenstrom des Kompressors",
+    "poll_tier": "quick"
   },
   "2043": {
     "addr": 2043,
@@ -9337,7 +9803,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "DC-Power-Bus-Spannung"
+    "name": "DC-Power-Bus-Spannung",
+    "poll_tier": "quick"
   },
   "2044": {
     "addr": 2044,
@@ -9357,7 +9824,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "IPM-Temperatur."
+    "name": "IPM-Temperatur.",
+    "poll_tier": "quick"
   },
   "2045": {
     "addr": 2045,
@@ -9377,7 +9845,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "Einlasswassertemperatur"
+    "name": "Einlasswassertemperatur",
+    "poll_tier": "quick"
   },
   "2046": {
     "addr": 2046,
@@ -9397,7 +9866,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "Auslasswassertemperatur"
+    "name": "Auslasswassertemperatur",
+    "poll_tier": "quick"
   },
   "2047": {
     "addr": 2047,
@@ -9417,7 +9887,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "WW-Tanktemperatur"
+    "name": "WW-Tanktemperatur",
+    "poll_tier": "medium"
   },
   "2048": {
     "addr": 2048,
@@ -9437,7 +9908,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "Umgebungstemperatur (AT)"
+    "name": "Umgebungstemperatur (AT)",
+    "poll_tier": "quick"
   },
   "2049": {
     "addr": 2049,
@@ -9457,7 +9929,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "Verdampfertemperatur"
+    "name": "Verdampfertemperatur",
+    "poll_tier": "quick"
   },
   "2050": {
     "addr": 2050,
@@ -9477,7 +9950,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "Verteilerrohrtemperatur"
+    "name": "Verteilerrohrtemperatur",
+    "poll_tier": "medium"
   },
   "2051": {
     "addr": 2051,
@@ -9497,7 +9971,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "Saugsungstemperatur"
+    "name": "Saugsungstemperatur",
+    "poll_tier": "quick"
   },
   "2052": {
     "addr": 2052,
@@ -9517,7 +9992,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "Puffertanktemperatur"
+    "name": "Puffertanktemperatur",
+    "poll_tier": "quick"
   },
   "2053": {
     "addr": 2053,
@@ -9537,7 +10013,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "Abgastemperatur"
+    "name": "Abgastemperatur",
+    "poll_tier": "quick"
   },
   "2054": {
     "addr": 2054,
@@ -9557,7 +10034,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "Elektrische Leistung / Unit Power"
+    "name": "Elektrische Leistung / Unit Power",
+    "poll_tier": "quick"
   },
   "2055": {
     "addr": 2055,
@@ -9577,7 +10055,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "Frostschutztemperatur (Am PlattenWT)"
+    "name": "Frostschutztemperatur (Am PlattenWT)",
+    "poll_tier": "medium"
   },
   "2056": {
     "addr": 2056,
@@ -9597,7 +10076,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "T? / System 1 Frostschutztemperatur 2 / Coil/Frost Temp 2 (ASM V1.3)"
+    "name": "T? / System 1 Frostschutztemperatur 2 / Coil/Frost Temp 2 (ASM V1.3)",
+    "poll_tier": "rare"
   },
   "2057": {
     "addr": 2057,
@@ -9617,7 +10097,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "T35 / AC Input Current"
+    "name": "T35 / AC Input Current",
+    "poll_tier": "rare"
   },
   "2058": {
     "addr": 2058,
@@ -9637,7 +10118,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "Raumtemperatur"
+    "name": "Raumtemperatur",
+    "poll_tier": "quick"
   },
   "2059": {
     "addr": 2059,
@@ -9657,7 +10139,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "Wärmeleistung / Unit Capacity"
+    "name": "Wärmeleistung / Unit Capacity",
+    "poll_tier": "quick"
   },
   "2060": {
     "addr": 2060,
@@ -9677,7 +10160,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "COP"
+    "name": "COP",
+    "poll_tier": "quick"
   },
   "2061": {
     "addr": 2061,
@@ -9697,7 +10181,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "IPM-Hochfehler-Temperatur"
+    "name": "IPM-Hochfehler-Temperatur",
+    "poll_tier": "medium"
   },
   "2062": {
     "addr": 2062,
@@ -9717,7 +10202,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "AC-Eingangsspannung"
+    "name": "AC-Eingangsspannung",
+    "poll_tier": "quick"
   },
   "2063": {
     "addr": 2063,
@@ -9737,7 +10223,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "EVI-Einlasstemperatur"
+    "name": "EVI-Einlasstemperatur",
+    "poll_tier": "medium"
   },
   "2064": {
     "addr": 2064,
@@ -9757,7 +10244,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "EVI-Auslasstemperatur"
+    "name": "EVI-Auslasstemperatur",
+    "poll_tier": "medium"
   },
   "2065": {
     "addr": 2065,
@@ -9777,7 +10265,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "Verdampfungstemperatur / Evaporating Temp (ASM)"
+    "name": "Verdampfungstemperatur / Evaporating Temp (ASM)",
+    "poll_tier": "medium"
   },
   "2066": {
     "addr": 2066,
@@ -9797,7 +10286,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "Abgas-Überhitzung / Exhaust Superheat (ASM)"
+    "name": "Abgas-Überhitzung / Exhaust Superheat (ASM)",
+    "poll_tier": "medium"
   },
   "2067": {
     "addr": 2067,
@@ -9817,7 +10307,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "Rückgas-/Saug-Überhitzung / Suction Superheat (ASM)"
+    "name": "Rückgas-/Saug-Überhitzung / Suction Superheat (ASM)",
+    "poll_tier": "medium"
   },
   "2068": {
     "addr": 2068,
@@ -9837,7 +10328,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "System 2 Strom / Current (ASM)"
+    "name": "System 2 Strom / Current (ASM)",
+    "poll_tier": "rare"
   },
   "2069": {
     "addr": 2069,
@@ -9857,7 +10349,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "Niederdruck"
+    "name": "Niederdruck",
+    "poll_tier": "quick"
   },
   "2070": {
     "addr": 2070,
@@ -9877,7 +10370,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "System 2 Druck / Pressure (ASM)"
+    "name": "System 2 Druck / Pressure (ASM)",
+    "poll_tier": "rare"
   },
   "2071": {
     "addr": 2071,
@@ -9897,7 +10391,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "Kompressor-Sollfrequenz"
+    "name": "Kompressor-Sollfrequenz",
+    "poll_tier": "medium"
   },
   "2072": {
     "addr": 2072,
@@ -9917,7 +10412,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "Betriebsfrequenz des Kompressors"
+    "name": "Betriebsfrequenz des Kompressors",
+    "poll_tier": "medium"
   },
   "2073": {
     "addr": 2073,
@@ -9937,7 +10433,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "Max. Frequenz vom Kompressortreiber"
+    "name": "Max. Frequenz vom Kompressortreiber",
+    "poll_tier": "medium"
   },
   "2074": {
     "addr": 2074,
@@ -9957,7 +10454,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "Drehzahl des Lüftermotors 1"
+    "name": "Drehzahl des Lüftermotors 1",
+    "poll_tier": "medium"
   },
   "2075": {
     "addr": 2075,
@@ -9977,7 +10475,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "Drehzahl des Lüftermotors 2"
+    "name": "Drehzahl des Lüftermotors 2",
+    "poll_tier": "medium"
   },
   "2076": {
     "addr": 2076,
@@ -9997,7 +10496,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "Zieldrehzahl des Lüftermotors"
+    "name": "Zieldrehzahl des Lüftermotors",
+    "poll_tier": "medium"
   },
   "2077": {
     "addr": 2077,
@@ -10017,7 +10517,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "Wasserdurchflussrate"
+    "name": "Wasserdurchflussrate",
+    "poll_tier": "quick"
   },
   "2078": {
     "addr": 2078,
@@ -10037,7 +10538,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Energiezähler elektrisch high bits"
+    "name": "Energiezähler elektrisch high bits",
+    "poll_tier": "medium"
   },
   "2079": {
     "addr": 2079,
@@ -10057,7 +10559,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Energiezähler elektrisch low bits / total"
+    "name": "Energiezähler elektrisch low bits / total",
+    "poll_tier": "medium"
   },
   "2080": {
     "addr": 2080,
@@ -10077,7 +10580,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Status-/Datenwort (wie Displaybus 91099)"
+    "name": "Status-/Datenwort (wie Displaybus 91099)",
+    "poll_tier": "rare"
   },
   "2081": {
     "addr": 2081,
@@ -10097,7 +10601,8 @@
     "default": null,
     "icon": "mdi:alert-circle",
     "has_value_map": false,
-    "name": "Fehler 7 / Störmeldebits"
+    "name": "Fehler 7 / Störmeldebits",
+    "poll_tier": "rare"
   },
   "2082": {
     "addr": 2082,
@@ -10117,7 +10622,8 @@
     "default": null,
     "icon": "mdi:alert-circle",
     "has_value_map": false,
-    "name": "Fehler 8 / Störmeldebits"
+    "name": "Fehler 8 / Störmeldebits",
+    "poll_tier": "rare"
   },
   "2083": {
     "addr": 2083,
@@ -10137,7 +10643,8 @@
     "default": null,
     "icon": "mdi:alert-circle",
     "has_value_map": false,
-    "name": "Fehler 9 / Störmeldebits"
+    "name": "Fehler 9 / Störmeldebits",
+    "poll_tier": "rare"
   },
   "2084": {
     "addr": 2084,
@@ -10157,7 +10664,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "9"
+    "name": "9",
+    "poll_tier": "rare"
   },
   "2085": {
     "addr": 2085,
@@ -10177,7 +10685,8 @@
     "default": null,
     "icon": "mdi:alert-circle",
     "has_value_map": false,
-    "name": "Fehler 1 / Störmeldebits"
+    "name": "Fehler 1 / Störmeldebits",
+    "poll_tier": "rare"
   },
   "2086": {
     "addr": 2086,
@@ -10197,7 +10706,8 @@
     "default": null,
     "icon": "mdi:alert-circle",
     "has_value_map": false,
-    "name": "Fehler 2 / Störmeldebits"
+    "name": "Fehler 2 / Störmeldebits",
+    "poll_tier": "rare"
   },
   "2087": {
     "addr": 2087,
@@ -10217,7 +10727,8 @@
     "default": null,
     "icon": "mdi:alert-circle",
     "has_value_map": false,
-    "name": "Fehler 3 / Störmeldebits"
+    "name": "Fehler 3 / Störmeldebits",
+    "poll_tier": "rare"
   },
   "2088": {
     "addr": 2088,
@@ -10237,7 +10748,8 @@
     "default": null,
     "icon": "mdi:alert-circle",
     "has_value_map": false,
-    "name": "Fehler 4 / Störmeldebits"
+    "name": "Fehler 4 / Störmeldebits",
+    "poll_tier": "rare"
   },
   "2089": {
     "addr": 2089,
@@ -10257,7 +10769,8 @@
     "default": null,
     "icon": "mdi:alert-circle",
     "has_value_map": false,
-    "name": "Fehler 5 / Störmeldebits"
+    "name": "Fehler 5 / Störmeldebits",
+    "poll_tier": "rare"
   },
   "2090": {
     "addr": 2090,
@@ -10277,7 +10790,8 @@
     "default": null,
     "icon": "mdi:alert-circle",
     "has_value_map": false,
-    "name": "Fehler 6 / Störmeldebits"
+    "name": "Fehler 6 / Störmeldebits",
+    "poll_tier": "rare"
   },
   "2091": {
     "addr": 2091,
@@ -10297,7 +10811,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 8 / Kennung Wort 1 / ASCII Zeichen 1-2"
+    "name": "Blockkopf Paket 8 / Kennung Wort 1 / ASCII Zeichen 1-2",
+    "poll_tier": "rare"
   },
   "2092": {
     "addr": 2092,
@@ -10317,7 +10832,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 8 / Kennung Wort 2 / ASCII Zeichen 3-4"
+    "name": "Blockkopf Paket 8 / Kennung Wort 2 / ASCII Zeichen 3-4",
+    "poll_tier": "rare"
   },
   "2093": {
     "addr": 2093,
@@ -10337,7 +10853,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 8 / Kennung Wort 3 / ASCII Zeichen 5-6"
+    "name": "Blockkopf Paket 8 / Kennung Wort 3 / ASCII Zeichen 5-6",
+    "poll_tier": "rare"
   },
   "2094": {
     "addr": 2094,
@@ -10357,7 +10874,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 8 / Kennung Wort 4 / ASCII Zeichen 7-8"
+    "name": "Blockkopf Paket 8 / Kennung Wort 4 / ASCII Zeichen 7-8",
+    "poll_tier": "rare"
   },
   "2095": {
     "addr": 2095,
@@ -10377,7 +10895,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 8 / Kennung Wort 5 / ASCII Zeichen 9-10"
+    "name": "Blockkopf Paket 8 / Kennung Wort 5 / ASCII Zeichen 9-10",
+    "poll_tier": "rare"
   },
   "2096": {
     "addr": 2096,
@@ -10397,7 +10916,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket 8 / Kennung Wort 6 / ASCII Zeichen 11-12"
+    "name": "Blockkopf Paket 8 / Kennung Wort 6 / ASCII Zeichen 11-12",
+    "poll_tier": "rare"
   },
   "2097": {
     "addr": 2097,
@@ -10417,7 +10937,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket Status 2 / Reserve 1"
+    "name": "Blockkopf Paket Status 2 / Reserve 1",
+    "poll_tier": "rare"
   },
   "2098": {
     "addr": 2098,
@@ -10437,7 +10958,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket Status 2 / Reserve 2"
+    "name": "Blockkopf Paket Status 2 / Reserve 2",
+    "poll_tier": "rare"
   },
   "2099": {
     "addr": 2099,
@@ -10457,7 +10979,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket Status 2 / Marker-Länge"
+    "name": "Blockkopf Paket Status 2 / Marker-Länge",
+    "poll_tier": "rare"
   },
   "2100": {
     "addr": 2100,
@@ -10477,7 +11000,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Blockkopf Paket Status 2 / erstes Blockkopf-Register"
+    "name": "Blockkopf Paket Status 2 / erstes Blockkopf-Register",
+    "poll_tier": "rare"
   },
   "2101": {
     "addr": 2101,
@@ -10497,7 +11021,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Reserviert"
+    "name": "Reserviert",
+    "poll_tier": "rare"
   },
   "2102": {
     "addr": 2102,
@@ -10517,7 +11042,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Reserviert"
+    "name": "Reserviert",
+    "poll_tier": "rare"
   },
   "2103": {
     "addr": 2103,
@@ -10537,7 +11063,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Hauptcontroler Softwarecode (ASM)"
+    "name": "Hauptcontroler Softwarecode (ASM)",
+    "poll_tier": "rare"
   },
   "2104": {
     "addr": 2104,
@@ -10557,7 +11084,8 @@
     "default": "33",
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Hauptsoftwareversion"
+    "name": "Hauptsoftwareversion",
+    "poll_tier": "rare"
   },
   "2105": {
     "addr": 2105,
@@ -10577,7 +11105,8 @@
     "default": "644",
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Softwarecode"
+    "name": "Softwarecode",
+    "poll_tier": "rare"
   },
   "2106": {
     "addr": 2106,
@@ -10597,7 +11126,8 @@
     "default": "0",
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Pumpenregel-/PWM-Regelzyklus Flag (Kandidat)"
+    "name": "Pumpenregel-/PWM-Regelzyklus Flag (Kandidat)",
+    "poll_tier": "rare"
   },
   "2107": {
     "addr": 2107,
@@ -10617,7 +11147,8 @@
     "default": "0",
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Kommunikations-Heartbeat / WP-Paket gültig 0x5AA5 (Merker Display-Init)"
+    "name": "Kommunikations-Heartbeat / WP-Paket gültig 0x5AA5 (Merker Display-Init)",
+    "poll_tier": "rare"
   },
   "2108": {
     "addr": 2108,
@@ -10637,7 +11168,8 @@
     "default": "0",
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Lüfter-Stummschalt-Flag / Fan Mute Flag (ASM)"
+    "name": "Lüfter-Stummschalt-Flag / Fan Mute Flag (ASM)",
+    "poll_tier": "rare"
   },
   "2109": {
     "addr": 2109,
@@ -10657,7 +11189,8 @@
     "default": "63",
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Interner V3.3-Statuswert"
+    "name": "Interner V3.3-Statuswert",
+    "poll_tier": "rare"
   },
   "2110": {
     "addr": 2110,
@@ -10677,7 +11210,8 @@
     "default": "0",
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Reserviert"
+    "name": "Reserviert",
+    "poll_tier": "rare"
   },
   "2111": {
     "addr": 2111,
@@ -10697,7 +11231,8 @@
     "default": "463",
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Display Nr."
+    "name": "Display Nr.",
+    "poll_tier": "rare"
   },
   "2112": {
     "addr": 2112,
@@ -10717,7 +11252,8 @@
     "default": "17",
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Display Version"
+    "name": "Display Version",
+    "poll_tier": "rare"
   },
   "2113": {
     "addr": 2113,
@@ -10737,7 +11273,8 @@
     "default": "0",
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Reserviert"
+    "name": "Reserviert",
+    "poll_tier": "rare"
   },
   "2114": {
     "addr": 2114,
@@ -10757,7 +11294,8 @@
     "default": "0",
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Reserviert"
+    "name": "Reserviert",
+    "poll_tier": "rare"
   },
   "2115": {
     "addr": 2115,
@@ -10777,7 +11315,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "UP PWM aktuell"
+    "name": "UP PWM aktuell",
+    "poll_tier": "rare"
   },
   "2116": {
     "addr": 2116,
@@ -10797,7 +11336,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "PWM-Rückmeldung der Pumpe"
+    "name": "PWM-Rückmeldung der Pumpe",
+    "poll_tier": "rare"
   },
   "2117": {
     "addr": 2117,
@@ -10817,7 +11357,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Reserviert"
+    "name": "Reserviert",
+    "poll_tier": "rare"
   },
   "2118": {
     "addr": 2118,
@@ -10837,7 +11378,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Energiezähler elektrisch Heizen"
+    "name": "Energiezähler elektrisch Heizen",
+    "poll_tier": "medium"
   },
   "2119": {
     "addr": 2119,
@@ -10857,7 +11399,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Reserviert"
+    "name": "Reserviert",
+    "poll_tier": "rare"
   },
   "2120": {
     "addr": 2120,
@@ -10877,7 +11420,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Energiezähler Wärmemenge Heizen"
+    "name": "Energiezähler Wärmemenge Heizen",
+    "poll_tier": "medium"
   },
   "2121": {
     "addr": 2121,
@@ -10897,7 +11441,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Reserviert"
+    "name": "Reserviert",
+    "poll_tier": "rare"
   },
   "2122": {
     "addr": 2122,
@@ -10917,7 +11462,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Energiezähler elektrisch Kühlen"
+    "name": "Energiezähler elektrisch Kühlen",
+    "poll_tier": "medium"
   },
   "2123": {
     "addr": 2123,
@@ -10937,7 +11483,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Reserviert"
+    "name": "Reserviert",
+    "poll_tier": "rare"
   },
   "2124": {
     "addr": 2124,
@@ -10957,7 +11504,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Energiezähler Wärmemenge Kühlen"
+    "name": "Energiezähler Wärmemenge Kühlen",
+    "poll_tier": "medium"
   },
   "2125": {
     "addr": 2125,
@@ -10977,7 +11525,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "Energiezähler elektrisch Warmwasser – High Word"
+    "name": "Energiezähler elektrisch Warmwasser – High Word",
+    "poll_tier": "medium"
   },
   "2126": {
     "addr": 2126,
@@ -10997,7 +11546,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "Energiezähler elektrisch Warmwasser – Low Word"
+    "name": "Energiezähler elektrisch Warmwasser – Low Word",
+    "poll_tier": "medium"
   },
   "2127": {
     "addr": 2127,
@@ -11017,7 +11567,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "Energiezähler thermisch Warmwasser – High Word"
+    "name": "Energiezähler thermisch Warmwasser – High Word",
+    "poll_tier": "medium"
   },
   "2128": {
     "addr": 2128,
@@ -11037,7 +11588,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "Energiezähler thermisch Warmwasser – Low Word"
+    "name": "Energiezähler thermisch Warmwasser – Low Word",
+    "poll_tier": "medium"
   },
   "2129": {
     "addr": 2129,
@@ -11057,7 +11609,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Reserviert"
+    "name": "Reserviert",
+    "poll_tier": "rare"
   },
   "2130": {
     "addr": 2130,
@@ -11077,7 +11630,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "IPM-Temperatur des externen Lüftermotorantriebs"
+    "name": "IPM-Temperatur des externen Lüftermotorantriebs",
+    "poll_tier": "medium"
   },
   "2131": {
     "addr": 2131,
@@ -11097,7 +11651,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "Leistung des externen Lüftermotorantriebs"
+    "name": "Leistung des externen Lüftermotorantriebs",
+    "poll_tier": "medium"
   },
   "2132": {
     "addr": 2132,
@@ -11117,7 +11672,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "Strom des externen Lüftermotorantriebs."
+    "name": "Strom des externen Lüftermotorantriebs.",
+    "poll_tier": "medium"
   },
   "2133": {
     "addr": 2133,
@@ -11137,7 +11693,8 @@
     "default": null,
     "icon": "mdi:power-socket-eu",
     "has_value_map": true,
-    "name": "SG Ready aktiver Modus"
+    "name": "SG Ready aktiver Modus",
+    "poll_tier": "rare"
   },
   "2134": {
     "addr": 2134,
@@ -11157,7 +11714,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": true,
-    "name": "Timer State Leistungsbegrenzungstimer 1-6"
+    "name": "Timer State Leistungsbegrenzungstimer 1-6",
+    "poll_tier": "rare"
   },
   "2135": {
     "addr": 2135,
@@ -11177,7 +11735,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Funktion unbekannt"
+    "name": "Funktion unbekannt",
+    "poll_tier": "rare"
   },
   "2136": {
     "addr": 2136,
@@ -11197,7 +11756,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "T04 Außentemperatur – zweiter Veröffentlichungsweg"
+    "name": "T04 Außentemperatur – zweiter Veröffentlichungsweg",
+    "poll_tier": "quick"
   },
   "2137": {
     "addr": 2137,
@@ -11217,7 +11777,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "Elektrische WP-/Inverterleistung ohne Zusatzanteil"
+    "name": "Elektrische WP-/Inverterleistung ohne Zusatzanteil",
+    "poll_tier": "quick"
   },
   "2138": {
     "addr": 2138,
@@ -11237,7 +11798,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "Thermische WP-Leistung ohne Zusatzanteil"
+    "name": "Thermische WP-Leistung ohne Zusatzanteil",
+    "poll_tier": "quick"
   },
   "2139": {
     "addr": 2139,
@@ -11257,7 +11819,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Funktion unbekannt"
+    "name": "Funktion unbekannt",
+    "poll_tier": "rare"
   },
   "2140": {
     "addr": 2140,
@@ -11277,7 +11840,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Funktion unbekannt"
+    "name": "Funktion unbekannt",
+    "poll_tier": "rare"
   },
   "2141": {
     "addr": 2141,
@@ -11297,7 +11861,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Funktion unbekannt"
+    "name": "Funktion unbekannt",
+    "poll_tier": "rare"
   },
   "2142": {
     "addr": 2142,
@@ -11317,7 +11882,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Funktion unbekannt"
+    "name": "Funktion unbekannt",
+    "poll_tier": "rare"
   },
   "2143": {
     "addr": 2143,
@@ -11337,7 +11903,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Funktion unbekannt"
+    "name": "Funktion unbekannt",
+    "poll_tier": "rare"
   },
   "2144": {
     "addr": 2144,
@@ -11357,7 +11924,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Funktion unbekannt"
+    "name": "Funktion unbekannt",
+    "poll_tier": "rare"
   },
   "2145": {
     "addr": 2145,
@@ -11377,7 +11945,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Funktion unbekannt"
+    "name": "Funktion unbekannt",
+    "poll_tier": "rare"
   },
   "2146": {
     "addr": 2146,
@@ -11397,7 +11966,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Funktion unbekannt"
+    "name": "Funktion unbekannt",
+    "poll_tier": "rare"
   },
   "2147": {
     "addr": 2147,
@@ -11417,7 +11987,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Funktion unbekannt"
+    "name": "Funktion unbekannt",
+    "poll_tier": "rare"
   },
   "2148": {
     "addr": 2148,
@@ -11437,7 +12008,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Funktion unbekannt"
+    "name": "Funktion unbekannt",
+    "poll_tier": "rare"
   },
   "2149": {
     "addr": 2149,
@@ -11457,7 +12029,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Funktion unbekannt"
+    "name": "Funktion unbekannt",
+    "poll_tier": "rare"
   },
   "50043": {
     "addr": 50043,
@@ -11477,7 +12050,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Service-/OTA-SSID (C37B)"
+    "name": "Service-/OTA-SSID (C37B)",
+    "poll_tier": "rare"
   },
   "50044": {
     "addr": 50044,
@@ -11497,7 +12071,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": true,
-    "name": "C37B Quittungsstatus"
+    "name": "C37B Quittungsstatus",
+    "poll_tier": "rare"
   },
   "50500": {
     "addr": 50500,
@@ -11517,7 +12092,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Service-/OTA-SSID (C544)"
+    "name": "Service-/OTA-SSID (C544)",
+    "poll_tier": "rare"
   },
   "50501": {
     "addr": 50501,
@@ -11537,7 +12113,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Hardwarecode ASCII Wort 1/4"
+    "name": "Hardwarecode ASCII Wort 1/4",
+    "poll_tier": "rare"
   },
   "50502": {
     "addr": 50502,
@@ -11557,7 +12134,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Hardwarecode ASCII Wort 2/4"
+    "name": "Hardwarecode ASCII Wort 2/4",
+    "poll_tier": "rare"
   },
   "50503": {
     "addr": 50503,
@@ -11577,7 +12155,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Hardwarecode ASCII Wort 3/4"
+    "name": "Hardwarecode ASCII Wort 3/4",
+    "poll_tier": "rare"
   },
   "50504": {
     "addr": 50504,
@@ -11597,7 +12176,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Hardwarecode ASCII Wort 4/4"
+    "name": "Hardwarecode ASCII Wort 4/4",
+    "poll_tier": "rare"
   },
   "50505": {
     "addr": 50505,
@@ -11617,7 +12197,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Hardwareversion ASCII Wort 1/2"
+    "name": "Hardwareversion ASCII Wort 1/2",
+    "poll_tier": "rare"
   },
   "50506": {
     "addr": 50506,
@@ -11637,7 +12218,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Hardwareversion ASCII Wort 2/2"
+    "name": "Hardwareversion ASCII Wort 2/2",
+    "poll_tier": "rare"
   },
   "50507": {
     "addr": 50507,
@@ -11657,7 +12239,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Softwarecode ASCII Wort 1/4"
+    "name": "Softwarecode ASCII Wort 1/4",
+    "poll_tier": "rare"
   },
   "50508": {
     "addr": 50508,
@@ -11677,7 +12260,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Softwarecode ASCII Wort 2/4"
+    "name": "Softwarecode ASCII Wort 2/4",
+    "poll_tier": "rare"
   },
   "50509": {
     "addr": 50509,
@@ -11697,7 +12281,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Softwarecode ASCII Wort 3/4"
+    "name": "Softwarecode ASCII Wort 3/4",
+    "poll_tier": "rare"
   },
   "50510": {
     "addr": 50510,
@@ -11717,7 +12302,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Softwarecode ASCII Wort 4/4"
+    "name": "Softwarecode ASCII Wort 4/4",
+    "poll_tier": "rare"
   },
   "50511": {
     "addr": 50511,
@@ -11737,7 +12323,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Interne Softwareversion ASCII Wort 1/2"
+    "name": "Interne Softwareversion ASCII Wort 1/2",
+    "poll_tier": "rare"
   },
   "50512": {
     "addr": 50512,
@@ -11757,7 +12344,8 @@
     "default": null,
     "icon": "mdi:heat-pump",
     "has_value_map": false,
-    "name": "Interne Softwareversion ASCII Wort 2/2"
+    "name": "Interne Softwareversion ASCII Wort 2/2",
+    "poll_tier": "rare"
   },
   "2178": {
     "addr": 2178,
@@ -11777,7 +12365,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "Temperatur des Temperatur-/Feuchtesensors"
+    "name": "Temperatur des Temperatur-/Feuchtesensors",
+    "poll_tier": "quick"
   },
   "2179": {
     "addr": 2179,
@@ -11797,7 +12386,8 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "Relative Luftfeuchtigkeit"
+    "name": "Relative Luftfeuchtigkeit",
+    "poll_tier": "quick"
   },
   "2180": {
     "addr": 2180,
@@ -11817,6 +12407,7 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "name": "Berechneter Taupunkt"
+    "name": "Berechneter Taupunkt",
+    "poll_tier": "quick"
   }
 }

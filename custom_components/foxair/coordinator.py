@@ -31,6 +31,11 @@ def _decode_hhmm(raw: int) -> str:
 
 
 class FoxAirCoordinator(DataUpdateCoordinator):
+    # Tier intervals (multiples of 30s base)
+    QUICK_INTERVAL = 1  # every poll (30s)
+    MEDIUM_INTERVAL = 4  # every 4 polls (120s)
+    RARE_INTERVAL = 10  # every 10 polls (300s)
+
     def __init__(self, hass, entry, unit, conn=None):
         super().__init__(hass, _LOGGER, name="FoxAir", update_interval=timedelta(seconds=30))
         self.entry = entry
@@ -38,11 +43,12 @@ class FoxAirCoordinator(DataUpdateCoordinator):
         self.unit = unit
         self._conn = conn
         self.data = {}
-        self.stats = {"polls": 0, "errors": 0, "last_ms": 0}
+        self.stats = {"polls": 0, "errors": 0, "last_ms": 0, "quick_polls": 0, "medium_polls": 0, "rare_polls": 0}
         self._regmap = None
         self._metadata = {}
         self._lock = asyncio.Lock()
         self._flow_ema = 0.0
+        self._poll_counter = 0
         if FoxAir is not None and unit is not None:
             self.foxair = FoxAir(unit)
         else:
@@ -150,6 +156,11 @@ class FoxAirCoordinator(DataUpdateCoordinator):
         self.hass.async_create_task(self.async_request_refresh())
         return True
 
+    def _tier_addrs(self, tier: str) -> set[int]:
+        if not self._metadata:
+            return set()
+        return {int(k) for k, v in self._metadata.items() if v.get("poll_tier") == tier and k.isdigit()}
+
     async def _async_update_data(self):
         if self._regmap is None:
             await self._load_map()
@@ -157,16 +168,70 @@ class FoxAirCoordinator(DataUpdateCoordinator):
             raise UpdateFailed("FoxAir model not initialized (vendor missing)")
         async with self._lock:
             t0 = time.monotonic()
+            # Determine which tiers to poll this cycle
+            self._poll_counter += 1
+            is_first = self.stats["polls"] == 0
+            # Quick always, medium every 4 (and on first poll to seed), rare every 10 (expert only, not on first to keep first poll light: 75+42=117 regs vs 469)
+            do_quick = True
+            do_medium = is_first or (self._poll_counter % self.MEDIUM_INTERVAL == 0)
+            enable_expert = bool(self.entry.options.get("enable_expert"))
+            do_rare = enable_expert and (self._poll_counter % self.RARE_INTERVAL == 0)
+            # Build addr set for this poll
+            addrs: set[int] = set()
+            if do_quick:
+                addrs.update(self._tier_addrs("quick"))
+            if do_medium:
+                addrs.update(self._tier_addrs("medium"))
+            if do_rare:
+                # When non-expert and not first, skip rare entirely (saves ~18 batches)
+                rare_addrs = self._tier_addrs("rare")
+                if not enable_expert and not is_first:
+                    # Keep only safe rare for non-expert (e.g., fault codes) - or skip all to save bus
+                    rare_addrs = {a for a in rare_addrs if self._metadata.get(str(a), {}).get("risk") == "safe"}
+                    # If still many, skip entirely for non-expert to maximize bus calmness
+                    # Uncomment next line to skip rare completely when non-expert:
+                    # rare_addrs = set()
+                    if not rare_addrs:
+                        do_rare = False
+                    else:
+                        addrs.update(rare_addrs)
+                else:
+                    addrs.update(rare_addrs)
+            # Filter to fields actually present in FoxAir model (excludes BLOCK/ProductKey/50000+)
+            model_addrs = {int(n.split("_", 1)[1]) for n in self.foxair.declared_fields if n.startswith("reg_")}
+            poll_addrs = addrs & model_addrs
+            # Fallback to quick if filter yields empty (should not happen)
+            if not poll_addrs:
+                poll_addrs = {int(n.split("_", 1)[1]) for n in self.foxair.declared_fields if n.startswith("reg_") and self._metadata.get(n.split("_", 1)[1], {}).get("poll_tier") == "quick"}
+            # Temporarily filter FoxAir to poll only this tier's addrs (pooled reads still use max_span 45 / max_gap 8)
+            orig_fields = self.foxair.declared_fields
+            # Instance-level shadow to avoid mutating class
+            filtered = {k: v for k, v in orig_fields.items() if k.startswith("reg_") and int(k.split("_", 1)[1]) in poll_addrs}
+            # If filtering would remove all, fall back to full
+            if not filtered:
+                filtered = orig_fields
+            self.foxair.declared_fields = filtered
             try:
                 await self.foxair.async_update()
             except Exception as e:
                 self.stats["errors"] += 1
                 self.stats["last_error"] = str(e)
-                _LOGGER.warning("FoxAir async_update failed: %s", e)
+                _LOGGER.warning("FoxAir async_update failed (tiers quick=%s medium=%s rare=%s addrs=%s): %s", do_quick, do_medium, do_rare, len(poll_addrs), e)
                 raise UpdateFailed(str(e)) from e
+            finally:
+                self.foxair.declared_fields = orig_fields
             out = self._build_data()
+            # _build_data only returns values for filtered addrs; merge with prior
             self.stats["polls"] += 1
+            if do_quick:
+                self.stats["quick_polls"] += 1
+            if do_medium:
+                self.stats["medium_polls"] += 1
+            if do_rare:
+                self.stats["rare_polls"] += 1
             self.stats["last_ms"] = int((time.monotonic() - t0) * 1000)
+            self.stats["last_tiers"] = f"quick={do_quick} medium={do_medium} rare={do_rare} addrs={len(poll_addrs)}"
+            _LOGGER.debug("Poll #%s tiers quick=%s medium=%s rare=%s addrs=%s ms=%s", self._poll_counter, do_quick, do_medium, do_rare, len(poll_addrs), self.stats["last_ms"])
             if not out and self.data:
                 _LOGGER.debug("Poll returned empty, keeping prior data")
                 return self.data

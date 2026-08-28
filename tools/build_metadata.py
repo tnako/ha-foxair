@@ -92,6 +92,36 @@ RANGE_OVERRIDES = {
     1234: (0.0, 3.5),     # AT-compensation slope: 0..3.5 per °C (DIGI5 /10)
 }
 
+# Poll tiers — controls bus load. 30s quick (curve/COP/main temps), 120s medium (secondary live), 300s rare (config/H/A etc).
+# Tunable via JSON without code change: build_metadata emits poll_tier per addr.
+POLL_TIER_OVERRIDES = {
+    # quick: power/mode + curve + R setpoints are handled via block check below, but explicit for clarity
+    1011: "quick", 1012: "quick", 1234: "quick", 1235: "quick", 1236: "quick",
+}
+# T secondary that should be medium (primary T is quick)
+T_MEDIUM = {1070,1072,1075,1076,1205,1212,1213,2029,2030,2031,2032,2037,2038,2039,2047,2050,2055,2061,2063,2064,2065,2066,2067,2071,2072,2073,2074,2075,2076,2078,2079,2118,2120,2122,2124,2125,2126,2127,2128,2130,2131,2132}
+T_QUICK = {2013,2014,2016,2035,2036,2042,2043,2044,2045,2046,2048,2049,2051,2052,2053,2054,2058,2059,2060,2062,2069,2077,2136,2137,2138,2178,2179,2180}
+
+def poll_tier_for(addr: int, block: str, typ: str, risk: str) -> str:
+    if addr in POLL_TIER_OVERRIDES:
+        return POLL_TIER_OVERRIDES[addr]
+    if addr in T_QUICK:
+        return "quick"
+    if addr in T_MEDIUM:
+        return "medium"
+    if block == "T":
+        # remaining T -> medium (secondary diagnostics)
+        return "medium"
+    if block == "R":
+        return "quick"
+    if typ == "KWH":
+        return "medium"
+    if block in ("H","A","C","F","D","E","Z","G","P","SG","KG","S","ERR") or risk == "blocked":
+        return "rare"
+    if block == "":
+        return "rare"
+    return "rare"
+
 TYPE_TO_PLATFORM = {
     "BLOCK": "sensor",
     "BITFIELD": "sensor",
@@ -222,22 +252,25 @@ def main():
             icon = icon  # keep
         # value_map hint
         has_map = bool(rec.get("value_map"))
+        tier = poll_tier_for(addr, block, dtype, risk)
         out[addr_str] = {
             "addr": addr, "code": code, "block": block, "tab": tab, "group": group,
             "editable": editable, "platform": platform, "risk": risk,
             "requires_expert": requires_expert, "type": dtype,
             "unit": unit, "min": lo, "max": hi, "step": step,
             "default": default, "icon": icon, "has_value_map": has_map,
-            "name": rec.get("name","")
+            "name": rec.get("name",""), "poll_tier": tier
         }
     OUT_PATH.write_text(json.dumps(out, indent=2, ensure_ascii=False), encoding="utf-8")
     # stats
     from collections import Counter
     c = Counter(v["risk"] for v in out.values())
     p = Counter(v["platform"] for v in out.values() if v["editable"])
+    t = Counter(v.get("poll_tier","rare") for v in out.values())
     print(f"Wrote {len(out)} entries to {OUT_PATH}")
     print("risk:", dict(c))
     print("editable platform:", dict(p))
+    print("tier:", dict(t))
     print("editable total:", sum(1 for v in out.values() if v["editable"]))
     print("dangerous editable:", sum(1 for v in out.values() if v["editable"] and v["risk"]=="dangerous"))
 
