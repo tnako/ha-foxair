@@ -1,5 +1,5 @@
 """FoxAir heat pump Modbus model — generated from foxair_phnix_registers.json."""
-from modbus_connection.model import Component, gauge, integer, raw_register
+from modbus_connection.model import Component, gauge, integer
 
 class FoxAir(Component):
     """FoxAir/PHNIX heat pump — all holding registers."""
@@ -476,9 +476,7 @@ class FoxAir(Component):
 
     def as_dict(self, regmap=None):
         """Compat shim: return {addr: {raw, value, info}} like old coordinator.data."""
-        out={}
-        for addr in [a for a,_ in __import__('typing').cast(list, [])]: pass
-        # dynamically build from declared fields
+        out = {}
         for name, field in self.declared_fields.items():
             if not name.startswith('reg_'): continue
             try: addr=int(name.split('_')[1])

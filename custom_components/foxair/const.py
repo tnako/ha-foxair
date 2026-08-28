@@ -1,4 +1,4 @@
-"""FoxAir constants - block names and poll layout identical to FoxAir_Control."""
+"""FoxAir constants - block names identical to FoxAir_Control."""
 from homeassistant.helpers.entity import DeviceInfo
 
 DOMAIN = "foxair"
@@ -84,20 +84,8 @@ def device_for_addr(addr: int, block: str | None, entry_id: str | None = None, t
         return main_device(entry_id)
     return device_for_block(block or "", entry_id, tab)
 
-POLL_BLOCKS = [
-    (1001, 60, "B1 H/A"),
-    (1061, 65, "B1b"),
-    (1126, 60, "B2 E/R start"),
-    (1186, 65, "B2b E/R tail inc 1234"),
-    (1251, 60, "B3 R/C/SG/P"),
-    (1311, 65, "B3b"),
-    (1376, 60, "B4 factory"),
-    (1436, 65, "B4b"),
-    (1501, 40, "B5 extra"),
-    (2001, 60, "B6 T"),
-    (2061, 65, "B6b T tail"),
-    (2126, 24, "B7 ERR"),
-]
+POLL_BLOCKS: list[tuple[int, int, str]] = []
+
 POPULAR_ADDRS = {
     1011,1012,1016,1018,1021,1030,1035,
     *range(1157, 1200),  # R

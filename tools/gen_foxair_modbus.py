@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Generate foxair_modbus vendor package from register JSON."""
-import json, pathlib, re, textwrap
+import json
+import pathlib
 
 ROOT = pathlib.Path(__file__).parents[1]
 REG_PATH = ROOT / "custom_components/foxair/data/foxair_phnix_registers.json"
@@ -27,7 +28,7 @@ DTYPE_SCALE = {
 }
 
 # types that should be integer (no scaling) but still signed
-INT_TYPES = {"DIGI1","MODE_0_4","SG_MODE","TIMER_BITPAIR","TIMER_MODE","BITFIELD","STEPS_N","HZ","RPM","PERCENT","KWH","WATT","VOLT","MINUTES","SECONDS","HOURS","DAYS","RAW","BLOCK"}
+# kept for reference; scaled types handled via DTYPE_SCALE, others default to integer
 
 def field_for(addr: int, rec: dict):
     dtype = rec.get("type","RAW")
@@ -71,7 +72,7 @@ __all__ = ["FoxAir"]
 
     lines = []
     lines.append('"""FoxAir heat pump Modbus model — generated from foxair_phnix_registers.json."""')
-    lines.append("from modbus_connection.model import Component, gauge, integer, raw_register")
+    lines.append("from modbus_connection.model import Component, gauge, integer")
     lines.append("")
     lines.append("class FoxAir(Component):")
     lines.append('    """FoxAir/PHNIX heat pump — all holding registers."""')
@@ -104,9 +105,7 @@ __all__ = ["FoxAir"]
     lines.append("")
     lines.append("    def as_dict(self, regmap=None):")
     lines.append('        """Compat shim: return {addr: {raw, value, info}} like old coordinator.data."""')
-    lines.append("        out={}")
-    lines.append("        for addr in [a for a,_ in __import__('typing').cast(list, [])]: pass")
-    lines.append("        # dynamically build from declared fields")
+    lines.append("        out = {}")
     lines.append("        for name, field in self.declared_fields.items():")
     lines.append("            if not name.startswith('reg_'): continue")
     lines.append("            try: addr=int(name.split('_')[1])")
