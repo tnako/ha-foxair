@@ -1,7 +1,7 @@
 from homeassistant.components.sensor import SensorEntity, SensorDeviceClass, SensorStateClass
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.helpers.entity import EntityCategory
-from .const import DOMAIN, DEVICE, POPULAR_ADDRS, device_for_addr, main_device, entity_sort_key, entity_object_id
+from .const import DOMAIN, DEVICE, POPULAR_ADDRS, device_for_addr, main_device, entity_sort_key
 
 DTYPE_MAP = {
     "TEMP1": (SensorDeviceClass.TEMPERATURE, "°C", SensorStateClass.MEASUREMENT),
@@ -56,7 +56,6 @@ async def async_setup_entry(hass, entry, add_entities):
         info = rec.get("info", {}) if isinstance(rec, dict) else {}
         meta = coord.get_metadata(addr) if hasattr(coord, "get_metadata") else {}
         block = (meta.get("block") or info.get("block") or "")
-        code = (meta.get("code") or info.get("code") or "")
         return entity_sort_key(addr, code, block)
     for addr, rec in sorted(coord.data.items(), key=_sensor_key):
         if rec.get("info", {}).get("type") == "BLOCK":
@@ -89,8 +88,6 @@ class FoxSensor(CoordinatorEntity, SensorEntity):
         except: meta = {}
         block = (meta.get("block") or info.get("block") or "")
         tab = (meta.get("tab") or info.get("tab") or block)
-        code = (meta.get("code") or info.get("code") or "")
-        self._attr_object_id = entity_object_id(addr, code, block)
         entry_id = getattr(coord, "_entry_id", None) or getattr(coord, "config_entry", None) and getattr(coord.config_entry, "entry_id", None)
         # coordinator stores entry_id via hass.data key; fallback to None -> main
         if not entry_id and hasattr(coord, "_entry_id"):

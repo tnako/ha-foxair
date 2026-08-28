@@ -227,7 +227,12 @@ for addr_str, rec in regs.items():
             continue
 
     # Now ensure entries in all files for sensor domain
+    # prefix CODE for strong tabs.txt order (friendly name sort == tabs order), keep friendly names like "T02: Name"
     for data, name, lang in [(strings, en_name, "strings"), (en, en_name, "en"), (de, de_name, "de"), (ru, ru_name, "ru")]:
+        # apply prefix if code exists and not already prefixed (skip if name already starts with CODE:)
+        _code_for_prefix = (regs.get(addr) or {}).get("code","")
+        if _code_for_prefix and not name.startswith(_code_for_prefix + ":"):
+            name = f"{_code_for_prefix}: {name}"
         domain_dict = ensure_domain(data, "sensor")
         key = f"foxair_{addr}"
         if key not in domain_dict:

@@ -3,7 +3,7 @@ import logging
 from homeassistant.components.number import NumberEntity, NumberMode, NumberDeviceClass
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.helpers.entity import EntityCategory
-from .const import DOMAIN, DEVICE, POPULAR_ADDRS, device_for_addr, entity_sort_key, entity_object_id
+from .const import DOMAIN, DEVICE, POPULAR_ADDRS, device_for_addr, entity_sort_key
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -53,7 +53,6 @@ class FoxNumber(CoordinatorEntity, NumberEntity):
         self._optimistic = None  # value shown during a write round-trip
         self._attr_unique_id = f"foxair_num_{addr}"
         self._attr_translation_key = f"foxair_{addr}"
-        self._attr_object_id = entity_object_id(addr, meta.get("code",""), meta.get("block",""))
         entry_id = getattr(coord, "_entry_id", None) or getattr(coord, "config_entry", None) and getattr(coord.config_entry, "entry_id", None)
         block = meta.get("block") or ""
         tab = meta.get("tab") or block

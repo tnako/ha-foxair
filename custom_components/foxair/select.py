@@ -8,7 +8,7 @@ from homeassistant.components.select import SelectEntity
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from .const import DEVICE, POPULAR_ADDRS, device_for_addr, main_device, entity_sort_key, entity_object_id
+from .const import DEVICE, POPULAR_ADDRS, device_for_addr, main_device, entity_sort_key
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -187,7 +187,6 @@ class FoxSelect(CoordinatorEntity, SelectEntity):
         self._optimistic = None  # slug shown during a write round-trip
         self._attr_unique_id = f"foxair_sel_{addr}"
         self._attr_translation_key = f"foxair_{addr}"
-        self._attr_object_id = entity_object_id(addr, meta.get("code",""), meta.get("block",""))
         entry_id = getattr(coord, "_entry_id", None) or getattr(coord, "config_entry", None) and getattr(coord.config_entry, "entry_id", None)
         block = meta.get("block") or ""
         tab = meta.get("tab") or block

@@ -122,184 +122,184 @@
         "name": "Logo Selection"
       },
       "foxair_1018": {
-        "name": "Auto start [H01]"
+        "name": "H01: Auto start"
       },
       "foxair_1019": {
-        "name": "Fan Motor Driver and Comp. Driver Integrated [H33]"
+        "name": "H33: Fan Motor Driver and Comp. Driver Integrated"
       },
       "foxair_1020": {
-        "name": "Parameter Code [H34]"
+        "name": "H34: Parameter Code"
       },
       "foxair_1021": {
-        "name": "Cooling Mode [H05]"
+        "name": "H05: Cooling Mode"
       },
       "foxair_1022": {
-        "name": "Reserved [1022]"
+        "name": "1022: Reserved"
       },
       "foxair_1023": {
-        "name": "Dry Contact [H07]"
+        "name": "H07: Dry Contact"
       },
       "foxair_1024": {
-        "name": "Unit Address [H10]"
+        "name": "H10: Unit Address"
       },
       "foxair_1025": {
-        "name": "Language choice [H38]"
+        "name": "H38: Language choice"
       },
       "foxair_1026": {
-        "name": "Logo Selection / Customer Logo Code (ASM) [H39]"
+        "name": "H39: Logo Selection / Customer Logo Code (ASM)"
       },
       "foxair_1027": {
-        "name": "EVI Enabled [H27]"
+        "name": "H27: EVI Enabled"
       },
       "foxair_1028": {
-        "name": "Heating/Cooling and Hot Water Function Enabled [H28]"
+        "name": "H28: Heating/Cooling and Hot Water Function Enabled"
       },
       "foxair_1029": {
-        "name": "Temperature Unit [H21]"
+        "name": "H21: Temperature Unit"
       },
       "foxair_1030": {
-        "name": "Silence Mode [H22]"
+        "name": "H22: Silence Mode"
       },
       "foxair_1031": {
-        "name": "Electric Heater Off Temp. Diff [A35]"
+        "name": "A35: Electric Heater Off Temp. Diff"
       },
       "foxair_1032": {
-        "name": "Electric Heater Energy Stage [H18]"
+        "name": "H18: Electric Heater Energy Stage"
       },
       "foxair_1033": {
-        "name": "3-Way Valve Polarity [H20]"
+        "name": "H20: 3-Way Valve Polarity"
       },
       "foxair_1034": {
-        "name": "Mode Running [H29]"
+        "name": "H29: Mode Running"
       },
       "foxair_1035": {
-        "name": "Air Conditioner Tempt. Choice [H25]"
+        "name": "H25: Air Conditioner Tempt. Choice"
       },
       "foxair_1036": {
-        "name": "Indoor Unit Type [H30]"
+        "name": "H30: Indoor Unit Type"
       },
       "foxair_1037": {
-        "name": "Shutdown Ambient Temp. [A03]"
+        "name": "A03: Shutdown Ambient Temp."
       },
       "foxair_1038": {
-        "name": "Antifreeze Temp. [A04]"
+        "name": "A04: Antifreeze Temp."
       },
       "foxair_1039": {
-        "name": "Antifreeze Temp. Difference [A05]"
+        "name": "A05: Antifreeze Temp. Difference"
       },
       "foxair_1040": {
-        "name": "Exhaust Temp Protect Setup [A06]"
+        "name": "A06: Exhaust Temp Protect Setup"
       },
       "foxair_1041": {
-        "name": "Pump Type [H31]"
+        "name": "H31: Pump Type"
       },
       "foxair_1042": {
-        "name": "Low Voltage Pressure Sensor [A11]"
+        "name": "A11: Low Voltage Pressure Sensor"
       },
       "foxair_1043": {
-        "name": "Antifreeze Min Temp [A23]"
+        "name": "A23: Antifreeze Min Temp"
       },
       "foxair_1044": {
-        "name": "Excess Temp. Diff. Between inlet and Outlet Temp. [A24]"
+        "name": "A24: Excess Temp. Diff. Between inlet and Outlet Temp."
       },
       "foxair_1045": {
-        "name": "Heating and hot water forced switching time [H32]"
+        "name": "H32: Heating and hot water forced switching time"
       },
       "foxair_1046": {
-        "name": "DHW Temp. Sourcing [H37]"
+        "name": "H37: DHW Temp. Sourcing"
       },
       "foxair_1047": {
-        "name": "Enable Defrosting Communication in Cascade [D26]"
+        "name": "D26: Enable Defrosting Communication in Cascade"
       },
       "foxair_1048": {
         "name": "External Pump Selection []"
       },
       "foxair_1049": {
-        "name": "Electric Heater On AT [A31]"
+        "name": "A31: Electric Heater On AT"
       },
       "foxair_1050": {
-        "name": "Electric Heater Delays Comp. On Time [A32]"
+        "name": "A32: Electric Heater Delays Comp. On Time"
       },
       "foxair_1051": {
-        "name": "Min. AT for Cooling [A30]"
+        "name": "A30: Min. AT for Cooling"
       },
       "foxair_1052": {
-        "name": "Ambient/Suction/Coil Sensor [A21]"
+        "name": "A21: Ambient/Suction/Coil Sensor"
       },
       "foxair_1053": {
-        "name": "Low Water Temperature Protection [A22]"
+        "name": "A22: Low Water Temperature Protection"
       },
       "foxair_1054": {
-        "name": "Refrigerant Type [A26]"
+        "name": "A26: Refrigerant Type"
       },
       "foxair_1055": {
-        "name": "Minimum Evaporation Temp. of Cooling [A25]"
+        "name": "A25: Minimum Evaporation Temp. of Cooling"
       },
       "foxair_1056": {
-        "name": "Temp Difference A Of Limiting Frequency [A27]"
+        "name": "A27: Temp Difference A Of Limiting Frequency"
       },
       "foxair_1057": {
-        "name": "Temp Diff between Outlet and DHW Temp [A28]"
+        "name": "A28: Temp Diff between Outlet and DHW Temp"
       },
       "foxair_1058": {
-        "name": "Enable The High Pressure Sensor [A29]"
+        "name": "A29: Enable The High Pressure Sensor"
       },
       "foxair_1059": {
-        "name": "Fan Motor Type [F01]"
+        "name": "F01: Fan Motor Type"
       },
       "foxair_1060": {
-        "name": "Max Cool Coil Temp [F02]"
+        "name": "F02: Max Cool Coil Temp"
       },
       "foxair_1061": {
-        "name": "Fan Motor Power Curve [F27]"
+        "name": "F27: Fan Motor Power Curve"
       },
       "foxair_1062": {
-        "name": "Min Cool Coil Temp [F03]"
+        "name": "F03: Min Cool Coil Temp"
       },
       "foxair_1063": {
-        "name": "Electric Heater Opening Temp. Diff [A33]"
+        "name": "A33: Electric Heater Opening Temp. Diff"
       },
       "foxair_1064": {
-        "name": "Crank Preheating Time [A34]"
+        "name": "A34: Crank Preheating Time"
       },
       "foxair_1065": {
-        "name": "Reserved [1065]"
+        "name": "1065: Reserved"
       },
       "foxair_1066": {
-        "name": "Max Heat Coil Temp [F05]"
+        "name": "F05: Max Heat Coil Temp"
       },
       "foxair_1067": {
-        "name": "Reserved [1067]"
+        "name": "1067: Reserved"
       },
       "foxair_1068": {
-        "name": "Min Heat Coil Temp [F06]"
+        "name": "F06: Min Heat Coil Temp"
       },
       "foxair_1069": {
-        "name": "Enable Multi-Zone Control [Z01]"
+        "name": "Z01: Enable Multi-Zone Control"
       },
       "foxair_1070": {
-        "name": "Zone 1 Target RT [Z02]"
+        "name": "Z02: Zone 1 Target RT"
       },
       "foxair_1071": {
-        "name": "Zone 1 RT Diff. to Start [Z03]"
+        "name": "Z03: Zone 1 RT Diff. to Start"
       },
       "foxair_1072": {
-        "name": "Zone 2 Target RT [Z04]"
+        "name": "Z04: Zone 2 Target RT"
       },
       "foxair_1073": {
-        "name": "Zone 2 RT Diff. to Start [Z05]"
+        "name": "Z05: Zone 2 RT Diff. to Start"
       },
       "foxair_1074": {
-        "name": "Quantity [F10]"
+        "name": "F10: Quantity"
       },
       "foxair_1075": {
-        "name": "Zone 1 Heating Target Outlet WT [Z06]"
+        "name": "Z06: Zone 1 Heating Target Outlet WT"
       },
       "foxair_1076": {
-        "name": "Zone 2 Mixing Target Outlet WT [Z07]"
+        "name": "Z07: Zone 2 Mixing Target Outlet WT"
       },
       "foxair_1077": {
-        "name": "Enable AT Compensation Curve Zone 2 [Z17]"
+        "name": "Z17: Enable AT Compensation Curve Zone 2"
       },
       "foxair_1078": {
         "name": "Zone 2 Heating Curve K / Room Temp Compensation (ASM)"
@@ -308,37 +308,37 @@
         "name": "Zone 2 Heating Curve B / Room Temp Compensation (ASM)"
       },
       "foxair_1080": {
-        "name": "Mixing Valve Manual Adjustment Ratio (0% for Auto Control) [Z08]"
+        "name": "Z08: Mixing Valve Manual Adjustment Ratio (0% for Auto Control)"
       },
       "foxair_1081": {
-        "name": "Cooling Fan Min Speed [F18]"
+        "name": "F18: Cooling Fan Min Speed"
       },
       "foxair_1082": {
-        "name": "Mixing Valve Opening Time [Z09]"
+        "name": "Z09: Mixing Valve Opening Time"
       },
       "foxair_1083": {
-        "name": "Min. Fan Speed in Heating [F19]"
+        "name": "F19: Min. Fan Speed in Heating"
       },
       "foxair_1084": {
-        "name": "Mixing Valve Closing Time [Z10]"
+        "name": "Z10: Mixing Valve Closing Time"
       },
       "foxair_1085": {
-        "name": "Mixing Valve Adjustment P(PID) [Z11]"
+        "name": "Z11: Mixing Valve Adjustment P(PID)"
       },
       "foxair_1086": {
-        "name": "Timer Mute Enable (ASM V1.3: 243E) [F21]"
+        "name": "F21: Timer Mute Enable (ASM V1.3: 243E)"
       },
       "foxair_1087": {
-        "name": "Manual Control Fan Speed [F22]"
+        "name": "F22: Manual Control Fan Speed"
       },
       "foxair_1088": {
-        "name": "Mixing Valve Adjustment I(PID) [Z12]"
+        "name": "Z12: Mixing Valve Adjustment I(PID)"
       },
       "foxair_1089": {
-        "name": "DC/AC Fan Rated Speed [F23]"
+        "name": "F23: DC/AC Fan Rated Speed"
       },
       "foxair_1090": {
-        "name": "Mixing Valve PID Period [Z13]"
+        "name": "Z13: Mixing Valve PID Period"
       },
       "foxair_1091": {
         "name": "Block Header Packet 2 ID Word 1 ASCII Char 1-2"
@@ -371,244 +371,244 @@
         "name": "Block Header Packet 2 First Header Register"
       },
       "foxair_1101": {
-        "name": "CT to Reduce Top Fans in Cooling [F28]"
+        "name": "F28: CT to Reduce Top Fans in Cooling"
       },
       "foxair_1102": {
-        "name": "CT to Stop Single Fan in Cooling [F29]"
+        "name": "F29: CT to Stop Single Fan in Cooling"
       },
       "foxair_1103": {
-        "name": "Cooling Fan Max Speed [F25]"
+        "name": "F25: Cooling Fan Max Speed"
       },
       "foxair_1104": {
-        "name": "Heating Fan Max Speed [F26]"
+        "name": "F26: Heating Fan Max Speed"
       },
       "foxair_1105": {
-        "name": "Ambient Temp. of Starting Defrosting [D01]"
+        "name": "D01: Ambient Temp. of Starting Defrosting"
       },
       "foxair_1106": {
-        "name": "Heating Operation Time Before Defrosting [D02]"
+        "name": "D02: Heating Operation Time Before Defrosting"
       },
       "foxair_1107": {
-        "name": "Defrosting Cycle [D03]"
+        "name": "D03: Defrosting Cycle"
       },
       "foxair_1108": {
-        "name": "Exhaust Temp. Correction for Defrosting Cycle [D04]"
+        "name": "D04: Exhaust Temp. Correction for Defrosting Cycle"
       },
       "foxair_1109": {
-        "name": "Defrosting Suction Pressure 1 [D05-1]"
+        "name": "D05-1: Defrosting Suction Pressure 1"
       },
       "foxair_1110": {
-        "name": "Defrosting Suction Pressure 2 [D05-2]"
+        "name": "D05-2: Defrosting Suction Pressure 2"
       },
       "foxair_1111": {
-        "name": "Defrosting Cycle Time Correction [D06]"
+        "name": "D06: Defrosting Cycle Time Correction"
       },
       "foxair_1112": {
-        "name": "Ambient Temp. of Start Sliding Defrosting [D07]"
+        "name": "D07: Ambient Temp. of Start Sliding Defrosting"
       },
       "foxair_1113": {
-        "name": "Suction Temp. of Start Sliding Defrosting [D08]"
+        "name": "D08: Suction Temp. of Start Sliding Defrosting"
       },
       "foxair_1114": {
-        "name": "Ambient Temp. of Stop Sliding Defrosting [D09]"
+        "name": "D09: Ambient Temp. of Stop Sliding Defrosting"
       },
       "foxair_1115": {
-        "name": "Suction Temp. of Stop Sliding Defrosting [D10]"
+        "name": "D10: Suction Temp. of Stop Sliding Defrosting"
       },
       "foxair_1116": {
-        "name": "Min. Inlet Water Temp. of Defrosting [D11]"
+        "name": "D11: Min. Inlet Water Temp. of Defrosting"
       },
       "foxair_1117": {
-        "name": "Suction Pressure of Forced Defrosting [D12]"
+        "name": "D12: Suction Pressure of Forced Defrosting"
       },
       "foxair_1118": {
-        "name": "Heating Operation Time Before Forced Defrosting [D13]"
+        "name": "D13: Heating Operation Time Before Forced Defrosting"
       },
       "foxair_1119": {
-        "name": "Fan Motor Power Ratio to Extend Defrosting Cycle [D14]"
+        "name": "D14: Fan Motor Power Ratio to Extend Defrosting Cycle"
       },
       "foxair_1120": {
-        "name": "Fan Motor Power Ratio to Enter Forced Defrosting [D15]"
+        "name": "D15: Fan Motor Power Ratio to Enter Forced Defrosting"
       },
       "foxair_1121": {
-        "name": "Max. Fan Motor Power to Enter Forced Defrosting [D16]"
+        "name": "D16: Max. Fan Motor Power to Enter Forced Defrosting"
       },
       "foxair_1122": {
-        "name": "Coil Temp. of Exit Defrosting [D17]"
+        "name": "D17: Coil Temp. of Exit Defrosting"
       },
       "foxair_1123": {
-        "name": "Distributor Tube Temp. of Exit Defrosting [D18]"
+        "name": "D18: Distributor Tube Temp. of Exit Defrosting"
       },
       "foxair_1124": {
-        "name": "Max. Defrosting Time [D19]"
+        "name": "D19: Max. Defrosting Time"
       },
       "foxair_1125": {
-        "name": "Defrosting Frequency [D20]"
+        "name": "D20: Defrosting Frequency"
       },
       "foxair_1126": {
-        "name": "Enable Electric Heater During Defrosting [D21]"
+        "name": "D21: Enable Electric Heater During Defrosting"
       },
       "foxair_1127": {
-        "name": "Water Flow of Defrosting [D22]"
+        "name": "D22: Water Flow of Defrosting"
       },
       "foxair_1128": {
-        "name": "Max. Defrosting Cycle by Fan Motor Power [D23]"
+        "name": "D23: Max. Defrosting Cycle by Fan Motor Power"
       },
       "foxair_1129": {
-        "name": "Defrosting Heating Source in Heating / DHW Mode [D24]"
+        "name": "D24: Defrosting Heating Source in Heating / DHW Mode"
       },
       "foxair_1130": {
-        "name": "Max. Water Temp. Decrease during Defrosting [D25]"
+        "name": "D25: Max. Water Temp. Decrease during Defrosting"
       },
       "foxair_1131": {
-        "name": "EEV Control Mode [E17]"
+        "name": "E17: EEV Control Mode"
       },
       "foxair_1132": {
-        "name": "Target Superheat for Heating [E02]"
+        "name": "E02: Target Superheat for Heating"
       },
       "foxair_1133": {
-        "name": "EEV Initial Steps for Heating [E03]"
+        "name": "E03: EEV Initial Steps for Heating"
       },
       "foxair_1134": {
-        "name": "Steps of Mixing Valve in Cooling [Z14]"
+        "name": "Z14: Steps of Mixing Valve in Cooling"
       },
       "foxair_1135": {
-        "name": "Zone 2 Max. Water Target Temp. [Z15]"
+        "name": "Z15: Zone 2 Max. Water Target Temp."
       },
       "foxair_1136": {
-        "name": "Mixing Valve I-Gain (DIGI5 per ASM) [Z16]"
+        "name": "Z16: Mixing Valve I-Gain (DIGI5 per ASM)"
       },
       "foxair_1137": {
-        "name": "Min Initial Steps [E07]"
+        "name": "E07: Min Initial Steps"
       },
       "foxair_1138": {
-        "name": "EEV Initial Steps for Cooling [E08]"
+        "name": "E08: EEV Initial Steps for Cooling"
       },
       "foxair_1139": {
-        "name": "EVI EEV: Adjustment Mode [E09]"
+        "name": "E09: EVI EEV: Adjustment Mode"
       },
       "foxair_1140": {
-        "name": "EVI EEV: Initial Steps [E10]"
+        "name": "E10: EVI EEV: Initial Steps"
       },
       "foxair_1141": {
         "name": "System 2 EVI / Enthalpy Present if Value != 0 (ASM V1.3)"
       },
       "foxair_1142": {
-        "name": "EEV Initial Steps for Heating2 [E03-2]"
+        "name": "E03-2: EEV Initial Steps for Heating2"
       },
       "foxair_1143": {
-        "name": "EVI EEV Target Superheat Degree [E13]"
+        "name": "E13: EVI EEV Target Superheat Degree"
       },
       "foxair_1144": {
-        "name": "EVI EEV Min. Steps [E14]"
+        "name": "E14: EVI EEV Min. Steps"
       },
       "foxair_1145": {
-        "name": "Temperature / Hysteresis Parameter (ASM) [E15]"
+        "name": "E15: Temperature / Hysteresis Parameter (ASM)"
       },
       "foxair_1146": {
-        "name": "Temperature / Hysteresis Parameter (ASM) [E16]"
+        "name": "E16: Temperature / Hysteresis Parameter (ASM)"
       },
       "foxair_1147": {
-        "name": "Defrosting EEV Steps [E17]"
+        "name": "E17: Defrosting EEV Steps"
       },
       "foxair_1148": {
-        "name": "Target Superheat For Cooling [E18]"
+        "name": "E18: Target Superheat For Cooling"
       },
       "foxair_1149": {
-        "name": "EEV Adjustment Range In Smart Mode [E19]"
+        "name": "E19: EEV Adjustment Range In Smart Mode"
       },
       "foxair_1150": {
-        "name": "Reserved [1150]"
+        "name": "1150: Reserved"
       },
       "foxair_1151": {
-        "name": "Reserved [1151]"
+        "name": "1151: Reserved"
       },
       "foxair_1152": {
-        "name": "Disinfection Water Temp. [G01]"
+        "name": "G01: Disinfection Water Temp."
       },
       "foxair_1153": {
-        "name": "Time Duration of Disinfection [G02]"
+        "name": "G02: Time Duration of Disinfection"
       },
       "foxair_1154": {
-        "name": "Disinfection Starting Time [G03]"
+        "name": "G03: Disinfection Starting Time"
       },
       "foxair_1155": {
-        "name": "Interval Period of Disinfection [G04]"
+        "name": "G04: Interval Period of Disinfection"
       },
       "foxair_1156": {
-        "name": "Enable Disinfection [G05]"
+        "name": "G05: Enable Disinfection"
       },
       "foxair_1157": {
-        "name": "Hot Water Setpoint [R01]"
+        "name": "R01: Hot Water Setpoint"
       },
       "foxair_1158": {
-        "name": "Heating Setpoint [R02]"
+        "name": "R02: Heating Setpoint"
       },
       "foxair_1159": {
-        "name": "Cooling Setpoint [R03]"
+        "name": "R03: Cooling Setpoint"
       },
       "foxair_1160": {
-        "name": "Heating Power-on Return Difference [R04]"
+        "name": "R04: Heating Power-on Return Difference"
       },
       "foxair_1161": {
-        "name": "Heating Constant Tempt. Power-off Tempt. Difference [R05]"
+        "name": "R05: Heating Constant Tempt. Power-off Tempt. Difference"
       },
       "foxair_1162": {
-        "name": "Min Cooling Setpoint [R08]"
+        "name": "R08: Min Cooling Setpoint"
       },
       "foxair_1163": {
-        "name": "Max Cooling Setpoint [R09]"
+        "name": "R09: Max Cooling Setpoint"
       },
       "foxair_1164": {
-        "name": "Min Heating Setpoint [R10]"
+        "name": "R10: Min Heating Setpoint"
       },
       "foxair_1165": {
-        "name": "Max Heating Setpoint [R11]"
+        "name": "R11: Max Heating Setpoint"
       },
       "foxair_1166": {
-        "name": "Return Difference of Exiting High Tempt. Mode [R15]"
+        "name": "R15: Return Difference of Exiting High Tempt. Mode"
       },
       "foxair_1167": {
-        "name": "Low AT for Water Temp. Limit On [R29]"
+        "name": "R29: Low AT for Water Temp. Limit On"
       },
       "foxair_1168": {
-        "name": "Low AT for Water Temp. Limit Off [R30]"
+        "name": "R30: Low AT for Water Temp. Limit Off"
       },
       "foxair_1169": {
-        "name": "Max. Limit Outlet Water Temp. at Low AT [R31]"
+        "name": "R31: Max. Limit Outlet Water Temp. at Low AT"
       },
       "foxair_1170": {
-        "name": "High AT for Water Temp. Limit On [R32]"
+        "name": "R32: High AT for Water Temp. Limit On"
       },
       "foxair_1171": {
-        "name": "High AT for Water Temp. Limit Off [R33]"
+        "name": "R33: High AT for Water Temp. Limit Off"
       },
       "foxair_1172": {
-        "name": "Max. Limit Outlet Water Temp. at High AT [R34]"
+        "name": "R34: Max. Limit Outlet Water Temp. at High AT"
       },
       "foxair_1173": {
-        "name": "Location of Electric Heater [R35]"
+        "name": "R35: Location of Electric Heater"
       },
       "foxair_1174": {
-        "name": "Cooling Power-on Return Difference [R06]"
+        "name": "R06: Cooling Power-on Return Difference"
       },
       "foxair_1175": {
-        "name": "Cooling Constant Tempt. Power-off Tempt. Difference [R07]"
+        "name": "R07: Cooling Constant Tempt. Power-off Tempt. Difference"
       },
       "foxair_1176": {
-        "name": "Min. DHW Target Temp. [R36]"
+        "name": "R36: Min. DHW Target Temp."
       },
       "foxair_1177": {
-        "name": "Max. DHW Target Temp. [R37]"
+        "name": "R37: Max. DHW Target Temp."
       },
       "foxair_1178": {
-        "name": "Temperature / Hysteresis Parameter R12 [R12]"
+        "name": "R12: Temperature / Hysteresis Parameter R12"
       },
       "foxair_1179": {
-        "name": "Temperature / Hysteresis Parameter R13 [R13]"
+        "name": "R13: Temperature / Hysteresis Parameter R13"
       },
       "foxair_1180": {
-        "name": "Temperature / Hysteresis Parameter R14 [R14]"
+        "name": "R14: Temperature / Hysteresis Parameter R14"
       },
       "foxair_1181": {
         "name": "Block Header Packet 3 ID Word 1 ASCII Char 1-2"
@@ -644,64 +644,64 @@
         "name": "Packet Marker / Sync Word / Block Header ID"
       },
       "foxair_1192": {
-        "name": "AT for Auto-start Heating Mode [R39]"
+        "name": "R39: AT for Auto-start Heating Mode"
       },
       "foxair_1193": {
-        "name": "Temperature Parameter, Celsius Limit 60 °C (ASM V1.3) [R40]"
+        "name": "R40: Temperature Parameter, Celsius Limit 60 °C (ASM V1.3)"
       },
       "foxair_1194": {
-        "name": "Temperature Parameter, Celsius Limit 60 °C (ASM V1.3) [R41]"
+        "name": "R41: Temperature Parameter, Celsius Limit 60 °C (ASM V1.3)"
       },
       "foxair_1195": {
-        "name": "Power-on Return Difference of Tank Water [R16]"
+        "name": "R16: Power-on Return Difference of Tank Water"
       },
       "foxair_1196": {
-        "name": "Standby Temp Difference of Tank Water [R17]"
+        "name": "R17: Standby Temp Difference of Tank Water"
       },
       "foxair_1197": {
-        "name": "Main Circulation Pump Operation Mode [P01]"
+        "name": "P01: Main Circulation Pump Operation Mode"
       },
       "foxair_1198": {
-        "name": "Interval Time [P02]"
+        "name": "P02: Interval Time"
       },
       "foxair_1199": {
-        "name": "Operation Duration Time [P03]"
+        "name": "P03: Operation Duration Time"
       },
       "foxair_1200": {
-        "name": "EEV Initial Steps for Heating1 [E03-1]"
+        "name": "E03-1: EEV Initial Steps for Heating1"
       },
       "foxair_1201": {
-        "name": "DHW Pump Operation Mode [P05]"
+        "name": "P05: DHW Pump Operation Mode"
       },
       "foxair_1202": {
-        "name": "Main Circulation Pump Manual Control [P06]"
+        "name": "P06: Main Circulation Pump Manual Control"
       },
       "foxair_1203": {
-        "name": "Circulation Pump Protection Period [P09]"
+        "name": "P09: Circulation Pump Protection Period"
       },
       "foxair_1204": {
-        "name": "Main Circulation Pump Rated Power [P08]"
+        "name": "P08: Main Circulation Pump Rated Power"
       },
       "foxair_1205": {
-        "name": "Speed of Circulation Pump [P10]"
+        "name": "P10: Speed of Circulation Pump"
       },
       "foxair_1206": {
-        "name": "EEV Initial Steps for Heating3 [E03-3]"
+        "name": "E03-3: EEV Initial Steps for Heating3"
       },
       "foxair_1207": {
-        "name": "EEV Initial Steps for Heating4 [E03-4]"
+        "name": "E03-4: EEV Initial Steps for Heating4"
       },
       "foxair_1208": {
-        "name": "EEV Initial Steps for Heating5 [E03-5]"
+        "name": "E03-5: EEV Initial Steps for Heating5"
       },
       "foxair_1209": {
-        "name": "EEV Min. Steps1 [E07-1]"
+        "name": "E07-1: EEV Min. Steps1"
       },
       "foxair_1210": {
-        "name": "EEV Min. Steps2 [E07-2]"
+        "name": "E07-2: EEV Min. Steps2"
       },
       "foxair_1211": {
-        "name": "EEV Min. Steps3 [E07-3]"
+        "name": "E07-3: EEV Min. Steps3"
       },
       "foxair_1212": {
         "name": "Inlet Temperature Offset"
@@ -713,61 +713,61 @@
         "name": "DHW Temperature Offset"
       },
       "foxair_1215": {
-        "name": "EEV Min. Steps4 [E07-4]"
+        "name": "E07-4: EEV Min. Steps4"
       },
       "foxair_1216": {
-        "name": "EEV Min. Steps5 [E07-5]"
+        "name": "E07-5: EEV Min. Steps5"
       },
       "foxair_1217": {
-        "name": "Max. Comp. Frequency in Cooling at High Ambient Temp. [C11]"
+        "name": "C11: Max. Comp. Frequency in Cooling at High Ambient Temp."
       },
       "foxair_1218": {
-        "name": "Manual Comp. Frequency [C01]"
+        "name": "C01: Manual Comp. Frequency"
       },
       "foxair_1219": {
-        "name": "Min. Comp. Frequency [C02]"
+        "name": "C02: Min. Comp. Frequency"
       },
       "foxair_1220": {
-        "name": "Max. Comp. Frequency [C03]"
+        "name": "C03: Max. Comp. Frequency"
       },
       "foxair_1221": {
-        "name": "Model Selection [C04]"
+        "name": "C04: Model Selection"
       },
       "foxair_1222": {
-        "name": "Min. Comp. Frequency in Cooling at Low Ambient Temp. [C05]"
+        "name": "C05: Min. Comp. Frequency in Cooling at Low Ambient Temp."
       },
       "foxair_1223": {
-        "name": "Frequenzregelungsmodus [C06]"
+        "name": "C06: Frequenzregelungsmodus"
       },
       "foxair_1224": {
-        "name": "Resonanzpunkt 1 [C07]"
+        "name": "C07: Resonanzpunkt 1"
       },
       "foxair_1225": {
-        "name": "Resonanzpunkt 2 [C08]"
+        "name": "C08: Resonanzpunkt 2"
       },
       "foxair_1226": {
-        "name": "Resonanzpunkt 3 [C09]"
+        "name": "C09: Resonanzpunkt 3"
       },
       "foxair_1227": {
-        "name": "Min. Comp. Frequency in Heating at Low Ambient Temp. [C10]"
+        "name": "C10: Min. Comp. Frequency in Heating at Low Ambient Temp."
       },
       "foxair_1228": {
-        "name": "Max. Outlet Water Temp. in Heating [R42]"
+        "name": "R42: Max. Outlet Water Temp. in Heating"
       },
       "foxair_1229": {
-        "name": "Max. Limit Target Water Temp. at Low AT in Heating [R43]"
+        "name": "R43: Max. Limit Target Water Temp. at Low AT in Heating"
       },
       "foxair_1230": {
-        "name": "Max. Limit Target Water Temp. at High AT in Heating [R44]"
+        "name": "R44: Max. Limit Target Water Temp. at High AT in Heating"
       },
       "foxair_1231": {
-        "name": "AT to Start Electric Heater Without Delay [R45]"
+        "name": "R45: AT to Start Electric Heater Without Delay"
       },
       "foxair_1232": {
-        "name": "Temp. Diff. between Max. DHW Target Temp. & Max. Outlet Temp. [R46]"
+        "name": "R46: Temp. Diff. between Max. DHW Target Temp. & Max. Outlet Temp."
       },
       "foxair_1233": {
-        "name": "AT to Start Frequency Limit in Cooling [R60]"
+        "name": "R60: AT to Start Frequency Limit in Cooling"
       },
       "foxair_1234": {
         "name": "AT Compensation Slope"
@@ -776,28 +776,28 @@
         "name": "AT Compensation Offset"
       },
       "foxair_1236": {
-        "name": "Enable AT Compensation Curve Zone 1 [H36]"
+        "name": "H36: Enable AT Compensation Curve Zone 1"
       },
       "foxair_1237": {
-        "name": "AT to Stop Frequency Limit in Cooling [R61]"
+        "name": "R61: AT to Stop Frequency Limit in Cooling"
       },
       "foxair_1238": {
-        "name": "Max. Heat Pump Outlet Water Temp. [R62]"
+        "name": "R62: Max. Heat Pump Outlet Water Temp."
       },
       "foxair_1239": {
-        "name": "Target Room Temp. [R70]"
+        "name": "R70: Target Room Temp."
       },
       "foxair_1240": {
-        "name": "Room Temp. Diff. for Power-on in Heating [R71]"
+        "name": "R71: Room Temp. Diff. for Power-on in Heating"
       },
       "foxair_1241": {
-        "name": "Room Temp. Diff. for Standby in Heating [R72]"
+        "name": "R72: Room Temp. Diff. for Standby in Heating"
       },
       "foxair_1242": {
-        "name": "Room Temp. Diff. for Power-on in Cooling [R73]"
+        "name": "R73: Room Temp. Diff. for Power-on in Cooling"
       },
       "foxair_1243": {
-        "name": "Room Temp. Diff. for Standby in Cooling [R74]"
+        "name": "R74: Room Temp. Diff. for Standby in Cooling"
       },
       "foxair_1244": {
         "name": "Silent Mode Timer Start Enable"
@@ -836,49 +836,49 @@
         "name": "Current System Year"
       },
       "foxair_1256": {
-        "name": "HP On/Off Timer 1 Start [KG1]"
+        "name": "KG1: HP On/Off Timer 1 Start"
       },
       "foxair_1257": {
-        "name": "HP On/Off Timer 1 End [KG2]"
+        "name": "KG2: HP On/Off Timer 1 End"
       },
       "foxair_1258": {
-        "name": "HP On/Off Timer 2 Start [KG3]"
+        "name": "KG3: HP On/Off Timer 2 Start"
       },
       "foxair_1259": {
-        "name": "HP On/Off Timer 2 End [KG4]"
+        "name": "KG4: HP On/Off Timer 2 End"
       },
       "foxair_1260": {
-        "name": "HP On/Off Timer 3 Start [KG5]"
+        "name": "KG5: HP On/Off Timer 3 Start"
       },
       "foxair_1261": {
-        "name": "HP On/Off Timer 3 End [KG6]"
+        "name": "KG6: HP On/Off Timer 3 End"
       },
       "foxair_1262": {
-        "name": "HP On/Off Timer 4 Start [KG7]"
+        "name": "KG7: HP On/Off Timer 4 Start"
       },
       "foxair_1263": {
-        "name": "HP On/Off Timer 4 End [KG8]"
+        "name": "KG8: HP On/Off Timer 4 End"
       },
       "foxair_1264": {
-        "name": "HP On/Off Timer 5 Start [KG9]"
+        "name": "KG9: HP On/Off Timer 5 Start"
       },
       "foxair_1265": {
-        "name": "HP On/Off Timer 5 End [KG10]"
+        "name": "KG10: HP On/Off Timer 5 End"
       },
       "foxair_1266": {
-        "name": "HP On/Off Timer 6 Start [KG11]"
+        "name": "KG11: HP On/Off Timer 6 Start"
       },
       "foxair_1267": {
-        "name": "HP On/Off Timer 6 End [KG12]"
+        "name": "KG12: HP On/Off Timer 6 End"
       },
       "foxair_1268": {
-        "name": "HP On/Off Timer 1+2 Active/Days Bitmask [KG13-KG28]"
+        "name": "KG13-KG28: HP On/Off Timer 1+2 Active/Days Bitmask"
       },
       "foxair_1269": {
-        "name": "HP On/Off Timer 3+4 Active/Days Bitmask [KG29-KG44]"
+        "name": "KG29-KG44: HP On/Off Timer 3+4 Active/Days Bitmask"
       },
       "foxair_1270": {
-        "name": "HP On/Off Timer 5+6 Active/Days Bitmask [KG45-KG60]"
+        "name": "KG45-KG60: HP On/Off Timer 5+6 Active/Days Bitmask"
       },
       "foxair_1271": {
         "name": "Block Header Packet 4 ID Word 1 ASCII Char 1-2"
@@ -1070,79 +1070,79 @@
         "name": "Circulation Pump Timer 3 Active Bitmask"
       },
       "foxair_1334": {
-        "name": "SG Ready Selection [SG01]"
+        "name": "SG01: SG Ready Selection"
       },
       "foxair_1335": {
-        "name": "SG Mode 1 Sleep Mode Time [SG02]"
+        "name": "SG02: SG Mode 1 Sleep Mode Time"
       },
       "foxair_1336": {
-        "name": "SG Mode 2 Power / Low PV [SG03]"
+        "name": "SG03: SG Mode 2 Power / Low PV"
       },
       "foxair_1337": {
-        "name": "SG Mode 3 Power / Medium PV [SG04]"
+        "name": "SG04: SG Mode 3 Power / Medium PV"
       },
       "foxair_1338": {
-        "name": "SG Mode 4 DHW Target Temp Boost [SG05]"
+        "name": "SG05: SG Mode 4 DHW Target Temp Boost"
       },
       "foxair_1339": {
-        "name": "SG Mode 4 Heating Target Temp Boost [SG06]"
+        "name": "SG06: SG Mode 4 Heating Target Temp Boost"
       },
       "foxair_1340": {
-        "name": "SG Mode 4 Cooling Target Temp Boost [SG07]"
+        "name": "SG07: SG Mode 4 Cooling Target Temp Boost"
       },
       "foxair_1341": {
-        "name": "Electric Heater On in SG Mode4 [SG08]"
+        "name": "SG08: Electric Heater On in SG Mode4"
       },
       "foxair_1342": {
-        "name": "Low Pressure of Limiting Frequency [A38]"
+        "name": "A38: Low Pressure of Limiting Frequency"
       },
       "foxair_1343": {
-        "name": "Max. Current Value [A39]"
+        "name": "A39: Max. Current Value"
       },
       "foxair_1344": {
-        "name": "Rated Water Flow [A40]"
+        "name": "A40: Rated Water Flow"
       },
       "foxair_1345": {
-        "name": "External Pump Selection [H40]"
+        "name": "H40: External Pump Selection"
       },
       "foxair_1346": {
-        "name": "Supervisor Password: 66 [H41]"
+        "name": "H41: Supervisor Password: 66"
       },
       "foxair_1347": {
-        "name": "Max. Comp. Frequency in DHW mode [C12]"
+        "name": "C12: Max. Comp. Frequency in DHW mode"
       },
       "foxair_1348": {
-        "name": "Display-Firmware Parameter C13 [C13]"
+        "name": "C13: Display-Firmware Parameter C13"
       },
       "foxair_1349": {
-        "name": "Display-Firmware Parameter C14 [C14]"
+        "name": "C14: Display-Firmware Parameter C14"
       },
       "foxair_1350": {
-        "name": "Display-Firmware Parameter C15 [C15]"
+        "name": "C15: Display-Firmware Parameter C15"
       },
       "foxair_1351": {
-        "name": "Display-Firmware Parameter E20 [E20]"
+        "name": "E20: Display-Firmware Parameter E20"
       },
       "foxair_1352": {
-        "name": "Display-Firmware Parameter E21 [E21]"
+        "name": "E21: Display-Firmware Parameter E21"
       },
       "foxair_1353": {
-        "name": "Reserved [1353]"
+        "name": "1353: Reserved"
       },
       "foxair_1354": {
-        "name": "Reserved [1354]"
+        "name": "1354: Reserved"
       },
       "foxair_1355": {
-        "name": "Reserved [1355]"
+        "name": "1355: Reserved"
       },
       "foxair_1356": {
-        "name": "H42 Einschalt-AT Gehaeusewannenheizung (D30/1437 erst wirksam, wenn AT kleiner H42 ist) [H42]"
+        "name": "H42: H42 Einschalt-AT Gehaeusewannenheizung (D30/1437 erst wirksam, wenn AT kleiner H42 ist)"
       },
       "foxair_1357": {
-        "name": "Diff. of No Pump On at Low Water Temp. [Z19]"
+        "name": "Z19: Diff. of No Pump On at Low Water Temp."
       },
       "foxair_1358": {
-        "name": "Enable Zone 1 Water Pump in Cooling [Z20]"
+        "name": "Z20: Enable Zone 1 Water Pump in Cooling"
       },
       "foxair_1361": {
         "name": "Block Header Packet 5 ID Word 1 ASCII Char 1-2"
@@ -1205,25 +1205,25 @@
         "name": "Auto Factory Test Water Pump Speed (ASM)"
       },
       "foxair_1432": {
-        "name": "Target Temp. Diff. for Pump Speed Control [P11]"
+        "name": "P11: Target Temp. Diff. for Pump Speed Control"
       },
       "foxair_1433": {
-        "name": "Pump Speed Adjust Range for Each Period [P12]"
+        "name": "P12: Pump Speed Adjust Range for Each Period"
       },
       "foxair_1435": {
-        "name": "Refill Valve Start Cycle (for IDU) [P13]"
+        "name": "P13: Refill Valve Start Cycle (for IDU)"
       },
       "foxair_1436": {
-        "name": "Refill Valve Working Duration (for IDU) [P14]"
+        "name": "P14: Refill Valve Working Duration (for IDU)"
       },
       "foxair_1437": {
-        "name": "Button Heater Delays OFF Time after Defrost [D30]"
+        "name": "D30: Button Heater Delays OFF Time after Defrost"
       },
       "foxair_1438": {
-        "name": "Target Water Pressure (for IDU) [P15]"
+        "name": "P15: Target Water Pressure (for IDU)"
       },
       "foxair_1444": {
-        "name": "Stop Refilling Pressure Diff. (for IDU) [P16]"
+        "name": "P16: Stop Refilling Pressure Diff. (for IDU)"
       },
       "foxair_1451": {
         "name": "Block Header Packet 6 ID Word 1 ASCII Char 1-2"
@@ -1256,13 +1256,13 @@
         "name": "Block Header Packet 6 First Header Register"
       },
       "foxair_1464": {
-        "name": "Unknown Function [1464]"
+        "name": "1464: Unknown Function"
       },
       "foxair_1466": {
-        "name": "Unknown Function [1466]"
+        "name": "1466: Unknown Function"
       },
       "foxair_1476": {
-        "name": "Unknown Function [1476]"
+        "name": "1476: Unknown Function"
       },
       "foxair_1541": {
         "name": "Block Header Packet 7 ID Word 1"
@@ -1343,7 +1343,7 @@
         "name": "Setpoint Temperature as 2013 / 2014"
       },
       "foxair_2017": {
-        "name": "Reserved [2017]"
+        "name": "2017: Reserved"
       },
       "foxair_2018": {
         "name": "025 / Load Output (Electric DHW Tank Heater)"
@@ -1355,7 +1355,7 @@
         "name": "015 / EEV Steps"
       },
       "foxair_2021": {
-        "name": "Reserved [2021]"
+        "name": "2021: Reserved"
       },
       "foxair_2022": {
         "name": "017 / EVI EEV Steps"
@@ -1370,13 +1370,13 @@
         "name": "System 2 EVI / Enthalpy Display Value (ASM)"
       },
       "foxair_2026": {
-        "name": "Unknown (value 9) [2026]"
+        "name": "2026: Unknown (value 9)"
       },
       "foxair_2027": {
-        "name": "Unknown (value 9) [2027]"
+        "name": "2027: Unknown (value 9)"
       },
       "foxair_2028": {
-        "name": "Unknown (value 9) [2028]"
+        "name": "2028: Unknown (value 9)"
       },
       "foxair_2029": {
         "name": "Eingangsstrom L1 [T-Diag5]"
@@ -1391,73 +1391,73 @@
         "name": "Compressor Runtime [T-Diag8]"
       },
       "foxair_2033": {
-        "name": "Reserved [2033]"
+        "name": "2033: Reserved"
       },
       "foxair_2034": {
-        "name": "Switch States / Contacts / SG Ready [S01]"
+        "name": "S01: Switch States / Contacts / SG Ready"
       },
       "foxair_2035": {
-        "name": "Heating Return Temperature [T40]"
+        "name": "T40: Heating Return Temperature"
       },
       "foxair_2036": {
-        "name": "Heating Flow Temperature [T41]"
+        "name": "T41: Heating Flow Temperature"
       },
       "foxair_2037": {
-        "name": "Mixing Pipe Outlet Water Temperature [T42]"
+        "name": "T42: Mixing Pipe Outlet Water Temperature"
       },
       "foxair_2038": {
-        "name": "DHW Return Temperature [T43]"
+        "name": "T43: DHW Return Temperature"
       },
       "foxair_2039": {
-        "name": "WW-Vorlauftemperatur [T44]"
+        "name": "T44: WW-Vorlauftemperatur"
       },
       "foxair_2040": {
-        "name": "Reserved [2040]"
+        "name": "2040: Reserved"
       },
       "foxair_2041": {
-        "name": "Reserved [2041]"
+        "name": "2041: Reserved"
       },
       "foxair_2042": {
-        "name": "Compressor Phase Current [T36]"
+        "name": "T36: Compressor Phase Current"
       },
       "foxair_2043": {
-        "name": "DC Bus Voltage [T37]"
+        "name": "T37: DC Bus Voltage"
       },
       "foxair_2044": {
-        "name": "IPM Temperature [T38]"
+        "name": "T38: IPM Temperature"
       },
       "foxair_2045": {
-        "name": "Inlet Water Temperature [T01]"
+        "name": "T01: Inlet Water Temperature"
       },
       "foxair_2046": {
-        "name": "Outlet Water Temperature [T02]"
+        "name": "T02: Outlet Water Temperature"
       },
       "foxair_2047": {
-        "name": "WW-Tanktemperatur [T08]"
+        "name": "T08: WW-Tanktemperatur"
       },
       "foxair_2048": {
-        "name": "Ambient Temperature (AT) [T04]"
+        "name": "T04: Ambient Temperature (AT)"
       },
       "foxair_2049": {
-        "name": "Evaporator Temperature [T03]"
+        "name": "T03: Evaporator Temperature"
       },
       "foxair_2050": {
-        "name": "Verteilerrohrtemperatur [T14]"
+        "name": "T14: Verteilerrohrtemperatur"
       },
       "foxair_2051": {
-        "name": "Suction Temperature [T05]"
+        "name": "T05: Suction Temperature"
       },
       "foxair_2052": {
-        "name": "Puffertanktemperatur [T07]"
+        "name": "T07: Puffertanktemperatur"
       },
       "foxair_2053": {
-        "name": "Exhaust Gas Temperature [T12]"
+        "name": "T12: Exhaust Gas Temperature"
       },
       "foxair_2054": {
-        "name": "Unit Power [T54]"
+        "name": "T54: Unit Power"
       },
       "foxair_2055": {
-        "name": "Frostschutztemperatur (Am PlattenWT) [T06]"
+        "name": "T06: Frostschutztemperatur (Am PlattenWT)"
       },
       "foxair_2056": {
         "name": "T? / System 1 Frost Protection Temp 2 / Coil/Frost Temp 2 (ASM V1.3)"
@@ -1466,25 +1466,25 @@
         "name": "Live value 2057 [hidden diagnostic]"
       },
       "foxair_2058": {
-        "name": "Room Temperature [T09]"
+        "name": "T09: Room Temperature"
       },
       "foxair_2059": {
-        "name": "Unit Capacity [T59]"
+        "name": "T59: Unit Capacity"
       },
       "foxair_2060": {
-        "name": "COP [T60]"
+        "name": "T60: COP"
       },
       "foxair_2061": {
-        "name": "IPM High Fault Temperature [T33]"
+        "name": "T33: IPM High Fault Temperature"
       },
       "foxair_2062": {
-        "name": "AC Input Voltage [T34]"
+        "name": "T34: AC Input Voltage"
       },
       "foxair_2063": {
-        "name": "EVI Inlet Temperature [T10]"
+        "name": "T10: EVI Inlet Temperature"
       },
       "foxair_2064": {
-        "name": "EVI Outlet Temperature [T11]"
+        "name": "T11: EVI Outlet Temperature"
       },
       "foxair_2065": {
         "name": "Evaporating Temp (ASM) [T-Diag1]"
@@ -1499,31 +1499,31 @@
         "name": "System 2 Current (ASM)"
       },
       "foxair_2069": {
-        "name": "Low Pressure [T15]"
+        "name": "T15: Low Pressure"
       },
       "foxair_2070": {
         "name": "System 2 Pressure (ASM)"
       },
       "foxair_2071": {
-        "name": "Compressor Frequency [T30]"
+        "name": "T30: Compressor Frequency"
       },
       "foxair_2072": {
-        "name": "Compressor Operating Frequency [T31]"
+        "name": "T31: Compressor Operating Frequency"
       },
       "foxair_2073": {
-        "name": "Max Frequency from Compressor Driver [T32]"
+        "name": "T32: Max Frequency from Compressor Driver"
       },
       "foxair_2074": {
-        "name": "Fan Motor 1 Speed [T27]"
+        "name": "T27: Fan Motor 1 Speed"
       },
       "foxair_2075": {
-        "name": "Fan Motor 2 Speed [T28]"
+        "name": "T28: Fan Motor 2 Speed"
       },
       "foxair_2076": {
-        "name": "Fan Motor Target Speed [T29]"
+        "name": "T29: Fan Motor Target Speed"
       },
       "foxair_2077": {
-        "name": "Water Flow Rate [T39]"
+        "name": "T39: Water Flow Rate"
       },
       "foxair_2078": {
         "name": "Energy Meter Electric High Bits"
@@ -1535,34 +1535,34 @@
         "name": "Status / Data Word (like Display Bus 91099)"
       },
       "foxair_2081": {
-        "name": "Error 7 / Fault Bits [ERR07]"
+        "name": "ERR07: Error 7 / Fault Bits"
       },
       "foxair_2082": {
-        "name": "Error 8 / Fault Bits [ERR08]"
+        "name": "ERR08: Error 8 / Fault Bits"
       },
       "foxair_2083": {
-        "name": "Error 9 / Fault Bits [ERR09]"
+        "name": "ERR09: Error 9 / Fault Bits"
       },
       "foxair_2084": {
-        "name": "Unknown (value 9) [2084]"
+        "name": "2084: Unknown (value 9)"
       },
       "foxair_2085": {
-        "name": "Error 1 / Fault Bits [ERR01]"
+        "name": "ERR01: Error 1 / Fault Bits"
       },
       "foxair_2086": {
-        "name": "Error 2 / Fault Bits [ERR02]"
+        "name": "ERR02: Error 2 / Fault Bits"
       },
       "foxair_2087": {
-        "name": "Error 3 / Fault Bits [ERR03]"
+        "name": "ERR03: Error 3 / Fault Bits"
       },
       "foxair_2088": {
-        "name": "Error 4 / Fault Bits [ERR04]"
+        "name": "ERR04: Error 4 / Fault Bits"
       },
       "foxair_2089": {
-        "name": "Error 5 / Fault Bits [ERR05]"
+        "name": "ERR05: Error 5 / Fault Bits"
       },
       "foxair_2090": {
-        "name": "Error 6 / Fault Bits [ERR06]"
+        "name": "ERR06: Error 6 / Fault Bits"
       },
       "foxair_2091": {
         "name": "Block Header Packet 8 ID Word 1 ASCII Char 1-2"
@@ -1595,10 +1595,10 @@
         "name": "Block Header Status Packet 2 First Header Register"
       },
       "foxair_2101": {
-        "name": "Reserved [2101]"
+        "name": "2101: Reserved"
       },
       "foxair_2102": {
-        "name": "Reserved [2102]"
+        "name": "2102: Reserved"
       },
       "foxair_2103": {
         "name": "Main Controller Software Code (ASM)"
@@ -1619,10 +1619,10 @@
         "name": "Fan Mute Flag (ASM)"
       },
       "foxair_2109": {
-        "name": "Reserved [2109]"
+        "name": "2109: Reserved"
       },
       "foxair_2110": {
-        "name": "Reserved [2110]"
+        "name": "2110: Reserved"
       },
       "foxair_2111": {
         "name": "Display Number"
@@ -1631,10 +1631,10 @@
         "name": "Display Version"
       },
       "foxair_2113": {
-        "name": "Reserved [2113]"
+        "name": "2113: Reserved"
       },
       "foxair_2114": {
-        "name": "Reserved [2114]"
+        "name": "2114: Reserved"
       },
       "foxair_2115": {
         "name": "UP PWM Current"
@@ -1643,25 +1643,25 @@
         "name": "Pump PWM Feedback"
       },
       "foxair_2117": {
-        "name": "Reserved [2117]"
+        "name": "2117: Reserved"
       },
       "foxair_2118": {
         "name": "Energy Meter Electric Heating"
       },
       "foxair_2119": {
-        "name": "Reserved [2119]"
+        "name": "2119: Reserved"
       },
       "foxair_2120": {
         "name": "Energy Meter Heat Quantity Heating"
       },
       "foxair_2121": {
-        "name": "Reserved [2121]"
+        "name": "2121: Reserved"
       },
       "foxair_2122": {
         "name": "Energy Meter Electric Cooling"
       },
       "foxair_2123": {
-        "name": "Reserved [2123]"
+        "name": "2123: Reserved"
       },
       "foxair_2124": {
         "name": "Energy Meter Heat Quantity Cooling"
@@ -1679,16 +1679,16 @@
         "name": "DHW Thermal Energy Low Word"
       },
       "foxair_2129": {
-        "name": "Reserved [2129]"
+        "name": "2129: Reserved"
       },
       "foxair_2130": {
-        "name": "IPM Temperature of External Fan Motor Drive [T46]"
+        "name": "T46: IPM Temperature of External Fan Motor Drive"
       },
       "foxair_2131": {
-        "name": "Power of External Fan Motor Drive [T47]"
+        "name": "T47: Power of External Fan Motor Drive"
       },
       "foxair_2132": {
-        "name": "Current of External Fan Motor Drive [T48]"
+        "name": "T48: Current of External Fan Motor Drive"
       },
       "foxair_2133": {
         "name": "SG Ready Active Mode [SGstatus]"
@@ -1697,7 +1697,7 @@
         "name": "Timer State Power Limit Timers 1-6"
       },
       "foxair_2135": {
-        "name": "Unknown Function [2135]"
+        "name": "2135: Unknown Function"
       },
       "foxair_2136": {
         "name": "T04 Outdoor Temperature - Secondary Path"
@@ -1709,37 +1709,37 @@
         "name": "Heat Pump Thermal Power (without booster)"
       },
       "foxair_2139": {
-        "name": "Unknown Function [2139]"
+        "name": "2139: Unknown Function"
       },
       "foxair_2140": {
-        "name": "Unknown Function [2140]"
+        "name": "2140: Unknown Function"
       },
       "foxair_2141": {
-        "name": "Unknown Function [2141]"
+        "name": "2141: Unknown Function"
       },
       "foxair_2142": {
-        "name": "Unknown Function [2142]"
+        "name": "2142: Unknown Function"
       },
       "foxair_2143": {
-        "name": "Unknown Function [2143]"
+        "name": "2143: Unknown Function"
       },
       "foxair_2144": {
-        "name": "Unknown Function [2144]"
+        "name": "2144: Unknown Function"
       },
       "foxair_2145": {
-        "name": "Unknown Function [2145]"
+        "name": "2145: Unknown Function"
       },
       "foxair_2146": {
-        "name": "Unknown Function [2146]"
+        "name": "2146: Unknown Function"
       },
       "foxair_2147": {
-        "name": "Unknown Function [2147]"
+        "name": "2147: Unknown Function"
       },
       "foxair_2148": {
-        "name": "Unknown Function [2148]"
+        "name": "2148: Unknown Function"
       },
       "foxair_2149": {
-        "name": "Unknown Function [2149]"
+        "name": "2149: Unknown Function"
       },
       "foxair_2178": {
         "name": "Temperature/Humidity Sensor Temperature"
@@ -1828,106 +1828,106 @@
         "name": "Logo Selection"
       },
       "foxair_1022": {
-        "name": "Reserved [1022]"
+        "name": "1022: Reserved"
       },
       "foxair_1025": {
-        "name": "Language choice [H38]"
+        "name": "H38: Language choice"
       },
       "foxair_1026": {
-        "name": "Logo Selection / Customer Logo Code (ASM) [H39]"
+        "name": "H39: Logo Selection / Customer Logo Code (ASM)"
       },
       "foxair_1031": {
-        "name": "Electric Heater Off Temp. Diff [A35]"
+        "name": "A35: Electric Heater Off Temp. Diff"
       },
       "foxair_1036": {
-        "name": "Indoor Unit Type [H30]"
+        "name": "H30: Indoor Unit Type"
       },
       "foxair_1037": {
-        "name": "Shutdown Ambient Temp. [A03]"
+        "name": "A03: Shutdown Ambient Temp."
       },
       "foxair_1038": {
-        "name": "Antifreeze Temp. [A04]"
+        "name": "A04: Antifreeze Temp."
       },
       "foxair_1039": {
-        "name": "Antifreeze Temp. Difference [A05]"
+        "name": "A05: Antifreeze Temp. Difference"
       },
       "foxair_1040": {
-        "name": "Exhaust Temp Protect Setup [A06]"
+        "name": "A06: Exhaust Temp Protect Setup"
       },
       "foxair_1043": {
-        "name": "Antifreeze Min Temp [A23]"
+        "name": "A23: Antifreeze Min Temp"
       },
       "foxair_1044": {
-        "name": "Excess Temp. Diff. Between inlet and Outlet Temp. [A24]"
+        "name": "A24: Excess Temp. Diff. Between inlet and Outlet Temp."
       },
       "foxair_1048": {
         "name": "External Pump Selection []"
       },
       "foxair_1049": {
-        "name": "Electric Heater On AT [A31]"
+        "name": "A31: Electric Heater On AT"
       },
       "foxair_1050": {
-        "name": "Electric Heater Delays Comp. On Time [A32]"
+        "name": "A32: Electric Heater Delays Comp. On Time"
       },
       "foxair_1051": {
-        "name": "Min. AT for Cooling [A30]"
+        "name": "A30: Min. AT for Cooling"
       },
       "foxair_1053": {
-        "name": "Low Water Temperature Protection [A22]"
+        "name": "A22: Low Water Temperature Protection"
       },
       "foxair_1055": {
-        "name": "Minimum Evaporation Temp. of Cooling [A25]"
+        "name": "A25: Minimum Evaporation Temp. of Cooling"
       },
       "foxair_1056": {
-        "name": "Temp Difference A Of Limiting Frequency [A27]"
+        "name": "A27: Temp Difference A Of Limiting Frequency"
       },
       "foxair_1057": {
-        "name": "Temp Diff between Outlet and DHW Temp [A28]"
+        "name": "A28: Temp Diff between Outlet and DHW Temp"
       },
       "foxair_1060": {
-        "name": "Max Cool Coil Temp [F02]"
+        "name": "F02: Max Cool Coil Temp"
       },
       "foxair_1061": {
-        "name": "Fan Motor Power Curve [F27]"
+        "name": "F27: Fan Motor Power Curve"
       },
       "foxair_1062": {
-        "name": "Min Cool Coil Temp [F03]"
+        "name": "F03: Min Cool Coil Temp"
       },
       "foxair_1063": {
-        "name": "Electric Heater Opening Temp. Diff [A33]"
+        "name": "A33: Electric Heater Opening Temp. Diff"
       },
       "foxair_1064": {
-        "name": "Crank Preheating Time [A34]"
+        "name": "A34: Crank Preheating Time"
       },
       "foxair_1065": {
-        "name": "Reserved [1065]"
+        "name": "1065: Reserved"
       },
       "foxair_1066": {
-        "name": "Max Heat Coil Temp [F05]"
+        "name": "F05: Max Heat Coil Temp"
       },
       "foxair_1067": {
-        "name": "Reserved [1067]"
+        "name": "1067: Reserved"
       },
       "foxair_1068": {
-        "name": "Min Heat Coil Temp [F06]"
+        "name": "F06: Min Heat Coil Temp"
       },
       "foxair_1070": {
-        "name": "Zone 1 Target RT [Z02]"
+        "name": "Z02: Zone 1 Target RT"
       },
       "foxair_1071": {
-        "name": "Zone 1 RT Diff. to Start [Z03]"
+        "name": "Z03: Zone 1 RT Diff. to Start"
       },
       "foxair_1072": {
-        "name": "Zone 2 Target RT [Z04]"
+        "name": "Z04: Zone 2 Target RT"
       },
       "foxair_1073": {
-        "name": "Zone 2 RT Diff. to Start [Z05]"
+        "name": "Z05: Zone 2 RT Diff. to Start"
       },
       "foxair_1075": {
-        "name": "Zone 1 Heating Target Outlet WT [Z06]"
+        "name": "Z06: Zone 1 Heating Target Outlet WT"
       },
       "foxair_1076": {
-        "name": "Zone 2 Mixing Target Outlet WT [Z07]"
+        "name": "Z07: Zone 2 Mixing Target Outlet WT"
       },
       "foxair_1078": {
         "name": "Zone 2 Heating Curve K / Room Temp Compensation (ASM)"
@@ -1936,289 +1936,289 @@
         "name": "Zone 2 Heating Curve B / Room Temp Compensation (ASM)"
       },
       "foxair_1080": {
-        "name": "Mixing Valve Manual Adjustment Ratio (0% for Auto Control) [Z08]"
+        "name": "Z08: Mixing Valve Manual Adjustment Ratio (0% for Auto Control)"
       },
       "foxair_1082": {
-        "name": "Mixing Valve Opening Time [Z09]"
+        "name": "Z09: Mixing Valve Opening Time"
       },
       "foxair_1084": {
-        "name": "Mixing Valve Closing Time [Z10]"
+        "name": "Z10: Mixing Valve Closing Time"
       },
       "foxair_1085": {
-        "name": "Mixing Valve Adjustment P(PID) [Z11]"
+        "name": "Z11: Mixing Valve Adjustment P(PID)"
       },
       "foxair_1088": {
-        "name": "Mixing Valve Adjustment I(PID) [Z12]"
+        "name": "Z12: Mixing Valve Adjustment I(PID)"
       },
       "foxair_1090": {
-        "name": "Mixing Valve PID Period [Z13]"
+        "name": "Z13: Mixing Valve PID Period"
       },
       "foxair_1101": {
-        "name": "CT to Reduce Top Fans in Cooling [F28]"
+        "name": "F28: CT to Reduce Top Fans in Cooling"
       },
       "foxair_1102": {
-        "name": "CT to Stop Single Fan in Cooling [F29]"
+        "name": "F29: CT to Stop Single Fan in Cooling"
       },
       "foxair_1103": {
-        "name": "Cooling Fan Max Speed [F25]"
+        "name": "F25: Cooling Fan Max Speed"
       },
       "foxair_1104": {
-        "name": "Heating Fan Max Speed [F26]"
+        "name": "F26: Heating Fan Max Speed"
       },
       "foxair_1105": {
-        "name": "Ambient Temp. of Starting Defrosting [D01]"
+        "name": "D01: Ambient Temp. of Starting Defrosting"
       },
       "foxair_1106": {
-        "name": "Heating Operation Time Before Defrosting [D02]"
+        "name": "D02: Heating Operation Time Before Defrosting"
       },
       "foxair_1107": {
-        "name": "Defrosting Cycle [D03]"
+        "name": "D03: Defrosting Cycle"
       },
       "foxair_1108": {
-        "name": "Exhaust Temp. Correction for Defrosting Cycle [D04]"
+        "name": "D04: Exhaust Temp. Correction for Defrosting Cycle"
       },
       "foxair_1109": {
-        "name": "Defrosting Suction Pressure 1 [D05-1]"
+        "name": "D05-1: Defrosting Suction Pressure 1"
       },
       "foxair_1110": {
-        "name": "Defrosting Suction Pressure 2 [D05-2]"
+        "name": "D05-2: Defrosting Suction Pressure 2"
       },
       "foxair_1112": {
-        "name": "Ambient Temp. of Start Sliding Defrosting [D07]"
+        "name": "D07: Ambient Temp. of Start Sliding Defrosting"
       },
       "foxair_1113": {
-        "name": "Suction Temp. of Start Sliding Defrosting [D08]"
+        "name": "D08: Suction Temp. of Start Sliding Defrosting"
       },
       "foxair_1114": {
-        "name": "Ambient Temp. of Stop Sliding Defrosting [D09]"
+        "name": "D09: Ambient Temp. of Stop Sliding Defrosting"
       },
       "foxair_1115": {
-        "name": "Suction Temp. of Stop Sliding Defrosting [D10]"
+        "name": "D10: Suction Temp. of Stop Sliding Defrosting"
       },
       "foxair_1116": {
-        "name": "Min. Inlet Water Temp. of Defrosting [D11]"
+        "name": "D11: Min. Inlet Water Temp. of Defrosting"
       },
       "foxair_1117": {
-        "name": "Suction Pressure of Forced Defrosting [D12]"
+        "name": "D12: Suction Pressure of Forced Defrosting"
       },
       "foxair_1118": {
-        "name": "Heating Operation Time Before Forced Defrosting [D13]"
+        "name": "D13: Heating Operation Time Before Forced Defrosting"
       },
       "foxair_1119": {
-        "name": "Fan Motor Power Ratio to Extend Defrosting Cycle [D14]"
+        "name": "D14: Fan Motor Power Ratio to Extend Defrosting Cycle"
       },
       "foxair_1120": {
-        "name": "Fan Motor Power Ratio to Enter Forced Defrosting [D15]"
+        "name": "D15: Fan Motor Power Ratio to Enter Forced Defrosting"
       },
       "foxair_1122": {
-        "name": "Coil Temp. of Exit Defrosting [D17]"
+        "name": "D17: Coil Temp. of Exit Defrosting"
       },
       "foxair_1123": {
-        "name": "Distributor Tube Temp. of Exit Defrosting [D18]"
+        "name": "D18: Distributor Tube Temp. of Exit Defrosting"
       },
       "foxair_1124": {
-        "name": "Max. Defrosting Time [D19]"
+        "name": "D19: Max. Defrosting Time"
       },
       "foxair_1125": {
-        "name": "Defrosting Frequency [D20]"
+        "name": "D20: Defrosting Frequency"
       },
       "foxair_1127": {
-        "name": "Water Flow of Defrosting [D22]"
+        "name": "D22: Water Flow of Defrosting"
       },
       "foxair_1128": {
-        "name": "Max. Defrosting Cycle by Fan Motor Power [D23]"
+        "name": "D23: Max. Defrosting Cycle by Fan Motor Power"
       },
       "foxair_1130": {
-        "name": "Max. Water Temp. Decrease during Defrosting [D25]"
+        "name": "D25: Max. Water Temp. Decrease during Defrosting"
       },
       "foxair_1132": {
-        "name": "Target Superheat for Heating [E02]"
+        "name": "E02: Target Superheat for Heating"
       },
       "foxair_1133": {
-        "name": "EEV Initial Steps for Heating [E03]"
+        "name": "E03: EEV Initial Steps for Heating"
       },
       "foxair_1134": {
-        "name": "Steps of Mixing Valve in Cooling [Z14]"
+        "name": "Z14: Steps of Mixing Valve in Cooling"
       },
       "foxair_1135": {
-        "name": "Zone 2 Max. Water Target Temp. [Z15]"
+        "name": "Z15: Zone 2 Max. Water Target Temp."
       },
       "foxair_1136": {
-        "name": "Mixing Valve I-Gain (DIGI5 per ASM) [Z16]"
+        "name": "Z16: Mixing Valve I-Gain (DIGI5 per ASM)"
       },
       "foxair_1137": {
-        "name": "Min Initial Steps [E07]"
+        "name": "E07: Min Initial Steps"
       },
       "foxair_1138": {
-        "name": "EEV Initial Steps for Cooling [E08]"
+        "name": "E08: EEV Initial Steps for Cooling"
       },
       "foxair_1140": {
-        "name": "EVI EEV: Initial Steps [E10]"
+        "name": "E10: EVI EEV: Initial Steps"
       },
       "foxair_1141": {
         "name": "System 2 EVI / Enthalpy Present if Value != 0 (ASM V1.3)"
       },
       "foxair_1142": {
-        "name": "EEV Initial Steps for Heating2 [E03-2]"
+        "name": "E03-2: EEV Initial Steps for Heating2"
       },
       "foxair_1143": {
-        "name": "EVI EEV Target Superheat Degree [E13]"
+        "name": "E13: EVI EEV Target Superheat Degree"
       },
       "foxair_1144": {
-        "name": "EVI EEV Min. Steps [E14]"
+        "name": "E14: EVI EEV Min. Steps"
       },
       "foxair_1145": {
-        "name": "Temperature / Hysteresis Parameter (ASM) [E15]"
+        "name": "E15: Temperature / Hysteresis Parameter (ASM)"
       },
       "foxair_1146": {
-        "name": "Temperature / Hysteresis Parameter (ASM) [E16]"
+        "name": "E16: Temperature / Hysteresis Parameter (ASM)"
       },
       "foxair_1147": {
-        "name": "Defrosting EEV Steps [E17]"
+        "name": "E17: Defrosting EEV Steps"
       },
       "foxair_1148": {
-        "name": "Target Superheat For Cooling [E18]"
+        "name": "E18: Target Superheat For Cooling"
       },
       "foxair_1149": {
-        "name": "EEV Adjustment Range In Smart Mode [E19]"
+        "name": "E19: EEV Adjustment Range In Smart Mode"
       },
       "foxair_1150": {
-        "name": "Reserved [1150]"
+        "name": "1150: Reserved"
       },
       "foxair_1151": {
-        "name": "Reserved [1151]"
+        "name": "1151: Reserved"
       },
       "foxair_1152": {
-        "name": "Disinfection Water Temp. [G01]"
+        "name": "G01: Disinfection Water Temp."
       },
       "foxair_1153": {
-        "name": "Time Duration of Disinfection [G02]"
+        "name": "G02: Time Duration of Disinfection"
       },
       "foxair_1154": {
-        "name": "Disinfection Starting Time [G03]"
+        "name": "G03: Disinfection Starting Time"
       },
       "foxair_1155": {
-        "name": "Interval Period of Disinfection [G04]"
+        "name": "G04: Interval Period of Disinfection"
       },
       "foxair_1157": {
-        "name": "Hot Water Setpoint [R01]"
+        "name": "R01: Hot Water Setpoint"
       },
       "foxair_1158": {
-        "name": "Heating Setpoint [R02]"
+        "name": "R02: Heating Setpoint"
       },
       "foxair_1159": {
-        "name": "Cooling Setpoint [R03]"
+        "name": "R03: Cooling Setpoint"
       },
       "foxair_1160": {
-        "name": "Heating Power-on Return Difference [R04]"
+        "name": "R04: Heating Power-on Return Difference"
       },
       "foxair_1161": {
-        "name": "Heating Constant Tempt. Power-off Tempt. Difference [R05]"
+        "name": "R05: Heating Constant Tempt. Power-off Tempt. Difference"
       },
       "foxair_1162": {
-        "name": "Min Cooling Setpoint [R08]"
+        "name": "R08: Min Cooling Setpoint"
       },
       "foxair_1163": {
-        "name": "Max Cooling Setpoint [R09]"
+        "name": "R09: Max Cooling Setpoint"
       },
       "foxair_1164": {
-        "name": "Min Heating Setpoint [R10]"
+        "name": "R10: Min Heating Setpoint"
       },
       "foxair_1165": {
-        "name": "Max Heating Setpoint [R11]"
+        "name": "R11: Max Heating Setpoint"
       },
       "foxair_1166": {
-        "name": "Return Difference of Exiting High Tempt. Mode [R15]"
+        "name": "R15: Return Difference of Exiting High Tempt. Mode"
       },
       "foxair_1167": {
-        "name": "Low AT for Water Temp. Limit On [R29]"
+        "name": "R29: Low AT for Water Temp. Limit On"
       },
       "foxair_1168": {
-        "name": "Low AT for Water Temp. Limit Off [R30]"
+        "name": "R30: Low AT for Water Temp. Limit Off"
       },
       "foxair_1169": {
-        "name": "Max. Limit Outlet Water Temp. at Low AT [R31]"
+        "name": "R31: Max. Limit Outlet Water Temp. at Low AT"
       },
       "foxair_1170": {
-        "name": "High AT for Water Temp. Limit On [R32]"
+        "name": "R32: High AT for Water Temp. Limit On"
       },
       "foxair_1171": {
-        "name": "High AT for Water Temp. Limit Off [R33]"
+        "name": "R33: High AT for Water Temp. Limit Off"
       },
       "foxair_1172": {
-        "name": "Max. Limit Outlet Water Temp. at High AT [R34]"
+        "name": "R34: Max. Limit Outlet Water Temp. at High AT"
       },
       "foxair_1174": {
-        "name": "Cooling Power-on Return Difference [R06]"
+        "name": "R06: Cooling Power-on Return Difference"
       },
       "foxair_1175": {
-        "name": "Cooling Constant Tempt. Power-off Tempt. Difference [R07]"
+        "name": "R07: Cooling Constant Tempt. Power-off Tempt. Difference"
       },
       "foxair_1176": {
-        "name": "Min. DHW Target Temp. [R36]"
+        "name": "R36: Min. DHW Target Temp."
       },
       "foxair_1177": {
-        "name": "Max. DHW Target Temp. [R37]"
+        "name": "R37: Max. DHW Target Temp."
       },
       "foxair_1178": {
-        "name": "Temperature / Hysteresis Parameter R12 [R12]"
+        "name": "R12: Temperature / Hysteresis Parameter R12"
       },
       "foxair_1179": {
-        "name": "Temperature / Hysteresis Parameter R13 [R13]"
+        "name": "R13: Temperature / Hysteresis Parameter R13"
       },
       "foxair_1180": {
-        "name": "Temperature / Hysteresis Parameter R14 [R14]"
+        "name": "R14: Temperature / Hysteresis Parameter R14"
       },
       "foxair_1192": {
-        "name": "AT for Auto-start Heating Mode [R39]"
+        "name": "R39: AT for Auto-start Heating Mode"
       },
       "foxair_1193": {
-        "name": "Temperature Parameter, Celsius Limit 60 °C (ASM V1.3) [R40]"
+        "name": "R40: Temperature Parameter, Celsius Limit 60 °C (ASM V1.3)"
       },
       "foxair_1194": {
-        "name": "Temperature Parameter, Celsius Limit 60 °C (ASM V1.3) [R41]"
+        "name": "R41: Temperature Parameter, Celsius Limit 60 °C (ASM V1.3)"
       },
       "foxair_1195": {
-        "name": "Power-on Return Difference of Tank Water [R16]"
+        "name": "R16: Power-on Return Difference of Tank Water"
       },
       "foxair_1196": {
-        "name": "Standby Temp Difference of Tank Water [R17]"
+        "name": "R17: Standby Temp Difference of Tank Water"
       },
       "foxair_1198": {
-        "name": "Interval Time [P02]"
+        "name": "P02: Interval Time"
       },
       "foxair_1199": {
-        "name": "Operation Duration Time [P03]"
+        "name": "P03: Operation Duration Time"
       },
       "foxair_1200": {
-        "name": "EEV Initial Steps for Heating1 [E03-1]"
+        "name": "E03-1: EEV Initial Steps for Heating1"
       },
       "foxair_1203": {
-        "name": "Circulation Pump Protection Period [P09]"
+        "name": "P09: Circulation Pump Protection Period"
       },
       "foxair_1204": {
-        "name": "Main Circulation Pump Rated Power [P08]"
+        "name": "P08: Main Circulation Pump Rated Power"
       },
       "foxair_1205": {
-        "name": "Speed of Circulation Pump [P10]"
+        "name": "P10: Speed of Circulation Pump"
       },
       "foxair_1206": {
-        "name": "EEV Initial Steps for Heating3 [E03-3]"
+        "name": "E03-3: EEV Initial Steps for Heating3"
       },
       "foxair_1207": {
-        "name": "EEV Initial Steps for Heating4 [E03-4]"
+        "name": "E03-4: EEV Initial Steps for Heating4"
       },
       "foxair_1208": {
-        "name": "EEV Initial Steps for Heating5 [E03-5]"
+        "name": "E03-5: EEV Initial Steps for Heating5"
       },
       "foxair_1209": {
-        "name": "EEV Min. Steps1 [E07-1]"
+        "name": "E07-1: EEV Min. Steps1"
       },
       "foxair_1210": {
-        "name": "EEV Min. Steps2 [E07-2]"
+        "name": "E07-2: EEV Min. Steps2"
       },
       "foxair_1211": {
-        "name": "EEV Min. Steps3 [E07-3]"
+        "name": "E07-3: EEV Min. Steps3"
       },
       "foxair_1212": {
         "name": "Inlet Temperature Offset"
@@ -2230,55 +2230,55 @@
         "name": "DHW Temperature Offset"
       },
       "foxair_1215": {
-        "name": "EEV Min. Steps4 [E07-4]"
+        "name": "E07-4: EEV Min. Steps4"
       },
       "foxair_1216": {
-        "name": "EEV Min. Steps5 [E07-5]"
+        "name": "E07-5: EEV Min. Steps5"
       },
       "foxair_1217": {
-        "name": "Max. Comp. Frequency in Cooling at High Ambient Temp. [C11]"
+        "name": "C11: Max. Comp. Frequency in Cooling at High Ambient Temp."
       },
       "foxair_1218": {
-        "name": "Manual Comp. Frequency [C01]"
+        "name": "C01: Manual Comp. Frequency"
       },
       "foxair_1219": {
-        "name": "Min. Comp. Frequency [C02]"
+        "name": "C02: Min. Comp. Frequency"
       },
       "foxair_1220": {
-        "name": "Max. Comp. Frequency [C03]"
+        "name": "C03: Max. Comp. Frequency"
       },
       "foxair_1222": {
-        "name": "Min. Comp. Frequency in Cooling at Low Ambient Temp. [C05]"
+        "name": "C05: Min. Comp. Frequency in Cooling at Low Ambient Temp."
       },
       "foxair_1224": {
-        "name": "Resonanzpunkt 1 [C07]"
+        "name": "C07: Resonanzpunkt 1"
       },
       "foxair_1225": {
-        "name": "Resonanzpunkt 2 [C08]"
+        "name": "C08: Resonanzpunkt 2"
       },
       "foxair_1226": {
-        "name": "Resonanzpunkt 3 [C09]"
+        "name": "C09: Resonanzpunkt 3"
       },
       "foxair_1227": {
-        "name": "Min. Comp. Frequency in Heating at Low Ambient Temp. [C10]"
+        "name": "C10: Min. Comp. Frequency in Heating at Low Ambient Temp."
       },
       "foxair_1228": {
-        "name": "Max. Outlet Water Temp. in Heating [R42]"
+        "name": "R42: Max. Outlet Water Temp. in Heating"
       },
       "foxair_1229": {
-        "name": "Max. Limit Target Water Temp. at Low AT in Heating [R43]"
+        "name": "R43: Max. Limit Target Water Temp. at Low AT in Heating"
       },
       "foxair_1230": {
-        "name": "Max. Limit Target Water Temp. at High AT in Heating [R44]"
+        "name": "R44: Max. Limit Target Water Temp. at High AT in Heating"
       },
       "foxair_1231": {
-        "name": "AT to Start Electric Heater Without Delay [R45]"
+        "name": "R45: AT to Start Electric Heater Without Delay"
       },
       "foxair_1232": {
-        "name": "Temp. Diff. between Max. DHW Target Temp. & Max. Outlet Temp. [R46]"
+        "name": "R46: Temp. Diff. between Max. DHW Target Temp. & Max. Outlet Temp."
       },
       "foxair_1233": {
-        "name": "AT to Start Frequency Limit in Cooling [R60]"
+        "name": "R60: AT to Start Frequency Limit in Cooling"
       },
       "foxair_1234": {
         "name": "AT Compensation Slope"
@@ -2287,25 +2287,25 @@
         "name": "AT Compensation Offset"
       },
       "foxair_1237": {
-        "name": "AT to Stop Frequency Limit in Cooling [R61]"
+        "name": "R61: AT to Stop Frequency Limit in Cooling"
       },
       "foxair_1238": {
-        "name": "Max. Heat Pump Outlet Water Temp. [R62]"
+        "name": "R62: Max. Heat Pump Outlet Water Temp."
       },
       "foxair_1239": {
-        "name": "Target Room Temp. [R70]"
+        "name": "R70: Target Room Temp."
       },
       "foxair_1240": {
-        "name": "Room Temp. Diff. for Power-on in Heating [R71]"
+        "name": "R71: Room Temp. Diff. for Power-on in Heating"
       },
       "foxair_1241": {
-        "name": "Room Temp. Diff. for Standby in Heating [R72]"
+        "name": "R72: Room Temp. Diff. for Standby in Heating"
       },
       "foxair_1242": {
-        "name": "Room Temp. Diff. for Power-on in Cooling [R73]"
+        "name": "R73: Room Temp. Diff. for Power-on in Cooling"
       },
       "foxair_1243": {
-        "name": "Room Temp. Diff. for Standby in Cooling [R74]"
+        "name": "R74: Room Temp. Diff. for Standby in Cooling"
       },
       "foxair_1255": {
         "name": "Current System Year"
@@ -2407,58 +2407,58 @@
         "name": "Circulation Pump Timer 3 Active Bitmask"
       },
       "foxair_1335": {
-        "name": "SG Mode 1 Sleep Mode Time [SG02]"
+        "name": "SG02: SG Mode 1 Sleep Mode Time"
       },
       "foxair_1336": {
-        "name": "SG Mode 2 Power / Low PV [SG03]"
+        "name": "SG03: SG Mode 2 Power / Low PV"
       },
       "foxair_1337": {
-        "name": "SG Mode 3 Power / Medium PV [SG04]"
+        "name": "SG04: SG Mode 3 Power / Medium PV"
       },
       "foxair_1338": {
-        "name": "SG Mode 4 DHW Target Temp Boost [SG05]"
+        "name": "SG05: SG Mode 4 DHW Target Temp Boost"
       },
       "foxair_1339": {
-        "name": "SG Mode 4 Heating Target Temp Boost [SG06]"
+        "name": "SG06: SG Mode 4 Heating Target Temp Boost"
       },
       "foxair_1340": {
-        "name": "SG Mode 4 Cooling Target Temp Boost [SG07]"
+        "name": "SG07: SG Mode 4 Cooling Target Temp Boost"
       },
       "foxair_1342": {
-        "name": "Low Pressure of Limiting Frequency [A38]"
+        "name": "A38: Low Pressure of Limiting Frequency"
       },
       "foxair_1347": {
-        "name": "Max. Comp. Frequency in DHW mode [C12]"
+        "name": "C12: Max. Comp. Frequency in DHW mode"
       },
       "foxair_1348": {
-        "name": "Display-Firmware Parameter C13 [C13]"
+        "name": "C13: Display-Firmware Parameter C13"
       },
       "foxair_1349": {
-        "name": "Display-Firmware Parameter C14 [C14]"
+        "name": "C14: Display-Firmware Parameter C14"
       },
       "foxair_1350": {
-        "name": "Display-Firmware Parameter C15 [C15]"
+        "name": "C15: Display-Firmware Parameter C15"
       },
       "foxair_1351": {
-        "name": "Display-Firmware Parameter E20 [E20]"
+        "name": "E20: Display-Firmware Parameter E20"
       },
       "foxair_1352": {
-        "name": "Display-Firmware Parameter E21 [E21]"
+        "name": "E21: Display-Firmware Parameter E21"
       },
       "foxair_1353": {
-        "name": "Reserved [1353]"
+        "name": "1353: Reserved"
       },
       "foxair_1354": {
-        "name": "Reserved [1354]"
+        "name": "1354: Reserved"
       },
       "foxair_1355": {
-        "name": "Reserved [1355]"
+        "name": "1355: Reserved"
       },
       "foxair_1356": {
-        "name": "H42 Einschalt-AT Gehaeusewannenheizung (D30/1437 erst wirksam, wenn AT kleiner H42 ist) [H42]"
+        "name": "H42: H42 Einschalt-AT Gehaeusewannenheizung (D30/1437 erst wirksam, wenn AT kleiner H42 ist)"
       },
       "foxair_1357": {
-        "name": "Diff. of No Pump On at Low Water Temp. [Z19]"
+        "name": "Z19: Diff. of No Pump On at Low Water Temp."
       },
       "foxair_1371": {
         "name": "Factory Test Mode / Manual Control (ASM)"
@@ -2491,25 +2491,25 @@
         "name": "Auto Factory Test Water Pump Speed (ASM)"
       },
       "foxair_1432": {
-        "name": "Target Temp. Diff. for Pump Speed Control [P11]"
+        "name": "P11: Target Temp. Diff. for Pump Speed Control"
       },
       "foxair_1433": {
-        "name": "Pump Speed Adjust Range for Each Period [P12]"
+        "name": "P12: Pump Speed Adjust Range for Each Period"
       },
       "foxair_1435": {
-        "name": "Refill Valve Start Cycle (for IDU) [P13]"
+        "name": "P13: Refill Valve Start Cycle (for IDU)"
       },
       "foxair_1436": {
-        "name": "Refill Valve Working Duration (for IDU) [P14]"
+        "name": "P14: Refill Valve Working Duration (for IDU)"
       },
       "foxair_1437": {
-        "name": "Button Heater Delays OFF Time after Defrost [D30]"
+        "name": "D30: Button Heater Delays OFF Time after Defrost"
       },
       "foxair_1438": {
-        "name": "Target Water Pressure (for IDU) [P15]"
+        "name": "P15: Target Water Pressure (for IDU)"
       },
       "foxair_1444": {
-        "name": "Stop Refilling Pressure Diff. (for IDU) [P16]"
+        "name": "P16: Stop Refilling Pressure Diff. (for IDU)"
       }
     },
     "select": {
@@ -2541,21 +2541,21 @@
         "name": "Manual Control / Silent Status"
       },
       "foxair_1018": {
-        "name": "Auto start [H01]",
+        "name": "H01: Auto start",
         "state": {
           "no": "No",
           "yes": "Yes"
         }
       },
       "foxair_1019": {
-        "name": "Fan Motor Driver and Comp. Driver Integrated [H33]",
+        "name": "H33: Fan Motor Driver and Comp. Driver Integrated",
         "state": {
           "no": "No",
           "yes": "Yes"
         }
       },
       "foxair_1020": {
-        "name": "Parameter Code [H34]",
+        "name": "H34: Parameter Code",
         "state": {
           "no_erp_test": "No ERP Test",
           "opt_35_c_test_condition": "35°C Test Condition",
@@ -2563,24 +2563,24 @@
         }
       },
       "foxair_1021": {
-        "name": "Cooling Mode [H05]",
+        "name": "H05: Cooling Mode",
         "state": {
           "no": "No",
           "yes": "Yes"
         }
       },
       "foxair_1023": {
-        "name": "Dry Contact [H07]",
+        "name": "H07: Dry Contact",
         "state": {
           "display_control": "Display Control",
           "remote_control": "Remote Control"
         }
       },
       "foxair_1024": {
-        "name": "Unit Address [H10]"
+        "name": "H10: Unit Address"
       },
       "foxair_1027": {
-        "name": "EVI Enabled [H27]",
+        "name": "H27: EVI Enabled",
         "state": {
           "no_evi": "No EVI",
           "evi_for_cooling": "EVI for cooling",
@@ -2589,7 +2589,7 @@
         }
       },
       "foxair_1028": {
-        "name": "Heating/Cooling and Hot Water Function Enabled [H28]",
+        "name": "H28: Heating/Cooling and Hot Water Function Enabled",
         "state": {
           "no": "No",
           "yes": "Yes",
@@ -2597,21 +2597,21 @@
         }
       },
       "foxair_1029": {
-        "name": "Temperature Unit [H21]",
+        "name": "H21: Temperature Unit",
         "state": {
           "c": "°C",
           "f": "°F"
         }
       },
       "foxair_1030": {
-        "name": "Silence Mode [H22]",
+        "name": "H22: Silence Mode",
         "state": {
           "no": "No",
           "yes": "Yes"
         }
       },
       "foxair_1032": {
-        "name": "Electric Heater Energy Stage [H18]",
+        "name": "H18: Electric Heater Energy Stage",
         "state": {
           "stage1": "Stage1",
           "stage2": "Stage2",
@@ -2619,17 +2619,17 @@
         }
       },
       "foxair_1033": {
-        "name": "3-Way Valve Polarity [H20]",
+        "name": "H20: 3-Way Valve Polarity",
         "state": {
           "hot_water_on": "Hot Water-ON",
           "hot_water_off": "Hot Water-OFF"
         }
       },
       "foxair_1034": {
-        "name": "Mode Running [H29]"
+        "name": "H29: Mode Running"
       },
       "foxair_1035": {
-        "name": "Air Conditioner Tempt. Choice [H25]",
+        "name": "H25: Air Conditioner Tempt. Choice",
         "state": {
           "outlet_water_temp": "Outlet Water Temp.",
           "room_temp": "Room Temp.",
@@ -2647,7 +2647,7 @@
         }
       },
       "foxair_1041": {
-        "name": "Pump Type [H31]",
+        "name": "H31: Pump Type",
         "state": {
           "no_flow_detection": "No Flow Detection",
           "grundfos_25_75": "Grundfos(25~75)",
@@ -2658,38 +2658,38 @@
         }
       },
       "foxair_1042": {
-        "name": "Low Voltage Pressure Sensor [A11]",
+        "name": "A11: Low Voltage Pressure Sensor",
         "state": {
           "no": "No",
           "yes": "Yes"
         }
       },
       "foxair_1045": {
-        "name": "Heating and hot water forced switching time [H32]"
+        "name": "H32: Heating and hot water forced switching time"
       },
       "foxair_1046": {
-        "name": "DHW Temp. Sourcing [H37]",
+        "name": "H37: DHW Temp. Sourcing",
         "state": {
           "heat_pump_tank_sensor": "Heat Pump / Tank Sensor",
           "modbus_central_controller": "Modbus / Central Controller"
         }
       },
       "foxair_1047": {
-        "name": "Enable Defrosting Communication in Cascade [D26]",
+        "name": "D26: Enable Defrosting Communication in Cascade",
         "state": {
           "no": "No",
           "yes": "Yes"
         }
       },
       "foxair_1052": {
-        "name": "Ambient/Suction/Coil Sensor [A21]",
+        "name": "A21: Ambient/Suction/Coil Sensor",
         "state": {
           "opt_5k": "5K",
           "opt_2k": "2K"
         }
       },
       "foxair_1054": {
-        "name": "Refrigerant Type [A26]",
+        "name": "A26: Refrigerant Type",
         "state": {
           "r32": "R32",
           "r290": "R290",
@@ -2702,14 +2702,14 @@
         }
       },
       "foxair_1058": {
-        "name": "Enable The High Pressure Sensor [A29]",
+        "name": "A29: Enable The High Pressure Sensor",
         "state": {
           "no": "No",
           "yes": "Yes"
         }
       },
       "foxair_1059": {
-        "name": "Fan Motor Type [F01]",
+        "name": "F01: Fan Motor Type",
         "state": {
           "legacy_high_speed_fan": "Legacy: High-Speed Fan",
           "legacy_2_stage_fan": "Legacy: 2-Stage Fan",
@@ -2718,7 +2718,7 @@
         }
       },
       "foxair_1069": {
-        "name": "Enable Multi-Zone Control [Z01]",
+        "name": "Z01: Enable Multi-Zone Control",
         "state": {
           "none": "None",
           "zone_1_s": "Zone 1-S",
@@ -2733,14 +2733,14 @@
         }
       },
       "foxair_1074": {
-        "name": "Quantity [F10]",
+        "name": "F10: Quantity",
         "state": {
           "single": "Single",
           "double": "Double"
         }
       },
       "foxair_1077": {
-        "name": "Enable AT Compensation Curve Zone 2 [Z17]",
+        "name": "Z17: Enable AT Compensation Curve Zone 2",
         "state": {
           "no": "No",
           "yes": "Yes"
@@ -2754,40 +2754,40 @@
         }
       },
       "foxair_1081": {
-        "name": "Cooling Fan Min Speed [F18]"
+        "name": "F18: Cooling Fan Min Speed"
       },
       "foxair_1083": {
-        "name": "Min. Fan Speed in Heating [F19]"
+        "name": "F19: Min. Fan Speed in Heating"
       },
       "foxair_1086": {
-        "name": "Timer Mute Enable (ASM V1.3: 243E) [F21]",
+        "name": "F21: Timer Mute Enable (ASM V1.3: 243E)",
         "state": {
           "off": "Off",
           "on": "On"
         }
       },
       "foxair_1087": {
-        "name": "Manual Control Fan Speed [F22]",
+        "name": "F22: Manual Control Fan Speed",
         "state": {
           "no": "No",
           "yes": "Yes"
         }
       },
       "foxair_1089": {
-        "name": "DC/AC Fan Rated Speed [F23]"
+        "name": "F23: DC/AC Fan Rated Speed"
       },
       "foxair_1111": {
-        "name": "Defrosting Cycle Time Correction [D06]"
+        "name": "D06: Defrosting Cycle Time Correction"
       },
       "foxair_1126": {
-        "name": "Enable Electric Heater During Defrosting [D21]",
+        "name": "D21: Enable Electric Heater During Defrosting",
         "state": {
           "no": "No",
           "yes": "Yes"
         }
       },
       "foxair_1129": {
-        "name": "Defrosting Heating Source in Heating / DHW Mode [D24]",
+        "name": "D24: Defrosting Heating Source in Heating / DHW Mode",
         "state": {
           "stay_current_circuit": "Stay Current Circuit",
           "dhw_circuit": "DHW Circuit",
@@ -2795,7 +2795,7 @@
         }
       },
       "foxair_1131": {
-        "name": "EEV Control Mode [E17]",
+        "name": "E17: EEV Control Mode",
         "state": {
           "manual": "Manual",
           "auto": "Auto",
@@ -2803,21 +2803,21 @@
         }
       },
       "foxair_1139": {
-        "name": "EVI EEV: Adjustment Mode [E09]",
+        "name": "E09: EVI EEV: Adjustment Mode",
         "state": {
           "manual": "Manual",
           "auto": "Auto"
         }
       },
       "foxair_1156": {
-        "name": "Enable Disinfection [G05]",
+        "name": "G05: Enable Disinfection",
         "state": {
           "no": "No",
           "yes": "Yes"
         }
       },
       "foxair_1173": {
-        "name": "Location of Electric Heater [R35]",
+        "name": "R35: Location of Electric Heater",
         "state": {
           "not_available": "Not Available",
           "heating_water_circuit": "Heating water circuit",
@@ -2825,7 +2825,7 @@
         }
       },
       "foxair_1197": {
-        "name": "Main Circulation Pump Operation Mode [P01]",
+        "name": "P01: Main Circulation Pump Operation Mode",
         "state": {
           "always_on": "Always On",
           "saving": "Saving",
@@ -2833,7 +2833,7 @@
         }
       },
       "foxair_1201": {
-        "name": "DHW Pump Operation Mode [P05]",
+        "name": "P05: DHW Pump Operation Mode",
         "state": {
           "always_on": "Always On",
           "saving": "Saving",
@@ -2841,7 +2841,7 @@
         }
       },
       "foxair_1202": {
-        "name": "Main Circulation Pump Manual Control [P06]",
+        "name": "P06: Main Circulation Pump Manual Control",
         "state": {
           "no": "No",
           "yes": "Yes"
@@ -2862,13 +2862,13 @@
         }
       },
       "foxair_1221": {
-        "name": "Model Selection [C04]"
+        "name": "C04: Model Selection"
       },
       "foxair_1223": {
-        "name": "Frequenzregelungsmodus [C06]"
+        "name": "C06: Frequenzregelungsmodus"
       },
       "foxair_1236": {
-        "name": "Enable AT Compensation Curve Zone 1 [H36]",
+        "name": "H36: Enable AT Compensation Curve Zone 1",
         "state": {
           "fixed": "Fixed temperature",
           "curve": "Weather compensation (curve)"
@@ -2920,13 +2920,13 @@
         "name": "Current System Month"
       },
       "foxair_1268": {
-        "name": "HP On/Off Timer 1+2 Active/Days Bitmask [KG13-KG28]"
+        "name": "KG13-KG28: HP On/Off Timer 1+2 Active/Days Bitmask"
       },
       "foxair_1269": {
-        "name": "HP On/Off Timer 3+4 Active/Days Bitmask [KG29-KG44]"
+        "name": "KG29-KG44: HP On/Off Timer 3+4 Active/Days Bitmask"
       },
       "foxair_1270": {
-        "name": "HP On/Off Timer 5+6 Active/Days Bitmask [KG45-KG60]"
+        "name": "KG45-KG60: HP On/Off Timer 5+6 Active/Days Bitmask"
       },
       "foxair_1286": {
         "name": "Timer 1 Mode Code (ASM; 9 = no mode change)",
@@ -3004,7 +3004,7 @@
         "name": "Timer 5+6 Active/Days Bitmask (ASM; Low Byte Timer 5, High Byte Timer 6)"
       },
       "foxair_1334": {
-        "name": "SG Ready Selection [SG01]",
+        "name": "SG01: SG Ready Selection",
         "state": {
           "off": "Off",
           "single_contact": "Single Contact",
@@ -3012,14 +3012,14 @@
         }
       },
       "foxair_1341": {
-        "name": "Electric Heater On in SG Mode4 [SG08]",
+        "name": "SG08: Electric Heater On in SG Mode4",
         "state": {
           "no": "No",
           "yes": "Yes"
         }
       },
       "foxair_1345": {
-        "name": "External Pump Selection [H40]",
+        "name": "H40: External Pump Selection",
         "state": {
           "hot_water_pump": "Hot Water Pump",
           "warm_water_circulation_pump": "Warm Water Circulation Pump",
@@ -3027,7 +3027,7 @@
         }
       },
       "foxair_1358": {
-        "name": "Enable Zone 1 Water Pump in Cooling [Z20]",
+        "name": "Z20: Enable Zone 1 Water Pump in Cooling",
         "state": {
           "no": "No",
           "yes": "Yes"

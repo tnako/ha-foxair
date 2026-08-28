@@ -122,184 +122,184 @@
         "name": "Выбор логотипа"
       },
       "foxair_1018": {
-        "name": "Автозапуск [H01]"
+        "name": "H01: Автозапуск"
       },
       "foxair_1019": {
-        "name": "Интегр. привод вентилятора и компрессора [H33]"
+        "name": "H33: Интегр. привод вентилятора и компрессора"
       },
       "foxair_1020": {
-        "name": "Код параметра [H34]"
+        "name": "H34: Код параметра"
       },
       "foxair_1021": {
-        "name": "Режим охлаждения [H05]"
+        "name": "H05: Режим охлаждения"
       },
       "foxair_1022": {
-        "name": "Зарезервировано [1022]"
+        "name": "1022: Зарезервировано"
       },
       "foxair_1023": {
-        "name": "Сухой контакт [H07]"
+        "name": "H07: Сухой контакт"
       },
       "foxair_1024": {
-        "name": "Адрес устройства [H10]"
+        "name": "H10: Адрес устройства"
       },
       "foxair_1025": {
-        "name": "Выбор языка [H38]"
+        "name": "H38: Выбор языка"
       },
       "foxair_1026": {
-        "name": "Выбор логотипа / Код логотипа клиента (ASM) [H39]"
+        "name": "H39: Выбор логотипа / Код логотипа клиента (ASM)"
       },
       "foxair_1027": {
-        "name": "EVI включен [H27]"
+        "name": "H27: EVI включен"
       },
       "foxair_1028": {
-        "name": "Функция отопл./охлажд. и ГВС вкл [H28]"
+        "name": "H28: Функция отопл./охлажд. и ГВС вкл"
       },
       "foxair_1029": {
-        "name": "Единица темп. [H21]"
+        "name": "H21: Единица темп."
       },
       "foxair_1030": {
-        "name": "Тихий режим [H22]"
+        "name": "H22: Тихий режим"
       },
       "foxair_1031": {
-        "name": "Дельта откл. электронагревателя [A35]"
+        "name": "A35: Дельта откл. электронагревателя"
       },
       "foxair_1032": {
-        "name": "Ступень мощн. электронагревателя [H18]"
+        "name": "H18: Ступень мощн. электронагревателя"
       },
       "foxair_1033": {
-        "name": "Полярность 3-ходового клапана [H20]"
+        "name": "H20: Полярность 3-ходового клапана"
       },
       "foxair_1034": {
-        "name": "Режим работы [H29]"
+        "name": "H29: Режим работы"
       },
       "foxair_1035": {
-        "name": "Выбор темп. кондиционера [H25]"
+        "name": "H25: Выбор темп. кондиционера"
       },
       "foxair_1036": {
-        "name": "Тип внутреннего блока [H30]"
+        "name": "H30: Тип внутреннего блока"
       },
       "foxair_1037": {
-        "name": "Темп. откл. по наруж. темп. [A03]"
+        "name": "A03: Темп. откл. по наруж. темп."
       },
       "foxair_1038": {
-        "name": "Темп. антизамерзания [A04]"
+        "name": "A04: Темп. антизамерзания"
       },
       "foxair_1039": {
-        "name": "Дельта антизамерзания [A05]"
+        "name": "A05: Дельта антизамерзания"
       },
       "foxair_1040": {
-        "name": "Уставка защиты темп. выхлопа [A06]"
+        "name": "A06: Уставка защиты темп. выхлопа"
       },
       "foxair_1041": {
-        "name": "Тип насоса [H31]"
+        "name": "H31: Тип насоса"
       },
       "foxair_1042": {
-        "name": "Датчик низкого давления [A11]"
+        "name": "A11: Датчик низкого давления"
       },
       "foxair_1043": {
-        "name": "Мин. темп. антизамерзания [A23]"
+        "name": "A23: Мин. темп. антизамерзания"
       },
       "foxair_1044": {
-        "name": "Превышение дельты вход/выход [A24]"
+        "name": "A24: Превышение дельты вход/выход"
       },
       "foxair_1045": {
-        "name": "Время принуд. перекл. отопл./ГВС [H32]"
+        "name": "H32: Время принуд. перекл. отопл./ГВС"
       },
       "foxair_1046": {
-        "name": "Источник темп. ГВС [H37]"
+        "name": "H37: Источник темп. ГВС"
       },
       "foxair_1047": {
-        "name": "Разреш. связь разморозки в каскаде [D26]"
+        "name": "D26: Разреш. связь разморозки в каскаде"
       },
       "foxair_1048": {
         "name": "Выбор внешнего насоса []"
       },
       "foxair_1049": {
-        "name": "Вкл. электронагревателя по AT [A31]"
+        "name": "A31: Вкл. электронагревателя по AT"
       },
       "foxair_1050": {
-        "name": "Задержка вкл. компр. электронагревателем [A32]"
+        "name": "A32: Задержка вкл. компр. электронагревателем"
       },
       "foxair_1051": {
-        "name": "Мин. AT для охлаждения [A30]"
+        "name": "A30: Мин. AT для охлаждения"
       },
       "foxair_1052": {
-        "name": "Датчик AT/всасыв./змеевика [A21]"
+        "name": "A21: Датчик AT/всасыв./змеевика"
       },
       "foxair_1053": {
-        "name": "Защита по низкой температуре воды [A22]"
+        "name": "A22: Защита по низкой температуре воды"
       },
       "foxair_1054": {
-        "name": "Тип хладагента [A26]"
+        "name": "A26: Тип хладагента"
       },
       "foxair_1055": {
-        "name": "Мин. темп. испарения охлажд. [A25]"
+        "name": "A25: Мин. темп. испарения охлажд."
       },
       "foxair_1056": {
-        "name": "Дельта A лимита частоты [A27]"
+        "name": "A27: Дельта A лимита частоты"
       },
       "foxair_1057": {
-        "name": "Дельта выход-ГВС [A28]"
+        "name": "A28: Дельта выход-ГВС"
       },
       "foxair_1058": {
-        "name": "Вкл. датчик высокого давления [A29]"
+        "name": "A29: Вкл. датчик высокого давления"
       },
       "foxair_1059": {
-        "name": "Тип мотора вентилятора [F01]"
+        "name": "F01: Тип мотора вентилятора"
       },
       "foxair_1060": {
-        "name": "Макс. темп. змеевика охлажд. [F02]"
+        "name": "F02: Макс. темп. змеевика охлажд."
       },
       "foxair_1061": {
-        "name": "Кривая мощности мотора вент. [F27]"
+        "name": "F27: Кривая мощности мотора вент."
       },
       "foxair_1062": {
-        "name": "Мин. темп. змеевика охлажд. [F03]"
+        "name": "F03: Мин. темп. змеевика охлажд."
       },
       "foxair_1063": {
-        "name": "Дельта откр. электронагревателя [A33]"
+        "name": "A33: Дельта откр. электронагревателя"
       },
       "foxair_1064": {
-        "name": "Время предпрогрева картера [A34]"
+        "name": "A34: Время предпрогрева картера"
       },
       "foxair_1065": {
-        "name": "Зарезервировано [1065]"
+        "name": "1065: Зарезервировано"
       },
       "foxair_1066": {
-        "name": "Макс. темп. змеевика нагрева [F05]"
+        "name": "F05: Макс. темп. змеевика нагрева"
       },
       "foxair_1067": {
-        "name": "Зарезервировано [1067]"
+        "name": "1067: Зарезервировано"
       },
       "foxair_1068": {
-        "name": "Мин. темп. змеевика нагрева [F06]"
+        "name": "F06: Мин. темп. змеевика нагрева"
       },
       "foxair_1069": {
-        "name": "Вкл. многозонное управление [Z01]"
+        "name": "Z01: Вкл. многозонное управление"
       },
       "foxair_1070": {
-        "name": "Зона 1 Целевая комн. темп. [Z02]"
+        "name": "Z02: Зона 1 Целевая комн. темп."
       },
       "foxair_1071": {
-        "name": "Зона 1 Дельта комн. темп. старт [Z03]"
+        "name": "Z03: Зона 1 Дельта комн. темп. старт"
       },
       "foxair_1072": {
-        "name": "Зона 2 Целевая комн. темп. [Z04]"
+        "name": "Z04: Зона 2 Целевая комн. темп."
       },
       "foxair_1073": {
-        "name": "Зона 2 Дельта комн. темп. старт [Z05]"
+        "name": "Z05: Зона 2 Дельта комн. темп. старт"
       },
       "foxair_1074": {
-        "name": "Количество [F10]"
+        "name": "F10: Количество"
       },
       "foxair_1075": {
-        "name": "Зона1 Целевая темп. выхода отопл. [Z06]"
+        "name": "Z06: Зона1 Целевая темп. выхода отопл."
       },
       "foxair_1076": {
-        "name": "Зона2 Целевая темп. смесит. выхода [Z07]"
+        "name": "Z07: Зона2 Целевая темп. смесит. выхода"
       },
       "foxair_1077": {
-        "name": "Вкл. кривую компенсации AT Зона2 [Z17]"
+        "name": "Z17: Вкл. кривую компенсации AT Зона2"
       },
       "foxair_1078": {
         "name": "Зона 2 Кривая нагрева K / Компенсация темп. помещения (ASM)"
@@ -308,37 +308,37 @@
         "name": "Зона 2 Кривая нагрева B / Компенсация темп. помещения (ASM)"
       },
       "foxair_1080": {
-        "name": "Ручн. регулировка смесит. клапана (0% авто) [Z08]"
+        "name": "Z08: Ручн. регулировка смесит. клапана (0% авто)"
       },
       "foxair_1081": {
-        "name": "Мин. скорость вент. охлаждения [F18]"
+        "name": "F18: Мин. скорость вент. охлаждения"
       },
       "foxair_1082": {
-        "name": "Время открытия смесит. клапана [Z09]"
+        "name": "Z09: Время открытия смесит. клапана"
       },
       "foxair_1083": {
-        "name": "Мин. скорость вент. в отоплении [F19]"
+        "name": "F19: Мин. скорость вент. в отоплении"
       },
       "foxair_1084": {
-        "name": "Время закрытия смесит. клапана [Z10]"
+        "name": "Z10: Время закрытия смесит. клапана"
       },
       "foxair_1085": {
-        "name": "Смесит. клапан P (PID) [Z11]"
+        "name": "Z11: Смесит. клапан P (PID)"
       },
       "foxair_1086": {
-        "name": "Таймер тишины Вкл (ASM V1.3: 243E) [F21]"
+        "name": "F21: Таймер тишины Вкл (ASM V1.3: 243E)"
       },
       "foxair_1087": {
-        "name": "Ручная скорость вентилятора [F22]"
+        "name": "F22: Ручная скорость вентилятора"
       },
       "foxair_1088": {
-        "name": "Смесит. клапан I (PID) [Z12]"
+        "name": "Z12: Смесит. клапан I (PID)"
       },
       "foxair_1089": {
-        "name": "Номин. скорость DC/AC вентилятора [F23]"
+        "name": "F23: Номин. скорость DC/AC вентилятора"
       },
       "foxair_1090": {
-        "name": "Период PID смесит. клапана [Z13]"
+        "name": "Z13: Период PID смесит. клапана"
       },
       "foxair_1091": {
         "name": "Заголовок Пакет 2 Слово ID 1 ASCII Симв 1-2"
@@ -371,244 +371,244 @@
         "name": "Заголовок Пакет 2 Первый регистр заголовка"
       },
       "foxair_1101": {
-        "name": "CT для сниж. верх. вент. в охлажд. [F28]"
+        "name": "F28: CT для сниж. верх. вент. в охлажд."
       },
       "foxair_1102": {
-        "name": "CT для останова одиноч. вент. в охлажд. [F29]"
+        "name": "F29: CT для останова одиноч. вент. в охлажд."
       },
       "foxair_1103": {
-        "name": "Макс. скорость вент. охлаждения [F25]"
+        "name": "F25: Макс. скорость вент. охлаждения"
       },
       "foxair_1104": {
-        "name": "Макс. скорость вент. отопления [F26]"
+        "name": "F26: Макс. скорость вент. отопления"
       },
       "foxair_1105": {
-        "name": "Темп. окр. старта разморозки [D01]"
+        "name": "D01: Темп. окр. старта разморозки"
       },
       "foxair_1106": {
-        "name": "Время работы отопл. до разморозки [D02]"
+        "name": "D02: Время работы отопл. до разморозки"
       },
       "foxair_1107": {
-        "name": "Цикл разморозки [D03]"
+        "name": "D03: Цикл разморозки"
       },
       "foxair_1108": {
-        "name": "Коррекция темп. выхлопа для цикла разморозки [D04]"
+        "name": "D04: Коррекция темп. выхлопа для цикла разморозки"
       },
       "foxair_1109": {
-        "name": "Давление всасыв. разморозки 1 [D05-1]"
+        "name": "D05-1: Давление всасыв. разморозки 1"
       },
       "foxair_1110": {
-        "name": "Давление всасыв. разморозки 2 [D05-2]"
+        "name": "D05-2: Давление всасыв. разморозки 2"
       },
       "foxair_1111": {
-        "name": "Коррекция времени цикла разморозки [D06]"
+        "name": "D06: Коррекция времени цикла разморозки"
       },
       "foxair_1112": {
-        "name": "Темп. окр. старта скольз. разморозки [D07]"
+        "name": "D07: Темп. окр. старта скольз. разморозки"
       },
       "foxair_1113": {
-        "name": "Темп. всасыв. старта скольз. разморозки [D08]"
+        "name": "D08: Темп. всасыв. старта скольз. разморозки"
       },
       "foxair_1114": {
-        "name": "Темп. окр. останова скольз. разморозки [D09]"
+        "name": "D09: Темп. окр. останова скольз. разморозки"
       },
       "foxair_1115": {
-        "name": "Темп. всасыв. останова скольз. разморозки [D10]"
+        "name": "D10: Темп. всасыв. останова скольз. разморозки"
       },
       "foxair_1116": {
-        "name": "Мин. темп. воды входа разморозки [D11]"
+        "name": "D11: Мин. темп. воды входа разморозки"
       },
       "foxair_1117": {
-        "name": "Давление всасыв. принуд. разморозки [D12]"
+        "name": "D12: Давление всасыв. принуд. разморозки"
       },
       "foxair_1118": {
-        "name": "Время отопл. до принуд. разморозки [D13]"
+        "name": "D13: Время отопл. до принуд. разморозки"
       },
       "foxair_1119": {
-        "name": "Коэф. мощн. вент. для продл. цикла разморозки [D14]"
+        "name": "D14: Коэф. мощн. вент. для продл. цикла разморозки"
       },
       "foxair_1120": {
-        "name": "Коэф. мощн. вент. для входа в принуд. разморозку [D15]"
+        "name": "D15: Коэф. мощн. вент. для входа в принуд. разморозку"
       },
       "foxair_1121": {
-        "name": "Макс. мощн. вент. для входа в принуд. разморозку [D16]"
+        "name": "D16: Макс. мощн. вент. для входа в принуд. разморозку"
       },
       "foxair_1122": {
-        "name": "Темп. змеевика выхода из разморозки [D17]"
+        "name": "D17: Темп. змеевика выхода из разморозки"
       },
       "foxair_1123": {
-        "name": "Темп. трубки распред. выхода из разморозки [D18]"
+        "name": "D18: Темп. трубки распред. выхода из разморозки"
       },
       "foxair_1124": {
-        "name": "Макс. время разморозки [D19]"
+        "name": "D19: Макс. время разморозки"
       },
       "foxair_1125": {
-        "name": "Частота разморозки [D20]"
+        "name": "D20: Частота разморозки"
       },
       "foxair_1126": {
-        "name": "Вкл. электронагреватель при разморозке [D21]"
+        "name": "D21: Вкл. электронагреватель при разморозке"
       },
       "foxair_1127": {
-        "name": "Поток воды разморозки [D22]"
+        "name": "D22: Поток воды разморозки"
       },
       "foxair_1128": {
-        "name": "Макс. цикл разморозки по мощн. вент. [D23]"
+        "name": "D23: Макс. цикл разморозки по мощн. вент."
       },
       "foxair_1129": {
-        "name": "Источник тепла разморозки в реж. отопл./ГВС [D24]"
+        "name": "D24: Источник тепла разморозки в реж. отопл./ГВС"
       },
       "foxair_1130": {
-        "name": "Макс. падение темп. воды при разморозке [D25]"
+        "name": "D25: Макс. падение темп. воды при разморозке"
       },
       "foxair_1131": {
-        "name": "Режим управления EEV [E17]"
+        "name": "E17: Режим управления EEV"
       },
       "foxair_1132": {
-        "name": "Целевой перегрев для отопления [E02]"
+        "name": "E02: Целевой перегрев для отопления"
       },
       "foxair_1133": {
-        "name": "Нач. шаги EEV для отопления [E03]"
+        "name": "E03: Нач. шаги EEV для отопления"
       },
       "foxair_1134": {
-        "name": "Шаги смесит. клапана в охлажд. [Z14]"
+        "name": "Z14: Шаги смесит. клапана в охлажд."
       },
       "foxair_1135": {
-        "name": "Зона2 Макс. целевая темп. воды [Z15]"
+        "name": "Z15: Зона2 Макс. целевая темп. воды"
       },
       "foxair_1136": {
-        "name": "Смесительный клапан I-коэфф (DIGI5 по ASM) [Z16]"
+        "name": "Z16: Смесительный клапан I-коэфф (DIGI5 по ASM)"
       },
       "foxair_1137": {
-        "name": "Мин. нач. шаги [E07]"
+        "name": "E07: Мин. нач. шаги"
       },
       "foxair_1138": {
-        "name": "Нач. шаги EEV для охлаждения [E08]"
+        "name": "E08: Нач. шаги EEV для охлаждения"
       },
       "foxair_1139": {
-        "name": "EVI EEV: Режим регулировки [E09]"
+        "name": "E09: EVI EEV: Режим регулировки"
       },
       "foxair_1140": {
-        "name": "EVI EEV: Нач. шаги [E10]"
+        "name": "E10: EVI EEV: Нач. шаги"
       },
       "foxair_1141": {
         "name": "Система 2 EVI/Энтальпия есть если знач. !=0 (ASM V1.3)"
       },
       "foxair_1142": {
-        "name": "Нач. шаги EEV для отопления2 [E03-2]"
+        "name": "E03-2: Нач. шаги EEV для отопления2"
       },
       "foxair_1143": {
-        "name": "Целевой перегрев EVI EEV [E13]"
+        "name": "E13: Целевой перегрев EVI EEV"
       },
       "foxair_1144": {
-        "name": "Мин. шаги EVI EEV [E14]"
+        "name": "E14: Мин. шаги EVI EEV"
       },
       "foxair_1145": {
-        "name": "Темп./Гистерезис Параметр (ASM) [E15]"
+        "name": "E15: Темп./Гистерезис Параметр (ASM)"
       },
       "foxair_1146": {
-        "name": "Темп./Гистерезис Параметр (ASM) [E16]"
+        "name": "E16: Темп./Гистерезис Параметр (ASM)"
       },
       "foxair_1147": {
-        "name": "Defrosting EEV Steps [E17]"
+        "name": "E17: Defrosting EEV Steps"
       },
       "foxair_1148": {
-        "name": "Target Superheat For Cooling [E18]"
+        "name": "E18: Target Superheat For Cooling"
       },
       "foxair_1149": {
-        "name": "EEV Adjustment Range In Smart Mode [E19]"
+        "name": "E19: EEV Adjustment Range In Smart Mode"
       },
       "foxair_1150": {
-        "name": "Зарезервировано [1150]"
+        "name": "1150: Зарезервировано"
       },
       "foxair_1151": {
-        "name": "Зарезервировано [1151]"
+        "name": "1151: Зарезервировано"
       },
       "foxair_1152": {
-        "name": "Disinfection Water Temp. [G01]"
+        "name": "G01: Disinfection Water Temp."
       },
       "foxair_1153": {
-        "name": "Time Duration of Disinfection [G02]"
+        "name": "G02: Time Duration of Disinfection"
       },
       "foxair_1154": {
-        "name": "Disinfection Starting Time [G03]"
+        "name": "G03: Disinfection Starting Time"
       },
       "foxair_1155": {
-        "name": "Interval Period of Disinfection [G04]"
+        "name": "G04: Interval Period of Disinfection"
       },
       "foxair_1156": {
-        "name": "Enable Disinfection [G05]"
+        "name": "G05: Enable Disinfection"
       },
       "foxair_1157": {
-        "name": "Уставка ГВС [R01]"
+        "name": "R01: Уставка ГВС"
       },
       "foxair_1158": {
-        "name": "Уставка отопления [R02]"
+        "name": "R02: Уставка отопления"
       },
       "foxair_1159": {
-        "name": "Уставка охлаждения [R03]"
+        "name": "R03: Уставка охлаждения"
       },
       "foxair_1160": {
-        "name": "Дельта возврата вкл. отопления [R04]"
+        "name": "R04: Дельта возврата вкл. отопления"
       },
       "foxair_1161": {
-        "name": "Дельта выкл. пост. темп. отопления [R05]"
+        "name": "R05: Дельта выкл. пост. темп. отопления"
       },
       "foxair_1162": {
-        "name": "Мин. уставка охлаждения [R08]"
+        "name": "R08: Мин. уставка охлаждения"
       },
       "foxair_1163": {
-        "name": "Макс. уставка охлаждения [R09]"
+        "name": "R09: Макс. уставка охлаждения"
       },
       "foxair_1164": {
-        "name": "Мин. уставка отопления [R10]"
+        "name": "R10: Мин. уставка отопления"
       },
       "foxair_1165": {
-        "name": "Макс. уставка отопления [R11]"
+        "name": "R11: Макс. уставка отопления"
       },
       "foxair_1166": {
-        "name": "Дельта выхода из высокотемп. режима [R15]"
+        "name": "R15: Дельта выхода из высокотемп. режима"
       },
       "foxair_1167": {
-        "name": "Низкая AT для вкл. лимита темп. воды [R29]"
+        "name": "R29: Низкая AT для вкл. лимита темп. воды"
       },
       "foxair_1168": {
-        "name": "Низкая AT для выкл. лимита темп. воды [R30]"
+        "name": "R30: Низкая AT для выкл. лимита темп. воды"
       },
       "foxair_1169": {
-        "name": "Макс. лимит темп. выхода при низкой AT [R31]"
+        "name": "R31: Макс. лимит темп. выхода при низкой AT"
       },
       "foxair_1170": {
-        "name": "Высокая AT для вкл. лимита темп. воды [R32]"
+        "name": "R32: Высокая AT для вкл. лимита темп. воды"
       },
       "foxair_1171": {
-        "name": "Высокая AT для выкл. лимита темп. воды [R33]"
+        "name": "R33: Высокая AT для выкл. лимита темп. воды"
       },
       "foxair_1172": {
-        "name": "Макс. лимит темп. выхода при высокой AT [R34]"
+        "name": "R34: Макс. лимит темп. выхода при высокой AT"
       },
       "foxair_1173": {
-        "name": "Расположение электронагревателя [R35]"
+        "name": "R35: Расположение электронагревателя"
       },
       "foxair_1174": {
-        "name": "Дельта возврата вкл. охлаждения [R06]"
+        "name": "R06: Дельта возврата вкл. охлаждения"
       },
       "foxair_1175": {
-        "name": "Дельта выкл. пост. темп. охлаждения [R07]"
+        "name": "R07: Дельта выкл. пост. темп. охлаждения"
       },
       "foxair_1176": {
-        "name": "Мин. целевая темп. ГВС [R36]"
+        "name": "R36: Мин. целевая темп. ГВС"
       },
       "foxair_1177": {
-        "name": "Макс. целевая темп. ГВС [R37]"
+        "name": "R37: Макс. целевая темп. ГВС"
       },
       "foxair_1178": {
-        "name": "Темп./Гистерезис Параметр R12 [R12]"
+        "name": "R12: Темп./Гистерезис Параметр R12"
       },
       "foxair_1179": {
-        "name": "Темп./Гистерезис Параметр R13 [R13]"
+        "name": "R13: Темп./Гистерезис Параметр R13"
       },
       "foxair_1180": {
-        "name": "Темп./Гистерезис Параметр R14 [R14]"
+        "name": "R14: Темп./Гистерезис Параметр R14"
       },
       "foxair_1181": {
         "name": "Block Header Packet 3 ID Word 1 ASCII Char 1-2"
@@ -644,64 +644,64 @@
         "name": "Маркер пакета / Синхрослово / ID заголовка блока"
       },
       "foxair_1192": {
-        "name": "AT для автостарта режима отопления [R39]"
+        "name": "R39: AT для автостарта режима отопления"
       },
       "foxair_1193": {
-        "name": "Параметр температуры, лимит 60 °C (ASM V1.3) [R40]"
+        "name": "R40: Параметр температуры, лимит 60 °C (ASM V1.3)"
       },
       "foxair_1194": {
-        "name": "Параметр температуры, лимит 60 °C (ASM V1.3) [R41]"
+        "name": "R41: Параметр температуры, лимит 60 °C (ASM V1.3)"
       },
       "foxair_1195": {
-        "name": "Дельта возврата вкл. воды бака [R16]"
+        "name": "R16: Дельта возврата вкл. воды бака"
       },
       "foxair_1196": {
-        "name": "Дельта ожидания темп. воды бака [R17]"
+        "name": "R17: Дельта ожидания темп. воды бака"
       },
       "foxair_1197": {
-        "name": "Режим работы осн. циркул. насоса [P01]"
+        "name": "P01: Режим работы осн. циркул. насоса"
       },
       "foxair_1198": {
-        "name": "Интервал времени [P02]"
+        "name": "P02: Интервал времени"
       },
       "foxair_1199": {
-        "name": "Время работы [P03]"
+        "name": "P03: Время работы"
       },
       "foxair_1200": {
-        "name": "EEV Initial Steps for Heating1 [E03-1]"
+        "name": "E03-1: EEV Initial Steps for Heating1"
       },
       "foxair_1201": {
-        "name": "DHW Pump Operation Mode [P05]"
+        "name": "P05: DHW Pump Operation Mode"
       },
       "foxair_1202": {
-        "name": "Main Circulation Pump Manual Control [P06]"
+        "name": "P06: Main Circulation Pump Manual Control"
       },
       "foxair_1203": {
-        "name": "Circulation Pump Protection Period [P09]"
+        "name": "P09: Circulation Pump Protection Period"
       },
       "foxair_1204": {
-        "name": "Main Circulation Pump Rated Power [P08]"
+        "name": "P08: Main Circulation Pump Rated Power"
       },
       "foxair_1205": {
-        "name": "Скорость циркул. насоса [P10]"
+        "name": "P10: Скорость циркул. насоса"
       },
       "foxair_1206": {
-        "name": "EEV Initial Steps for Heating3 [E03-3]"
+        "name": "E03-3: EEV Initial Steps for Heating3"
       },
       "foxair_1207": {
-        "name": "EEV Initial Steps for Heating4 [E03-4]"
+        "name": "E03-4: EEV Initial Steps for Heating4"
       },
       "foxair_1208": {
-        "name": "EEV Initial Steps for Heating5 [E03-5]"
+        "name": "E03-5: EEV Initial Steps for Heating5"
       },
       "foxair_1209": {
-        "name": "EEV Min. Steps1 [E07-1]"
+        "name": "E07-1: EEV Min. Steps1"
       },
       "foxair_1210": {
-        "name": "EEV Min. Steps2 [E07-2]"
+        "name": "E07-2: EEV Min. Steps2"
       },
       "foxair_1211": {
-        "name": "EEV Min. Steps3 [E07-3]"
+        "name": "E07-3: EEV Min. Steps3"
       },
       "foxair_1212": {
         "name": "Смещение темп. входа"
@@ -713,61 +713,61 @@
         "name": "Смещение темп. ГВС"
       },
       "foxair_1215": {
-        "name": "EEV Min. Steps4 [E07-4]"
+        "name": "E07-4: EEV Min. Steps4"
       },
       "foxair_1216": {
-        "name": "EEV Min. Steps5 [E07-5]"
+        "name": "E07-5: EEV Min. Steps5"
       },
       "foxair_1217": {
-        "name": "Max. Comp. Frequency in Cooling at High Ambient Temp. [C11]"
+        "name": "C11: Max. Comp. Frequency in Cooling at High Ambient Temp."
       },
       "foxair_1218": {
-        "name": "Manual Comp. Frequency [C01]"
+        "name": "C01: Manual Comp. Frequency"
       },
       "foxair_1219": {
-        "name": "Min. Comp. Frequency [C02]"
+        "name": "C02: Min. Comp. Frequency"
       },
       "foxair_1220": {
-        "name": "Max. Comp. Frequency [C03]"
+        "name": "C03: Max. Comp. Frequency"
       },
       "foxair_1221": {
-        "name": "Model Selection [C04]"
+        "name": "C04: Model Selection"
       },
       "foxair_1222": {
-        "name": "Min. Comp. Frequency in Cooling at Low Ambient Temp. [C05]"
+        "name": "C05: Min. Comp. Frequency in Cooling at Low Ambient Temp."
       },
       "foxair_1223": {
-        "name": "Frequenzregelungsmodus [C06]"
+        "name": "C06: Frequenzregelungsmodus"
       },
       "foxair_1224": {
-        "name": "Resonanzpunkt 1 [C07]"
+        "name": "C07: Resonanzpunkt 1"
       },
       "foxair_1225": {
-        "name": "Resonanzpunkt 2 [C08]"
+        "name": "C08: Resonanzpunkt 2"
       },
       "foxair_1226": {
-        "name": "Resonanzpunkt 3 [C09]"
+        "name": "C09: Resonanzpunkt 3"
       },
       "foxair_1227": {
-        "name": "Min. Comp. Frequency in Heating at Low Ambient Temp. [C10]"
+        "name": "C10: Min. Comp. Frequency in Heating at Low Ambient Temp."
       },
       "foxair_1228": {
-        "name": "Max. Outlet Water Temp. in Heating [R42]"
+        "name": "R42: Max. Outlet Water Temp. in Heating"
       },
       "foxair_1229": {
-        "name": "Max. Limit Target Water Temp. at Low AT in Heating [R43]"
+        "name": "R43: Max. Limit Target Water Temp. at Low AT in Heating"
       },
       "foxair_1230": {
-        "name": "Max. Limit Target Water Temp. at High AT in Heating [R44]"
+        "name": "R44: Max. Limit Target Water Temp. at High AT in Heating"
       },
       "foxair_1231": {
-        "name": "AT to Start Electric Heater Without Delay [R45]"
+        "name": "R45: AT to Start Electric Heater Without Delay"
       },
       "foxair_1232": {
-        "name": "Temp. Diff. between Max. DHW Target Temp. & Max. Outlet Temp. [R46]"
+        "name": "R46: Temp. Diff. between Max. DHW Target Temp. & Max. Outlet Temp."
       },
       "foxair_1233": {
-        "name": "AT to Start Frequency Limit in Cooling [R60]"
+        "name": "R60: AT to Start Frequency Limit in Cooling"
       },
       "foxair_1234": {
         "name": "Наклон компенсации AT"
@@ -776,28 +776,28 @@
         "name": "Смещение компенсации AT"
       },
       "foxair_1236": {
-        "name": "Enable AT Compensation Curve Zone 1 [H36]"
+        "name": "H36: Enable AT Compensation Curve Zone 1"
       },
       "foxair_1237": {
-        "name": "AT to Stop Frequency Limit in Cooling [R61]"
+        "name": "R61: AT to Stop Frequency Limit in Cooling"
       },
       "foxair_1238": {
-        "name": "Max. Heat Pump Outlet Water Temp. [R62]"
+        "name": "R62: Max. Heat Pump Outlet Water Temp."
       },
       "foxair_1239": {
-        "name": "Target Room Temp. [R70]"
+        "name": "R70: Target Room Temp."
       },
       "foxair_1240": {
-        "name": "Room Temp. Diff. for Power-on in Heating [R71]"
+        "name": "R71: Room Temp. Diff. for Power-on in Heating"
       },
       "foxair_1241": {
-        "name": "Room Temp. Diff. for Standby in Heating [R72]"
+        "name": "R72: Room Temp. Diff. for Standby in Heating"
       },
       "foxair_1242": {
-        "name": "Room Temp. Diff. for Power-on in Cooling [R73]"
+        "name": "R73: Room Temp. Diff. for Power-on in Cooling"
       },
       "foxair_1243": {
-        "name": "Room Temp. Diff. for Standby in Cooling [R74]"
+        "name": "R74: Room Temp. Diff. for Standby in Cooling"
       },
       "foxair_1244": {
         "name": "Таймер тихого режима Старт Вкл"
@@ -836,49 +836,49 @@
         "name": "Текущий системный год"
       },
       "foxair_1256": {
-        "name": "Таймер Вкл/Выкл ТН Таймер 1 Старт [KG1]"
+        "name": "KG1: Таймер Вкл/Выкл ТН Таймер 1 Старт"
       },
       "foxair_1257": {
-        "name": "Таймер Вкл/Выкл ТН Таймер 1 Стоп [KG2]"
+        "name": "KG2: Таймер Вкл/Выкл ТН Таймер 1 Стоп"
       },
       "foxair_1258": {
-        "name": "Таймер Вкл/Выкл ТН Таймер 2 Старт [KG3]"
+        "name": "KG3: Таймер Вкл/Выкл ТН Таймер 2 Старт"
       },
       "foxair_1259": {
-        "name": "Таймер Вкл/Выкл ТН Таймер 2 Стоп [KG4]"
+        "name": "KG4: Таймер Вкл/Выкл ТН Таймер 2 Стоп"
       },
       "foxair_1260": {
-        "name": "Таймер Вкл/Выкл ТН Таймер 3 Старт [KG5]"
+        "name": "KG5: Таймер Вкл/Выкл ТН Таймер 3 Старт"
       },
       "foxair_1261": {
-        "name": "Таймер Вкл/Выкл ТН Таймер 3 Стоп [KG6]"
+        "name": "KG6: Таймер Вкл/Выкл ТН Таймер 3 Стоп"
       },
       "foxair_1262": {
-        "name": "Таймер Вкл/Выкл ТН Таймер 4 Старт [KG7]"
+        "name": "KG7: Таймер Вкл/Выкл ТН Таймер 4 Старт"
       },
       "foxair_1263": {
-        "name": "Таймер Вкл/Выкл ТН Таймер 4 Стоп [KG8]"
+        "name": "KG8: Таймер Вкл/Выкл ТН Таймер 4 Стоп"
       },
       "foxair_1264": {
-        "name": "Таймер Вкл/Выкл ТН Таймер 5 Старт [KG9]"
+        "name": "KG9: Таймер Вкл/Выкл ТН Таймер 5 Старт"
       },
       "foxair_1265": {
-        "name": "Таймер Вкл/Выкл ТН Таймер 5 Стоп [KG10]"
+        "name": "KG10: Таймер Вкл/Выкл ТН Таймер 5 Стоп"
       },
       "foxair_1266": {
-        "name": "Таймер Вкл/Выкл ТН Таймер 6 Старт [KG11]"
+        "name": "KG11: Таймер Вкл/Выкл ТН Таймер 6 Старт"
       },
       "foxair_1267": {
-        "name": "Таймер Вкл/Выкл ТН Таймер 6 Стоп [KG12]"
+        "name": "KG12: Таймер Вкл/Выкл ТН Таймер 6 Стоп"
       },
       "foxair_1268": {
-        "name": "Таймер Вкл/Выкл ТН Таймер 1+2 Актив/Дни битмаска [KG13-KG28]"
+        "name": "KG13-KG28: Таймер Вкл/Выкл ТН Таймер 1+2 Актив/Дни битмаска"
       },
       "foxair_1269": {
-        "name": "Таймер Вкл/Выкл ТН Таймер 3+4 Актив/Дни битмаска [KG29-KG44]"
+        "name": "KG29-KG44: Таймер Вкл/Выкл ТН Таймер 3+4 Актив/Дни битмаска"
       },
       "foxair_1270": {
-        "name": "Таймер Вкл/Выкл ТН Таймер 5+6 Актив/Дни битмаска [KG45-KG60]"
+        "name": "KG45-KG60: Таймер Вкл/Выкл ТН Таймер 5+6 Актив/Дни битмаска"
       },
       "foxair_1271": {
         "name": "Block Header Packet 4 ID Word 1 ASCII Char 1-2"
@@ -1070,79 +1070,79 @@
         "name": "Циркул. насос Таймер 3 Битмаска активности"
       },
       "foxair_1334": {
-        "name": "Выбор SG Ready [SG01]"
+        "name": "SG01: Выбор SG Ready"
       },
       "foxair_1335": {
-        "name": "SG Режим 1 Время спящего режима [SG02]"
+        "name": "SG02: SG Режим 1 Время спящего режима"
       },
       "foxair_1336": {
-        "name": "SG Режим 2 Мощность / мало PV [SG03]"
+        "name": "SG03: SG Режим 2 Мощность / мало PV"
       },
       "foxair_1337": {
-        "name": "SG Режим 3 Мощность / средне PV [SG04]"
+        "name": "SG04: SG Режим 3 Мощность / средне PV"
       },
       "foxair_1338": {
-        "name": "SG Режим 4 Повышение цел. темп. ГВС [SG05]"
+        "name": "SG05: SG Режим 4 Повышение цел. темп. ГВС"
       },
       "foxair_1339": {
-        "name": "SG Режим 4 Повышение цел. темп. отопления [SG06]"
+        "name": "SG06: SG Режим 4 Повышение цел. темп. отопления"
       },
       "foxair_1340": {
-        "name": "SG Режим 4 Повышение цел. темп. охлаждения [SG07]"
+        "name": "SG07: SG Режим 4 Повышение цел. темп. охлаждения"
       },
       "foxair_1341": {
-        "name": "Electric Heater On in SG Mode4 [SG08]"
+        "name": "SG08: Electric Heater On in SG Mode4"
       },
       "foxair_1342": {
-        "name": "Low Pressure of Limiting Frequency [A38]"
+        "name": "A38: Low Pressure of Limiting Frequency"
       },
       "foxair_1343": {
-        "name": "Max. Current Value [A39]"
+        "name": "A39: Max. Current Value"
       },
       "foxair_1344": {
-        "name": "Rated Water Flow [A40]"
+        "name": "A40: Rated Water Flow"
       },
       "foxair_1345": {
-        "name": "External Pump Selection [H40]"
+        "name": "H40: External Pump Selection"
       },
       "foxair_1346": {
-        "name": "Пароль супервизора: 66 [H41]"
+        "name": "H41: Пароль супервизора: 66"
       },
       "foxair_1347": {
-        "name": "Max. Comp. Frequency in DHW mode [C12]"
+        "name": "C12: Max. Comp. Frequency in DHW mode"
       },
       "foxair_1348": {
-        "name": "Display-Firmware Parameter C13 [C13]"
+        "name": "C13: Display-Firmware Parameter C13"
       },
       "foxair_1349": {
-        "name": "Display-Firmware Parameter C14 [C14]"
+        "name": "C14: Display-Firmware Parameter C14"
       },
       "foxair_1350": {
-        "name": "Display-Firmware Parameter C15 [C15]"
+        "name": "C15: Display-Firmware Parameter C15"
       },
       "foxair_1351": {
-        "name": "Display-Firmware Parameter E20 [E20]"
+        "name": "E20: Display-Firmware Parameter E20"
       },
       "foxair_1352": {
-        "name": "Display-Firmware Parameter E21 [E21]"
+        "name": "E21: Display-Firmware Parameter E21"
       },
       "foxair_1353": {
-        "name": "Reserved [1353]"
+        "name": "1353: Reserved"
       },
       "foxair_1354": {
-        "name": "Reserved [1354]"
+        "name": "1354: Reserved"
       },
       "foxair_1355": {
-        "name": "Reserved [1355]"
+        "name": "1355: Reserved"
       },
       "foxair_1356": {
-        "name": "H42 Einschalt-AT Gehaeusewannenheizung (D30/1437 erst wirksam, wenn AT kleiner H42 ist) [H42]"
+        "name": "H42: H42 Einschalt-AT Gehaeusewannenheizung (D30/1437 erst wirksam, wenn AT kleiner H42 ist)"
       },
       "foxair_1357": {
-        "name": "Diff. of No Pump On at Low Water Temp. [Z19]"
+        "name": "Z19: Diff. of No Pump On at Low Water Temp."
       },
       "foxair_1358": {
-        "name": "Enable Zone 1 Water Pump in Cooling [Z20]"
+        "name": "Z20: Enable Zone 1 Water Pump in Cooling"
       },
       "foxair_1361": {
         "name": "Block Header Packet 5 ID Word 1 ASCII Char 1-2"
@@ -1205,25 +1205,25 @@
         "name": "Авто заводской тест Скорость водяного насоса (ASM)"
       },
       "foxair_1432": {
-        "name": "Target Temp. Diff. for Pump Speed Control [P11]"
+        "name": "P11: Target Temp. Diff. for Pump Speed Control"
       },
       "foxair_1433": {
-        "name": "Pump Speed Adjust Range for Each Period [P12]"
+        "name": "P12: Pump Speed Adjust Range for Each Period"
       },
       "foxair_1435": {
-        "name": "Refill Valve Start Cycle (for IDU) [P13]"
+        "name": "P13: Refill Valve Start Cycle (for IDU)"
       },
       "foxair_1436": {
-        "name": "Refill Valve Working Duration (for IDU) [P14]"
+        "name": "P14: Refill Valve Working Duration (for IDU)"
       },
       "foxair_1437": {
-        "name": "Button Heater Delays OFF Time after Defrost [D30]"
+        "name": "D30: Button Heater Delays OFF Time after Defrost"
       },
       "foxair_1438": {
-        "name": "Target Water Pressure (for IDU) [P15]"
+        "name": "P15: Target Water Pressure (for IDU)"
       },
       "foxair_1444": {
-        "name": "Stop Refilling Pressure Diff. (for IDU) [P16]"
+        "name": "P16: Stop Refilling Pressure Diff. (for IDU)"
       },
       "foxair_1451": {
         "name": "Block Header Packet 6 ID Word 1 ASCII Char 1-2"
@@ -1256,13 +1256,13 @@
         "name": "Заголовок Пакет 6 Первый регистр заголовка"
       },
       "foxair_1464": {
-        "name": "Неизвестная функция [1464]"
+        "name": "1464: Неизвестная функция"
       },
       "foxair_1466": {
-        "name": "Неизвестная функция [1466]"
+        "name": "1466: Неизвестная функция"
       },
       "foxair_1476": {
-        "name": "Неизвестная функция [1476]"
+        "name": "1476: Неизвестная функция"
       },
       "foxair_1541": {
         "name": "Заголовок Пакет 7 Слово ID 1"
@@ -1343,7 +1343,7 @@
         "name": "Уставка темп. как 2013 / 2014"
       },
       "foxair_2017": {
-        "name": "Reserved [2017]"
+        "name": "2017: Reserved"
       },
       "foxair_2018": {
         "name": "025 / Выход нагрузки (Эл. нагреватель бака ГВС)"
@@ -1355,7 +1355,7 @@
         "name": "015 / Шаги EEV"
       },
       "foxair_2021": {
-        "name": "Reserved [2021]"
+        "name": "2021: Reserved"
       },
       "foxair_2022": {
         "name": "017 / Шаги EVI EEV"
@@ -1370,13 +1370,13 @@
         "name": "Система 2 EVI / Энтальпия Знач. (ASM)"
       },
       "foxair_2026": {
-        "name": "Неизвестно (значение 9) [2026]"
+        "name": "2026: Неизвестно (значение 9)"
       },
       "foxair_2027": {
-        "name": "Неизвестно (значение 9) [2027]"
+        "name": "2027: Неизвестно (значение 9)"
       },
       "foxair_2028": {
-        "name": "Неизвестно (значение 9) [2028]"
+        "name": "2028: Неизвестно (значение 9)"
       },
       "foxair_2029": {
         "name": "Eingangsstrom L1 [T-Diag5]"
@@ -1391,73 +1391,73 @@
         "name": "Время работы компрессора [T-Diag8]"
       },
       "foxair_2033": {
-        "name": "Reserved [2033]"
+        "name": "2033: Reserved"
       },
       "foxair_2034": {
-        "name": "Состояния переключателей / Контакты / SG Ready [S01]"
+        "name": "S01: Состояния переключателей / Контакты / SG Ready"
       },
       "foxair_2035": {
-        "name": "Темп. обратки отопления [T40]"
+        "name": "T40: Темп. обратки отопления"
       },
       "foxair_2036": {
-        "name": "Темп. подачи отопления [T41]"
+        "name": "T41: Темп. подачи отопления"
       },
       "foxair_2037": {
-        "name": "Темп. воды на выходе смесительной трубы [T42]"
+        "name": "T42: Темп. воды на выходе смесительной трубы"
       },
       "foxair_2038": {
-        "name": "Темп. обратки ГВС [T43]"
+        "name": "T43: Темп. обратки ГВС"
       },
       "foxair_2039": {
-        "name": "WW-Vorlauftemperatur [T44]"
+        "name": "T44: WW-Vorlauftemperatur"
       },
       "foxair_2040": {
-        "name": "Reserved [2040]"
+        "name": "2040: Reserved"
       },
       "foxair_2041": {
-        "name": "Reserved [2041]"
+        "name": "2041: Reserved"
       },
       "foxair_2042": {
-        "name": "Фазный ток компрессора [T36]"
+        "name": "T36: Фазный ток компрессора"
       },
       "foxair_2043": {
-        "name": "Напряжение шины DC [T37]"
+        "name": "T37: Напряжение шины DC"
       },
       "foxair_2044": {
-        "name": "Темп. IPM [T38]"
+        "name": "T38: Темп. IPM"
       },
       "foxair_2045": {
-        "name": "Темп. воды на входе [T01]"
+        "name": "T01: Темп. воды на входе"
       },
       "foxair_2046": {
-        "name": "Темп. воды на выходе [T02]"
+        "name": "T02: Темп. воды на выходе"
       },
       "foxair_2047": {
-        "name": "WW-Tanktemperatur [T08]"
+        "name": "T08: WW-Tanktemperatur"
       },
       "foxair_2048": {
-        "name": "Темп. окруж. среды (AT) [T04]"
+        "name": "T04: Темп. окруж. среды (AT)"
       },
       "foxair_2049": {
-        "name": "Темп. испарителя [T03]"
+        "name": "T03: Темп. испарителя"
       },
       "foxair_2050": {
-        "name": "Verteilerrohrtemperatur [T14]"
+        "name": "T14: Verteilerrohrtemperatur"
       },
       "foxair_2051": {
-        "name": "Темп. всасывания [T05]"
+        "name": "T05: Темп. всасывания"
       },
       "foxair_2052": {
-        "name": "Puffertanktemperatur [T07]"
+        "name": "T07: Puffertanktemperatur"
       },
       "foxair_2053": {
-        "name": "Темп. выхлопных газов [T12]"
+        "name": "T12: Темп. выхлопных газов"
       },
       "foxair_2054": {
-        "name": "Unit Power [T54]"
+        "name": "T54: Unit Power"
       },
       "foxair_2055": {
-        "name": "Frostschutztemperatur (Am PlattenWT) [T06]"
+        "name": "T06: Frostschutztemperatur (Am PlattenWT)"
       },
       "foxair_2056": {
         "name": "T? / Система 1 Темп. защиты от замерз. 2 / Темп. змеевика 2 (ASM V1.3)"
@@ -1466,25 +1466,25 @@
         "name": "Значение 2057 [скрыто]"
       },
       "foxair_2058": {
-        "name": "Комнатная температура [T09]"
+        "name": "T09: Комнатная температура"
       },
       "foxair_2059": {
-        "name": "Unit Capacity [T59]"
+        "name": "T59: Unit Capacity"
       },
       "foxair_2060": {
-        "name": "COP [T60]"
+        "name": "T60: COP"
       },
       "foxair_2061": {
-        "name": "Темп. аварии IPM высокая [T33]"
+        "name": "T33: Темп. аварии IPM высокая"
       },
       "foxair_2062": {
-        "name": "Входное напряжение AC [T34]"
+        "name": "T34: Входное напряжение AC"
       },
       "foxair_2063": {
-        "name": "Темп. входа EVI [T10]"
+        "name": "T10: Темп. входа EVI"
       },
       "foxair_2064": {
-        "name": "Темп. выхода EVI [T11]"
+        "name": "T11: Темп. выхода EVI"
       },
       "foxair_2065": {
         "name": "Температура испарения (ASM) [T-Diag1]"
@@ -1499,31 +1499,31 @@
         "name": "Система 2 Ток (ASM)"
       },
       "foxair_2069": {
-        "name": "Низкое давление [T15]"
+        "name": "T15: Низкое давление"
       },
       "foxair_2070": {
         "name": "Система 2 Давление (ASM)"
       },
       "foxair_2071": {
-        "name": "Частота компрессора [T30]"
+        "name": "T30: Частота компрессора"
       },
       "foxair_2072": {
-        "name": "Рабочая частота компрессора [T31]"
+        "name": "T31: Рабочая частота компрессора"
       },
       "foxair_2073": {
-        "name": "Макс. частота от драйвера компрессора [T32]"
+        "name": "T32: Макс. частота от драйвера компрессора"
       },
       "foxair_2074": {
-        "name": "Скорость мотора вентилятора 1 [T27]"
+        "name": "T27: Скорость мотора вентилятора 1"
       },
       "foxair_2075": {
-        "name": "Скорость мотора вентилятора 2 [T28]"
+        "name": "T28: Скорость мотора вентилятора 2"
       },
       "foxair_2076": {
-        "name": "Целевая скорость мотора вентилятора [T29]"
+        "name": "T29: Целевая скорость мотора вентилятора"
       },
       "foxair_2077": {
-        "name": "Расход воды [T39]"
+        "name": "T39: Расход воды"
       },
       "foxair_2078": {
         "name": "Счётчик электроэнергии старшие биты"
@@ -1535,34 +1535,34 @@
         "name": "Слово статуса / данных (как шина дисплея 91099)"
       },
       "foxair_2081": {
-        "name": "Ошибка 7 / Биты неисправностей [ERR07]"
+        "name": "ERR07: Ошибка 7 / Биты неисправностей"
       },
       "foxair_2082": {
-        "name": "Ошибка 8 / Биты неисправностей [ERR08]"
+        "name": "ERR08: Ошибка 8 / Биты неисправностей"
       },
       "foxair_2083": {
-        "name": "Ошибка 9 / Биты неисправностей [ERR09]"
+        "name": "ERR09: Ошибка 9 / Биты неисправностей"
       },
       "foxair_2084": {
-        "name": "Неизвестно (значение 9) [2084]"
+        "name": "2084: Неизвестно (значение 9)"
       },
       "foxair_2085": {
-        "name": "Ошибка 1 / Биты неисправностей [ERR01]"
+        "name": "ERR01: Ошибка 1 / Биты неисправностей"
       },
       "foxair_2086": {
-        "name": "Ошибка 2 / Биты неисправностей [ERR02]"
+        "name": "ERR02: Ошибка 2 / Биты неисправностей"
       },
       "foxair_2087": {
-        "name": "Ошибка 3 / Биты неисправностей [ERR03]"
+        "name": "ERR03: Ошибка 3 / Биты неисправностей"
       },
       "foxair_2088": {
-        "name": "Ошибка 4 / Биты неисправностей [ERR04]"
+        "name": "ERR04: Ошибка 4 / Биты неисправностей"
       },
       "foxair_2089": {
-        "name": "Ошибка 5 / Биты неисправностей [ERR05]"
+        "name": "ERR05: Ошибка 5 / Биты неисправностей"
       },
       "foxair_2090": {
-        "name": "Ошибка 6 / Биты неисправностей [ERR06]"
+        "name": "ERR06: Ошибка 6 / Биты неисправностей"
       },
       "foxair_2091": {
         "name": "Block Header Packet 8 ID Word 1 ASCII Char 1-2"
@@ -1595,10 +1595,10 @@
         "name": "Заголовок Статус Пакет 2 Первый регистр заголовка"
       },
       "foxair_2101": {
-        "name": "Reserved [2101]"
+        "name": "2101: Reserved"
       },
       "foxair_2102": {
-        "name": "Reserved [2102]"
+        "name": "2102: Reserved"
       },
       "foxair_2103": {
         "name": "Код ПО главного контроллера (ASM)"
@@ -1619,10 +1619,10 @@
         "name": "Флаг тишины вентилятора (ASM)"
       },
       "foxair_2109": {
-        "name": "Reserved [2109]"
+        "name": "2109: Reserved"
       },
       "foxair_2110": {
-        "name": "Reserved [2110]"
+        "name": "2110: Reserved"
       },
       "foxair_2111": {
         "name": "Номер дисплея"
@@ -1631,10 +1631,10 @@
         "name": "Версия дисплея"
       },
       "foxair_2113": {
-        "name": "Reserved [2113]"
+        "name": "2113: Reserved"
       },
       "foxair_2114": {
-        "name": "Reserved [2114]"
+        "name": "2114: Reserved"
       },
       "foxair_2115": {
         "name": "UP PWM Текущий"
@@ -1643,25 +1643,25 @@
         "name": "Обратная связь PWM насоса"
       },
       "foxair_2117": {
-        "name": "Reserved [2117]"
+        "name": "2117: Reserved"
       },
       "foxair_2118": {
         "name": "Счётчик электроэнергии Отопление"
       },
       "foxair_2119": {
-        "name": "Reserved [2119]"
+        "name": "2119: Reserved"
       },
       "foxair_2120": {
         "name": "Счётчик тепла Отопление"
       },
       "foxair_2121": {
-        "name": "Reserved [2121]"
+        "name": "2121: Reserved"
       },
       "foxair_2122": {
         "name": "Счётчик электроэнергии Охлаждение"
       },
       "foxair_2123": {
-        "name": "Reserved [2123]"
+        "name": "2123: Reserved"
       },
       "foxair_2124": {
         "name": "Счётчик тепла Охлаждение"
@@ -1679,16 +1679,16 @@
         "name": "Счётчик тепл. энергии ГВС младший"
       },
       "foxair_2129": {
-        "name": "Reserved [2129]"
+        "name": "2129: Reserved"
       },
       "foxair_2130": {
-        "name": "Темп. IPM внешнего привода вентилятора [T46]"
+        "name": "T46: Темп. IPM внешнего привода вентилятора"
       },
       "foxair_2131": {
-        "name": "Мощность внешнего привода вентилятора [T47]"
+        "name": "T47: Мощность внешнего привода вентилятора"
       },
       "foxair_2132": {
-        "name": "Ток внешнего привода вентилятора [T48]"
+        "name": "T48: Ток внешнего привода вентилятора"
       },
       "foxair_2133": {
         "name": "Активный режим SG Ready [SGstatus]"
@@ -1697,7 +1697,7 @@
         "name": "Состояние таймеров лимита мощности 1-6"
       },
       "foxair_2135": {
-        "name": "Unknown Function [2135]"
+        "name": "2135: Unknown Function"
       },
       "foxair_2136": {
         "name": "T04 Температура наружного воздуха — второй путь"
@@ -1709,37 +1709,37 @@
         "name": "Тепл. мощность теплового насоса (без догрева)"
       },
       "foxair_2139": {
-        "name": "Unknown Function [2139]"
+        "name": "2139: Unknown Function"
       },
       "foxair_2140": {
-        "name": "Unknown Function [2140]"
+        "name": "2140: Unknown Function"
       },
       "foxair_2141": {
-        "name": "Unknown Function [2141]"
+        "name": "2141: Unknown Function"
       },
       "foxair_2142": {
-        "name": "Unknown Function [2142]"
+        "name": "2142: Unknown Function"
       },
       "foxair_2143": {
-        "name": "Unknown Function [2143]"
+        "name": "2143: Unknown Function"
       },
       "foxair_2144": {
-        "name": "Unknown Function [2144]"
+        "name": "2144: Unknown Function"
       },
       "foxair_2145": {
-        "name": "Unknown Function [2145]"
+        "name": "2145: Unknown Function"
       },
       "foxair_2146": {
-        "name": "Unknown Function [2146]"
+        "name": "2146: Unknown Function"
       },
       "foxair_2147": {
-        "name": "Unknown Function [2147]"
+        "name": "2147: Unknown Function"
       },
       "foxair_2148": {
-        "name": "Unknown Function [2148]"
+        "name": "2148: Unknown Function"
       },
       "foxair_2149": {
-        "name": "Unknown Function [2149]"
+        "name": "2149: Unknown Function"
       },
       "foxair_2178": {
         "name": "Температура датчика влажности"
@@ -1833,106 +1833,106 @@
         "name": "Выбор логотипа"
       },
       "foxair_1022": {
-        "name": "Зарезервировано [1022]"
+        "name": "1022: Зарезервировано"
       },
       "foxair_1025": {
-        "name": "Выбор языка [H38]"
+        "name": "H38: Выбор языка"
       },
       "foxair_1026": {
-        "name": "Выбор логотипа / Код логотипа клиента (ASM) [H39]"
+        "name": "H39: Выбор логотипа / Код логотипа клиента (ASM)"
       },
       "foxair_1031": {
-        "name": "Дельта откл. электронагревателя [A35]"
+        "name": "A35: Дельта откл. электронагревателя"
       },
       "foxair_1036": {
-        "name": "Тип внутреннего блока [H30]"
+        "name": "H30: Тип внутреннего блока"
       },
       "foxair_1037": {
-        "name": "Темп. откл. по наруж. темп. [A03]"
+        "name": "A03: Темп. откл. по наруж. темп."
       },
       "foxair_1038": {
-        "name": "Темп. антизамерзания [A04]"
+        "name": "A04: Темп. антизамерзания"
       },
       "foxair_1039": {
-        "name": "Дельта антизамерзания [A05]"
+        "name": "A05: Дельта антизамерзания"
       },
       "foxair_1040": {
-        "name": "Уставка защиты темп. выхлопа [A06]"
+        "name": "A06: Уставка защиты темп. выхлопа"
       },
       "foxair_1043": {
-        "name": "Мин. темп. антизамерзания [A23]"
+        "name": "A23: Мин. темп. антизамерзания"
       },
       "foxair_1044": {
-        "name": "Превышение дельты вход/выход [A24]"
+        "name": "A24: Превышение дельты вход/выход"
       },
       "foxair_1048": {
         "name": "Выбор внешнего насоса []"
       },
       "foxair_1049": {
-        "name": "Вкл. электронагревателя по AT [A31]"
+        "name": "A31: Вкл. электронагревателя по AT"
       },
       "foxair_1050": {
-        "name": "Задержка вкл. компр. электронагревателем [A32]"
+        "name": "A32: Задержка вкл. компр. электронагревателем"
       },
       "foxair_1051": {
-        "name": "Мин. AT для охлаждения [A30]"
+        "name": "A30: Мин. AT для охлаждения"
       },
       "foxair_1053": {
-        "name": "Защита по низкой температуре воды [A22]"
+        "name": "A22: Защита по низкой температуре воды"
       },
       "foxair_1055": {
-        "name": "Мин. темп. испарения охлажд. [A25]"
+        "name": "A25: Мин. темп. испарения охлажд."
       },
       "foxair_1056": {
-        "name": "Дельта A лимита частоты [A27]"
+        "name": "A27: Дельта A лимита частоты"
       },
       "foxair_1057": {
-        "name": "Дельта выход-ГВС [A28]"
+        "name": "A28: Дельта выход-ГВС"
       },
       "foxair_1060": {
-        "name": "Макс. темп. змеевика охлажд. [F02]"
+        "name": "F02: Макс. темп. змеевика охлажд."
       },
       "foxair_1061": {
-        "name": "Кривая мощности мотора вент. [F27]"
+        "name": "F27: Кривая мощности мотора вент."
       },
       "foxair_1062": {
-        "name": "Мин. темп. змеевика охлажд. [F03]"
+        "name": "F03: Мин. темп. змеевика охлажд."
       },
       "foxair_1063": {
-        "name": "Дельта откр. электронагревателя [A33]"
+        "name": "A33: Дельта откр. электронагревателя"
       },
       "foxair_1064": {
-        "name": "Время предпрогрева картера [A34]"
+        "name": "A34: Время предпрогрева картера"
       },
       "foxair_1065": {
-        "name": "Зарезервировано [1065]"
+        "name": "1065: Зарезервировано"
       },
       "foxair_1066": {
-        "name": "Макс. темп. змеевика нагрева [F05]"
+        "name": "F05: Макс. темп. змеевика нагрева"
       },
       "foxair_1067": {
-        "name": "Зарезервировано [1067]"
+        "name": "1067: Зарезервировано"
       },
       "foxair_1068": {
-        "name": "Мин. темп. змеевика нагрева [F06]"
+        "name": "F06: Мин. темп. змеевика нагрева"
       },
       "foxair_1070": {
-        "name": "Зона 1 Целевая комн. темп. [Z02]"
+        "name": "Z02: Зона 1 Целевая комн. темп."
       },
       "foxair_1071": {
-        "name": "Зона 1 Дельта комн. темп. старт [Z03]"
+        "name": "Z03: Зона 1 Дельта комн. темп. старт"
       },
       "foxair_1072": {
-        "name": "Зона 2 Целевая комн. темп. [Z04]"
+        "name": "Z04: Зона 2 Целевая комн. темп."
       },
       "foxair_1073": {
-        "name": "Зона 2 Дельта комн. темп. старт [Z05]"
+        "name": "Z05: Зона 2 Дельта комн. темп. старт"
       },
       "foxair_1075": {
-        "name": "Зона1 Целевая темп. выхода отопл. [Z06]"
+        "name": "Z06: Зона1 Целевая темп. выхода отопл."
       },
       "foxair_1076": {
-        "name": "Зона2 Целевая темп. смесит. выхода [Z07]"
+        "name": "Z07: Зона2 Целевая темп. смесит. выхода"
       },
       "foxair_1078": {
         "name": "Зона 2 Кривая нагрева K / Компенсация темп. помещения (ASM)"
@@ -1941,289 +1941,289 @@
         "name": "Зона 2 Кривая нагрева B / Компенсация темп. помещения (ASM)"
       },
       "foxair_1080": {
-        "name": "Ручн. регулировка смесит. клапана (0% авто) [Z08]"
+        "name": "Z08: Ручн. регулировка смесит. клапана (0% авто)"
       },
       "foxair_1082": {
-        "name": "Время открытия смесит. клапана [Z09]"
+        "name": "Z09: Время открытия смесит. клапана"
       },
       "foxair_1084": {
-        "name": "Время закрытия смесит. клапана [Z10]"
+        "name": "Z10: Время закрытия смесит. клапана"
       },
       "foxair_1085": {
-        "name": "Смесит. клапан P (PID) [Z11]"
+        "name": "Z11: Смесит. клапан P (PID)"
       },
       "foxair_1088": {
-        "name": "Смесит. клапан I (PID) [Z12]"
+        "name": "Z12: Смесит. клапан I (PID)"
       },
       "foxair_1090": {
-        "name": "Период PID смесит. клапана [Z13]"
+        "name": "Z13: Период PID смесит. клапана"
       },
       "foxair_1101": {
-        "name": "CT для сниж. верх. вент. в охлажд. [F28]"
+        "name": "F28: CT для сниж. верх. вент. в охлажд."
       },
       "foxair_1102": {
-        "name": "CT для останова одиноч. вент. в охлажд. [F29]"
+        "name": "F29: CT для останова одиноч. вент. в охлажд."
       },
       "foxair_1103": {
-        "name": "Макс. скорость вент. охлаждения [F25]"
+        "name": "F25: Макс. скорость вент. охлаждения"
       },
       "foxair_1104": {
-        "name": "Макс. скорость вент. отопления [F26]"
+        "name": "F26: Макс. скорость вент. отопления"
       },
       "foxair_1105": {
-        "name": "Темп. окр. старта разморозки [D01]"
+        "name": "D01: Темп. окр. старта разморозки"
       },
       "foxair_1106": {
-        "name": "Время работы отопл. до разморозки [D02]"
+        "name": "D02: Время работы отопл. до разморозки"
       },
       "foxair_1107": {
-        "name": "Цикл разморозки [D03]"
+        "name": "D03: Цикл разморозки"
       },
       "foxair_1108": {
-        "name": "Коррекция темп. выхлопа для цикла разморозки [D04]"
+        "name": "D04: Коррекция темп. выхлопа для цикла разморозки"
       },
       "foxair_1109": {
-        "name": "Давление всасыв. разморозки 1 [D05-1]"
+        "name": "D05-1: Давление всасыв. разморозки 1"
       },
       "foxair_1110": {
-        "name": "Давление всасыв. разморозки 2 [D05-2]"
+        "name": "D05-2: Давление всасыв. разморозки 2"
       },
       "foxair_1112": {
-        "name": "Темп. окр. старта скольз. разморозки [D07]"
+        "name": "D07: Темп. окр. старта скольз. разморозки"
       },
       "foxair_1113": {
-        "name": "Темп. всасыв. старта скольз. разморозки [D08]"
+        "name": "D08: Темп. всасыв. старта скольз. разморозки"
       },
       "foxair_1114": {
-        "name": "Темп. окр. останова скольз. разморозки [D09]"
+        "name": "D09: Темп. окр. останова скольз. разморозки"
       },
       "foxair_1115": {
-        "name": "Темп. всасыв. останова скольз. разморозки [D10]"
+        "name": "D10: Темп. всасыв. останова скольз. разморозки"
       },
       "foxair_1116": {
-        "name": "Мин. темп. воды входа разморозки [D11]"
+        "name": "D11: Мин. темп. воды входа разморозки"
       },
       "foxair_1117": {
-        "name": "Давление всасыв. принуд. разморозки [D12]"
+        "name": "D12: Давление всасыв. принуд. разморозки"
       },
       "foxair_1118": {
-        "name": "Время отопл. до принуд. разморозки [D13]"
+        "name": "D13: Время отопл. до принуд. разморозки"
       },
       "foxair_1119": {
-        "name": "Коэф. мощн. вент. для продл. цикла разморозки [D14]"
+        "name": "D14: Коэф. мощн. вент. для продл. цикла разморозки"
       },
       "foxair_1120": {
-        "name": "Коэф. мощн. вент. для входа в принуд. разморозку [D15]"
+        "name": "D15: Коэф. мощн. вент. для входа в принуд. разморозку"
       },
       "foxair_1122": {
-        "name": "Темп. змеевика выхода из разморозки [D17]"
+        "name": "D17: Темп. змеевика выхода из разморозки"
       },
       "foxair_1123": {
-        "name": "Темп. трубки распред. выхода из разморозки [D18]"
+        "name": "D18: Темп. трубки распред. выхода из разморозки"
       },
       "foxair_1124": {
-        "name": "Макс. время разморозки [D19]"
+        "name": "D19: Макс. время разморозки"
       },
       "foxair_1125": {
-        "name": "Частота разморозки [D20]"
+        "name": "D20: Частота разморозки"
       },
       "foxair_1127": {
-        "name": "Поток воды разморозки [D22]"
+        "name": "D22: Поток воды разморозки"
       },
       "foxair_1128": {
-        "name": "Макс. цикл разморозки по мощн. вент. [D23]"
+        "name": "D23: Макс. цикл разморозки по мощн. вент."
       },
       "foxair_1130": {
-        "name": "Макс. падение темп. воды при разморозке [D25]"
+        "name": "D25: Макс. падение темп. воды при разморозке"
       },
       "foxair_1132": {
-        "name": "Целевой перегрев для отопления [E02]"
+        "name": "E02: Целевой перегрев для отопления"
       },
       "foxair_1133": {
-        "name": "Нач. шаги EEV для отопления [E03]"
+        "name": "E03: Нач. шаги EEV для отопления"
       },
       "foxair_1134": {
-        "name": "Шаги смесит. клапана в охлажд. [Z14]"
+        "name": "Z14: Шаги смесит. клапана в охлажд."
       },
       "foxair_1135": {
-        "name": "Зона2 Макс. целевая темп. воды [Z15]"
+        "name": "Z15: Зона2 Макс. целевая темп. воды"
       },
       "foxair_1136": {
-        "name": "Смесительный клапан I-коэфф (DIGI5 по ASM) [Z16]"
+        "name": "Z16: Смесительный клапан I-коэфф (DIGI5 по ASM)"
       },
       "foxair_1137": {
-        "name": "Мин. нач. шаги [E07]"
+        "name": "E07: Мин. нач. шаги"
       },
       "foxair_1138": {
-        "name": "Нач. шаги EEV для охлаждения [E08]"
+        "name": "E08: Нач. шаги EEV для охлаждения"
       },
       "foxair_1140": {
-        "name": "EVI EEV: Нач. шаги [E10]"
+        "name": "E10: EVI EEV: Нач. шаги"
       },
       "foxair_1141": {
         "name": "Система 2 EVI/Энтальпия есть если знач. !=0 (ASM V1.3)"
       },
       "foxair_1142": {
-        "name": "Нач. шаги EEV для отопления2 [E03-2]"
+        "name": "E03-2: Нач. шаги EEV для отопления2"
       },
       "foxair_1143": {
-        "name": "Целевой перегрев EVI EEV [E13]"
+        "name": "E13: Целевой перегрев EVI EEV"
       },
       "foxair_1144": {
-        "name": "Мин. шаги EVI EEV [E14]"
+        "name": "E14: Мин. шаги EVI EEV"
       },
       "foxair_1145": {
-        "name": "Темп./Гистерезис Параметр (ASM) [E15]"
+        "name": "E15: Темп./Гистерезис Параметр (ASM)"
       },
       "foxair_1146": {
-        "name": "Темп./Гистерезис Параметр (ASM) [E16]"
+        "name": "E16: Темп./Гистерезис Параметр (ASM)"
       },
       "foxair_1147": {
-        "name": "Defrosting EEV Steps [E17]"
+        "name": "E17: Defrosting EEV Steps"
       },
       "foxair_1148": {
-        "name": "Target Superheat For Cooling [E18]"
+        "name": "E18: Target Superheat For Cooling"
       },
       "foxair_1149": {
-        "name": "EEV Adjustment Range In Smart Mode [E19]"
+        "name": "E19: EEV Adjustment Range In Smart Mode"
       },
       "foxair_1150": {
-        "name": "Зарезервировано [1150]"
+        "name": "1150: Зарезервировано"
       },
       "foxair_1151": {
-        "name": "Зарезервировано [1151]"
+        "name": "1151: Зарезервировано"
       },
       "foxair_1152": {
-        "name": "Disinfection Water Temp. [G01]"
+        "name": "G01: Disinfection Water Temp."
       },
       "foxair_1153": {
-        "name": "Time Duration of Disinfection [G02]"
+        "name": "G02: Time Duration of Disinfection"
       },
       "foxair_1154": {
-        "name": "Disinfection Starting Time [G03]"
+        "name": "G03: Disinfection Starting Time"
       },
       "foxair_1155": {
-        "name": "Interval Period of Disinfection [G04]"
+        "name": "G04: Interval Period of Disinfection"
       },
       "foxair_1157": {
-        "name": "Уставка ГВС [R01]"
+        "name": "R01: Уставка ГВС"
       },
       "foxair_1158": {
-        "name": "Уставка отопления [R02]"
+        "name": "R02: Уставка отопления"
       },
       "foxair_1159": {
-        "name": "Уставка охлаждения [R03]"
+        "name": "R03: Уставка охлаждения"
       },
       "foxair_1160": {
-        "name": "Дельта возврата вкл. отопления [R04]"
+        "name": "R04: Дельта возврата вкл. отопления"
       },
       "foxair_1161": {
-        "name": "Дельта выкл. пост. темп. отопления [R05]"
+        "name": "R05: Дельта выкл. пост. темп. отопления"
       },
       "foxair_1162": {
-        "name": "Мин. уставка охлаждения [R08]"
+        "name": "R08: Мин. уставка охлаждения"
       },
       "foxair_1163": {
-        "name": "Макс. уставка охлаждения [R09]"
+        "name": "R09: Макс. уставка охлаждения"
       },
       "foxair_1164": {
-        "name": "Мин. уставка отопления [R10]"
+        "name": "R10: Мин. уставка отопления"
       },
       "foxair_1165": {
-        "name": "Макс. уставка отопления [R11]"
+        "name": "R11: Макс. уставка отопления"
       },
       "foxair_1166": {
-        "name": "Дельта выхода из высокотемп. режима [R15]"
+        "name": "R15: Дельта выхода из высокотемп. режима"
       },
       "foxair_1167": {
-        "name": "Низкая AT для вкл. лимита темп. воды [R29]"
+        "name": "R29: Низкая AT для вкл. лимита темп. воды"
       },
       "foxair_1168": {
-        "name": "Низкая AT для выкл. лимита темп. воды [R30]"
+        "name": "R30: Низкая AT для выкл. лимита темп. воды"
       },
       "foxair_1169": {
-        "name": "Макс. лимит темп. выхода при низкой AT [R31]"
+        "name": "R31: Макс. лимит темп. выхода при низкой AT"
       },
       "foxair_1170": {
-        "name": "Высокая AT для вкл. лимита темп. воды [R32]"
+        "name": "R32: Высокая AT для вкл. лимита темп. воды"
       },
       "foxair_1171": {
-        "name": "Высокая AT для выкл. лимита темп. воды [R33]"
+        "name": "R33: Высокая AT для выкл. лимита темп. воды"
       },
       "foxair_1172": {
-        "name": "Макс. лимит темп. выхода при высокой AT [R34]"
+        "name": "R34: Макс. лимит темп. выхода при высокой AT"
       },
       "foxair_1174": {
-        "name": "Дельта возврата вкл. охлаждения [R06]"
+        "name": "R06: Дельта возврата вкл. охлаждения"
       },
       "foxair_1175": {
-        "name": "Дельта выкл. пост. темп. охлаждения [R07]"
+        "name": "R07: Дельта выкл. пост. темп. охлаждения"
       },
       "foxair_1176": {
-        "name": "Мин. целевая темп. ГВС [R36]"
+        "name": "R36: Мин. целевая темп. ГВС"
       },
       "foxair_1177": {
-        "name": "Макс. целевая темп. ГВС [R37]"
+        "name": "R37: Макс. целевая темп. ГВС"
       },
       "foxair_1178": {
-        "name": "Темп./Гистерезис Параметр R12 [R12]"
+        "name": "R12: Темп./Гистерезис Параметр R12"
       },
       "foxair_1179": {
-        "name": "Темп./Гистерезис Параметр R13 [R13]"
+        "name": "R13: Темп./Гистерезис Параметр R13"
       },
       "foxair_1180": {
-        "name": "Темп./Гистерезис Параметр R14 [R14]"
+        "name": "R14: Темп./Гистерезис Параметр R14"
       },
       "foxair_1192": {
-        "name": "AT для автостарта режима отопления [R39]"
+        "name": "R39: AT для автостарта режима отопления"
       },
       "foxair_1193": {
-        "name": "Параметр температуры, лимит 60 °C (ASM V1.3) [R40]"
+        "name": "R40: Параметр температуры, лимит 60 °C (ASM V1.3)"
       },
       "foxair_1194": {
-        "name": "Параметр температуры, лимит 60 °C (ASM V1.3) [R41]"
+        "name": "R41: Параметр температуры, лимит 60 °C (ASM V1.3)"
       },
       "foxair_1195": {
-        "name": "Дельта возврата вкл. воды бака [R16]"
+        "name": "R16: Дельта возврата вкл. воды бака"
       },
       "foxair_1196": {
-        "name": "Дельта ожидания темп. воды бака [R17]"
+        "name": "R17: Дельта ожидания темп. воды бака"
       },
       "foxair_1198": {
-        "name": "Интервал времени [P02]"
+        "name": "P02: Интервал времени"
       },
       "foxair_1199": {
-        "name": "Время работы [P03]"
+        "name": "P03: Время работы"
       },
       "foxair_1200": {
-        "name": "EEV Initial Steps for Heating1 [E03-1]"
+        "name": "E03-1: EEV Initial Steps for Heating1"
       },
       "foxair_1203": {
-        "name": "Circulation Pump Protection Period [P09]"
+        "name": "P09: Circulation Pump Protection Period"
       },
       "foxair_1204": {
-        "name": "Main Circulation Pump Rated Power [P08]"
+        "name": "P08: Main Circulation Pump Rated Power"
       },
       "foxair_1205": {
-        "name": "Скорость циркул. насоса [P10]"
+        "name": "P10: Скорость циркул. насоса"
       },
       "foxair_1206": {
-        "name": "EEV Initial Steps for Heating3 [E03-3]"
+        "name": "E03-3: EEV Initial Steps for Heating3"
       },
       "foxair_1207": {
-        "name": "EEV Initial Steps for Heating4 [E03-4]"
+        "name": "E03-4: EEV Initial Steps for Heating4"
       },
       "foxair_1208": {
-        "name": "EEV Initial Steps for Heating5 [E03-5]"
+        "name": "E03-5: EEV Initial Steps for Heating5"
       },
       "foxair_1209": {
-        "name": "EEV Min. Steps1 [E07-1]"
+        "name": "E07-1: EEV Min. Steps1"
       },
       "foxair_1210": {
-        "name": "EEV Min. Steps2 [E07-2]"
+        "name": "E07-2: EEV Min. Steps2"
       },
       "foxair_1211": {
-        "name": "EEV Min. Steps3 [E07-3]"
+        "name": "E07-3: EEV Min. Steps3"
       },
       "foxair_1212": {
         "name": "Смещение темп. входа"
@@ -2235,55 +2235,55 @@
         "name": "Смещение темп. ГВС"
       },
       "foxair_1215": {
-        "name": "EEV Min. Steps4 [E07-4]"
+        "name": "E07-4: EEV Min. Steps4"
       },
       "foxair_1216": {
-        "name": "EEV Min. Steps5 [E07-5]"
+        "name": "E07-5: EEV Min. Steps5"
       },
       "foxair_1217": {
-        "name": "Max. Comp. Frequency in Cooling at High Ambient Temp. [C11]"
+        "name": "C11: Max. Comp. Frequency in Cooling at High Ambient Temp."
       },
       "foxair_1218": {
-        "name": "Manual Comp. Frequency [C01]"
+        "name": "C01: Manual Comp. Frequency"
       },
       "foxair_1219": {
-        "name": "Min. Comp. Frequency [C02]"
+        "name": "C02: Min. Comp. Frequency"
       },
       "foxair_1220": {
-        "name": "Max. Comp. Frequency [C03]"
+        "name": "C03: Max. Comp. Frequency"
       },
       "foxair_1222": {
-        "name": "Min. Comp. Frequency in Cooling at Low Ambient Temp. [C05]"
+        "name": "C05: Min. Comp. Frequency in Cooling at Low Ambient Temp."
       },
       "foxair_1224": {
-        "name": "Resonanzpunkt 1 [C07]"
+        "name": "C07: Resonanzpunkt 1"
       },
       "foxair_1225": {
-        "name": "Resonanzpunkt 2 [C08]"
+        "name": "C08: Resonanzpunkt 2"
       },
       "foxair_1226": {
-        "name": "Resonanzpunkt 3 [C09]"
+        "name": "C09: Resonanzpunkt 3"
       },
       "foxair_1227": {
-        "name": "Min. Comp. Frequency in Heating at Low Ambient Temp. [C10]"
+        "name": "C10: Min. Comp. Frequency in Heating at Low Ambient Temp."
       },
       "foxair_1228": {
-        "name": "Max. Outlet Water Temp. in Heating [R42]"
+        "name": "R42: Max. Outlet Water Temp. in Heating"
       },
       "foxair_1229": {
-        "name": "Max. Limit Target Water Temp. at Low AT in Heating [R43]"
+        "name": "R43: Max. Limit Target Water Temp. at Low AT in Heating"
       },
       "foxair_1230": {
-        "name": "Max. Limit Target Water Temp. at High AT in Heating [R44]"
+        "name": "R44: Max. Limit Target Water Temp. at High AT in Heating"
       },
       "foxair_1231": {
-        "name": "AT to Start Electric Heater Without Delay [R45]"
+        "name": "R45: AT to Start Electric Heater Without Delay"
       },
       "foxair_1232": {
-        "name": "Temp. Diff. between Max. DHW Target Temp. & Max. Outlet Temp. [R46]"
+        "name": "R46: Temp. Diff. between Max. DHW Target Temp. & Max. Outlet Temp."
       },
       "foxair_1233": {
-        "name": "AT to Start Frequency Limit in Cooling [R60]"
+        "name": "R60: AT to Start Frequency Limit in Cooling"
       },
       "foxair_1234": {
         "name": "Наклон компенсации AT"
@@ -2292,25 +2292,25 @@
         "name": "Смещение компенсации AT"
       },
       "foxair_1237": {
-        "name": "AT to Stop Frequency Limit in Cooling [R61]"
+        "name": "R61: AT to Stop Frequency Limit in Cooling"
       },
       "foxair_1238": {
-        "name": "Max. Heat Pump Outlet Water Temp. [R62]"
+        "name": "R62: Max. Heat Pump Outlet Water Temp."
       },
       "foxair_1239": {
-        "name": "Target Room Temp. [R70]"
+        "name": "R70: Target Room Temp."
       },
       "foxair_1240": {
-        "name": "Room Temp. Diff. for Power-on in Heating [R71]"
+        "name": "R71: Room Temp. Diff. for Power-on in Heating"
       },
       "foxair_1241": {
-        "name": "Room Temp. Diff. for Standby in Heating [R72]"
+        "name": "R72: Room Temp. Diff. for Standby in Heating"
       },
       "foxair_1242": {
-        "name": "Room Temp. Diff. for Power-on in Cooling [R73]"
+        "name": "R73: Room Temp. Diff. for Power-on in Cooling"
       },
       "foxair_1243": {
-        "name": "Room Temp. Diff. for Standby in Cooling [R74]"
+        "name": "R74: Room Temp. Diff. for Standby in Cooling"
       },
       "foxair_1255": {
         "name": "Текущий системный год"
@@ -2412,58 +2412,58 @@
         "name": "Циркул. насос Таймер 3 Битмаска активности"
       },
       "foxair_1335": {
-        "name": "SG Режим 1 Время спящего режима [SG02]"
+        "name": "SG02: SG Режим 1 Время спящего режима"
       },
       "foxair_1336": {
-        "name": "SG Режим 2 Мощность / мало PV [SG03]"
+        "name": "SG03: SG Режим 2 Мощность / мало PV"
       },
       "foxair_1337": {
-        "name": "SG Режим 3 Мощность / средне PV [SG04]"
+        "name": "SG04: SG Режим 3 Мощность / средне PV"
       },
       "foxair_1338": {
-        "name": "SG Режим 4 Повышение цел. темп. ГВС [SG05]"
+        "name": "SG05: SG Режим 4 Повышение цел. темп. ГВС"
       },
       "foxair_1339": {
-        "name": "SG Режим 4 Повышение цел. темп. отопления [SG06]"
+        "name": "SG06: SG Режим 4 Повышение цел. темп. отопления"
       },
       "foxair_1340": {
-        "name": "SG Режим 4 Повышение цел. темп. охлаждения [SG07]"
+        "name": "SG07: SG Режим 4 Повышение цел. темп. охлаждения"
       },
       "foxair_1342": {
-        "name": "Low Pressure of Limiting Frequency [A38]"
+        "name": "A38: Low Pressure of Limiting Frequency"
       },
       "foxair_1347": {
-        "name": "Max. Comp. Frequency in DHW mode [C12]"
+        "name": "C12: Max. Comp. Frequency in DHW mode"
       },
       "foxair_1348": {
-        "name": "Display-Firmware Parameter C13 [C13]"
+        "name": "C13: Display-Firmware Parameter C13"
       },
       "foxair_1349": {
-        "name": "Display-Firmware Parameter C14 [C14]"
+        "name": "C14: Display-Firmware Parameter C14"
       },
       "foxair_1350": {
-        "name": "Display-Firmware Parameter C15 [C15]"
+        "name": "C15: Display-Firmware Parameter C15"
       },
       "foxair_1351": {
-        "name": "Display-Firmware Parameter E20 [E20]"
+        "name": "E20: Display-Firmware Parameter E20"
       },
       "foxair_1352": {
-        "name": "Display-Firmware Parameter E21 [E21]"
+        "name": "E21: Display-Firmware Parameter E21"
       },
       "foxair_1353": {
-        "name": "Reserved [1353]"
+        "name": "1353: Reserved"
       },
       "foxair_1354": {
-        "name": "Reserved [1354]"
+        "name": "1354: Reserved"
       },
       "foxair_1355": {
-        "name": "Reserved [1355]"
+        "name": "1355: Reserved"
       },
       "foxair_1356": {
-        "name": "H42 Einschalt-AT Gehaeusewannenheizung (D30/1437 erst wirksam, wenn AT kleiner H42 ist) [H42]"
+        "name": "H42: H42 Einschalt-AT Gehaeusewannenheizung (D30/1437 erst wirksam, wenn AT kleiner H42 ist)"
       },
       "foxair_1357": {
-        "name": "Diff. of No Pump On at Low Water Temp. [Z19]"
+        "name": "Z19: Diff. of No Pump On at Low Water Temp."
       },
       "foxair_1371": {
         "name": "Заводской тест / Ручное управление (ASM)"
@@ -2496,25 +2496,25 @@
         "name": "Авто заводской тест Скорость водяного насоса (ASM)"
       },
       "foxair_1432": {
-        "name": "Target Temp. Diff. for Pump Speed Control [P11]"
+        "name": "P11: Target Temp. Diff. for Pump Speed Control"
       },
       "foxair_1433": {
-        "name": "Pump Speed Adjust Range for Each Period [P12]"
+        "name": "P12: Pump Speed Adjust Range for Each Period"
       },
       "foxair_1435": {
-        "name": "Refill Valve Start Cycle (for IDU) [P13]"
+        "name": "P13: Refill Valve Start Cycle (for IDU)"
       },
       "foxair_1436": {
-        "name": "Refill Valve Working Duration (for IDU) [P14]"
+        "name": "P14: Refill Valve Working Duration (for IDU)"
       },
       "foxair_1437": {
-        "name": "Button Heater Delays OFF Time after Defrost [D30]"
+        "name": "D30: Button Heater Delays OFF Time after Defrost"
       },
       "foxair_1438": {
-        "name": "Target Water Pressure (for IDU) [P15]"
+        "name": "P15: Target Water Pressure (for IDU)"
       },
       "foxair_1444": {
-        "name": "Stop Refilling Pressure Diff. (for IDU) [P16]"
+        "name": "P16: Stop Refilling Pressure Diff. (for IDU)"
       }
     },
     "select": {
@@ -2546,21 +2546,21 @@
         "name": "Ручное управление / Тихий режим"
       },
       "foxair_1018": {
-        "name": "Автозапуск [H01]",
+        "name": "H01: Автозапуск",
         "state": {
           "no": "Нет",
           "yes": "Да"
         }
       },
       "foxair_1019": {
-        "name": "Интегр. привод вентилятора и компрессора [H33]",
+        "name": "H33: Интегр. привод вентилятора и компрессора",
         "state": {
           "no": "Нет",
           "yes": "Да"
         }
       },
       "foxair_1020": {
-        "name": "Код параметра [H34]",
+        "name": "H34: Код параметра",
         "state": {
           "no_erp_test": "Без ERP теста",
           "opt_35_c_test_condition": "35°C Test Condition",
@@ -2568,24 +2568,24 @@
         }
       },
       "foxair_1021": {
-        "name": "Режим охлаждения [H05]",
+        "name": "H05: Режим охлаждения",
         "state": {
           "no": "Охлаждение выкл",
           "yes": "Охлаждение вкл"
         }
       },
       "foxair_1023": {
-        "name": "Сухой контакт [H07]",
+        "name": "H07: Сухой контакт",
         "state": {
           "display_control": "Главный",
           "remote_control": "Ведомый"
         }
       },
       "foxair_1024": {
-        "name": "Адрес устройства [H10]"
+        "name": "H10: Адрес устройства"
       },
       "foxair_1027": {
-        "name": "EVI включен [H27]",
+        "name": "H27: EVI включен",
         "state": {
           "no_evi": "Без EVI",
           "evi_for_cooling": "EVI for cooling",
@@ -2594,7 +2594,7 @@
         }
       },
       "foxair_1028": {
-        "name": "Функция отопл./охлажд. и ГВС вкл [H28]",
+        "name": "H28: Функция отопл./охлажд. и ГВС вкл",
         "state": {
           "no": "No",
           "yes": "Yes",
@@ -2602,21 +2602,21 @@
         }
       },
       "foxair_1029": {
-        "name": "Единица темп. [H21]",
+        "name": "H21: Единица темп.",
         "state": {
           "c": "°C",
           "f": "°F"
         }
       },
       "foxair_1030": {
-        "name": "Тихий режим [H22]",
+        "name": "H22: Тихий режим",
         "state": {
           "no": "Тихий выкл",
           "yes": "Тихий вкл"
         }
       },
       "foxair_1032": {
-        "name": "Ступень мощн. электронагревателя [H18]",
+        "name": "H18: Ступень мощн. электронагревателя",
         "state": {
           "stage1": "Ступень 1",
           "stage2": "Ступень 2",
@@ -2624,17 +2624,17 @@
         }
       },
       "foxair_1033": {
-        "name": "Полярность 3-ходового клапана [H20]",
+        "name": "H20: Полярность 3-ходового клапана",
         "state": {
           "hot_water_on": "Hot Water-ON",
           "hot_water_off": "Hot Water-OFF"
         }
       },
       "foxair_1034": {
-        "name": "Режим работы [H29]"
+        "name": "H29: Режим работы"
       },
       "foxair_1035": {
-        "name": "Выбор темп. кондиционера [H25]",
+        "name": "H25: Выбор темп. кондиционера",
         "state": {
           "outlet_water_temp": "Темп. подачи",
           "room_temp": "Комнатная темп.",
@@ -2652,7 +2652,7 @@
         }
       },
       "foxair_1041": {
-        "name": "Тип насоса [H31]",
+        "name": "H31: Тип насоса",
         "state": {
           "no_flow_detection": "Нет датчика потока",
           "grundfos_25_75": "Grundfos(25~75)",
@@ -2663,38 +2663,38 @@
         }
       },
       "foxair_1042": {
-        "name": "Датчик низкого давления [A11]",
+        "name": "A11: Датчик низкого давления",
         "state": {
           "no": "Нет",
           "yes": "Да"
         }
       },
       "foxair_1045": {
-        "name": "Время принуд. перекл. отопл./ГВС [H32]"
+        "name": "H32: Время принуд. перекл. отопл./ГВС"
       },
       "foxair_1046": {
-        "name": "Источник темп. ГВС [H37]",
+        "name": "H37: Источник темп. ГВС",
         "state": {
           "heat_pump_tank_sensor": "Датчик ТН/бака",
           "modbus_central_controller": "Modbus / Central Controller"
         }
       },
       "foxair_1047": {
-        "name": "Разреш. связь разморозки в каскаде [D26]",
+        "name": "D26: Разреш. связь разморозки в каскаде",
         "state": {
           "no": "Нет",
           "yes": "Да"
         }
       },
       "foxair_1052": {
-        "name": "Датчик AT/всасыв./змеевика [A21]",
+        "name": "A21: Датчик AT/всасыв./змеевика",
         "state": {
           "opt_5k": "5K",
           "opt_2k": "2K"
         }
       },
       "foxair_1054": {
-        "name": "Тип хладагента [A26]",
+        "name": "A26: Тип хладагента",
         "state": {
           "r32": "R32",
           "r290": "R290",
@@ -2707,14 +2707,14 @@
         }
       },
       "foxair_1058": {
-        "name": "Вкл. датчик высокого давления [A29]",
+        "name": "A29: Вкл. датчик высокого давления",
         "state": {
           "no": "Нет",
           "yes": "Да"
         }
       },
       "foxair_1059": {
-        "name": "Тип мотора вентилятора [F01]",
+        "name": "F01: Тип мотора вентилятора",
         "state": {
           "legacy_high_speed_fan": "Legacy: High-Speed Fan",
           "legacy_2_stage_fan": "Legacy: 2-Stage Fan",
@@ -2723,7 +2723,7 @@
         }
       },
       "foxair_1069": {
-        "name": "Вкл. многозонное управление [Z01]",
+        "name": "Z01: Вкл. многозонное управление",
         "state": {
           "none": "Без зоны",
           "zone_1_s": "Zone 1-S",
@@ -2738,14 +2738,14 @@
         }
       },
       "foxair_1074": {
-        "name": "Количество [F10]",
+        "name": "F10: Количество",
         "state": {
           "single": "Single",
           "double": "Double"
         }
       },
       "foxair_1077": {
-        "name": "Вкл. кривую компенсации AT Зона2 [Z17]",
+        "name": "Z17: Вкл. кривую компенсации AT Зона2",
         "state": {
           "no": "Нет",
           "yes": "Да"
@@ -2759,40 +2759,40 @@
         }
       },
       "foxair_1081": {
-        "name": "Мин. скорость вент. охлаждения [F18]"
+        "name": "F18: Мин. скорость вент. охлаждения"
       },
       "foxair_1083": {
-        "name": "Мин. скорость вент. в отоплении [F19]"
+        "name": "F19: Мин. скорость вент. в отоплении"
       },
       "foxair_1086": {
-        "name": "Таймер тишины Вкл (ASM V1.3: 243E) [F21]",
+        "name": "F21: Таймер тишины Вкл (ASM V1.3: 243E)",
         "state": {
           "off": "Выкл",
           "on": "Вкл"
         }
       },
       "foxair_1087": {
-        "name": "Ручная скорость вентилятора [F22]",
+        "name": "F22: Ручная скорость вентилятора",
         "state": {
           "no": "Нет",
           "yes": "Да"
         }
       },
       "foxair_1089": {
-        "name": "Номин. скорость DC/AC вентилятора [F23]"
+        "name": "F23: Номин. скорость DC/AC вентилятора"
       },
       "foxair_1111": {
-        "name": "Коррекция времени цикла разморозки [D06]"
+        "name": "D06: Коррекция времени цикла разморозки"
       },
       "foxair_1126": {
-        "name": "Вкл. электронагреватель при разморозке [D21]",
+        "name": "D21: Вкл. электронагреватель при разморозке",
         "state": {
           "no": "Нет",
           "yes": "Да"
         }
       },
       "foxair_1129": {
-        "name": "Источник тепла разморозки в реж. отопл./ГВС [D24]",
+        "name": "D24: Источник тепла разморозки в реж. отопл./ГВС",
         "state": {
           "stay_current_circuit": "Stay Current Circuit",
           "dhw_circuit": "Сторона ГВС/бак",
@@ -2800,7 +2800,7 @@
         }
       },
       "foxair_1131": {
-        "name": "Режим управления EEV [E17]",
+        "name": "E17: Режим управления EEV",
         "state": {
           "manual": "Вручную",
           "auto": "Auto",
@@ -2808,21 +2808,21 @@
         }
       },
       "foxair_1139": {
-        "name": "EVI EEV: Режим регулировки [E09]",
+        "name": "E09: EVI EEV: Режим регулировки",
         "state": {
           "manual": "Вручную",
           "auto": "Auto"
         }
       },
       "foxair_1156": {
-        "name": "Enable Disinfection [G05]",
+        "name": "G05: Enable Disinfection",
         "state": {
           "no": "No",
           "yes": "Yes"
         }
       },
       "foxair_1173": {
-        "name": "Расположение электронагревателя [R35]",
+        "name": "R35: Расположение электронагревателя",
         "state": {
           "not_available": "Not Available",
           "heating_water_circuit": "Heating water circuit",
@@ -2830,7 +2830,7 @@
         }
       },
       "foxair_1197": {
-        "name": "Режим работы осн. циркул. насоса [P01]",
+        "name": "P01: Режим работы осн. циркул. насоса",
         "state": {
           "always_on": "Always On",
           "saving": "Saving",
@@ -2838,7 +2838,7 @@
         }
       },
       "foxair_1201": {
-        "name": "DHW Pump Operation Mode [P05]",
+        "name": "P05: DHW Pump Operation Mode",
         "state": {
           "always_on": "Always On",
           "saving": "Saving",
@@ -2846,7 +2846,7 @@
         }
       },
       "foxair_1202": {
-        "name": "Main Circulation Pump Manual Control [P06]",
+        "name": "P06: Main Circulation Pump Manual Control",
         "state": {
           "no": "No",
           "yes": "Yes"
@@ -2867,13 +2867,13 @@
         }
       },
       "foxair_1221": {
-        "name": "Model Selection [C04]"
+        "name": "C04: Model Selection"
       },
       "foxair_1223": {
-        "name": "Frequenzregelungsmodus [C06]"
+        "name": "C06: Frequenzregelungsmodus"
       },
       "foxair_1236": {
-        "name": "Enable AT Compensation Curve Zone 1 [H36]",
+        "name": "H36: Enable AT Compensation Curve Zone 1",
         "state": {
           "fixed": "Фиксированная",
           "curve": "Погодозависимая (кривая)"
@@ -2925,13 +2925,13 @@
         "name": "Текущий системный месяц"
       },
       "foxair_1268": {
-        "name": "Таймер Вкл/Выкл ТН Таймер 1+2 Актив/Дни битмаска [KG13-KG28]"
+        "name": "KG13-KG28: Таймер Вкл/Выкл ТН Таймер 1+2 Актив/Дни битмаска"
       },
       "foxair_1269": {
-        "name": "Таймер Вкл/Выкл ТН Таймер 3+4 Актив/Дни битмаска [KG29-KG44]"
+        "name": "KG29-KG44: Таймер Вкл/Выкл ТН Таймер 3+4 Актив/Дни битмаска"
       },
       "foxair_1270": {
-        "name": "Таймер Вкл/Выкл ТН Таймер 5+6 Актив/Дни битмаска [KG45-KG60]"
+        "name": "KG45-KG60: Таймер Вкл/Выкл ТН Таймер 5+6 Актив/Дни битмаска"
       },
       "foxair_1286": {
         "name": "Таймер 1 Код режима (ASM; 9 = без смены режима)",
@@ -3009,7 +3009,7 @@
         "name": "Таймер 5+6 Актив/Дни Битмаска (ASM; Low Таймер5, High Таймер6)"
       },
       "foxair_1334": {
-        "name": "Выбор SG Ready [SG01]",
+        "name": "SG01: Выбор SG Ready",
         "state": {
           "off": "Выкл",
           "single_contact": "Один контакт",
@@ -3017,14 +3017,14 @@
         }
       },
       "foxair_1341": {
-        "name": "Electric Heater On in SG Mode4 [SG08]",
+        "name": "SG08: Electric Heater On in SG Mode4",
         "state": {
           "no": "Нет",
           "yes": "Да"
         }
       },
       "foxair_1345": {
-        "name": "External Pump Selection [H40]",
+        "name": "H40: External Pump Selection",
         "state": {
           "hot_water_pump": "Hot Water Pump",
           "warm_water_circulation_pump": "Warm Water Circulation Pump",
@@ -3032,7 +3032,7 @@
         }
       },
       "foxair_1358": {
-        "name": "Enable Zone 1 Water Pump in Cooling [Z20]",
+        "name": "Z20: Enable Zone 1 Water Pump in Cooling",
         "state": {
           "no": "Нет",
           "yes": "Да"

@@ -1,3 +1,7 @@
+## 0.4.20
+- fix(order): revert `0.4.19` `entity_id` (`object_id`) to `0.4.18` — keep `entity_id` stable (`dont change entity names`), only friendly names control order.
+- feat(order): friendly names now `CODE: Name` prefix (`H01: Auto start`, `T02: Outlet...`) exactly like `modbus/tabs.txt` — alphabetical by friendly name == `H→A→F→D→E→R→P→G→C→Z→O→S→T` strong order; `sensor`/`number`/`select` still `sorted(..., key=entity_sort_key)` for creation order.
+
 ## 0.4.19
 - feat(order): strong `entity_id` order via `entity_object_id` — `sensor`/`number`/`select` now `foxair_{block:02d}_{code:03d}_{code}_{addr:05d}` lexically == `modbus/tabs.txt` (handles `E03-1` after `E19`, `Z→O→S→T` vs alphabetical, `H→A` etc) — reinstall (delete+add) recreates `entity_id`s in strict tab order; friendly names unchanged (`Name [CODE]` suffix).
 
