@@ -126,9 +126,29 @@ class FoxAirCoordinator(DataUpdateCoordinator):
         if meta.get("requires_expert") and not self.entry.options.get("enable_expert"):
             return False, meta, f"requires expert mode code={meta.get('code')}"
         if not math.isfinite(value):
+            # TIME_HHMM may be string like "12:34" passed as float? already checked finite for numeric
+            # allow time platform with string
+            if meta.get("platform") == "time":
+                return True, meta, ""
             return False, meta, "non-finite value"
         lo, hi = meta.get("min"), meta.get("max")
         if meta.get("editable") and lo is None and hi is None:
+            # allow selects/time/SG/timers without explicit limits (value_map driven)
+            dtype = (meta.get("type") or "RAW").upper()
+            platform = meta.get("platform")
+            if platform in ("select", "time") or meta.get("has_value_map"):
+                # value_map / time / SG / timers — validate only as Modbus word
+                if dtype in ("SG_MODE", "TIMER_MODE", "MODE_0_4"):
+                    if not (0 <= value <= 10):
+                        return False, meta, f"{dtype} out of range [0,10] got {value}"
+                return True, meta, ""
+            if dtype in ("TIME_HHMM", "TIMER_BITPAIR", "SG_MODE", "BITFIELD", "FAULT_BITS"):
+                return True, meta, ""
+            if dtype == "RAW" and meta.get("risk") in ("safe", "advanced"):
+                # safe RAW like Sprachauswahl — allow 0-65535, device will clip
+                if not (0 <= value <= 65535):
+                    return False, meta, f"RAW out of range [0,65535] got {value}"
+                return True, meta, ""
             return False, meta, f"missing limits code={meta.get('code')}"
         if lo is not None and hi is not None and not (lo - 1e-9 <= value <= hi + 1e-9):
             return False, meta, f"out of range [{lo}, {hi}]"

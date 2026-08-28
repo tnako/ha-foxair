@@ -1,3 +1,6 @@
+## 0.4.14
+- fix(validate): allow `select`/`time`/`SG`/`Timer` without `min/max` (79 addrs had `missing limits` — e.g. `SG01`, `KG*`, `TIMER_MODE`, `TIME_HHMM`) — now permits `value_map`/`safe RAW 0-65535` instead of blocking (keeps `dangerous` RAW block).
+
 ## 0.4.13
 - fix(climate): preset `Cooling` failed "1012 missing limits" — metadata has no min/max for 1012; add hard limits `1011 0-1`, `1012 0-4` bypass in `_validate_write` (also fixes `1011+1012` batch).
 
