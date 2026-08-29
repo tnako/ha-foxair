@@ -461,7 +461,7 @@
         "name": "D25: Max. Water Temp. Decrease during Defrosting"
       },
       "foxair_1131": {
-        "name": "E17: EEV Control Mode"
+        "name": "E01: EEV Adjust Mode"
       },
       "foxair_1132": {
         "name": "E02: Target Superheat for Heating"
@@ -1463,7 +1463,7 @@
         "name": "T? / System 1 Frost Protection Temp 2 / Coil/Frost Temp 2 (ASM V1.3)"
       },
       "foxair_2057": {
-        "name": "Live value 2057 [hidden diagnostic]"
+        "name": "T35: AC Input Current"
       },
       "foxair_2058": {
         "name": "T09: Room Temperature"
@@ -1806,6 +1806,63 @@
       },
       "foxair_heating_power": {
         "name": "Heating Power (calculated)"
+      },
+      "foxair_s_S02": {
+        "name": "S02: Low Pressure Switch"
+      },
+      "foxair_s_S03": {
+        "name": "S03: Flow Switch"
+      },
+      "foxair_s_S04": {
+        "name": "S04: Electric Heater Overload"
+      },
+      "foxair_s_S05": {
+        "name": "S05: Remote Switch"
+      },
+      "foxair_s_S06": {
+        "name": "S06: Air Conditioning Mode Switch"
+      },
+      "foxair_s_S07": {
+        "name": "S07: DHW Switch"
+      },
+      "foxair_s_S10": {
+        "name": "S10: Air Conditioning Switch"
+      },
+      "foxair_h43": {
+        "name": "H43: Normal/Eco"
+      },
+      "foxair_o_o05": {
+        "name": "O05: Main Circulation Pump"
+      },
+      "foxair_o_o06": {
+        "name": "O06: DHW Pump"
+      },
+      "foxair_o_o07": {
+        "name": "O07: 4-Way Valve"
+      },
+      "foxair_o_o08": {
+        "name": "O08: Electric Heater Stage 1"
+      },
+      "foxair_o_o09": {
+        "name": "O09: Electric Heater Stage 2"
+      },
+      "foxair_o_o10": {
+        "name": "O10: Hot Water 3-Way Valve"
+      },
+      "foxair_o_o11": {
+        "name": "O11: Alarm"
+      },
+      "foxair_o_o12": {
+        "name": "O12: Crankcase Heater"
+      },
+      "foxair_o_o13": {
+        "name": "O13: Bottom Plate Heater"
+      },
+      "foxair_o_o15": {
+        "name": "O15: EEV Steps"
+      },
+      "foxair_o_o17": {
+        "name": "O17: EEV(EVI) Steps"
       }
     },
     "climate": {
@@ -2795,7 +2852,7 @@
         }
       },
       "foxair_1131": {
-        "name": "E17: EEV Control Mode",
+        "name": "E01: EEV Adjust Mode",
         "state": {
           "manual": "Manual",
           "auto": "Auto",

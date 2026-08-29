@@ -12,12 +12,9 @@ from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, Upda
 from homeassistant.exceptions import ConfigEntryNotReady
 from pymodbus.client import AsyncModbusTcpClient
 
-_LOGGER = logging.getLogger(__name__)
+from .const import DTYPE_SPEC, MODBUS_MAX_SPAN, MODBUS_MAX_GAP, QUICK_INTERVAL, MEDIUM_INTERVAL, RARE_INTERVAL
 
-# Tier intervals (multiples of 30s base)
-QUICK_INTERVAL = 1  # every poll (30s)
-MEDIUM_INTERVAL = 4  # 120s
-RARE_INTERVAL = 10  # 300s (600s when expert)
+_LOGGER = logging.getLogger(__name__)
 
 
 def s16(v): return v - 0x10000 if v & 0x8000 else v
@@ -32,32 +29,13 @@ def _decode_hhmm(raw: int) -> str:
 
 
 def scaled(dtype, raw):
+    """Scale raw register value using DTYPE_SPEC from const.py."""
     dtype = (dtype or "RAW").upper()
     sv = s16(raw)
-    if dtype in ("TEMP", "TEMP1"):
-        return sv / 10.0
-    if dtype in ("TEMP05", "TEMP_0_5", "STEP_0_5C"):
-        return sv / 2.0
-    if dtype in ("DIGI5", "POWER_KW_X10", "KW_X10", "BAR_X10", "PRESSURE_BAR_X10", "FLOW_M3H_X10", "FLOW_X10", "AMP_X10", "CURRENT_A_X10"):
-        return sv / 10.0
-    if dtype in ("FLOW_M3H_X100", "FLOW_X100", "COP_X100", "COP100"):
-        return sv / 100.0
-    if dtype in ("AMP_X2", "CURRENT_A_X2"):
-        return sv / 2.0
-    if dtype in ("VOLT", "VOLTS", "V", "WATT", "WATTS", "POWER_W", "RPM", "FAN_RPM", "KWH", "ENERGY_KWH", "KWH_PER_H", "KW_PER_H"):
-        return float(sv)
-    if dtype == "DIGI6":
-        return sv / 1000.0
-    if dtype == "DIGI19":
-        return sv / 100.0
-    if dtype == "DIGI4":
-        return sv / 5.0
-    if dtype == "DIGI1":
-        return float(sv)
-    if dtype in ("TIME_HHMM", "HHMM"):
-        return _decode_hhmm(raw)
-    if dtype in ("BITFIELD", "FAULT_BITS", "TIMER_BITPAIR", "TIMER_MODE", "MODE_0_4", "SG_MODE", "RUN_MODE", "DAYS", "HOURS", "MINUTES", "SECONDS", "STEPS_N", "EEV_STEPS", "STEPS", "HZ", "FREQUENCY_HZ"):
-        return float(sv)
+    spec = DTYPE_SPEC.get(dtype)
+    if spec:
+        return sv * spec["scale"]
+    # Fallback for unknown types
     return float(sv)
 
 

@@ -1,0 +1,36 @@
+version: '3'
+
+tasks:
+  validate:
+    desc: Run validation checks (VERSION==manifest, i18n prefixes, syntax)
+    cmds:
+      - python3 tools/validate.py
+
+  build:
+    desc: Regenerate metadata and vendor package
+    cmds:
+      - python3 tools/build_metadata.py
+      - python3 tools/fix_translations.py
+      - python3 tools/gen_foxair_modbus.py
+      - python3 tools/validate.py
+
+  deploy:
+    desc: Deploy to HA host and verify health
+    cmds:
+      - tools/deploy.sh  # reads HA_HOST from .env
+
+  sync_fc:
+    desc: Sync register data to FoxAir_Control repo
+    cmds:
+      - cp custom_components/foxair/data/foxair_phnix_registers.json sibling desktop app repo/data/
+      - cp custom_components/foxair/data/foxair_phnix_knowledge.json sibling desktop app repo/data/
+
+  test:
+    desc: Run all checks
+    cmds:
+      - task: validate
+      - python3 -m py_compile custom_components/foxair/*.py
+      - echo "All checks passed"
+
+default:
+  cmd: task --list

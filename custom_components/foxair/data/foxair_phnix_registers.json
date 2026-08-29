@@ -1695,7 +1695,7 @@
       "2": "Smart"
     },
     "block": "E",
-    "code": "E17",
+    "code": "E01",
     "function": "03/16",
     "last_review": "v0.2.32 video2 2026-06-14",
     "mode": "r/w",
@@ -4818,7 +4818,9 @@
     "type": "RAW",
     "unit": "A",
     "notes": "Firmware V3.3: T35 / AC-Eingangsstrom. T34 / AC-Spannung ist Register 2062.",
-    "last_review": "FW3.3 Reverse Engineering"
+    "last_review": "FW3.3 Reverse Engineering",
+    "code": "T35",
+    "block": "T"
   },
   "2058": {
     "block": "T",

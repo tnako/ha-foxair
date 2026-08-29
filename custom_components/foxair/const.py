@@ -47,9 +47,78 @@ BLOCK_SHORT_DE = {
     "ERR": "Fault",
 }
 
-# Exact code sequence from /work/modbus/tabs.txt — each menu and entity in required order
+# Data type specifications — single source of truth for scaling, units, HA classes
+# Used by coordinator.scaled(), sensor.py DTYPE_MAP, number.py, select.py
+DTYPE_SPEC = {
+    "TEMP1":      {"scale": 0.1,   "unit": "°C",       "device_class": "temperature", "state_class": "measurement"},
+    "TEMP":       {"scale": 0.1,   "unit": "°C",       "device_class": "temperature", "state_class": "measurement"},
+    "TEMP05":     {"scale": 0.5,   "unit": "°C",       "device_class": "temperature", "state_class": "measurement"},
+    "TEMP_0_5":   {"scale": 0.5,   "unit": "°C",       "device_class": "temperature", "state_class": "measurement"},
+    "STEP_0_5C":  {"scale": 0.5,   "unit": "°C",       "device_class": "temperature", "state_class": "measurement"},
+    "VOLT":       {"scale": 1.0,   "unit": "V",        "device_class": "voltage",     "state_class": "measurement"},
+    "VOLTS":      {"scale": 1.0,   "unit": "V",        "device_class": "voltage",     "state_class": "measurement"},
+    "V":          {"scale": 1.0,   "unit": "V",        "device_class": "voltage",     "state_class": "measurement"},
+    "HZ":         {"scale": 1.0,   "unit": "Hz",       "device_class": "frequency",   "state_class": "measurement"},
+    "FREQUENCY_HZ": {"scale": 1.0, "unit": "Hz",       "device_class": "frequency",   "state_class": "measurement"},
+    "PERCENT":    {"scale": 1.0,   "unit": "%",        "device_class": None,          "state_class": "measurement"},
+    "DIGI1":      {"scale": 1.0,   "unit": None,       "device_class": None,          "state_class": "measurement"},
+    "DIGI4":      {"scale": 0.2,   "unit": None,       "device_class": None,          "state_class": "measurement"},
+    "DIGI5":      {"scale": 0.1,   "unit": None,       "device_class": None,          "state_class": "measurement"},
+    "DIGI6":      {"scale": 0.001, "unit": None,       "device_class": None,          "state_class": "measurement"},
+    "DIGI19":     {"scale": 0.01,  "unit": None,       "device_class": None,          "state_class": "measurement"},
+    "FLOW_M3H_X100": {"scale": 0.01,"unit": "m³/h",    "device_class": None,          "state_class": "measurement"},
+    "FLOW_X100":  {"scale": 0.01,  "unit": "m³/h",     "device_class": None,          "state_class": "measurement"},
+    "FLOW_M3H_X10": {"scale": 0.1, "unit": "m³/h",     "device_class": None,          "state_class": "measurement"},
+    "FLOW_X10":   {"scale": 0.1,   "unit": "m³/h",     "device_class": None,          "state_class": "measurement"},
+    "BAR_X10":    {"scale": 0.1,   "unit": "bar",      "device_class": "pressure",    "state_class": "measurement"},
+    "PRESSURE_BAR_X10": {"scale": 0.1,"unit": "bar",   "device_class": "pressure",    "state_class": "measurement"},
+    "AMP_X10":    {"scale": 0.1,   "unit": "A",        "device_class": "current",     "state_class": "measurement"},
+    "CURRENT_A_X10": {"scale": 0.1,"unit": "A",        "device_class": "current",     "state_class": "measurement"},
+    "AMP_X2":     {"scale": 0.5,   "unit": "A",        "device_class": "current",     "state_class": "measurement"},
+    "CURRENT_A_X2": {"scale": 0.5, "unit": "A",        "device_class": "current",     "state_class": "measurement"},
+    "POWER_KW_X10": {"scale": 0.1, "unit": "kW",       "device_class": "power",       "state_class": "measurement"},
+    "KW_X10":     {"scale": 0.1,   "unit": "kW",       "device_class": "power",       "state_class": "measurement"},
+    "WATT":       {"scale": 1.0,   "unit": "W",        "device_class": "power",       "state_class": "measurement"},
+    "WATTS":      {"scale": 1.0,   "unit": "W",        "device_class": "power",       "state_class": "measurement"},
+    "POWER_W":    {"scale": 1.0,   "unit": "W",        "device_class": "power",       "state_class": "measurement"},
+    "RPM":        {"scale": 1.0,   "unit": "rpm",      "device_class": None,          "state_class": "measurement"},
+    "FAN_RPM":    {"scale": 1.0,   "unit": "rpm",      "device_class": None,          "state_class": "measurement"},
+    "KWH":        {"scale": 1.0,   "unit": "kWh",      "device_class": "energy",      "state_class": "total_increasing"},
+    "ENERGY_KWH": {"scale": 1.0,   "unit": "kWh",      "device_class": "energy",      "state_class": "total_increasing"},
+    "KWH_PER_H":  {"scale": 1.0,   "unit": "kWh",      "device_class": "energy",      "state_class": "total_increasing"},
+    "KW_PER_H":   {"scale": 1.0,   "unit": "kW",       "device_class": "power",       "state_class": "measurement"},
+    "COP_X100":   {"scale": 0.01,  "unit": None,       "device_class": None,          "state_class": "measurement"},
+    "COP100":     {"scale": 0.01,  "unit": None,       "device_class": None,          "state_class": "measurement"},
+    "STEPS":      {"scale": 1.0,   "unit": None,       "device_class": None,          "state_class": "measurement"},
+    "STEPS_N":    {"scale": 1.0,   "unit": None,       "device_class": None,          "state_class": "measurement"},
+    "EEV_STEPS":  {"scale": 1.0,   "unit": None,       "device_class": None,          "state_class": "measurement"},
+    "DAYS":       {"scale": 1.0,   "unit": "d",        "device_class": None,          "state_class": "measurement"},
+    "HOURS":      {"scale": 1.0,   "unit": "h",        "device_class": None,          "state_class": "measurement"},
+    "MINUTES":    {"scale": 1.0,   "unit": "min",      "device_class": None,          "state_class": "measurement"},
+    "SECONDS":    {"scale": 1.0,   "unit": "s",        "device_class": None,          "state_class": "measurement"},
+    "MODE_0_4":   {"scale": 1.0,   "unit": None,       "device_class": None,          "state_class": "measurement"},
+    "SG_MODE":    {"scale": 1.0,   "unit": None,       "device_class": None,          "state_class": "measurement"},
+    "RUN_MODE":   {"scale": 1.0,   "unit": None,       "device_class": None,          "state_class": "measurement"},
+    "BITFIELD":   {"scale": 1.0,   "unit": None,       "device_class": None,          "state_class": "measurement"},
+    "FAULT_BITS": {"scale": 1.0,   "unit": None,       "device_class": None,          "state_class": "measurement"},
+    "TIMER_BITPAIR": {"scale": 1.0,"unit": None,       "device_class": None,          "state_class": "measurement"},
+    "TIMER_MODE": {"scale": 1.0,   "unit": None,       "device_class": None,          "state_class": "measurement"},
+    "TIME_HHMM":  {"scale": 1.0,   "unit": None,       "device_class": None,          "state_class": "measurement"},
+    "HHMM":       {"scale": 1.0,   "unit": None,       "device_class": None,          "state_class": "measurement"},
+    "RAW":        {"scale": 1.0,   "unit": None,       "device_class": None,          "state_class": "measurement"},
+}
+
+# Tier intervals (multiples of 30s base)
+QUICK_INTERVAL = 1  # every poll (30s)
+MEDIUM_INTERVAL = 4  # 120s
+RARE_INTERVAL = 10  # 300s (600s when expert)
+
+# EW11 gateway limits — do not exceed
+MODBUS_MAX_SPAN = 45
+MODBUS_MAX_GAP = 8
+
+# Exact code sequence from modbus/tabs.txt — each menu and entity in required order
 TABS_CODE_ORDER = [
-    "H01","H05","H07","H10","H18","H20","H21","H22","H25","H27","H28","H29","H30","H31","H32","H33","H36","H37","H40","H42","H43",
     "A03","A04","A05","A06","A11","A21","A22","A23","A24","A25","A26","A27","A28","A29","A30","A31","A32","A33","A34","A35","A38","A39","A40",
     "F01","F02","F03","F05","F06","F10","F18","F19","F22","F23","F25","F26","F27","F28","F29",
     "D01","D02","D03","D04","D05-1","D05-2","D06","D07","D08","D09","D14","D15","D16","D17","D18","D19","D20","D21","D22","D23","D24","D25","D26","D30",
