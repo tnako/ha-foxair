@@ -1,3 +1,6 @@
+## 0.4.22
+- fix(sensor): `NameError: name 'code' is not defined` in `_sensor_key` — 0.4.20 removed the `code = ...` assignment but kept `entity_sort_key(addr, code, block)`, so the whole sensor platform failed to set up (all ~170 sensors incl. every `T` Diagnostics entity were missing; only legacy `modbus`-platform sensors remained). Restored the assignment.
+
 ## 0.4.21
 - fix(i18n): de-dup `CODE: CODE ...` double prefix (`H42: H42 Einschalt...`, `D30: D30 ...`) and add missing `T-Diag`/`H30`/`Z08`/`E03-*` prefixes — all `strings.json`/`en`/`de`/`ru` now strictly `CODE: Name` like `modbus/tabs.txt` for strong friendly-name sort; no `entity_id` change (stable).
 - fix(devices): validate `T`/`O`/`S`/`ERR` still create `FoxAir — Diagnostics/Live [T]` etc via `device_for_addr` — `T`/`O` missing on `HA-host` was `modbus` yaml overlap, `ha-foxair` `T` now 54 `quick+medium` polled and shown.

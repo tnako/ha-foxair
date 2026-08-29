@@ -56,6 +56,7 @@ async def async_setup_entry(hass, entry, add_entities):
         info = rec.get("info", {}) if isinstance(rec, dict) else {}
         meta = coord.get_metadata(addr) if hasattr(coord, "get_metadata") else {}
         block = (meta.get("block") or info.get("block") or "")
+        code = (meta.get("code") or info.get("code") or "")
         return entity_sort_key(addr, code, block)
     for addr, rec in sorted(coord.data.items(), key=_sensor_key):
         if rec.get("info", {}).get("type") == "BLOCK":
