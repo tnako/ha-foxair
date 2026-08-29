@@ -25,6 +25,10 @@ tasks:
       - cp custom_components/foxair/data/foxair_phnix_registers.json sibling desktop app repo/data/
       - cp custom_components/foxair/data/foxair_phnix_knowledge.json sibling desktop app repo/data/
 
+  check_regs:  ## Check every register: HA state vs device (add --direct for Modbus)
+    cmds:
+      - python3 tools/check_regs.py
+
   test:
     desc: Run all checks
     cmds:

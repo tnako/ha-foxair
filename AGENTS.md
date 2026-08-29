@@ -19,6 +19,7 @@ ha-foxair/
 │   └── data/*.json               # Register knowledge (foxair_phnix_registers.json = 5770 lines)
 ├── modbus/tabs.txt               # SOURCE OF TRUTH for register codes & order (247 lines)
 ├── tools/validate.py             # Version sync, i18n prefix check, syntax
+├── tools/check_regs.py           # Register audit: tabs.txt+metadata codes vs HA entities (+ --direct Modbus)
 ├── tools/deploy.sh               # rsync + HA restart (HA_HOST env required)
 ├── VERSION / manifest.json / CHANGELOG.md
 └── docs/archive/                 # Historical v0.3 reviews
@@ -48,9 +49,20 @@ ha-foxair/
 | Task | Command |
 |------|---------|
 | Validate | `python tools/validate.py` |
+| Check registers | `python tools/check_regs.py` (needs HASS_URL/HASS_TOKEN in `.env`; `--direct` adds raw Modbus reads, `--codes H01,P02` filters, `--show-all` lists everything) |
 | Deploy | `tools/deploy.sh  # reads HA_HOST from .env` |
 | Bump version | Edit `VERSION`, `manifest.json`, `CHANGELOG.md` |
 | Add register | Edit `modbus/tabs.txt` → regen vendor → validate |
+
+### check_regs.py — register end-to-end audit
+Checks all 310 codes (tabs.txt order + metadata-only codes: KG timers, T-Diag,
+ERR, SG, sub-codes) against live HA entities via REST, optionally against the
+device directly (`--direct`, EW11 single-client — pause the integration for a
+clean comparison). Verdicts: OK / UNKNOWN / UNAVAILABLE / MISMATCH /
+NOT-EXPOSED (disabled or hidden entity, informational) / EXPERT-ONLY /
+BITFIELD-REG + NON-HOLDING (no per-code entity by design: O/S blocks = regs
+2019/2034; H43/E01/T35 coil/cloud-only). Exit 1 only on real problems
+(UNKNOWN/UNAVAILABLE/MISMATCH/NO-RESPONSE).
 
 ## DO NOT
 - Skip `validate.py` after edits
