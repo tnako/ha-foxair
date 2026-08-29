@@ -1,46 +1,14 @@
 from homeassistant.components.sensor import SensorEntity, SensorDeviceClass, SensorStateClass
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.helpers.entity import EntityCategory
-from .const import DOMAIN, DEVICE, POPULAR_ADDRS, device_for_addr, main_device, entity_sort_key
+from .const import DOMAIN, DEVICE, POPULAR_ADDRS, device_for_addr, main_device, entity_sort_key, DTYPE_SPEC
 
-DTYPE_MAP = {
-    "TEMP1": (SensorDeviceClass.TEMPERATURE, "°C", SensorStateClass.MEASUREMENT),
-    "TEMP": (SensorDeviceClass.TEMPERATURE, "°C", SensorStateClass.MEASUREMENT),
-    "TEMP05": (SensorDeviceClass.TEMPERATURE, "°C", SensorStateClass.MEASUREMENT),
-    "VOLT": (SensorDeviceClass.VOLTAGE, "V", SensorStateClass.MEASUREMENT),
-    "HZ": (SensorDeviceClass.FREQUENCY, "Hz", SensorStateClass.MEASUREMENT),
-    "PERCENT": (None, "%", SensorStateClass.MEASUREMENT),
-    "DIGI1": (None, None, SensorStateClass.MEASUREMENT),
-    "DIGI4": (None, None, SensorStateClass.MEASUREMENT),
-    "DIGI5": (None, None, SensorStateClass.MEASUREMENT),
-    "DIGI6": (None, None, SensorStateClass.MEASUREMENT),
-    "DIGI19": (None, None, SensorStateClass.MEASUREMENT),
-    "FLOW_M3H_X100": (None, "m³/h", SensorStateClass.MEASUREMENT),
-    "FLOW_M3H_X10": (None, "m³/h", SensorStateClass.MEASUREMENT),
-    "BAR_X10": (SensorDeviceClass.PRESSURE, "bar", SensorStateClass.MEASUREMENT),
-    "AMP_X10": (SensorDeviceClass.CURRENT, "A", SensorStateClass.MEASUREMENT),
-    "AMP_X2": (SensorDeviceClass.CURRENT, "A", SensorStateClass.MEASUREMENT),
-    "POWER_KW_X10": (SensorDeviceClass.POWER, "kW", SensorStateClass.MEASUREMENT),
-    "KWH": (SensorDeviceClass.ENERGY, "kWh", SensorStateClass.TOTAL_INCREASING),
-    "WATT": (SensorDeviceClass.POWER, "W", SensorStateClass.MEASUREMENT),
-    "RPM": (None, "rpm", SensorStateClass.MEASUREMENT),
-    "COP_X100": (None, None, SensorStateClass.MEASUREMENT),
-    "STEPS_N": (None, "steps", SensorStateClass.MEASUREMENT),
-    "MINUTES": (None, "min", SensorStateClass.MEASUREMENT),
-    "SECONDS": (None, "s", SensorStateClass.MEASUREMENT),
-    "HOURS": (None, "h", SensorStateClass.MEASUREMENT),
-    "DAYS": (None, "days", SensorStateClass.MEASUREMENT),
-    "TIME_HHMM": (None, None, None),
-    "BITFIELD": (None, None, None),
-    "TIMER_BITPAIR": (None, None, None),
-    "TIMER_MODE": (None, None, None),
-    "SG_MODE": (None, None, None),
-    "MODE_0_4": (None, None, None),
-    "U16": (None, None, None),
-    "ASCII": (None, None, None),
-    "RAW": (None, None, None),
-    "BLOCK": (None, None, None),
-}
+# Build DTYPE_MAP from DTYPE_SPEC for backwards compatibility
+DTYPE_MAP = {}
+for dtype, spec in DTYPE_SPEC.items():
+    device_class = getattr(SensorDeviceClass, spec["device_class"].upper()) if spec["device_class"] else None
+    state_class = getattr(SensorStateClass, spec["state_class"].upper()) if spec["state_class"] else None
+    DTYPE_MAP[dtype] = (device_class, spec["unit"], state_class)
 
 HIDDEN = {2057}
 

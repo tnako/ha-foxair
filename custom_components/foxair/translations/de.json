@@ -461,7 +461,7 @@
         "name": "D25: Max. Einlasswassertemperaturabfall beim Abtauen"
       },
       "foxair_1131": {
-        "name": "E17: EEV Regelmodus"
+        "name": "E01: EEV Regelmodus"
       },
       "foxair_1132": {
         "name": "E02: Ziel-Überhitzung Heizen"
@@ -1463,7 +1463,7 @@
         "name": "T? / System 1 Frostschutztemperatur 2 / Coil/Frost Temp 2 (ASM V1.3)"
       },
       "foxair_2057": {
-        "name": "T35 / AC Input Current"
+        "name": "T35: / AC Input Current"
       },
       "foxair_2058": {
         "name": "T09: Raumtemperatur"
@@ -1806,6 +1806,63 @@
       },
       "foxair_heating_power": {
         "name": "Heizleistung (berechnet)"
+      },
+      "foxair_s_S02": {
+        "name": "S02: Niederdruckschalter"
+      },
+      "foxair_s_S03": {
+        "name": "S03: Wasserflussschalter"
+      },
+      "foxair_s_S04": {
+        "name": "S04: Überhitzungsschalter elektrischer Heizer"
+      },
+      "foxair_s_S05": {
+        "name": "S05: Fern-AN/AUS"
+      },
+      "foxair_s_S06": {
+        "name": "S06: Fernheizung/Kühlung"
+      },
+      "foxair_s_S07": {
+        "name": "S07: Warmwasserschalter"
+      },
+      "foxair_s_S10": {
+        "name": "S10: Heizen/Kühlen AN/AUS"
+      },
+      "foxair_h43": {
+        "name": "H43: Normal/Eco"
+      },
+      "foxair_o_o05": {
+        "name": "O05: Hauptumwälzpumpe"
+      },
+      "foxair_o_o06": {
+        "name": "O06: WW-Pumpe"
+      },
+      "foxair_o_o07": {
+        "name": "O07: 4-Wege-Ventil"
+      },
+      "foxair_o_o08": {
+        "name": "O08: Elektroheizer Stufe 1"
+      },
+      "foxair_o_o09": {
+        "name": "O09: Elektroheizer Stufe 2"
+      },
+      "foxair_o_o10": {
+        "name": "O10: WW 3-Wege-Ventil"
+      },
+      "foxair_o_o11": {
+        "name": "O11: Alarm"
+      },
+      "foxair_o_o12": {
+        "name": "O12: Kurbelwannenheizung"
+      },
+      "foxair_o_o13": {
+        "name": "O13: Bodenplattenheizung"
+      },
+      "foxair_o_o15": {
+        "name": "O15: EEV Schritte"
+      },
+      "foxair_o_o17": {
+        "name": "O17: EEV(EVI) Schritte"
       }
     },
     "climate": {
@@ -2800,7 +2857,7 @@
         }
       },
       "foxair_1131": {
-        "name": "E17: EEV Regelmodus",
+        "name": "E01: EEV Regelmodus",
         "state": {
           "manual": "Manual",
           "auto": "Auto",
