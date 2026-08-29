@@ -1,7 +1,7 @@
 from homeassistant.components.sensor import SensorEntity, SensorDeviceClass, SensorStateClass
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.helpers.entity import EntityCategory
-from .const import DOMAIN, DEVICE, POPULAR_ADDRS, device_for_addr, main_device, entity_sort_key, DTYPE_SPEC
+from .const import DOMAIN, EXPERT_BLOCKS, DEVICE, POPULAR_ADDRS, device_for_addr, main_device, entity_sort_key, DTYPE_SPEC
 
 # Build DTYPE_MAP from DTYPE_SPEC for backwards compatibility
 DTYPE_MAP = {}
@@ -32,6 +32,9 @@ async def async_setup_entry(hass, entry, add_entities):
         # honor metadata blocked
         meta = coord.get_metadata(addr) if hasattr(coord, "get_metadata") else {}
         if meta.get("risk") == "blocked":
+            continue
+        # expert-gated (whole expert blocks + dangerous) sensors: skip unless expert on
+        if meta.get("requires_expert") and not entry.options.get("enable_expert"):
             continue
         if meta.get("editable") and meta.get("platform") in ("number", "select"):
             continue
@@ -94,6 +97,15 @@ class FoxSensor(CoordinatorEntity, SensorEntity):
                 self._attr_entity_category = EntityCategory.DIAGNOSTIC
         # icon: prefer metadata icon, fallback to heat-pump MDI (works even if brand/ PNG missing)
         self._attr_icon = (meta.get("icon") or "mdi:heat-pump") if meta else "mdi:heat-pump"
+
+    @property
+    def available(self):
+        """Dynamic availability: hide expert entities when expert mode is off."""
+        meta = self.coordinator.get_metadata(self._addr) if hasattr(self.coordinator, "get_metadata") else {}
+        if meta.get("requires_expert") and not self.coordinator.entry.options.get("enable_expert"):
+            return False
+        return super().available
+
     @property
     def native_value(self):
         rec = self.coordinator.data.get(self._addr)

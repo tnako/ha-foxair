@@ -90,6 +90,13 @@ class FoxNumber(CoordinatorEntity, NumberEntity):
         if dc: self._attr_device_class = dc
 
     @property
+    def available(self):
+        """Dynamic availability: hide expert entities when expert mode is off."""
+        if self._meta.get("requires_expert") and not self.coordinator.entry.options.get("enable_expert"):
+            return False
+        return super().available
+
+    @property
     def native_value(self):
         # optimistic value shown while a write round-trip is in flight
         if self._optimistic is not None:

@@ -35,6 +35,13 @@ class FoxAirConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 client = AsyncModbusTcpClient(host=host, port=port, timeout=5)
                 try:
                     ok = await client.connect()
+                    # verify real Modbus answer, not just open TCP: read 3 popular addrs in one batch
+                    if ok:
+                        try:
+                            rr = await client.read_holding_registers(address=1011, count=3, device_id=slave)
+                        except TypeError:
+                            rr = await client.read_holding_registers(address=1011, count=3, slave=slave)
+                        ok = bool(rr and not rr.isError() and getattr(rr, "registers", None))
                 except Exception as e:
                     _LOGGER.debug("probe connect failed %s:%s %s", host, port, e)
                     ok = False
