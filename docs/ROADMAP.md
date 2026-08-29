@@ -1,6 +1,6 @@
 # Roadmap
 
-**Current:** `0.4.3` — HA **≥2026.3** via pip `modbus-connection[pymodbus]>=4.8` + vendored `foxair-modbus` (owned `ModbusConnection`, pooled reads `max_span=65`/`max_gap=12`, 469 fields, 595 translations sorted numerically). No HA 2026.9 required.
+**Current:** `0.4.22` — HA **≥2026.3** via pip `modbus-connection[pymodbus]>=4.8` + vendored `foxair-modbus` (owned `ModbusConnection`, pooled reads `max_span=45`/`max_gap=8`, 591 registers, 595 translations sorted numerically). No HA 2026.9 required.
 
 What shipped in 0.4.x:
 - **0.4.0** — migrate from `AsyncModbusTcpClient`+12 `POLL_BLOCKS` to `modbus-connection` `Component` (`gauge`/`integer`), pooled reads, ~35% slimmer coordinator

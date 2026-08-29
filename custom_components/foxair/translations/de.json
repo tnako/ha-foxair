@@ -1807,25 +1807,25 @@
       "foxair_heating_power": {
         "name": "Heizleistung (berechnet)"
       },
-      "foxair_s_S02": {
+      "foxair_s_s02": {
         "name": "S02: Niederdruckschalter"
       },
-      "foxair_s_S03": {
+      "foxair_s_s03": {
         "name": "S03: Wasserflussschalter"
       },
-      "foxair_s_S04": {
+      "foxair_s_s04": {
         "name": "S04: Überhitzungsschalter elektrischer Heizer"
       },
-      "foxair_s_S05": {
+      "foxair_s_s05": {
         "name": "S05: Fern-AN/AUS"
       },
-      "foxair_s_S06": {
+      "foxair_s_s06": {
         "name": "S06: Fernheizung/Kühlung"
       },
-      "foxair_s_S07": {
+      "foxair_s_s07": {
         "name": "S07: Warmwasserschalter"
       },
-      "foxair_s_S10": {
+      "foxair_s_s10": {
         "name": "S10: Heizen/Kühlen AN/AUS"
       },
       "foxair_h43": {

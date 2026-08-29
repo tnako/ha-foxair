@@ -117,7 +117,7 @@ class FoxAir(Component):
     reg_1128 = gauge(1128, 1.0, writable=True, unit="min")  # D23 MINUTES
     reg_1129 = integer(1129, signed=True, writable=True)  # D24 DIGI1
     reg_1130 = gauge(1130, 0.1, writable=True)  # D25 TEMP1 Max. Einlasswassertemperaturabfall beim Abtauen
-    reg_1131 = integer(1131, signed=True, writable=True)  # E17 DIGI1
+    reg_1131 = integer(1131, signed=True, writable=True)  # E01 DIGI1
     reg_1132 = gauge(1132, 0.1, writable=True, unit="°C")  # E02 TEMP1 Ziel-Überhitzung Heizen
     reg_1133 = gauge(1133, 1.0, writable=True, unit="N")  # E03 STEPS_N
     reg_1134 = gauge(1134, 1.0, writable=True, unit="%")  # Z14 PERCENT

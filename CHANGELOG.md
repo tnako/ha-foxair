@@ -1,3 +1,8 @@
+## 0.4.23
+- fix(i18n): lowercase translation keys (`foxair_s_s02`..`s10`) — HA rejects uppercase in keys
+- fix(vendor): correct register 1131 comment `# E01 DIGI1` (was wrong `# E17`)
+- chore(docs): remove stale v0.3 archive, fix `max_span`/`max_gap` in DEBUG.md, sync ROADMAP to 0.4.22
+
 ## 0.4.22
 - fix(sensor): `NameError: name 'code' is not defined` in `_sensor_key` — 0.4.20 removed the `code = ...` assignment but kept `entity_sort_key(addr, code, block)`, so the whole sensor platform failed to set up (all ~170 sensors incl. every `T` Diagnostics entity were missing; only legacy `modbus`-platform sensors remained). Restored the assignment.
 

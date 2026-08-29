@@ -2,7 +2,7 @@
 
 Control and monitor your **FoxAir / PHNIX air-to-water heat pump** directly from Home Assistant over Modbus TCP — no cloud, no YAML.
 
-![Version](https://img.shields.io/badge/version-0.4.22-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2026.3-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
+![Version](https://img.shields.io/badge/version-0.4.23-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2026.3-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
 Registers and scaling are based on the reverse-engineering in [dosordie/FoxAir_Control](https://github.com/dosordie/FoxAir_Control) (591 registers, FoxAir_Control 0.2.62 / 5607b5a).
 
@@ -39,7 +39,7 @@ Device appears as **FoxAir Heat Pump** with sub-devices per block (`R` setpoints
 
 ## Manual installation
 
-Copy `custom_components/foxair` to `/config/custom_components/foxair` on your HA host (HAOS: `scp -r custom_components/foxair root@your-ha:/usr/share/hassio/homeassistant/custom_components/`), restart.
+Copy `custom_components/foxair` to `/config/custom_components/foxair` on your HA host (HAOS: `scp -r custom_components/foxair root@homeassistant.local:/usr/share/hassio/homeassistant/custom_components/`), restart.
 
 ## Configuration
 
