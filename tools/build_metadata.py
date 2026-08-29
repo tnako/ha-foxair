@@ -45,6 +45,10 @@ APP_TAB_TITLES = {
     "ERR": "Fault",
 }
 
+# Whole tabs that are expert-only (hidden entirely until expert mode is on).
+# Normal mode keeps: main device, R Setpoints, T Diagnostics/Live, SG Ready, KG Timer, ERR Fault.
+EXPERT_BLOCKS = {"H", "A", "F", "D", "E", "C", "P", "Z", "G"}
+
 # Risk tiers: safe (everyday), advanced (installer/normal config, visible in CONFIG), dangerous (can damage/brick -> expert only)
 RISK_BY_BLOCK = {
     "R": "safe",       # setpoints: target/min/max temps
@@ -217,8 +221,14 @@ def main():
         risk = RISK_OVERRIDES.get(addr, RISK_BY_BLOCK.get(block, "advanced" if editable else "safe"))
         if dtype == "BLOCK":
             risk = "blocked"
-        requires_expert = risk == "dangerous"
-        if risk == "dangerous":
+        requires_expert = risk == "dangerous" or block in EXPERT_BLOCKS
+        # Orphan addrs without block/code (reserved / header / factory-test leftovers)
+        # are expert-only, EXCEPT core control/curve addrs used by climate & main device:
+        # 1011-1017 On/Off+mode, 1212-1214 offsets, 1234-1235 curve slope/offset.
+        if not block and not code and addr not in (
+            1011, 1012, 1013, 1014, 1015, 1016, 1017,
+            1212, 1213, 1214, 1234, 1235,
+        ):
             requires_expert = True
         # min/max from knowledge
         kd = know.get(addr_str, {}) if isinstance(know.get(addr_str), dict) else {}

@@ -3,6 +3,10 @@ from homeassistant.helpers.entity import DeviceInfo
 
 DOMAIN = "foxair"
 
+# Whole tabs that are expert-only (hidden entirely until expert mode is on).
+# Normal mode keeps: main device, R Setpoints, T Diagnostics/Live, SG Ready, KG Timer, ERR Fault.
+EXPERT_BLOCKS = {"H", "A", "F", "D", "E", "C", "P", "Z", "G"}
+
 # Order MUST match tabs.txt Tab sequence: H, A, F, D, E, R, P, G, C, Z, O, S, T
 # SG/KG/ERR are appended after (not in tabs.txt)
 BLOCK_ORDER = ["H", "A", "F", "D", "E", "R", "P", "G", "C", "Z", "O", "S", "T", "SG", "KG", "ERR"]

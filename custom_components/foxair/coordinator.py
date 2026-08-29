@@ -58,6 +58,9 @@ class FoxAirCoordinator(DataUpdateCoordinator):
         self._write_futures: list[asyncio.Future] = []
         self._write_flush_task: asyncio.Task | None = None
         self._write_delay = 3.0
+        self._startup_catchup_done = False
+        self._medium_done = False
+        self._rare_done = False
 
     async def _load_map(self):
         p = pathlib.Path(__file__).parent / "data/foxair_phnix_registers.json"
@@ -80,10 +83,19 @@ class FoxAirCoordinator(DataUpdateCoordinator):
     def get_metadata(self, addr: int) -> dict:
         return (getattr(self, "_metadata", {}) or {}).get(str(addr), {})
 
-    def _tier_addrs(self, tier: str) -> set[int]:
+    def _tier_addrs(self, tier: str, expert: bool) -> set[int]:
         if not self._metadata:
             return set()
-        return {int(k) for k, v in self._metadata.items() if v.get("poll_tier") == tier and k.isdigit()}
+        # Known-dead ranges: 200-215 PHNIX product ASCII (needs FC10, EW11 no answer), >=50000 board info.
+        # Expert gating applies to ALL tiers: with expert off, expert-block addrs are not polled.
+        return {
+            int(k)
+            for k, v in self._metadata.items()
+            if v.get("poll_tier") == tier and k.isdigit()
+            and v.get("risk") != "blocked"
+            and (expert or not v.get("requires_expert"))
+            and not (200 <= int(k) <= 215 or int(k) >= 50000)
+        }
 
     def _validate_write(self, addr: int, value: float) -> tuple[bool, dict, str]:
         meta = self.get_metadata(addr)
@@ -333,29 +345,35 @@ class FoxAirCoordinator(DataUpdateCoordinator):
             # Tier selection
             self._poll_counter += 1
             is_first = self.stats["polls"] == 0
-            do_quick = True
-            do_medium = is_first or (self._poll_counter % MEDIUM_INTERVAL == 0)
             enable_expert = bool(self.entry.options.get("enable_expert"))
-            rare_interval = RARE_INTERVAL * 2 if enable_expert else RARE_INTERVAL  # 600s expert, 300s non-expert
-            do_rare = (self._poll_counter % rare_interval == 0)
+            # Startup catch-up: first refresh polls quick only (fast setup);
+            # medium/rare follow on later ticks via the normal schedule + _rare_done.
+            if is_first:
+                do_quick = True
+                do_medium = False
+                do_rare = False
+            else:
+                do_quick = True
+                do_medium = (self._poll_counter % MEDIUM_INTERVAL == 0)
+                rare_interval = RARE_INTERVAL * 2 if enable_expert else RARE_INTERVAL  # 600s expert, 300s non-expert
+                do_rare = (self._poll_counter % rare_interval == 0)
+                # startup catch-up: poll 2 = +medium, poll 3 = +rare (spread, no burst)
+                if not self._medium_done and self._poll_counter >= 2:
+                    do_medium = True
+                    self._medium_done = True
+                if not self._rare_done and self._poll_counter >= 3:
+                    do_rare = True
+                    self._rare_done = True
             addrs: set[int] = set()
             if do_quick:
-                addrs.update(self._tier_addrs("quick"))
+                addrs.update(self._tier_addrs("quick", enable_expert))
             if do_medium:
-                addrs.update(self._tier_addrs("medium"))
+                addrs.update(self._tier_addrs("medium", enable_expert))
             if do_rare:
-                rare_addrs = self._tier_addrs("rare")
-                if not enable_expert:
-                    rare_addrs = {a for a in rare_addrs if self._metadata.get(str(a), {}).get("risk") == "safe"}
-                    if not rare_addrs:
-                        do_rare = False
-                    else:
-                        addrs.update(rare_addrs)
-                else:
-                    addrs.update(rare_addrs)
+                addrs.update(self._tier_addrs("rare", enable_expert))
             # Fallback to at least quick if empty
             if not addrs:
-                addrs = self._tier_addrs("quick")
+                addrs = self._tier_addrs("quick", enable_expert)
             batches = self._batches_for_addrs(addrs, max_span=45, max_gap=8)
             t0 = time.monotonic()
             out: dict[int, dict] = {}

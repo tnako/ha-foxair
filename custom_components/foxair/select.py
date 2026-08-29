@@ -228,6 +228,13 @@ class FoxSelect(CoordinatorEntity, SelectEntity):
                 self._slug_to_raw = {"0": "0", "1": "1"}
 
     @property
+    def available(self):
+        """Dynamic availability: hide expert entities when expert mode is off."""
+        if self._meta.get("requires_expert") and not self.coordinator.entry.options.get("enable_expert"):
+            return False
+        return super().available
+
+    @property
     def current_option(self):
         if self._optimistic is not None:
             return self._optimistic
