@@ -1807,25 +1807,25 @@
       "foxair_heating_power": {
         "name": "Heating Power (calculated)"
       },
-      "foxair_s_S02": {
+      "foxair_s_s02": {
         "name": "S02: Low Pressure Switch"
       },
-      "foxair_s_S03": {
+      "foxair_s_s03": {
         "name": "S03: Flow Switch"
       },
-      "foxair_s_S04": {
+      "foxair_s_s04": {
         "name": "S04: Electric Heater Overload"
       },
-      "foxair_s_S05": {
+      "foxair_s_s05": {
         "name": "S05: Remote Switch"
       },
-      "foxair_s_S06": {
+      "foxair_s_s06": {
         "name": "S06: Air Conditioning Mode Switch"
       },
-      "foxair_s_S07": {
+      "foxair_s_s07": {
         "name": "S07: DHW Switch"
       },
-      "foxair_s_S10": {
+      "foxair_s_s10": {
         "name": "S10: Air Conditioning Switch"
       },
       "foxair_h43": {
