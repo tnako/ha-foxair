@@ -1804,6 +1804,20 @@
       "foxair_heating_curve_target": {
         "name": "Цель кривой отопления"
       },
+      "foxair_heating_curve": {
+        "name": "Кривая отопления",
+        "legend_curve": "Цель кривой (AT-компенсация)",
+        "legend_fixed": "Фикс. уставка (постоянная)",
+        "legend_after": "После компенсации (live)",
+        "legend_live": "Текущая температура на улице",
+        "legend_band": "Диапазон (R10–R11)",
+        "mode_curve": "AT-компенсация (кривая)",
+        "mode_fixed": "Константа (фикс.)",
+        "wait": "Ожидание данных",
+        "wait_sub": "Первый опрос (quick 30 с)",
+        "axis_x": "Температура на улице (AT)",
+        "axis_y": "Температура подачи"
+      },
       "foxair_heating_power": {
         "name": "Тепловая мощность (расчёт)"
       },

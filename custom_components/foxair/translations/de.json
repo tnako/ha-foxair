@@ -1804,6 +1804,20 @@
       "foxair_heating_curve_target": {
         "name": "Heizkurven-Zieltemperatur"
       },
+      "foxair_heating_curve": {
+        "name": "Heizkurve",
+        "legend_curve": "Kurvenziel (AT-Kompensation)",
+        "legend_fixed": "Fester Sollwert (konstant)",
+        "legend_after": "Nach Kompensation (live)",
+        "legend_live": "Live-Außentemperatur",
+        "legend_band": "Grenzband (R10–R11)",
+        "mode_curve": "AT-Kompensation (Kurve)",
+        "mode_fixed": "Konstant (fest)",
+        "wait": "Warte auf Daten",
+        "wait_sub": "Erster Abruf läuft (quick 30 s)",
+        "axis_x": "Außentemperatur (AT)",
+        "axis_y": "Vorlauftemperatur"
+      },
       "foxair_heating_power": {
         "name": "Heizleistung (berechnet)"
       },
