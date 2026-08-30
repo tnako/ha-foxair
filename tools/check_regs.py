@@ -88,8 +88,8 @@ def tabs_order() -> list[str]:
             seen.add(m.group(1))
     meta = json.loads(META_PATH.read_text(encoding="utf-8-sig"))
     extras = sorted(
-        ((int(v["addr"]), v["code"]) for v in meta.values()
-         if v.get("code") and v["code"] not in seen),
+        ((int(k), v["code"]) for k, v in meta.items()
+         if k.isdigit() and v.get("code") and v["code"] not in seen),
         key=lambda t: t[0],
     )
     codes.extend(c for _, c in extras)
@@ -203,7 +203,7 @@ def main() -> None:
         sys.exit(2)
 
     meta = json.loads(META_PATH.read_text(encoding="utf-8-sig"))
-    by_code = {v["code"]: v for v in meta.values() if v.get("code")}
+    by_code = {v["code"]: (int(k), v) for k, v in meta.items() if k.isdigit() and v.get("code")}
     order = tabs_order()
     if args.codes:
         wanted = {c.strip().upper() for c in args.codes.split(",") if c.strip()}
@@ -226,13 +226,13 @@ def main() -> None:
             else:
                 rows.append({"code": code, "verdict": "NO-METADATA"})
             continue
-        addr = m["addr"]
+        addr, meta_rec = m
         row = {
-            "code": code, "addr": addr, "platform": m.get("platform"),
-            "tier": m.get("poll_tier"), "risk": m.get("risk"),
-            "requires_expert": bool(m.get("requires_expert")),
+            "code": code, "addr": addr, "platform": meta_rec.get("platform"),
+            "tier": meta_rec.get("poll_tier"), "risk": meta_rec.get("risk"),
+            "requires_expert": bool(meta_rec.get("requires_expert")),
         }
-        domain = domain_for(m)
+        domain = domain_for(meta_rec)
         ent = find_entity(states, code, addr, domain)
         if ent is None:
             # code may exist on a different domain (e.g. KG timers as sensors)

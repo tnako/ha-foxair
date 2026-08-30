@@ -1,6 +1,5 @@
 {
   "200": {
-    "addr": 200,
     "code": "",
     "block": "",
     "tab": "",
@@ -21,7 +20,6 @@
     "poll_tier": "rare"
   },
   "201": {
-    "addr": 201,
     "code": "",
     "block": "",
     "tab": "",
@@ -42,7 +40,6 @@
     "poll_tier": "rare"
   },
   "202": {
-    "addr": 202,
     "code": "",
     "block": "",
     "tab": "",
@@ -63,7 +60,6 @@
     "poll_tier": "rare"
   },
   "203": {
-    "addr": 203,
     "code": "",
     "block": "",
     "tab": "",
@@ -84,7 +80,6 @@
     "poll_tier": "rare"
   },
   "204": {
-    "addr": 204,
     "code": "",
     "block": "",
     "tab": "",
@@ -105,7 +100,6 @@
     "poll_tier": "rare"
   },
   "205": {
-    "addr": 205,
     "code": "",
     "block": "",
     "tab": "",
@@ -126,7 +120,6 @@
     "poll_tier": "rare"
   },
   "206": {
-    "addr": 206,
     "code": "",
     "block": "",
     "tab": "",
@@ -147,7 +140,6 @@
     "poll_tier": "rare"
   },
   "207": {
-    "addr": 207,
     "code": "",
     "block": "",
     "tab": "",
@@ -168,7 +160,6 @@
     "poll_tier": "rare"
   },
   "208": {
-    "addr": 208,
     "code": "",
     "block": "",
     "tab": "",
@@ -189,7 +180,6 @@
     "poll_tier": "rare"
   },
   "209": {
-    "addr": 209,
     "code": "",
     "block": "",
     "tab": "",
@@ -210,7 +200,6 @@
     "poll_tier": "rare"
   },
   "210": {
-    "addr": 210,
     "code": "",
     "block": "",
     "tab": "",
@@ -231,7 +220,6 @@
     "poll_tier": "rare"
   },
   "211": {
-    "addr": 211,
     "code": "",
     "block": "",
     "tab": "",
@@ -252,7 +240,6 @@
     "poll_tier": "rare"
   },
   "212": {
-    "addr": 212,
     "code": "",
     "block": "",
     "tab": "",
@@ -273,7 +260,6 @@
     "poll_tier": "rare"
   },
   "213": {
-    "addr": 213,
     "code": "",
     "block": "",
     "tab": "",
@@ -294,7 +280,6 @@
     "poll_tier": "rare"
   },
   "214": {
-    "addr": 214,
     "code": "",
     "block": "",
     "tab": "",
@@ -315,7 +300,6 @@
     "poll_tier": "rare"
   },
   "215": {
-    "addr": 215,
     "code": "",
     "block": "",
     "tab": "",
@@ -336,7 +320,6 @@
     "poll_tier": "rare"
   },
   "1001": {
-    "addr": 1001,
     "code": "",
     "block": "",
     "tab": "",
@@ -357,7 +340,6 @@
     "poll_tier": "rare"
   },
   "1002": {
-    "addr": 1002,
     "code": "",
     "block": "",
     "tab": "",
@@ -378,7 +360,6 @@
     "poll_tier": "rare"
   },
   "1003": {
-    "addr": 1003,
     "code": "",
     "block": "",
     "tab": "",
@@ -399,7 +380,6 @@
     "poll_tier": "rare"
   },
   "1004": {
-    "addr": 1004,
     "code": "",
     "block": "",
     "tab": "",
@@ -420,7 +400,6 @@
     "poll_tier": "rare"
   },
   "1005": {
-    "addr": 1005,
     "code": "",
     "block": "",
     "tab": "",
@@ -441,7 +420,6 @@
     "poll_tier": "rare"
   },
   "1006": {
-    "addr": 1006,
     "code": "",
     "block": "",
     "tab": "",
@@ -462,7 +440,6 @@
     "poll_tier": "rare"
   },
   "1007": {
-    "addr": 1007,
     "code": "",
     "block": "",
     "tab": "",
@@ -483,7 +460,6 @@
     "poll_tier": "rare"
   },
   "1008": {
-    "addr": 1008,
     "code": "",
     "block": "",
     "tab": "",
@@ -504,7 +480,6 @@
     "poll_tier": "rare"
   },
   "1009": {
-    "addr": 1009,
     "code": "",
     "block": "",
     "tab": "",
@@ -525,7 +500,6 @@
     "poll_tier": "rare"
   },
   "1010": {
-    "addr": 1010,
     "code": "",
     "block": "",
     "tab": "",
@@ -546,7 +520,6 @@
     "poll_tier": "rare"
   },
   "1011": {
-    "addr": 1011,
     "code": "",
     "block": "",
     "tab": "",
@@ -567,7 +540,6 @@
     "poll_tier": "quick"
   },
   "1012": {
-    "addr": 1012,
     "code": "",
     "block": "",
     "tab": "",
@@ -588,7 +560,6 @@
     "poll_tier": "quick"
   },
   "1013": {
-    "addr": 1013,
     "code": "",
     "block": "",
     "tab": "",
@@ -609,7 +580,6 @@
     "poll_tier": "rare"
   },
   "1014": {
-    "addr": 1014,
     "code": "",
     "block": "",
     "tab": "",
@@ -630,7 +600,6 @@
     "poll_tier": "rare"
   },
   "1015": {
-    "addr": 1015,
     "code": "",
     "block": "",
     "tab": "",
@@ -651,7 +620,6 @@
     "poll_tier": "rare"
   },
   "1016": {
-    "addr": 1016,
     "code": "",
     "block": "",
     "tab": "",
@@ -672,7 +640,6 @@
     "poll_tier": "rare"
   },
   "1017": {
-    "addr": 1017,
     "code": "",
     "block": "",
     "tab": "",
@@ -693,7 +660,6 @@
     "poll_tier": "rare"
   },
   "1018": {
-    "addr": 1018,
     "code": "H01",
     "block": "H",
     "tab": "H",
@@ -714,7 +680,6 @@
     "poll_tier": "rare"
   },
   "1019": {
-    "addr": 1019,
     "code": "H33",
     "block": "H",
     "tab": "H",
@@ -735,7 +700,6 @@
     "poll_tier": "rare"
   },
   "1020": {
-    "addr": 1020,
     "code": "H34",
     "block": "H",
     "tab": "H",
@@ -756,7 +720,6 @@
     "poll_tier": "rare"
   },
   "1021": {
-    "addr": 1021,
     "code": "H05",
     "block": "H",
     "tab": "H",
@@ -777,7 +740,6 @@
     "poll_tier": "rare"
   },
   "1022": {
-    "addr": 1022,
     "code": "",
     "block": "",
     "tab": "",
@@ -798,7 +760,6 @@
     "poll_tier": "rare"
   },
   "1023": {
-    "addr": 1023,
     "code": "H07",
     "block": "H",
     "tab": "H",
@@ -819,7 +780,6 @@
     "poll_tier": "rare"
   },
   "1024": {
-    "addr": 1024,
     "code": "H10",
     "block": "H",
     "tab": "H",
@@ -840,7 +800,6 @@
     "poll_tier": "rare"
   },
   "1025": {
-    "addr": 1025,
     "code": "H38",
     "block": "H",
     "tab": "H",
@@ -861,7 +820,6 @@
     "poll_tier": "rare"
   },
   "1026": {
-    "addr": 1026,
     "code": "H39",
     "block": "H",
     "tab": "H",
@@ -882,7 +840,6 @@
     "poll_tier": "rare"
   },
   "1027": {
-    "addr": 1027,
     "code": "H27",
     "block": "H",
     "tab": "H",
@@ -903,7 +860,6 @@
     "poll_tier": "rare"
   },
   "1028": {
-    "addr": 1028,
     "code": "H28",
     "block": "H",
     "tab": "H",
@@ -924,7 +880,6 @@
     "poll_tier": "rare"
   },
   "1029": {
-    "addr": 1029,
     "code": "H21",
     "block": "H",
     "tab": "H",
@@ -945,7 +900,6 @@
     "poll_tier": "rare"
   },
   "1030": {
-    "addr": 1030,
     "code": "H22",
     "block": "H",
     "tab": "H",
@@ -966,7 +920,6 @@
     "poll_tier": "rare"
   },
   "1031": {
-    "addr": 1031,
     "code": "A35",
     "block": "A",
     "tab": "A",
@@ -987,7 +940,6 @@
     "poll_tier": "rare"
   },
   "1032": {
-    "addr": 1032,
     "code": "H18",
     "block": "H",
     "tab": "H",
@@ -1008,7 +960,6 @@
     "poll_tier": "rare"
   },
   "1033": {
-    "addr": 1033,
     "code": "H20",
     "block": "H",
     "tab": "H",
@@ -1029,7 +980,6 @@
     "poll_tier": "rare"
   },
   "1034": {
-    "addr": 1034,
     "code": "H29",
     "block": "H",
     "tab": "H",
@@ -1050,7 +1000,6 @@
     "poll_tier": "rare"
   },
   "1035": {
-    "addr": 1035,
     "code": "H25",
     "block": "H",
     "tab": "H",
@@ -1071,7 +1020,6 @@
     "poll_tier": "rare"
   },
   "1036": {
-    "addr": 1036,
     "code": "H30",
     "block": "H",
     "tab": "H",
@@ -1092,7 +1040,6 @@
     "poll_tier": "rare"
   },
   "1037": {
-    "addr": 1037,
     "code": "A03",
     "block": "A",
     "tab": "A",
@@ -1113,7 +1060,6 @@
     "poll_tier": "rare"
   },
   "1038": {
-    "addr": 1038,
     "code": "A04",
     "block": "A",
     "tab": "A",
@@ -1134,7 +1080,6 @@
     "poll_tier": "rare"
   },
   "1039": {
-    "addr": 1039,
     "code": "A05",
     "block": "A",
     "tab": "A",
@@ -1155,7 +1100,6 @@
     "poll_tier": "rare"
   },
   "1040": {
-    "addr": 1040,
     "code": "A06",
     "block": "A",
     "tab": "A",
@@ -1176,7 +1120,6 @@
     "poll_tier": "rare"
   },
   "1041": {
-    "addr": 1041,
     "code": "H31",
     "block": "H",
     "tab": "H",
@@ -1197,7 +1140,6 @@
     "poll_tier": "rare"
   },
   "1042": {
-    "addr": 1042,
     "code": "A11",
     "block": "A",
     "tab": "A",
@@ -1218,7 +1160,6 @@
     "poll_tier": "rare"
   },
   "1043": {
-    "addr": 1043,
     "code": "A23",
     "block": "A",
     "tab": "A",
@@ -1239,7 +1180,6 @@
     "poll_tier": "rare"
   },
   "1044": {
-    "addr": 1044,
     "code": "A24",
     "block": "A",
     "tab": "A",
@@ -1260,7 +1200,6 @@
     "poll_tier": "rare"
   },
   "1045": {
-    "addr": 1045,
     "code": "H32",
     "block": "H",
     "tab": "H",
@@ -1281,7 +1220,6 @@
     "poll_tier": "rare"
   },
   "1046": {
-    "addr": 1046,
     "code": "H37",
     "block": "H",
     "tab": "H",
@@ -1302,7 +1240,6 @@
     "poll_tier": "rare"
   },
   "1047": {
-    "addr": 1047,
     "code": "D26",
     "block": "D",
     "tab": "D",
@@ -1323,7 +1260,6 @@
     "poll_tier": "rare"
   },
   "1048": {
-    "addr": 1048,
     "code": "",
     "block": "",
     "tab": "",
@@ -1344,7 +1280,6 @@
     "poll_tier": "rare"
   },
   "1049": {
-    "addr": 1049,
     "code": "A31",
     "block": "A",
     "tab": "A",
@@ -1365,7 +1300,6 @@
     "poll_tier": "rare"
   },
   "1050": {
-    "addr": 1050,
     "code": "A32",
     "block": "A",
     "tab": "A",
@@ -1386,7 +1320,6 @@
     "poll_tier": "rare"
   },
   "1051": {
-    "addr": 1051,
     "code": "A30",
     "block": "A",
     "tab": "A",
@@ -1407,7 +1340,6 @@
     "poll_tier": "rare"
   },
   "1052": {
-    "addr": 1052,
     "code": "A21",
     "block": "A",
     "tab": "A",
@@ -1428,7 +1360,6 @@
     "poll_tier": "rare"
   },
   "1053": {
-    "addr": 1053,
     "code": "A22",
     "block": "A",
     "tab": "A",
@@ -1449,7 +1380,6 @@
     "poll_tier": "rare"
   },
   "1054": {
-    "addr": 1054,
     "code": "A26",
     "block": "A",
     "tab": "A",
@@ -1470,7 +1400,6 @@
     "poll_tier": "rare"
   },
   "1055": {
-    "addr": 1055,
     "code": "A25",
     "block": "A",
     "tab": "A",
@@ -1491,7 +1420,6 @@
     "poll_tier": "rare"
   },
   "1056": {
-    "addr": 1056,
     "code": "A27",
     "block": "A",
     "tab": "A",
@@ -1512,7 +1440,6 @@
     "poll_tier": "rare"
   },
   "1057": {
-    "addr": 1057,
     "code": "A28",
     "block": "A",
     "tab": "A",
@@ -1533,7 +1460,6 @@
     "poll_tier": "rare"
   },
   "1058": {
-    "addr": 1058,
     "code": "A29",
     "block": "A",
     "tab": "A",
@@ -1554,7 +1480,6 @@
     "poll_tier": "rare"
   },
   "1059": {
-    "addr": 1059,
     "code": "F01",
     "block": "F",
     "tab": "F",
@@ -1575,7 +1500,6 @@
     "poll_tier": "rare"
   },
   "1060": {
-    "addr": 1060,
     "code": "F02",
     "block": "F",
     "tab": "F",
@@ -1596,7 +1520,6 @@
     "poll_tier": "rare"
   },
   "1061": {
-    "addr": 1061,
     "code": "F27",
     "block": "F",
     "tab": "F",
@@ -1617,7 +1540,6 @@
     "poll_tier": "rare"
   },
   "1062": {
-    "addr": 1062,
     "code": "F03",
     "block": "F",
     "tab": "F",
@@ -1638,7 +1560,6 @@
     "poll_tier": "rare"
   },
   "1063": {
-    "addr": 1063,
     "code": "A33",
     "block": "A",
     "tab": "A",
@@ -1659,7 +1580,6 @@
     "poll_tier": "rare"
   },
   "1064": {
-    "addr": 1064,
     "code": "A34",
     "block": "A",
     "tab": "A",
@@ -1680,7 +1600,6 @@
     "poll_tier": "rare"
   },
   "1065": {
-    "addr": 1065,
     "code": "",
     "block": "",
     "tab": "",
@@ -1701,7 +1620,6 @@
     "poll_tier": "rare"
   },
   "1066": {
-    "addr": 1066,
     "code": "F05",
     "block": "F",
     "tab": "F",
@@ -1722,7 +1640,6 @@
     "poll_tier": "rare"
   },
   "1067": {
-    "addr": 1067,
     "code": "",
     "block": "",
     "tab": "",
@@ -1743,7 +1660,6 @@
     "poll_tier": "rare"
   },
   "1068": {
-    "addr": 1068,
     "code": "F06",
     "block": "F",
     "tab": "F",
@@ -1764,7 +1680,6 @@
     "poll_tier": "rare"
   },
   "1069": {
-    "addr": 1069,
     "code": "Z01",
     "block": "Z",
     "tab": "Z",
@@ -1785,7 +1700,6 @@
     "poll_tier": "rare"
   },
   "1070": {
-    "addr": 1070,
     "code": "Z02",
     "block": "Z",
     "tab": "Z",
@@ -1806,7 +1720,6 @@
     "poll_tier": "medium"
   },
   "1071": {
-    "addr": 1071,
     "code": "Z03",
     "block": "Z",
     "tab": "Z",
@@ -1827,7 +1740,6 @@
     "poll_tier": "rare"
   },
   "1072": {
-    "addr": 1072,
     "code": "Z04",
     "block": "Z",
     "tab": "Z",
@@ -1848,7 +1760,6 @@
     "poll_tier": "medium"
   },
   "1073": {
-    "addr": 1073,
     "code": "Z05",
     "block": "Z",
     "tab": "Z",
@@ -1869,7 +1780,6 @@
     "poll_tier": "rare"
   },
   "1074": {
-    "addr": 1074,
     "code": "F10",
     "block": "F",
     "tab": "F",
@@ -1890,7 +1800,6 @@
     "poll_tier": "rare"
   },
   "1075": {
-    "addr": 1075,
     "code": "Z06",
     "block": "Z",
     "tab": "Z",
@@ -1911,7 +1820,6 @@
     "poll_tier": "medium"
   },
   "1076": {
-    "addr": 1076,
     "code": "Z07",
     "block": "Z",
     "tab": "Z",
@@ -1932,7 +1840,6 @@
     "poll_tier": "medium"
   },
   "1077": {
-    "addr": 1077,
     "code": "Z17",
     "block": "Z",
     "tab": "Z",
@@ -1953,7 +1860,6 @@
     "poll_tier": "rare"
   },
   "1078": {
-    "addr": 1078,
     "code": "",
     "block": "",
     "tab": "",
@@ -1974,7 +1880,6 @@
     "poll_tier": "rare"
   },
   "1079": {
-    "addr": 1079,
     "code": "",
     "block": "",
     "tab": "",
@@ -1995,7 +1900,6 @@
     "poll_tier": "rare"
   },
   "1080": {
-    "addr": 1080,
     "code": "Z08",
     "block": "Z",
     "tab": "Z",
@@ -2016,7 +1920,6 @@
     "poll_tier": "rare"
   },
   "1081": {
-    "addr": 1081,
     "code": "F18",
     "block": "F",
     "tab": "F",
@@ -2037,7 +1940,6 @@
     "poll_tier": "rare"
   },
   "1082": {
-    "addr": 1082,
     "code": "Z09",
     "block": "Z",
     "tab": "Z",
@@ -2058,7 +1960,6 @@
     "poll_tier": "rare"
   },
   "1083": {
-    "addr": 1083,
     "code": "F19",
     "block": "F",
     "tab": "F",
@@ -2079,7 +1980,6 @@
     "poll_tier": "rare"
   },
   "1084": {
-    "addr": 1084,
     "code": "Z10",
     "block": "Z",
     "tab": "Z",
@@ -2100,7 +2000,6 @@
     "poll_tier": "rare"
   },
   "1085": {
-    "addr": 1085,
     "code": "Z11",
     "block": "Z",
     "tab": "Z",
@@ -2121,7 +2020,6 @@
     "poll_tier": "rare"
   },
   "1086": {
-    "addr": 1086,
     "code": "F21",
     "block": "F",
     "tab": "F",
@@ -2142,7 +2040,6 @@
     "poll_tier": "rare"
   },
   "1087": {
-    "addr": 1087,
     "code": "F22",
     "block": "F",
     "tab": "F",
@@ -2163,7 +2060,6 @@
     "poll_tier": "rare"
   },
   "1088": {
-    "addr": 1088,
     "code": "Z12",
     "block": "Z",
     "tab": "Z",
@@ -2184,7 +2080,6 @@
     "poll_tier": "rare"
   },
   "1089": {
-    "addr": 1089,
     "code": "F23",
     "block": "F",
     "tab": "F",
@@ -2205,7 +2100,6 @@
     "poll_tier": "rare"
   },
   "1090": {
-    "addr": 1090,
     "code": "Z13",
     "block": "Z",
     "tab": "Z",
@@ -2226,7 +2120,6 @@
     "poll_tier": "rare"
   },
   "1091": {
-    "addr": 1091,
     "code": "",
     "block": "",
     "tab": "",
@@ -2247,7 +2140,6 @@
     "poll_tier": "rare"
   },
   "1092": {
-    "addr": 1092,
     "code": "",
     "block": "",
     "tab": "",
@@ -2268,7 +2160,6 @@
     "poll_tier": "rare"
   },
   "1093": {
-    "addr": 1093,
     "code": "",
     "block": "",
     "tab": "",
@@ -2289,7 +2180,6 @@
     "poll_tier": "rare"
   },
   "1094": {
-    "addr": 1094,
     "code": "",
     "block": "",
     "tab": "",
@@ -2310,7 +2200,6 @@
     "poll_tier": "rare"
   },
   "1095": {
-    "addr": 1095,
     "code": "",
     "block": "",
     "tab": "",
@@ -2331,7 +2220,6 @@
     "poll_tier": "rare"
   },
   "1096": {
-    "addr": 1096,
     "code": "",
     "block": "",
     "tab": "",
@@ -2352,7 +2240,6 @@
     "poll_tier": "rare"
   },
   "1097": {
-    "addr": 1097,
     "code": "",
     "block": "",
     "tab": "",
@@ -2373,7 +2260,6 @@
     "poll_tier": "rare"
   },
   "1098": {
-    "addr": 1098,
     "code": "",
     "block": "",
     "tab": "",
@@ -2394,7 +2280,6 @@
     "poll_tier": "rare"
   },
   "1099": {
-    "addr": 1099,
     "code": "",
     "block": "",
     "tab": "",
@@ -2415,7 +2300,6 @@
     "poll_tier": "rare"
   },
   "1100": {
-    "addr": 1100,
     "code": "",
     "block": "",
     "tab": "",
@@ -2436,7 +2320,6 @@
     "poll_tier": "rare"
   },
   "1101": {
-    "addr": 1101,
     "code": "F28",
     "block": "F",
     "tab": "F",
@@ -2457,7 +2340,6 @@
     "poll_tier": "rare"
   },
   "1102": {
-    "addr": 1102,
     "code": "F29",
     "block": "F",
     "tab": "F",
@@ -2478,7 +2360,6 @@
     "poll_tier": "rare"
   },
   "1103": {
-    "addr": 1103,
     "code": "F25",
     "block": "F",
     "tab": "F",
@@ -2499,7 +2380,6 @@
     "poll_tier": "rare"
   },
   "1104": {
-    "addr": 1104,
     "code": "F26",
     "block": "F",
     "tab": "F",
@@ -2520,7 +2400,6 @@
     "poll_tier": "rare"
   },
   "1105": {
-    "addr": 1105,
     "code": "D01",
     "block": "D",
     "tab": "D",
@@ -2541,7 +2420,6 @@
     "poll_tier": "rare"
   },
   "1106": {
-    "addr": 1106,
     "code": "D02",
     "block": "D",
     "tab": "D",
@@ -2562,7 +2440,6 @@
     "poll_tier": "rare"
   },
   "1107": {
-    "addr": 1107,
     "code": "D03",
     "block": "D",
     "tab": "D",
@@ -2583,7 +2460,6 @@
     "poll_tier": "rare"
   },
   "1108": {
-    "addr": 1108,
     "code": "D04",
     "block": "D",
     "tab": "D",
@@ -2604,7 +2480,6 @@
     "poll_tier": "rare"
   },
   "1109": {
-    "addr": 1109,
     "code": "D05-1",
     "block": "D",
     "tab": "D",
@@ -2625,7 +2500,6 @@
     "poll_tier": "rare"
   },
   "1110": {
-    "addr": 1110,
     "code": "D05-2",
     "block": "D",
     "tab": "D",
@@ -2646,7 +2520,6 @@
     "poll_tier": "rare"
   },
   "1111": {
-    "addr": 1111,
     "code": "D06",
     "block": "D",
     "tab": "D",
@@ -2667,7 +2540,6 @@
     "poll_tier": "rare"
   },
   "1112": {
-    "addr": 1112,
     "code": "D07",
     "block": "D",
     "tab": "D",
@@ -2688,7 +2560,6 @@
     "poll_tier": "rare"
   },
   "1113": {
-    "addr": 1113,
     "code": "D08",
     "block": "D",
     "tab": "D",
@@ -2709,7 +2580,6 @@
     "poll_tier": "rare"
   },
   "1114": {
-    "addr": 1114,
     "code": "D09",
     "block": "D",
     "tab": "D",
@@ -2730,7 +2600,6 @@
     "poll_tier": "rare"
   },
   "1115": {
-    "addr": 1115,
     "code": "D10",
     "block": "D",
     "tab": "D",
@@ -2751,7 +2620,6 @@
     "poll_tier": "rare"
   },
   "1116": {
-    "addr": 1116,
     "code": "D11",
     "block": "D",
     "tab": "D",
@@ -2772,7 +2640,6 @@
     "poll_tier": "rare"
   },
   "1117": {
-    "addr": 1117,
     "code": "D12",
     "block": "D",
     "tab": "D",
@@ -2793,7 +2660,6 @@
     "poll_tier": "rare"
   },
   "1118": {
-    "addr": 1118,
     "code": "D13",
     "block": "D",
     "tab": "D",
@@ -2814,7 +2680,6 @@
     "poll_tier": "rare"
   },
   "1119": {
-    "addr": 1119,
     "code": "D14",
     "block": "D",
     "tab": "D",
@@ -2835,7 +2700,6 @@
     "poll_tier": "rare"
   },
   "1120": {
-    "addr": 1120,
     "code": "D15",
     "block": "D",
     "tab": "D",
@@ -2856,7 +2720,6 @@
     "poll_tier": "rare"
   },
   "1121": {
-    "addr": 1121,
     "code": "D16",
     "block": "D",
     "tab": "D",
@@ -2877,7 +2740,6 @@
     "poll_tier": "rare"
   },
   "1122": {
-    "addr": 1122,
     "code": "D17",
     "block": "D",
     "tab": "D",
@@ -2898,7 +2760,6 @@
     "poll_tier": "rare"
   },
   "1123": {
-    "addr": 1123,
     "code": "D18",
     "block": "D",
     "tab": "D",
@@ -2919,7 +2780,6 @@
     "poll_tier": "rare"
   },
   "1124": {
-    "addr": 1124,
     "code": "D19",
     "block": "D",
     "tab": "D",
@@ -2940,7 +2800,6 @@
     "poll_tier": "rare"
   },
   "1125": {
-    "addr": 1125,
     "code": "D20",
     "block": "D",
     "tab": "D",
@@ -2961,7 +2820,6 @@
     "poll_tier": "rare"
   },
   "1126": {
-    "addr": 1126,
     "code": "D21",
     "block": "D",
     "tab": "D",
@@ -2982,7 +2840,6 @@
     "poll_tier": "rare"
   },
   "1127": {
-    "addr": 1127,
     "code": "D22",
     "block": "D",
     "tab": "D",
@@ -3003,7 +2860,6 @@
     "poll_tier": "rare"
   },
   "1128": {
-    "addr": 1128,
     "code": "D23",
     "block": "D",
     "tab": "D",
@@ -3024,7 +2880,6 @@
     "poll_tier": "rare"
   },
   "1129": {
-    "addr": 1129,
     "code": "D24",
     "block": "D",
     "tab": "D",
@@ -3045,7 +2900,6 @@
     "poll_tier": "rare"
   },
   "1130": {
-    "addr": 1130,
     "code": "D25",
     "block": "D",
     "tab": "D",
@@ -3066,7 +2920,6 @@
     "poll_tier": "rare"
   },
   "1131": {
-    "addr": 1131,
     "code": "E01",
     "block": "E",
     "tab": "E",
@@ -3087,7 +2940,6 @@
     "poll_tier": "rare"
   },
   "1132": {
-    "addr": 1132,
     "code": "E02",
     "block": "E",
     "tab": "E",
@@ -3108,7 +2960,6 @@
     "poll_tier": "rare"
   },
   "1133": {
-    "addr": 1133,
     "code": "E03",
     "block": "E",
     "tab": "E",
@@ -3129,7 +2980,6 @@
     "poll_tier": "rare"
   },
   "1134": {
-    "addr": 1134,
     "code": "Z14",
     "block": "Z",
     "tab": "Z",
@@ -3150,7 +3000,6 @@
     "poll_tier": "rare"
   },
   "1135": {
-    "addr": 1135,
     "code": "Z15",
     "block": "Z",
     "tab": "Z",
@@ -3171,7 +3020,6 @@
     "poll_tier": "rare"
   },
   "1136": {
-    "addr": 1136,
     "code": "Z16",
     "block": "Z",
     "tab": "Z",
@@ -3192,7 +3040,6 @@
     "poll_tier": "rare"
   },
   "1137": {
-    "addr": 1137,
     "code": "E07",
     "block": "E",
     "tab": "E",
@@ -3213,7 +3060,6 @@
     "poll_tier": "rare"
   },
   "1138": {
-    "addr": 1138,
     "code": "E08",
     "block": "E",
     "tab": "E",
@@ -3234,7 +3080,6 @@
     "poll_tier": "rare"
   },
   "1139": {
-    "addr": 1139,
     "code": "E09",
     "block": "E",
     "tab": "E",
@@ -3255,7 +3100,6 @@
     "poll_tier": "rare"
   },
   "1140": {
-    "addr": 1140,
     "code": "E10",
     "block": "E",
     "tab": "E",
@@ -3276,7 +3120,6 @@
     "poll_tier": "rare"
   },
   "1141": {
-    "addr": 1141,
     "code": "",
     "block": "",
     "tab": "",
@@ -3297,7 +3140,6 @@
     "poll_tier": "rare"
   },
   "1142": {
-    "addr": 1142,
     "code": "E03-2",
     "block": "E",
     "tab": "E",
@@ -3318,7 +3160,6 @@
     "poll_tier": "rare"
   },
   "1143": {
-    "addr": 1143,
     "code": "E13",
     "block": "E",
     "tab": "E",
@@ -3339,7 +3180,6 @@
     "poll_tier": "rare"
   },
   "1144": {
-    "addr": 1144,
     "code": "E14",
     "block": "E",
     "tab": "E",
@@ -3360,7 +3200,6 @@
     "poll_tier": "rare"
   },
   "1145": {
-    "addr": 1145,
     "code": "E15",
     "block": "E",
     "tab": "E",
@@ -3381,7 +3220,6 @@
     "poll_tier": "rare"
   },
   "1146": {
-    "addr": 1146,
     "code": "E16",
     "block": "E",
     "tab": "E",
@@ -3402,7 +3240,6 @@
     "poll_tier": "rare"
   },
   "1147": {
-    "addr": 1147,
     "code": "E17",
     "block": "E",
     "tab": "E",
@@ -3423,7 +3260,6 @@
     "poll_tier": "rare"
   },
   "1148": {
-    "addr": 1148,
     "code": "E18",
     "block": "E",
     "tab": "E",
@@ -3444,7 +3280,6 @@
     "poll_tier": "rare"
   },
   "1149": {
-    "addr": 1149,
     "code": "E19",
     "block": "E",
     "tab": "E",
@@ -3465,7 +3300,6 @@
     "poll_tier": "rare"
   },
   "1150": {
-    "addr": 1150,
     "code": "",
     "block": "",
     "tab": "",
@@ -3486,7 +3320,6 @@
     "poll_tier": "rare"
   },
   "1151": {
-    "addr": 1151,
     "code": "",
     "block": "",
     "tab": "",
@@ -3507,7 +3340,6 @@
     "poll_tier": "rare"
   },
   "1152": {
-    "addr": 1152,
     "code": "G01",
     "block": "G",
     "tab": "G",
@@ -3528,7 +3360,6 @@
     "poll_tier": "rare"
   },
   "1153": {
-    "addr": 1153,
     "code": "G02",
     "block": "G",
     "tab": "G",
@@ -3549,7 +3380,6 @@
     "poll_tier": "rare"
   },
   "1154": {
-    "addr": 1154,
     "code": "G03",
     "block": "G",
     "tab": "G",
@@ -3570,7 +3400,6 @@
     "poll_tier": "rare"
   },
   "1155": {
-    "addr": 1155,
     "code": "G04",
     "block": "G",
     "tab": "G",
@@ -3591,7 +3420,6 @@
     "poll_tier": "rare"
   },
   "1156": {
-    "addr": 1156,
     "code": "G05",
     "block": "G",
     "tab": "G",
@@ -3612,7 +3440,6 @@
     "poll_tier": "rare"
   },
   "1157": {
-    "addr": 1157,
     "code": "R01",
     "block": "R",
     "tab": "R",
@@ -3633,7 +3460,6 @@
     "poll_tier": "quick"
   },
   "1158": {
-    "addr": 1158,
     "code": "R02",
     "block": "R",
     "tab": "R",
@@ -3654,7 +3480,6 @@
     "poll_tier": "quick"
   },
   "1159": {
-    "addr": 1159,
     "code": "R03",
     "block": "R",
     "tab": "R",
@@ -3675,7 +3500,6 @@
     "poll_tier": "quick"
   },
   "1160": {
-    "addr": 1160,
     "code": "R04",
     "block": "R",
     "tab": "R",
@@ -3696,7 +3520,6 @@
     "poll_tier": "quick"
   },
   "1161": {
-    "addr": 1161,
     "code": "R05",
     "block": "R",
     "tab": "R",
@@ -3717,7 +3540,6 @@
     "poll_tier": "quick"
   },
   "1162": {
-    "addr": 1162,
     "code": "R08",
     "block": "R",
     "tab": "R",
@@ -3738,7 +3560,6 @@
     "poll_tier": "quick"
   },
   "1163": {
-    "addr": 1163,
     "code": "R09",
     "block": "R",
     "tab": "R",
@@ -3759,7 +3580,6 @@
     "poll_tier": "quick"
   },
   "1164": {
-    "addr": 1164,
     "code": "R10",
     "block": "R",
     "tab": "R",
@@ -3780,7 +3600,6 @@
     "poll_tier": "quick"
   },
   "1165": {
-    "addr": 1165,
     "code": "R11",
     "block": "R",
     "tab": "R",
@@ -3801,7 +3620,6 @@
     "poll_tier": "quick"
   },
   "1166": {
-    "addr": 1166,
     "code": "R15",
     "block": "R",
     "tab": "R",
@@ -3822,7 +3640,6 @@
     "poll_tier": "quick"
   },
   "1167": {
-    "addr": 1167,
     "code": "R29",
     "block": "R",
     "tab": "R",
@@ -3843,7 +3660,6 @@
     "poll_tier": "quick"
   },
   "1168": {
-    "addr": 1168,
     "code": "R30",
     "block": "R",
     "tab": "R",
@@ -3864,7 +3680,6 @@
     "poll_tier": "quick"
   },
   "1169": {
-    "addr": 1169,
     "code": "R31",
     "block": "R",
     "tab": "R",
@@ -3885,7 +3700,6 @@
     "poll_tier": "quick"
   },
   "1170": {
-    "addr": 1170,
     "code": "R32",
     "block": "R",
     "tab": "R",
@@ -3906,7 +3720,6 @@
     "poll_tier": "quick"
   },
   "1171": {
-    "addr": 1171,
     "code": "R33",
     "block": "R",
     "tab": "R",
@@ -3927,7 +3740,6 @@
     "poll_tier": "quick"
   },
   "1172": {
-    "addr": 1172,
     "code": "R34",
     "block": "R",
     "tab": "R",
@@ -3948,7 +3760,6 @@
     "poll_tier": "quick"
   },
   "1173": {
-    "addr": 1173,
     "code": "R35",
     "block": "R",
     "tab": "R",
@@ -3969,7 +3780,6 @@
     "poll_tier": "quick"
   },
   "1174": {
-    "addr": 1174,
     "code": "R06",
     "block": "R",
     "tab": "R",
@@ -3990,7 +3800,6 @@
     "poll_tier": "quick"
   },
   "1175": {
-    "addr": 1175,
     "code": "R07",
     "block": "R",
     "tab": "R",
@@ -4011,7 +3820,6 @@
     "poll_tier": "quick"
   },
   "1176": {
-    "addr": 1176,
     "code": "R36",
     "block": "R",
     "tab": "R",
@@ -4032,7 +3840,6 @@
     "poll_tier": "quick"
   },
   "1177": {
-    "addr": 1177,
     "code": "R37",
     "block": "R",
     "tab": "R",
@@ -4053,7 +3860,6 @@
     "poll_tier": "quick"
   },
   "1178": {
-    "addr": 1178,
     "code": "R12",
     "block": "R",
     "tab": "R",
@@ -4074,7 +3880,6 @@
     "poll_tier": "quick"
   },
   "1179": {
-    "addr": 1179,
     "code": "R13",
     "block": "R",
     "tab": "R",
@@ -4095,7 +3900,6 @@
     "poll_tier": "quick"
   },
   "1180": {
-    "addr": 1180,
     "code": "R14",
     "block": "R",
     "tab": "R",
@@ -4116,7 +3920,6 @@
     "poll_tier": "quick"
   },
   "1181": {
-    "addr": 1181,
     "code": "",
     "block": "",
     "tab": "",
@@ -4137,7 +3940,6 @@
     "poll_tier": "rare"
   },
   "1182": {
-    "addr": 1182,
     "code": "",
     "block": "",
     "tab": "",
@@ -4158,7 +3960,6 @@
     "poll_tier": "rare"
   },
   "1183": {
-    "addr": 1183,
     "code": "",
     "block": "",
     "tab": "",
@@ -4179,7 +3980,6 @@
     "poll_tier": "rare"
   },
   "1184": {
-    "addr": 1184,
     "code": "",
     "block": "",
     "tab": "",
@@ -4200,7 +4000,6 @@
     "poll_tier": "rare"
   },
   "1185": {
-    "addr": 1185,
     "code": "",
     "block": "",
     "tab": "",
@@ -4221,7 +4020,6 @@
     "poll_tier": "rare"
   },
   "1186": {
-    "addr": 1186,
     "code": "",
     "block": "",
     "tab": "",
@@ -4242,7 +4040,6 @@
     "poll_tier": "rare"
   },
   "1187": {
-    "addr": 1187,
     "code": "",
     "block": "",
     "tab": "",
@@ -4263,7 +4060,6 @@
     "poll_tier": "rare"
   },
   "1188": {
-    "addr": 1188,
     "code": "",
     "block": "",
     "tab": "",
@@ -4284,7 +4080,6 @@
     "poll_tier": "rare"
   },
   "1189": {
-    "addr": 1189,
     "code": "",
     "block": "",
     "tab": "",
@@ -4305,7 +4100,6 @@
     "poll_tier": "rare"
   },
   "1190": {
-    "addr": 1190,
     "code": "",
     "block": "",
     "tab": "",
@@ -4326,7 +4120,6 @@
     "poll_tier": "rare"
   },
   "1191": {
-    "addr": 1191,
     "code": "",
     "block": "",
     "tab": "",
@@ -4347,7 +4140,6 @@
     "poll_tier": "rare"
   },
   "1192": {
-    "addr": 1192,
     "code": "R39",
     "block": "R",
     "tab": "R",
@@ -4368,7 +4160,6 @@
     "poll_tier": "quick"
   },
   "1193": {
-    "addr": 1193,
     "code": "R40",
     "block": "R",
     "tab": "R",
@@ -4389,7 +4180,6 @@
     "poll_tier": "quick"
   },
   "1194": {
-    "addr": 1194,
     "code": "R41",
     "block": "R",
     "tab": "R",
@@ -4410,7 +4200,6 @@
     "poll_tier": "quick"
   },
   "1195": {
-    "addr": 1195,
     "code": "R16",
     "block": "R",
     "tab": "R",
@@ -4431,7 +4220,6 @@
     "poll_tier": "quick"
   },
   "1196": {
-    "addr": 1196,
     "code": "R17",
     "block": "R",
     "tab": "R",
@@ -4452,7 +4240,6 @@
     "poll_tier": "quick"
   },
   "1197": {
-    "addr": 1197,
     "code": "P01",
     "block": "P",
     "tab": "P",
@@ -4473,7 +4260,6 @@
     "poll_tier": "rare"
   },
   "1198": {
-    "addr": 1198,
     "code": "P02",
     "block": "P",
     "tab": "P",
@@ -4494,7 +4280,6 @@
     "poll_tier": "rare"
   },
   "1199": {
-    "addr": 1199,
     "code": "P03",
     "block": "P",
     "tab": "P",
@@ -4515,7 +4300,6 @@
     "poll_tier": "rare"
   },
   "1200": {
-    "addr": 1200,
     "code": "E03-1",
     "block": "E",
     "tab": "E",
@@ -4536,7 +4320,6 @@
     "poll_tier": "rare"
   },
   "1201": {
-    "addr": 1201,
     "code": "P05",
     "block": "P",
     "tab": "P",
@@ -4557,7 +4340,6 @@
     "poll_tier": "rare"
   },
   "1202": {
-    "addr": 1202,
     "code": "P06",
     "block": "P",
     "tab": "P",
@@ -4578,7 +4360,6 @@
     "poll_tier": "rare"
   },
   "1203": {
-    "addr": 1203,
     "code": "P09",
     "block": "P",
     "tab": "P",
@@ -4599,7 +4380,6 @@
     "poll_tier": "rare"
   },
   "1204": {
-    "addr": 1204,
     "code": "P08",
     "block": "P",
     "tab": "P",
@@ -4620,7 +4400,6 @@
     "poll_tier": "rare"
   },
   "1205": {
-    "addr": 1205,
     "code": "P10",
     "block": "P",
     "tab": "P",
@@ -4641,7 +4420,6 @@
     "poll_tier": "medium"
   },
   "1206": {
-    "addr": 1206,
     "code": "E03-3",
     "block": "E",
     "tab": "E",
@@ -4662,7 +4440,6 @@
     "poll_tier": "rare"
   },
   "1207": {
-    "addr": 1207,
     "code": "E03-4",
     "block": "E",
     "tab": "E",
@@ -4683,7 +4460,6 @@
     "poll_tier": "rare"
   },
   "1208": {
-    "addr": 1208,
     "code": "E03-5",
     "block": "E",
     "tab": "E",
@@ -4704,7 +4480,6 @@
     "poll_tier": "rare"
   },
   "1209": {
-    "addr": 1209,
     "code": "E07-1",
     "block": "E",
     "tab": "E",
@@ -4725,7 +4500,6 @@
     "poll_tier": "rare"
   },
   "1210": {
-    "addr": 1210,
     "code": "E07-2",
     "block": "E",
     "tab": "E",
@@ -4746,7 +4520,6 @@
     "poll_tier": "rare"
   },
   "1211": {
-    "addr": 1211,
     "code": "E07-3",
     "block": "E",
     "tab": "E",
@@ -4767,7 +4540,6 @@
     "poll_tier": "rare"
   },
   "1212": {
-    "addr": 1212,
     "code": "",
     "block": "",
     "tab": "",
@@ -4788,7 +4560,6 @@
     "poll_tier": "medium"
   },
   "1213": {
-    "addr": 1213,
     "code": "",
     "block": "",
     "tab": "",
@@ -4809,7 +4580,6 @@
     "poll_tier": "medium"
   },
   "1214": {
-    "addr": 1214,
     "code": "",
     "block": "",
     "tab": "",
@@ -4830,7 +4600,6 @@
     "poll_tier": "rare"
   },
   "1215": {
-    "addr": 1215,
     "code": "E07-4",
     "block": "E",
     "tab": "E",
@@ -4851,7 +4620,6 @@
     "poll_tier": "rare"
   },
   "1216": {
-    "addr": 1216,
     "code": "E07-5",
     "block": "E",
     "tab": "E",
@@ -4872,7 +4640,6 @@
     "poll_tier": "rare"
   },
   "1217": {
-    "addr": 1217,
     "code": "C11",
     "block": "C",
     "tab": "C",
@@ -4893,7 +4660,6 @@
     "poll_tier": "rare"
   },
   "1218": {
-    "addr": 1218,
     "code": "C01",
     "block": "C",
     "tab": "C",
@@ -4914,7 +4680,6 @@
     "poll_tier": "rare"
   },
   "1219": {
-    "addr": 1219,
     "code": "C02",
     "block": "C",
     "tab": "C",
@@ -4935,7 +4700,6 @@
     "poll_tier": "rare"
   },
   "1220": {
-    "addr": 1220,
     "code": "C03",
     "block": "C",
     "tab": "C",
@@ -4956,7 +4720,6 @@
     "poll_tier": "rare"
   },
   "1221": {
-    "addr": 1221,
     "code": "C04",
     "block": "C",
     "tab": "C",
@@ -4977,7 +4740,6 @@
     "poll_tier": "rare"
   },
   "1222": {
-    "addr": 1222,
     "code": "C05",
     "block": "C",
     "tab": "C",
@@ -4998,7 +4760,6 @@
     "poll_tier": "rare"
   },
   "1223": {
-    "addr": 1223,
     "code": "C06",
     "block": "C",
     "tab": "C",
@@ -5019,7 +4780,6 @@
     "poll_tier": "rare"
   },
   "1224": {
-    "addr": 1224,
     "code": "C07",
     "block": "C",
     "tab": "C",
@@ -5040,7 +4800,6 @@
     "poll_tier": "rare"
   },
   "1225": {
-    "addr": 1225,
     "code": "C08",
     "block": "C",
     "tab": "C",
@@ -5061,7 +4820,6 @@
     "poll_tier": "rare"
   },
   "1226": {
-    "addr": 1226,
     "code": "C09",
     "block": "C",
     "tab": "C",
@@ -5082,7 +4840,6 @@
     "poll_tier": "rare"
   },
   "1227": {
-    "addr": 1227,
     "code": "C10",
     "block": "C",
     "tab": "C",
@@ -5103,7 +4860,6 @@
     "poll_tier": "rare"
   },
   "1228": {
-    "addr": 1228,
     "code": "R42",
     "block": "R",
     "tab": "R",
@@ -5124,7 +4880,6 @@
     "poll_tier": "quick"
   },
   "1229": {
-    "addr": 1229,
     "code": "R43",
     "block": "R",
     "tab": "R",
@@ -5145,7 +4900,6 @@
     "poll_tier": "quick"
   },
   "1230": {
-    "addr": 1230,
     "code": "R44",
     "block": "R",
     "tab": "R",
@@ -5166,7 +4920,6 @@
     "poll_tier": "quick"
   },
   "1231": {
-    "addr": 1231,
     "code": "R45",
     "block": "R",
     "tab": "R",
@@ -5187,7 +4940,6 @@
     "poll_tier": "quick"
   },
   "1232": {
-    "addr": 1232,
     "code": "R46",
     "block": "R",
     "tab": "R",
@@ -5208,7 +4960,6 @@
     "poll_tier": "quick"
   },
   "1233": {
-    "addr": 1233,
     "code": "R60",
     "block": "R",
     "tab": "R",
@@ -5229,7 +4980,6 @@
     "poll_tier": "quick"
   },
   "1234": {
-    "addr": 1234,
     "code": "",
     "block": "",
     "tab": "",
@@ -5250,7 +5000,6 @@
     "poll_tier": "quick"
   },
   "1235": {
-    "addr": 1235,
     "code": "",
     "block": "",
     "tab": "",
@@ -5271,7 +5020,6 @@
     "poll_tier": "quick"
   },
   "1236": {
-    "addr": 1236,
     "code": "H36",
     "block": "H",
     "tab": "H",
@@ -5292,7 +5040,6 @@
     "poll_tier": "quick"
   },
   "1237": {
-    "addr": 1237,
     "code": "R61",
     "block": "R",
     "tab": "R",
@@ -5313,7 +5060,6 @@
     "poll_tier": "quick"
   },
   "1238": {
-    "addr": 1238,
     "code": "R62",
     "block": "R",
     "tab": "R",
@@ -5334,7 +5080,6 @@
     "poll_tier": "quick"
   },
   "1239": {
-    "addr": 1239,
     "code": "R70",
     "block": "R",
     "tab": "R",
@@ -5355,7 +5100,6 @@
     "poll_tier": "quick"
   },
   "1240": {
-    "addr": 1240,
     "code": "R71",
     "block": "R",
     "tab": "R",
@@ -5376,7 +5120,6 @@
     "poll_tier": "quick"
   },
   "1241": {
-    "addr": 1241,
     "code": "R72",
     "block": "R",
     "tab": "R",
@@ -5397,7 +5140,6 @@
     "poll_tier": "quick"
   },
   "1242": {
-    "addr": 1242,
     "code": "R73",
     "block": "R",
     "tab": "R",
@@ -5418,7 +5160,6 @@
     "poll_tier": "quick"
   },
   "1243": {
-    "addr": 1243,
     "code": "R74",
     "block": "R",
     "tab": "R",
@@ -5439,7 +5180,6 @@
     "poll_tier": "quick"
   },
   "1244": {
-    "addr": 1244,
     "code": "",
     "block": "",
     "tab": "",
@@ -5460,7 +5200,6 @@
     "poll_tier": "rare"
   },
   "1245": {
-    "addr": 1245,
     "code": "",
     "block": "",
     "tab": "",
@@ -5481,7 +5220,6 @@
     "poll_tier": "rare"
   },
   "1246": {
-    "addr": 1246,
     "code": "",
     "block": "",
     "tab": "",
@@ -5502,7 +5240,6 @@
     "poll_tier": "rare"
   },
   "1247": {
-    "addr": 1247,
     "code": "",
     "block": "",
     "tab": "",
@@ -5523,7 +5260,6 @@
     "poll_tier": "rare"
   },
   "1248": {
-    "addr": 1248,
     "code": "",
     "block": "",
     "tab": "",
@@ -5544,7 +5280,6 @@
     "poll_tier": "rare"
   },
   "1249": {
-    "addr": 1249,
     "code": "",
     "block": "",
     "tab": "",
@@ -5565,7 +5300,6 @@
     "poll_tier": "rare"
   },
   "1250": {
-    "addr": 1250,
     "code": "",
     "block": "",
     "tab": "",
@@ -5586,7 +5320,6 @@
     "poll_tier": "rare"
   },
   "1251": {
-    "addr": 1251,
     "code": "",
     "block": "",
     "tab": "",
@@ -5607,7 +5340,6 @@
     "poll_tier": "rare"
   },
   "1252": {
-    "addr": 1252,
     "code": "",
     "block": "",
     "tab": "",
@@ -5628,7 +5360,6 @@
     "poll_tier": "rare"
   },
   "1253": {
-    "addr": 1253,
     "code": "",
     "block": "",
     "tab": "",
@@ -5649,7 +5380,6 @@
     "poll_tier": "rare"
   },
   "1254": {
-    "addr": 1254,
     "code": "",
     "block": "",
     "tab": "",
@@ -5670,7 +5400,6 @@
     "poll_tier": "rare"
   },
   "1255": {
-    "addr": 1255,
     "code": "",
     "block": "",
     "tab": "",
@@ -5691,7 +5420,6 @@
     "poll_tier": "rare"
   },
   "1256": {
-    "addr": 1256,
     "code": "KG1",
     "block": "KG",
     "tab": "KG",
@@ -5712,7 +5440,6 @@
     "poll_tier": "rare"
   },
   "1257": {
-    "addr": 1257,
     "code": "KG2",
     "block": "KG",
     "tab": "KG",
@@ -5733,7 +5460,6 @@
     "poll_tier": "rare"
   },
   "1258": {
-    "addr": 1258,
     "code": "KG3",
     "block": "KG",
     "tab": "KG",
@@ -5754,7 +5480,6 @@
     "poll_tier": "rare"
   },
   "1259": {
-    "addr": 1259,
     "code": "KG4",
     "block": "KG",
     "tab": "KG",
@@ -5775,7 +5500,6 @@
     "poll_tier": "rare"
   },
   "1260": {
-    "addr": 1260,
     "code": "KG5",
     "block": "KG",
     "tab": "KG",
@@ -5796,7 +5520,6 @@
     "poll_tier": "rare"
   },
   "1261": {
-    "addr": 1261,
     "code": "KG6",
     "block": "KG",
     "tab": "KG",
@@ -5817,7 +5540,6 @@
     "poll_tier": "rare"
   },
   "1262": {
-    "addr": 1262,
     "code": "KG7",
     "block": "KG",
     "tab": "KG",
@@ -5838,7 +5560,6 @@
     "poll_tier": "rare"
   },
   "1263": {
-    "addr": 1263,
     "code": "KG8",
     "block": "KG",
     "tab": "KG",
@@ -5859,7 +5580,6 @@
     "poll_tier": "rare"
   },
   "1264": {
-    "addr": 1264,
     "code": "KG9",
     "block": "KG",
     "tab": "KG",
@@ -5880,7 +5600,6 @@
     "poll_tier": "rare"
   },
   "1265": {
-    "addr": 1265,
     "code": "KG10",
     "block": "KG",
     "tab": "KG",
@@ -5901,7 +5620,6 @@
     "poll_tier": "rare"
   },
   "1266": {
-    "addr": 1266,
     "code": "KG11",
     "block": "KG",
     "tab": "KG",
@@ -5922,7 +5640,6 @@
     "poll_tier": "rare"
   },
   "1267": {
-    "addr": 1267,
     "code": "KG12",
     "block": "KG",
     "tab": "KG",
@@ -5943,7 +5660,6 @@
     "poll_tier": "rare"
   },
   "1268": {
-    "addr": 1268,
     "code": "KG13-KG28",
     "block": "KG",
     "tab": "KG",
@@ -5964,7 +5680,6 @@
     "poll_tier": "rare"
   },
   "1269": {
-    "addr": 1269,
     "code": "KG29-KG44",
     "block": "KG",
     "tab": "KG",
@@ -5985,7 +5700,6 @@
     "poll_tier": "rare"
   },
   "1270": {
-    "addr": 1270,
     "code": "KG45-KG60",
     "block": "KG",
     "tab": "KG",
@@ -6006,7 +5720,6 @@
     "poll_tier": "rare"
   },
   "1271": {
-    "addr": 1271,
     "code": "",
     "block": "",
     "tab": "",
@@ -6027,7 +5740,6 @@
     "poll_tier": "rare"
   },
   "1272": {
-    "addr": 1272,
     "code": "",
     "block": "",
     "tab": "",
@@ -6048,7 +5760,6 @@
     "poll_tier": "rare"
   },
   "1273": {
-    "addr": 1273,
     "code": "",
     "block": "",
     "tab": "",
@@ -6069,7 +5780,6 @@
     "poll_tier": "rare"
   },
   "1274": {
-    "addr": 1274,
     "code": "",
     "block": "",
     "tab": "",
@@ -6090,7 +5800,6 @@
     "poll_tier": "rare"
   },
   "1275": {
-    "addr": 1275,
     "code": "",
     "block": "",
     "tab": "",
@@ -6111,7 +5820,6 @@
     "poll_tier": "rare"
   },
   "1276": {
-    "addr": 1276,
     "code": "",
     "block": "",
     "tab": "",
@@ -6132,7 +5840,6 @@
     "poll_tier": "rare"
   },
   "1277": {
-    "addr": 1277,
     "code": "",
     "block": "",
     "tab": "",
@@ -6153,7 +5860,6 @@
     "poll_tier": "rare"
   },
   "1278": {
-    "addr": 1278,
     "code": "",
     "block": "",
     "tab": "",
@@ -6174,7 +5880,6 @@
     "poll_tier": "rare"
   },
   "1279": {
-    "addr": 1279,
     "code": "",
     "block": "",
     "tab": "",
@@ -6195,7 +5900,6 @@
     "poll_tier": "rare"
   },
   "1280": {
-    "addr": 1280,
     "code": "",
     "block": "",
     "tab": "",
@@ -6216,7 +5920,6 @@
     "poll_tier": "rare"
   },
   "1281": {
-    "addr": 1281,
     "code": "",
     "block": "",
     "tab": "",
@@ -6237,7 +5940,6 @@
     "poll_tier": "rare"
   },
   "1282": {
-    "addr": 1282,
     "code": "",
     "block": "",
     "tab": "",
@@ -6258,7 +5960,6 @@
     "poll_tier": "rare"
   },
   "1283": {
-    "addr": 1283,
     "code": "",
     "block": "",
     "tab": "",
@@ -6279,7 +5980,6 @@
     "poll_tier": "rare"
   },
   "1284": {
-    "addr": 1284,
     "code": "",
     "block": "",
     "tab": "",
@@ -6300,7 +6000,6 @@
     "poll_tier": "rare"
   },
   "1285": {
-    "addr": 1285,
     "code": "",
     "block": "",
     "tab": "",
@@ -6321,7 +6020,6 @@
     "poll_tier": "rare"
   },
   "1286": {
-    "addr": 1286,
     "code": "",
     "block": "",
     "tab": "",
@@ -6342,7 +6040,6 @@
     "poll_tier": "rare"
   },
   "1287": {
-    "addr": 1287,
     "code": "",
     "block": "",
     "tab": "",
@@ -6363,7 +6060,6 @@
     "poll_tier": "rare"
   },
   "1288": {
-    "addr": 1288,
     "code": "",
     "block": "",
     "tab": "",
@@ -6384,7 +6080,6 @@
     "poll_tier": "rare"
   },
   "1289": {
-    "addr": 1289,
     "code": "",
     "block": "",
     "tab": "",
@@ -6405,7 +6100,6 @@
     "poll_tier": "rare"
   },
   "1290": {
-    "addr": 1290,
     "code": "",
     "block": "",
     "tab": "",
@@ -6426,7 +6120,6 @@
     "poll_tier": "rare"
   },
   "1291": {
-    "addr": 1291,
     "code": "",
     "block": "",
     "tab": "",
@@ -6447,7 +6140,6 @@
     "poll_tier": "rare"
   },
   "1292": {
-    "addr": 1292,
     "code": "",
     "block": "",
     "tab": "",
@@ -6468,7 +6160,6 @@
     "poll_tier": "rare"
   },
   "1293": {
-    "addr": 1293,
     "code": "",
     "block": "",
     "tab": "",
@@ -6489,7 +6180,6 @@
     "poll_tier": "rare"
   },
   "1294": {
-    "addr": 1294,
     "code": "",
     "block": "",
     "tab": "",
@@ -6510,7 +6200,6 @@
     "poll_tier": "rare"
   },
   "1295": {
-    "addr": 1295,
     "code": "",
     "block": "",
     "tab": "",
@@ -6531,7 +6220,6 @@
     "poll_tier": "rare"
   },
   "1296": {
-    "addr": 1296,
     "code": "",
     "block": "",
     "tab": "",
@@ -6552,7 +6240,6 @@
     "poll_tier": "rare"
   },
   "1297": {
-    "addr": 1297,
     "code": "",
     "block": "",
     "tab": "",
@@ -6573,7 +6260,6 @@
     "poll_tier": "rare"
   },
   "1298": {
-    "addr": 1298,
     "code": "",
     "block": "",
     "tab": "",
@@ -6594,7 +6280,6 @@
     "poll_tier": "rare"
   },
   "1299": {
-    "addr": 1299,
     "code": "",
     "block": "",
     "tab": "",
@@ -6615,7 +6300,6 @@
     "poll_tier": "rare"
   },
   "1300": {
-    "addr": 1300,
     "code": "",
     "block": "",
     "tab": "",
@@ -6636,7 +6320,6 @@
     "poll_tier": "rare"
   },
   "1301": {
-    "addr": 1301,
     "code": "",
     "block": "",
     "tab": "",
@@ -6657,7 +6340,6 @@
     "poll_tier": "rare"
   },
   "1302": {
-    "addr": 1302,
     "code": "",
     "block": "",
     "tab": "",
@@ -6678,7 +6360,6 @@
     "poll_tier": "rare"
   },
   "1303": {
-    "addr": 1303,
     "code": "",
     "block": "",
     "tab": "",
@@ -6699,7 +6380,6 @@
     "poll_tier": "rare"
   },
   "1304": {
-    "addr": 1304,
     "code": "",
     "block": "",
     "tab": "",
@@ -6720,7 +6400,6 @@
     "poll_tier": "rare"
   },
   "1305": {
-    "addr": 1305,
     "code": "",
     "block": "",
     "tab": "",
@@ -6741,7 +6420,6 @@
     "poll_tier": "rare"
   },
   "1306": {
-    "addr": 1306,
     "code": "",
     "block": "",
     "tab": "",
@@ -6762,7 +6440,6 @@
     "poll_tier": "rare"
   },
   "1307": {
-    "addr": 1307,
     "code": "",
     "block": "",
     "tab": "",
@@ -6783,7 +6460,6 @@
     "poll_tier": "rare"
   },
   "1308": {
-    "addr": 1308,
     "code": "",
     "block": "",
     "tab": "",
@@ -6804,7 +6480,6 @@
     "poll_tier": "rare"
   },
   "1309": {
-    "addr": 1309,
     "code": "",
     "block": "",
     "tab": "",
@@ -6825,7 +6500,6 @@
     "poll_tier": "rare"
   },
   "1310": {
-    "addr": 1310,
     "code": "",
     "block": "",
     "tab": "",
@@ -6846,7 +6520,6 @@
     "poll_tier": "rare"
   },
   "1311": {
-    "addr": 1311,
     "code": "",
     "block": "",
     "tab": "",
@@ -6867,7 +6540,6 @@
     "poll_tier": "rare"
   },
   "1312": {
-    "addr": 1312,
     "code": "",
     "block": "",
     "tab": "",
@@ -6888,7 +6560,6 @@
     "poll_tier": "rare"
   },
   "1313": {
-    "addr": 1313,
     "code": "",
     "block": "",
     "tab": "",
@@ -6909,7 +6580,6 @@
     "poll_tier": "rare"
   },
   "1314": {
-    "addr": 1314,
     "code": "",
     "block": "",
     "tab": "",
@@ -6930,7 +6600,6 @@
     "poll_tier": "rare"
   },
   "1315": {
-    "addr": 1315,
     "code": "",
     "block": "",
     "tab": "",
@@ -6951,7 +6620,6 @@
     "poll_tier": "rare"
   },
   "1316": {
-    "addr": 1316,
     "code": "",
     "block": "",
     "tab": "",
@@ -6972,7 +6640,6 @@
     "poll_tier": "rare"
   },
   "1317": {
-    "addr": 1317,
     "code": "",
     "block": "",
     "tab": "",
@@ -6993,7 +6660,6 @@
     "poll_tier": "rare"
   },
   "1318": {
-    "addr": 1318,
     "code": "",
     "block": "",
     "tab": "",
@@ -7014,7 +6680,6 @@
     "poll_tier": "rare"
   },
   "1319": {
-    "addr": 1319,
     "code": "",
     "block": "",
     "tab": "",
@@ -7035,7 +6700,6 @@
     "poll_tier": "rare"
   },
   "1320": {
-    "addr": 1320,
     "code": "",
     "block": "",
     "tab": "",
@@ -7056,7 +6720,6 @@
     "poll_tier": "rare"
   },
   "1321": {
-    "addr": 1321,
     "code": "",
     "block": "",
     "tab": "",
@@ -7077,7 +6740,6 @@
     "poll_tier": "rare"
   },
   "1322": {
-    "addr": 1322,
     "code": "",
     "block": "",
     "tab": "",
@@ -7098,7 +6760,6 @@
     "poll_tier": "rare"
   },
   "1323": {
-    "addr": 1323,
     "code": "",
     "block": "",
     "tab": "",
@@ -7119,7 +6780,6 @@
     "poll_tier": "rare"
   },
   "1324": {
-    "addr": 1324,
     "code": "",
     "block": "",
     "tab": "",
@@ -7140,7 +6800,6 @@
     "poll_tier": "rare"
   },
   "1325": {
-    "addr": 1325,
     "code": "",
     "block": "",
     "tab": "",
@@ -7161,7 +6820,6 @@
     "poll_tier": "rare"
   },
   "1326": {
-    "addr": 1326,
     "code": "",
     "block": "",
     "tab": "",
@@ -7182,7 +6840,6 @@
     "poll_tier": "rare"
   },
   "1327": {
-    "addr": 1327,
     "code": "",
     "block": "",
     "tab": "",
@@ -7203,7 +6860,6 @@
     "poll_tier": "rare"
   },
   "1328": {
-    "addr": 1328,
     "code": "",
     "block": "",
     "tab": "",
@@ -7224,7 +6880,6 @@
     "poll_tier": "rare"
   },
   "1329": {
-    "addr": 1329,
     "code": "",
     "block": "",
     "tab": "",
@@ -7245,7 +6900,6 @@
     "poll_tier": "rare"
   },
   "1330": {
-    "addr": 1330,
     "code": "",
     "block": "",
     "tab": "",
@@ -7266,7 +6920,6 @@
     "poll_tier": "rare"
   },
   "1331": {
-    "addr": 1331,
     "code": "",
     "block": "",
     "tab": "",
@@ -7287,7 +6940,6 @@
     "poll_tier": "rare"
   },
   "1332": {
-    "addr": 1332,
     "code": "",
     "block": "",
     "tab": "",
@@ -7308,7 +6960,6 @@
     "poll_tier": "rare"
   },
   "1333": {
-    "addr": 1333,
     "code": "",
     "block": "",
     "tab": "",
@@ -7329,7 +6980,6 @@
     "poll_tier": "rare"
   },
   "1334": {
-    "addr": 1334,
     "code": "SG01",
     "block": "SG",
     "tab": "SG",
@@ -7350,7 +7000,6 @@
     "poll_tier": "rare"
   },
   "1335": {
-    "addr": 1335,
     "code": "SG02",
     "block": "SG",
     "tab": "SG",
@@ -7371,7 +7020,6 @@
     "poll_tier": "rare"
   },
   "1336": {
-    "addr": 1336,
     "code": "SG03",
     "block": "SG",
     "tab": "SG",
@@ -7392,7 +7040,6 @@
     "poll_tier": "rare"
   },
   "1337": {
-    "addr": 1337,
     "code": "SG04",
     "block": "SG",
     "tab": "SG",
@@ -7413,7 +7060,6 @@
     "poll_tier": "rare"
   },
   "1338": {
-    "addr": 1338,
     "code": "SG05",
     "block": "SG",
     "tab": "SG",
@@ -7434,7 +7080,6 @@
     "poll_tier": "rare"
   },
   "1339": {
-    "addr": 1339,
     "code": "SG06",
     "block": "SG",
     "tab": "SG",
@@ -7455,7 +7100,6 @@
     "poll_tier": "rare"
   },
   "1340": {
-    "addr": 1340,
     "code": "SG07",
     "block": "SG",
     "tab": "SG",
@@ -7476,7 +7120,6 @@
     "poll_tier": "rare"
   },
   "1341": {
-    "addr": 1341,
     "code": "SG08",
     "block": "SG",
     "tab": "SG",
@@ -7497,7 +7140,6 @@
     "poll_tier": "rare"
   },
   "1342": {
-    "addr": 1342,
     "code": "A38",
     "block": "A",
     "tab": "A",
@@ -7518,7 +7160,6 @@
     "poll_tier": "rare"
   },
   "1343": {
-    "addr": 1343,
     "code": "A39",
     "block": "A",
     "tab": "A",
@@ -7539,7 +7180,6 @@
     "poll_tier": "rare"
   },
   "1344": {
-    "addr": 1344,
     "code": "A40",
     "block": "A",
     "tab": "A",
@@ -7560,7 +7200,6 @@
     "poll_tier": "rare"
   },
   "1345": {
-    "addr": 1345,
     "code": "H40",
     "block": "H",
     "tab": "H",
@@ -7581,7 +7220,6 @@
     "poll_tier": "rare"
   },
   "1346": {
-    "addr": 1346,
     "code": "H41",
     "block": "H",
     "tab": "H",
@@ -7602,7 +7240,6 @@
     "poll_tier": "rare"
   },
   "1347": {
-    "addr": 1347,
     "code": "C12",
     "block": "C",
     "tab": "C",
@@ -7623,7 +7260,6 @@
     "poll_tier": "rare"
   },
   "1348": {
-    "addr": 1348,
     "code": "C13",
     "block": "C",
     "tab": "C",
@@ -7644,7 +7280,6 @@
     "poll_tier": "rare"
   },
   "1349": {
-    "addr": 1349,
     "code": "C14",
     "block": "C",
     "tab": "C",
@@ -7665,7 +7300,6 @@
     "poll_tier": "rare"
   },
   "1350": {
-    "addr": 1350,
     "code": "C15",
     "block": "C",
     "tab": "C",
@@ -7686,7 +7320,6 @@
     "poll_tier": "rare"
   },
   "1351": {
-    "addr": 1351,
     "code": "E20",
     "block": "E",
     "tab": "E",
@@ -7707,7 +7340,6 @@
     "poll_tier": "rare"
   },
   "1352": {
-    "addr": 1352,
     "code": "E21",
     "block": "E",
     "tab": "E",
@@ -7728,7 +7360,6 @@
     "poll_tier": "rare"
   },
   "1353": {
-    "addr": 1353,
     "code": "",
     "block": "",
     "tab": "",
@@ -7749,7 +7380,6 @@
     "poll_tier": "rare"
   },
   "1354": {
-    "addr": 1354,
     "code": "",
     "block": "",
     "tab": "",
@@ -7770,7 +7400,6 @@
     "poll_tier": "rare"
   },
   "1355": {
-    "addr": 1355,
     "code": "",
     "block": "",
     "tab": "",
@@ -7791,7 +7420,6 @@
     "poll_tier": "rare"
   },
   "1356": {
-    "addr": 1356,
     "code": "H42",
     "block": "H",
     "tab": "H",
@@ -7812,7 +7440,6 @@
     "poll_tier": "rare"
   },
   "1357": {
-    "addr": 1357,
     "code": "Z19",
     "block": "Z",
     "tab": "Z",
@@ -7833,7 +7460,6 @@
     "poll_tier": "rare"
   },
   "1358": {
-    "addr": 1358,
     "code": "Z20",
     "block": "Z",
     "tab": "Z",
@@ -7854,7 +7480,6 @@
     "poll_tier": "rare"
   },
   "1361": {
-    "addr": 1361,
     "code": "",
     "block": "",
     "tab": "",
@@ -7875,7 +7500,6 @@
     "poll_tier": "rare"
   },
   "1362": {
-    "addr": 1362,
     "code": "",
     "block": "",
     "tab": "",
@@ -7896,7 +7520,6 @@
     "poll_tier": "rare"
   },
   "1363": {
-    "addr": 1363,
     "code": "",
     "block": "",
     "tab": "",
@@ -7917,7 +7540,6 @@
     "poll_tier": "rare"
   },
   "1364": {
-    "addr": 1364,
     "code": "",
     "block": "",
     "tab": "",
@@ -7938,7 +7560,6 @@
     "poll_tier": "rare"
   },
   "1365": {
-    "addr": 1365,
     "code": "",
     "block": "",
     "tab": "",
@@ -7959,7 +7580,6 @@
     "poll_tier": "rare"
   },
   "1366": {
-    "addr": 1366,
     "code": "",
     "block": "",
     "tab": "",
@@ -7980,7 +7600,6 @@
     "poll_tier": "rare"
   },
   "1367": {
-    "addr": 1367,
     "code": "",
     "block": "",
     "tab": "",
@@ -8001,7 +7620,6 @@
     "poll_tier": "rare"
   },
   "1368": {
-    "addr": 1368,
     "code": "",
     "block": "",
     "tab": "",
@@ -8022,7 +7640,6 @@
     "poll_tier": "rare"
   },
   "1369": {
-    "addr": 1369,
     "code": "",
     "block": "",
     "tab": "",
@@ -8043,7 +7660,6 @@
     "poll_tier": "rare"
   },
   "1370": {
-    "addr": 1370,
     "code": "",
     "block": "",
     "tab": "",
@@ -8064,7 +7680,6 @@
     "poll_tier": "rare"
   },
   "1371": {
-    "addr": 1371,
     "code": "",
     "block": "",
     "tab": "",
@@ -8085,7 +7700,6 @@
     "poll_tier": "rare"
   },
   "1372": {
-    "addr": 1372,
     "code": "",
     "block": "",
     "tab": "",
@@ -8106,7 +7720,6 @@
     "poll_tier": "rare"
   },
   "1373": {
-    "addr": 1373,
     "code": "",
     "block": "",
     "tab": "",
@@ -8127,7 +7740,6 @@
     "poll_tier": "rare"
   },
   "1374": {
-    "addr": 1374,
     "code": "",
     "block": "",
     "tab": "",
@@ -8148,7 +7760,6 @@
     "poll_tier": "rare"
   },
   "1375": {
-    "addr": 1375,
     "code": "",
     "block": "",
     "tab": "",
@@ -8169,7 +7780,6 @@
     "poll_tier": "rare"
   },
   "1376": {
-    "addr": 1376,
     "code": "",
     "block": "",
     "tab": "",
@@ -8190,7 +7800,6 @@
     "poll_tier": "rare"
   },
   "1377": {
-    "addr": 1377,
     "code": "",
     "block": "",
     "tab": "",
@@ -8211,7 +7820,6 @@
     "poll_tier": "rare"
   },
   "1378": {
-    "addr": 1378,
     "code": "",
     "block": "",
     "tab": "",
@@ -8232,7 +7840,6 @@
     "poll_tier": "rare"
   },
   "1379": {
-    "addr": 1379,
     "code": "",
     "block": "",
     "tab": "",
@@ -8253,7 +7860,6 @@
     "poll_tier": "rare"
   },
   "1380": {
-    "addr": 1380,
     "code": "",
     "block": "",
     "tab": "",
@@ -8274,7 +7880,6 @@
     "poll_tier": "rare"
   },
   "1432": {
-    "addr": 1432,
     "code": "P11",
     "block": "P",
     "tab": "P",
@@ -8295,7 +7900,6 @@
     "poll_tier": "rare"
   },
   "1433": {
-    "addr": 1433,
     "code": "P12",
     "block": "P",
     "tab": "P",
@@ -8316,7 +7920,6 @@
     "poll_tier": "rare"
   },
   "1435": {
-    "addr": 1435,
     "code": "P13",
     "block": "P",
     "tab": "P",
@@ -8337,7 +7940,6 @@
     "poll_tier": "rare"
   },
   "1436": {
-    "addr": 1436,
     "code": "P14",
     "block": "P",
     "tab": "P",
@@ -8358,7 +7960,6 @@
     "poll_tier": "rare"
   },
   "1437": {
-    "addr": 1437,
     "code": "D30",
     "block": "D",
     "tab": "D",
@@ -8379,7 +7980,6 @@
     "poll_tier": "rare"
   },
   "1438": {
-    "addr": 1438,
     "code": "P15",
     "block": "P",
     "tab": "P",
@@ -8400,7 +8000,6 @@
     "poll_tier": "rare"
   },
   "1444": {
-    "addr": 1444,
     "code": "P16",
     "block": "P",
     "tab": "P",
@@ -8421,7 +8020,6 @@
     "poll_tier": "rare"
   },
   "1451": {
-    "addr": 1451,
     "code": "",
     "block": "",
     "tab": "",
@@ -8442,7 +8040,6 @@
     "poll_tier": "rare"
   },
   "1452": {
-    "addr": 1452,
     "code": "",
     "block": "",
     "tab": "",
@@ -8463,7 +8060,6 @@
     "poll_tier": "rare"
   },
   "1453": {
-    "addr": 1453,
     "code": "",
     "block": "",
     "tab": "",
@@ -8484,7 +8080,6 @@
     "poll_tier": "rare"
   },
   "1454": {
-    "addr": 1454,
     "code": "",
     "block": "",
     "tab": "",
@@ -8505,7 +8100,6 @@
     "poll_tier": "rare"
   },
   "1455": {
-    "addr": 1455,
     "code": "",
     "block": "",
     "tab": "",
@@ -8526,7 +8120,6 @@
     "poll_tier": "rare"
   },
   "1456": {
-    "addr": 1456,
     "code": "",
     "block": "",
     "tab": "",
@@ -8547,7 +8140,6 @@
     "poll_tier": "rare"
   },
   "1457": {
-    "addr": 1457,
     "code": "",
     "block": "",
     "tab": "",
@@ -8568,7 +8160,6 @@
     "poll_tier": "rare"
   },
   "1458": {
-    "addr": 1458,
     "code": "",
     "block": "",
     "tab": "",
@@ -8589,7 +8180,6 @@
     "poll_tier": "rare"
   },
   "1459": {
-    "addr": 1459,
     "code": "",
     "block": "",
     "tab": "",
@@ -8610,7 +8200,6 @@
     "poll_tier": "rare"
   },
   "1460": {
-    "addr": 1460,
     "code": "",
     "block": "",
     "tab": "",
@@ -8631,7 +8220,6 @@
     "poll_tier": "rare"
   },
   "1464": {
-    "addr": 1464,
     "code": "",
     "block": "",
     "tab": "",
@@ -8652,7 +8240,6 @@
     "poll_tier": "rare"
   },
   "1466": {
-    "addr": 1466,
     "code": "",
     "block": "",
     "tab": "",
@@ -8673,7 +8260,6 @@
     "poll_tier": "rare"
   },
   "1476": {
-    "addr": 1476,
     "code": "",
     "block": "",
     "tab": "",
@@ -8694,7 +8280,6 @@
     "poll_tier": "rare"
   },
   "1541": {
-    "addr": 1541,
     "code": "",
     "block": "",
     "tab": "",
@@ -8715,7 +8300,6 @@
     "poll_tier": "rare"
   },
   "1542": {
-    "addr": 1542,
     "code": "",
     "block": "",
     "tab": "",
@@ -8736,7 +8320,6 @@
     "poll_tier": "rare"
   },
   "1543": {
-    "addr": 1543,
     "code": "",
     "block": "",
     "tab": "",
@@ -8757,7 +8340,6 @@
     "poll_tier": "rare"
   },
   "1544": {
-    "addr": 1544,
     "code": "",
     "block": "",
     "tab": "",
@@ -8778,7 +8360,6 @@
     "poll_tier": "rare"
   },
   "1545": {
-    "addr": 1545,
     "code": "",
     "block": "",
     "tab": "",
@@ -8799,7 +8380,6 @@
     "poll_tier": "rare"
   },
   "1546": {
-    "addr": 1546,
     "code": "",
     "block": "",
     "tab": "",
@@ -8820,7 +8400,6 @@
     "poll_tier": "rare"
   },
   "1547": {
-    "addr": 1547,
     "code": "",
     "block": "",
     "tab": "",
@@ -8841,7 +8420,6 @@
     "poll_tier": "rare"
   },
   "1548": {
-    "addr": 1548,
     "code": "",
     "block": "",
     "tab": "",
@@ -8862,7 +8440,6 @@
     "poll_tier": "rare"
   },
   "1549": {
-    "addr": 1549,
     "code": "",
     "block": "",
     "tab": "",
@@ -8883,7 +8460,6 @@
     "poll_tier": "rare"
   },
   "1550": {
-    "addr": 1550,
     "code": "",
     "block": "",
     "tab": "",
@@ -8904,7 +8480,6 @@
     "poll_tier": "rare"
   },
   "2001": {
-    "addr": 2001,
     "code": "",
     "block": "",
     "tab": "",
@@ -8925,7 +8500,6 @@
     "poll_tier": "rare"
   },
   "2002": {
-    "addr": 2002,
     "code": "",
     "block": "",
     "tab": "",
@@ -8946,7 +8520,6 @@
     "poll_tier": "rare"
   },
   "2003": {
-    "addr": 2003,
     "code": "",
     "block": "",
     "tab": "",
@@ -8967,7 +8540,6 @@
     "poll_tier": "rare"
   },
   "2004": {
-    "addr": 2004,
     "code": "",
     "block": "",
     "tab": "",
@@ -8988,7 +8560,6 @@
     "poll_tier": "rare"
   },
   "2005": {
-    "addr": 2005,
     "code": "",
     "block": "",
     "tab": "",
@@ -9009,7 +8580,6 @@
     "poll_tier": "rare"
   },
   "2006": {
-    "addr": 2006,
     "code": "",
     "block": "",
     "tab": "",
@@ -9030,7 +8600,6 @@
     "poll_tier": "rare"
   },
   "2007": {
-    "addr": 2007,
     "code": "",
     "block": "",
     "tab": "",
@@ -9051,7 +8620,6 @@
     "poll_tier": "rare"
   },
   "2008": {
-    "addr": 2008,
     "code": "",
     "block": "",
     "tab": "",
@@ -9072,7 +8640,6 @@
     "poll_tier": "rare"
   },
   "2009": {
-    "addr": 2009,
     "code": "",
     "block": "",
     "tab": "",
@@ -9093,7 +8660,6 @@
     "poll_tier": "rare"
   },
   "2010": {
-    "addr": 2010,
     "code": "",
     "block": "",
     "tab": "",
@@ -9114,7 +8680,6 @@
     "poll_tier": "rare"
   },
   "2011": {
-    "addr": 2011,
     "code": "",
     "block": "",
     "tab": "",
@@ -9135,7 +8700,6 @@
     "poll_tier": "rare"
   },
   "2012": {
-    "addr": 2012,
     "code": "",
     "block": "",
     "tab": "",
@@ -9156,7 +8720,6 @@
     "poll_tier": "rare"
   },
   "2013": {
-    "addr": 2013,
     "code": "",
     "block": "",
     "tab": "",
@@ -9177,7 +8740,6 @@
     "poll_tier": "quick"
   },
   "2014": {
-    "addr": 2014,
     "code": "",
     "block": "",
     "tab": "",
@@ -9198,7 +8760,6 @@
     "poll_tier": "quick"
   },
   "2015": {
-    "addr": 2015,
     "code": "",
     "block": "",
     "tab": "",
@@ -9219,7 +8780,6 @@
     "poll_tier": "rare"
   },
   "2016": {
-    "addr": 2016,
     "code": "",
     "block": "",
     "tab": "",
@@ -9240,7 +8800,6 @@
     "poll_tier": "quick"
   },
   "2017": {
-    "addr": 2017,
     "code": "",
     "block": "",
     "tab": "",
@@ -9261,7 +8820,6 @@
     "poll_tier": "rare"
   },
   "2018": {
-    "addr": 2018,
     "code": "",
     "block": "",
     "tab": "",
@@ -9282,7 +8840,6 @@
     "poll_tier": "rare"
   },
   "2019": {
-    "addr": 2019,
     "code": "",
     "block": "",
     "tab": "",
@@ -9303,7 +8860,6 @@
     "poll_tier": "rare"
   },
   "2020": {
-    "addr": 2020,
     "code": "",
     "block": "",
     "tab": "",
@@ -9324,7 +8880,6 @@
     "poll_tier": "rare"
   },
   "2021": {
-    "addr": 2021,
     "code": "",
     "block": "",
     "tab": "",
@@ -9345,7 +8900,6 @@
     "poll_tier": "rare"
   },
   "2022": {
-    "addr": 2022,
     "code": "",
     "block": "",
     "tab": "",
@@ -9366,7 +8920,6 @@
     "poll_tier": "rare"
   },
   "2023": {
-    "addr": 2023,
     "code": "",
     "block": "",
     "tab": "",
@@ -9387,7 +8940,6 @@
     "poll_tier": "rare"
   },
   "2024": {
-    "addr": 2024,
     "code": "",
     "block": "",
     "tab": "",
@@ -9408,7 +8960,6 @@
     "poll_tier": "rare"
   },
   "2025": {
-    "addr": 2025,
     "code": "",
     "block": "",
     "tab": "",
@@ -9429,7 +8980,6 @@
     "poll_tier": "rare"
   },
   "2026": {
-    "addr": 2026,
     "code": "",
     "block": "",
     "tab": "",
@@ -9450,7 +9000,6 @@
     "poll_tier": "rare"
   },
   "2027": {
-    "addr": 2027,
     "code": "",
     "block": "",
     "tab": "",
@@ -9471,7 +9020,6 @@
     "poll_tier": "rare"
   },
   "2028": {
-    "addr": 2028,
     "code": "",
     "block": "",
     "tab": "",
@@ -9492,7 +9040,6 @@
     "poll_tier": "rare"
   },
   "2029": {
-    "addr": 2029,
     "code": "T-Diag5",
     "block": "T",
     "tab": "T",
@@ -9513,7 +9060,6 @@
     "poll_tier": "medium"
   },
   "2030": {
-    "addr": 2030,
     "code": "T-Diag6",
     "block": "T",
     "tab": "T",
@@ -9534,7 +9080,6 @@
     "poll_tier": "medium"
   },
   "2031": {
-    "addr": 2031,
     "code": "T-Diag7",
     "block": "T",
     "tab": "T",
@@ -9555,7 +9100,6 @@
     "poll_tier": "medium"
   },
   "2032": {
-    "addr": 2032,
     "code": "T-Diag8",
     "block": "T",
     "tab": "T",
@@ -9576,7 +9120,6 @@
     "poll_tier": "medium"
   },
   "2033": {
-    "addr": 2033,
     "code": "",
     "block": "",
     "tab": "",
@@ -9597,7 +9140,6 @@
     "poll_tier": "rare"
   },
   "2034": {
-    "addr": 2034,
     "code": "S01",
     "block": "S",
     "tab": "S",
@@ -9618,7 +9160,6 @@
     "poll_tier": "rare"
   },
   "2035": {
-    "addr": 2035,
     "code": "T40",
     "block": "T",
     "tab": "T",
@@ -9639,7 +9180,6 @@
     "poll_tier": "quick"
   },
   "2036": {
-    "addr": 2036,
     "code": "T41",
     "block": "T",
     "tab": "T",
@@ -9660,7 +9200,6 @@
     "poll_tier": "quick"
   },
   "2037": {
-    "addr": 2037,
     "code": "T42",
     "block": "T",
     "tab": "T",
@@ -9681,7 +9220,6 @@
     "poll_tier": "medium"
   },
   "2038": {
-    "addr": 2038,
     "code": "T43",
     "block": "T",
     "tab": "T",
@@ -9702,7 +9240,6 @@
     "poll_tier": "medium"
   },
   "2039": {
-    "addr": 2039,
     "code": "T44",
     "block": "T",
     "tab": "T",
@@ -9723,7 +9260,6 @@
     "poll_tier": "medium"
   },
   "2040": {
-    "addr": 2040,
     "code": "",
     "block": "",
     "tab": "",
@@ -9744,7 +9280,6 @@
     "poll_tier": "rare"
   },
   "2041": {
-    "addr": 2041,
     "code": "",
     "block": "",
     "tab": "",
@@ -9765,7 +9300,6 @@
     "poll_tier": "rare"
   },
   "2042": {
-    "addr": 2042,
     "code": "T36",
     "block": "T",
     "tab": "T",
@@ -9786,7 +9320,6 @@
     "poll_tier": "quick"
   },
   "2043": {
-    "addr": 2043,
     "code": "T37",
     "block": "T",
     "tab": "T",
@@ -9807,7 +9340,6 @@
     "poll_tier": "quick"
   },
   "2044": {
-    "addr": 2044,
     "code": "T38",
     "block": "T",
     "tab": "T",
@@ -9828,7 +9360,6 @@
     "poll_tier": "quick"
   },
   "2045": {
-    "addr": 2045,
     "code": "T01",
     "block": "T",
     "tab": "T",
@@ -9849,7 +9380,6 @@
     "poll_tier": "quick"
   },
   "2046": {
-    "addr": 2046,
     "code": "T02",
     "block": "T",
     "tab": "T",
@@ -9870,7 +9400,6 @@
     "poll_tier": "quick"
   },
   "2047": {
-    "addr": 2047,
     "code": "T08",
     "block": "T",
     "tab": "T",
@@ -9891,7 +9420,6 @@
     "poll_tier": "medium"
   },
   "2048": {
-    "addr": 2048,
     "code": "T04",
     "block": "T",
     "tab": "T",
@@ -9912,7 +9440,6 @@
     "poll_tier": "quick"
   },
   "2049": {
-    "addr": 2049,
     "code": "T03",
     "block": "T",
     "tab": "T",
@@ -9933,7 +9460,6 @@
     "poll_tier": "quick"
   },
   "2050": {
-    "addr": 2050,
     "code": "T14",
     "block": "T",
     "tab": "T",
@@ -9954,7 +9480,6 @@
     "poll_tier": "medium"
   },
   "2051": {
-    "addr": 2051,
     "code": "T05",
     "block": "T",
     "tab": "T",
@@ -9975,7 +9500,6 @@
     "poll_tier": "quick"
   },
   "2052": {
-    "addr": 2052,
     "code": "T07",
     "block": "T",
     "tab": "T",
@@ -9996,7 +9520,6 @@
     "poll_tier": "quick"
   },
   "2053": {
-    "addr": 2053,
     "code": "T12",
     "block": "T",
     "tab": "T",
@@ -10017,7 +9540,6 @@
     "poll_tier": "quick"
   },
   "2054": {
-    "addr": 2054,
     "code": "T54",
     "block": "T",
     "tab": "T",
@@ -10038,7 +9560,6 @@
     "poll_tier": "quick"
   },
   "2055": {
-    "addr": 2055,
     "code": "T06",
     "block": "T",
     "tab": "T",
@@ -10059,7 +9580,6 @@
     "poll_tier": "medium"
   },
   "2056": {
-    "addr": 2056,
     "code": "",
     "block": "",
     "tab": "",
@@ -10080,7 +9600,6 @@
     "poll_tier": "rare"
   },
   "2057": {
-    "addr": 2057,
     "code": "T35",
     "block": "T",
     "tab": "T",
@@ -10101,7 +9620,6 @@
     "poll_tier": "medium"
   },
   "2058": {
-    "addr": 2058,
     "code": "T09",
     "block": "T",
     "tab": "T",
@@ -10122,7 +9640,6 @@
     "poll_tier": "quick"
   },
   "2059": {
-    "addr": 2059,
     "code": "T59",
     "block": "T",
     "tab": "T",
@@ -10143,7 +9660,6 @@
     "poll_tier": "quick"
   },
   "2060": {
-    "addr": 2060,
     "code": "T60",
     "block": "T",
     "tab": "T",
@@ -10164,7 +9680,6 @@
     "poll_tier": "quick"
   },
   "2061": {
-    "addr": 2061,
     "code": "T33",
     "block": "T",
     "tab": "T",
@@ -10185,7 +9700,6 @@
     "poll_tier": "medium"
   },
   "2062": {
-    "addr": 2062,
     "code": "T34",
     "block": "T",
     "tab": "T",
@@ -10206,7 +9720,6 @@
     "poll_tier": "quick"
   },
   "2063": {
-    "addr": 2063,
     "code": "T10",
     "block": "T",
     "tab": "T",
@@ -10227,7 +9740,6 @@
     "poll_tier": "medium"
   },
   "2064": {
-    "addr": 2064,
     "code": "T11",
     "block": "T",
     "tab": "T",
@@ -10248,7 +9760,6 @@
     "poll_tier": "medium"
   },
   "2065": {
-    "addr": 2065,
     "code": "T-Diag1",
     "block": "T",
     "tab": "T",
@@ -10269,7 +9780,6 @@
     "poll_tier": "medium"
   },
   "2066": {
-    "addr": 2066,
     "code": "T-Diag2",
     "block": "T",
     "tab": "T",
@@ -10290,7 +9800,6 @@
     "poll_tier": "medium"
   },
   "2067": {
-    "addr": 2067,
     "code": "T-Diag3",
     "block": "T",
     "tab": "T",
@@ -10311,7 +9820,6 @@
     "poll_tier": "medium"
   },
   "2068": {
-    "addr": 2068,
     "code": "",
     "block": "",
     "tab": "",
@@ -10332,7 +9840,6 @@
     "poll_tier": "rare"
   },
   "2069": {
-    "addr": 2069,
     "code": "T15",
     "block": "T",
     "tab": "T",
@@ -10353,7 +9860,6 @@
     "poll_tier": "quick"
   },
   "2070": {
-    "addr": 2070,
     "code": "",
     "block": "",
     "tab": "",
@@ -10374,7 +9880,6 @@
     "poll_tier": "rare"
   },
   "2071": {
-    "addr": 2071,
     "code": "T30",
     "block": "T",
     "tab": "T",
@@ -10395,7 +9900,6 @@
     "poll_tier": "medium"
   },
   "2072": {
-    "addr": 2072,
     "code": "T31",
     "block": "T",
     "tab": "T",
@@ -10416,7 +9920,6 @@
     "poll_tier": "medium"
   },
   "2073": {
-    "addr": 2073,
     "code": "T32",
     "block": "T",
     "tab": "T",
@@ -10437,7 +9940,6 @@
     "poll_tier": "medium"
   },
   "2074": {
-    "addr": 2074,
     "code": "T27",
     "block": "T",
     "tab": "T",
@@ -10458,7 +9960,6 @@
     "poll_tier": "medium"
   },
   "2075": {
-    "addr": 2075,
     "code": "T28",
     "block": "T",
     "tab": "T",
@@ -10479,7 +9980,6 @@
     "poll_tier": "medium"
   },
   "2076": {
-    "addr": 2076,
     "code": "T29",
     "block": "T",
     "tab": "T",
@@ -10500,7 +10000,6 @@
     "poll_tier": "medium"
   },
   "2077": {
-    "addr": 2077,
     "code": "T39",
     "block": "T",
     "tab": "T",
@@ -10521,7 +10020,6 @@
     "poll_tier": "quick"
   },
   "2078": {
-    "addr": 2078,
     "code": "",
     "block": "",
     "tab": "",
@@ -10542,7 +10040,6 @@
     "poll_tier": "medium"
   },
   "2079": {
-    "addr": 2079,
     "code": "",
     "block": "",
     "tab": "",
@@ -10563,7 +10060,6 @@
     "poll_tier": "medium"
   },
   "2080": {
-    "addr": 2080,
     "code": "",
     "block": "",
     "tab": "",
@@ -10584,7 +10080,6 @@
     "poll_tier": "rare"
   },
   "2081": {
-    "addr": 2081,
     "code": "ERR07",
     "block": "ERR",
     "tab": "ERR",
@@ -10605,7 +10100,6 @@
     "poll_tier": "rare"
   },
   "2082": {
-    "addr": 2082,
     "code": "ERR08",
     "block": "ERR",
     "tab": "ERR",
@@ -10626,7 +10120,6 @@
     "poll_tier": "rare"
   },
   "2083": {
-    "addr": 2083,
     "code": "ERR09",
     "block": "ERR",
     "tab": "ERR",
@@ -10647,7 +10140,6 @@
     "poll_tier": "rare"
   },
   "2084": {
-    "addr": 2084,
     "code": "",
     "block": "",
     "tab": "",
@@ -10668,7 +10160,6 @@
     "poll_tier": "rare"
   },
   "2085": {
-    "addr": 2085,
     "code": "ERR01",
     "block": "ERR",
     "tab": "ERR",
@@ -10689,7 +10180,6 @@
     "poll_tier": "rare"
   },
   "2086": {
-    "addr": 2086,
     "code": "ERR02",
     "block": "ERR",
     "tab": "ERR",
@@ -10710,7 +10200,6 @@
     "poll_tier": "rare"
   },
   "2087": {
-    "addr": 2087,
     "code": "ERR03",
     "block": "ERR",
     "tab": "ERR",
@@ -10731,7 +10220,6 @@
     "poll_tier": "rare"
   },
   "2088": {
-    "addr": 2088,
     "code": "ERR04",
     "block": "ERR",
     "tab": "ERR",
@@ -10752,7 +10240,6 @@
     "poll_tier": "rare"
   },
   "2089": {
-    "addr": 2089,
     "code": "ERR05",
     "block": "ERR",
     "tab": "ERR",
@@ -10773,7 +10260,6 @@
     "poll_tier": "rare"
   },
   "2090": {
-    "addr": 2090,
     "code": "ERR06",
     "block": "ERR",
     "tab": "ERR",
@@ -10794,7 +10280,6 @@
     "poll_tier": "rare"
   },
   "2091": {
-    "addr": 2091,
     "code": "",
     "block": "",
     "tab": "",
@@ -10815,7 +10300,6 @@
     "poll_tier": "rare"
   },
   "2092": {
-    "addr": 2092,
     "code": "",
     "block": "",
     "tab": "",
@@ -10836,7 +10320,6 @@
     "poll_tier": "rare"
   },
   "2093": {
-    "addr": 2093,
     "code": "",
     "block": "",
     "tab": "",
@@ -10857,7 +10340,6 @@
     "poll_tier": "rare"
   },
   "2094": {
-    "addr": 2094,
     "code": "",
     "block": "",
     "tab": "",
@@ -10878,7 +10360,6 @@
     "poll_tier": "rare"
   },
   "2095": {
-    "addr": 2095,
     "code": "",
     "block": "",
     "tab": "",
@@ -10899,7 +10380,6 @@
     "poll_tier": "rare"
   },
   "2096": {
-    "addr": 2096,
     "code": "",
     "block": "",
     "tab": "",
@@ -10920,7 +10400,6 @@
     "poll_tier": "rare"
   },
   "2097": {
-    "addr": 2097,
     "code": "",
     "block": "",
     "tab": "",
@@ -10941,7 +10420,6 @@
     "poll_tier": "rare"
   },
   "2098": {
-    "addr": 2098,
     "code": "",
     "block": "",
     "tab": "",
@@ -10962,7 +10440,6 @@
     "poll_tier": "rare"
   },
   "2099": {
-    "addr": 2099,
     "code": "",
     "block": "",
     "tab": "",
@@ -10983,7 +10460,6 @@
     "poll_tier": "rare"
   },
   "2100": {
-    "addr": 2100,
     "code": "",
     "block": "",
     "tab": "",
@@ -11004,7 +10480,6 @@
     "poll_tier": "rare"
   },
   "2101": {
-    "addr": 2101,
     "code": "",
     "block": "",
     "tab": "",
@@ -11025,7 +10500,6 @@
     "poll_tier": "rare"
   },
   "2102": {
-    "addr": 2102,
     "code": "",
     "block": "",
     "tab": "",
@@ -11046,7 +10520,6 @@
     "poll_tier": "rare"
   },
   "2103": {
-    "addr": 2103,
     "code": "",
     "block": "",
     "tab": "",
@@ -11067,7 +10540,6 @@
     "poll_tier": "rare"
   },
   "2104": {
-    "addr": 2104,
     "code": "",
     "block": "",
     "tab": "",
@@ -11088,7 +10560,6 @@
     "poll_tier": "rare"
   },
   "2105": {
-    "addr": 2105,
     "code": "",
     "block": "",
     "tab": "",
@@ -11109,7 +10580,6 @@
     "poll_tier": "rare"
   },
   "2106": {
-    "addr": 2106,
     "code": "",
     "block": "",
     "tab": "",
@@ -11130,7 +10600,6 @@
     "poll_tier": "rare"
   },
   "2107": {
-    "addr": 2107,
     "code": "",
     "block": "",
     "tab": "",
@@ -11151,7 +10620,6 @@
     "poll_tier": "rare"
   },
   "2108": {
-    "addr": 2108,
     "code": "",
     "block": "",
     "tab": "",
@@ -11172,7 +10640,6 @@
     "poll_tier": "rare"
   },
   "2109": {
-    "addr": 2109,
     "code": "",
     "block": "",
     "tab": "",
@@ -11193,7 +10660,6 @@
     "poll_tier": "rare"
   },
   "2110": {
-    "addr": 2110,
     "code": "",
     "block": "",
     "tab": "",
@@ -11214,7 +10680,6 @@
     "poll_tier": "rare"
   },
   "2111": {
-    "addr": 2111,
     "code": "",
     "block": "",
     "tab": "",
@@ -11235,7 +10700,6 @@
     "poll_tier": "rare"
   },
   "2112": {
-    "addr": 2112,
     "code": "",
     "block": "",
     "tab": "",
@@ -11256,7 +10720,6 @@
     "poll_tier": "rare"
   },
   "2113": {
-    "addr": 2113,
     "code": "",
     "block": "",
     "tab": "",
@@ -11277,7 +10740,6 @@
     "poll_tier": "rare"
   },
   "2114": {
-    "addr": 2114,
     "code": "",
     "block": "",
     "tab": "",
@@ -11298,7 +10760,6 @@
     "poll_tier": "rare"
   },
   "2115": {
-    "addr": 2115,
     "code": "",
     "block": "",
     "tab": "",
@@ -11319,7 +10780,6 @@
     "poll_tier": "rare"
   },
   "2116": {
-    "addr": 2116,
     "code": "",
     "block": "",
     "tab": "",
@@ -11340,7 +10800,6 @@
     "poll_tier": "rare"
   },
   "2117": {
-    "addr": 2117,
     "code": "",
     "block": "",
     "tab": "",
@@ -11361,7 +10820,6 @@
     "poll_tier": "rare"
   },
   "2118": {
-    "addr": 2118,
     "code": "",
     "block": "",
     "tab": "",
@@ -11382,7 +10840,6 @@
     "poll_tier": "medium"
   },
   "2119": {
-    "addr": 2119,
     "code": "",
     "block": "",
     "tab": "",
@@ -11403,7 +10860,6 @@
     "poll_tier": "rare"
   },
   "2120": {
-    "addr": 2120,
     "code": "",
     "block": "",
     "tab": "",
@@ -11424,7 +10880,6 @@
     "poll_tier": "medium"
   },
   "2121": {
-    "addr": 2121,
     "code": "",
     "block": "",
     "tab": "",
@@ -11445,7 +10900,6 @@
     "poll_tier": "rare"
   },
   "2122": {
-    "addr": 2122,
     "code": "",
     "block": "",
     "tab": "",
@@ -11466,7 +10920,6 @@
     "poll_tier": "medium"
   },
   "2123": {
-    "addr": 2123,
     "code": "",
     "block": "",
     "tab": "",
@@ -11487,7 +10940,6 @@
     "poll_tier": "rare"
   },
   "2124": {
-    "addr": 2124,
     "code": "",
     "block": "",
     "tab": "",
@@ -11508,7 +10960,6 @@
     "poll_tier": "medium"
   },
   "2125": {
-    "addr": 2125,
     "code": "",
     "block": "T",
     "tab": "T",
@@ -11529,7 +10980,6 @@
     "poll_tier": "medium"
   },
   "2126": {
-    "addr": 2126,
     "code": "",
     "block": "T",
     "tab": "T",
@@ -11550,7 +11000,6 @@
     "poll_tier": "medium"
   },
   "2127": {
-    "addr": 2127,
     "code": "",
     "block": "T",
     "tab": "T",
@@ -11571,7 +11020,6 @@
     "poll_tier": "medium"
   },
   "2128": {
-    "addr": 2128,
     "code": "",
     "block": "T",
     "tab": "T",
@@ -11592,7 +11040,6 @@
     "poll_tier": "medium"
   },
   "2129": {
-    "addr": 2129,
     "code": "",
     "block": "",
     "tab": "",
@@ -11613,7 +11060,6 @@
     "poll_tier": "rare"
   },
   "2130": {
-    "addr": 2130,
     "code": "T46",
     "block": "T",
     "tab": "T",
@@ -11634,7 +11080,6 @@
     "poll_tier": "medium"
   },
   "2131": {
-    "addr": 2131,
     "code": "T47",
     "block": "T",
     "tab": "T",
@@ -11655,7 +11100,6 @@
     "poll_tier": "medium"
   },
   "2132": {
-    "addr": 2132,
     "code": "T48",
     "block": "T",
     "tab": "T",
@@ -11676,7 +11120,6 @@
     "poll_tier": "medium"
   },
   "2133": {
-    "addr": 2133,
     "code": "SGstatus",
     "block": "SG",
     "tab": "SG",
@@ -11697,7 +11140,6 @@
     "poll_tier": "rare"
   },
   "2134": {
-    "addr": 2134,
     "code": "",
     "block": "",
     "tab": "",
@@ -11718,7 +11160,6 @@
     "poll_tier": "rare"
   },
   "2135": {
-    "addr": 2135,
     "code": "",
     "block": "",
     "tab": "",
@@ -11739,7 +11180,6 @@
     "poll_tier": "rare"
   },
   "2136": {
-    "addr": 2136,
     "code": "",
     "block": "T",
     "tab": "T",
@@ -11760,7 +11200,6 @@
     "poll_tier": "quick"
   },
   "2137": {
-    "addr": 2137,
     "code": "",
     "block": "T",
     "tab": "T",
@@ -11781,7 +11220,6 @@
     "poll_tier": "quick"
   },
   "2138": {
-    "addr": 2138,
     "code": "",
     "block": "T",
     "tab": "T",
@@ -11802,7 +11240,6 @@
     "poll_tier": "quick"
   },
   "2139": {
-    "addr": 2139,
     "code": "",
     "block": "",
     "tab": "",
@@ -11823,7 +11260,6 @@
     "poll_tier": "rare"
   },
   "2140": {
-    "addr": 2140,
     "code": "",
     "block": "",
     "tab": "",
@@ -11844,7 +11280,6 @@
     "poll_tier": "rare"
   },
   "2141": {
-    "addr": 2141,
     "code": "",
     "block": "",
     "tab": "",
@@ -11865,7 +11300,6 @@
     "poll_tier": "rare"
   },
   "2142": {
-    "addr": 2142,
     "code": "",
     "block": "",
     "tab": "",
@@ -11886,7 +11320,6 @@
     "poll_tier": "rare"
   },
   "2143": {
-    "addr": 2143,
     "code": "",
     "block": "",
     "tab": "",
@@ -11907,7 +11340,6 @@
     "poll_tier": "rare"
   },
   "2144": {
-    "addr": 2144,
     "code": "",
     "block": "",
     "tab": "",
@@ -11928,7 +11360,6 @@
     "poll_tier": "rare"
   },
   "2145": {
-    "addr": 2145,
     "code": "",
     "block": "",
     "tab": "",
@@ -11949,7 +11380,6 @@
     "poll_tier": "rare"
   },
   "2146": {
-    "addr": 2146,
     "code": "",
     "block": "",
     "tab": "",
@@ -11970,7 +11400,6 @@
     "poll_tier": "rare"
   },
   "2147": {
-    "addr": 2147,
     "code": "",
     "block": "",
     "tab": "",
@@ -11991,7 +11420,6 @@
     "poll_tier": "rare"
   },
   "2148": {
-    "addr": 2148,
     "code": "",
     "block": "",
     "tab": "",
@@ -12012,7 +11440,6 @@
     "poll_tier": "rare"
   },
   "2149": {
-    "addr": 2149,
     "code": "",
     "block": "",
     "tab": "",
@@ -12033,7 +11460,6 @@
     "poll_tier": "rare"
   },
   "50043": {
-    "addr": 50043,
     "code": "",
     "block": "",
     "tab": "",
@@ -12054,7 +11480,6 @@
     "poll_tier": "rare"
   },
   "50044": {
-    "addr": 50044,
     "code": "",
     "block": "",
     "tab": "",
@@ -12075,7 +11500,6 @@
     "poll_tier": "rare"
   },
   "50500": {
-    "addr": 50500,
     "code": "",
     "block": "",
     "tab": "",
@@ -12096,7 +11520,6 @@
     "poll_tier": "rare"
   },
   "50501": {
-    "addr": 50501,
     "code": "",
     "block": "",
     "tab": "",
@@ -12117,7 +11540,6 @@
     "poll_tier": "rare"
   },
   "50502": {
-    "addr": 50502,
     "code": "",
     "block": "",
     "tab": "",
@@ -12138,7 +11560,6 @@
     "poll_tier": "rare"
   },
   "50503": {
-    "addr": 50503,
     "code": "",
     "block": "",
     "tab": "",
@@ -12159,7 +11580,6 @@
     "poll_tier": "rare"
   },
   "50504": {
-    "addr": 50504,
     "code": "",
     "block": "",
     "tab": "",
@@ -12180,7 +11600,6 @@
     "poll_tier": "rare"
   },
   "50505": {
-    "addr": 50505,
     "code": "",
     "block": "",
     "tab": "",
@@ -12201,7 +11620,6 @@
     "poll_tier": "rare"
   },
   "50506": {
-    "addr": 50506,
     "code": "",
     "block": "",
     "tab": "",
@@ -12222,7 +11640,6 @@
     "poll_tier": "rare"
   },
   "50507": {
-    "addr": 50507,
     "code": "",
     "block": "",
     "tab": "",
@@ -12243,7 +11660,6 @@
     "poll_tier": "rare"
   },
   "50508": {
-    "addr": 50508,
     "code": "",
     "block": "",
     "tab": "",
@@ -12264,7 +11680,6 @@
     "poll_tier": "rare"
   },
   "50509": {
-    "addr": 50509,
     "code": "",
     "block": "",
     "tab": "",
@@ -12285,7 +11700,6 @@
     "poll_tier": "rare"
   },
   "50510": {
-    "addr": 50510,
     "code": "",
     "block": "",
     "tab": "",
@@ -12306,7 +11720,6 @@
     "poll_tier": "rare"
   },
   "50511": {
-    "addr": 50511,
     "code": "",
     "block": "",
     "tab": "",
@@ -12327,7 +11740,6 @@
     "poll_tier": "rare"
   },
   "50512": {
-    "addr": 50512,
     "code": "",
     "block": "",
     "tab": "",
@@ -12348,7 +11760,6 @@
     "poll_tier": "rare"
   },
   "2178": {
-    "addr": 2178,
     "code": "",
     "block": "T",
     "tab": "T",
@@ -12369,7 +11780,6 @@
     "poll_tier": "quick"
   },
   "2179": {
-    "addr": 2179,
     "code": "",
     "block": "T",
     "tab": "T",
@@ -12390,7 +11800,6 @@
     "poll_tier": "quick"
   },
   "2180": {
-    "addr": 2180,
     "code": "",
     "block": "T",
     "tab": "T",
