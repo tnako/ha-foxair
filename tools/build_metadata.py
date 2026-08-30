@@ -64,7 +64,7 @@ def parse_range(desc: str, dtype: str):
     # skip BLOCK type already handled outside, but also skip hex like 0x0210
     if "0x" in d.lower():
         return None, None
-    m = re.search(r"(-?\d+(?:\.\d+)?)\s*(?:bis|..|–|—|-)\s*(-?\d+(?:\.\d+)?)", d)  # .. = any-2-chars (original regex behavior)
+    m = re.search(r"(-?\d+(?:\.\d+)?)\s*(?:bis|\.\.|\u2013|\u2014|-)\s*(-?\d+(?:\.\d+)?)", d)  # \.\. = literal two dots (e.g. "1..6")
     if m:
         try:
             lo, hi = float(m.group(1)), float(m.group(2))
