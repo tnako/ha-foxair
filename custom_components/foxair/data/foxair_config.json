@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "_comment": "Single source of truth for integration-wide configuration: blocks, data types, dead ranges, functional markers, and per-register overrides. Consumed by tools/build_metadata.py (generation) and by the runtime (coordinator/climate) loaded once via _load_config(). Do NOT put credentials/IP here.",
+  "_comment": "Single source of truth for integration-wide configuration (functional data only — no translations; see translations/*.json for i18n). Consumed by tools/build_metadata.py (generation) and by the runtime (coordinator/climate) loaded once via _load_config(). Do NOT put credentials/IP here.",
 
   "poll_intervals": {
     "_comment": "Multiples of base_seconds (30s). quick=30s, medium=120s, rare=300s/600s-expert.",
@@ -39,23 +39,6 @@
       "G": "Legionella",
       "P": "Pump",
       "O": "Outputs",
-      "SG": "SG Ready",
-      "KG": "Timer",
-      "ERR": "Fault"
-    },
-    "labels_de": {
-      "H": "Basis/Hardware",
-      "A": "Schutz/Grenzen",
-      "F": "Fan",
-      "D": "Abtauen",
-      "E": "EVI/EEV",
-      "C": "Compressor",
-      "R": "Sollwerte",
-      "T": "Diagnose/Live",
-      "Z": "Zone",
-      "G": "Legionellen",
-      "P": "Pumpe",
-      "O": "Ausgange",
       "SG": "SG Ready",
       "KG": "Timer",
       "ERR": "Fault"
