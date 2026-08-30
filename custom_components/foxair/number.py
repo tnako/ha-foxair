@@ -38,6 +38,9 @@ async def async_setup_entry(hass, entry, add_entities):
         except: continue
         if meta.get("platform") != "number" or not meta.get("editable"):
             continue
+        # permanently hidden (reserved/system/header addrs): never create
+        if meta.get("hidden"):
+            continue
         # expert filter: if requires_expert and expert not enabled, skip creation
         if meta.get("requires_expert") and not entry.options.get("enable_expert"):
             continue

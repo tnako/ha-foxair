@@ -16,21 +16,30 @@ from .const import MODBUS_MAX_SPAN, MODBUS_MAX_GAP, QUICK_INTERVAL, MEDIUM_INTER
 
 _LOGGER = logging.getLogger(__name__)
 
-# Load integration config (blocks, types, dead_ranges, markers, overrides)
+# Config is loaded LAZILY off the event loop (see FoxAirCoordinator._load_config),
+# because reading files at import time triggers HA 2026's blocking-call guard and
+# aborts setup. These start empty and are filled once before the first poll.
 _CONFIG_PATH = pathlib.Path(__file__).parent / "data/foxair_config.json"
+_CFG: dict = {}
+_TYPES: dict = {}
+_DEAD_RANGES: list[tuple[int, int]] = []
+_MARKERS: dict = {}
 
 
-def _load_config():
+def _read_config_file() -> dict:
+    """Synchronous file read — MUST be called inside async_add_executor_job."""
     try:
         return json.loads(_CONFIG_PATH.read_text(encoding="utf-8-sig"))
     except (OSError, json.JSONDecodeError):
         return {}
 
 
-_CFG = _load_config()
-_TYPES = _CFG.get("types", {})
-_DEAD_RANGES = [(lo, hi) for lo, hi in _CFG.get("dead_ranges", [])]
-_MARKERS = _CFG.get("markers", {})
+def _apply_config(cfg: dict) -> None:
+    global _CFG, _TYPES, _DEAD_RANGES, _MARKERS
+    _CFG = cfg or {}
+    _TYPES = _CFG.get("types", {})
+    _DEAD_RANGES = [(lo, hi) for lo, hi in _CFG.get("dead_ranges", [])]
+    _MARKERS = _CFG.get("markers", {})
 
 
 def s16(v): return v - 0x10000 if v & 0x8000 else v
@@ -78,6 +87,13 @@ class FoxAirCoordinator(DataUpdateCoordinator):
         self._medium_done = False
         self._rare_done = False
 
+    async def _load_config(self) -> None:
+        """Load foxair_config.json off the event loop (HA 2026 blocks sync I/O)."""
+        if _CFG:
+            return
+        cfg = await self.hass.async_add_executor_job(_read_config_file)
+        _apply_config(cfg)
+
     async def _load_map(self):
         p = pathlib.Path(__file__).parent / "data/foxair_phnix_registers.json"
 
@@ -102,15 +118,10 @@ class FoxAirCoordinator(DataUpdateCoordinator):
     def marker(self, marker_name: str):
         """Look up a functional address marker from foxair_config.json.
 
-        marker_name is a key under markers.addr_single (returns a single int)
-        or markers.addr_list (returns the list).  Returns None if not found.
+        Returns the full marker record, e.g. {"addr_single": {...}, "addr_list": [...]}
+        or {} if not found. Callers extract via .get("addr_single") / .get("addr_list").
         """
-        m = _MARKERS.get(marker_name, {})
-        if "addr_single" in m:
-            return m["addr_single"]
-        if "addr_list" in m:
-            return m["addr_list"]
-        return None
+        return _MARKERS.get(marker_name, {})
 
     def _tier_addrs(self, tier: str, expert: bool) -> set[int]:
         if not self._metadata:
@@ -118,12 +129,14 @@ class FoxAirCoordinator(DataUpdateCoordinator):
         # Known-dead ranges come from foxair_config.json (dead_ranges).
         dead_addrs = {a for lo, hi in _DEAD_RANGES for a in range(lo, hi + 1)}
         # Expert gating applies to ALL tiers: with expert off, expert-block addrs are not polled.
+        # Permanently hidden addrs (reserved/header/system/service) are NEVER polled.
         return {
             int(k)
             for k, v in self._metadata.items()
             if v.get("poll_tier") == tier and k.isdigit()
             and v.get("risk") != "blocked"
-            and k not in dead_addrs
+            and not v.get("hidden")
+            and int(k) not in dead_addrs
             and int(k) < 50000
             and (expert or not v.get("requires_expert"))
         }
@@ -149,6 +162,8 @@ class FoxAirCoordinator(DataUpdateCoordinator):
             return False, meta, f"not editable group={meta.get('group')} risk={meta.get('risk')}"
         if meta.get("requires_expert") and not self.entry.options.get("enable_expert"):
             return False, meta, f"requires expert mode code={meta.get('code')}"
+        if meta.get("hidden"):
+            return False, meta, f"addr {addr} is reserved/system — hidden by design"
         if not math.isfinite(value):
             # TIME_HHMM may be string like "12:34" passed as float? already checked finite for numeric
             # allow time platform with string
@@ -255,19 +270,32 @@ class FoxAirCoordinator(DataUpdateCoordinator):
         cfg = self.entry.data
         sid = cfg.get("slave", 1)
         overall_ok = True
-        write_client = AsyncModbusTcpClient(host=cfg["host"], port=cfg["port"], timeout=8)
-        try:
-            okc = await write_client.connect()
+        # Serialize on the SINGLE shared connection (self.client) under self._lock.
+        # The EW11 gateway is single-client and bridges/mixes streams when a second
+        # TCP client connects — that produced the "transaction_id=37 but got id=1"
+        # frame-corruption errors in the poll log after every UI write.
+        async with self._lock:
+            if not self.client or not getattr(self.client, "connected", False):
+                try:
+                    if self.client:
+                        self.client.close()
+                except Exception:
+                    pass
+                self.client = AsyncModbusTcpClient(host=cfg["host"], port=cfg["port"], timeout=8)
+                okc = await self.client.connect()
+            else:
+                okc = True
             if not okc:
                 _LOGGER.error("Write batch connect failed %s:%s", cfg["host"], cfg["port"])
                 overall_ok = False
             else:
                 for addr, vals in blocks:
                     try:
+                        await asyncio.sleep(0.25)  # EW11 half-duplex pacing
                         try:
-                            rr = await write_client.write_registers(address=addr, values=vals, slave=sid)
+                            rr = await self.client.write_registers(address=addr, values=vals, slave=sid)
                         except TypeError:
-                            rr = await write_client.write_registers(address=addr, values=vals, device_id=sid)
+                            rr = await self.client.write_registers(address=addr, values=vals, device_id=sid)
                         if rr.isError():
                             _LOGGER.error("Write batch %s %s error %s", addr, vals, rr)
                             overall_ok = False
@@ -282,9 +310,9 @@ class FoxAirCoordinator(DataUpdateCoordinator):
                     for addr in pending:
                         try:
                             try:
-                                rr2 = await write_client.read_holding_registers(address=addr, count=1, slave=sid)
+                                rr2 = await self.client.read_holding_registers(address=addr, count=1, slave=sid)
                             except TypeError:
-                                rr2 = await write_client.read_holding_registers(address=addr, count=1, device_id=sid)
+                                rr2 = await self.client.read_holding_registers(address=addr, count=1, device_id=sid)
                             if not rr2.isError() and getattr(rr2, "registers", None):
                                 raw2 = rr2.registers[0]
                                 info = (self._regmap or {}).get(str(addr)) or {"type": metas[addr].get("type", "RAW")}
@@ -293,18 +321,12 @@ class FoxAirCoordinator(DataUpdateCoordinator):
                         except Exception as e:
                             _LOGGER.debug("readback %s failed %s", addr, e)
                     self.async_update_listeners()
-                    self.hass.async_create_task(self.async_request_refresh())
-        except Exception as e:
-            _LOGGER.error("Write flush exception %s", e)
-            overall_ok = False
-        finally:
-            try:
-                write_client.close()
-            except Exception:
-                pass
-            for f in futs:
-                if not f.done():
-                    f.set_result(overall_ok)
+        # Request a fresh poll outside the lock (it re-acquires it).
+        if overall_ok:
+            self.hass.async_create_task(self.async_request_refresh())
+        for f in futs:
+            if not f.done():
+                f.set_result(overall_ok)
 
     async def async_write_register(self, addr: int, value: float) -> bool:
         ok, meta, reason = self._validate_write(addr, value)
@@ -451,7 +473,18 @@ class FoxAirCoordinator(DataUpdateCoordinator):
                 except Exception as e:
                     self.stats["errors"] += 1
                     self.stats["last_error"] = str(e)
-                    _LOGGER.warning("poll %s exception %s", addr, e)
+                    _LOGGER.warning("poll %s/%s exception %s", addr, qty, e)
+                    # Connection-level failure (EW11 idle-drop, no response): abort the
+                    # rest of this cycle's batches instead of storming a dead socket;
+                    # next poll reconnects.
+                    if type(e).__name__ in ("ConnectionException", "ConnectionResetError",
+                                            "CancelledError") or "No response" in str(e) or "Connection" in str(e):
+                        try:
+                            self.client.close()
+                        except Exception:
+                            pass
+                        self.client = None
+                        break
                     continue
             self.stats["polls"] += 1
             if do_quick:

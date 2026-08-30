@@ -31,7 +31,7 @@ async def async_setup_entry(hass, entry, add_entities):
             continue
         # honor metadata blocked
         meta = coord.get_metadata(addr) if hasattr(coord, "get_metadata") else {}
-        if meta.get("risk") == "blocked":
+        if meta.get("risk") == "blocked" or meta.get("hidden"):
             continue
         # expert-gated (whole expert blocks + dangerous) sensors: skip unless expert on
         if meta.get("requires_expert") and not entry.options.get("enable_expert"):
