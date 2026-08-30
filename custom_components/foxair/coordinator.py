@@ -12,17 +12,25 @@ from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, Upda
 from homeassistant.exceptions import ConfigEntryNotReady
 from pymodbus.client import AsyncModbusTcpClient
 
-from .const import DTYPE_SPEC, MODBUS_MAX_SPAN, MODBUS_MAX_GAP, QUICK_INTERVAL, MEDIUM_INTERVAL, RARE_INTERVAL
+from .const import MODBUS_MAX_SPAN, MODBUS_MAX_GAP, QUICK_INTERVAL, MEDIUM_INTERVAL, RARE_INTERVAL
 
 _LOGGER = logging.getLogger(__name__)
 
-# Register ranges that must NEVER be included in a contiguous Modbus read batch.
-# These addresses either don't respond (write-only FC16) or trigger EW11 "extra
-# data" corruption that kills the entire batch response.  The batcher splits
-# ranges around these so a single read never spans across them.
-# 200-215: PHNIX/Aliyun ProductKey ASCII (FC10, bridge returns no data)
-# 2029-2032: T-Diag5-8 write-only registers (FC16, device returns no data)
-DEAD_RANGES = [(200, 215), (2029, 2032)]
+# Load integration config (blocks, types, dead_ranges, markers, overrides)
+_CONFIG_PATH = pathlib.Path(__file__).parent / "data/foxair_config.json"
+
+
+def _load_config():
+    try:
+        return json.loads(_CONFIG_PATH.read_text(encoding="utf-8-sig"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+
+
+_CFG = _load_config()
+_TYPES = _CFG.get("types", {})
+_DEAD_RANGES = [(lo, hi) for lo, hi in _CFG.get("dead_ranges", [])]
+_MARKERS = _CFG.get("markers", {})
 
 
 def s16(v): return v - 0x10000 if v & 0x8000 else v
@@ -37,12 +45,12 @@ def _decode_hhmm(raw: int) -> str:
 
 
 def scaled(dtype, raw):
-    """Scale raw register value using DTYPE_SPEC from const.py."""
+    """Scale raw register value using types table from foxair_config.json."""
     dtype = (dtype or "RAW").upper()
     sv = s16(raw)
-    spec = DTYPE_SPEC.get(dtype)
+    spec = _TYPES.get(dtype)
     if spec:
-        return sv * spec["scale"]
+        return sv * spec.get("scale", 1.0)
     # Fallback for unknown types
     return float(sv)
 
@@ -91,28 +99,46 @@ class FoxAirCoordinator(DataUpdateCoordinator):
     def get_metadata(self, addr: int) -> dict:
         return (getattr(self, "_metadata", {}) or {}).get(str(addr), {})
 
+    def marker(self, marker_name: str):
+        """Look up a functional address marker from foxair_config.json.
+
+        marker_name is a key under markers.addr_single (returns a single int)
+        or markers.addr_list (returns the list).  Returns None if not found.
+        """
+        m = _MARKERS.get(marker_name, {})
+        if "addr_single" in m:
+            return m["addr_single"]
+        if "addr_list" in m:
+            return m["addr_list"]
+        return None
+
     def _tier_addrs(self, tier: str, expert: bool) -> set[int]:
         if not self._metadata:
             return set()
-        # Known-dead ranges: 200-215 PHNIX product ASCII (needs FC10, EW11 no answer), >=50000 board info.
+        # Known-dead ranges come from foxair_config.json (dead_ranges).
+        dead_addrs = {a for lo, hi in _DEAD_RANGES for a in range(lo, hi + 1)}
         # Expert gating applies to ALL tiers: with expert off, expert-block addrs are not polled.
         return {
             int(k)
             for k, v in self._metadata.items()
             if v.get("poll_tier") == tier and k.isdigit()
             and v.get("risk") != "blocked"
+            and k not in dead_addrs
+            and int(k) < 50000
             and (expert or not v.get("requires_expert"))
-            and not (200 <= int(k) <= 215 or int(k) >= 50000)
         }
 
     def _validate_write(self, addr: int, value: float) -> tuple[bool, dict, str]:
         meta = self.get_metadata(addr)
-        # special: 1011 On/Off and 1012 mode have known limits even if metadata lacks them
-        if addr == 1011:
+        # special: power (1011) and mode (1012) have known limits even if metadata lacks them
+        status = self.marker("status") or {}
+        power_addr = status.get("addr_single", {}).get("power")
+        mode_addr = status.get("addr_single", {}).get("mode")
+        if addr == power_addr:
             if not math.isfinite(value) or not (0 <= value <= 1):
                 return False, meta, f"1011 out of range [0,1] got {value}"
             return True, meta, ""
-        if addr == 1012:
+        if addr == mode_addr:
             if not math.isfinite(value) or not (0 <= value <= 4):
                 return False, meta, f"1012 out of range [0,4] got {value}"
             if not meta.get("editable"):
@@ -332,7 +358,7 @@ class FoxAirCoordinator(DataUpdateCoordinator):
                 # corruption.  Split the batch before the dead zone.
                 would_span_dead = any(
                     cur_start <= d_end and a >= d_start
-                    for d_start, d_end in DEAD_RANGES
+                    for d_start, d_end in _DEAD_RANGES
                 )
                 if would_span_dead:
                     batches.append((cur_start, cur_end - cur_start + 1))

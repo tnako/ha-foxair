@@ -196,7 +196,9 @@ class FoxSelect(CoordinatorEntity, SelectEntity):
         self._attr_device_info = device_for_addr(addr, block, entry_id, tab)
         self._attr_icon = meta.get("icon") or "mdi:heat-pump"
         risk = meta.get("risk")
-        if addr == 1236:
+        hc = coord.marker("heat_curve") if hasattr(coord, "marker") else {}
+        hc_addrs = hc.get("addr_single", {}) if isinstance(hc, dict) else {}
+        if addr == hc_addrs.get("at_comp_en", 1236):
             self._attr_entity_category = None
             self._attr_entity_registry_enabled_default = True
         elif risk == "dangerous":

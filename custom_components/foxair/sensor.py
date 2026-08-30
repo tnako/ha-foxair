@@ -133,11 +133,15 @@ class FoxHeatingCurveTargetSensor(CoordinatorEntity, SensorEntity):
         self._attr_unique_id = "foxair_heating_curve_target"
         entry_id = getattr(coord, "_entry_id", None) or getattr(coord, "config_entry", None) and getattr(coord.config_entry, "entry_id", None)
         self._attr_device_info = main_device(entry_id)
+        self._hc = coord.marker("heat_curve") if hasattr(coord, "marker") else {}
+        self._st = coord.marker("setpoints") if hasattr(coord, "marker") else {}
+        self._status = coord.marker("status") if hasattr(coord, "marker") else {}
     @property
     def native_value(self):
         try:
             from .heating_curve import curve_target_for_at
-            at = self.coordinator.data.get(2048, {}).get("value")
+            hc = self._hc.get("addr_single", {}) if isinstance(self._hc, dict) else {}
+            at = self.coordinator.data.get(hc.get("at_sensor", 2048), {}).get("value")
             if at is None: return None
             v = curve_target_for_at(self.coordinator, float(at))
             return round(v,1) if v is not None else None
@@ -145,12 +149,15 @@ class FoxHeatingCurveTargetSensor(CoordinatorEntity, SensorEntity):
     @property
     def extra_state_attributes(self):
         try:
-            at = self.coordinator.data.get(2048, {}).get("value")
-            slope = self.coordinator.data.get(1234, {}).get("value")
-            offset = self.coordinator.data.get(1235, {}).get("value")
-            en = self.coordinator.data.get(1236, {}).get("raw")
-            fixed = self.coordinator.data.get(1158, {}).get("value")
-            after = self.coordinator.data.get(2014, {}).get("value")
+            hc = self._hc.get("addr_single", {}) if isinstance(self._hc, dict) else {}
+            st = self._st.get("addr_single", {}) if isinstance(self._st, dict) else {}
+            status = self._status.get("addr_single", {}) if isinstance(self._status, dict) else {}
+            at = self.coordinator.data.get(hc.get("at_sensor", 2048), {}).get("value")
+            slope = self.coordinator.data.get(hc.get("slope", 1234), {}).get("value")
+            offset = self.coordinator.data.get(hc.get("offset", 1235), {}).get("value")
+            en = self.coordinator.data.get(hc.get("at_comp_en", 1236), {}).get("raw")
+            fixed = self.coordinator.data.get(st.get("heating_target", 1158), {}).get("value")
+            after = self.coordinator.data.get(hc.get("live_target", 2014), {}).get("value")
             r10 = self.coordinator.data.get(1164, {}).get("value")
             r11 = self.coordinator.data.get(1165, {}).get("value")
             return {"at": at, "slope": slope, "offset": offset, "h36_enable": en, "fixed_r02": fixed, "after_comp_2014": after, "r10_min": r10, "r11_max": r11, "panel": "/api/foxair/heating-curve-panel", "svg": "/api/foxair/heating_curve.svg"}

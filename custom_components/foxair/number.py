@@ -59,7 +59,10 @@ class FoxNumber(CoordinatorEntity, NumberEntity):
         self._attr_device_info = device_for_addr(addr, block, entry_id, tab)
         self._attr_icon = meta.get("icon") or "mdi:heat-pump"
         risk = meta.get("risk")
-        if addr in (1234, 1235):
+        hc = coord.marker("heat_curve") if hasattr(coord, "marker") else {}
+        hc_addrs = hc.get("addr_single", {}) if isinstance(hc, dict) else {}
+        # heat curve slope/offset: visible, not diagnostic
+        if addr in (hc_addrs.get("slope"), hc_addrs.get("offset")):
             self._attr_entity_category = None
             self._attr_entity_registry_enabled_default = True
         elif risk == "dangerous":
