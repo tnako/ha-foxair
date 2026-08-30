@@ -1,7 +1,5 @@
 """Select platform for v0.3 — DIGI1/TIMER/SG as selects with HA state translation."""
-import json
 import logging
-import pathlib
 import re
 
 from homeassistant.components.select import SelectEntity
@@ -145,15 +143,20 @@ def _build_option_maps(vm: dict, app_values: dict | None, addr: int):
 
 
 def load_value_map(coord, addr):
+    """Return (value_map, app_values) from the coordinator's already-async-loaded _regmap.
+
+    The coordinator loads foxair_phnix_registers.json once via _load_map()
+    (async_add_executor_job, off the event loop).  Previously this helper
+    re-read the 5770-line JSON file synchronously here, which blocked the
+    event loop and triggered HA's blocking-call detector — on HA 2026.8+ the
+    resulting delay/warning killed entity setup so select entities (e.g. SG01)
+    never got their options populated and showed "unknown".
+    """
     try:
-        if getattr(coord, "_regmap", None):
-            rec = coord._regmap.get(str(addr), {})
-            vm = rec.get("value_map")
-            if vm:
-                return vm, rec.get("app_values")
-        p = pathlib.Path(__file__).parent / "data/foxair_phnix_registers.json"
-        regs = json.loads(p.read_text(encoding="utf-8-sig"))
-        rec = regs.get(str(addr), {})
+        regmap = getattr(coord, "_regmap", None)
+        if regmap is None:
+            return None, None
+        rec = regmap.get(str(addr), {})
         return rec.get("value_map"), rec.get("app_values")
     except Exception:
         return None, None

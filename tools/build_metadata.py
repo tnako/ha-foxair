@@ -90,6 +90,13 @@ RISK_OVERRIDES = {
     1159: "safe",       # R03 cooling target temp
 }
 
+# Registers that cannot be read from the device (write-only FC16 but listed
+# as "read" in the register knowledge).  Polling them over EW11/Warmlink
+# corrupts the batch response (extra data / No response after 3 retries).
+# These are T-Diag5-8: input current L1/L2/L3 + compressor runtime —
+# sourced from forum, untested, device returns no valid data.
+UNREADABLE_ADDRS = {2029, 2030, 2031, 2032}
+
 # Per-address min/max overrides (DISPLAYED/scaled units) for entities whose
 # generic per-type fallback is too wide. Applied after parse_range + fallback.
 RANGE_OVERRIDES = {
@@ -103,7 +110,9 @@ POLL_TIER_OVERRIDES = {
     1011: "quick", 1012: "quick", 1234: "quick", 1235: "quick", 1236: "quick",
 }
 # T secondary that should be medium (primary T is quick)
-T_MEDIUM = {1070,1072,1075,1076,1205,1212,1213,2029,2030,2031,2032,2037,2038,2039,2047,2050,2055,2061,2063,2064,2065,2066,2067,2071,2072,2073,2074,2075,2076,2078,2079,2118,2120,2122,2124,2125,2126,2127,2128,2130,2131,2132}
+# 2029-2032 excluded — write-only FC16 registers, device does not respond to reads
+# (EW11 corrupts the batch; see UNREADABLE_ADDRS above)
+T_MEDIUM = {1070,1072,1075,1076,1205,1212,1213,2037,2038,2039,2047,2050,2055,2061,2063,2064,2065,2066,2067,2071,2072,2073,2074,2075,2076,2078,2079,2118,2120,2122,2124,2125,2126,2127,2128,2130,2131,2132}
 T_QUICK = {2013,2014,2016,2035,2036,2042,2043,2044,2045,2046,2048,2049,2051,2052,2053,2054,2058,2059,2060,2062,2069,2077,2136,2137,2138,2178,2179,2180}
 
 def poll_tier_for(addr: int, block: str, typ: str, risk: str) -> str:
@@ -220,6 +229,10 @@ def main():
         # risk
         risk = RISK_OVERRIDES.get(addr, RISK_BY_BLOCK.get(block, "advanced" if editable else "safe"))
         if dtype == "BLOCK":
+            risk = "blocked"
+        # Write-only registers (FC16) that don't respond to FC03 reads — mark
+        # blocked so the coordinator excludes them from all poll tiers.
+        if addr in UNREADABLE_ADDRS:
             risk = "blocked"
         requires_expert = risk == "dangerous" or block in EXPERT_BLOCKS
         # Orphan addrs without block/code (reserved / header / factory-test leftovers)

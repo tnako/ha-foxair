@@ -16,6 +16,14 @@ from .const import DTYPE_SPEC, MODBUS_MAX_SPAN, MODBUS_MAX_GAP, QUICK_INTERVAL, 
 
 _LOGGER = logging.getLogger(__name__)
 
+# Register ranges that must NEVER be included in a contiguous Modbus read batch.
+# These addresses either don't respond (write-only FC16) or trigger EW11 "extra
+# data" corruption that kills the entire batch response.  The batcher splits
+# ranges around these so a single read never spans across them.
+# 200-215: PHNIX/Aliyun ProductKey ASCII (FC10, bridge returns no data)
+# 2029-2032: T-Diag5-8 write-only registers (FC16, device returns no data)
+DEAD_RANGES = [(200, 215), (2029, 2032)]
+
 
 def s16(v): return v - 0x10000 if v & 0x8000 else v
 
@@ -318,6 +326,19 @@ class FoxAirCoordinator(DataUpdateCoordinator):
         cur_end = sorted_addrs[0]
         for a in sorted_addrs[1:]:
             if a - cur_end <= max_gap and (a - cur_start + 1) <= max_span:
+                # Check if this batch would span across a dead register range.
+                # Even though dead addrs aren't in the `addrs` set, a contiguous
+                # Modbus read (start..end) would include them and trigger EW11
+                # corruption.  Split the batch before the dead zone.
+                would_span_dead = any(
+                    cur_start <= d_end and a >= d_start
+                    for d_start, d_end in DEAD_RANGES
+                )
+                if would_span_dead:
+                    batches.append((cur_start, cur_end - cur_start + 1))
+                    cur_start = a
+                    cur_end = a
+                    continue
                 cur_end = a
             else:
                 batches.append((cur_start, cur_end - cur_start + 1))
