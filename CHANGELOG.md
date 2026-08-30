@@ -1,3 +1,6 @@
+## 0.4.32
+|- fix(image): show curve target values at AT tick positions (-30/-20/-10/0/10/20) — small subtle labels (opacity 0.55, font-size 11) positioned above the curve line showing the flow temperature at each outdoor temperature tick. Uses the same calc_curve_target + clamp as the curve rendering.
+|
 ## 0.4.31
 |- fix(image): heating curve SVG regression — restored axis tick dots at -30/-20/-10/0/10/20 (were removed in the 0.4.27 rewrite leaving only labels), fixed live-AT-label overlap with the reference cross at AT=0 and the after-compensation label (now clamped to left of dot with adaptive left/right placement), and eliminated legend right-summary collision by switching from right-aligned overflow-prone layout to a two-row legend (swatch+labels on top row, compact summary left-aligned on bottom row) with actual width estimation instead of `len()*7` heuristic.
 |
