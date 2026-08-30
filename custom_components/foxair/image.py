@@ -343,6 +343,16 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
                 f'font-weight="bold">{label}</text>'
             )
 
+        # ---- curve value labels at each AT tick (subtle, above the curve) ----
+        for at_g in (-30, -20, -10, 0, 10, 20):
+            x = round(x_at(at_g), 1)
+            cv = clamp(calc_curve_target(at_g, slope, offset, base=0.0), r10, r11)
+            yv = round(y_flow(cv), 1)
+            svg.append(
+                f'<text x="{x}" y="{yv - 8}" text-anchor="middle" '
+                f'fill="{TEXT}" font-size="11" opacity="0.55">{cv:.0f}</text>'
+            )
+
         # ---- Y axis ticks (tick marks + labels) ----
         for f in (10, 20, 30, 40, 50, 60, 70):
             y = round(y_flow(f), 1)
