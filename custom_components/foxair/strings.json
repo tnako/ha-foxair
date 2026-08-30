@@ -1804,20 +1804,6 @@
       "foxair_heating_curve_target": {
         "name": "Heating Curve Target"
       },
-      "foxair_heating_curve": {
-        "name": "Heating Curve",
-        "legend_curve": "Curve target (AT compensation)",
-        "legend_fixed": "Fixed setpoint (constant)",
-        "legend_after": "After compensation (live)",
-        "legend_live": "Live outdoor temperature",
-        "legend_band": "Limit band (R10–R11)",
-        "mode_curve": "AT compensation (curve)",
-        "mode_fixed": "Constant (fixed)",
-        "wait": "Waiting for data",
-        "wait_sub": "First poll in progress (quick 30 s)",
-        "axis_x": "Outdoor temperature (AT)",
-        "axis_y": "Flow temperature"
-      },
       "foxair_heating_power": {
         "name": "Heating Power (calculated)"
       },
@@ -3168,6 +3154,22 @@
     "switch": {
       "foxair_power": {
         "name": "Power"
+      }
+    },
+    "image": {
+      "foxair_heating_curve": {
+        "name": "Heating Curve",
+        "legend_curve": "Curve target (AT compensation)",
+        "legend_fixed": "Fixed setpoint (constant)",
+        "legend_after": "After compensation (live)",
+        "legend_live": "Live outdoor temperature",
+        "legend_band": "Limit band (R10–R11)",
+        "mode_curve": "AT compensation (curve)",
+        "mode_fixed": "Constant (fixed)",
+        "wait": "Waiting for data",
+        "wait_sub": "First poll in progress (quick 30 s)",
+        "axis_x": "Outdoor temperature (AT)",
+        "axis_y": "Flow temperature"
       }
     }
   },
