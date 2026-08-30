@@ -301,7 +301,7 @@ class FoxAirCoordinator(DataUpdateCoordinator):
                             overall_ok = False
                         else:
                             codes = [metas.get(addr + i, {}).get("code", str(addr + i)) for i in range(len(vals))]
-                            _LOGGER.warning("Write OK FC16 %s (+%s) %s -> %s", addr, len(vals) - 1, codes, vals)
+                            _LOGGER.debug("Write OK FC16 %s (+%s) %s -> %s", addr, len(vals) - 1, codes, vals)
                     except Exception as e:
                         _LOGGER.error("Write batch %s exception %s", addr, e)
                         overall_ok = False
