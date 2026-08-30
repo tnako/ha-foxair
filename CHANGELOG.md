@@ -1,5 +1,6 @@
-## 0.4.26
-|- fix(views): heating curve SVG legend no longer overlaps the plot — moved to a dedicated bottom strip with a dark background box, repositioned band/fixed-line/dot labels to the left side of the curve, expanded canvas from 800x400 to 800x460 with proper plot boundaries for grid labels.
+## 0.4.27
+|- fix(climate): H36 AT-compensation enable (reg 1236) was treated as expert-only (block H in EXPERT_BLOCKS), so it was never polled in non-expert mode — `control_mode` always returned "fixed" even when set to "curve". Now 1236 is in CORE_NON_EXPERT_ADDRS, polled quick-tier, and the select entity is created/visible without expert mode.
+|- fix(views): heating curve SVG legend no longer overlaps the plot — moved to a dedicated bottom strip with a dark background box, repositioned band/fixed-line/dot labels to the left side of the curve, expanded canvas from 800x400 to 800x460.
 |
 ## 0.4.25
 - refactor: introduce `foxair_config.json` as single source of truth for blocks, data types, dead ranges, functional markers, and per-register overrides — consumed by `build_metadata.py`, `const.py`, `coordinator.py`, `climate.py`, `heating_curve.py`, `sensor.py`, `views.py`, `diagnostics.py`; replaces ~60 hardcoded address constants and ~230 lines of duplicated tables in const.py/build_metadata.py.
