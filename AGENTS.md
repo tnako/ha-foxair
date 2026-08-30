@@ -11,19 +11,49 @@ tools/deploy.sh  # reads HA_HOST from .env  # Deploy to HA (requires SSH)
 ```
 ha-foxair/
 ├── custom_components/foxair/     # HA integration (source of truth)
-│   ├── vendor/foxair_modbus/     # Vendored modbus_connection Component (591 regs)
-│   ├── coordinator.py            # Tiered polling: quick(30s)/medium(120s)/rare(300s)
+│   ├── coordinator.py            # pymodbus polling quick(30s)/medium(120s)/rare(300-600s)
+│   │                             #   + debounced write coalescer + tier/hidden filtering
 │   ├── sensor.py / climate.py / number.py / select.py / image.py
-│   ├── const.py                  # TABS_CODE_ORDER = exact tabs.txt sequence
+│   ├── const.py                  # loads foxair_config.json; order/sort/device routing
 │   ├── translations/en/de/ru.json  # 3000+ lines each, CODE: prefix mandatory
-│   └── data/*.json               # Register knowledge (foxair_phnix_registers.json = 5770 lines)
+│   └── data/
+│       ├── foxair_config.json    # EDIT HERE: blocks, expert_blocks, HIDDEN ranges,
+│       │                         #   dead_ranges, types, markers, per-addr overrides
+│       ├── foxair_phnix_registers.json  # raw register knowledge (name/type/mode)
+│       ├── foxair_metadata.json  # GENERATED — per-addr: platform, risk, requires_expert,
+│       │                         #   hidden, poll_tier, group, min/max. Runtime truth.
+│       └── foxair_phnix_knowledge.json
 ├── modbus/tabs.txt               # SOURCE OF TRUTH for register codes & order (247 lines)
+├── tools/build_metadata.py       # registers+config -> metadata.json (RUN AFTER config edits)
 ├── tools/validate.py             # Version sync, i18n prefix check, syntax
 ├── tools/check_regs.py           # Register audit: tabs.txt+metadata codes vs HA entities (+ --direct Modbus)
 ├── tools/deploy.sh               # rsync + HA restart (HA_HOST env required)
 ├── VERSION / manifest.json / CHANGELOG.md
 └── docs/archive/                 # Historical v0.3 reviews
 ```
+
+## Fast Path — how to navigate without burning tool calls
+Read metadata.json ONCE and derive everything from it; do NOT re-read
+foxair_phnix_registers.json (5770 lines) or grep the 3×3000-line translation
+files for register questions. One-shot recipes instead of exploratory loops:
+- "Is addr X visible / editable / polled / hidden, which device/tab/tier?" →
+  ONE call: `python3 -c "import json; print(json.load(open('custom_components/foxair/data/foxair_metadata.json'))['<X>'])"`
+- "Show me the whole picture" → `python3 tools/metadata_report.py` (counts per
+  group/risk/tier/hidden + any addrs in hidden ranges; extend it, don't re-derive).
+- Entity-visibility bugs → check `requires_expert` + `hidden` + `risk` in metadata
+  first; the platform code just filters on those 3 fields — never hunt through
+  sensor.py/number.py/select.py unless a filter is suspected broken.
+- Live-state checks → `ha_get_state` / `curl $HASS_URL/api/states` filtered in ONE
+  pass (source HASS_URL/HASS_TOKEN from .env); no repeated single-entity probes.
+- Modbus bus errors (transaction_id mismatch / Repeating / No response) → the
+  EW11 allows ONE TCP client. Grep for `AsyncModbusTcpClient(` — there must be
+  exactly one client lifetime, all I/O serialized on `coordinator._lock`.
+  A second connect anywhere (write path, config flow probe, tools) = frame corruption.
+- Register add/change: edit `foxair_config.json` (hidden/dead_ranges/overrides) or
+  `foxair_phnix_registers.json` (names/types) → `python3 tools/build_metadata.py`
+  → `python3 tools/validate.py`. Do NOT hand-edit foxair_metadata.json — regen clobbers it.
+Budget: ≤10 tool calls for a "why is entity X shown/broken" diagnosis; if more,
+you skipped the metadata one-shot and are grepping blind.
 
 ## Critical Invariants (validate.py enforces)
 - `VERSION` == `manifest.json.version`
@@ -32,15 +62,20 @@ ha-foxair/
 - Python syntax clean
 
 ## Modbus Architecture (0.4.x)
-- **Owned `ModbusConnection`** via `modbus_connection[pymodbus]` (not shared-bus)
-- `vendor/foxair_modbus/heat_pump.py` = generated `Component` with 591 registers
-- `max_span=45`, `max_gap=8` (EW11 gateway limits)
-- Pooled reads via `Component.read_all()` — no manual `POLL_BLOCKS`
+- Own `pymodbus.AsyncModbusTcpClient` (single socket, serialized under `coordinator._lock`).
+  `modbus_connection` was tried and REVERTED (0.4.10) — EW11 `extra data` breaks it.
+- Batches built from `foxair_metadata.json` poll tiers; `max_span=45`, `max_gap=8`,
+  split around `dead_ranges` (EW11 gateway limits).
+- Visibility model per register in metadata: `risk` (safe/advanced/dangerous/blocked),
+  `requires_expert` (expert-mode gated), `hidden` (NEVER shown/polled — reserved/system).
+- `vendor/foxair_modbus/` is generated but unused at runtime (kept for reference).
 
 ## Adding/Changing Registers
-1. Edit `modbus/tabs.txt` (source of truth)
+1. Edit `modbus/tabs.txt` (source of truth) if a NEW tab code is involved
 2. Update `custom_components/foxair/data/foxair_phnix_registers.json` (knowledge)
-3. Regenerate `vendor/foxair_modbus/heat_pump.py` via `tools/gen_foxair_modbus.py`
+   and/or `foxair_config.json` (hidden/dead_ranges/overrides/tiers)
+3. Regenerate metadata: `python3 tools/build_metadata.py`
+   (only if touching vendor code: `python3 tools/gen_foxair_modbus.py`)
 4. Run `tools/validate.py` → fix i18n prefixes in `translations/*.json`
 5. Bump `VERSION` + `manifest.json` + `CHANGELOG.md`
 6. Deploy
