@@ -195,7 +195,9 @@ def main():
         has_map = bool(rec.get("value_map"))
         tier = poll_tier_for(addr, block, dtype, risk, ov)
         out[addr_str] = {
-            "addr": addr, "code": code, "block": block, "tab": tab, "group": group,
+            # NOTE: address is the JSON key (addr_str). Do not duplicate it as an
+            # "addr" field here — no consumer reads it and it can drift from the key.
+            "code": code, "block": block, "tab": tab, "group": group,
             "editable": editable, "platform": platform, "risk": risk,
             "requires_expert": requires_expert, "type": dtype,
             "unit": unit, "min": lo, "max": hi, "step": step,

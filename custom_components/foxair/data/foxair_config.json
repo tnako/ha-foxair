@@ -139,7 +139,6 @@
   "markers": {
     "_comment": "Named functional address groups. climate.py, heating_curve.py and coordinator read these by name instead of magic numbers.",
     "status": {
-      "poll_tier": "quick",
       "addr_single": {
         "power":        1011,
         "mode":         1012,
@@ -151,7 +150,6 @@
       }
     },
     "heat_curve": {
-      "poll_tier": "quick",
       "addr_single": {
         "slope":      1234,
         "offset":     1235,
@@ -161,7 +159,6 @@
       }
     },
     "setpoints": {
-      "poll_tier": "quick",
       "addr_single": {
         "heating_target": 1158,
         "cooling_target": 1159,
@@ -169,7 +166,6 @@
       }
     },
     "core_main_addrs": {
-      "poll_tier": "quick",
       "addr_list": [1011, 1012, 1157, 1158, 1159, 1234, 1235, 1236, 8801, 2133, 2012]
     },
     "_override_comment": "Per-register overrides mirroring the original code tables exactly: RISK_OVERRIDES, RANGE_OVERRIDES(min/max only), POLL_TIER_OVERRIDES, UNREADABLE_ADDRS->blocked, T_QUICK, T_MEDIUM. Only risk/min/max/poll_tier/tier — platform, step, requires_expert are derived by the generator.",
