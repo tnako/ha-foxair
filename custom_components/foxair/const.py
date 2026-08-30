@@ -1,125 +1,62 @@
-"""FoxAir constants - block names identical to FoxAir_Control."""
+"""FoxAir constants - block names identical to FoxAir_Control.
+
+Loads blocks, types, intervals, and core addresses from foxair_config.json
+(the single source of truth). DTYPE_SPEC is derived from the config types
+table (platform key stripped). TABS_CODE_ORDER is the exact code sequence
+from modbus/tabs.txt — each menu and entity in required order.
+"""
+import json
+import pathlib
 from homeassistant.helpers.entity import DeviceInfo
 
 DOMAIN = "foxair"
 
+# ── Load foxair_config.json (single source of truth) ──────────────────
+_CFG_PATH = pathlib.Path(__file__).parent / "data/foxair_config.json"
+try:
+    _CFG = json.loads(_CFG_PATH.read_text(encoding="utf-8-sig"))
+except (OSError, json.JSONDecodeError):
+    _CFG = {}
+
+_blocks_cfg = _CFG.get("blocks", {})
+_types_cfg = _CFG.get("types", {})
+_modbus_cfg = _CFG.get("modbus", {})
+_poll_cfg = _CFG.get("poll_intervals", {})
+_markers_cfg = _CFG.get("markers", {})
+
 # Whole tabs that are expert-only (hidden entirely until expert mode is on).
 # Normal mode keeps: main device, R Setpoints, T Diagnostics/Live, SG Ready, KG Timer, ERR Fault.
-EXPERT_BLOCKS = {"H", "A", "F", "D", "E", "C", "P", "Z", "G"}
+EXPERT_BLOCKS = set(_blocks_cfg.get("expert_blocks", []))
 
 # Order MUST match tabs.txt Tab sequence: H, A, F, D, E, R, P, G, C, Z, O, S, T
 # SG/KG/ERR are appended after (not in tabs.txt)
-BLOCK_ORDER = ["H", "A", "F", "D", "E", "R", "P", "G", "C", "Z", "O", "S", "T", "SG", "KG", "ERR"]
+BLOCK_ORDER = _blocks_cfg.get("order", ["H", "A", "F", "D", "E", "R", "P", "G", "C", "Z", "O", "S", "T", "SG", "KG", "ERR"])
 BLOCK_ORDER_INDEX = {b: i for i, b in enumerate(BLOCK_ORDER)}
 
-BLOCK_SHORT = {
-    "H": "Base/Hardware",
-    "A": "Protection/Limits",
-    "F": "Fan",
-    "D": "Defrost",
-    "E": "EVI/EEV",
-    "R": "Setpoints",
-    "P": "Pump",
-    "G": "Legionella",
-    "C": "Compressor",
-    "Z": "Zone",
-    "O": "Outputs",
-    "S": "Switches",
-    "T": "Diagnostics/Live",
-    "SG": "SG Ready",
-    "KG": "Timer",
-    "ERR": "Fault",
-}
+BLOCK_SHORT = _blocks_cfg.get("labels", {})
 APP_TAB_TITLES = dict(BLOCK_SHORT)
+BLOCK_SHORT_DE = _blocks_cfg.get("labels_de", {})
 
-BLOCK_SHORT_DE = {
-    "H": "Basis/Hardware",
-    "A": "Schutz/Grenzen",
-    "F": "Fan",
-    "D": "Abtauen",
-    "E": "EVI/EEV",
-    "C": "Compressor",
-    "R": "Sollwerte",
-    "P": "Pumpe",
-    "G": "Legionellen",
-    "Z": "Zone",
-    "O": "Ausgänge",
-    "S": "Schalter",
-    "T": "Diagnose/Live",
-    "SG": "SG Ready",
-    "KG": "Timer",
-    "ERR": "Fault",
-}
-
-# Data type specifications — single source of truth for scaling, units, HA classes
-# Used by coordinator.scaled(), sensor.py DTYPE_MAP, number.py, select.py
+# Data type specifications — derived from config types (platform key stripped).
+# Used by coordinator.scaled(), sensor.py DTYPE_MAP.
 DTYPE_SPEC = {
-    "TEMP1":      {"scale": 0.1,   "unit": "°C",       "device_class": "temperature", "state_class": "measurement"},
-    "TEMP":       {"scale": 0.1,   "unit": "°C",       "device_class": "temperature", "state_class": "measurement"},
-    "TEMP05":     {"scale": 0.5,   "unit": "°C",       "device_class": "temperature", "state_class": "measurement"},
-    "TEMP_0_5":   {"scale": 0.5,   "unit": "°C",       "device_class": "temperature", "state_class": "measurement"},
-    "STEP_0_5C":  {"scale": 0.5,   "unit": "°C",       "device_class": "temperature", "state_class": "measurement"},
-    "VOLT":       {"scale": 1.0,   "unit": "V",        "device_class": "voltage",     "state_class": "measurement"},
-    "VOLTS":      {"scale": 1.0,   "unit": "V",        "device_class": "voltage",     "state_class": "measurement"},
-    "V":          {"scale": 1.0,   "unit": "V",        "device_class": "voltage",     "state_class": "measurement"},
-    "HZ":         {"scale": 1.0,   "unit": "Hz",       "device_class": "frequency",   "state_class": "measurement"},
-    "FREQUENCY_HZ": {"scale": 1.0, "unit": "Hz",       "device_class": "frequency",   "state_class": "measurement"},
-    "PERCENT":    {"scale": 1.0,   "unit": "%",        "device_class": None,          "state_class": "measurement"},
-    "DIGI1":      {"scale": 1.0,   "unit": None,       "device_class": None,          "state_class": "measurement"},
-    "DIGI4":      {"scale": 0.2,   "unit": None,       "device_class": None,          "state_class": "measurement"},
-    "DIGI5":      {"scale": 0.1,   "unit": None,       "device_class": None,          "state_class": "measurement"},
-    "DIGI6":      {"scale": 0.001, "unit": None,       "device_class": None,          "state_class": "measurement"},
-    "DIGI19":     {"scale": 0.01,  "unit": None,       "device_class": None,          "state_class": "measurement"},
-    "FLOW_M3H_X100": {"scale": 0.01,"unit": "m³/h",    "device_class": None,          "state_class": "measurement"},
-    "FLOW_X100":  {"scale": 0.01,  "unit": "m³/h",     "device_class": None,          "state_class": "measurement"},
-    "FLOW_M3H_X10": {"scale": 0.1, "unit": "m³/h",     "device_class": None,          "state_class": "measurement"},
-    "FLOW_X10":   {"scale": 0.1,   "unit": "m³/h",     "device_class": None,          "state_class": "measurement"},
-    "BAR_X10":    {"scale": 0.1,   "unit": "bar",      "device_class": "pressure",    "state_class": "measurement"},
-    "PRESSURE_BAR_X10": {"scale": 0.1,"unit": "bar",   "device_class": "pressure",    "state_class": "measurement"},
-    "AMP_X10":    {"scale": 0.1,   "unit": "A",        "device_class": "current",     "state_class": "measurement"},
-    "CURRENT_A_X10": {"scale": 0.1,"unit": "A",        "device_class": "current",     "state_class": "measurement"},
-    "AMP_X2":     {"scale": 0.5,   "unit": "A",        "device_class": "current",     "state_class": "measurement"},
-    "CURRENT_A_X2": {"scale": 0.5, "unit": "A",        "device_class": "current",     "state_class": "measurement"},
-    "POWER_KW_X10": {"scale": 0.1, "unit": "kW",       "device_class": "power",       "state_class": "measurement"},
-    "KW_X10":     {"scale": 0.1,   "unit": "kW",       "device_class": "power",       "state_class": "measurement"},
-    "WATT":       {"scale": 1.0,   "unit": "W",        "device_class": "power",       "state_class": "measurement"},
-    "WATTS":      {"scale": 1.0,   "unit": "W",        "device_class": "power",       "state_class": "measurement"},
-    "POWER_W":    {"scale": 1.0,   "unit": "W",        "device_class": "power",       "state_class": "measurement"},
-    "RPM":        {"scale": 1.0,   "unit": "rpm",      "device_class": None,          "state_class": "measurement"},
-    "FAN_RPM":    {"scale": 1.0,   "unit": "rpm",      "device_class": None,          "state_class": "measurement"},
-    "KWH":        {"scale": 1.0,   "unit": "kWh",      "device_class": "energy",      "state_class": "total_increasing"},
-    "ENERGY_KWH": {"scale": 1.0,   "unit": "kWh",      "device_class": "energy",      "state_class": "total_increasing"},
-    "KWH_PER_H":  {"scale": 1.0,   "unit": "kWh",      "device_class": "energy",      "state_class": "total_increasing"},
-    "KW_PER_H":   {"scale": 1.0,   "unit": "kW",       "device_class": "power",       "state_class": "measurement"},
-    "COP_X100":   {"scale": 0.01,  "unit": None,       "device_class": None,          "state_class": "measurement"},
-    "COP100":     {"scale": 0.01,  "unit": None,       "device_class": None,          "state_class": "measurement"},
-    "STEPS":      {"scale": 1.0,   "unit": None,       "device_class": None,          "state_class": "measurement"},
-    "STEPS_N":    {"scale": 1.0,   "unit": None,       "device_class": None,          "state_class": "measurement"},
-    "EEV_STEPS":  {"scale": 1.0,   "unit": None,       "device_class": None,          "state_class": "measurement"},
-    "DAYS":       {"scale": 1.0,   "unit": "d",        "device_class": None,          "state_class": "measurement"},
-    "HOURS":      {"scale": 1.0,   "unit": "h",        "device_class": None,          "state_class": "measurement"},
-    "MINUTES":    {"scale": 1.0,   "unit": "min",      "device_class": None,          "state_class": "measurement"},
-    "SECONDS":    {"scale": 1.0,   "unit": "s",        "device_class": None,          "state_class": "measurement"},
-    "MODE_0_4":   {"scale": 1.0,   "unit": None,       "device_class": None,          "state_class": "measurement"},
-    "SG_MODE":    {"scale": 1.0,   "unit": None,       "device_class": None,          "state_class": "measurement"},
-    "RUN_MODE":   {"scale": 1.0,   "unit": None,       "device_class": None,          "state_class": "measurement"},
-    "BITFIELD":   {"scale": 1.0,   "unit": None,       "device_class": None,          "state_class": "measurement"},
-    "FAULT_BITS": {"scale": 1.0,   "unit": None,       "device_class": None,          "state_class": "measurement"},
-    "TIMER_BITPAIR": {"scale": 1.0,"unit": None,       "device_class": None,          "state_class": "measurement"},
-    "TIMER_MODE": {"scale": 1.0,   "unit": None,       "device_class": None,          "state_class": "measurement"},
-    "TIME_HHMM":  {"scale": 1.0,   "unit": None,       "device_class": None,          "state_class": "measurement"},
-    "HHMM":       {"scale": 1.0,   "unit": None,       "device_class": None,          "state_class": "measurement"},
-    "RAW":        {"scale": 1.0,   "unit": None,       "device_class": None,          "state_class": "measurement"},
+    t: {k: v for k, v in spec.items() if k != "platform"}
+    for t, spec in _types_cfg.items()
+    if isinstance(spec, dict)
 }
 
 # Tier intervals (multiples of 30s base)
-QUICK_INTERVAL = 1  # every poll (30s)
-MEDIUM_INTERVAL = 4  # 120s
-RARE_INTERVAL = 10  # 300s (600s when expert)
+QUICK_INTERVAL = _poll_cfg.get("quick", 1)   # every poll (30s)
+MEDIUM_INTERVAL = _poll_cfg.get("medium", 4)  # 120s
+RARE_INTERVAL = _poll_cfg.get("rare", 10)     # 300s (600s when expert)
 
 # EW11 gateway limits — do not exceed
-MODBUS_MAX_SPAN = 45
-MODBUS_MAX_GAP = 8
+MODBUS_MAX_SPAN = _modbus_cfg.get("max_span", 45)
+MODBUS_MAX_GAP = _modbus_cfg.get("max_gap", 8)
+
+# Core main device addresses (on main device, not sub-device)
+_core_marker = _markers_cfg.get("core_main_addrs", {})
+CORE_MAIN_ADDRS = set(_core_marker.get("addr_list", [1011, 1012, 1157, 1158, 1159, 1234, 1235, 1236, 8801, 2133, 2012]))
 
 # Exact code sequence from modbus/tabs.txt — each menu and entity in required order
 TABS_CODE_ORDER = [
@@ -144,7 +81,6 @@ def block_sort_key(block: str) -> int:
 def code_sort_key(code: str) -> int:
     if not code:
         return 9999
-    # normalize dash variants already exact
     return CODE_ORDER_INDEX.get(code, 9999)
 
 def entity_sort_key(addr: int, code: str = "", block: str = "") -> tuple:
@@ -176,7 +112,6 @@ def device_for_block(block: str, entry_id: str | None = None, tab: str | None = 
     )
 
 def device_for_addr(addr: int, block: str | None, entry_id: str | None = None, tab: str | None = None) -> DeviceInfo:
-    CORE_MAIN_ADDRS = {1011, 1012, 1157, 1158, 1159, 1234, 1235, 1236, 8801, 2133, 2012}
     if addr in CORE_MAIN_ADDRS:
         return main_device(entry_id)
     return device_for_block(block or "", entry_id, tab)
@@ -185,7 +120,7 @@ POLL_BLOCKS: list[tuple[int, int, str]] = []
 
 POPULAR_ADDRS = {
     1011,1012,1016,1018,1021,1030,1035,
-    *range(1157, 1200),  # R
+    *range(1157, 1200),
     1197,1198,1199,1205,
     1334,8801,2133,2034,
     1234,1235,1236,

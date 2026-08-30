@@ -13,10 +13,12 @@ async def async_get_config_entry_diagnostics(hass: HomeAssistant, entry: ConfigE
     curve = {}
     try:
         from .heating_curve import curve_target_for_at
-        at = (coord.data.get(2048) or {}).get("value")
+        hc = coord.marker("heat_curve") if hasattr(coord, "marker") else {}
+        hc_a = hc.get("addr_single", {}) if isinstance(hc, dict) else {}
+        at = (coord.data.get(hc_a.get("at_sensor", 2048)) or {}).get("value")
         if at is not None:
             ct = curve_target_for_at(coord, float(at))
-            curve = {"at": at, "curve_target": ct, "slope": (coord.data.get(1234) or {}).get("value"), "offset": (coord.data.get(1235) or {}).get("value"), "h36": (coord.data.get(1236) or {}).get("raw")}
+            curve = {"at": at, "curve_target": ct, "slope": (coord.data.get(hc_a.get("slope", 1234)) or {}).get("value"), "offset": (coord.data.get(hc_a.get("offset", 1235)) or {}).get("value"), "h36": (coord.data.get(hc_a.get("at_comp_en", 1236)) or {}).get("raw")}
     except Exception as e:
         curve = {"error": str(e)}
     foxair_info = {}

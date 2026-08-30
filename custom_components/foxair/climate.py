@@ -6,25 +6,6 @@ from .heating_curve import curve_target_for_at
 import logging
 _LOGGER = logging.getLogger(__name__)
 
-AT_ADDR = 2048  # outdoor / ambient temperature used for weather compensation
-
-# 1011 ON/OFF, 1012 mode: 0=DHW only,1=Heat,2=Cool,3=DHW+Heat,4=DHW+Cool
-# hvac is now pure On/Off (OFF vs On), preset carries the 4 DHW+Heat/Cool combos
-HVAC_MAP = {0: HVACMode.HEAT, 1: HVACMode.HEAT, 2: HVACMode.HEAT, 3: HVACMode.HEAT, 4: HVACMode.HEAT}
-MODE_TO_TEMP_ADDR = {HVACMode.HEAT: 1158, HVACMode.OFF: 1158}
-RAW_MODE_TO_TARGET = {0: 1158, 1: 1158, 2: 1159, 3: 1158, 4: 1159}
-# hvac mode -> raw 1012 (not used now, On keeps current preset)
-HVAC_REV = {HVACMode.OFF: 0, HVACMode.HEAT: 1}
-# preset = DHW Off/On x Heating/Cooling (4 combos); Hot Water only (0) is legacy read-only
-PRESET_RAW = {
-    "Heating": 1,
-    "Cooling": 2,
-    "Heating + Hot Water": 3,
-    "Cooling + Hot Water": 4,
-}
-RAW_PRESET = {v: k for k, v in PRESET_RAW.items()}
-# legacy 0 still readable but not selectable
-RAW_PRESET[0] = "Heating + Hot Water"
 
 class FoxAirClimate(CoordinatorEntity, ClimateEntity):
     _attr_has_entity_name = True
@@ -35,6 +16,20 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
     _attr_hvac_modes = [HVACMode.OFF, HVACMode.HEAT]
     _attr_preset_modes = ["Heating", "Cooling", "Heating + Hot Water", "Cooling + Hot Water"]
 
+    # hvac is pure On/Off (OFF vs On); preset carries the 4 DHW+Heat/Cool combos
+    HVAC_MAP = {0: HVACMode.HEAT, 1: HVACMode.HEAT, 2: HVACMode.HEAT, 3: HVACMode.HEAT, 4: HVACMode.HEAT}
+    HVAC_REV = {HVACMode.OFF: 0, HVACMode.HEAT: 1}
+    # preset = DHW Off/On x Heating/Cooling (4 combos); Hot Water only (0) is legacy read-only
+    PRESET_RAW = {
+        "Heating": 1,
+        "Cooling": 2,
+        "Heating + Hot Water": 3,
+        "Cooling + Hot Water": 4,
+    }
+    RAW_PRESET = {v: k for k, v in PRESET_RAW.items()}
+    # legacy 0 still readable but not selectable
+    RAW_PRESET[0] = "Heating + Hot Water"
+
     def __init__(self, coord):
         super().__init__(coord)
         self._attr_unique_id = "foxair_climate"
@@ -43,9 +38,30 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
         entry_id = getattr(coord, "_entry_id", None) or getattr(coord, "config_entry", None) and getattr(coord.config_entry, "entry_id", None)
         self._attr_device_info = main_device(entry_id)
 
+    # ── marker-based address resolution ──────────────────────────
+    def _addr(self, marker_name, key):
+        """Resolve an address from a foxair_config.json marker by role key."""
+        m = self.coordinator.marker(marker_name) if hasattr(self.coordinator, "marker") else None
+        if m and isinstance(m, dict) and "addr_single" in m:
+            return m["addr_single"].get(key)
+        if m and isinstance(m, dict):
+            return m.get(key)
+        return None
+
     def _raw_mode(self):
-        rec = self.coordinator.data.get(1012)
+        rec = self.coordinator.data.get(self._addr("status", "mode"))
         return rec["raw"] if rec else 1
+
+    def _target_addr(self):
+        """Return the setpoint address for the current raw mode.
+
+        Modes 2 (Cooling) and 4 (Cooling + Hot Water) -> cooling_target (1159).
+        Modes 0, 1, 3 -> heating_target (1158).
+        """
+        raw_mode = self._raw_mode()
+        if raw_mode in (2, 4):
+            return self._addr("setpoints", "cooling_target") or 1159
+        return self._addr("setpoints", "heating_target") or 1158
 
     @property
     def min_temp(self):
@@ -55,24 +71,25 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
             ct = self._curve_target()
             if ct is not None:
                 return ct
-        addr = RAW_MODE_TO_TARGET.get(self._raw_mode(), 1158)
+        addr = self._target_addr()
         meta = self.coordinator.get_metadata(addr) if hasattr(self.coordinator, "get_metadata") else {}
         lo = meta.get("min")
-        return float(lo) if lo is not None else (15.0 if addr==1158 else 7.0)
+        return float(lo) if lo is not None else (15.0 if addr == 1158 else 7.0)
+
     @property
     def max_temp(self):
         if self.control_mode == "weather_curve":
             ct = self._curve_target()
             if ct is not None:
                 return ct
-        addr = RAW_MODE_TO_TARGET.get(self._raw_mode(), 1158)
+        addr = self._target_addr()
         meta = self.coordinator.get_metadata(addr) if hasattr(self.coordinator, "get_metadata") else {}
         hi = meta.get("max")
-        return float(hi) if hi is not None else (60.0 if addr==1158 else 28.0)
+        return float(hi) if hi is not None else (60.0 if addr == 1158 else 28.0)
 
     @property
     def current_temperature(self):
-        rec = self.coordinator.data.get(2046)
+        rec = self.coordinator.data.get(self._addr("status", "outlet_water_temp"))
         return rec["value"] if rec else None
 
     def _curve_target(self):
@@ -84,13 +101,13 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
         parity. Fall back to the offset/slope formula only if 2014 is missing.
         """
         try:
-            dev = self.coordinator.data.get(2014, {}).get("value")
+            dev = self.coordinator.data.get(self._addr("heat_curve", "live_target"), {}).get("value")
             if dev is not None:
                 return round(float(dev), 1)
         except Exception:
             pass
         try:
-            at = self.coordinator.data.get(AT_ADDR, {}).get("value")
+            at = self.coordinator.data.get(self._addr("heat_curve", "at_sensor"), {}).get("value")
             if at is None:
                 return None
             ct = curve_target_for_at(self.coordinator, float(at))
@@ -105,15 +122,15 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
         # setpoint register. Only in fixed mode do we show the fixed setpoint.
         if self.control_mode == "weather_curve":
             return self._curve_target()
-        raw_mode = self._raw_mode()
-        addr = RAW_MODE_TO_TARGET.get(raw_mode, 1158)
+        addr = self._target_addr()
         rec = self.coordinator.data.get(addr)
         return rec["value"] if rec else None
 
     @property
     def control_mode(self):
         """'weather_curve' when H36 AT-compensation is enabled, else 'fixed'."""
-        return "weather_curve" if self.coordinator.data.get(1236, {}).get("raw") == 1 else "fixed"
+        at_comp_en = self._addr("heat_curve", "at_comp_en")
+        return "weather_curve" if self.coordinator.data.get(at_comp_en, {}).get("raw") == 1 else "fixed"
 
     @property
     def supported_features(self):
@@ -127,8 +144,9 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
     def hvac_mode(self):
         if self._opt_hvac is not None:
             return self._opt_hvac
-        # On/Off is pure power (1011); On always shows as HEAT
-        off = self.coordinator.data.get(1011)
+        # On/Off is pure power; On always shows as HEAT
+        power = self._addr("status", "power")
+        off = self.coordinator.data.get(power)
         if off and off["raw"] == 0:
             return HVACMode.OFF
         return HVACMode.HEAT
@@ -141,14 +159,15 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
         # 0 (Hot Water only) is legacy — show as Heating + Hot Water
         if raw == 0:
             return "Heating + Hot Water"
-        return RAW_PRESET.get(raw, "Heating")
+        return self.RAW_PRESET.get(raw, "Heating")
 
     @property
     def hvac_action(self):
-        off = self.coordinator.data.get(1011)
+        power = self._addr("status", "power")
+        off = self.coordinator.data.get(power)
         if off and off["raw"] == 0:
             return HVACAction.OFF
-        status = self.coordinator.data.get(2012)
+        status = self.coordinator.data.get(self._addr("status", "run_status"))
         if status:
             raw = status.get("raw")
             if raw == 1: return HVACAction.HEATING
@@ -156,7 +175,7 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
             if raw == 2: return HVACAction.DEFROSTING if hasattr(HVACAction, "DEFROSTING") else HVACAction.HEATING
             if raw == 4: return HVACAction.HEATING
             if raw == 3: return HVACAction.IDLE
-        freq = self.coordinator.data.get(2072)
+        freq = self.coordinator.data.get(self._addr("status", "compressor_freq"))
         if freq and freq.get("value", 0) > 0:
             raw_mode = self._raw_mode()
             if raw_mode in (2, 4): return HVACAction.COOLING
@@ -166,11 +185,11 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
     @property
     def extra_state_attributes(self):
         raw_mode = self._raw_mode()
-        at = self.coordinator.data.get(AT_ADDR, {}).get("value")
+        at = self.coordinator.data.get(self._addr("heat_curve", "at_sensor"), {}).get("value")
         return {
             "raw_mode": raw_mode,
             "mode_code": {0: "Heating + Hot Water", 1: "Heating", 2: "Cooling", 3: "Heating + Hot Water", 4: "Cooling + Hot Water"}.get(raw_mode, str(raw_mode)),
-            "target_addr": RAW_MODE_TO_TARGET.get(raw_mode),
+            "target_addr": self._target_addr(),
             "dhw_mode": raw_mode in (0, 3, 4),
             "control_mode": self.control_mode,
             "at": at,
@@ -189,33 +208,35 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
                 "(weather-curve) mode. Tune the curve via number.foxair_1234 (slope) "
                 "and number.foxair_1235 (offset) instead."
             )
-        raw_mode = self._raw_mode()
         hvac = kwargs.get("hvac_mode")
         if hvac:
-            addr = MODE_TO_TEMP_ADDR.get(hvac, RAW_MODE_TO_TARGET.get(raw_mode, 1158))
+            # HVACMode.HEAT uses heating_target; any other would be cooling
+            addr = self._addr("setpoints", "heating_target") or 1158
         else:
-            addr = RAW_MODE_TO_TARGET.get(raw_mode, 1158)
+            addr = self._target_addr()
         ok = await self.coordinator.async_write_register(addr, float(temp))
         if not ok:
             raise ValueError(f"Set temp {temp} rejected (addr {addr})")
 
     async def async_set_hvac_mode(self, hvac_mode):
-        # hvac is pure On/Off — batched with 3s debounce in coordinator (1011+1012 -> one FC16)
+        # hvac is pure On/Off — batched with 3s debounce in coordinator (power+mode -> one FC16)
         self._opt_hvac = hvac_mode
         self._attr_assumed_state = True
         self.async_write_ha_state()
         try:
+            power = self._addr("status", "power")
+            mode = self._addr("status", "mode")
             if hvac_mode == HVACMode.OFF:
-                ok = await self.coordinator.async_write_register(1011, 0)
+                ok = await self.coordinator.async_write_register(power, 0)
                 if not ok:
                     raise ValueError("Failed to set OFF")
                 return
             # On: power on, keep existing preset (if 0, default to Heating)
             raw = self._raw_mode()
             if raw == 0:
-                ok = await self.coordinator.async_write_many({1011: 1.0, 1012: 1.0})
+                ok = await self.coordinator.async_write_many({power: 1.0, mode: float(1)})
             else:
-                ok = await self.coordinator.async_write_register(1011, 1)
+                ok = await self.coordinator.async_write_register(power, 1)
             if not ok:
                 raise ValueError("Failed to power ON")
         finally:
@@ -224,7 +245,7 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
             self.async_write_ha_state()
 
     async def async_set_preset_mode(self, preset_mode):
-        raw = PRESET_RAW.get(preset_mode)
+        raw = self.PRESET_RAW.get(preset_mode)
         if raw is None:
             raise ValueError(f"Unknown preset {preset_mode}")
         # show the new preset instantly during the write round-trip
@@ -232,14 +253,17 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
         self._attr_assumed_state = True
         self.async_write_ha_state()
         try:
-            # Batch 1011+1012 into one FC16 (debounced 3s) — avoids conflict where 1012 written while still Off
-            ok = await self.coordinator.async_write_many({1011: 1.0, 1012: float(raw)})
+            # Batch power(1011)+mode(1012) into one FC16 (debounced 3s) — avoids conflict where mode written while still Off
+            power = self._addr("status", "power")
+            mode = self._addr("status", "mode")
+            ok = await self.coordinator.async_write_many({power: 1.0, mode: float(raw)})
             if not ok:
                 raise ValueError(f"Failed set preset {preset_mode}")
         finally:
             self._opt_preset = None
             self._attr_assumed_state = False
             self.async_write_ha_state()
+
 
 async def async_setup_entry(hass, entry, add_entities):
     coord = hass.data["foxair"][entry.entry_id]

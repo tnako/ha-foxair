@@ -27,11 +27,15 @@ class FoxAirCurveSvgView(HomeAssistantView):
         if coord and getattr(coord, "data", None):
             try:
                 from .heating_curve import curve_target_for_at
-                rec_at = coord.data.get(2048)
+                hc = coord.marker("heat_curve") if hasattr(coord, "marker") else {}
+                hc_a = hc.get("addr_single", {}) if isinstance(hc, dict) else {}
+                st = coord.marker("setpoints") if hasattr(coord, "marker") else {}
+                st_a = st.get("addr_single", {}) if isinstance(st, dict) else {}
+                rec_at = coord.data.get(hc_a.get("at_sensor", 2048))
                 if rec_at: at_live = rec_at.get("value")
-                rec_slope = coord.data.get(1234)
+                rec_slope = coord.data.get(hc_a.get("slope", 1234))
                 if rec_slope: slope = rec_slope.get("value", 0.6)
-                rec_off = coord.data.get(1235)
+                rec_off = coord.data.get(hc_a.get("offset", 1235))
                 if rec_off: offset = rec_off.get("value", 0)
                 # slope may be 0..100 raw if not scaled correctly, normalize
                 if slope and slope > 5:
@@ -118,16 +122,20 @@ class FoxAirCurvePanelView(HomeAssistantView):
         if coord and getattr(coord, "data", None):
             try:
                 from .heating_curve import curve_target_for_at
-                at = coord.data.get(2048, {}).get("value", "—")
-                slope = coord.data.get(1234, {}).get("value", "—")
-                offset = coord.data.get(1235, {}).get("value", "—")
+                hc = coord.marker("heat_curve") if hasattr(coord, "marker") else {}
+                hc_a = hc.get("addr_single", {}) if isinstance(hc, dict) else {}
+                st = coord.marker("setpoints") if hasattr(coord, "marker") else {}
+                st_a = st.get("addr_single", {}) if isinstance(st, dict) else {}
+                at = coord.data.get(hc_a.get("at_sensor", 2048), {}).get("value", "—")
+                slope = coord.data.get(hc_a.get("slope", 1234), {}).get("value", "—")
+                offset = coord.data.get(hc_a.get("offset", 1235), {}).get("value", "—")
                 at_v = at if isinstance(at,(int,float)) else None
                 if at_v is not None:
                     target = curve_target_for_at(coord, at_v)
                     target = f"{target:.1f}" if target is not None else "—"
-                fixed = coord.data.get(1158, {}).get("value", "—")
+                fixed = coord.data.get(st_a.get("heating_target", 1158), {}).get("value", "—")
                 if isinstance(fixed,(int,float)): fixed=f"{fixed:.1f}"
-                after = coord.data.get(2014, {}).get("value", "—")
+                after = coord.data.get(hc_a.get("live_target", 2014), {}).get("value", "—")
                 if isinstance(after,(int,float)): after=f"{after:.1f}"
                 if isinstance(at,(int,float)): at=f"{at:.1f}"
                 if isinstance(slope,(int,float)): slope=f"{slope}"

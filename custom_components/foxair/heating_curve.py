@@ -1,10 +1,10 @@
 """Heating curve helper for v0.3.3+ — fixed vs weather-compensated.
 
-Fixed: target = R02 (1158)
+Fixed: target = R02 (heating_target marker)
 Curve: target(AT) = offset - slope * AT  (reference AT = 0), clamped [R10/R11] + envelope R31/R34
 
-Slope 1234 RAW -> /10 => 0.0..3.0, Offset 1235 TEMP1 -> /10 => -10..10
-Enable 1236 H36 0/1 (select) — 1 = curve
+Slope (heat_curve.marker slope) RAW -> /10 => 0.0..3.0, Offset TEMP1 -> /10 => -10..10
+Enable (at_comp_en marker) H36 0/1 (select) — 1 = curve
 """
 from typing import Optional
 
@@ -28,11 +28,14 @@ def clamp(v: float, lo: Optional[float], hi: Optional[float]) -> float:
     return v
 
 def curve_target_for_at(coord, at_c: float) -> Optional[float]:
-    """Compute curve target for given AT using coordinator metadata/live values."""
+    """Compute curve target for given AT using coordinator markers/metadata/live values."""
     try:
-        slope_rec = coord.data.get(1234)
-        off_rec = coord.data.get(1235)
-        en_rec = coord.data.get(1236)
+        m = coord.marker("heat_curve") if hasattr(coord, "marker") else {}
+        hc = m.get("addr_single", {}) if isinstance(m, dict) else {}
+        slope_addr = hc.get("slope", 1234)
+        off_addr = hc.get("offset", 1235)
+        slope_rec = coord.data.get(slope_addr)
+        off_rec = coord.data.get(off_addr)
         if slope_rec is None or off_rec is None:
             return None
         # slope RAW is DIGI5 /10? Actually type DIGI5 => scaled /10, but 1234 was DIGI5 in metadata

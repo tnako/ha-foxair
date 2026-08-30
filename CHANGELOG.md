@@ -1,3 +1,12 @@
+## 0.4.25
+- refactor: introduce `foxair_config.json` as single source of truth for blocks, data types, dead ranges, functional markers, and per-register overrides — consumed by `build_metadata.py`, `const.py`, `coordinator.py`, `climate.py`, `heating_curve.py`, `sensor.py`, `views.py`, `diagnostics.py`; replaces ~60 hardcoded address constants and ~230 lines of duplicated tables in const.py/build_metadata.py.
+- refactor(coordinator): DEAD_RANGES now loaded from config; `dead_ranges` config key drives batch splitting (200-215, 2029-2032) — same behavior, tunable without code changes.
+- refactor(climate): replace magic address 1011/1012/1158/1159/2014/2048 with `coord.marker()` accessors (`status.power`, `status.mode`, `setpoints.heating/cooling_target`, `heat_curve.live_target`, `heat_curve.at_sensor`).
+- refactor(heating_curve): use `heat_curve` marker for slope/offset/AT-sensor instead of hardcoded 1234/1235/2048.
+- refactor(views/diagnostics): heating curve panel and diagnostics use marker resolution for curve addresses.
+- refactor(const): DTYPE_SPEC, BLOCK_SHORT, EXPERT_BLOCKS, BLOCK_ORDER, poll intervals, modbus limits, CORE_MAIN_ADDRS all derived from foxair_config.json at import time.
+- chore: bump version.
+
 ## 0.4.24
 - fix(select): eliminate blocking file read in `load_value_map` — `select.py` re-read the 5770-line register JSON synchronously in `FoxSelect.__init__`, which HA 2026.8+'s blocking-call detector flagged, causing select entities (SG01 etc.) to fail setup and show "unknown". Now uses coordinator's already-async-loaded `_regmap`.
 - fix(coordinator): split Modbus batches around dead/unreadable register ranges (200-215, 2029-2032) — previously read(2011, 31) spanned write-only T-Diag5-8 registers, and the EW11 bridge corrupted the batch response ("No response after 3 retries"). Now splits into non-spanning sub-batches.
