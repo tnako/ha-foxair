@@ -20,6 +20,10 @@ OUT_PATH = ROOT / "custom_components/foxair/data/foxair_metadata.json"
 
 # Addresses without a block/code in register json that belong to Diagnostics/Live.
 BLOCK_T_LIVE = {2125, 2126, 2127, 2128, 2136, 2137, 2138, 2178, 2179, 2180}
+# T block split into two devices: Live (operational regs, always visible/default)
+# and Diagnostic (ASM/EVI/driver/duplicate-path regs, expert-only).
+T_DIAGNOSTIC_ADDRS = {2029, 2030, 2031, 2032, 2063, 2064, 2065, 2066, 2067,
+                      2073, 2136, 2137, 2138}
 # Orphan core-control addresses that must stay non-expert (used by climate/curve):
 CORE_NON_EXPERT_ADDRS = {1011, 1012, 1013, 1014, 1015, 1016, 1017,
                          1212, 1213, 1214, 1234, 1235, 1236,
@@ -132,6 +136,12 @@ def main():
         if addr in BLOCK_T_LIVE:
             block = "T"
         tab = rec.get("tab") or block
+        # T block splits into two devices: Diagnostic regs are expert-only and
+        # route to T_Diagnostic; the rest are Live (always visible).
+        if block == "T" and tab == "T" and addr not in T_DIAGNOSTIC_ADDRS:
+            tab = "T_Live"
+        elif block == "T" and tab == "T" and addr in T_DIAGNOSTIC_ADDRS:
+            tab = "T_Diagnostic"
         # derive group from app tab when available
         group = APP_TAB_TITLES.get(tab, BLOCK_SHORT.get(block, "Other" if block else "Header/Reserved"))
         if dtype == "BLOCK" or (not code and addr not in BLOCK_T_LIVE):
@@ -162,6 +172,9 @@ def main():
         # Orphan addrs without block/code (reserved / header / factory-test leftovers)
         # are expert-only, EXCEPT core control/curve addrs used by climate & main device.
         if not block and not code and addr not in CORE_NON_EXPERT_ADDRS:
+            requires_expert = True
+        # Diagnostic T split registers are expert-only (hidden until expert mode on)
+        if block == "T" and tab == "T_Diagnostic":
             requires_expert = True
         # min/max from knowledge
         kd = know.get(addr_str, {}) if isinstance(know.get(addr_str), dict) else {}

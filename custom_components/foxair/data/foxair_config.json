@@ -25,7 +25,7 @@
   "blocks": {
     "order": ["H", "A", "F", "D", "E", "R", "P", "G", "C", "Z", "O", "S", "T", "SG", "KG", "ERR"],
     "expert_blocks": ["H", "A", "F", "D", "E", "C", "P", "Z", "G"],
-    "_comment_normal_mode": "Normal mode keeps: main device, R Setpoints, T Diagnostics/Live, SG Ready, KG Timer, ERR Fault.",
+    "_comment_normal_mode": "Normal mode keeps: main device, R Setpoints, T Live (always visible), SG Ready, KG Timer, ERR Fault. T Diagnostic only in expert mode.",
     "labels": {
       "H": "Base/Hardware",
       "A": "Protection/Limits",
@@ -35,6 +35,8 @@
       "C": "Compressor",
       "R": "Setpoints",
       "T": "Diagnostics/Live",
+      "T_Live": "Diagnostics/Live",
+      "T_Diagnostic": "Diagnostics/Diagnostic",
       "Z": "Zone",
       "G": "Legionella",
       "P": "Pump",
@@ -52,6 +54,8 @@
       "C": "mdi:air-conditioner",
       "R": "mdi:thermometer",
       "T": "mdi:pulse",
+      "T_Live": "mdi:pulse",
+      "T_Diagnostic": "mdi:shield-account",
       "Z": "mdi:home-thermometer",
       "G": "mdi:water-thermometer",
       "P": "mdi:water-pump",

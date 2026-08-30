@@ -1,3 +1,7 @@
+## 0.4.28
+|- feat(devices): split T Diagnostics/Live into two devices — Live (always visible, default) and Diagnostic (expert-only). Live device contains operational registers (temps, pressure, power, COP, flow, compressor freq, voltages, currents, fan speeds, energy counters); Diagnostic device contains ASM-derived values (T-Diag1-3), EVI temps (T10/T11), max driver frequency (T32), and secondary/duplicate paths (2136-2138). Diagnostic registers now have `requires_expert: true` and route to device `FoxAir — Diagnostics/Diagnostic [T_Diagnostic]` via `tab` field in metadata. Live registers route to `FoxAir — Diagnostics/Live [T_Live]`.
+|
+
 ## 0.4.27
 |- fix(climate): H36 AT-compensation enable (reg 1236) was treated as expert-only (block H in EXPERT_BLOCKS), so it was never polled in non-expert mode — `control_mode` always returned "fixed" even when set to "curve". Now 1236 is in CORE_NON_EXPERT_ADDRS, polled quick-tier, and the select entity is created/visible without expert mode.
 |- fix(views): heating curve SVG legend no longer overlaps the plot — moved to a dedicated bottom strip with a dark background box, repositioned band/fixed-line/dot labels to the left side of the curve, expanded canvas from 800x400 to 800x460.
