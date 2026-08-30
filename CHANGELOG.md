@@ -1,3 +1,8 @@
+## 0.4.30
+- feat(privacy/safety): permanently hide reserved/system addrs — new `hidden` flag per register in `foxair_metadata.json`, ranges configured in `foxair_config.json` `hidden`. Covers protocol block headers (auto via type=BLOCK), `Reserviert`/block-header Reserve words, WiFi barcode/PHNIX ProductKey (200-215, 1001-1008), system clock (1250-1255), factory-test ASM (1361-1380), System-2/leftover ASM orphans, internal status & firmware info (2033-2149), service/OTA/board addrs (50000+). 193 registers hidden; expert view 591→398; normal mode unchanged. Hidden addrs are never created as entities (sensor/number/select), never polled (coordinator), writes are rejected, and `_cleanup_orphaned_entities` removes them from the registry in BOTH modes (previously skipped when expert=on).
+- fix(modbus): write flush no longer opens a second TCP client to the EW11 — `_do_flush()` reused a fresh `AsyncModbusTcpClient` while the poll connection was live; the single-socket gateway merges both streams → `transaction_id=37 but got id=1, Skipping` / `Repeating...` frame corruption after every UI write. Writes now go through the shared poll connection under `self._lock` with 0.25 s EW11 pacing.
+- fix(coordinator): dead-range filter compared str keys against int set (`k not in dead_addrs` never matched) → addr 200-215 ProductKey block was polled in expert mode → `No response received after 3 retries`. Now `int(k)`; plus poll loop aborts remaining batches on a connection-level failure and forces reconnect next cycle instead of storming a dead socket.
+
 ## 0.4.29
 |- feat(devices): nicer names for the split T devices — renamed to `FoxAir — Live [T_Live]` and `FoxAir — Diagnostic [T_Diagnostic]` (dropped the redundant "Diagnostics/" prefix from the device labels).
 

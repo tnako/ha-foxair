@@ -174,6 +174,9 @@ async def async_setup_entry(hass, entry, add_entities):
             continue
         if meta.get("platform") != "select" or not meta.get("editable"):
             continue
+        # permanently hidden (reserved/system/factory-test addrs): never create
+        if meta.get("hidden"):
+            continue
         if meta.get("requires_expert") and not entry.options.get("enable_expert"):
             continue
         ents.append(FoxSelect(coord, addr, meta))

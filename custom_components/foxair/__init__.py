@@ -13,12 +13,11 @@ PLATFORMS = ["sensor", "climate", "number", "select", "image"]
 async def _cleanup_orphaned_entities(hass: HomeAssistant, entry: ConfigEntry, enable_expert: bool):
     """Remove entity-registry entries for entities that should no longer exist.
 
-    When expert mode is disabled, entities from expert-only blocks and
-    dangerous-risk addresses are not re-created by platforms. Without cleanup,
-    they linger in the entity registry as stale/unavailable entries.
+    Two classes of stale entities:
+    - hidden addrs (reserved/block-header/system/wifi/factory-test): removed ALWAYS.
+    - expert-gated addrs: removed when expert mode is disabled; without cleanup
+      they linger in the entity registry as stale/unavailable entries.
     """
-    if enable_expert:
-        return  # no cleanup needed when expert mode is on
     try:
         registry = er_async_get(hass)
         coord = hass.data.get("foxair", {}).get(entry.entry_id)
@@ -42,11 +41,14 @@ async def _cleanup_orphaned_entities(hass: HomeAssistant, entry: ConfigEntry, en
             meta = metadata.get(str(addr), {})
             block = meta.get("block", "")
             requires_expert = meta.get("requires_expert", False)
-            if requires_expert or block in EXPERT_BLOCKS:
+            drop = meta.get("hidden", False) or (
+                not enable_expert and (requires_expert or block in EXPERT_BLOCKS)
+            )
+            if drop:
                 registry.async_remove(ent.entity_id)
                 removed += 1
         if removed:
-            _LOGGER.debug("Cleanup removed %d stale expert-mode entities", removed)
+            _LOGGER.debug("Cleanup removed %d stale entities (hidden/expert)", removed)
     except Exception as e:
         _LOGGER.debug("cleanup orphaned entities failed: %s", e)
 
@@ -79,13 +81,14 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     from .coordinator import FoxAirCoordinator
 
     coord = FoxAirCoordinator(hass, entry)
+    await coord._load_config()  # load foxair_config.json off the event loop
+    await coord._load_map()     # load regmap + metadata off the event loop
     await coord.async_config_entry_first_refresh()
     hass.data.setdefault("foxair", {})[entry.entry_id] = coord
     entry.async_on_unload(entry.add_update_listener(async_reload_entry))
 
     enable_expert = bool(entry.options.get("enable_expert"))
-    if not enable_expert:
-        await _cleanup_orphaned_entities(hass, entry, enable_expert)
+    await _cleanup_orphaned_entities(hass, entry, enable_expert)
 
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
     hass.async_create_task(_cleanup_orphaned_devices(hass))

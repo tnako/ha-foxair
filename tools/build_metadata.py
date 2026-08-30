@@ -20,6 +20,10 @@ OUT_PATH = ROOT / "custom_components/foxair/data/foxair_metadata.json"
 
 # Addresses without a block/code in register json that belong to Diagnostics/Live.
 BLOCK_T_LIVE = {2125, 2126, 2127, 2128, 2136, 2137, 2138, 2178, 2179, 2180}
+# Address ranges permanently hidden from the UI and excluded from polling even in
+# expert mode (reserved / block headers / system clock / factory test / wifi / cloud /
+# board-info addrs) come from foxair_config.json "hidden"; type=BLOCK protocol headers
+# are hidden automatically. See HIDDEN_CFG_RANGES below.
 # T block split into two devices: Live (operational regs, always visible/default)
 # and Diagnostic (ASM/EVI/driver/duplicate-path regs, expert-only).
 T_DIAGNOSTIC_ADDRS = {2029, 2030, 2031, 2032, 2063, 2064, 2065, 2066, 2067,
@@ -40,6 +44,7 @@ TYPES = CFG["types"]
 MARKERS = CFG["markers"]
 OVERRIDES = {int(k): v for k, v in MARKERS["overrides"].items()}
 EXPERT_BLOCKS = set(BLOCKS["expert_blocks"])
+HIDDEN_CFG_RANGES = [(lo, hi) for lo, hi in CFG.get("hidden", [])]
 RISK_BY_BLOCK = BLOCKS["risk_by_block"]
 ICON_BY_BLOCK = BLOCKS["icons"]
 APP_TAB_TITLES = BLOCKS["labels"]
@@ -176,6 +181,9 @@ def main():
         # Diagnostic T split registers are expert-only (hidden until expert mode on)
         if block == "T" and tab == "T_Diagnostic":
             requires_expert = True
+        # Permanently hidden: reserved / protocol-header / system / wifi / factory-test
+        # / service addrs — never shown (not even expert) and never polled.
+        hidden = (dtype == "BLOCK" or any(lo <= addr <= hi for lo, hi in HIDDEN_CFG_RANGES))
         # min/max from knowledge
         kd = know.get(addr_str, {}) if isinstance(know.get(addr_str), dict) else {}
         desc = kd.get("description", "") if isinstance(kd, dict) else ""
@@ -212,6 +220,7 @@ def main():
             # NOTE: address is the JSON key (addr_str). Do not duplicate it as an
             # "addr" field here — no consumer reads it and it can drift from the key.
             "code": code, "block": block, "tab": tab, "group": group,
+            "hidden": hidden,
             "editable": editable, "platform": platform, "risk": risk,
             "requires_expert": requires_expert, "type": dtype,
             "unit": unit, "min": lo, "max": hi, "step": step,
@@ -229,6 +238,7 @@ def main():
     print("editable platform:", dict(p))
     print("tier:", dict(t))
     print("editable total:", sum(1 for v in out.values() if v["editable"]))
+    print("hidden (never shown):", sum(1 for v in out.values() if v.get("hidden")))
     print("dangerous editable:", sum(1 for v in out.values() if v["editable"] and v["risk"] == "dangerous"))
 
 
