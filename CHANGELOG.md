@@ -1,3 +1,8 @@
+## 0.4.24
+- fix(select): eliminate blocking file read in `load_value_map` — `select.py` re-read the 5770-line register JSON synchronously in `FoxSelect.__init__`, which HA 2026.8+'s blocking-call detector flagged, causing select entities (SG01 etc.) to fail setup and show "unknown". Now uses coordinator's already-async-loaded `_regmap`.
+- fix(coordinator): split Modbus batches around dead/unreadable register ranges (200-215, 2029-2032) — previously read(2011, 31) spanned write-only T-Diag5-8 registers, and the EW11 bridge corrupted the batch response ("No response after 3 retries"). Now splits into non-spanning sub-batches.
+- fix(metadata): mark T-Diag5-8 (2029-2032, write-only FC16) as `risk: blocked` and remove from `T_MEDIUM` poll tier in `build_metadata.py` so they are never polled.
+
 ## 0.4.23
 - fix(i18n): lowercase translation keys (`foxair_s_s02`..`s10`) — HA rejects uppercase in keys
 - fix(vendor): correct register 1131 comment `# E01 DIGI1` (was wrong `# E17`)
