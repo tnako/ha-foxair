@@ -2,7 +2,7 @@
 
 Control and monitor your **FoxAir / PHNIX air-to-water heat pump** directly from Home Assistant over Modbus TCP — no cloud, no YAML.
 
-![Version](https://img.shields.io/badge/version-0.4.24-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2026.3-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
+![Version](https://img.shields.io/badge/version-0.4.26-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2026.3-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
 Registers and scaling are based on the reverse-engineering in [dosordie/FoxAir_Control](https://github.com/dosordie/FoxAir_Control) (591 registers, FoxAir_Control 0.2.62 / 5607b5a).
 

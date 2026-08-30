@@ -60,6 +60,7 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
         """
         raw_mode = self._raw_mode()
         if raw_mode in (2, 4):
+            # config-driven address, fallback only if markers are empty
             return self._addr("setpoints", "cooling_target") or 1159
         return self._addr("setpoints", "heating_target") or 1158
 
@@ -74,7 +75,7 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
         addr = self._target_addr()
         meta = self.coordinator.get_metadata(addr) if hasattr(self.coordinator, "get_metadata") else {}
         lo = meta.get("min")
-        return float(lo) if lo is not None else (15.0 if addr == 1158 else 7.0)
+        return float(lo) if lo is not None else (15.0 if addr == self._addr("setpoints", "heating_target") else 7.0)
 
     @property
     def max_temp(self):
@@ -85,7 +86,7 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
         addr = self._target_addr()
         meta = self.coordinator.get_metadata(addr) if hasattr(self.coordinator, "get_metadata") else {}
         hi = meta.get("max")
-        return float(hi) if hi is not None else (60.0 if addr == 1158 else 28.0)
+        return float(hi) if hi is not None else (60.0 if addr == self._addr("setpoints", "heating_target") else 28.0)
 
     @property
     def current_temperature(self):
@@ -205,8 +206,7 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
         if self.control_mode == "weather_curve":
             raise ValueError(
                 "Cannot set target_temperature directly in AT-compensation "
-                "(weather-curve) mode. Tune the curve via number.foxair_1234 (slope) "
-                "and number.foxair_1235 (offset) instead."
+                "(weather-curve) mode. Tune the curve via the slope/offset numbers instead."
             )
         hvac = kwargs.get("hvac_mode")
         if hvac:
