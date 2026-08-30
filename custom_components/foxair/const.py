@@ -25,7 +25,8 @@ _poll_cfg = _CFG.get("poll_intervals", {})
 _markers_cfg = _CFG.get("markers", {})
 
 # Whole tabs that are expert-only (hidden entirely until expert mode is on).
-# Normal mode keeps: main device, R Setpoints, T Diagnostics/Live, SG Ready, KG Timer, ERR Fault.
+# Normal mode keeps: main device, R Setpoints, T Live (always visible), SG Ready, KG Timer, ERR Fault.
+# T Diagnostic only in expert mode (requires_expert=true on those registers).
 EXPERT_BLOCKS = set(_blocks_cfg.get("expert_blocks", []))
 
 # Order MUST match tabs.txt Tab sequence: H, A, F, D, E, R, P, G, C, Z, O, S, T

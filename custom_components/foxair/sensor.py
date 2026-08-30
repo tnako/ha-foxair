@@ -94,7 +94,11 @@ class FoxSensor(CoordinatorEntity, SensorEntity):
         else:
             self._attr_entity_registry_enabled_default = addr in POPULAR_ADDRS
             if addr not in POPULAR_ADDRS:
-                self._attr_entity_category = EntityCategory.DIAGNOSTIC
+                # Live diagnostic regs are the main operational view — keep visible.
+                if tab == "T_Live":
+                    self._attr_entity_registry_enabled_default = True
+                else:
+                    self._attr_entity_category = EntityCategory.DIAGNOSTIC
         # icon: prefer metadata icon, fallback to heat-pump MDI (works even if brand/ PNG missing)
         self._attr_icon = (meta.get("icon") or "mdi:heat-pump") if meta else "mdi:heat-pump"
 
