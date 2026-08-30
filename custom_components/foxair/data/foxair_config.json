@@ -155,7 +155,11 @@
         "offset":     1235,
         "at_comp_en": 1236,
         "live_target": 2014,
-        "at_sensor":  2048
+        "at_sensor":  2048,
+        "r10_min":    1164,
+        "r11_max":    1165,
+        "r31_at_lo":  1169,
+        "r34_at_hi":  1172
       }
     },
     "setpoints": {

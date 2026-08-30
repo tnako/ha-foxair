@@ -32,29 +32,25 @@ def curve_target_for_at(coord, at_c: float) -> Optional[float]:
     try:
         m = coord.marker("heat_curve") if hasattr(coord, "marker") else {}
         hc = m.get("addr_single", {}) if isinstance(m, dict) else {}
-        slope_addr = hc.get("slope", 1234)
-        off_addr = hc.get("offset", 1235)
-        slope_rec = coord.data.get(slope_addr)
-        off_rec = coord.data.get(off_addr)
+        slope_addr = hc.get("slope")
+        off_addr = hc.get("offset")
+        slope_rec = coord.data.get(slope_addr) if slope_addr else None
+        off_rec = coord.data.get(off_addr) if off_addr else None
         if slope_rec is None or off_rec is None:
             return None
-        # slope RAW is DIGI5 /10? Actually type DIGI5 => scaled /10, but 1234 was DIGI5 in metadata
+        # slope is already scaled by coordinator (DIGI5 -> /10)
         slope = slope_rec.get("value", 0)
         offset = off_rec.get("value", 0)
-        # normalize slope: if metadata says 0-100 step 0.1, slope 10 = 1.0 ? Check: our fallback 0-100 for DIGI5 would be 0-10 after /10 -> 0-10 slope unrealistic. Clamp slope 0-3
-        # Interpret slope as /10 already done by coordinator scaled
-        # If slope > 5 assume /10 was not applied? Keep as is but clamp 0-3
         if slope > 5:
             slope = slope / 10.0
         target = calc_curve_target(at_c, slope, offset)
-        # clamp to R10/R11 + R31/R34 envelope
-        r10 = coord.data.get(1164)
-        r11 = coord.data.get(1165)
-        r31 = coord.data.get(1169)
-        r34 = coord.data.get(1172)
+        # clamp to R10/R11 envelope
+        r10_addr = hc.get("r10_min")
+        r11_addr = hc.get("r11_max")
+        r10 = coord.data.get(r10_addr) if r10_addr else None
+        r11 = coord.data.get(r11_addr) if r11_addr else None
         lo = r10["value"] if r10 else 20
         hi = r11["value"] if r11 else 60
-        # envelope low/high AT clamps are not directly min - they are point clamps; we use overall min/max as bounds
         return max(lo, min(hi, target))
     except:
         return None

@@ -81,20 +81,35 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
         d = coord.data
 
         def val(addr, default=None):
+            if not addr:
+                return default
             rec = d.get(addr)
             if not rec:
                 return default
             v = rec.get("value")
             return v if v is not None else default
 
-        slope = val(1234, 0.6)
-        offset = val(1235, 0.0)
-        h36 = d.get(1236, {}).get("raw") if d.get(1236) else None
-        at_live = val(2048)
-        fixed = val(1158)
-        after = val(2014)
-        r10 = val(1164, 20.0)
-        r11 = val(1165, 60.0)
+        def raw(addr):
+            if not addr:
+                return None
+            rec = d.get(addr)
+            if not rec:
+                return None
+            return rec.get("raw")
+
+        hc = coord.marker("heat_curve") if hasattr(coord, "marker") else {}
+        hc_a = hc.get("addr_single", {}) if isinstance(hc, dict) else {}
+        st = coord.marker("setpoints") if hasattr(coord, "marker") else {}
+        st_a = st.get("addr_single", {}) if isinstance(st, dict) else {}
+
+        slope = val(hc_a.get("slope"), 0.6)
+        offset = val(hc_a.get("offset"), 0.0)
+        h36 = raw(hc_a.get("at_comp_en"))
+        at_live = val(hc_a.get("at_sensor"))
+        fixed = val(st_a.get("heating_target"))
+        after = val(hc_a.get("live_target"))
+        r10 = val(hc_a.get("r10_min"), 20.0)
+        r11 = val(hc_a.get("r11_max"), 60.0)
         return (slope, offset, h36, at_live, fixed, after, r10, r11)
 
     def _handle_coordinator_update(self) -> None:
@@ -335,13 +350,13 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
                         f'stroke="#fff" stroke-width="1.5"/>\n'
                         f'<text x="{dx + 18}" y="{ay + 16}" fill="{AFTER_COL}" '
                         f'font-family="sans-serif" font-size="12">'
-                        f'after 2014 {float(after_comp):.1f}°</text>\n'
+                        f'after comp {float(after_comp):.1f}°</text>\n'
                     )
         elif at_live is None:
             dot_svg = (
                 f'<text x="{W // 2}" y="{H // 2 + 10}" text-anchor="middle" '
                 f'fill="{TEXT}" font-family="sans-serif" font-size="16">'
-                f'Waiting for AT (2048) …</text>\n'
+                f'Waiting for AT …</text>\n'
             )
 
         # ---- title ----
