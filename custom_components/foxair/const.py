@@ -34,26 +34,6 @@ BLOCK_ORDER = _blocks_cfg.get("order", ["H", "A", "F", "D", "E", "R", "P", "G", 
 BLOCK_ORDER_INDEX = {b: i for i, b in enumerate(BLOCK_ORDER)}
 
 BLOCK_SHORT = _blocks_cfg.get("labels", {})
-APP_TAB_TITLES = dict(BLOCK_SHORT)
-
-# German labels — kept as code (translations live in translations/*.json, not in config).
-BLOCK_SHORT_DE = {
-    "H": "Basis/Hardware",
-    "A": "Schutz/Grenzen",
-    "F": "Fan",
-    "D": "Abtauen",
-    "E": "EVI/EEV",
-    "C": "Compressor",
-    "R": "Sollwerte",
-    "P": "Pumpe",
-    "O": "Ausgange",
-    "SG": "SG Ready",
-    "KG": "Timer",
-    "ERR": "Fault",
-    "G": "Legionellen",
-    "Z": "Zone",
-    "T": "Diagnose/Live",
-}
 
 # Data type specifications — derived from config types (platform key stripped).
 # Used by coordinator.scaled(), sensor.py DTYPE_MAP.
@@ -119,7 +99,7 @@ def device_for_block(block: str, entry_id: str | None = None, tab: str | None = 
     ident_main = (DOMAIN, entry_id) if entry_id else (DOMAIN, "foxair")
     if not block or block not in BLOCK_SHORT:
         return main_device(entry_id)
-    label = APP_TAB_TITLES.get(tab or block, BLOCK_SHORT.get(block, block))
+    label = BLOCK_SHORT.get(tab or block, BLOCK_SHORT.get(block, block))
     suffix = tab or block
     return DeviceInfo(
         identifiers={(DOMAIN, f"{ident_main[1]}_{suffix}")},
