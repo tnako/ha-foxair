@@ -171,16 +171,30 @@ class FoxAirCoordinator(DataUpdateCoordinator):
                 return True, meta, ""
             return False, meta, "non-finite value"
         lo, hi = meta.get("min"), meta.get("max")
+        # Select / time platforms are value_map or enum driven — raw values are
+        # discrete enum choices (0, 1, 2, ...), NOT a continuous numeric range.
+        # Their metadata min/max is informational (for number/slider fallback only)
+        # and must NOT gate a write: e.g. H36 (1236) select value_map {0: Off, 1: On}
+        # but metadata has min=1.0 from a stale parse — rejecting value=0 breaks
+        # switching from curve to fixed. Validate only as a Modbus word (0..65535).
+        platform = meta.get("platform")
+        dtype = (meta.get("type") or "RAW").upper()
+        if platform in ("select", "time") or meta.get("has_value_map"):
+            if dtype in ("SG_MODE", "TIMER_MODE", "MODE_0_4"):
+                if not (0 <= value <= 10):
+                    return False, meta, f"{dtype} out of range [0,10] got {value}"
+            elif dtype in ("TIME_HHMM", "TIMER_BITPAIR", "SG_MODE", "BITFIELD", "FAULT_BITS"):
+                pass  # enum/time types — always valid Modbus word
+            elif dtype == "RAW" and meta.get("risk") in ("safe", "advanced"):
+                if not (0 <= value <= 65535):
+                    return False, meta, f"RAW out of range [0,65535] got {value}"
+            elif dtype == "DIGI1" and not meta.get("has_value_map"):
+                # DIGI1 without value_map acts as a 0..5 selector — still a word
+                if not (0 <= value <= 5):
+                    return False, meta, f"DIGI1 out of range [0,5] got {value}"
+            return True, meta, ""
+        # Number platforms with explicit limits are range-gated as sliders.
         if meta.get("editable") and lo is None and hi is None:
-            # allow selects/time/SG/timers without explicit limits (value_map driven)
-            dtype = (meta.get("type") or "RAW").upper()
-            platform = meta.get("platform")
-            if platform in ("select", "time") or meta.get("has_value_map"):
-                # value_map / time / SG / timers — validate only as Modbus word
-                if dtype in ("SG_MODE", "TIMER_MODE", "MODE_0_4"):
-                    if not (0 <= value <= 10):
-                        return False, meta, f"{dtype} out of range [0,10] got {value}"
-                return True, meta, ""
             if dtype in ("TIME_HHMM", "TIMER_BITPAIR", "SG_MODE", "BITFIELD", "FAULT_BITS"):
                 return True, meta, ""
             if dtype == "RAW" and meta.get("risk") in ("safe", "advanced"):
