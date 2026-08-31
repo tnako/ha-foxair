@@ -3159,10 +3159,10 @@
     "image": {
       "foxair_heating_curve": {
         "name": "Heizkurve",
-        "legend_curve": "Kurvenziel (AT-Kompensation)",
-        "legend_fixed": "Fester Sollwert (konstant)",
-        "legend_after": "Nach Kompensation (live)",
-        "legend_live": "Live-Außentemperatur",
+        "legend_curve": "Kurvenziel",
+        "legend_fixed": "Fester Sollwert",
+        "legend_after": "Nach Kompensation",
+        "legend_live": "Live-Außen",
         "legend_band": "Grenzband (R10–R11)",
         "mode_curve": "AT-Kompensation (Kurve)",
         "mode_fixed": "Konstant (fest)",
