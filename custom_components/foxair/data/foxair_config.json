@@ -21,7 +21,7 @@
     [2029, 2032]
   ],
   "_dead_ranges_comment": "Address ranges excluded from contiguous read batches. 200-215 = PHNIX/Aliyun ProductKey ASCII (FC10, no FC03 answer, EW11 corruption). 2029-2032 = T-Diag5-8 write-only FC16 registers that return no data.",
-  "hidden_comment": "Address ranges permanently hidden from the UI (not even in expert mode) and excluded from polling/editing: protocol block headers, reserved/factory test, cloud/wifi/serial identifiers, system clock, board/service info. 'keep' addresses inside these ranges stay visible (used by climate/curve/main device). Note: 1015-1017 (language/logo/silent display-firmware selectors with unknown value maps), 1025-1026 (H38/H39 display-firmware language/logo codes), 1078-1079 (ASM Zone2 compensation params) and 1348-1352 (C13-E21 display-firmware parameters not visible in app) are excluded.",
+  "hidden_comment": "Address ranges permanently hidden from the UI (not even in expert mode) and excluded from polling/editing: protocol block headers, reserved/factory test, cloud/wifi/serial identifiers, system clock, board/service info. 'keep' addresses inside these ranges stay visible (used by climate/curve/main device). Note: 1015 (language selection, unknown value map), 1016 (Silent Status bitfield — use 1030 H22 Silent-Modus for On/Off toggle), 1017 (logo selection, unknown value map), 1025-1026 (H38/H39 display-firmware language/logo codes, value map unknown), 1078-1079 (ASM Zone2 compensation params) and 1348-1352 (C13-E21 display-firmware parameters not visible in app) are excluded.",
   "hidden": [
     [200, 215],
     [1001, 1008],
