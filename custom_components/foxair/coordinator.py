@@ -12,7 +12,7 @@ from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, Upda
 from homeassistant.exceptions import ConfigEntryNotReady
 from pymodbus.client import AsyncModbusTcpClient
 
-from .const import MODBUS_MAX_SPAN, MODBUS_MAX_GAP, QUICK_INTERVAL, MEDIUM_INTERVAL, RARE_INTERVAL
+from .const import MODBUS_MAX_SPAN, MODBUS_MAX_GAP, QUICK_INTERVAL, MEDIUM_INTERVAL, RARE_INTERVAL, CORE_MAIN_ADDRS
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -454,6 +454,13 @@ class FoxAirCoordinator(DataUpdateCoordinator):
                 addrs.update(self._tier_addrs("medium", enable_expert))
             if do_rare:
                 addrs.update(self._tier_addrs("rare", enable_expert))
+            # Startup catch-up: always pull core main-device control registers
+            # (1011/1012/1014/1030 etc.) on the FIRST poll regardless of tier,
+            # so user-facing entities like "Allow defrost" (1014) and Silent Mode
+            # (1030) are populated immediately instead of waiting for the rare
+            # tier's first cycle (~90s) to render "unknown".
+            if is_first:
+                addrs.update(CORE_MAIN_ADDRS)
             # Fallback to at least quick if empty
             if not addrs:
                 addrs = self._tier_addrs("quick", enable_expert)

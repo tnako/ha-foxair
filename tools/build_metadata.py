@@ -195,7 +195,7 @@ def main():
                 "BAR_X10": (0, 5), "HZ": (20, 130), "PERCENT": (0, 100),
                 "STEPS_N": (0, 500), "RPM": (0, 1500), "MINUTES": (0, 180), "SECONDS": (0, 300),
                 "HOURS": (0, 24), "DAYS": (0, 365), "POWER_KW_X10": (0, 50),
-                "DIGI1": (0, 5), "DIGI5": (0, 10), "DIGI6": (0, 10), "DIGI19": (0, 100),
+                "DIGI1": (0, 1), "DIGI5": (0, 10), "DIGI6": (0, 10), "DIGI19": (0, 100),
             }
             if dtype in fallbacks:
                 lo, hi = fallbacks[dtype]
