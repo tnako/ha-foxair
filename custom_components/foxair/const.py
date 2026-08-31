@@ -55,7 +55,7 @@ MODBUS_MAX_GAP = _modbus_cfg.get("max_gap", 8)
 
 # Core main device addresses (on main device, not sub-device)
 _core_marker = _markers_cfg.get("core_main_addrs", {})
-CORE_MAIN_ADDRS = set(_core_marker.get("addr_list", [1011, 1012, 1013, 1014, 1030, 1157, 1158, 1159, 1212, 1213, 1214, 1234, 1235, 1236, 2012, 2014, 2133, 8801]))
+CORE_MAIN_ADDRS = set(_core_marker.get("addr_list", [1011, 1012, 1013, 1014, 1030, 1157, 1158, 1159, 1212, 1213, 1214, 1234, 1235, 1236, 2012, 2014, 8801]))
 
 # Exact code sequence from modbus/tabs.txt — each menu and entity in required order
 TABS_CODE_ORDER = [
