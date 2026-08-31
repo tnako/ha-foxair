@@ -224,7 +224,7 @@
       }
     },
     "core_main_addrs": {
-      "addr_list": [1011, 1012, 1157, 1158, 1159, 1234, 1235, 1236, 8801, 2133, 2012]
+      "addr_list": [1011, 1012, 1013, 1014, 1030, 1157, 1158, 1159, 1212, 1213, 1214, 1234, 1235, 1236, 2012, 2014, 2133, 8801]
     },
     "_override_comment": "Per-register overrides mirroring the original code tables exactly: RISK_OVERRIDES, RANGE_OVERRIDES(min/max only), POLL_TIER_OVERRIDES, UNREADABLE_ADDRS->blocked, T_QUICK, T_MEDIUM. Only risk/min/max/poll_tier/tier — platform, step, requires_expert are derived by the generator.",
     "overrides": {

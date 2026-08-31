@@ -36,7 +36,7 @@ async def async_setup_entry(hass, entry, add_entities):
         # expert-gated (whole expert blocks + dangerous) sensors: skip unless expert on
         if meta.get("requires_expert") and not entry.options.get("enable_expert"):
             continue
-        if meta.get("editable") and meta.get("platform") in ("number", "select"):
+        if meta.get("editable") and meta.get("platform") in ("number", "select", "time"):
             continue
         ents.append(FoxSensor(coord, addr))
     ents.append(FoxHeatingCurveTargetSensor(coord))

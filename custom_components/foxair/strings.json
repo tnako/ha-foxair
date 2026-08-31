@@ -3171,6 +3171,44 @@
         "axis_x": "Outdoor temperature (AT)",
         "axis_y": "Flow temperature"
       }
+    },
+    "time": {
+      "foxair_1256": {
+        "name": "KG1: HP On/Off Timer 1 Start"
+      },
+      "foxair_1257": {
+        "name": "KG2: HP On/Off Timer 1 End"
+      },
+      "foxair_1258": {
+        "name": "KG3: HP On/Off Timer 2 Start"
+      },
+      "foxair_1259": {
+        "name": "KG4: HP On/Off Timer 2 End"
+      },
+      "foxair_1260": {
+        "name": "KG5: HP On/Off Timer 3 Start"
+      },
+      "foxair_1261": {
+        "name": "KG6: HP On/Off Timer 3 End"
+      },
+      "foxair_1262": {
+        "name": "KG7: HP On/Off Timer 4 Start"
+      },
+      "foxair_1263": {
+        "name": "KG8: HP On/Off Timer 4 End"
+      },
+      "foxair_1264": {
+        "name": "KG9: HP On/Off Timer 5 Start"
+      },
+      "foxair_1265": {
+        "name": "KG10: HP On/Off Timer 5 End"
+      },
+      "foxair_1266": {
+        "name": "KG11: HP On/Off Timer 6 Start"
+      },
+      "foxair_1267": {
+        "name": "KG12: HP On/Off Timer 6 End"
+      }
     }
   },
   "options": {
