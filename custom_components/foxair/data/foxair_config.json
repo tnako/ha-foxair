@@ -1,7 +1,6 @@
 {
   "version": "1.0.0",
   "_comment": "Single source of truth for integration-wide configuration (functional data only — no translations; see translations/*.json for i18n). Consumed by tools/build_metadata.py (generation) and by the runtime (coordinator/climate) loaded once via _load_config(). Do NOT put credentials/IP here.",
-
   "poll_intervals": {
     "_comment": "Multiples of base_seconds (30s). quick=30s, medium=120s, rare=300s/600s-expert.",
     "base_seconds": 30,
@@ -9,72 +8,240 @@
     "medium": 4,
     "rare": 10
   },
-
   "modbus": {
     "max_span": 45,
     "max_gap": 8,
     "default_port": 502
   },
-
   "dead_ranges": [
-    [200, 215],
-    [2029, 2032]
+    [
+      200,
+      215
+    ],
+    [
+      2029,
+      2032
+    ]
   ],
   "_dead_ranges_comment": "Address ranges excluded from contiguous read batches. 200-215 = PHNIX/Aliyun ProductKey ASCII (FC10, no FC03 answer, EW11 corruption). 2029-2032 = T-Diag5-8 write-only FC16 registers that return no data.",
   "hidden_comment": "Address ranges permanently hidden from the UI (not even in expert mode) and excluded from polling/editing: protocol block headers, reserved/factory test, cloud/wifi/serial identifiers, system clock, board/service info. 'keep' addresses inside these ranges stay visible (used by climate/curve/main device). Note: 1015 (language selection, unknown value map), 1016 (Silent Status bitfield — use 1030 H22 Silent-Modus for On/Off toggle), 1017 (logo selection, unknown value map), 1025-1026 (H38/H39 display-firmware language/logo codes, value map unknown), 1078-1079 (ASM Zone2 compensation params) and 1348-1352 (C13-E21 display-firmware parameters not visible in app) are excluded.",
   "hidden": [
-    [200, 215],
-    [1001, 1008],
-    [1015, 1017],
-    [1022, 1022],
-    [1025, 1026],
-    [1048, 1048],
-    [1065, 1065],
-    [1067, 1067],
-    [1078, 1079],
-    [1091, 1098],
-    [1141, 1141],
-    [1150, 1151],
-    [1181, 1191],
-    [1250, 1255],
-    [1271, 1278],
-    [1348, 1352],
-    [1353, 1355],
-    [1361, 1380],
-    [1451, 1458],
-    [1464, 1464],
-    [1466, 1466],
-    [1476, 1476],
-    [1541, 1548],
-    [2001, 2008],
-    [2017, 2017],
-    [2021, 2021],
-    [2024, 2028],
-    [2033, 2033],
-    [2040, 2041],
-    [2056, 2056],
-    [2068, 2068],
-    [2070, 2070],
-    [2080, 2080],
-    [2091, 2098],
-    [2099, 2100],
-    [2101, 2102],
-    [2103, 2109],
-    [2110, 2110],
-    [2113, 2114],
-    [2117, 2117],
-    [2119, 2119],
-    [2121, 2121],
-    [2123, 2123],
-    [2129, 2129],
-    [2139, 2149],
-    [50000, 50999]
+    [
+      200,
+      215
+    ],
+    [
+      1001,
+      1008
+    ],
+    [
+      1015,
+      1017
+    ],
+    [
+      1022,
+      1022
+    ],
+    [
+      1025,
+      1026
+    ],
+    [
+      1048,
+      1048
+    ],
+    [
+      1065,
+      1065
+    ],
+    [
+      1067,
+      1067
+    ],
+    [
+      1078,
+      1079
+    ],
+    [
+      1091,
+      1098
+    ],
+    [
+      1141,
+      1141
+    ],
+    [
+      1150,
+      1151
+    ],
+    [
+      1181,
+      1191
+    ],
+    [
+      1250,
+      1255
+    ],
+    [
+      1271,
+      1278
+    ],
+    [
+      1348,
+      1352
+    ],
+    [
+      1353,
+      1355
+    ],
+    [
+      1361,
+      1380
+    ],
+    [
+      1451,
+      1458
+    ],
+    [
+      1464,
+      1464
+    ],
+    [
+      1466,
+      1466
+    ],
+    [
+      1476,
+      1476
+    ],
+    [
+      1541,
+      1548
+    ],
+    [
+      2001,
+      2008
+    ],
+    [
+      2017,
+      2017
+    ],
+    [
+      2021,
+      2021
+    ],
+    [
+      2024,
+      2028
+    ],
+    [
+      2033,
+      2033
+    ],
+    [
+      2040,
+      2041
+    ],
+    [
+      2056,
+      2056
+    ],
+    [
+      2068,
+      2068
+    ],
+    [
+      2070,
+      2070
+    ],
+    [
+      2080,
+      2080
+    ],
+    [
+      2091,
+      2098
+    ],
+    [
+      2099,
+      2100
+    ],
+    [
+      2101,
+      2102
+    ],
+    [
+      2103,
+      2109
+    ],
+    [
+      2110,
+      2110
+    ],
+    [
+      2113,
+      2114
+    ],
+    [
+      2117,
+      2117
+    ],
+    [
+      2119,
+      2119
+    ],
+    [
+      2121,
+      2121
+    ],
+    [
+      2123,
+      2123
+    ],
+    [
+      2129,
+      2129
+    ],
+    [
+      2139,
+      2149
+    ],
+    [
+      50000,
+      50999
+    ]
   ],
   "hidden_note": "Ranges above are hidden from UI + polling even in expert mode. Block-header (BLOCK-type) registers and per-block 'Reserve' words are auto-detected by build_metadata; these ranges cover named reserved/system/service addrs.",
-
   "blocks": {
-    "order": ["H", "A", "F", "D", "E", "R", "P", "G", "C", "Z", "O", "S", "T", "SG", "KG", "ERR"],
-    "expert_blocks": ["H", "A", "F", "D", "E", "C", "P", "Z", "G"],
+    "order": [
+      "H",
+      "A",
+      "F",
+      "D",
+      "E",
+      "R",
+      "P",
+      "G",
+      "C",
+      "Z",
+      "O",
+      "S",
+      "T",
+      "SG",
+      "KG",
+      "ERR"
+    ],
+    "expert_blocks": [
+      "H",
+      "A",
+      "F",
+      "D",
+      "E",
+      "C",
+      "P",
+      "Z",
+      "G"
+    ],
     "_comment_normal_mode": "Normal mode keeps: main device, R Setpoints, T Live (always visible), SG Ready, KG Timer, ERR Fault. T Diagnostic only in expert mode.",
     "labels": {
       "H": "Base/Hardware",
@@ -133,201 +300,740 @@
       "O": "advanced"
     }
   },
-
   "types": {
     "_comment": "Single source for scaling, units and HA classes. Replaces DTYPE_SPEC (const.py) and parts of TYPE_TO_PLATFORM (build_metadata.py). platform defaults to 'sensor' when omitted.",
-    "TEMP1":      {"scale": 0.1,   "unit": "\u00b0C",  "device_class": "temperature", "state_class": "measurement", "platform": "number"},
-    "TEMP":       {"scale": 0.1,   "unit": "\u00b0C",  "device_class": "temperature", "state_class": "measurement", "platform": "number"},
-    "TEMP05":     {"scale": 0.5,   "unit": "\u00b0C",  "device_class": "temperature", "state_class": "measurement", "platform": "number"},
-    "TEMP_0_5":   {"scale": 0.5,   "unit": "\u00b0C",  "device_class": "temperature", "state_class": "measurement", "platform": "number"},
-    "STEP_0_5C":  {"scale": 0.5,   "unit": "\u00b0C",  "device_class": "temperature", "state_class": "measurement", "platform": "number"},
-    "VOLT":       {"scale": 1.0,   "unit": "V",   "device_class": "voltage",     "state_class": "measurement"},
-    "VOLTS":      {"scale": 1.0,   "unit": "V",   "device_class": "voltage",     "state_class": "measurement"},
-    "V":          {"scale": 1.0,   "unit": "V",   "device_class": "voltage",     "state_class": "measurement"},
-    "HZ":         {"scale": 1.0,   "unit": "Hz",  "device_class": "frequency",   "state_class": "measurement", "platform": "number"},
-    "FREQUENCY_HZ": {"scale": 1.0, "unit": "Hz",  "device_class": "frequency",   "state_class": "measurement", "platform": "number"},
-    "PERCENT":    {"scale": 1.0,   "unit": "%",   "device_class": null,          "state_class": "measurement", "platform": "number"},
-    "DIGI1":      {"scale": 1.0,   "unit": null,  "device_class": null,          "state_class": "measurement", "platform": "select"},
-    "DIGI4":      {"scale": 0.2,   "unit": null,  "device_class": null,          "state_class": "measurement", "platform": "select"},
-    "DIGI5":      {"scale": 0.1,   "unit": null,  "device_class": null,          "state_class": "measurement", "platform": "number"},
-    "DIGI6":      {"scale": 0.001, "unit": null,  "device_class": null,          "state_class": "measurement", "platform": "number"},
-    "DIGI19":     {"scale": 0.01,  "unit": null,  "device_class": null,          "state_class": "measurement", "platform": "number"},
-    "MODE_0_4":   {"scale": 1.0,   "unit": null,  "device_class": null,          "state_class": "measurement", "platform": "select"},
-    "SG_MODE":    {"scale": 1.0,   "unit": null,  "device_class": null,          "state_class": "measurement", "platform": "select"},
-    "RUN_MODE":   {"scale": 1.0,   "unit": null,  "device_class": null,          "state_class": "measurement", "platform": "select"},
-    "RAW":        {"scale": 1.0,   "unit": null,  "device_class": null,          "state_class": "measurement", "platform": "number"},
-    "U16":        {"scale": 1.0,   "unit": null,  "device_class": null,          "state_class": "measurement"},
-    "BITFIELD":   {"scale": 1.0,   "unit": null,  "device_class": null,          "state_class": "measurement"},
-    "FAULT_BITS": {"scale": 1.0,   "unit": null,  "device_class": null,          "state_class": "measurement"},
-    "BLOCK":      {"scale": 1.0,   "unit": null,  "device_class": null,          "state_class": "measurement"},
-    "ASCII":      {"scale": 1.0,   "unit": null,  "device_class": null,          "state_class": "measurement"},
-    "TIME_HHMM":  {"scale": 1.0,   "unit": null,  "device_class": null,          "state_class": "measurement", "platform": "time"},
-    "TIMER_BITPAIR": {"scale": 1.0,"unit": null,  "device_class": null,          "state_class": "measurement", "platform": "select"},
-    "TIMER_MODE": {"scale": 1.0,   "unit": null,  "device_class": null,          "state_class": "measurement", "platform": "select"},
-    "HHMM":       {"scale": 1.0,   "unit": null,  "device_class": null,          "state_class": "measurement"},
-    "MINUTES":    {"scale": 1.0,   "unit": "min", "device_class": null,          "state_class": "measurement", "platform": "number"},
-    "SECONDS":    {"scale": 1.0,   "unit": "s",   "device_class": null,          "state_class": "measurement", "platform": "number"},
-    "HOURS":      {"scale": 1.0,   "unit": "h",   "device_class": null,          "state_class": "measurement", "platform": "number"},
-    "DAYS":       {"scale": 1.0,   "unit": "d",   "device_class": null,          "state_class": "measurement", "platform": "number"},
-    "STEPS_N":    {"scale": 1.0,   "unit": null,  "device_class": null,          "state_class": "measurement", "platform": "number"},
-    "STEPS":      {"scale": 1.0,   "unit": null,  "device_class": null,          "state_class": "measurement"},
-    "EEV_STEPS":  {"scale": 1.0,   "unit": null,  "device_class": null,          "state_class": "measurement"},
-    "RPM":        {"scale": 1.0,   "unit": "rpm", "device_class": null,          "state_class": "measurement", "platform": "number"},
-    "WATT":       {"scale": 1.0,   "unit": "W",   "device_class": "power",       "state_class": "measurement"},
-    "BAR_X10":    {"scale": 0.1,   "unit": "bar", "device_class": "pressure",    "state_class": "measurement", "platform": "number"},
-    "AMP_X10":    {"scale": 0.1,   "unit": "A",   "device_class": "current",     "state_class": "measurement"},
-    "AMP_X2":     {"scale": 0.5,   "unit": "A",   "device_class": "current",     "state_class": "measurement"},
-    "FLOW_M3H_X10":   {"scale": 0.1, "unit": "m\u00b3/h","device_class": null,   "state_class": "measurement", "platform": "number"},
-    "FLOW_M3H_X100":  {"scale": 0.01,"unit": "m\u00b3/h","device_class": null,   "state_class": "measurement", "platform": "number"},
-    "POWER_KW_X10":   {"scale": 0.1, "unit": "kW",  "device_class": "power",     "state_class": "measurement", "platform": "number"},
-    "KWH":        {"scale": 1.0,   "unit": "kWh", "device_class": "energy",      "state_class": "total_increasing"},
-    "ENERGY_KWH": {"scale": 1.0,   "unit": "kWh", "device_class": "energy",      "state_class": "total_increasing"},
-    "KWH_PER_H":  {"scale": 1.0,   "unit": "kWh", "device_class": "energy",      "state_class": "total_increasing"},
-    "KW_PER_H":   {"scale": 1.0,   "unit": "kW",  "device_class": "power",       "state_class": "measurement"},
-    "COP_X100":   {"scale": 0.01,  "unit": null,  "device_class": null,          "state_class": "measurement"},
-    "COP100":     {"scale": 0.01,  "unit": null,  "device_class": null,          "state_class": "measurement"},
-    "DIGI2":      {"scale": 0.02,  "unit": null,  "device_class": null,          "state_class": "measurement"},
-    "STEPS2":     {"scale": 0.01,  "unit": null,  "device_class": null,          "state_class": "measurement"}
+    "TEMP1": {
+      "scale": 0.1,
+      "unit": "°C",
+      "device_class": "temperature",
+      "state_class": "measurement",
+      "platform": "number"
+    },
+    "TEMP": {
+      "scale": 0.1,
+      "unit": "°C",
+      "device_class": "temperature",
+      "state_class": "measurement",
+      "platform": "number"
+    },
+    "TEMP05": {
+      "scale": 0.5,
+      "unit": "°C",
+      "device_class": "temperature",
+      "state_class": "measurement",
+      "platform": "number"
+    },
+    "TEMP_0_5": {
+      "scale": 0.5,
+      "unit": "°C",
+      "device_class": "temperature",
+      "state_class": "measurement",
+      "platform": "number"
+    },
+    "STEP_0_5C": {
+      "scale": 0.5,
+      "unit": "°C",
+      "device_class": "temperature",
+      "state_class": "measurement",
+      "platform": "number"
+    },
+    "VOLT": {
+      "scale": 1.0,
+      "unit": "V",
+      "device_class": "voltage",
+      "state_class": "measurement"
+    },
+    "VOLTS": {
+      "scale": 1.0,
+      "unit": "V",
+      "device_class": "voltage",
+      "state_class": "measurement"
+    },
+    "V": {
+      "scale": 1.0,
+      "unit": "V",
+      "device_class": "voltage",
+      "state_class": "measurement"
+    },
+    "HZ": {
+      "scale": 1.0,
+      "unit": "Hz",
+      "device_class": "frequency",
+      "state_class": "measurement",
+      "platform": "number"
+    },
+    "FREQUENCY_HZ": {
+      "scale": 1.0,
+      "unit": "Hz",
+      "device_class": "frequency",
+      "state_class": "measurement",
+      "platform": "number"
+    },
+    "PERCENT": {
+      "scale": 1.0,
+      "unit": "%",
+      "device_class": null,
+      "state_class": "measurement",
+      "platform": "number"
+    },
+    "DIGI1": {
+      "scale": 1.0,
+      "unit": null,
+      "device_class": null,
+      "state_class": "measurement",
+      "platform": "select"
+    },
+    "DIGI4": {
+      "scale": 0.2,
+      "unit": null,
+      "device_class": null,
+      "state_class": "measurement",
+      "platform": "select"
+    },
+    "DIGI5": {
+      "scale": 0.1,
+      "unit": null,
+      "device_class": null,
+      "state_class": "measurement",
+      "platform": "number"
+    },
+    "DIGI6": {
+      "scale": 0.001,
+      "unit": null,
+      "device_class": null,
+      "state_class": "measurement",
+      "platform": "number"
+    },
+    "DIGI19": {
+      "scale": 0.01,
+      "unit": null,
+      "device_class": null,
+      "state_class": "measurement",
+      "platform": "number"
+    },
+    "MODE_0_4": {
+      "scale": 1.0,
+      "unit": null,
+      "device_class": null,
+      "state_class": "measurement",
+      "platform": "select"
+    },
+    "SG_MODE": {
+      "scale": 1.0,
+      "unit": null,
+      "device_class": null,
+      "state_class": "measurement",
+      "platform": "select"
+    },
+    "RUN_MODE": {
+      "scale": 1.0,
+      "unit": null,
+      "device_class": null,
+      "state_class": "measurement",
+      "platform": "select"
+    },
+    "RAW": {
+      "scale": 1.0,
+      "unit": null,
+      "device_class": null,
+      "state_class": "measurement",
+      "platform": "number"
+    },
+    "U16": {
+      "scale": 1.0,
+      "unit": null,
+      "device_class": null,
+      "state_class": "measurement"
+    },
+    "BITFIELD": {
+      "scale": 1.0,
+      "unit": null,
+      "device_class": null,
+      "state_class": "measurement"
+    },
+    "FAULT_BITS": {
+      "scale": 1.0,
+      "unit": null,
+      "device_class": null,
+      "state_class": "measurement"
+    },
+    "BLOCK": {
+      "scale": 1.0,
+      "unit": null,
+      "device_class": null,
+      "state_class": "measurement"
+    },
+    "ASCII": {
+      "scale": 1.0,
+      "unit": null,
+      "device_class": null,
+      "state_class": "measurement"
+    },
+    "TIME_HHMM": {
+      "scale": 1.0,
+      "unit": null,
+      "device_class": null,
+      "state_class": "measurement",
+      "platform": "time"
+    },
+    "TIMER_BITPAIR": {
+      "scale": 1.0,
+      "unit": null,
+      "device_class": null,
+      "state_class": "measurement",
+      "platform": "number"
+    },
+    "TIMER_MODE": {
+      "scale": 1.0,
+      "unit": null,
+      "device_class": null,
+      "state_class": "measurement",
+      "platform": "select"
+    },
+    "HHMM": {
+      "scale": 1.0,
+      "unit": null,
+      "device_class": null,
+      "state_class": "measurement"
+    },
+    "MINUTES": {
+      "scale": 1.0,
+      "unit": "min",
+      "device_class": null,
+      "state_class": "measurement",
+      "platform": "number"
+    },
+    "SECONDS": {
+      "scale": 1.0,
+      "unit": "s",
+      "device_class": null,
+      "state_class": "measurement",
+      "platform": "number"
+    },
+    "HOURS": {
+      "scale": 1.0,
+      "unit": "h",
+      "device_class": null,
+      "state_class": "measurement",
+      "platform": "number"
+    },
+    "DAYS": {
+      "scale": 1.0,
+      "unit": "d",
+      "device_class": null,
+      "state_class": "measurement",
+      "platform": "number"
+    },
+    "STEPS_N": {
+      "scale": 1.0,
+      "unit": null,
+      "device_class": null,
+      "state_class": "measurement",
+      "platform": "number"
+    },
+    "STEPS": {
+      "scale": 1.0,
+      "unit": null,
+      "device_class": null,
+      "state_class": "measurement"
+    },
+    "EEV_STEPS": {
+      "scale": 1.0,
+      "unit": null,
+      "device_class": null,
+      "state_class": "measurement"
+    },
+    "RPM": {
+      "scale": 1.0,
+      "unit": "rpm",
+      "device_class": null,
+      "state_class": "measurement",
+      "platform": "number"
+    },
+    "WATT": {
+      "scale": 1.0,
+      "unit": "W",
+      "device_class": "power",
+      "state_class": "measurement"
+    },
+    "BAR_X10": {
+      "scale": 0.1,
+      "unit": "bar",
+      "device_class": "pressure",
+      "state_class": "measurement",
+      "platform": "number"
+    },
+    "AMP_X10": {
+      "scale": 0.1,
+      "unit": "A",
+      "device_class": "current",
+      "state_class": "measurement"
+    },
+    "AMP_X2": {
+      "scale": 0.5,
+      "unit": "A",
+      "device_class": "current",
+      "state_class": "measurement"
+    },
+    "FLOW_M3H_X10": {
+      "scale": 0.1,
+      "unit": "m³/h",
+      "device_class": null,
+      "state_class": "measurement",
+      "platform": "number"
+    },
+    "FLOW_M3H_X100": {
+      "scale": 0.01,
+      "unit": "m³/h",
+      "device_class": null,
+      "state_class": "measurement",
+      "platform": "number"
+    },
+    "POWER_KW_X10": {
+      "scale": 0.1,
+      "unit": "kW",
+      "device_class": "power",
+      "state_class": "measurement",
+      "platform": "number"
+    },
+    "KWH": {
+      "scale": 1.0,
+      "unit": "kWh",
+      "device_class": "energy",
+      "state_class": "total_increasing"
+    },
+    "ENERGY_KWH": {
+      "scale": 1.0,
+      "unit": "kWh",
+      "device_class": "energy",
+      "state_class": "total_increasing"
+    },
+    "KWH_PER_H": {
+      "scale": 1.0,
+      "unit": "kWh",
+      "device_class": "energy",
+      "state_class": "total_increasing"
+    },
+    "KW_PER_H": {
+      "scale": 1.0,
+      "unit": "kW",
+      "device_class": "power",
+      "state_class": "measurement"
+    },
+    "COP_X100": {
+      "scale": 0.01,
+      "unit": null,
+      "device_class": null,
+      "state_class": "measurement"
+    },
+    "COP100": {
+      "scale": 0.01,
+      "unit": null,
+      "device_class": null,
+      "state_class": "measurement"
+    },
+    "DIGI2": {
+      "scale": 0.02,
+      "unit": null,
+      "device_class": null,
+      "state_class": "measurement"
+    },
+    "STEPS2": {
+      "scale": 0.01,
+      "unit": null,
+      "device_class": null,
+      "state_class": "measurement"
+    }
   },
-
   "markers": {
     "_comment": "Named functional address groups. climate.py, heating_curve.py and coordinator read these by name instead of magic numbers.",
     "status": {
       "addr_single": {
-        "power":        1011,
-        "mode":         1012,
-        "run_status":   2012,
+        "power": 1011,
+        "mode": 1012,
+        "run_status": 2012,
         "compressor_freq": 2072,
         "outlet_water_temp": 2046,
-        "at_outdoor":   2048,
+        "at_outdoor": 2048,
         "curve_live_target": 2014
       }
     },
     "heat_curve": {
       "addr_single": {
-        "slope":      1234,
-        "offset":     1235,
+        "slope": 1234,
+        "offset": 1235,
         "at_comp_en": 1236,
         "live_target": 2014,
-        "at_sensor":  2048,
-        "r10_min":    1164,
-        "r11_max":    1165,
-        "r31_at_lo":  1169,
-        "r34_at_hi":  1172
+        "at_sensor": 2048,
+        "r10_min": 1164,
+        "r11_max": 1165,
+        "r31_at_lo": 1169,
+        "r34_at_hi": 1172
       }
     },
     "setpoints": {
       "addr_single": {
         "heating_target": 1158,
         "cooling_target": 1159,
-        "dhw_target":     1157
+        "dhw_target": 1157
       }
     },
     "core_main_addrs": {
-      "addr_list": [1011, 1012, 1013, 1014, 1030, 1157, 1158, 1159, 1212, 1213, 1214, 1234, 1235, 1236, 2012, 2014, 2133, 8801]
+      "addr_list": [
+        1011,
+        1012,
+        1013,
+        1014,
+        1030,
+        1157,
+        1158,
+        1159,
+        1212,
+        1213,
+        1214,
+        1234,
+        1235,
+        1236,
+        2012,
+        2014,
+        2133,
+        8801
+      ]
     },
     "_override_comment": "Per-register overrides mirroring the original code tables exactly: RISK_OVERRIDES, RANGE_OVERRIDES(min/max only), POLL_TIER_OVERRIDES, UNREADABLE_ADDRS->blocked, T_QUICK, T_MEDIUM. Only risk/min/max/poll_tier/tier — platform, step, requires_expert are derived by the generator.",
     "overrides": {
-      "1011": {"poll_tier": "quick"},
-      "1012": {"poll_tier": "quick"},
-      "1086": {"risk": "advanced"},
-      "1158": {"risk": "safe"},
-      "1159": {"risk": "safe"},
-      "1157": {"risk": "safe"},
-      "1164": {"risk": "safe"},
-      "1165": {"risk": "safe"},
-      "1234": {"poll_tier": "quick", "min": 0.0, "max": 3.5, "risk": "safe"},
-      "1235": {"poll_tier": "quick", "risk": "safe"},
-      "1236": {"poll_tier": "quick", "risk": "safe"},
-      "2029": {"risk": "blocked"},
-      "2030": {"risk": "blocked"},
-      "2031": {"risk": "blocked"},
-      "2032": {"risk": "blocked"},
-      "1019": {"risk": "dangerous"},
-      "1020": {"risk": "dangerous"},
-      "1024": {"risk": "dangerous"},
-      "1027": {"risk": "dangerous"},
-      "1054": {"risk": "dangerous"},
-      "1059": {"risk": "dangerous"},
-      "1074": {"risk": "dangerous"},
-      "1070": {"poll_tier": "medium"},
-      "1072": {"poll_tier": "medium"},
-      "1075": {"poll_tier": "medium"},
-      "1076": {"poll_tier": "medium"},
-      "1205": {"poll_tier": "medium"},
-      "1212": {"poll_tier": "medium"},
-      "1213": {"poll_tier": "medium"},
-      "2037": {"poll_tier": "medium"},
-      "2038": {"poll_tier": "medium"},
-      "2039": {"poll_tier": "medium"},
-      "2047": {"poll_tier": "medium"},
-      "2050": {"poll_tier": "medium"},
-      "2055": {"poll_tier": "medium"},
-      "2061": {"poll_tier": "medium"},
-      "2063": {"poll_tier": "medium"},
-      "2064": {"poll_tier": "medium"},
-      "2065": {"poll_tier": "medium"},
-      "2066": {"poll_tier": "medium"},
-      "2067": {"poll_tier": "medium"},
-      "2071": {"poll_tier": "medium"},
-      "2072": {"poll_tier": "medium"},
-      "2073": {"poll_tier": "medium"},
-      "2074": {"poll_tier": "medium"},
-      "2075": {"poll_tier": "medium"},
-      "2076": {"poll_tier": "medium"},
-      "2078": {"poll_tier": "medium"},
-      "2079": {"poll_tier": "medium"},
-      "2118": {"poll_tier": "medium"},
-      "2120": {"poll_tier": "medium"},
-      "2122": {"poll_tier": "medium"},
-      "2124": {"poll_tier": "medium"},
-      "2125": {"poll_tier": "medium"},
-      "2126": {"poll_tier": "medium"},
-      "2127": {"poll_tier": "medium"},
-      "2128": {"poll_tier": "medium"},
-      "2130": {"poll_tier": "medium"},
-      "2131": {"poll_tier": "medium"},
-      "2132": {"poll_tier": "medium"},
-      "2013": {"poll_tier": "quick"},
-      "2014": {"poll_tier": "quick"},
-      "2016": {"poll_tier": "quick"},
-      "2035": {"poll_tier": "quick"},
-      "2036": {"poll_tier": "quick"},
-      "2042": {"poll_tier": "quick"},
-      "2043": {"poll_tier": "quick"},
-      "2044": {"poll_tier": "quick"},
-      "2045": {"poll_tier": "quick"},
-      "2046": {"poll_tier": "quick"},
-      "2048": {"poll_tier": "quick"},
-      "2049": {"poll_tier": "quick"},
-      "2051": {"poll_tier": "quick"},
-      "2052": {"poll_tier": "quick"},
-      "2053": {"poll_tier": "quick"},
-      "2054": {"poll_tier": "quick"},
-      "2058": {"poll_tier": "quick"},
-      "2059": {"poll_tier": "quick"},
-      "2060": {"poll_tier": "quick"},
-      "2062": {"poll_tier": "quick"},
-      "2069": {"poll_tier": "quick"},
-      "2077": {"poll_tier": "quick"},
-      "2136": {"poll_tier": "quick"},
-      "2137": {"poll_tier": "quick"},
-      "2138": {"poll_tier": "quick"},
-      "2178": {"poll_tier": "quick"},
-      "2179": {"poll_tier": "quick"},
-      "2180": {"poll_tier": "quick"},
-      "1036": {"min": 0, "max": 3},
-      "1061": {"min": 0, "max": 2000},
-      "1204": {"min": 0, "max": 500},
-      "1326": {"min": 0, "max": 2359},
-      "1327": {"min": 0, "max": 2359},
-      "1328": {"min": 0, "max": 2359},
-      "1329": {"min": 0, "max": 2359},
-      "1330": {"min": 0, "max": 2359},
-      "1331": {"min": 0, "max": 2359},
-      "1332": {"min": 0, "max": 65535},
-      "1333": {"min": 0, "max": 65535},
-      "1335": {"min": 0, "max": 180}
+      "1011": {
+        "poll_tier": "quick"
+      },
+      "1012": {
+        "poll_tier": "quick"
+      },
+      "1086": {
+        "risk": "advanced"
+      },
+      "1158": {
+        "risk": "safe"
+      },
+      "1159": {
+        "risk": "safe"
+      },
+      "1157": {
+        "risk": "safe"
+      },
+      "1164": {
+        "risk": "safe"
+      },
+      "1165": {
+        "risk": "safe"
+      },
+      "1234": {
+        "poll_tier": "quick",
+        "min": 0.0,
+        "max": 3.5,
+        "risk": "safe"
+      },
+      "1235": {
+        "poll_tier": "quick",
+        "risk": "safe"
+      },
+      "1236": {
+        "poll_tier": "quick",
+        "risk": "safe"
+      },
+      "2029": {
+        "risk": "blocked"
+      },
+      "2030": {
+        "risk": "blocked"
+      },
+      "2031": {
+        "risk": "blocked"
+      },
+      "2032": {
+        "risk": "blocked"
+      },
+      "1019": {
+        "risk": "dangerous"
+      },
+      "1020": {
+        "risk": "dangerous"
+      },
+      "1024": {
+        "risk": "dangerous"
+      },
+      "1027": {
+        "risk": "dangerous"
+      },
+      "1054": {
+        "risk": "dangerous"
+      },
+      "1059": {
+        "risk": "dangerous"
+      },
+      "1074": {
+        "risk": "dangerous"
+      },
+      "1070": {
+        "poll_tier": "medium"
+      },
+      "1072": {
+        "poll_tier": "medium"
+      },
+      "1075": {
+        "poll_tier": "medium"
+      },
+      "1076": {
+        "poll_tier": "medium"
+      },
+      "1205": {
+        "poll_tier": "medium"
+      },
+      "1212": {
+        "poll_tier": "medium"
+      },
+      "1213": {
+        "poll_tier": "medium"
+      },
+      "2037": {
+        "poll_tier": "medium"
+      },
+      "2038": {
+        "poll_tier": "medium"
+      },
+      "2039": {
+        "poll_tier": "medium"
+      },
+      "2047": {
+        "poll_tier": "medium"
+      },
+      "2050": {
+        "poll_tier": "medium"
+      },
+      "2055": {
+        "poll_tier": "medium"
+      },
+      "2061": {
+        "poll_tier": "medium"
+      },
+      "2063": {
+        "poll_tier": "medium"
+      },
+      "2064": {
+        "poll_tier": "medium"
+      },
+      "2065": {
+        "poll_tier": "medium"
+      },
+      "2066": {
+        "poll_tier": "medium"
+      },
+      "2067": {
+        "poll_tier": "medium"
+      },
+      "2071": {
+        "poll_tier": "medium"
+      },
+      "2072": {
+        "poll_tier": "medium"
+      },
+      "2073": {
+        "poll_tier": "medium"
+      },
+      "2074": {
+        "poll_tier": "medium"
+      },
+      "2075": {
+        "poll_tier": "medium"
+      },
+      "2076": {
+        "poll_tier": "medium"
+      },
+      "2078": {
+        "poll_tier": "medium"
+      },
+      "2079": {
+        "poll_tier": "medium"
+      },
+      "2118": {
+        "poll_tier": "medium"
+      },
+      "2120": {
+        "poll_tier": "medium"
+      },
+      "2122": {
+        "poll_tier": "medium"
+      },
+      "2124": {
+        "poll_tier": "medium"
+      },
+      "2125": {
+        "poll_tier": "medium"
+      },
+      "2126": {
+        "poll_tier": "medium"
+      },
+      "2127": {
+        "poll_tier": "medium"
+      },
+      "2128": {
+        "poll_tier": "medium"
+      },
+      "2130": {
+        "poll_tier": "medium"
+      },
+      "2131": {
+        "poll_tier": "medium"
+      },
+      "2132": {
+        "poll_tier": "medium"
+      },
+      "2013": {
+        "poll_tier": "quick"
+      },
+      "2014": {
+        "poll_tier": "quick"
+      },
+      "2016": {
+        "poll_tier": "quick"
+      },
+      "2035": {
+        "poll_tier": "quick"
+      },
+      "2036": {
+        "poll_tier": "quick"
+      },
+      "2042": {
+        "poll_tier": "quick"
+      },
+      "2043": {
+        "poll_tier": "quick"
+      },
+      "2044": {
+        "poll_tier": "quick"
+      },
+      "2045": {
+        "poll_tier": "quick"
+      },
+      "2046": {
+        "poll_tier": "quick"
+      },
+      "2048": {
+        "poll_tier": "quick"
+      },
+      "2049": {
+        "poll_tier": "quick"
+      },
+      "2051": {
+        "poll_tier": "quick"
+      },
+      "2052": {
+        "poll_tier": "quick"
+      },
+      "2053": {
+        "poll_tier": "quick"
+      },
+      "2054": {
+        "poll_tier": "quick"
+      },
+      "2058": {
+        "poll_tier": "quick"
+      },
+      "2059": {
+        "poll_tier": "quick"
+      },
+      "2060": {
+        "poll_tier": "quick"
+      },
+      "2062": {
+        "poll_tier": "quick"
+      },
+      "2069": {
+        "poll_tier": "quick"
+      },
+      "2077": {
+        "poll_tier": "quick"
+      },
+      "2136": {
+        "poll_tier": "quick"
+      },
+      "2137": {
+        "poll_tier": "quick"
+      },
+      "2138": {
+        "poll_tier": "quick"
+      },
+      "2178": {
+        "poll_tier": "quick"
+      },
+      "2179": {
+        "poll_tier": "quick"
+      },
+      "2180": {
+        "poll_tier": "quick"
+      },
+      "1036": {
+        "min": 0,
+        "max": 3
+      },
+      "1061": {
+        "min": 0,
+        "max": 2000
+      },
+      "1204": {
+        "min": 0,
+        "max": 500
+      },
+      "1326": {
+        "min": 0,
+        "max": 2359
+      },
+      "1327": {
+        "min": 0,
+        "max": 2359
+      },
+      "1328": {
+        "min": 0,
+        "max": 2359
+      },
+      "1329": {
+        "min": 0,
+        "max": 2359
+      },
+      "1330": {
+        "min": 0,
+        "max": 2359
+      },
+      "1331": {
+        "min": 0,
+        "max": 2359
+      },
+      "1332": {
+        "min": 0,
+        "max": 65535
+      },
+      "1333": {
+        "min": 0,
+        "max": 65535
+      },
+      "1335": {
+        "min": 0,
+        "max": 180
+      },
+      "1268": {
+        "min": 0,
+        "max": 65535,
+        "poll_tier": "rare"
+      },
+      "1269": {
+        "min": 0,
+        "max": 65535,
+        "poll_tier": "rare"
+      },
+      "1270": {
+        "min": 0,
+        "max": 65535,
+        "poll_tier": "rare"
+      }
     }
   }
 }

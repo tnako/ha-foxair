@@ -2503,6 +2503,15 @@
       },
       "foxair_1444": {
         "name": "P16: Stopp-Nachfülldruckdifferenz (IDU)"
+      },
+      "foxair_1268": {
+        "name": "KG13-KG28: WP Ein/Aus Timer 1+2 Aktiv/Tage Bitmaske"
+      },
+      "foxair_1269": {
+        "name": "KG29-KG44: WP Ein/Aus Timer 3+4 Aktiv/Tage Bitmaske"
+      },
+      "foxair_1270": {
+        "name": "KG45-KG60: WP Ein/Aus Timer 5+6 Aktiv/Tage Bitmaske"
       }
     },
     "select": {
@@ -2908,15 +2917,6 @@
       },
       "foxair_1254": {
         "name": "Aktueller Systemmonat"
-      },
-      "foxair_1268": {
-        "name": "KG13-KG28: WP Ein/Aus Timer 1+2 Aktiv/Tage Bitmaske"
-      },
-      "foxair_1269": {
-        "name": "KG29-KG44: WP Ein/Aus Timer 3+4 Aktiv/Tage Bitmaske"
-      },
-      "foxair_1270": {
-        "name": "KG45-KG60: WP Ein/Aus Timer 5+6 Aktiv/Tage Bitmaske"
       },
       "foxair_1286": {
         "name": "Timer 1 Modus-Code (ASM; 9 = keinen Modus ändern)",
