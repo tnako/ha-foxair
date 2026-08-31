@@ -9143,7 +9143,7 @@
     "editable": false,
     "platform": "sensor",
     "risk": "safe",
-    "requires_expert": true,
+    "requires_expert": false,
     "type": "DIGI1",
     "unit": null,
     "min": null,

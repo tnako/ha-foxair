@@ -3099,6 +3099,44 @@
         "axis_x": "Außentemperatur (AT)",
         "axis_y": "Vorlauftemperatur"
       }
+    },
+    "time": {
+      "foxair_1256": {
+        "name": "KG1: WP Ein/Aus Timer 1 Startzeit"
+      },
+      "foxair_1257": {
+        "name": "KG2: WP Ein/Aus Timer 1 Stopzeit"
+      },
+      "foxair_1258": {
+        "name": "KG3: WP Ein/Aus Timer 2 Startzeit"
+      },
+      "foxair_1259": {
+        "name": "KG4: WP Ein/Aus Timer 2 Stopzeit"
+      },
+      "foxair_1260": {
+        "name": "KG5: WP Ein/Aus Timer 3 Startzeit"
+      },
+      "foxair_1261": {
+        "name": "KG6: WP Ein/Aus Timer 3 Stopzeit"
+      },
+      "foxair_1262": {
+        "name": "KG7: WP Ein/Aus Timer 4 Startzeit"
+      },
+      "foxair_1263": {
+        "name": "KG8: WP Ein/Aus Timer 4 Stopzeit"
+      },
+      "foxair_1264": {
+        "name": "KG9: WP Ein/Aus Timer 5 Startzeit"
+      },
+      "foxair_1265": {
+        "name": "KG10: WP Ein/Aus Timer 5 Stopzeit"
+      },
+      "foxair_1266": {
+        "name": "KG11: WP Ein/Aus Timer 6 Startzeit"
+      },
+      "foxair_1267": {
+        "name": "KG12: WP Ein/Aus Timer 6 Stopzeit"
+      }
     }
   },
   "options": {

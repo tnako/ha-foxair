@@ -7,7 +7,7 @@ import logging
 
 _LOGGER = logging.getLogger(__name__)
 
-PLATFORMS = ["sensor", "climate", "number", "select", "image"]
+PLATFORMS = ["sensor", "climate", "number", "select", "time", "image"]
 
 
 async def _cleanup_orphaned_entities(hass: HomeAssistant, entry: ConfigEntry, enable_expert: bool):
@@ -30,7 +30,7 @@ async def _cleanup_orphaned_entities(hass: HomeAssistant, entry: ConfigEntry, en
             # Unique IDs follow the same pattern: foxair_<addr>, foxair_num_<addr>.
             uid = ent.unique_id
             addr = None
-            for prefix in ("foxair_", "foxair_num_", "foxair_sel_"):
+            for prefix in ("foxair_", "foxair_num_", "foxair_sel_", "foxair_time_"):
                 if uid.startswith(prefix):
                     rest = uid[len(prefix):]
                     if rest.isdigit():

@@ -30,7 +30,7 @@ T_DIAGNOSTIC_ADDRS = {2029, 2030, 2031, 2032, 2063, 2064, 2065, 2066, 2067,
                       2073, 2136, 2137, 2138}
 # Orphan core-control addresses that must stay non-expert (used by climate/curve):
 CORE_NON_EXPERT_ADDRS = {1011, 1012, 1013, 1014, 1015, 1016, 1017, 1030,
-                         1212, 1213, 1214, 1234, 1235, 1236,
+                         1212, 1213, 1214, 1234, 1235, 1236, 2012,
                          2014, 2048, 2133, 8801}
 
 
