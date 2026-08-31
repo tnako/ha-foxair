@@ -75,8 +75,10 @@ class FoxNumber(CoordinatorEntity, NumberEntity):
             self._attr_entity_category = EntityCategory.CONFIG
             self._attr_entity_registry_enabled_default = addr in POPULAR_ADDRS
         else:
-            # safe: visible only if popular, else diagnostic hidden
-            if addr in POPULAR_ADDRS:
+            # safe: visible if has a tab code (user-facing control like KG timers)
+            # or in popular addrs; otherwise diagnostic hidden
+            code = meta.get("code", "")
+            if code or addr in POPULAR_ADDRS:
                 self._attr_entity_category = None
                 self._attr_entity_registry_enabled_default = True
             else:

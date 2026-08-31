@@ -2503,6 +2503,15 @@
       },
       "foxair_1444": {
         "name": "P16: Stop Refilling Pressure Diff. (for IDU)"
+      },
+      "foxair_1268": {
+        "name": "KG13-KG28: HP On/Off Timer 1+2 Active/Days Bitmask"
+      },
+      "foxair_1269": {
+        "name": "KG29-KG44: HP On/Off Timer 3+4 Active/Days Bitmask"
+      },
+      "foxair_1270": {
+        "name": "KG45-KG60: HP On/Off Timer 5+6 Active/Days Bitmask"
       }
     },
     "select": {
@@ -2908,15 +2917,6 @@
       },
       "foxair_1254": {
         "name": "Current System Month"
-      },
-      "foxair_1268": {
-        "name": "KG13-KG28: HP On/Off Timer 1+2 Active/Days Bitmask"
-      },
-      "foxair_1269": {
-        "name": "KG29-KG44: HP On/Off Timer 3+4 Active/Days Bitmask"
-      },
-      "foxair_1270": {
-        "name": "KG45-KG60: HP On/Off Timer 5+6 Active/Days Bitmask"
       },
       "foxair_1286": {
         "name": "Timer 1 Mode Code (ASM; 9 = no mode change)",
