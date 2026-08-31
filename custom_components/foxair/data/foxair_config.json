@@ -481,7 +481,7 @@
       "unit": null,
       "device_class": null,
       "state_class": "measurement",
-      "platform": "number"
+      "platform": "select"
     },
     "TIMER_MODE": {
       "scale": 1.0,

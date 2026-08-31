@@ -2503,15 +2503,6 @@
       },
       "foxair_1444": {
         "name": "P16: Stopp-Nachfülldruckdifferenz (IDU)"
-      },
-      "foxair_1268": {
-        "name": "KG13-KG28: WP Ein/Aus Timer 1+2 Aktiv/Tage Bitmaske"
-      },
-      "foxair_1269": {
-        "name": "KG29-KG44: WP Ein/Aus Timer 3+4 Aktiv/Tage Bitmaske"
-      },
-      "foxair_1270": {
-        "name": "KG45-KG60: WP Ein/Aus Timer 5+6 Aktiv/Tage Bitmaske"
       }
     },
     "select": {
@@ -3081,6 +3072,63 @@
           "sg3_medium_pv": "SG Mode 3 / mittel PV",
           "sg4_high_pv": "SG Mode 4 / High PV",
           "normal": "Normalbetrieb"
+        }
+      },
+      "foxair_1268": {
+        "name": "KG13-KG28: WP Ein/Aus Timer 1+2 Aktiv/Tage Bitmaske",
+        "state": {
+          "off": "Aus",
+          "mon": "Mo",
+          "tue": "Di",
+          "wed": "Mi",
+          "thu": "Do",
+          "fri": "Fr",
+          "sat": "Sa",
+          "sun": "So",
+          "weekdays_mon_fri": "Wochentage (Mo-Fr)",
+          "weekends_sat_sun": "Wochenende (Sa-So)",
+          "every_day_mon_sun": "Jeden Tag (Mo-So)",
+          "mon_tue": "Mo-Di",
+          "wed_thu": "Mi-Do",
+          "fri_sat": "Fr-Sa"
+        }
+      },
+      "foxair_1269": {
+        "name": "KG29-KG44: WP Ein/Aus Timer 3+4 Aktiv/Tage Bitmaske",
+        "state": {
+          "off": "Aus",
+          "mon": "Mo",
+          "tue": "Di",
+          "wed": "Mi",
+          "thu": "Do",
+          "fri": "Fr",
+          "sat": "Sa",
+          "sun": "So",
+          "weekdays_mon_fri": "Wochentage (Mo-Fr)",
+          "weekends_sat_sun": "Wochenende (Sa-So)",
+          "every_day_mon_sun": "Jeden Tag (Mo-So)",
+          "mon_tue": "Mo-Di",
+          "wed_thu": "Mi-Do",
+          "fri_sat": "Fr-Sa"
+        }
+      },
+      "foxair_1270": {
+        "name": "KG45-KG60: WP Ein/Aus Timer 5+6 Aktiv/Tage Bitmaske",
+        "state": {
+          "off": "Aus",
+          "mon": "Mo",
+          "tue": "Di",
+          "wed": "Mi",
+          "thu": "Do",
+          "fri": "Fr",
+          "sat": "Sa",
+          "sun": "So",
+          "weekdays_mon_fri": "Wochentage (Mo-Fr)",
+          "weekends_sat_sun": "Wochenende (Sa-So)",
+          "every_day_mon_sun": "Jeden Tag (Mo-So)",
+          "mon_tue": "Mo-Di",
+          "wed_thu": "Mi-Do",
+          "fri_sat": "Fr-Sa"
         }
       }
     },

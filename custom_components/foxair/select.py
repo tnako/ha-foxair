@@ -142,6 +142,62 @@ def _build_option_maps(vm: dict, app_values: dict | None, addr: int):
     return options, raw_to_slug, slug_to_raw
 
 
+def _build_timer_bitpair_options(addr: int):
+    """Build named day-combination options for TIMER_BITPAIR weekday bitmask registers.
+
+    Each 16-bit register encodes two 8-bit timer bytes (low=timer1, high=timer2).
+    Each byte: bit7 = active flag, bits0-6 = Monday(1) through Sunday(64).
+
+    Generates a compact set of named options covering common day combinations
+    plus individual days, rather than 128 raw numeric values.
+    """
+    day_names_en = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+    day_names_ru = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"]
+
+    # Build options for single-byte values (0-127, all valid day combinations)
+    # Map each raw byte value to a named day combination
+    raw_to_slug = {}
+    slug_to_raw = {}
+    options = []
+    used = set()
+
+    # Always include "Off"
+    def add_option(raw_val, label_en, label_ru):
+        # Use English label as the slug (HA select options use translation keys)
+        slug = _slugify(label_en)
+        base = slug
+        i = 2
+        while slug in used:
+            slug = f"{base}_{i}"
+            i += 1
+        used.add(slug)
+        options.append(slug)
+        raw_to_slug[str(raw_val)] = slug
+        slug_to_raw[slug] = str(raw_val)
+
+    add_option(0, "Off", "Выкл")
+
+    # Individual days with active flag (0x80 | day_bit)
+    for i, (en, ru) in enumerate(zip(day_names_en, day_names_ru)):
+        add_option(0x80 | (1 << i), en, ru)
+
+    # Common combinations: weekdays, weekends, all days
+    weekdays = 0x80 | 0x01 | 0x02 | 0x04 | 0x08 | 0x10  # Mon-Fri
+    weekends = 0x80 | 0x20 | 0x40  # Sat-Sun
+    all_days = 0x80 | 0x7F  # Mon-Sun
+
+    add_option(weekdays, "Weekdays (Mon-Fri)", "Будние (Пн-Пт)")
+    add_option(weekends, "Weekends (Sat-Sun)", "Выходные (Сб-Вс)")
+    add_option(all_days, "Every Day (Mon-Sun)", "Каждый день (Пн-Вс)")
+
+    # Add 2-day combos
+    add_option(0x80 | 0x01 | 0x02, "Mon-Tue", "Пн-Вт")
+    add_option(0x80 | 0x04 | 0x08, "Wed-Thu", "Ср-Чт")
+    add_option(0x80 | 0x10 | 0x20, "Fri-Sat", "Пт-Сб")
+
+    return options, raw_to_slug, slug_to_raw
+
+
 def load_value_map(coord, addr):
     """Return (value_map, app_values) from the coordinator's already-async-loaded _regmap.
 
@@ -191,6 +247,7 @@ class FoxSelect(CoordinatorEntity, SelectEntity):
         self._addr = addr
         self._meta = meta
         self._optimistic = None  # slug shown during a write round-trip
+        self._is_timer_bitpair = False  # set to True for TIMER_BITPAIR entities
         self._attr_unique_id = f"foxair_sel_{addr}"
         self._attr_translation_key = f"foxair_{addr}"
         entry_id = getattr(coord, "_entry_id", None) or getattr(coord, "config_entry", None) and getattr(coord.config_entry, "entry_id", None)
@@ -211,7 +268,10 @@ class FoxSelect(CoordinatorEntity, SelectEntity):
             self._attr_entity_category = EntityCategory.CONFIG
             self._attr_entity_registry_enabled_default = addr in POPULAR_ADDRS
         else:
-            if addr in POPULAR_ADDRS:
+            # safe: visible if has a tab code (user-facing control like KG timers)
+            # or in popular addrs; otherwise diagnostic hidden
+            code = meta.get("code", "")
+            if code or addr in POPULAR_ADDRS:
                 self._attr_entity_category = None
                 self._attr_entity_registry_enabled_default = True
             else:
@@ -224,6 +284,15 @@ class FoxSelect(CoordinatorEntity, SelectEntity):
             self._attr_options = opts
             self._raw_to_slug = r2s
             self._slug_to_raw = s2r
+        elif meta.get("type") == "TIMER_BITPAIR":
+            # Generate named day-combination options for weekday bitmasks.
+            # Each 16-bit register encodes two timer bytes (low=timer1, high=timer2).
+            # Each byte: bit7=active, bits0-6=Mon-Su.
+            opts, r2s, s2r = _build_timer_bitpair_options(addr)
+            self._attr_options = opts
+            self._raw_to_slug = r2s
+            self._slug_to_raw = s2r
+            self._is_timer_bitpair = True
         else:
             lo, hi = meta.get("min"), meta.get("max")
             if lo is not None and hi is not None:
@@ -250,6 +319,17 @@ class FoxSelect(CoordinatorEntity, SelectEntity):
         if not rec:
             return None
         raw = str(rec.get("raw"))
+        # TIMER_BITPAIR: register is 16-bit, decode low byte (timer 1)
+        if self._is_timer_bitpair:
+            try:
+                raw_int = int(raw)
+                low_byte = raw_int & 0xFF
+            except (ValueError, TypeError):
+                return None
+            slug = self._raw_to_slug.get(str(low_byte))
+            if slug in (self._attr_options or []):
+                return slug
+            return None
         # direct slug lookup
         slug = self._raw_to_slug.get(raw)
         if slug in (self._attr_options or []):
@@ -291,6 +371,9 @@ class FoxSelect(CoordinatorEntity, SelectEntity):
                 self._attr_assumed_state = False
                 self.async_write_ha_state()
                 raise ValueError(f"Unknown option {option} for {self._addr}")
+        # TIMER_BITPAIR: write the same byte to both timer slots in the 16-bit register
+        if self._is_timer_bitpair:
+            val = (val & 0xFF) | ((val & 0xFF) << 8)
         ok = await self.coordinator.async_write_register(self._addr, float(val))
         if not ok:
             self._optimistic = None
