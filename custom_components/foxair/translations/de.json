@@ -112,15 +112,6 @@
       "foxair_1014": {
         "name": "Zentralregler zum Abtauen zulassen bei D26-1"
       },
-      "foxair_1015": {
-        "name": "Sprachauswahl"
-      },
-      "foxair_1016": {
-        "name": "Manuelle Steuerung / Silent Status"
-      },
-      "foxair_1017": {
-        "name": "Logo-Auswahl"
-      },
       "foxair_1018": {
         "name": "H01: Power Off Memory aktivieren (Autostart)"
       },
@@ -141,12 +132,6 @@
       },
       "foxair_1024": {
         "name": "H10: Geräteadresse"
-      },
-      "foxair_1025": {
-        "name": "H38: Spracheinstellung"
-      },
-      "foxair_1026": {
-        "name": "H39: Logo-Auswahl / Kundenlogo-Code (ASM)"
       },
       "foxair_1027": {
         "name": "H27: EVI aktivieren"
@@ -300,12 +285,6 @@
       },
       "foxair_1077": {
         "name": "Z17: AT-Kompensationskurve Zone 2 aktivieren"
-      },
-      "foxair_1078": {
-        "name": "Zone2 Heizkurve K / Raumtemperatur-Kompensation (ASM)"
-      },
-      "foxair_1079": {
-        "name": "Zone2 Heizkurve B / Raumtemperatur-Kompensation (ASM)"
       },
       "foxair_1080": {
         "name": "Z08: Mischventil manuelle Stellrate (0% = Auto-Regelung)"
@@ -1111,21 +1090,6 @@
       "foxair_1347": {
         "name": "C12: Max. Kompressorfrequenz im Warmwasserbetrieb"
       },
-      "foxair_1348": {
-        "name": "C13: Display-Firmware Parameter C13"
-      },
-      "foxair_1349": {
-        "name": "C14: Display-Firmware Parameter C14"
-      },
-      "foxair_1350": {
-        "name": "C15: Display-Firmware Parameter C15"
-      },
-      "foxair_1351": {
-        "name": "E20: Display-Firmware Parameter E20"
-      },
-      "foxair_1352": {
-        "name": "E21: Display-Firmware Parameter E21"
-      },
       "foxair_1353": {
         "name": "Reserviert"
       },
@@ -1883,20 +1847,8 @@
       "foxair_1013": {
         "name": "Wassertanktemperatur (vom Zentralregler bei H37-1)"
       },
-      "foxair_1015": {
-        "name": "Sprachauswahl"
-      },
-      "foxair_1017": {
-        "name": "Logo-Auswahl"
-      },
       "foxair_1022": {
         "name": "Reserviert"
-      },
-      "foxair_1025": {
-        "name": "H38: Spracheinstellung"
-      },
-      "foxair_1026": {
-        "name": "H39: Logo-Auswahl / Kundenlogo-Code (ASM)"
       },
       "foxair_1031": {
         "name": "A35: Electric Heater Off Temp Diff / E-Heizer Ausschalt-Temperaturdifferenz"
@@ -1990,12 +1942,6 @@
       },
       "foxair_1076": {
         "name": "Z07: Zone 2 Mischwasser-Auslasswasser-Sollwert"
-      },
-      "foxair_1078": {
-        "name": "Zone2 Heizkurve K / Raumtemperatur-Kompensation (ASM)"
-      },
-      "foxair_1079": {
-        "name": "Zone2 Heizkurve B / Raumtemperatur-Kompensation (ASM)"
       },
       "foxair_1080": {
         "name": "Z08: Mischventil manuelle Stellrate (0% = Auto-Regelung)"
@@ -2492,21 +2438,6 @@
       "foxair_1347": {
         "name": "C12: Max. Kompressorfrequenz im Warmwasserbetrieb"
       },
-      "foxair_1348": {
-        "name": "C13: Display-Firmware Parameter C13"
-      },
-      "foxair_1349": {
-        "name": "C14: Display-Firmware Parameter C14"
-      },
-      "foxair_1350": {
-        "name": "C15: Display-Firmware Parameter C15"
-      },
-      "foxair_1351": {
-        "name": "E20: Display-Firmware Parameter E20"
-      },
-      "foxair_1352": {
-        "name": "E21: Display-Firmware Parameter E21"
-      },
       "foxair_1353": {
         "name": "Reserviert"
       },
@@ -2598,9 +2529,6 @@
           "disabled": "nicht zulassen",
           "enabled": "zulassen"
         }
-      },
-      "foxair_1016": {
-        "name": "Manuelle Steuerung / Silent Status"
       },
       "foxair_1018": {
         "name": "H01: Power Off Memory aktivieren (Autostart)",

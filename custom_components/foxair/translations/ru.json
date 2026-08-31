@@ -112,15 +112,6 @@
       "foxair_1014": {
         "name": "Разрешить разморозку центр. контроллера при D26=1"
       },
-      "foxair_1015": {
-        "name": "Выбор языка"
-      },
-      "foxair_1016": {
-        "name": "Ручное управление / Тихий режим"
-      },
-      "foxair_1017": {
-        "name": "Выбор логотипа"
-      },
       "foxair_1018": {
         "name": "H01: Автозапуск"
       },
@@ -141,12 +132,6 @@
       },
       "foxair_1024": {
         "name": "H10: Адрес устройства"
-      },
-      "foxair_1025": {
-        "name": "H38: Выбор языка"
-      },
-      "foxair_1026": {
-        "name": "H39: Выбор логотипа / Код логотипа клиента (ASM)"
       },
       "foxair_1027": {
         "name": "H27: EVI включен"
@@ -300,12 +285,6 @@
       },
       "foxair_1077": {
         "name": "Z17: Вкл. кривую компенсации AT Зона2"
-      },
-      "foxair_1078": {
-        "name": "Зона 2 Кривая нагрева K / Компенсация темп. помещения (ASM)"
-      },
-      "foxair_1079": {
-        "name": "Зона 2 Кривая нагрева B / Компенсация темп. помещения (ASM)"
       },
       "foxair_1080": {
         "name": "Z08: Ручн. регулировка смесит. клапана (0% авто)"
@@ -1111,21 +1090,6 @@
       "foxair_1347": {
         "name": "C12: Max. Comp. Frequency in DHW mode"
       },
-      "foxair_1348": {
-        "name": "C13: Display-Firmware Parameter C13"
-      },
-      "foxair_1349": {
-        "name": "C14: Display-Firmware Parameter C14"
-      },
-      "foxair_1350": {
-        "name": "C15: Display-Firmware Parameter C15"
-      },
-      "foxair_1351": {
-        "name": "E20: Display-Firmware Parameter E20"
-      },
-      "foxair_1352": {
-        "name": "E21: Display-Firmware Parameter E21"
-      },
       "foxair_1353": {
         "name": "1353: Reserved"
       },
@@ -1883,20 +1847,8 @@
       "foxair_1013": {
         "name": "Температура бака ГВС (от центрального контроллера H37=1)"
       },
-      "foxair_1015": {
-        "name": "Выбор языка"
-      },
-      "foxair_1017": {
-        "name": "Выбор логотипа"
-      },
       "foxair_1022": {
         "name": "1022: Зарезервировано"
-      },
-      "foxair_1025": {
-        "name": "H38: Выбор языка"
-      },
-      "foxair_1026": {
-        "name": "H39: Выбор логотипа / Код логотипа клиента (ASM)"
       },
       "foxair_1031": {
         "name": "A35: Дельта откл. электронагревателя"
@@ -1990,12 +1942,6 @@
       },
       "foxair_1076": {
         "name": "Z07: Зона2 Целевая темп. смесит. выхода"
-      },
-      "foxair_1078": {
-        "name": "Зона 2 Кривая нагрева K / Компенсация темп. помещения (ASM)"
-      },
-      "foxair_1079": {
-        "name": "Зона 2 Кривая нагрева B / Компенсация темп. помещения (ASM)"
       },
       "foxair_1080": {
         "name": "Z08: Ручн. регулировка смесит. клапана (0% авто)"
@@ -2492,21 +2438,6 @@
       "foxair_1347": {
         "name": "C12: Max. Comp. Frequency in DHW mode"
       },
-      "foxair_1348": {
-        "name": "C13: Display-Firmware Parameter C13"
-      },
-      "foxair_1349": {
-        "name": "C14: Display-Firmware Parameter C14"
-      },
-      "foxair_1350": {
-        "name": "C15: Display-Firmware Parameter C15"
-      },
-      "foxair_1351": {
-        "name": "E20: Display-Firmware Parameter E20"
-      },
-      "foxair_1352": {
-        "name": "E21: Display-Firmware Parameter E21"
-      },
       "foxair_1353": {
         "name": "1353: Reserved"
       },
@@ -2598,9 +2529,6 @@
           "disabled": "Запрещено",
           "enabled": "Разрешено"
         }
-      },
-      "foxair_1016": {
-        "name": "Ручное управление / Тихий режим"
       },
       "foxair_1018": {
         "name": "H01: Автозапуск",
