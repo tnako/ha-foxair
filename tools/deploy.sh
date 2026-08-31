@@ -16,13 +16,16 @@ V=$(cat "$REPO/VERSION" | tr -d '[:space:]')
 rsync -a --delete "$REPO/custom_components/foxair/" "root@$HA_HOST:$HA_CC_PATH/foxair/"
 ssh "root@$HA_HOST" 'ha core restart >/dev/null 2>&1 &' || true
 
-# Health check: wait for HA to respond
-for i in {1..30}; do
-    if curl -sf "http://$HA_HOST:8123/api/" >/dev/null 2>&1; then
+# Health check: wait for HA to fully respond (including API layer)
+# Using /api/ on purpose: it returns 401 when the API is UP (needs auth)
+# and returns nothing/connection-refused when the API stack is still starting.
+for i in {1..60}; do
+    code=$(curl -s -o /dev/null -w "%{http_code}" "http://$HA_HOST:8123/api/" 2>/dev/null || echo "000")
+    if [ "$code" = "401" ] || [ "$code" = "200" ]; then
         echo "deployed $V to $HA_HOST — HA healthy"
         exit 0
     fi
     sleep 2
 done
-echo "deployed $V to $HA_HOST — WARNING: HA health check timed out" >&2
+echo "deployed $V to $HA_HOST — WARNING: HA health check timed out (last code: $code)" >&2
 exit 1

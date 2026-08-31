@@ -3159,10 +3159,10 @@
     "image": {
       "foxair_heating_curve": {
         "name": "Кривая отопления",
-        "legend_curve": "Цель кривой (AT-компенсация)",
-        "legend_fixed": "Фикс. уставка (постоянная)",
-        "legend_after": "После компенсации (live)",
-        "legend_live": "Текущая температура на улице",
+        "legend_curve": "Цель кривой",
+        "legend_fixed": "Фикс. уставка",
+        "legend_after": "После компенсации",
+        "legend_live": "Тек. AT",
         "legend_band": "Диапазон (R10–R11)",
         "mode_curve": "AT-компенсация (кривая)",
         "mode_fixed": "Константа (фикс.)",

@@ -145,10 +145,10 @@ def make_data(at_live, after=None, h36=1, slope=0.6, offset=37.0):
 
 EN_TL = {
     "name": "Heating Curve",
-    "legend_curve": "Curve target (AT compensation)",
-    "legend_fixed": "Fixed setpoint (constant)",
-    "legend_after": "After compensation (live)",
-    "legend_live": "Live outdoor temperature",
+    "legend_curve": "Curve target",
+    "legend_fixed": "Fixed setpoint",
+    "legend_after": "After compensation",
+    "legend_live": "Live outdoor",
     "legend_band": "Limit band (R10–R11)",
     "mode_curve": "AT compensation (curve)",
     "mode_fixed": "Constant (fixed)",
@@ -160,10 +160,10 @@ EN_TL = {
 
 RU_TL = {
     "name": "Кривая отопления",
-    "legend_curve": "Цель кривой (AT-компенсация)",
-    "legend_fixed": "Фикс. уставка (постоянная)",
-    "legend_after": "После компенсации (live)",
-    "legend_live": "Текущая температура на улице",
+    "legend_curve": "Цель кривой",
+    "legend_fixed": "Фикс. уставка",
+    "legend_after": "После компенсации",
+    "legend_live": "Тек. AT",
     "legend_band": "Диапазон (R10–R11)",
     "mode_curve": "AT-компенсация (кривая)",
     "mode_fixed": "Константа (фикс.)",
@@ -175,10 +175,10 @@ RU_TL = {
 
 DE_TL = {
     "name": "Heizkurve",
-    "legend_curve": "Kurvenziel (AT-Kompensation)",
-    "legend_fixed": "Fester Sollwert (konstant)",
-    "legend_after": "Nach Kompensation (live)",
-    "legend_live": "Live-Außentemperatur",
+    "legend_curve": "Kurvenziel",
+    "legend_fixed": "Fester Sollwert",
+    "legend_after": "Nach Kompensation",
+    "legend_live": "Live-Außen",
     "legend_band": "Grenzband (R10–R11)",
     "mode_curve": "AT-Kompensation (Kurve)",
     "mode_fixed": "Konstant (fest)",
@@ -244,7 +244,7 @@ for lang_name, tl in LANGS:
         rows = {}
         for x, y, txt in legend_texts:
             yr = round(y)
-            tw = len(txt) * 7
+            tw = len(txt) * 9.4  # ~0.62 * 15px font-size (latin + cyrillic)
             rows.setdefault(yr, []).append((x, x + tw, txt))
         for yr, items in sorted(rows.items()):
             items.sort(key=lambda t: t[0])
@@ -257,6 +257,61 @@ for lang_name, tl in LANGS:
         # 5. Polyline present
         if '<polyline' not in svg:
             print(f"  FAIL [{test_name}]: no polyline")
+            all_ok = False
+
+        # 5. Polyline present
+        if '<polyline' not in svg:
+            print(f"  FAIL [{test_name}]: no polyline")
+            all_ok = False
+
+        # 5b. Verify marker-to-text gap is 1px and inter-item spacing is 30px.
+        # Legend markers: lines at y=584, circles (r=6) at cy=584, labels at y=590.
+        # Gap = text_x - (marker_right_edge), must be exactly 1.
+        # Inter-item = next_start_x - (prev_text_right_edge), must be exactly 30.
+        circles = re.findall(r'<circle cx="([\d.]+)" cy="([\d.]+)" r="6"', svg)
+        lines = re.findall(r'<line x1="([\d.]+)" y1="584" x2="([\d.]+)" y2="584"', svg)
+        legend_circles = [(float(cx), float(cy)) for cx, cy in circles if abs(float(cy) - 584) < 2]
+        legend_lines = [(float(x1), float(x2)) for x1, x2 in lines]
+        # Build marker list: (left_x, right_x)
+        markers = sorted(
+            [(x1, x2) for x1, x2 in legend_lines] +
+            [(cx - 6, cx + 6) for cx, _ in legend_circles]
+        )
+        # Legend text labels at y=590
+        label_texts = [(float(x), txt) for x, y, txt in texts if abs(float(y) - 590) < 2 and txt.strip()]
+        label_texts.sort(key=lambda t: t[0])
+        # Check marker-to-text gap = 1px for each item
+        for i, (m_left, m_right) in enumerate(markers):
+            if i < len(label_texts):
+                txt_x, txt = label_texts[i]
+                gap = txt_x - m_right
+                if abs(gap - 1) > 0.5:
+                    print(f"  FAIL [{test_name}]: legend gap={gap:.1f} (expected 1px) for '{txt[:20]}'")
+                    all_ok = False
+
+        # 5c. Legend marker types: need >=2 solid/dashed lines (curve, fixed)
+        #     and >=2 dots (r=6 at cy=584: after-compensation, live)
+        if len(legend_lines) < 2:
+            print(f"  FAIL [{test_name}]: expected >=2 legend line-swatch markers, got {len(legend_lines)}")
+            all_ok = False
+        if len(legend_circles) < 2:
+            print(f"  FAIL [{test_name}]: expected >=2 legend dot markers (r=6), got {len(legend_circles)}")
+            all_ok = False
+
+        # 5d. Dotted connector lines from live AT to chart (when H36 is enabled)
+        if h36 == 1 and at_live is not None and "stroke-dasharray=\"6 4\"" not in svg:
+            print(f"  FAIL [{test_name}]: no dotted connector lines for live labels")
+            all_ok = False
+        shadow_count = svg.count('filter="url(#ts)"')
+        if shadow_count < 12:
+            print(f"  FAIL [{test_name}]: only {shadow_count} text elements have shadow (need >=12)")
+            all_ok = False
+
+        # 7. Font sizes are large enough for small screens (min 13 for any text)
+        small_fonts = re.findall(r'font-size="(\d+)"', svg)
+        small_fonts = [int(f) for f in small_fonts if int(f) < 13]
+        if small_fonts:
+            print(f"  FAIL [{test_name}]: font-size below 13: {small_fonts}")
             all_ok = False
 
         print(f"  OK [{test_name}]")
