@@ -953,7 +953,7 @@
     "editable": true,
     "platform": "select",
     "risk": "advanced",
-    "requires_expert": true,
+    "requires_expert": false,
     "type": "DIGI1",
     "unit": null,
     "min": 0,
