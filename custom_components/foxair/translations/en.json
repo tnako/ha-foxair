@@ -2503,15 +2503,6 @@
       },
       "foxair_1444": {
         "name": "P16: Stop Refilling Pressure Diff. (for IDU)"
-      },
-      "foxair_1268": {
-        "name": "KG13-KG28: HP On/Off Timer 1+2 Active/Days Bitmask"
-      },
-      "foxair_1269": {
-        "name": "KG29-KG44: HP On/Off Timer 3+4 Active/Days Bitmask"
-      },
-      "foxair_1270": {
-        "name": "KG45-KG60: HP On/Off Timer 5+6 Active/Days Bitmask"
       }
     },
     "select": {
@@ -3081,6 +3072,63 @@
           "sg3_medium_pv": "SG Mode 3 / Medium PV",
           "sg4_high_pv": "SG Mode 4 / High PV",
           "normal": "Normal Operation"
+        }
+      },
+      "foxair_1268": {
+        "name": "KG13-KG28: HP On/Off Timer 1+2 Active/Days Bitmask",
+        "state": {
+          "off": "Off",
+          "mon": "Mon",
+          "tue": "Tue",
+          "wed": "Wed",
+          "thu": "Thu",
+          "fri": "Fri",
+          "sat": "Sat",
+          "sun": "Sun",
+          "weekdays_mon_fri": "Weekdays (Mon-Fri)",
+          "weekends_sat_sun": "Weekends (Sat-Sun)",
+          "every_day_mon_sun": "Every Day (Mon-Sun)",
+          "mon_tue": "Mon-Tue",
+          "wed_thu": "Wed-Thu",
+          "fri_sat": "Fri-Sat"
+        }
+      },
+      "foxair_1269": {
+        "name": "KG29-KG44: HP On/Off Timer 3+4 Active/Days Bitmask",
+        "state": {
+          "off": "Off",
+          "mon": "Mon",
+          "tue": "Tue",
+          "wed": "Wed",
+          "thu": "Thu",
+          "fri": "Fri",
+          "sat": "Sat",
+          "sun": "Sun",
+          "weekdays_mon_fri": "Weekdays (Mon-Fri)",
+          "weekends_sat_sun": "Weekends (Sat-Sun)",
+          "every_day_mon_sun": "Every Day (Mon-Sun)",
+          "mon_tue": "Mon-Tue",
+          "wed_thu": "Wed-Thu",
+          "fri_sat": "Fri-Sat"
+        }
+      },
+      "foxair_1270": {
+        "name": "KG45-KG60: HP On/Off Timer 5+6 Active/Days Bitmask",
+        "state": {
+          "off": "Off",
+          "mon": "Mon",
+          "tue": "Tue",
+          "wed": "Wed",
+          "thu": "Thu",
+          "fri": "Fri",
+          "sat": "Sat",
+          "sun": "Sun",
+          "weekdays_mon_fri": "Weekdays (Mon-Fri)",
+          "weekends_sat_sun": "Weekends (Sat-Sun)",
+          "every_day_mon_sun": "Every Day (Mon-Sun)",
+          "mon_tue": "Mon-Tue",
+          "wed_thu": "Wed-Thu",
+          "fri_sat": "Fri-Sat"
         }
       }
     },
