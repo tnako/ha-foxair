@@ -1292,7 +1292,7 @@
         "name": "Gerätezustand"
       },
       "foxair_2012": {
-        "name": "Aktueller Betriebsstatus"
+        "name": "Aktueller Betriebsmodus"
       },
       "foxair_2013": {
         "name": "Temperaturwert nach Begrenzung"
@@ -3022,7 +3022,7 @@
         }
       },
       "foxair_2012": {
-        "name": "Aktueller Betriebsstatus",
+        "name": "Aktueller Betriebsmodus",
         "state": {
           "cooling": "Kühlen",
           "heating": "Heizen",
