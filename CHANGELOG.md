@@ -1,3 +1,7 @@
+## 0.4.35
+|- fix(data): hide display-firmware / unusable addresses that rendered as unbounded sliders showing bare "0" — added hidden ranges `[1015, 1017]` (Sprachauswahl / Silent Status / Logo-Auswahl), `[1025, 1026]` (H38/H39 display-firmware language/logo with unknown value maps), `[1078, 1079]` (ASM Zone2 compensation), `[1348, 1352]` (C13-E21 display-firmware params not visible in app) to `foxair_config.json`. Removed stale translation keys for all hidden addresses from en/de/ru.
+|- fix(data): add min/max ranges for remaining editable number entities that lacked them — `1335` SG sleep time 0-180min, `1036` indoor unit type 0-3, `1061` fan power curve 0-2000rpm, `1204` main pump power 0-500W, `1326-1331` circulation timer HHMM 0-2359, `1332/1333` timer bitmasks 0-65535. All formerly rendered as unbounded sliders (no min/max).
+|
 ## 0.4.34
 |- refactor(image): legend helper `_legend_item` now draws both marker and text label internally, eliminating fragile external text-offset math (was `x - label_w - 30`, now computed inside the helper from `SWATCH_W`/`LEGEND_GAP`/`LEGEND_ITEM_GAP` constants). Marker-to-text gap fixed to 1px, inter-item spacing 30px. Separator bar between line-swatch and dot-marker groups preserved. render_test.py now asserts exact 1px gap and marker types (line vs dot).
 |

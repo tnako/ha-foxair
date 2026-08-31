@@ -112,15 +112,6 @@
       "foxair_1014": {
         "name": "Allow Central Controller Defrost at D26=1"
       },
-      "foxair_1015": {
-        "name": "Language Selection"
-      },
-      "foxair_1016": {
-        "name": "Manual Control / Silent Status"
-      },
-      "foxair_1017": {
-        "name": "Logo Selection"
-      },
       "foxair_1018": {
         "name": "H01: Auto start"
       },
@@ -141,12 +132,6 @@
       },
       "foxair_1024": {
         "name": "H10: Unit Address"
-      },
-      "foxair_1025": {
-        "name": "H38: Language choice"
-      },
-      "foxair_1026": {
-        "name": "H39: Logo Selection / Customer Logo Code (ASM)"
       },
       "foxair_1027": {
         "name": "H27: EVI Enabled"
@@ -300,12 +285,6 @@
       },
       "foxair_1077": {
         "name": "Z17: Enable AT Compensation Curve Zone 2"
-      },
-      "foxair_1078": {
-        "name": "Zone 2 Heating Curve K / Room Temp Compensation (ASM)"
-      },
-      "foxair_1079": {
-        "name": "Zone 2 Heating Curve B / Room Temp Compensation (ASM)"
       },
       "foxair_1080": {
         "name": "Z08: Mixing Valve Manual Adjustment Ratio (0% for Auto Control)"
@@ -1111,21 +1090,6 @@
       "foxair_1347": {
         "name": "C12: Max. Comp. Frequency in DHW mode"
       },
-      "foxair_1348": {
-        "name": "C13: Display-Firmware Parameter C13"
-      },
-      "foxair_1349": {
-        "name": "C14: Display-Firmware Parameter C14"
-      },
-      "foxair_1350": {
-        "name": "C15: Display-Firmware Parameter C15"
-      },
-      "foxair_1351": {
-        "name": "E20: Display-Firmware Parameter E20"
-      },
-      "foxair_1352": {
-        "name": "E21: Display-Firmware Parameter E21"
-      },
       "foxair_1353": {
         "name": "1353: Reserved"
       },
@@ -1883,20 +1847,8 @@
       "foxair_1013": {
         "name": "DHW Tank Temperature (from central controller H37=1)"
       },
-      "foxair_1015": {
-        "name": "Language Selection"
-      },
-      "foxair_1017": {
-        "name": "Logo Selection"
-      },
       "foxair_1022": {
         "name": "1022: Reserved"
-      },
-      "foxair_1025": {
-        "name": "H38: Language choice"
-      },
-      "foxair_1026": {
-        "name": "H39: Logo Selection / Customer Logo Code (ASM)"
       },
       "foxair_1031": {
         "name": "A35: Electric Heater Off Temp. Diff"
@@ -1990,12 +1942,6 @@
       },
       "foxair_1076": {
         "name": "Z07: Zone 2 Mixing Target Outlet WT"
-      },
-      "foxair_1078": {
-        "name": "Zone 2 Heating Curve K / Room Temp Compensation (ASM)"
-      },
-      "foxair_1079": {
-        "name": "Zone 2 Heating Curve B / Room Temp Compensation (ASM)"
       },
       "foxair_1080": {
         "name": "Z08: Mixing Valve Manual Adjustment Ratio (0% for Auto Control)"
@@ -2492,21 +2438,6 @@
       "foxair_1347": {
         "name": "C12: Max. Comp. Frequency in DHW mode"
       },
-      "foxair_1348": {
-        "name": "C13: Display-Firmware Parameter C13"
-      },
-      "foxair_1349": {
-        "name": "C14: Display-Firmware Parameter C14"
-      },
-      "foxair_1350": {
-        "name": "C15: Display-Firmware Parameter C15"
-      },
-      "foxair_1351": {
-        "name": "E20: Display-Firmware Parameter E20"
-      },
-      "foxair_1352": {
-        "name": "E21: Display-Firmware Parameter E21"
-      },
       "foxair_1353": {
         "name": "1353: Reserved"
       },
@@ -2598,9 +2529,6 @@
           "disabled": "Disabled",
           "enabled": "Enabled"
         }
-      },
-      "foxair_1016": {
-        "name": "Manual Control / Silent Status"
       },
       "foxair_1018": {
         "name": "H01: Auto start",

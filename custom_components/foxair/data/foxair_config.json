@@ -21,20 +21,24 @@
     [2029, 2032]
   ],
   "_dead_ranges_comment": "Address ranges excluded from contiguous read batches. 200-215 = PHNIX/Aliyun ProductKey ASCII (FC10, no FC03 answer, EW11 corruption). 2029-2032 = T-Diag5-8 write-only FC16 registers that return no data.",
-  "hidden_comment": "Address ranges permanently hidden from the UI (not even in expert mode) and excluded from polling/editing: protocol block headers, reserved/factory test, cloud/wifi/serial identifiers, system clock, board/service info. 'keep' addresses inside these ranges stay visible (used by climate/curve/main device).",
+  "hidden_comment": "Address ranges permanently hidden from the UI (not even in expert mode) and excluded from polling/editing: protocol block headers, reserved/factory test, cloud/wifi/serial identifiers, system clock, board/service info. 'keep' addresses inside these ranges stay visible (used by climate/curve/main device). Note: 1015-1017 (language/logo/silent display-firmware selectors with unknown value maps), 1025-1026 (H38/H39 display-firmware language/logo codes), 1078-1079 (ASM Zone2 compensation params) and 1348-1352 (C13-E21 display-firmware parameters not visible in app) are excluded.",
   "hidden": [
     [200, 215],
     [1001, 1008],
+    [1015, 1017],
     [1022, 1022],
+    [1025, 1026],
     [1048, 1048],
     [1065, 1065],
     [1067, 1067],
+    [1078, 1079],
     [1091, 1098],
     [1141, 1141],
     [1150, 1151],
     [1181, 1191],
     [1250, 1255],
     [1271, 1278],
+    [1348, 1352],
     [1353, 1355],
     [1361, 1380],
     [1451, 1458],
@@ -311,7 +315,19 @@
       "2138": {"poll_tier": "quick"},
       "2178": {"poll_tier": "quick"},
       "2179": {"poll_tier": "quick"},
-      "2180": {"poll_tier": "quick"}
+      "2180": {"poll_tier": "quick"},
+      "1036": {"min": 0, "max": 3},
+      "1061": {"min": 0, "max": 2000},
+      "1204": {"min": 0, "max": 500},
+      "1326": {"min": 0, "max": 2359},
+      "1327": {"min": 0, "max": 2359},
+      "1328": {"min": 0, "max": 2359},
+      "1329": {"min": 0, "max": 2359},
+      "1330": {"min": 0, "max": 2359},
+      "1331": {"min": 0, "max": 2359},
+      "1332": {"min": 0, "max": 65535},
+      "1333": {"min": 0, "max": 65535},
+      "1335": {"min": 0, "max": 180}
     }
   }
 }
