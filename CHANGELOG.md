@@ -1,3 +1,7 @@
+## 0.4.37
+|- fix(timer): TIMER_BITPAIR day-of-week bitmask (KG13-KG60, addrs 1268-1270) now uses select entity with named day options ('off', 'mon', 'tue', 'weekdays_mon_fri', 'weekends_sat_sun', 'every_day_mon_sun', etc.) instead of confusing 0/1 selects. The select entity decodes the low byte of the 16-bit register and writes the selected byte to both timer slots. Fixed entity category logic in select.py to match number.py — safe-risk entities with tab codes are now visible by default.
+|
+
 ## 0.4.36
 |- feat(timer): KG timer start/stop (KG1-KG12 / addrs 1256-1267) now use HA `time` entity platform instead of rendering as boolean/select. New `time.py` platform converts TIME_HHMM registers (HH high-byte / MM low-byte) to proper `datetime.time` with native Lovelace time picker UI. Added `time` to `PLATFORMS` in `__init__.py`, excluded `time` platform entities from `sensor.py` to prevent duplication, and added `foxair_time_` prefix to `_cleanup_orphaned_entities`. Translations added to `strings.json` + `en/de/ru.json`.|
 |
