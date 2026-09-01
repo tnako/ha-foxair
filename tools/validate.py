@@ -20,6 +20,14 @@ man = json.loads((CC / "manifest.json").read_text())
 if ver != man.get("version"):
     errs.append(f"VERSION={ver} manifest={man.get('version')}")
 
+# README version badge must match VERSION (prevents stale public badge)
+readme = (R / "README.md").read_text() if (R / "README.md").exists() else ""
+m = re.search(r"badge/version-([0-9]+\.[0-9]+\.[0-9]+)", readme)
+if not m:
+    errs.append("README: version badge not found (expected ![Version](https://img.shields.io/badge/version-X.Y.Z-blue))")
+elif m.group(1) != ver:
+    errs.append(f"README badge v{m.group(1)} != VERSION v{ver} — update README.md badge")
+
 # tabs.txt codes (official tab order)
 codes = set(re.findall(r"^\s*\*?\s*([A-Z]{1,2}\d{1,3}[a-z]?):", (R / "modbus/tabs.txt").read_text(), re.M))
 strict = "--strict" in sys.argv

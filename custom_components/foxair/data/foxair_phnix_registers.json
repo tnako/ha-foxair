@@ -1148,7 +1148,7 @@
     "last_review": "v39",
     "mode": "r/w",
     "name": "Min. Lüfterdrehzahl im Kühlbetrieb",
-    "type": "DIGI1",
+    "type": "RPM",
     "unit": "rpm"
   },
   "1082": {
@@ -1172,7 +1172,7 @@
     "last_review": "v39",
     "mode": "r/w",
     "name": "Min. Lüfterdrehzahl im Heizbetrieb",
-    "type": "DIGI1",
+    "type": "RPM",
     "unit": "rpm"
   },
   "1084": {
@@ -1250,7 +1250,7 @@
     "last_review": "v39",
     "mode": "r/w",
     "name": "Nenn-DC-Lüftermotordrehzahl",
-    "type": "DIGI1",
+    "type": "RPM",
     "unit": "rpm"
   },
   "1090": {
@@ -1352,7 +1352,8 @@
     "last_review": "v39",
     "mode": "r/w",
     "name": "Verdampfertemperatur des Einzel-/Doppellüfterschalters im Kühlbetrieb",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "unit": "°C"
   },
   "1102": {
     "app_label": "CT to Stop Single Fan in Cooling",
@@ -1362,7 +1363,8 @@
     "last_review": "v39",
     "mode": "r/w",
     "name": "Verdampfertemperatur des Einzellüfterstopps im Kühlbetrieb",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "unit": "°C"
   },
   "1103": {
     "app_label": "Cooling Fan Max Speed",

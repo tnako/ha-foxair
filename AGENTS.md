@@ -56,7 +56,7 @@ Budget: ≤10 tool calls for a "why is entity X shown/broken" diagnosis; if more
 you skipped the metadata one-shot and are grepping blind.
 
 ## Critical Invariants (validate.py enforces)
-- `VERSION` == `manifest.json.version`
+- `VERSION` == `manifest.json.version` == `README.md` version badge (`![Version](...version-X.Y.Z-blue)`)
 - Every code in `modbus/tabs.txt` has `CODE: Name` prefix in **all three** translation files
 - No double prefix (`H42: H42 Name` → fail)
 - Python syntax clean
@@ -77,7 +77,7 @@ you skipped the metadata one-shot and are grepping blind.
 3. Regenerate metadata: `python3 tools/build_metadata.py`
    (only if touching vendor code: `python3 tools/gen_foxair_modbus.py`)
 4. Run `tools/validate.py` → fix i18n prefixes in `translations/*.json`
-5. Bump `VERSION` + `manifest.json` + `CHANGELOG.md`
+5. Bump `VERSION` + `manifest.json` + `README.md` badge + `CHANGELOG.md`
 6. Deploy
 
 ## Common Tasks
@@ -86,7 +86,7 @@ you skipped the metadata one-shot and are grepping blind.
 | Validate | `python tools/validate.py` |
 | Check registers | `python tools/check_regs.py` (needs HASS_URL/HASS_TOKEN in `.env`; `--direct` adds raw Modbus reads, `--codes H01,P02` filters, `--show-all` lists everything) |
 | Deploy | `tools/deploy.sh  # reads HA_HOST from .env` |
-| Bump version | Edit `VERSION`, `manifest.json`, `CHANGELOG.md` |
+| Bump version | Edit `VERSION`, `manifest.json`, `README.md` badge, `CHANGELOG.md` |
 | Add register | Edit `modbus/tabs.txt` → regen vendor → validate |
 
 ### check_regs.py — register end-to-end audit
