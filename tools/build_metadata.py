@@ -74,7 +74,7 @@ def parse_range(desc: str, dtype: str):
                 return None, None  # degenerate 0-0
             # RPM / WATT need 10 bis 1300 / 50-1000 but avoid KG timer '1281–1325'
             limit = 5000 if dtype in ("RPM", "WATT", "RAW") else 500
-            if abs(hi - lo) < limit and abs(lo) < limit and abs(hi) < limit:
+            if abs(hi - lo) <= limit and abs(lo) <= limit and abs(hi) <= limit:
                 # KG legacy 1256..1266 description '... Timerblock 1281–1325' → skip
                 if dtype.startswith("TIMER") or dtype == "TIME_HHMM":
                     return None, None
