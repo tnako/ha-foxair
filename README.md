@@ -6,13 +6,6 @@ Control and monitor your **FoxAir / PHNIX air-to-water heat pump** directly from
 
 ![FoxAir Demo](docs/screenshots/foxair_demo.gif)
 
-<details><summary>All languages & modes (click to expand)</summary>
-
-![Collage](docs/screenshots/collage.png)
-
-6 integration views (EN/DE/RU × user/expert) + device detail expert delta + 2 heating-curve panels — captured headless via Playwright with bearer auth (`extra_http_headers`) and `frontend/set_user_data` language switch.
-</details>
-
 Registers and scaling are based on the reverse-engineering in [dosordie/FoxAir_Control](https://github.com/dosordie/FoxAir_Control) (591 registers, FoxAir_Control 0.2.62 / 5607b5a).
 
 ## What you get
