@@ -1,3 +1,6 @@
+## 0.4.40 - 2026-09-01
+- chore: version bump
+
 ## 0.4.39 - 2026-09-01
 - fix(hoas): eliminate HOAS error/warning spam — three root causes:
   - fix(const): lazy-load foxair_config.json off event loop (blocking-call warning)
