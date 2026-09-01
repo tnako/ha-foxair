@@ -16,6 +16,20 @@ from .const import MODBUS_MAX_SPAN, MODBUS_MAX_GAP, QUICK_INTERVAL, MEDIUM_INTER
 
 _LOGGER = logging.getLogger(__name__)
 
+# ── Suppress noisy pymodbus transient-error logging ──────────────
+# The EW11 gateway drops one packet every ~10 min (normal). Pymodbus
+# logs each as ERROR "No response received after 3 retries" and the
+# coordinator also logged at WARNING — double spam in HOAS "Errors".
+# We downgrade coordinator logs to DEBUG and filter the pymodbus logger
+# so only unexpected errors surface.
+try:
+    _pm_logger = logging.getLogger("pymodbus")
+    _pm_logger.addFilter(lambda rec: "No response received after 3 retries" not in rec.getMessage())
+    _pm2 = logging.getLogger("pymodbus.logging")
+    _pm2.addFilter(lambda rec: "No response received after 3 retries" not in rec.getMessage())
+except Exception:
+    pass
+
 # Config is loaded LAZILY off the event loop (see FoxAirCoordinator._load_config),
 # because reading files at import time triggers HA 2026's blocking-call guard and
 # aborts setup. These start empty and are filled once before the first poll.
@@ -477,7 +491,7 @@ class FoxAirCoordinator(DataUpdateCoordinator):
                         rr = await self.client.read_holding_registers(address=addr, count=qty, device_id=sid)
                     if rr.isError():
                         self.stats["errors"] += 1
-                        _LOGGER.warning("read %s/%s error %s", addr, qty, rr)
+                        _LOGGER.debug("read %s/%s error %s", addr, qty, rr)
                         continue
                     regs = rr.registers
                     for i, raw in enumerate(regs):
@@ -494,7 +508,7 @@ class FoxAirCoordinator(DataUpdateCoordinator):
                 except Exception as e:
                     self.stats["errors"] += 1
                     self.stats["last_error"] = str(e)
-                    _LOGGER.warning("poll %s/%s exception %s", addr, qty, e)
+                    _LOGGER.debug("poll %s/%s exception %s", addr, qty, e)
                     # Connection-level failure (EW11 idle-drop, no response): abort the
                     # rest of this cycle's batches instead of storming a dead socket;
                     # next poll reconnects.

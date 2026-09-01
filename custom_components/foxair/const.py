@@ -12,50 +12,72 @@ from homeassistant.helpers.entity import DeviceInfo
 DOMAIN = "foxair"
 
 # ── Load foxair_config.json (single source of truth) ──────────────────
+# Lazy-loaded: HA 2026+ flags synchronous read_text() at import time as a
+# blocking call inside the event loop (homeassistant.util.loop warning).
+# We defer the read until first access and cache the result.
 _CFG_PATH = pathlib.Path(__file__).parent / "data/foxair_config.json"
+_CFG: dict | None = None  # type: ignore[assignment]
+_CFG_LOADED = False
+
+def _ensure_cfg() -> dict:
+    global _CFG, _CFG_LOADED, _blocks_cfg, _types_cfg, _modbus_cfg, _poll_cfg, _markers_cfg
+    global EXPERT_BLOCKS, BLOCK_ORDER, BLOCK_ORDER_INDEX, BLOCK_SHORT
+    global DTYPE_SPEC, QUICK_INTERVAL, MEDIUM_INTERVAL, RARE_INTERVAL
+    global MODBUS_MAX_SPAN, MODBUS_MAX_GAP, CORE_MAIN_ADDRS
+    if _CFG_LOADED and _CFG is not None:
+        return _CFG  # type: ignore[return-value]
+    try:
+        _CFG = json.loads(_CFG_PATH.read_text(encoding="utf-8-sig"))
+    except (OSError, json.JSONDecodeError):
+        _CFG = {}
+    _CFG_LOADED = True
+    _blocks_cfg = _CFG.get("blocks", {})  # type: ignore[union-attr]
+    _types_cfg = _CFG.get("types", {})  # type: ignore[union-attr]
+    _modbus_cfg = _CFG.get("modbus", {})  # type: ignore[union-attr]
+    _poll_cfg = _CFG.get("poll_intervals", {})  # type: ignore[union-attr]
+    _markers_cfg = _CFG.get("markers", {})  # type: ignore[union-attr]
+    EXPERT_BLOCKS = set(_blocks_cfg.get("expert_blocks", []))
+    BLOCK_ORDER = _blocks_cfg.get("order", ["H", "A", "F", "D", "E", "R", "P", "G", "C", "Z", "O", "S", "T", "SG", "KG", "ERR"])
+    BLOCK_ORDER_INDEX = {b: i for i, b in enumerate(BLOCK_ORDER)}
+    BLOCK_SHORT = _blocks_cfg.get("labels", {})
+    DTYPE_SPEC = {
+        t: {k: v for k, v in spec.items() if k != "platform"}
+        for t, spec in _types_cfg.items()
+        if isinstance(spec, dict)
+    }
+    QUICK_INTERVAL = _poll_cfg.get("quick", 1)
+    MEDIUM_INTERVAL = _poll_cfg.get("medium", 4)
+    RARE_INTERVAL = _poll_cfg.get("rare", 10)
+    MODBUS_MAX_SPAN = _modbus_cfg.get("max_span", 45)
+    MODBUS_MAX_GAP = _modbus_cfg.get("max_gap", 8)
+    _core_marker = _markers_cfg.get("core_main_addrs", {})
+    CORE_MAIN_ADDRS = set(_core_marker.get("addr_list", [1011, 1012, 1013, 1014, 1030, 1157, 1158, 1159, 1212, 1213, 1214, 1234, 1235, 1236, 2012, 2014, 8801]))
+    return _CFG
+
+# Eager-load when not running inside HA event loop (tools, tests, CLI).
+# Inside HA the import happens on the event loop — keep it lazy there.
 try:
-    _CFG = json.loads(_CFG_PATH.read_text(encoding="utf-8-sig"))
-except (OSError, json.JSONDecodeError):
-    _CFG = {}
+    import asyncio as _asyncio
+    _asyncio.get_running_loop()
+except RuntimeError:
+    _ensure_cfg()
 
-_blocks_cfg = _CFG.get("blocks", {})
-_types_cfg = _CFG.get("types", {})
-_modbus_cfg = _CFG.get("modbus", {})
-_poll_cfg = _CFG.get("poll_intervals", {})
-_markers_cfg = _CFG.get("markers", {})
+# Fallback defaults so module-level names always exist (used before lazy load)
+if not _CFG_LOADED:
+    _blocks_cfg, _types_cfg, _modbus_cfg, _poll_cfg, _markers_cfg = {}, {}, {}, {}, {}
+    EXPERT_BLOCKS: set = set()
+    BLOCK_ORDER: list = ["H", "A", "F", "D", "E", "R", "P", "G", "C", "Z", "O", "S", "T", "SG", "KG", "ERR"]
+    BLOCK_ORDER_INDEX: dict = {b: i for i, b in enumerate(BLOCK_ORDER)}
+    BLOCK_SHORT: dict = {}
+    DTYPE_SPEC: dict = {}
+    QUICK_INTERVAL, MEDIUM_INTERVAL, RARE_INTERVAL = 1, 4, 10
+    MODBUS_MAX_SPAN, MODBUS_MAX_GAP = 45, 8
+    CORE_MAIN_ADDRS: set = {1011, 1012, 1013, 1014, 1030, 1157, 1158, 1159, 1212, 1213, 1214, 1234, 1235, 1236, 2012, 2014, 8801}
 
-# Whole tabs that are expert-only (hidden entirely until expert mode is on).
-# Normal mode keeps: main device, R Setpoints, T Live (always visible), SG Ready, KG Timer, ERR Fault.
-# T Diagnostic only in expert mode (requires_expert=true on those registers).
-EXPERT_BLOCKS = set(_blocks_cfg.get("expert_blocks", []))
-
-# Order MUST match tabs.txt Tab sequence: H, A, F, D, E, R, P, G, C, Z, O, S, T
-# SG/KG/ERR are appended after (not in tabs.txt)
-BLOCK_ORDER = _blocks_cfg.get("order", ["H", "A", "F", "D", "E", "R", "P", "G", "C", "Z", "O", "S", "T", "SG", "KG", "ERR"])
-BLOCK_ORDER_INDEX = {b: i for i, b in enumerate(BLOCK_ORDER)}
-
-BLOCK_SHORT = _blocks_cfg.get("labels", {})
-
-# Data type specifications — derived from config types (platform key stripped).
-# Used by coordinator.scaled(), sensor.py DTYPE_MAP.
-DTYPE_SPEC = {
-    t: {k: v for k, v in spec.items() if k != "platform"}
-    for t, spec in _types_cfg.items()
-    if isinstance(spec, dict)
-}
-
-# Tier intervals (multiples of 30s base)
-QUICK_INTERVAL = _poll_cfg.get("quick", 1)   # every poll (30s)
-MEDIUM_INTERVAL = _poll_cfg.get("medium", 4)  # 120s
-RARE_INTERVAL = _poll_cfg.get("rare", 10)     # 300s (600s when expert)
-
-# EW11 gateway limits — do not exceed
-MODBUS_MAX_SPAN = _modbus_cfg.get("max_span", 45)
-MODBUS_MAX_GAP = _modbus_cfg.get("max_gap", 8)
-
-# Core main device addresses (on main device, not sub-device)
-_core_marker = _markers_cfg.get("core_main_addrs", {})
-CORE_MAIN_ADDRS = set(_core_marker.get("addr_list", [1011, 1012, 1013, 1014, 1030, 1157, 1158, 1159, 1212, 1213, 1214, 1234, 1235, 1236, 2012, 2014, 8801]))
+# (EXPERT_BLOCKS / BLOCK_ORDER / DTYPE_SPEC / intervals / CORE_MAIN_ADDRS
+# are already set above — either by _ensure_cfg() eager load or by the
+# fallback defaults. No re-read here so we don't re-trigger blocking I/O
+# at import when running on the HA event loop.)
 
 # Exact code sequence from modbus/tabs.txt — each menu and entity in required order
 TABS_CODE_ORDER = [

@@ -1,3 +1,9 @@
+## 0.4.39 - 2026-09-01
+- fix(hoas): eliminate HOAS error/warning spam — three root causes:
+  - fix(const): lazy-load foxair_config.json off event loop (blocking-call warning)
+  - fix(device): pre-create main device before sub-devices (via_device warning)
+  - fix(poll): downgrade transient Modbus drops to DEBUG + filter duplicate pymodbus ERROR
+
 ## 0.4.38
 |- fix(coordinator): "Разрешить разморозку" (Allow defrost, reg 1014) and Silent Mode On/Off (H22, reg 1030) showed "unknown" on device page after HA restart — these are binary value_map selects (DIGI1, options disabled/enabled) on the main device with `poll_tier: rare` (300/600s), so the first rare poll fires ~90s after startup; before that `coordinator.data[1014]` is empty and `select.current_option()` returns None → state renders as "unknown". Fix: the coordinator's first poll (startup catch-up) now always includes `CORE_MAIN_ADDRS` (1011/1012/1014/1030/...etc.) regardless of tier, so core control registers are populated immediately — they keep their rare tier for ongoing polling (no bus overhead). This is NOT an expert-mode issue — `requires_expert` was already false for both. Also corrected the DIGI1 generic fallback range from (0-5) to (0-1) in build_metadata.py (DIGI1 with value_map is binary; 0-5 was wrong and only affected non-value_map RAW fallback).
 

@@ -54,6 +54,23 @@ async def _cleanup_orphaned_entities(hass: HomeAssistant, entry: ConfigEntry, en
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
+    # ── Ensure main device exists BEFORE any sub-device ──────────
+    # HA 2025.12+ warns (and will error) when a device's via_device
+    # references a non-existing device. Sub-devices (T_Live, SG etc.)
+    # set via_device=(DOMAIN, entry_id) -> main device. If entities for
+    # sub-devices set up first, the warning fires. Create main device
+    # synchronously here so it always exists first.
+    try:
+        dev_reg = dr.async_get(hass)
+        dev_reg.async_get_or_create(
+            config_entry_id=entry.entry_id,
+            identifiers={(DOMAIN, entry.entry_id)},
+            name="FoxAir Heat Pump",
+            manufacturer="FoxAir/PHNIX",
+            model="Modbus TCP Heat Pump",
+        )
+    except Exception as e:  # pragma: no cover
+        _LOGGER.debug("main device pre-create failed: %s", e)
     try:
         from .views import FoxAirCurveSvgView, FoxAirCurvePanelView
 
