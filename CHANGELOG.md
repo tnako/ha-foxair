@@ -1,3 +1,7 @@
+## 0.4.41 - 2026-09-01
+- fix(i18n): H32 force-switch time now MINUTES (0-180 min, was DIGI1 select showing unknown), H42/D30 pan-heater threshold/delay now correctly translated en/de/ru, all Compressor C01-C12 and E/G/P/T pump/diagnostics now translated in ru (166 missing), en German residue fixed
+- feat(tools): validate.py now enforces full translation coverage — every visible register must have foxair_<addr> in en/de/ru with CODE: prefix, ru must contain Cyrillic and differ from en, en must not contain German residue, poll_tier must be quick/medium/rare; catches H32/H42/D30/C regressions automatically
+
 ## 0.4.40 - 2026-09-01
 - chore: version bump
 

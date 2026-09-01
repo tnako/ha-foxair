@@ -119,6 +119,11 @@ async def async_reload_entry(hass: HomeAssistant, entry: ConfigEntry):
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry):
     coord = hass.data.get("foxair", {}).get(entry.entry_id)
+    if coord and getattr(coord, "_burst_task", None):
+        try:
+            coord._burst_task.cancel()
+        except Exception:
+            pass
     ok = await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
     hass.data.get("foxair", {}).pop(entry.entry_id, None)
     if coord and getattr(coord, "client", None):
