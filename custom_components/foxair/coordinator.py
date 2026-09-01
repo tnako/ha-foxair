@@ -97,9 +97,9 @@ class FoxAirCoordinator(DataUpdateCoordinator):
         self._write_futures: list[asyncio.Future] = []
         self._write_flush_task: asyncio.Task | None = None
         self._write_delay = 3.0
-        self._startup_catchup_done = False
         self._medium_done = False
         self._rare_done = False
+        self._burst_task: asyncio.Task | None = None
 
     async def _load_config(self) -> None:
         """Load foxair_config.json off the event loop (HA 2026 blocks sync I/O)."""
@@ -540,4 +540,102 @@ class FoxAirCoordinator(DataUpdateCoordinator):
                 self.data = merged
             else:
                 self.data = out
+            # Startup burst: after the first quick poll, immediately fetch
+            # medium+rare tiers in background so expert entities don't stay
+            # "unknown" for 60-90s waiting for poll #2/#3. Runs once, paced
+            # with EW11 delays, serialized on the same _lock.
+            if is_first and not self._burst_task:
+                self._burst_task = self.hass.async_create_task(self._startup_burst())
             return self.data
+
+    async def _fetch_addrs(self, addrs: set[int]) -> dict[int, dict]:
+        """Read a set of addrs in batches (same EW11 pacing/dead-range logic)."""
+        if not addrs:
+            return {}
+        cfg = self.entry.data
+        batches = self._batches_for_addrs(addrs, max_span=45, max_gap=8)
+        out: dict[int, dict] = {}
+        async with self._lock:
+            if not self.client or not getattr(self.client, "connected", False):
+                if self.client:
+                    try:
+                        self.client.close()
+                    except Exception:
+                        pass
+                    self.client = None
+                self.client = AsyncModbusTcpClient(host=cfg["host"], port=cfg["port"], timeout=8)
+                ok = await self.client.connect()
+                if not ok:
+                    _LOGGER.debug("burst connect failed %s:%s", cfg["host"], cfg["port"])
+                    return {}
+            for addr, qty in batches:
+                try:
+                    sid = cfg.get("slave", 1)
+                    await asyncio.sleep(0.22)
+                    try:
+                        rr = await self.client.read_holding_registers(address=addr, count=qty, slave=sid)
+                    except TypeError:
+                        rr = await self.client.read_holding_registers(address=addr, count=qty, device_id=sid)
+                    if rr.isError():
+                        self.stats["errors"] += 1
+                        _LOGGER.debug("burst read %s/%s error %s", addr, qty, rr)
+                        continue
+                    regs = rr.registers
+                    for i, raw in enumerate(regs):
+                        a = addr + i
+                        if a not in addrs:
+                            continue
+                        info = self._regmap.get(str(a))
+                        if not info or info.get("type") == "BLOCK":
+                            continue
+                        out[a] = {"raw": raw, "value": scaled(info.get("type", "RAW"), raw), "info": info}
+                except Exception as e:
+                    self.stats["errors"] += 1
+                    _LOGGER.debug("burst poll %s/%s exception %s", addr, qty, e)
+                    if type(e).__name__ in ("ConnectionException", "ConnectionResetError", "CancelledError") or "No response" in str(e) or "Connection" in str(e):
+                        try:
+                            self.client.close()
+                        except Exception:
+                            pass
+                        self.client = None
+                        break
+        return out
+
+    async def _startup_burst(self):
+        """Background fetch of medium+rare after first quick poll."""
+        try:
+            enable_expert = bool(self.entry.options.get("enable_expert"))
+            # Small delay lets entities finish setup before we push data
+            await asyncio.sleep(1.5)
+            # Medium tier
+            if not self._medium_done:
+                addrs = self._tier_addrs("medium", enable_expert)
+                # Exclude what we already have from quick poll
+                addrs = {a for a in addrs if a not in self.data}
+                if addrs:
+                    _LOGGER.debug("Startup burst: fetching medium tier %s addrs", len(addrs))
+                    out = await self._fetch_addrs(addrs)
+                    if out:
+                        self.data = {**self.data, **out}
+                        self._medium_done = True
+                        self.stats["medium_polls"] += 1
+                        self.async_update_listeners()
+                    _LOGGER.debug("Startup burst medium done +%s regs", len(out))
+            await asyncio.sleep(1.5)
+            # Rare tier (includes expert-gated when expert on)
+            if not self._rare_done:
+                addrs = self._tier_addrs("rare", enable_expert)
+                addrs = {a for a in addrs if a not in self.data}
+                if addrs:
+                    _LOGGER.debug("Startup burst: fetching rare tier %s addrs", len(addrs))
+                    out = await self._fetch_addrs(addrs)
+                    if out:
+                        self.data = {**self.data, **out}
+                        self._rare_done = True
+                        self.stats["rare_polls"] += 1
+                        self.async_update_listeners()
+                    _LOGGER.debug("Startup burst rare done +%s regs", len(out))
+        except asyncio.CancelledError:
+            pass
+        except Exception as e:
+            _LOGGER.debug("startup burst failed: %s", e)

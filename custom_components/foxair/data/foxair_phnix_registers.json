@@ -676,7 +676,8 @@
     "mode": "r/w",
     "my_value": "180",
     "name": "Erzwungene Umschaltzeit",
-    "type": "DIGI1"
+    "type": "MINUTES",
+    "unit": "min"
   },
   "1046": {
     "app_label": "DHW Temp. Sourcing",
@@ -2754,7 +2755,7 @@
     "unit": "Hz"
   },
   "1223": {
-    "app_label": "",
+    "app_label": "Frequency control mode",
     "block": "C",
     "code": "C06",
     "function": "03/16",

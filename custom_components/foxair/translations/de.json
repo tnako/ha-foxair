@@ -1181,7 +1181,7 @@
         "name": "P14: Nachfüllventil Arbeitsdauer (IDU)"
       },
       "foxair_1437": {
-        "name": "D30: Gehaeusewannenheizung Delays Off Time after Defrost"
+        "name": "D30: Nachlaufzeit Gehäusewannenheizung nach Abtauung"
       },
       "foxair_1438": {
         "name": "P15: Ziel-Wasserdruck (IDU)"
@@ -2496,7 +2496,7 @@
         "name": "P14: Nachfüllventil Arbeitsdauer (IDU)"
       },
       "foxair_1437": {
-        "name": "D30: Gehaeusewannenheizung Delays Off Time after Defrost"
+        "name": "D30: Nachlaufzeit Gehäusewannenheizung nach Abtauung"
       },
       "foxair_1438": {
         "name": "P15: Ziel-Wasserdruck (IDU)"

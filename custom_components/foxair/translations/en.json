@@ -665,13 +665,13 @@
         "name": "P10: Speed of Circulation Pump"
       },
       "foxair_1206": {
-        "name": "E03-3: EEV Initial Steps for Heating3"
+        "name": "E03-3: EEV Initial Steps for Heating 3"
       },
       "foxair_1207": {
         "name": "E03-4: EEV Initial Steps for Heating4"
       },
       "foxair_1208": {
-        "name": "E03-5: EEV Initial Steps for Heating5"
+        "name": "E03-5: EEV Initial Steps for Heating 5"
       },
       "foxair_1209": {
         "name": "E07-1: EEV Min. Steps1"
@@ -716,7 +716,7 @@
         "name": "C05: Min. Comp. Frequency in Cooling at Low Ambient Temp."
       },
       "foxair_1223": {
-        "name": "C06: Frequenzregelungsmodus"
+        "name": "C06: Frequency Control Mode"
       },
       "foxair_1224": {
         "name": "C07: Resonanzpunkt 1"
@@ -1100,7 +1100,7 @@
         "name": "1355: Reserved"
       },
       "foxair_1356": {
-        "name": "H42: Einschalt-AT Gehaeusewannenheizung (D30/1437 erst wirksam, wenn AT kleiner H42 ist)"
+        "name": "H42: AT Threshold for Pan Heater (D30 delay active only if AT < H42)"
       },
       "foxair_1357": {
         "name": "Z19: Diff. of No Pump On at Low Water Temp."
@@ -1181,7 +1181,7 @@
         "name": "P14: Refill Valve Working Duration (for IDU)"
       },
       "foxair_1437": {
-        "name": "D30: Button Heater Delays OFF Time after Defrost"
+        "name": "D30: Pan Heater Off Delay After Defrost"
       },
       "foxair_1438": {
         "name": "P15: Target Water Pressure (for IDU)"
@@ -2211,13 +2211,13 @@
         "name": "P10: Speed of Circulation Pump"
       },
       "foxair_1206": {
-        "name": "E03-3: EEV Initial Steps for Heating3"
+        "name": "E03-3: EEV Initial Steps for Heating 3"
       },
       "foxair_1207": {
         "name": "E03-4: EEV Initial Steps for Heating4"
       },
       "foxair_1208": {
-        "name": "E03-5: EEV Initial Steps for Heating5"
+        "name": "E03-5: EEV Initial Steps for Heating 5"
       },
       "foxair_1209": {
         "name": "E07-1: EEV Min. Steps1"
@@ -2448,7 +2448,7 @@
         "name": "1355: Reserved"
       },
       "foxair_1356": {
-        "name": "H42: Einschalt-AT Gehaeusewannenheizung (D30/1437 erst wirksam, wenn AT kleiner H42 ist)"
+        "name": "H42: AT Threshold for Pan Heater (D30 delay active only if AT < H42)"
       },
       "foxair_1357": {
         "name": "Z19: Diff. of No Pump On at Low Water Temp."
@@ -2496,7 +2496,7 @@
         "name": "P14: Refill Valve Working Duration (for IDU)"
       },
       "foxair_1437": {
-        "name": "D30: Button Heater Delays OFF Time after Defrost"
+        "name": "D30: Pan Heater Off Delay After Defrost"
       },
       "foxair_1438": {
         "name": "P15: Target Water Pressure (for IDU)"
@@ -2628,7 +2628,7 @@
         }
       },
       "foxair_1036": {
-        "name": "H30: Indoor Unit Type / Hydraulikmodul-Typ",
+        "name": "H30: Indoor Unit Type",
         "state": {
           "none": "None",
           "opt_1st_type": "1st Type",
@@ -2737,7 +2737,7 @@
         }
       },
       "foxair_1080": {
-        "name": "Z08: Mischventil manuelle Stellrate (0% = Auto-Regelung)",
+        "name": "Z08: Mixing Valve Manual Adjustment Ratio (0% for Auto Control)",
         "state": {
           "manual": "Manual",
           "auto": "Auto"
@@ -2838,14 +2838,14 @@
         }
       },
       "foxair_1206": {
-        "name": "E03-3: EEV Anfangsschritte Heizen 3",
+        "name": "E03-3: EEV Initial Steps for Heating 3",
         "state": {
           "no": "No",
           "yes": "Yes"
         }
       },
       "foxair_1208": {
-        "name": "E03-5: EEV Anfangsschritte Heizen 5",
+        "name": "E03-5: EEV Initial Steps for Heating 5",
         "state": {
           "no": "No",
           "yes": "Yes"
@@ -2855,7 +2855,7 @@
         "name": "C04: Model Selection"
       },
       "foxair_1223": {
-        "name": "C06: Frequenzregelungsmodus"
+        "name": "C06: Frequency Control Mode"
       },
       "foxair_1236": {
         "name": "H36: Enable AT Compensation Curve Zone 1",
