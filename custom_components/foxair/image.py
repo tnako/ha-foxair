@@ -112,7 +112,17 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
                 self.hass, lang, category="entity", integrations=["foxair"]
             )
             prefix = "component.foxair.entity.image.foxair_heating_curve."
-            loaded = {k[len(prefix):]: v for k, v in cat.items() if k.startswith(prefix)}
+            loaded_raw = {k[len(prefix):]: v for k, v in cat.items() if k.startswith(prefix)}
+            # hassfest only allows custom strings under `state`, so strip that prefix
+            # (keep `name` as-is, unwrap `state.<key>` -> `<key>`)
+            loaded = {}
+            for k, v in loaded_raw.items():
+                if k == "name":
+                    loaded[k] = v
+                elif k.startswith("state."):
+                    loaded[k[6:]] = v
+                else:
+                    loaded[k] = v  # fallback for direct keys (future compat)
             self._tl = {**_TL_FALLBACK, **loaded}
         except Exception as e:  # pragma: no cover - never fatal
             _LOGGER.debug("heating-curve translations unavailable: %s", e)
