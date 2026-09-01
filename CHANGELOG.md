@@ -1,3 +1,7 @@
+## 0.4.43 - 2026-09-01
+- fix(F): F18/F19/F23 were DIGI1 select (0..1) showing "unknown" for raw 220/200/830 rpm — now RPM 10..1300 with number platform; F28/F29 now °C (were temp without unit)
+- fix(tooling): build_metadata parse_range now handles RPM/WATT 10..1300 / 50..1000 without mis-parsing KG timer note 1281–1325; F18/F19/F23/F25/F26 now derive correct min/max
+
 ## 0.4.42 - 2026-09-01
 - fix(i18n): move heating_curve image labels under `state` (hassfest only allows name/state/state_attributes/unit_of_measurement under entity.image — top-level axis_x/legend_* failed `Invalid strings.json` validation). SVG loader now unwraps `state.*` prefix, 3 languages updated.
 

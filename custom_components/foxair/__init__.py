@@ -109,6 +109,24 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
 
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
     hass.async_create_task(_cleanup_orphaned_devices(hass))
+    # Expert toggle (or any config change) can make a whole tier of entities
+    # appear with Unknown until the next medium/rare cycle (60-90s). Trigger
+    # the same force-fetch burst used on first install so they populate in
+    # a few seconds. No-op when nothing is missing.
+    if enable_expert:
+        try:
+            burst = getattr(coord, "_burst_task", None)
+            if burst and not burst.done():
+                # Startup burst already pending with 1.5s delay — for a
+                # config change we want the faster 0.5s path; cancel and
+                # reschedule so expert entities don't sit at Unknown.
+                try:
+                    burst.cancel()
+                except Exception:
+                    pass
+            coord._burst_task = hass.async_create_task(coord.async_burst_missing(delay=0.5))
+        except Exception as e:
+            _LOGGER.debug("post-setup burst schedule failed: %s", e)
     return True
 
 

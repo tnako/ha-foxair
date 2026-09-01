@@ -601,41 +601,47 @@ class FoxAirCoordinator(DataUpdateCoordinator):
                         break
         return out
 
-    async def _startup_burst(self):
-        """Background fetch of medium+rare after first quick poll."""
+    async def async_burst_missing(self, delay: float = 0.0):
+        """Fetch any poll-tier addr missing from self.data (expert-aware).
+
+        Used both by the startup burst and when options change (e.g. expert
+        mode enabled) so newly visible entities don't sit at Unknown until
+        the next scheduled medium/rare cycle (~60-90 s).
+        """
         try:
+            if delay:
+                await asyncio.sleep(delay)
             enable_expert = bool(self.entry.options.get("enable_expert"))
-            # Small delay lets entities finish setup before we push data
-            await asyncio.sleep(1.5)
-            # Medium tier
-            if not self._medium_done:
-                addrs = self._tier_addrs("medium", enable_expert)
-                # Exclude what we already have from quick poll
+            for tier in ("medium", "rare"):
+                done_flag = f"_{tier}_done"
+                # Skip tier already fetched in this coordinator lifetime
+                if getattr(self, done_flag, False):
+                    continue
+                addrs = self._tier_addrs(tier, enable_expert)
                 addrs = {a for a in addrs if a not in self.data}
-                if addrs:
-                    _LOGGER.debug("Startup burst: fetching medium tier %s addrs", len(addrs))
-                    out = await self._fetch_addrs(addrs)
-                    if out:
-                        self.data = {**self.data, **out}
-                        self._medium_done = True
-                        self.stats["medium_polls"] += 1
-                        self.async_update_listeners()
-                    _LOGGER.debug("Startup burst medium done +%s regs", len(out))
-            await asyncio.sleep(1.5)
-            # Rare tier (includes expert-gated when expert on)
-            if not self._rare_done:
-                addrs = self._tier_addrs("rare", enable_expert)
-                addrs = {a for a in addrs if a not in self.data}
-                if addrs:
-                    _LOGGER.debug("Startup burst: fetching rare tier %s addrs", len(addrs))
-                    out = await self._fetch_addrs(addrs)
-                    if out:
-                        self.data = {**self.data, **out}
-                        self._rare_done = True
-                        self.stats["rare_polls"] += 1
-                        self.async_update_listeners()
-                    _LOGGER.debug("Startup burst rare done +%s regs", len(out))
+                if not addrs:
+                    # Mark done so we don't retry every call when empty
+                    setattr(self, done_flag, True)
+                    continue
+                _LOGGER.debug("Burst missing: fetching %s tier %s addrs (delay=%.1f)", tier, len(addrs), delay)
+                out = await self._fetch_addrs(addrs)
+                if out:
+                    self.data = {**self.data, **out}
+                    setattr(self, done_flag, True)
+                    key = f"{tier}_polls"
+                    self.stats[key] = self.stats.get(key, 0) + 1
+                    self.async_update_listeners()
+                _LOGGER.debug("Burst missing %s done +%s regs", tier, len(out))
+                # Pace between tiers: 0.35s for config-change bursts, 1.5s for startup
+                await asyncio.sleep(1.5 if delay else 0.35)
         except asyncio.CancelledError:
             pass
         except Exception as e:
-            _LOGGER.debug("startup burst failed: %s", e)
+            _LOGGER.debug("burst missing failed: %s", e)
+
+    async def _startup_burst(self):
+        """Background fetch of medium+rare after first quick poll."""
+        await self.async_burst_missing(delay=1.5)
+        # Rare was paced inside async_burst_missing; startup path needs the
+        # second-tier delay preserved (1.5s before medium, 0.35s between tiers)
+        # so EW11 isn't hammered. The generic method already handles both.
