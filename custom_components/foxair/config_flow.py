@@ -35,7 +35,7 @@ class FoxAirConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             host = str(user_input.get("host", "EW11-host")).strip()
             port = int(user_input.get("port", 8899))
             slave = int(user_input.get("slave", 1))
-            name_prefix = str(user_input.get("name_prefix", "")).strip().lower()
+            name_prefix = str(user_input.get("name_prefix", "foxair")).strip().lower()
             if not _validate_host(host):
                 errors["base"] = "cannot_connect"
             elif not (1 <= port <= 65535) or not (1 <= slave <= 247):
@@ -63,7 +63,7 @@ class FoxAirConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                         pass
                 if ok:
                     data = {"host": host, "port": port, "slave": slave}
-                    if name_prefix:
+                    if name_prefix and name_prefix != "foxair":
                         data["name_prefix"] = name_prefix
                     prefix_display = name_prefix or "foxair"
                     return self.async_create_entry(
@@ -79,7 +79,7 @@ class FoxAirConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                     vol.Optional("host", default="EW11-host"): str,
                     vol.Optional("port", default=8899): int,
                     vol.Optional("slave", default=1): int,
-                    vol.Optional("name_prefix", default=""): str,
+                    vol.Optional("name_prefix", default="foxair"): str,
                     vol.Required("enable_expert", default=False): bool,
                 }
             ),
