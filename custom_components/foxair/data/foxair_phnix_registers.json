@@ -3014,7 +3014,7 @@
     "info": "Quelle: Firmware/App-Review; Start und Stop sind getrennt aktivierbar.",
     "mode": "r/w",
     "name": "Silentmodus Timer Start aktivieren",
-    "type": "DIGI1",
+    "type": "SWITCH",
     "value_map": {
       "0": "Aus",
       "1": "Ein"
@@ -3023,8 +3023,9 @@
   "1245": {
     "function": "03/16",
     "mode": "r/w",
-    "name": "Silentmodus Timer Start Stunde",
-    "type": "DIGI1"
+    "name": "Silentmodus Timer Startzeit (HH:MM aus Stunde+Minute)",
+    "type": "TIME_SPLIT",
+    "info": "Composite: hour @1245 + minute @1246 → time picker"
   },
   "1246": {
     "function": "03/16",
@@ -3037,7 +3038,7 @@
     "info": "Quelle: Firmware/App-Review; Start und Stop sind getrennt aktivierbar.",
     "mode": "r/w",
     "name": "Silentmodus Timer Stop aktivieren",
-    "type": "DIGI1",
+    "type": "SWITCH",
     "value_map": {
       "0": "Aus",
       "1": "Ein"
@@ -3046,8 +3047,9 @@
   "1248": {
     "function": "03/16",
     "mode": "r/w",
-    "name": "Silentmodus Timer Stop Stunde",
-    "type": "DIGI1"
+    "name": "Silentmodus Timer Stopzeit (HH:MM aus Stunde+Minute)",
+    "type": "TIME_SPLIT",
+    "info": "Composite: hour @1248 + minute @1249 → time picker"
   },
   "1249": {
     "function": "03/16",
@@ -3630,37 +3632,37 @@
     "function": "03/16",
     "mode": "r/w",
     "name": "Zirkulationspumpe Timer 1 Startzeit",
-    "type": "RAW"
+    "type": "TIME_DECIMAL"
   },
   "1327": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Zirkulationspumpe Timer 1 Stopzeit",
-    "type": "RAW"
+    "type": "TIME_DECIMAL"
   },
   "1328": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Zirkulationspumpe Timer 2 Startzeit",
-    "type": "RAW"
+    "type": "TIME_DECIMAL"
   },
   "1329": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Zirkulationspumpe Timer 2 Stopzeit",
-    "type": "RAW"
+    "type": "TIME_DECIMAL"
   },
   "1330": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Zirkulationspumpe Timer 3 Startzeit",
-    "type": "RAW"
+    "type": "TIME_DECIMAL"
   },
   "1331": {
     "function": "03/16",
     "mode": "r/w",
     "name": "Zirkulationspumpe Timer 3 Stopzeit",
-    "type": "RAW"
+    "type": "TIME_DECIMAL"
   },
   "1332": {
     "function": "03/16",
@@ -3912,7 +3914,7 @@
   "1356": {
     "block": "H",
     "code": "H42",
-    "name": "H42 Einschalt-AT Gehaeusewannenheizung (D30/1437 erst wirksam, wenn AT kleiner H42 ist)",
+    "name": "Einschalt-AT Gehaeusewannenheizung (D30/1437 erst wirksam, wenn AT kleiner H42 ist)",
     "type": "TEMP1",
     "notes": "H42 ist die Außentemperatur-Schwelle. D30/1437 (Gehaeusewannenheizung Nachlauf nach Abtauen) wirkt erst, wenn AT kleiner als H42/1356 ist. Einheit °C.",
     "function": "03/16",
@@ -4146,7 +4148,7 @@
     "function": "03/16",
     "last_review": "v0.2.32 correction 2026-06-14; user confirmed register and unit minutes",
     "mode": "r/w",
-    "name": "D30 Gehaeusewannenheizung Delays Off Time after Defrost",
+    "name": "Gehaeusewannenheizung Delays Off Time after Defrost",
     "notes": "Achtung: nicht P15. 1437 ist sicher D30. Einheit sicher: Minuten. Erst wirksam, wenn AT kleiner H42/1356 ist.",
     "source": "User confirmed; used in live system",
     "type": "MINUTES",
@@ -4817,7 +4819,7 @@
   "2057": {
     "function": "16",
     "mode": "read",
-    "name": "T35 / AC Input Current",
+    "name": "AC Input Current",
     "type": "RAW",
     "unit": "A",
     "notes": "Firmware V3.3: T35 / AC-Eingangsstrom. T34 / AC-Spannung ist Register 2062.",

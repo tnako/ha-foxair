@@ -8,6 +8,7 @@
           "host": "Хост",
           "port": "Порт",
           "slave": "ID ведомого",
+          "name_prefix": "Префикс устройства (например foxair, phnix, house1)",
           "enable_expert": "Включить экспертный режим (продвинутые / опасные параметры)"
         }
       }
@@ -17,7 +18,8 @@
     },
     "error": {
       "cannot_connect": "Не удалось подключиться — проверьте хост, порт и ID ведомого",
-      "need_ack": "Для включения экспертного режима нужно подтвердить риски"
+      "need_ack": "Для включения экспертного режима нужно подтвердить риски",
+      "invalid_prefix": "Префикс должен содержать только строчные буквы, цифры и подчеркивание, 1-32 символа"
     }
   },
   "entity": {
@@ -112,6 +114,15 @@
       "foxair_1014": {
         "name": "Разрешить разморозку центр. контроллера при D26=1"
       },
+      "foxair_1015": {
+        "name": "Language Selection"
+      },
+      "foxair_1016": {
+        "name": "Manual Control / Silent Status"
+      },
+      "foxair_1017": {
+        "name": "Logo Selection"
+      },
       "foxair_1018": {
         "name": "H01: Автозапуск"
       },
@@ -132,6 +143,12 @@
       },
       "foxair_1024": {
         "name": "H10: Адрес устройства"
+      },
+      "foxair_1025": {
+        "name": "H38: Language choice"
+      },
+      "foxair_1026": {
+        "name": "H39: Logo Selection / Customer Logo Code (ASM)"
       },
       "foxair_1027": {
         "name": "H27: EVI включен"
@@ -285,6 +302,12 @@
       },
       "foxair_1077": {
         "name": "Z17: Вкл. кривую компенсации AT Зона2"
+      },
+      "foxair_1078": {
+        "name": "Zone 2 Heating Curve K / Room Temp Compensation (ASM)"
+      },
+      "foxair_1079": {
+        "name": "Zone 2 Heating Curve B / Room Temp Compensation (ASM)"
       },
       "foxair_1080": {
         "name": "Z08: Ручная установка смесительного клапана (0% = авто)"
@@ -1090,6 +1113,21 @@
       "foxair_1347": {
         "name": "C12: Макс. частота компр. в режиме ГВС"
       },
+      "foxair_1348": {
+        "name": "C13: Display-Firmware Parameter C13"
+      },
+      "foxair_1349": {
+        "name": "C14: Display-Firmware Parameter C14"
+      },
+      "foxair_1350": {
+        "name": "C15: Display-Firmware Parameter C15"
+      },
+      "foxair_1351": {
+        "name": "E20: Display-Firmware Parameter E20"
+      },
+      "foxair_1352": {
+        "name": "E21: Display-Firmware Parameter E21"
+      },
       "foxair_1353": {
         "name": "1353: Зарезервировано"
       },
@@ -1765,35 +1803,14 @@
       "foxair_electrical_power": {
         "name": "Электрическая мощность (расчёт)"
       },
+      "foxair_h43": {
+        "name": "H43: Нормальный/Эко"
+      },
       "foxair_heating_curve_target": {
         "name": "Цель кривой отопления"
       },
       "foxair_heating_power": {
         "name": "Тепловая мощность (расчёт)"
-      },
-      "foxair_s_s02": {
-        "name": "S02: Реле низкого давления"
-      },
-      "foxair_s_s03": {
-        "name": "S03: Реле потока"
-      },
-      "foxair_s_s04": {
-        "name": "S04: Реле перегрузки ТЭН"
-      },
-      "foxair_s_s05": {
-        "name": "S05: Удаленный выключатель"
-      },
-      "foxair_s_s06": {
-        "name": "S06: Переключатель режима кондиционирования"
-      },
-      "foxair_s_s07": {
-        "name": "S07: Переключатель ГВС"
-      },
-      "foxair_s_s10": {
-        "name": "S10: Переключатель кондиционирования"
-      },
-      "foxair_h43": {
-        "name": "H43: Нормальный/Эко"
       },
       "foxair_o_o05": {
         "name": "O05: Основной циркуляционный насос"
@@ -1827,6 +1844,27 @@
       },
       "foxair_o_o17": {
         "name": "O17: Шаги EEV(EVI)"
+      },
+      "foxair_s_s02": {
+        "name": "S02: Реле низкого давления"
+      },
+      "foxair_s_s03": {
+        "name": "S03: Реле потока"
+      },
+      "foxair_s_s04": {
+        "name": "S04: Реле перегрузки ТЭН"
+      },
+      "foxair_s_s05": {
+        "name": "S05: Удаленный выключатель"
+      },
+      "foxair_s_s06": {
+        "name": "S06: Переключатель режима кондиционирования"
+      },
+      "foxair_s_s07": {
+        "name": "S07: Переключатель ГВС"
+      },
+      "foxair_s_s10": {
+        "name": "S10: Переключатель кондиционирования"
       }
     },
     "climate": {
@@ -1847,8 +1885,20 @@
       "foxair_1013": {
         "name": "Температура бака ГВС (от центрального контроллера H37=1)"
       },
+      "foxair_1015": {
+        "name": "Language Selection"
+      },
+      "foxair_1017": {
+        "name": "Logo Selection"
+      },
       "foxair_1022": {
         "name": "1022: Зарезервировано"
+      },
+      "foxair_1025": {
+        "name": "H38: Language choice"
+      },
+      "foxair_1026": {
+        "name": "H39: Logo Selection / Customer Logo Code (ASM)"
       },
       "foxair_1031": {
         "name": "A35: Дельта откл. электронагревателя"
@@ -1873,6 +1923,9 @@
       },
       "foxair_1044": {
         "name": "A24: Превышение дельты вход/выход"
+      },
+      "foxair_1045": {
+        "name": "H32: Время принуд. перекл. отопл./ГВС"
       },
       "foxair_1048": {
         "name": "Выбор внешнего насоса []"
@@ -1943,11 +1996,23 @@
       "foxair_1076": {
         "name": "Z07: Зона2 Целевая темп. смесит. выхода"
       },
+      "foxair_1078": {
+        "name": "Zone 2 Heating Curve K / Room Temp Compensation (ASM)"
+      },
+      "foxair_1079": {
+        "name": "Zone 2 Heating Curve B / Room Temp Compensation (ASM)"
+      },
       "foxair_1080": {
         "name": "Z08: Ручная установка смесительного клапана (0% = авто)"
       },
+      "foxair_1081": {
+        "name": "F18: Мин. скорость вент. охлаждения"
+      },
       "foxair_1082": {
         "name": "Z09: Время открытия смесит. клапана"
+      },
+      "foxair_1083": {
+        "name": "F19: Мин. скорость вент. в отоплении"
       },
       "foxair_1084": {
         "name": "Z10: Время закрытия смесит. клапана"
@@ -1957,6 +2022,9 @@
       },
       "foxair_1088": {
         "name": "Z12: Смесит. клапан I (PID)"
+      },
+      "foxair_1089": {
+        "name": "F23: Номин. скорость DC/AC вентилятора"
       },
       "foxair_1090": {
         "name": "Z13: Период PID смесит. клапана"
@@ -2438,6 +2506,21 @@
       "foxair_1347": {
         "name": "C12: Макс. частота компр. в режиме ГВС"
       },
+      "foxair_1348": {
+        "name": "C13: Display-Firmware Parameter C13"
+      },
+      "foxair_1349": {
+        "name": "C14: Display-Firmware Parameter C14"
+      },
+      "foxair_1350": {
+        "name": "C15: Display-Firmware Parameter C15"
+      },
+      "foxair_1351": {
+        "name": "E20: Display-Firmware Parameter E20"
+      },
+      "foxair_1352": {
+        "name": "E21: Display-Firmware Parameter E21"
+      },
       "foxair_1353": {
         "name": "1353: Зарезервировано"
       },
@@ -2529,6 +2612,9 @@
           "disabled": "Запрещено",
           "enabled": "Разрешено"
         }
+      },
+      "foxair_1016": {
+        "name": "Manual Control / Silent Status"
       },
       "foxair_1018": {
         "name": "H01: Автозапуск",
@@ -2909,6 +2995,63 @@
       "foxair_1254": {
         "name": "Текущий системный месяц"
       },
+      "foxair_1268": {
+        "name": "KG13-KG28: Таймер Вкл/Выкл ТН Таймер 1+2 Актив/Дни битмаска",
+        "state": {
+          "off": "Выкл",
+          "mon": "Пн",
+          "tue": "Вт",
+          "wed": "Ср",
+          "thu": "Чт",
+          "fri": "Пт",
+          "sat": "Сб",
+          "sun": "Вс",
+          "weekdays_mon_fri": "Будние (Пн-Пт)",
+          "weekends_sat_sun": "Выходные (Сб-Вс)",
+          "every_day_mon_sun": "Каждый день (Пн-Вс)",
+          "mon_tue": "Пн-Вт",
+          "wed_thu": "Ср-Чт",
+          "fri_sat": "Пт-Сб"
+        }
+      },
+      "foxair_1269": {
+        "name": "KG29-KG44: Таймер Вкл/Выкл ТН Таймер 3+4 Актив/Дни битмаска",
+        "state": {
+          "off": "Выкл",
+          "mon": "Пн",
+          "tue": "Вт",
+          "wed": "Ср",
+          "thu": "Чт",
+          "fri": "Пт",
+          "sat": "Сб",
+          "sun": "Вс",
+          "weekdays_mon_fri": "Будние (Пн-Пт)",
+          "weekends_sat_sun": "Выходные (Сб-Вс)",
+          "every_day_mon_sun": "Каждый день (Пн-Вс)",
+          "mon_tue": "Пн-Вт",
+          "wed_thu": "Ср-Чт",
+          "fri_sat": "Пт-Сб"
+        }
+      },
+      "foxair_1270": {
+        "name": "KG45-KG60: Таймер Вкл/Выкл ТН Таймер 5+6 Актив/Дни битмаска",
+        "state": {
+          "off": "Выкл",
+          "mon": "Пн",
+          "tue": "Вт",
+          "wed": "Ср",
+          "thu": "Чт",
+          "fri": "Пт",
+          "sat": "Сб",
+          "sun": "Вс",
+          "weekdays_mon_fri": "Будние (Пн-Пт)",
+          "weekends_sat_sun": "Выходные (Сб-Вс)",
+          "every_day_mon_sun": "Каждый день (Пн-Вс)",
+          "mon_tue": "Пн-Вт",
+          "wed_thu": "Ср-Чт",
+          "fri_sat": "Пт-Сб"
+        }
+      },
       "foxair_1286": {
         "name": "Таймер 1 Код режима (ASM; 9 = без смены режима)",
         "state": {
@@ -3072,63 +3215,6 @@
           "sg3_medium_pv": "SG 3 / средне PV",
           "sg4_high_pv": "SG 4 / много PV",
           "normal": "Обычный режим"
-        }
-      },
-      "foxair_1268": {
-        "name": "KG13-KG28: Таймер Вкл/Выкл ТН Таймер 1+2 Актив/Дни битмаска",
-        "state": {
-          "off": "Выкл",
-          "mon": "Пн",
-          "tue": "Вт",
-          "wed": "Ср",
-          "thu": "Чт",
-          "fri": "Пт",
-          "sat": "Сб",
-          "sun": "Вс",
-          "weekdays_mon_fri": "Будние (Пн-Пт)",
-          "weekends_sat_sun": "Выходные (Сб-Вс)",
-          "every_day_mon_sun": "Каждый день (Пн-Вс)",
-          "mon_tue": "Пн-Вт",
-          "wed_thu": "Ср-Чт",
-          "fri_sat": "Пт-Сб"
-        }
-      },
-      "foxair_1269": {
-        "name": "KG29-KG44: Таймер Вкл/Выкл ТН Таймер 3+4 Актив/Дни битмаска",
-        "state": {
-          "off": "Выкл",
-          "mon": "Пн",
-          "tue": "Вт",
-          "wed": "Ср",
-          "thu": "Чт",
-          "fri": "Пт",
-          "sat": "Сб",
-          "sun": "Вс",
-          "weekdays_mon_fri": "Будние (Пн-Пт)",
-          "weekends_sat_sun": "Выходные (Сб-Вс)",
-          "every_day_mon_sun": "Каждый день (Пн-Вс)",
-          "mon_tue": "Пн-Вт",
-          "wed_thu": "Ср-Чт",
-          "fri_sat": "Пт-Сб"
-        }
-      },
-      "foxair_1270": {
-        "name": "KG45-KG60: Таймер Вкл/Выкл ТН Таймер 5+6 Актив/Дни битмаска",
-        "state": {
-          "off": "Выкл",
-          "mon": "Пн",
-          "tue": "Вт",
-          "wed": "Ср",
-          "thu": "Чт",
-          "fri": "Пт",
-          "sat": "Сб",
-          "sun": "Вс",
-          "weekdays_mon_fri": "Будние (Пн-Пт)",
-          "weekends_sat_sun": "Выходные (Сб-Вс)",
-          "every_day_mon_sun": "Каждый день (Пн-Вс)",
-          "mon_tue": "Пн-Вт",
-          "wed_thu": "Ср-Чт",
-          "fri_sat": "Пт-Сб"
         }
       }
     },

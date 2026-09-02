@@ -1,7 +1,7 @@
 from homeassistant.components.sensor import SensorEntity, SensorDeviceClass, SensorStateClass
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.helpers.entity import EntityCategory
-from .const import DOMAIN, EXPERT_BLOCKS, DEVICE, POPULAR_ADDRS, device_for_addr, main_device, entity_sort_key, DTYPE_SPEC
+from .const import DOMAIN, EXPERT_BLOCKS, DEVICE, POPULAR_ADDRS, device_for_addr, main_device, entity_sort_key, DTYPE_SPEC, get_device_prefix
 
 # Build DTYPE_MAP from DTYPE_SPEC for backwards compatibility
 DTYPE_MAP = {}
@@ -53,8 +53,9 @@ class FoxSensor(CoordinatorEntity, SensorEntity):
         self._addr = addr
         rec = coord.data.get(addr, {})
         info = rec.get("info", {}) if rec else {}
-        self._attr_unique_id = f"foxair_{addr}"
-        self._attr_translation_key = f"foxair_{addr}"
+        prefix = get_device_prefix(coord.entry)
+        self._attr_unique_id = f"{prefix}_{addr}"
+        self._attr_translation_key = f"{prefix}_{addr}"
         try:
             meta = coord.get_metadata(addr) if hasattr(coord, "get_metadata") else {}
         except: meta = {}
@@ -64,7 +65,7 @@ class FoxSensor(CoordinatorEntity, SensorEntity):
         # coordinator stores entry_id via hass.data key; fallback to None -> main
         if not entry_id and hasattr(coord, "_entry_id"):
             entry_id = coord._entry_id
-        self._attr_device_info = device_for_addr(addr, block, entry_id, tab)
+        self._attr_device_info = device_for_addr(addr, block, entry_id, tab, prefix)
         dtype = info.get("type","RAW")
         dc, unit, sc = DTYPE_MAP.get(dtype, (None, info.get("unit") or None, None))
         if dc: self._attr_device_class = dc
@@ -126,7 +127,6 @@ class FoxSensor(CoordinatorEntity, SensorEntity):
 
 class FoxHeatingCurveTargetSensor(CoordinatorEntity, SensorEntity):
     _attr_has_entity_name = True
-    _attr_translation_key = "foxair_heating_curve_target"
     _attr_name = "Heating Curve Target"
     _attr_device_class = SensorDeviceClass.TEMPERATURE
     _attr_native_unit_of_measurement = "°C"
@@ -134,9 +134,11 @@ class FoxHeatingCurveTargetSensor(CoordinatorEntity, SensorEntity):
     _attr_icon = "mdi:chart-bell-curve"
     def __init__(self, coord):
         super().__init__(coord)
-        self._attr_unique_id = "foxair_heating_curve_target"
+        prefix = get_device_prefix(coord.entry)
+        self._attr_translation_key = f"{prefix}_heating_curve_target"
+        self._attr_unique_id = f"{prefix}_heating_curve_target"
         entry_id = getattr(coord, "_entry_id", None) or getattr(coord, "config_entry", None) and getattr(coord.config_entry, "entry_id", None)
-        self._attr_device_info = main_device(entry_id)
+        self._attr_device_info = main_device(entry_id, prefix)
         self._hc = coord.marker("heat_curve") if hasattr(coord, "marker") else {}
         self._st = coord.marker("setpoints") if hasattr(coord, "marker") else {}
         self._status = coord.marker("status") if hasattr(coord, "marker") else {}
@@ -299,11 +301,13 @@ class FoxComputedSensor(CoordinatorEntity, SensorEntity):
 
     def __init__(self, coord):
         super().__init__(coord)
+        prefix = get_device_prefix(coord.entry)
         entry_id = getattr(coord, "_entry_id", None) or (
             getattr(coord, "config_entry", None)
             and coord.config_entry.entry_id
         )
-        self._attr_device_info = main_device(entry_id)
+        self._attr_device_info = main_device(entry_id, prefix)
+        self._prefix = prefix
 
     @property
     def _opts(self):
@@ -311,12 +315,15 @@ class FoxComputedSensor(CoordinatorEntity, SensorEntity):
 
 
 class FoxHeatingPowerSensor(FoxComputedSensor):
-    _attr_unique_id = "foxair_heating_power"
-    _attr_translation_key = "foxair_heating_power"
     _attr_device_class = SensorDeviceClass.POWER
     _attr_native_unit_of_measurement = "W"
     _attr_state_class = SensorStateClass.MEASUREMENT
     _attr_icon = "mdi:radiator"
+
+    def __init__(self, coord):
+        super().__init__(coord)
+        self._attr_unique_id = f"{self._prefix}_heating_power"
+        self._attr_translation_key = f"{self._prefix}_heating_power"
 
     @property
     def native_value(self):
@@ -339,12 +346,15 @@ class FoxHeatingPowerSensor(FoxComputedSensor):
 
 
 class FoxElectricalPowerSensor(FoxComputedSensor):
-    _attr_unique_id = "foxair_electrical_power"
-    _attr_translation_key = "foxair_electrical_power"
     _attr_device_class = SensorDeviceClass.POWER
     _attr_native_unit_of_measurement = "W"
     _attr_state_class = SensorStateClass.MEASUREMENT
     _attr_icon = "mdi:flash"
+
+    def __init__(self, coord):
+        super().__init__(coord)
+        self._attr_unique_id = f"{self._prefix}_electrical_power"
+        self._attr_translation_key = f"{self._prefix}_electrical_power"
 
     @property
     def native_value(self):
@@ -358,10 +368,13 @@ class FoxElectricalPowerSensor(FoxComputedSensor):
 
 
 class FoxCopSensor(FoxComputedSensor):
-    _attr_unique_id = "foxair_cop"
-    _attr_translation_key = "foxair_cop"
     _attr_state_class = SensorStateClass.MEASUREMENT
     _attr_icon = "mdi:sigma"
+
+    def __init__(self, coord):
+        super().__init__(coord)
+        self._attr_unique_id = f"{self._prefix}_cop"
+        self._attr_translation_key = f"{self._prefix}_cop"
 
     @property
     def native_value(self):

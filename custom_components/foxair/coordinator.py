@@ -67,6 +67,15 @@ def _decode_hhmm(raw: int) -> str:
     return str(s16(raw))
 
 
+def _decode_decimal_hhmm(raw: int) -> str:
+    v = s16(raw)
+    if 0 <= v <= 2359:
+        h, m = divmod(v, 100)
+        if 0 <= h <= 23 and 0 <= m <= 59:
+            return f"{h:02d}:{m:02d}"
+    return str(v)
+
+
 def scaled(dtype, raw):
     """Scale raw register value using types table from foxair_config.json."""
     dtype = (dtype or "RAW").upper()

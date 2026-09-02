@@ -8,6 +8,7 @@
           "host": "Host",
           "port": "Port",
           "slave": "Slave-ID",
+          "name_prefix": "Geräte-Prefix (z. B. foxair, phnix, haus1)",
           "enable_expert": "Expertenmodus aktivieren (erweiterte / gefährliche Parameter)"
         }
       }
@@ -17,7 +18,8 @@
     },
     "error": {
       "cannot_connect": "Verbindung fehlgeschlagen — Host, Port und Slave-ID prüfen",
-      "need_ack": "Sie müssen das Risiko bestätigen, um den Expertenmodus zu aktivieren"
+      "need_ack": "Sie müssen das Risiko bestätigen, um den Expertenmodus zu aktivieren",
+      "invalid_prefix": "Prefix muss Kleinbuchstaben, Zahlen, Unterstrich, 1-32 Zeichen sein"
     }
   },
   "entity": {
@@ -112,6 +114,15 @@
       "foxair_1014": {
         "name": "Zentralregler zum Abtauen zulassen bei D26-1"
       },
+      "foxair_1015": {
+        "name": "Sprachauswahl"
+      },
+      "foxair_1016": {
+        "name": "Manuelle Steuerung / Silent Status"
+      },
+      "foxair_1017": {
+        "name": "Logo-Auswahl"
+      },
       "foxair_1018": {
         "name": "H01: Power Off Memory aktivieren (Autostart)"
       },
@@ -132,6 +143,12 @@
       },
       "foxair_1024": {
         "name": "H10: Geräteadresse"
+      },
+      "foxair_1025": {
+        "name": "H38: Spracheinstellung"
+      },
+      "foxair_1026": {
+        "name": "H39: Logo-Auswahl / Kundenlogo-Code (ASM)"
       },
       "foxair_1027": {
         "name": "H27: EVI aktivieren"
@@ -285,6 +302,12 @@
       },
       "foxair_1077": {
         "name": "Z17: AT-Kompensationskurve Zone 2 aktivieren"
+      },
+      "foxair_1078": {
+        "name": "Zone2 Heizkurve K / Raumtemperatur-Kompensation (ASM)"
+      },
+      "foxair_1079": {
+        "name": "Zone2 Heizkurve B / Raumtemperatur-Kompensation (ASM)"
       },
       "foxair_1080": {
         "name": "Z08: Mischventil manuelle Stellrate (0% = Auto-Regelung)"
@@ -782,7 +805,7 @@
         "name": "Silentmodus Timer Start aktivieren"
       },
       "foxair_1245": {
-        "name": "Silentmodus Timer Start Stunde"
+        "name": "Silentmodus Timer Startzeit (HH:MM aus Stunde+Minute)"
       },
       "foxair_1246": {
         "name": "Silentmodus Timer Start Minute"
@@ -791,7 +814,7 @@
         "name": "Silentmodus Timer Stop aktivieren"
       },
       "foxair_1248": {
-        "name": "Silentmodus Timer Stop Stunde"
+        "name": "Silentmodus Timer Stopzeit (HH:MM aus Stunde+Minute)"
       },
       "foxair_1249": {
         "name": "Silentmodus Timer Stop Minute"
@@ -1090,6 +1113,21 @@
       "foxair_1347": {
         "name": "C12: Max. Kompressorfrequenz im Warmwasserbetrieb"
       },
+      "foxair_1348": {
+        "name": "C13: Display-Firmware Parameter C13"
+      },
+      "foxair_1349": {
+        "name": "C14: Display-Firmware Parameter C14"
+      },
+      "foxair_1350": {
+        "name": "C15: Display-Firmware Parameter C15"
+      },
+      "foxair_1351": {
+        "name": "E20: Display-Firmware Parameter E20"
+      },
+      "foxair_1352": {
+        "name": "E21: Display-Firmware Parameter E21"
+      },
       "foxair_1353": {
         "name": "Reserviert"
       },
@@ -1181,7 +1219,7 @@
         "name": "P14: Nachfüllventil Arbeitsdauer (IDU)"
       },
       "foxair_1437": {
-        "name": "D30: Nachlaufzeit Gehäusewannenheizung nach Abtauung"
+        "name": "D30: Gehaeusewannenheizung Delays Off Time after Defrost"
       },
       "foxair_1438": {
         "name": "P15: Ziel-Wasserdruck (IDU)"
@@ -1292,7 +1330,7 @@
         "name": "Gerätezustand"
       },
       "foxair_2012": {
-        "name": "Aktueller Betriebsmodus"
+        "name": "Aktueller Betriebsstatus"
       },
       "foxair_2013": {
         "name": "Temperaturwert nach Begrenzung"
@@ -1427,7 +1465,7 @@
         "name": "T? / System 1 Frostschutztemperatur 2 / Coil/Frost Temp 2 (ASM V1.3)"
       },
       "foxair_2057": {
-        "name": "T35: / AC Input Current"
+        "name": "T35: AC Input Current"
       },
       "foxair_2058": {
         "name": "T09: Raumtemperatur"
@@ -1765,35 +1803,14 @@
       "foxair_electrical_power": {
         "name": "Elektrische Leistung (berechnet)"
       },
+      "foxair_h43": {
+        "name": "H43: Normal/Eco"
+      },
       "foxair_heating_curve_target": {
         "name": "Heizkurven-Zieltemperatur"
       },
       "foxair_heating_power": {
         "name": "Heizleistung (berechnet)"
-      },
-      "foxair_s_s02": {
-        "name": "S02: Niederdruckschalter"
-      },
-      "foxair_s_s03": {
-        "name": "S03: Wasserflussschalter"
-      },
-      "foxair_s_s04": {
-        "name": "S04: Überhitzungsschalter elektrischer Heizer"
-      },
-      "foxair_s_s05": {
-        "name": "S05: Fern-AN/AUS"
-      },
-      "foxair_s_s06": {
-        "name": "S06: Fernheizung/Kühlung"
-      },
-      "foxair_s_s07": {
-        "name": "S07: Warmwasserschalter"
-      },
-      "foxair_s_s10": {
-        "name": "S10: Heizen/Kühlen AN/AUS"
-      },
-      "foxair_h43": {
-        "name": "H43: Normal/Eco"
       },
       "foxair_o_o05": {
         "name": "O05: Hauptumwälzpumpe"
@@ -1827,6 +1844,27 @@
       },
       "foxair_o_o17": {
         "name": "O17: EEV(EVI) Schritte"
+      },
+      "foxair_s_s02": {
+        "name": "S02: Niederdruckschalter"
+      },
+      "foxair_s_s03": {
+        "name": "S03: Wasserflussschalter"
+      },
+      "foxair_s_s04": {
+        "name": "S04: Überhitzungsschalter elektrischer Heizer"
+      },
+      "foxair_s_s05": {
+        "name": "S05: Fern-AN/AUS"
+      },
+      "foxair_s_s06": {
+        "name": "S06: Fernheizung/Kühlung"
+      },
+      "foxair_s_s07": {
+        "name": "S07: Warmwasserschalter"
+      },
+      "foxair_s_s10": {
+        "name": "S10: Heizen/Kühlen AN/AUS"
       }
     },
     "climate": {
@@ -1847,8 +1885,20 @@
       "foxair_1013": {
         "name": "Wassertanktemperatur (vom Zentralregler bei H37-1)"
       },
+      "foxair_1015": {
+        "name": "Sprachauswahl"
+      },
+      "foxair_1017": {
+        "name": "Logo-Auswahl"
+      },
       "foxair_1022": {
         "name": "Reserviert"
+      },
+      "foxair_1025": {
+        "name": "H38: Spracheinstellung"
+      },
+      "foxair_1026": {
+        "name": "H39: Logo-Auswahl / Kundenlogo-Code (ASM)"
       },
       "foxair_1031": {
         "name": "A35: Electric Heater Off Temp Diff / E-Heizer Ausschalt-Temperaturdifferenz"
@@ -1873,6 +1923,9 @@
       },
       "foxair_1044": {
         "name": "A24: Übermäßige Temperaturdifferenz zwischen Einlass- und Auslasswasser"
+      },
+      "foxair_1045": {
+        "name": "H32: Erzwungene Umschaltzeit"
       },
       "foxair_1048": {
         "name": "External Pump Selection (Code unbekannt / nicht H37)"
@@ -1943,11 +1996,23 @@
       "foxair_1076": {
         "name": "Z07: Zone 2 Mischwasser-Auslasswasser-Sollwert"
       },
+      "foxair_1078": {
+        "name": "Zone2 Heizkurve K / Raumtemperatur-Kompensation (ASM)"
+      },
+      "foxair_1079": {
+        "name": "Zone2 Heizkurve B / Raumtemperatur-Kompensation (ASM)"
+      },
       "foxair_1080": {
         "name": "Z08: Mischventil manuelle Stellrate (0% = Auto-Regelung)"
       },
+      "foxair_1081": {
+        "name": "F18: Min. Lüfterdrehzahl im Kühlbetrieb"
+      },
       "foxair_1082": {
         "name": "Z09: Mischventil Öffnungszeit"
+      },
+      "foxair_1083": {
+        "name": "F19: Min. Lüfterdrehzahl im Heizbetrieb"
       },
       "foxair_1084": {
         "name": "Z10: Mischventil Schließzeit"
@@ -1957,6 +2022,9 @@
       },
       "foxair_1088": {
         "name": "Z12: Mischventil Regelung I-Anteil (PID)"
+      },
+      "foxair_1089": {
+        "name": "F23: Nenn-DC-Lüftermotordrehzahl"
       },
       "foxair_1090": {
         "name": "Z13: Mischventil PID-Zyklus"
@@ -2438,6 +2506,21 @@
       "foxair_1347": {
         "name": "C12: Max. Kompressorfrequenz im Warmwasserbetrieb"
       },
+      "foxair_1348": {
+        "name": "C13: Display-Firmware Parameter C13"
+      },
+      "foxair_1349": {
+        "name": "C14: Display-Firmware Parameter C14"
+      },
+      "foxair_1350": {
+        "name": "C15: Display-Firmware Parameter C15"
+      },
+      "foxair_1351": {
+        "name": "E20: Display-Firmware Parameter E20"
+      },
+      "foxair_1352": {
+        "name": "E21: Display-Firmware Parameter E21"
+      },
       "foxair_1353": {
         "name": "Reserviert"
       },
@@ -2496,7 +2579,7 @@
         "name": "P14: Nachfüllventil Arbeitsdauer (IDU)"
       },
       "foxair_1437": {
-        "name": "D30: Nachlaufzeit Gehäusewannenheizung nach Abtauung"
+        "name": "D30: Gehaeusewannenheizung Delays Off Time after Defrost"
       },
       "foxair_1438": {
         "name": "P15: Ziel-Wasserdruck (IDU)"
@@ -2529,6 +2612,9 @@
           "disabled": "nicht zulassen",
           "enabled": "zulassen"
         }
+      },
+      "foxair_1016": {
+        "name": "Manuelle Steuerung / Silent Status"
       },
       "foxair_1018": {
         "name": "H01: Power Off Memory aktivieren (Autostart)",
@@ -2909,6 +2995,63 @@
       "foxair_1254": {
         "name": "Aktueller Systemmonat"
       },
+      "foxair_1268": {
+        "name": "KG13-KG28: WP Ein/Aus Timer 1+2 Aktiv/Tage Bitmaske",
+        "state": {
+          "off": "Aus",
+          "mon": "Mo",
+          "tue": "Di",
+          "wed": "Mi",
+          "thu": "Do",
+          "fri": "Fr",
+          "sat": "Sa",
+          "sun": "So",
+          "weekdays_mon_fri": "Wochentage (Mo-Fr)",
+          "weekends_sat_sun": "Wochenende (Sa-So)",
+          "every_day_mon_sun": "Jeden Tag (Mo-So)",
+          "mon_tue": "Mo-Di",
+          "wed_thu": "Mi-Do",
+          "fri_sat": "Fr-Sa"
+        }
+      },
+      "foxair_1269": {
+        "name": "KG29-KG44: WP Ein/Aus Timer 3+4 Aktiv/Tage Bitmaske",
+        "state": {
+          "off": "Aus",
+          "mon": "Mo",
+          "tue": "Di",
+          "wed": "Mi",
+          "thu": "Do",
+          "fri": "Fr",
+          "sat": "Sa",
+          "sun": "So",
+          "weekdays_mon_fri": "Wochentage (Mo-Fr)",
+          "weekends_sat_sun": "Wochenende (Sa-So)",
+          "every_day_mon_sun": "Jeden Tag (Mo-So)",
+          "mon_tue": "Mo-Di",
+          "wed_thu": "Mi-Do",
+          "fri_sat": "Fr-Sa"
+        }
+      },
+      "foxair_1270": {
+        "name": "KG45-KG60: WP Ein/Aus Timer 5+6 Aktiv/Tage Bitmaske",
+        "state": {
+          "off": "Aus",
+          "mon": "Mo",
+          "tue": "Di",
+          "wed": "Mi",
+          "thu": "Do",
+          "fri": "Fr",
+          "sat": "Sa",
+          "sun": "So",
+          "weekdays_mon_fri": "Wochentage (Mo-Fr)",
+          "weekends_sat_sun": "Wochenende (Sa-So)",
+          "every_day_mon_sun": "Jeden Tag (Mo-So)",
+          "mon_tue": "Mo-Di",
+          "wed_thu": "Mi-Do",
+          "fri_sat": "Fr-Sa"
+        }
+      },
       "foxair_1286": {
         "name": "Timer 1 Modus-Code (ASM; 9 = keinen Modus ändern)",
         "state": {
@@ -3072,63 +3215,6 @@
           "sg3_medium_pv": "SG Mode 3 / mittel PV",
           "sg4_high_pv": "SG Mode 4 / High PV",
           "normal": "Normalbetrieb"
-        }
-      },
-      "foxair_1268": {
-        "name": "KG13-KG28: WP Ein/Aus Timer 1+2 Aktiv/Tage Bitmaske",
-        "state": {
-          "off": "Aus",
-          "mon": "Mo",
-          "tue": "Di",
-          "wed": "Mi",
-          "thu": "Do",
-          "fri": "Fr",
-          "sat": "Sa",
-          "sun": "So",
-          "weekdays_mon_fri": "Wochentage (Mo-Fr)",
-          "weekends_sat_sun": "Wochenende (Sa-So)",
-          "every_day_mon_sun": "Jeden Tag (Mo-So)",
-          "mon_tue": "Mo-Di",
-          "wed_thu": "Mi-Do",
-          "fri_sat": "Fr-Sa"
-        }
-      },
-      "foxair_1269": {
-        "name": "KG29-KG44: WP Ein/Aus Timer 3+4 Aktiv/Tage Bitmaske",
-        "state": {
-          "off": "Aus",
-          "mon": "Mo",
-          "tue": "Di",
-          "wed": "Mi",
-          "thu": "Do",
-          "fri": "Fr",
-          "sat": "Sa",
-          "sun": "So",
-          "weekdays_mon_fri": "Wochentage (Mo-Fr)",
-          "weekends_sat_sun": "Wochenende (Sa-So)",
-          "every_day_mon_sun": "Jeden Tag (Mo-So)",
-          "mon_tue": "Mo-Di",
-          "wed_thu": "Mi-Do",
-          "fri_sat": "Fr-Sa"
-        }
-      },
-      "foxair_1270": {
-        "name": "KG45-KG60: WP Ein/Aus Timer 5+6 Aktiv/Tage Bitmaske",
-        "state": {
-          "off": "Aus",
-          "mon": "Mo",
-          "tue": "Di",
-          "wed": "Mi",
-          "thu": "Do",
-          "fri": "Fr",
-          "sat": "Sa",
-          "sun": "So",
-          "weekdays_mon_fri": "Wochentage (Mo-Fr)",
-          "weekends_sat_sun": "Wochenende (Sa-So)",
-          "every_day_mon_sun": "Jeden Tag (Mo-So)",
-          "mon_tue": "Mo-Di",
-          "wed_thu": "Mi-Do",
-          "fri_sat": "Fr-Sa"
         }
       }
     },

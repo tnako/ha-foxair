@@ -1,4 +1,9 @@
-## 0.4.44 - 2026-09-01
+## 0.5.0 - 2026-09-01
+- feat(prefix): configurable entity prefix (`name_prefix` in config flow) — allows multiple FoxAir/PHNIX heat pumps without entity_id collisions; device names, entity IDs, translation keys, and unique IDs all derive from prefix (default: `foxair`)
+- feat(timer): circulation pump 1326-1331 now time picker (TIME_DECIMAL HHMM 730→07:30) instead of 0-2359 slider; silent timer now 2×time + 2×switch (1245/1248 composite HH:MM via hour+minute pair, 1244/1247 as toggles) instead of 6 selects/sliders; new platform `switch` (SWITCH dtype) + types TIME_DECIMAL/TIME_SPLIT
+- fix(i18n): strip CODE prefix from register names (H42/D30/T35) — source of double prefix `H42: H42 ...` in de translation
+
+## 0.4.45 - 2026-09-01
 - fix(tooling): parse_range gate `< 500` missed exact-bound values (0 bis 500) — now `<=` with per-type limits; E03/E07/E08/E10/E14/E17 and T 2020/2022 now derive min/max from description instead of fallback
 
 ## 0.4.43 - 2026-09-01

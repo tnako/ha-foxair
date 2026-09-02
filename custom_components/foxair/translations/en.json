@@ -8,6 +8,7 @@
           "host": "Host",
           "port": "Port",
           "slave": "Slave ID",
+          "name_prefix": "Device prefix (e.g. foxair, phnix, house1)",
           "enable_expert": "Enable expert mode (advanced/dangerous parameters)"
         }
       }
@@ -17,7 +18,8 @@
     },
     "error": {
       "cannot_connect": "Failed to connect — check host, port and slave ID",
-      "need_ack": "You must acknowledge the risk to enable expert mode"
+      "need_ack": "You must acknowledge the risk to enable expert mode",
+      "invalid_prefix": "Prefix must be lowercase alphanumeric with underscores, 1-32 characters"
     }
   },
   "entity": {
@@ -112,6 +114,15 @@
       "foxair_1014": {
         "name": "Allow Central Controller Defrost at D26=1"
       },
+      "foxair_1015": {
+        "name": "Language Selection"
+      },
+      "foxair_1016": {
+        "name": "Manual Control / Silent Status"
+      },
+      "foxair_1017": {
+        "name": "Logo Selection"
+      },
       "foxair_1018": {
         "name": "H01: Auto start"
       },
@@ -132,6 +143,12 @@
       },
       "foxair_1024": {
         "name": "H10: Unit Address"
+      },
+      "foxair_1025": {
+        "name": "H38: Language choice"
+      },
+      "foxair_1026": {
+        "name": "H39: Logo Selection / Customer Logo Code (ASM)"
       },
       "foxair_1027": {
         "name": "H27: EVI Enabled"
@@ -285,6 +302,12 @@
       },
       "foxair_1077": {
         "name": "Z17: Enable AT Compensation Curve Zone 2"
+      },
+      "foxair_1078": {
+        "name": "Zone 2 Heating Curve K / Room Temp Compensation (ASM)"
+      },
+      "foxair_1079": {
+        "name": "Zone 2 Heating Curve B / Room Temp Compensation (ASM)"
       },
       "foxair_1080": {
         "name": "Z08: Mixing Valve Manual Adjustment Ratio (0% for Auto Control)"
@@ -1090,6 +1113,21 @@
       "foxair_1347": {
         "name": "C12: Max. Comp. Frequency in DHW mode"
       },
+      "foxair_1348": {
+        "name": "C13: Display-Firmware Parameter C13"
+      },
+      "foxair_1349": {
+        "name": "C14: Display-Firmware Parameter C14"
+      },
+      "foxair_1350": {
+        "name": "C15: Display-Firmware Parameter C15"
+      },
+      "foxair_1351": {
+        "name": "E20: Display-Firmware Parameter E20"
+      },
+      "foxair_1352": {
+        "name": "E21: Display-Firmware Parameter E21"
+      },
       "foxair_1353": {
         "name": "1353: Reserved"
       },
@@ -1765,35 +1803,14 @@
       "foxair_electrical_power": {
         "name": "Electrical Power (calculated)"
       },
+      "foxair_h43": {
+        "name": "H43: Normal/Eco"
+      },
       "foxair_heating_curve_target": {
         "name": "Heating Curve Target"
       },
       "foxair_heating_power": {
         "name": "Heating Power (calculated)"
-      },
-      "foxair_s_s02": {
-        "name": "S02: Low Pressure Switch"
-      },
-      "foxair_s_s03": {
-        "name": "S03: Flow Switch"
-      },
-      "foxair_s_s04": {
-        "name": "S04: Electric Heater Overload"
-      },
-      "foxair_s_s05": {
-        "name": "S05: Remote Switch"
-      },
-      "foxair_s_s06": {
-        "name": "S06: Air Conditioning Mode Switch"
-      },
-      "foxair_s_s07": {
-        "name": "S07: DHW Switch"
-      },
-      "foxair_s_s10": {
-        "name": "S10: Air Conditioning Switch"
-      },
-      "foxair_h43": {
-        "name": "H43: Normal/Eco"
       },
       "foxair_o_o05": {
         "name": "O05: Main Circulation Pump"
@@ -1827,6 +1844,27 @@
       },
       "foxair_o_o17": {
         "name": "O17: EEV(EVI) Steps"
+      },
+      "foxair_s_s02": {
+        "name": "S02: Low Pressure Switch"
+      },
+      "foxair_s_s03": {
+        "name": "S03: Flow Switch"
+      },
+      "foxair_s_s04": {
+        "name": "S04: Electric Heater Overload"
+      },
+      "foxair_s_s05": {
+        "name": "S05: Remote Switch"
+      },
+      "foxair_s_s06": {
+        "name": "S06: Air Conditioning Mode Switch"
+      },
+      "foxair_s_s07": {
+        "name": "S07: DHW Switch"
+      },
+      "foxair_s_s10": {
+        "name": "S10: Air Conditioning Switch"
       }
     },
     "climate": {
@@ -1847,8 +1885,20 @@
       "foxair_1013": {
         "name": "DHW Tank Temperature (from central controller H37=1)"
       },
+      "foxair_1015": {
+        "name": "Language Selection"
+      },
+      "foxair_1017": {
+        "name": "Logo Selection"
+      },
       "foxair_1022": {
         "name": "1022: Reserved"
+      },
+      "foxair_1025": {
+        "name": "H38: Language choice"
+      },
+      "foxair_1026": {
+        "name": "H39: Logo Selection / Customer Logo Code (ASM)"
       },
       "foxair_1031": {
         "name": "A35: Electric Heater Off Temp. Diff"
@@ -1873,6 +1923,9 @@
       },
       "foxair_1044": {
         "name": "A24: Excess Temp. Diff. Between inlet and Outlet Temp."
+      },
+      "foxair_1045": {
+        "name": "H32: Heating and hot water forced switching time"
       },
       "foxair_1048": {
         "name": "External Pump Selection []"
@@ -1943,11 +1996,23 @@
       "foxair_1076": {
         "name": "Z07: Zone 2 Mixing Target Outlet WT"
       },
+      "foxair_1078": {
+        "name": "Zone 2 Heating Curve K / Room Temp Compensation (ASM)"
+      },
+      "foxair_1079": {
+        "name": "Zone 2 Heating Curve B / Room Temp Compensation (ASM)"
+      },
       "foxair_1080": {
         "name": "Z08: Mixing Valve Manual Adjustment Ratio (0% for Auto Control)"
       },
+      "foxair_1081": {
+        "name": "F18: Cooling Fan Min Speed"
+      },
       "foxair_1082": {
         "name": "Z09: Mixing Valve Opening Time"
+      },
+      "foxair_1083": {
+        "name": "F19: Min. Fan Speed in Heating"
       },
       "foxair_1084": {
         "name": "Z10: Mixing Valve Closing Time"
@@ -1957,6 +2022,9 @@
       },
       "foxair_1088": {
         "name": "Z12: Mixing Valve Adjustment I(PID)"
+      },
+      "foxair_1089": {
+        "name": "F23: DC/AC Fan Rated Speed"
       },
       "foxair_1090": {
         "name": "Z13: Mixing Valve PID Period"
@@ -2438,6 +2506,21 @@
       "foxair_1347": {
         "name": "C12: Max. Comp. Frequency in DHW mode"
       },
+      "foxair_1348": {
+        "name": "C13: Display-Firmware Parameter C13"
+      },
+      "foxair_1349": {
+        "name": "C14: Display-Firmware Parameter C14"
+      },
+      "foxair_1350": {
+        "name": "C15: Display-Firmware Parameter C15"
+      },
+      "foxair_1351": {
+        "name": "E20: Display-Firmware Parameter E20"
+      },
+      "foxair_1352": {
+        "name": "E21: Display-Firmware Parameter E21"
+      },
       "foxair_1353": {
         "name": "1353: Reserved"
       },
@@ -2529,6 +2612,9 @@
           "disabled": "Disabled",
           "enabled": "Enabled"
         }
+      },
+      "foxair_1016": {
+        "name": "Manual Control / Silent Status"
       },
       "foxair_1018": {
         "name": "H01: Auto start",
@@ -2909,6 +2995,63 @@
       "foxair_1254": {
         "name": "Current System Month"
       },
+      "foxair_1268": {
+        "name": "KG13-KG28: HP On/Off Timer 1+2 Active/Days Bitmask",
+        "state": {
+          "off": "Off",
+          "mon": "Mon",
+          "tue": "Tue",
+          "wed": "Wed",
+          "thu": "Thu",
+          "fri": "Fri",
+          "sat": "Sat",
+          "sun": "Sun",
+          "weekdays_mon_fri": "Weekdays (Mon-Fri)",
+          "weekends_sat_sun": "Weekends (Sat-Sun)",
+          "every_day_mon_sun": "Every Day (Mon-Sun)",
+          "mon_tue": "Mon-Tue",
+          "wed_thu": "Wed-Thu",
+          "fri_sat": "Fri-Sat"
+        }
+      },
+      "foxair_1269": {
+        "name": "KG29-KG44: HP On/Off Timer 3+4 Active/Days Bitmask",
+        "state": {
+          "off": "Off",
+          "mon": "Mon",
+          "tue": "Tue",
+          "wed": "Wed",
+          "thu": "Thu",
+          "fri": "Fri",
+          "sat": "Sat",
+          "sun": "Sun",
+          "weekdays_mon_fri": "Weekdays (Mon-Fri)",
+          "weekends_sat_sun": "Weekends (Sat-Sun)",
+          "every_day_mon_sun": "Every Day (Mon-Sun)",
+          "mon_tue": "Mon-Tue",
+          "wed_thu": "Wed-Thu",
+          "fri_sat": "Fri-Sat"
+        }
+      },
+      "foxair_1270": {
+        "name": "KG45-KG60: HP On/Off Timer 5+6 Active/Days Bitmask",
+        "state": {
+          "off": "Off",
+          "mon": "Mon",
+          "tue": "Tue",
+          "wed": "Wed",
+          "thu": "Thu",
+          "fri": "Fri",
+          "sat": "Sat",
+          "sun": "Sun",
+          "weekdays_mon_fri": "Weekdays (Mon-Fri)",
+          "weekends_sat_sun": "Weekends (Sat-Sun)",
+          "every_day_mon_sun": "Every Day (Mon-Sun)",
+          "mon_tue": "Mon-Tue",
+          "wed_thu": "Wed-Thu",
+          "fri_sat": "Fri-Sat"
+        }
+      },
       "foxair_1286": {
         "name": "Timer 1 Mode Code (ASM; 9 = no mode change)",
         "state": {
@@ -3072,63 +3215,6 @@
           "sg3_medium_pv": "SG Mode 3 / Medium PV",
           "sg4_high_pv": "SG Mode 4 / High PV",
           "normal": "Normal Operation"
-        }
-      },
-      "foxair_1268": {
-        "name": "KG13-KG28: HP On/Off Timer 1+2 Active/Days Bitmask",
-        "state": {
-          "off": "Off",
-          "mon": "Mon",
-          "tue": "Tue",
-          "wed": "Wed",
-          "thu": "Thu",
-          "fri": "Fri",
-          "sat": "Sat",
-          "sun": "Sun",
-          "weekdays_mon_fri": "Weekdays (Mon-Fri)",
-          "weekends_sat_sun": "Weekends (Sat-Sun)",
-          "every_day_mon_sun": "Every Day (Mon-Sun)",
-          "mon_tue": "Mon-Tue",
-          "wed_thu": "Wed-Thu",
-          "fri_sat": "Fri-Sat"
-        }
-      },
-      "foxair_1269": {
-        "name": "KG29-KG44: HP On/Off Timer 3+4 Active/Days Bitmask",
-        "state": {
-          "off": "Off",
-          "mon": "Mon",
-          "tue": "Tue",
-          "wed": "Wed",
-          "thu": "Thu",
-          "fri": "Fri",
-          "sat": "Sat",
-          "sun": "Sun",
-          "weekdays_mon_fri": "Weekdays (Mon-Fri)",
-          "weekends_sat_sun": "Weekends (Sat-Sun)",
-          "every_day_mon_sun": "Every Day (Mon-Sun)",
-          "mon_tue": "Mon-Tue",
-          "wed_thu": "Wed-Thu",
-          "fri_sat": "Fri-Sat"
-        }
-      },
-      "foxair_1270": {
-        "name": "KG45-KG60: HP On/Off Timer 5+6 Active/Days Bitmask",
-        "state": {
-          "off": "Off",
-          "mon": "Mon",
-          "tue": "Tue",
-          "wed": "Wed",
-          "thu": "Thu",
-          "fri": "Fri",
-          "sat": "Sat",
-          "sun": "Sun",
-          "weekdays_mon_fri": "Weekdays (Mon-Fri)",
-          "weekends_sat_sun": "Weekends (Sat-Sun)",
-          "every_day_mon_sun": "Every Day (Mon-Sun)",
-          "mon_tue": "Mon-Tue",
-          "wed_thu": "Wed-Thu",
-          "fri_sat": "Fri-Sat"
         }
       }
     },
