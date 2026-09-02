@@ -24,7 +24,7 @@
     ]
   ],
   "_dead_ranges_comment": "Address ranges excluded from contiguous read batches. 200-215 = PHNIX/Aliyun ProductKey ASCII (FC10, no FC03 answer, EW11 corruption). 2029-2032 = T-Diag5-8 write-only FC16 registers that return no data.",
-  "hidden_comment": "Address ranges permanently hidden from the UI (not even in expert mode) and excluded from polling/editing: protocol block headers, reserved/factory test, cloud/wifi/serial identifiers, system clock, board/service info. 'keep' addresses inside these ranges stay visible (used by climate/curve/main device). Note: 1015 (language selection, unknown value map), 1016 (Silent Status bitfield — use 1030 H22 Silent-Modus for On/Off toggle), 1017 (logo selection, unknown value map), 1025-1026 (H38/H39 display-firmware language/logo codes, value map unknown), 1078-1079 (ASM Zone2 compensation params) and 1348-1352 (C13-E21 display-firmware parameters not visible in app) are excluded.",
+  "hidden_comment": "Address ranges permanently hidden from the UI (not even in expert mode) and excluded from polling/editing: protocol block headers, reserved/factory test, cloud/wifi/serial identifiers, system clock, board/service info. 'keep' addresses inside these ranges stay visible (used by climate/curve/main device). Note: 1015 (language selection, unknown value map), 1017 (logo selection, unknown value map), 1025-1026 (H38/H39 display-firmware language/logo codes, value map unknown), 1078-1079 (ASM Zone2 compensation params) and 1348-1352 (C13-E21 display-firmware parameters not visible in app) are excluded. 1016 (Silent Status bitfield) is excluded from hidden ranges — it is firmware-gated (>=3.3) via min_firmware in foxair_config.json overrides, since the manual defrost/silent/manual-heat bits only exist on Firmware 3.3+.",
   "hidden": [
     [
       200,
@@ -36,6 +36,10 @@
     ],
     [
       1015,
+      1015
+    ],
+    [
+      1017,
       1017
     ],
     [
@@ -172,6 +176,10 @@
     ],
     [
       2103,
+      2103
+    ],
+    [
+      2105,
       2109
     ],
     [
@@ -719,6 +727,7 @@
         1236,
         2012,
         2014,
+        2104,
         8801
       ]
     },
@@ -993,6 +1002,9 @@
       "2180": {
         "poll_tier": "quick"
       },
+      "2104": {
+        "poll_tier": "quick"
+      },
       "1036": {
         "min": 0,
         "max": 3
@@ -1055,6 +1067,15 @@
         "min": 0,
         "max": 65535,
         "poll_tier": "rare"
+      },
+      "1016": {
+        "min_firmware": 33
+      },
+      "1018": {
+        "min_firmware": 33
+      },
+      "1334": {
+        "min_firmware": 33
       }
     }
   }

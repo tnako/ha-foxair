@@ -41,9 +41,12 @@ async def _cleanup_orphaned_entities(hass: HomeAssistant, entry: ConfigEntry, en
             meta = metadata.get(str(addr), {})
             block = meta.get("block", "")
             requires_expert = meta.get("requires_expert", False)
+            min_fw = meta.get("min_firmware")
             drop = meta.get("hidden", False) or (
                 not enable_expert and (requires_expert or block in EXPERT_BLOCKS)
             )
+            if min_fw and not coord._fw_gte(min_fw):
+                drop = True
             if drop:
                 registry.async_remove(ent.entity_id)
                 removed += 1

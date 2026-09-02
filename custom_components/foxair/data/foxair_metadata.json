@@ -18,7 +18,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "PHNIX/Aliyun ProductKey Wort 1/16",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "201": {
     "code": "",
@@ -39,7 +40,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "PHNIX/Aliyun ProductKey Wort 2/16",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "202": {
     "code": "",
@@ -60,7 +62,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "PHNIX/Aliyun ProductKey Wort 3/16",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "203": {
     "code": "",
@@ -81,7 +84,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "PHNIX/Aliyun ProductKey Wort 4/16",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "204": {
     "code": "",
@@ -102,7 +106,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "PHNIX/Aliyun ProductKey Wort 5/16",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "205": {
     "code": "",
@@ -123,7 +128,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "PHNIX/Aliyun ProductKey Wort 6/16",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "206": {
     "code": "",
@@ -144,7 +150,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "PHNIX/Aliyun ProductKey Wort 7/16",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "207": {
     "code": "",
@@ -165,7 +172,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "PHNIX/Aliyun ProductKey Wort 8/16",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "208": {
     "code": "",
@@ -186,7 +194,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "PHNIX/Aliyun ProductKey Wort 9/16",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "209": {
     "code": "",
@@ -207,7 +216,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "PHNIX/Aliyun ProductKey Wort 10/16",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "210": {
     "code": "",
@@ -228,7 +238,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "PHNIX/Aliyun ProductKey Wort 11/16",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "211": {
     "code": "",
@@ -249,7 +260,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "PHNIX/Aliyun ProductKey Wort 12/16",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "212": {
     "code": "",
@@ -270,7 +282,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "PHNIX/Aliyun ProductKey Wort 13/16",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "213": {
     "code": "",
@@ -291,7 +304,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "PHNIX/Aliyun ProductKey Wort 14/16",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "214": {
     "code": "",
@@ -312,7 +326,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "PHNIX/Aliyun ProductKey Wort 15/16",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "215": {
     "code": "",
@@ -333,7 +348,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "PHNIX/Aliyun ProductKey Wort 16/16",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1001": {
     "code": "",
@@ -354,7 +370,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 1 / Kennung Wort 1 / WiFi Barcode ASCII Zeichen 1-2",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1002": {
     "code": "",
@@ -375,7 +392,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 1 / Kennung Wort 2 / WiFi Barcode ASCII Zeichen 3-4",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1003": {
     "code": "",
@@ -396,7 +414,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 1 / Kennung Wort 3 / WiFi Barcode ASCII Zeichen 5-6",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1004": {
     "code": "",
@@ -417,7 +436,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 1 / Kennung Wort 4 / WiFi Barcode ASCII Zeichen 7-8",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1005": {
     "code": "",
@@ -438,7 +458,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 1 / Kennung Wort 5 / WiFi Barcode ASCII Zeichen 9-10",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1006": {
     "code": "",
@@ -459,7 +480,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 1 / Kennung Wort 6 / WiFi Barcode ASCII Zeichen 11-12",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1007": {
     "code": "",
@@ -480,7 +502,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 1 / Kennung Wort 7 / WiFi Barcode ASCII Reserve/Ende",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1008": {
     "code": "",
@@ -501,7 +524,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 1 / Reserve 2",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1009": {
     "code": "",
@@ -522,7 +546,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 1 / Marker-Länge",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1010": {
     "code": "",
@@ -543,7 +568,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 1 / erstes Blockkopf-Register",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1011": {
     "code": "",
@@ -564,7 +590,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": true,
     "name": "AN/AUS",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "1012": {
     "code": "",
@@ -585,7 +612,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": true,
     "name": "Modus setzen",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "1013": {
     "code": "",
@@ -606,7 +634,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Wassertanktemperatur (vom Zentralregler bei H37-1)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1014": {
     "code": "",
@@ -627,7 +656,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": true,
     "name": "Zentralregler zum Abtauen zulassen bei D26-1",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1015": {
     "code": "",
@@ -648,14 +678,15 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Sprachauswahl",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1016": {
     "code": "",
     "block": "",
     "tab": "",
     "group": "Header/Reserved",
-    "hidden": true,
+    "hidden": false,
     "editable": true,
     "platform": "select",
     "risk": "advanced",
@@ -669,7 +700,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Manuelle Steuerung / Silent Status",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": 33
   },
   "1017": {
     "code": "",
@@ -690,7 +722,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Logo-Auswahl",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1018": {
     "code": "H01",
@@ -701,7 +734,7 @@
     "editable": true,
     "platform": "select",
     "risk": "advanced",
-    "requires_expert": true,
+    "requires_expert": false,
     "type": "DIGI1",
     "unit": null,
     "min": 0,
@@ -711,7 +744,8 @@
     "icon": "mdi:chip",
     "has_value_map": true,
     "name": "Power Off Memory aktivieren (Autostart)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": 33
   },
   "1019": {
     "code": "H33",
@@ -732,7 +766,8 @@
     "icon": "mdi:shield-alert",
     "has_value_map": true,
     "name": "Lüftermotorantrieb und Kompressorantrieb integriert",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1020": {
     "code": "H34",
@@ -753,7 +788,8 @@
     "icon": "mdi:shield-alert",
     "has_value_map": true,
     "name": "ERP Testmodus",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1021": {
     "code": "H05",
@@ -774,7 +810,8 @@
     "icon": "mdi:chip",
     "has_value_map": true,
     "name": "Kühlfunktion aktivieren",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1022": {
     "code": "",
@@ -795,7 +832,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Reserviert",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1023": {
     "code": "H07",
@@ -816,7 +854,8 @@
     "icon": "mdi:chip",
     "has_value_map": true,
     "name": "Reglerwahl",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1024": {
     "code": "H10",
@@ -837,7 +876,8 @@
     "icon": "mdi:shield-alert",
     "has_value_map": false,
     "name": "Geräteadresse",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1025": {
     "code": "H38",
@@ -858,7 +898,8 @@
     "icon": "mdi:chip",
     "has_value_map": false,
     "name": "Spracheinstellung",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1026": {
     "code": "H39",
@@ -879,7 +920,8 @@
     "icon": "mdi:chip",
     "has_value_map": false,
     "name": "Logo-Auswahl / Kundenlogo-Code (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1027": {
     "code": "H27",
@@ -900,7 +942,8 @@
     "icon": "mdi:shield-alert",
     "has_value_map": true,
     "name": "EVI aktivieren",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1028": {
     "code": "H28",
@@ -921,7 +964,8 @@
     "icon": "mdi:chip",
     "has_value_map": true,
     "name": "Heiz-/Kühl- und Warmwasserfunktion aktiviert",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1029": {
     "code": "H21",
@@ -942,7 +986,8 @@
     "icon": "mdi:chip",
     "has_value_map": true,
     "name": "Temperatureinheit",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1030": {
     "code": "H22",
@@ -963,7 +1008,8 @@
     "icon": "mdi:chip",
     "has_value_map": true,
     "name": "Silent-Modus aktivieren",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1031": {
     "code": "A35",
@@ -984,7 +1030,8 @@
     "icon": "mdi:shield-alert",
     "has_value_map": false,
     "name": "Electric Heater Off Temp Diff / E-Heizer Ausschalt-Temperaturdifferenz",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1032": {
     "code": "H18",
@@ -1005,7 +1052,8 @@
     "icon": "mdi:chip",
     "has_value_map": true,
     "name": "Elektrische Heizstufe",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1033": {
     "code": "H20",
@@ -1026,7 +1074,8 @@
     "icon": "mdi:chip",
     "has_value_map": true,
     "name": "3-Wege-Ventil-Polarität",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1034": {
     "code": "H29",
@@ -1047,7 +1096,8 @@
     "icon": "mdi:chip",
     "has_value_map": false,
     "name": "Operationscode",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1035": {
     "code": "H25",
@@ -1068,7 +1118,8 @@
     "icon": "mdi:chip",
     "has_value_map": true,
     "name": "Temp.-Regelauswahl",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1036": {
     "code": "H30",
@@ -1089,7 +1140,8 @@
     "icon": "mdi:chip",
     "has_value_map": true,
     "name": "Indoor Unit Type / Hydraulikmodul-Typ",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1037": {
     "code": "A03",
@@ -1110,7 +1162,8 @@
     "icon": "mdi:shield-alert",
     "has_value_map": false,
     "name": "Abschalttemperatur Umgebung",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1038": {
     "code": "A04",
@@ -1131,7 +1184,8 @@
     "icon": "mdi:shield-alert",
     "has_value_map": false,
     "name": "Frostschutztemperatur",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1039": {
     "code": "A05",
@@ -1152,7 +1206,8 @@
     "icon": "mdi:shield-alert",
     "has_value_map": false,
     "name": "Frostschutztemperaturdifferenz",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1040": {
     "code": "A06",
@@ -1173,7 +1228,8 @@
     "icon": "mdi:shield-alert",
     "has_value_map": false,
     "name": "Max. Abgastemperatur",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1041": {
     "code": "H31",
@@ -1194,7 +1250,8 @@
     "icon": "mdi:chip",
     "has_value_map": true,
     "name": "Zirkulationswasserpumpentyp",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1042": {
     "code": "A11",
@@ -1215,7 +1272,8 @@
     "icon": "mdi:shield-alert",
     "has_value_map": true,
     "name": "Niederdrucksensor aktivieren",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1043": {
     "code": "A23",
@@ -1236,7 +1294,8 @@
     "icon": "mdi:shield-alert",
     "has_value_map": false,
     "name": "Min. Auslasswassertemperatur schutz",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1044": {
     "code": "A24",
@@ -1257,7 +1316,8 @@
     "icon": "mdi:shield-alert",
     "has_value_map": false,
     "name": "Übermäßige Temperaturdifferenz zwischen Einlass- und Auslasswasser",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1045": {
     "code": "H32",
@@ -1278,7 +1338,8 @@
     "icon": "mdi:chip",
     "has_value_map": false,
     "name": "Erzwungene Umschaltzeit",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1046": {
     "code": "H37",
@@ -1299,7 +1360,8 @@
     "icon": "mdi:chip",
     "has_value_map": true,
     "name": "Wassertank-Temperaturquelle",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1047": {
     "code": "D26",
@@ -1320,7 +1382,8 @@
     "icon": "mdi:snowflake-melt",
     "has_value_map": true,
     "name": "Zentrale Abtaufunktion aktivieren",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1048": {
     "code": "",
@@ -1341,7 +1404,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "External Pump Selection (Code unbekannt / nicht H37)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1049": {
     "code": "A31",
@@ -1362,7 +1426,8 @@
     "icon": "mdi:shield-alert",
     "has_value_map": false,
     "name": "Electric-Heater-On AT Grenzwert / Temperaturparameter (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1050": {
     "code": "A32",
@@ -1383,7 +1448,8 @@
     "icon": "mdi:shield-alert",
     "has_value_map": false,
     "name": "Electric Heater Delays Comp on Time",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1051": {
     "code": "A30",
@@ -1404,7 +1470,8 @@
     "icon": "mdi:shield-alert",
     "has_value_map": false,
     "name": "Min. Umgebungstemperatur im Kühlmodus",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1052": {
     "code": "A21",
@@ -1425,7 +1492,8 @@
     "icon": "mdi:shield-alert",
     "has_value_map": true,
     "name": "Umgebungs-/Saug-/Spulensensortyp",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1053": {
     "code": "A22",
@@ -1446,7 +1514,8 @@
     "icon": "mdi:shield-alert",
     "has_value_map": false,
     "name": "Min. Frostschutztemperatur",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1054": {
     "code": "A26",
@@ -1467,7 +1536,8 @@
     "icon": "mdi:shield-alert",
     "has_value_map": true,
     "name": "Kältemitteltyp",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1055": {
     "code": "A25",
@@ -1488,7 +1558,8 @@
     "icon": "mdi:shield-alert",
     "has_value_map": false,
     "name": "Minimale Verdampfungstemperatur der Kühlung",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1056": {
     "code": "A27",
@@ -1509,7 +1580,8 @@
     "icon": "mdi:shield-alert",
     "has_value_map": false,
     "name": "Temperaturdifferenz der Begrenzungsfrequenz",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1057": {
     "code": "A28",
@@ -1530,7 +1602,8 @@
     "icon": "mdi:shield-alert",
     "has_value_map": false,
     "name": "Temperaturdifferenz zwischen Auslass- und WW-Temperatur",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1058": {
     "code": "A29",
@@ -1551,7 +1624,8 @@
     "icon": "mdi:shield-alert",
     "has_value_map": true,
     "name": "Hochdrucksensor aktivieren",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1059": {
     "code": "F01",
@@ -1572,7 +1646,8 @@
     "icon": "mdi:shield-alert",
     "has_value_map": true,
     "name": "Lüftermotortyp",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1060": {
     "code": "F02",
@@ -1593,7 +1668,8 @@
     "icon": "mdi:fan",
     "has_value_map": false,
     "name": "Verdampfertemperatur für maximale Lüfterdrehzahl im Kühlbetrieb",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1061": {
     "code": "F27",
@@ -1614,7 +1690,8 @@
     "icon": "mdi:fan",
     "has_value_map": false,
     "name": "Fan Motor Power Curve / Lüftermotor-Leistungskurve",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1062": {
     "code": "F03",
@@ -1635,7 +1712,8 @@
     "icon": "mdi:fan",
     "has_value_map": false,
     "name": "Verdampfertemperatur für minimale Lüfterdrehzahl im Kühlbetrieb",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1063": {
     "code": "A33",
@@ -1656,7 +1734,8 @@
     "icon": "mdi:shield-alert",
     "has_value_map": false,
     "name": "E-Heizer Einschalt-Temperaturdifferenz",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1064": {
     "code": "A34",
@@ -1677,7 +1756,8 @@
     "icon": "mdi:shield-alert",
     "has_value_map": false,
     "name": "Kurbelgehäuseheizung Vorheizzeit",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1065": {
     "code": "",
@@ -1698,7 +1778,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Reserviert",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1066": {
     "code": "F05",
@@ -1719,7 +1800,8 @@
     "icon": "mdi:fan",
     "has_value_map": false,
     "name": "Verdampfertemperatur für maximale Lüfterdrehzahl im Heizbetrieb",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1067": {
     "code": "",
@@ -1740,7 +1822,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Reserviert",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1068": {
     "code": "F06",
@@ -1761,7 +1844,8 @@
     "icon": "mdi:fan",
     "has_value_map": false,
     "name": "Verdampfertemperatur für minimale Lüfterdrehzahl im Heizbetrieb",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1069": {
     "code": "Z01",
@@ -1782,7 +1866,8 @@
     "icon": "mdi:home-thermometer",
     "has_value_map": true,
     "name": "Mehrzonenregelung aktivieren",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1070": {
     "code": "Z02",
@@ -1803,7 +1888,8 @@
     "icon": "mdi:home-thermometer",
     "has_value_map": false,
     "name": "Zone 1 Raumtemperatur-Sollwert",
-    "poll_tier": "medium"
+    "poll_tier": "medium",
+    "min_firmware": null
   },
   "1071": {
     "code": "Z03",
@@ -1824,7 +1910,8 @@
     "icon": "mdi:home-thermometer",
     "has_value_map": false,
     "name": "Zone 1 Raumtemperatur-Differenz zum Start",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1072": {
     "code": "Z04",
@@ -1845,7 +1932,8 @@
     "icon": "mdi:home-thermometer",
     "has_value_map": false,
     "name": "Zone 2 Raumtemperatur-Sollwert",
-    "poll_tier": "medium"
+    "poll_tier": "medium",
+    "min_firmware": null
   },
   "1073": {
     "code": "Z05",
@@ -1866,7 +1954,8 @@
     "icon": "mdi:home-thermometer",
     "has_value_map": false,
     "name": "Zone 2 Raumtemperatur-Differenz zum Start",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1074": {
     "code": "F10",
@@ -1887,7 +1976,8 @@
     "icon": "mdi:shield-alert",
     "has_value_map": true,
     "name": "Lüfteranzahl",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1075": {
     "code": "Z06",
@@ -1908,7 +1998,8 @@
     "icon": "mdi:home-thermometer",
     "has_value_map": false,
     "name": "Zone 1 Heizungs-Auslasswasser-Sollwert",
-    "poll_tier": "medium"
+    "poll_tier": "medium",
+    "min_firmware": null
   },
   "1076": {
     "code": "Z07",
@@ -1929,7 +2020,8 @@
     "icon": "mdi:home-thermometer",
     "has_value_map": false,
     "name": "Zone 2 Mischwasser-Auslasswasser-Sollwert",
-    "poll_tier": "medium"
+    "poll_tier": "medium",
+    "min_firmware": null
   },
   "1077": {
     "code": "Z17",
@@ -1950,7 +2042,8 @@
     "icon": "mdi:home-thermometer",
     "has_value_map": true,
     "name": "AT-Kompensationskurve Zone 2 aktivieren",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1078": {
     "code": "",
@@ -1971,7 +2064,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Zone2 Heizkurve K / Raumtemperatur-Kompensation (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1079": {
     "code": "",
@@ -1992,7 +2086,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Zone2 Heizkurve B / Raumtemperatur-Kompensation (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1080": {
     "code": "Z08",
@@ -2013,7 +2108,8 @@
     "icon": "mdi:home-thermometer",
     "has_value_map": true,
     "name": "Mischventil manuelle Stellrate (0% = Auto-Regelung)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1081": {
     "code": "F18",
@@ -2034,7 +2130,8 @@
     "icon": "mdi:fan",
     "has_value_map": false,
     "name": "Min. Lüfterdrehzahl im Kühlbetrieb",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1082": {
     "code": "Z09",
@@ -2055,7 +2152,8 @@
     "icon": "mdi:home-thermometer",
     "has_value_map": false,
     "name": "Mischventil Öffnungszeit",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1083": {
     "code": "F19",
@@ -2076,7 +2174,8 @@
     "icon": "mdi:fan",
     "has_value_map": false,
     "name": "Min. Lüfterdrehzahl im Heizbetrieb",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1084": {
     "code": "Z10",
@@ -2097,7 +2196,8 @@
     "icon": "mdi:home-thermometer",
     "has_value_map": false,
     "name": "Mischventil Schließzeit",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1085": {
     "code": "Z11",
@@ -2118,7 +2218,8 @@
     "icon": "mdi:home-thermometer",
     "has_value_map": false,
     "name": "Mischventil Regelung P-Anteil (PID)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1086": {
     "code": "F21",
@@ -2139,7 +2240,8 @@
     "icon": "mdi:fan",
     "has_value_map": true,
     "name": "Timer-Stummschaltung aktivieren (ASM V1.3: 243E)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1087": {
     "code": "F22",
@@ -2160,7 +2262,8 @@
     "icon": "mdi:fan",
     "has_value_map": true,
     "name": "Manuelle Lüfterdrehzahl aktivieren",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1088": {
     "code": "Z12",
@@ -2181,7 +2284,8 @@
     "icon": "mdi:home-thermometer",
     "has_value_map": false,
     "name": "Mischventil Regelung I-Anteil (PID)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1089": {
     "code": "F23",
@@ -2202,7 +2306,8 @@
     "icon": "mdi:fan",
     "has_value_map": false,
     "name": "Nenn-DC-Lüftermotordrehzahl",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1090": {
     "code": "Z13",
@@ -2223,7 +2328,8 @@
     "icon": "mdi:home-thermometer",
     "has_value_map": false,
     "name": "Mischventil PID-Zyklus",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1091": {
     "code": "",
@@ -2244,7 +2350,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 2 / Kennung Wort 1 / ASCII Zeichen 1-2",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1092": {
     "code": "",
@@ -2265,7 +2372,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 2 / Kennung Wort 2 / ASCII Zeichen 3-4",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1093": {
     "code": "",
@@ -2286,7 +2394,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 2 / Kennung Wort 3 / ASCII Zeichen 5-6",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1094": {
     "code": "",
@@ -2307,7 +2416,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 2 / Kennung Wort 4 / ASCII Zeichen 7-8",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1095": {
     "code": "",
@@ -2328,7 +2438,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 2 / Kennung Wort 5 / ASCII Zeichen 9-10",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1096": {
     "code": "",
@@ -2349,7 +2460,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 2 / Kennung Wort 6 / ASCII Zeichen 11-12",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1097": {
     "code": "",
@@ -2370,7 +2482,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 2 / Reserve 1",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1098": {
     "code": "",
@@ -2391,7 +2504,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 2 / Reserve 2",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1099": {
     "code": "",
@@ -2412,7 +2526,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 2 / Marker-Länge",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1100": {
     "code": "",
@@ -2433,7 +2548,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 2 / erstes Blockkopf-Register",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1101": {
     "code": "F28",
@@ -2454,7 +2570,8 @@
     "icon": "mdi:fan",
     "has_value_map": false,
     "name": "Verdampfertemperatur des Einzel-/Doppellüfterschalters im Kühlbetrieb",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1102": {
     "code": "F29",
@@ -2475,7 +2592,8 @@
     "icon": "mdi:fan",
     "has_value_map": false,
     "name": "Verdampfertemperatur des Einzellüfterstopps im Kühlbetrieb",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1103": {
     "code": "F25",
@@ -2496,7 +2614,8 @@
     "icon": "mdi:fan",
     "has_value_map": false,
     "name": "Max. Lüfterdrehzahl im Kühlbetrieb",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1104": {
     "code": "F26",
@@ -2517,7 +2636,8 @@
     "icon": "mdi:fan",
     "has_value_map": false,
     "name": "Max. Lüfterdrehzahl im Heizbetrieb",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1105": {
     "code": "D01",
@@ -2538,7 +2658,8 @@
     "icon": "mdi:snowflake-melt",
     "has_value_map": false,
     "name": "Umgebungstemperatur des Start-Abtauens",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1106": {
     "code": "D02",
@@ -2559,7 +2680,8 @@
     "icon": "mdi:snowflake-melt",
     "has_value_map": false,
     "name": "Heizbetriebszeit vor dem Abtauen",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1107": {
     "code": "D03",
@@ -2580,7 +2702,8 @@
     "icon": "mdi:snowflake-melt",
     "has_value_map": false,
     "name": "Intervallzeit zwischen den Abtauzyklen",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1108": {
     "code": "D04",
@@ -2601,7 +2724,8 @@
     "icon": "mdi:snowflake-melt",
     "has_value_map": false,
     "name": "Heißgastemperaturkorrektur für den Abtauzyklus",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1109": {
     "code": "D05-1",
@@ -2622,7 +2746,8 @@
     "icon": "mdi:snowflake-melt",
     "has_value_map": false,
     "name": "Abtau-Saugsdruck 1",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1110": {
     "code": "D05-2",
@@ -2643,7 +2768,8 @@
     "icon": "mdi:snowflake-melt",
     "has_value_map": false,
     "name": "Abtau-Saugsdruck 2",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1111": {
     "code": "D06",
@@ -2664,7 +2790,8 @@
     "icon": "mdi:snowflake-melt",
     "has_value_map": false,
     "name": "Abtauzykluszeitkorrektur",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1112": {
     "code": "D07",
@@ -2685,7 +2812,8 @@
     "icon": "mdi:snowflake-melt",
     "has_value_map": false,
     "name": "Umgebungstemperatur des Start-Gleitabtauens",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1113": {
     "code": "D08",
@@ -2706,7 +2834,8 @@
     "icon": "mdi:snowflake-melt",
     "has_value_map": false,
     "name": "Saugsungstemperatur des Start-Gleitabtauens",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1114": {
     "code": "D09",
@@ -2727,7 +2856,8 @@
     "icon": "mdi:snowflake-melt",
     "has_value_map": false,
     "name": "Umgebungstemperatur des Stopp-Gleitabtauens",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1115": {
     "code": "D10",
@@ -2748,7 +2878,8 @@
     "icon": "mdi:snowflake-melt",
     "has_value_map": false,
     "name": "Saugsungstemperatur des Stopp-Gleitabtauens",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1116": {
     "code": "D11",
@@ -2769,7 +2900,8 @@
     "icon": "mdi:snowflake-melt",
     "has_value_map": false,
     "name": "Min. Einlasswassertemperatur des Abtauens",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1117": {
     "code": "D12",
@@ -2790,7 +2922,8 @@
     "icon": "mdi:snowflake-melt",
     "has_value_map": false,
     "name": "Saugsdruck des erzwungenen Abtauens",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1118": {
     "code": "D13",
@@ -2811,7 +2944,8 @@
     "icon": "mdi:snowflake-melt",
     "has_value_map": false,
     "name": "Heizbetriebszeit vor dem erzwungenen Abtauen",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1119": {
     "code": "D14",
@@ -2832,7 +2966,8 @@
     "icon": "mdi:snowflake-melt",
     "has_value_map": false,
     "name": "Lüftermotorleistungsverhältnis zur Verlängerung des Abtauzyklus",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1120": {
     "code": "D15",
@@ -2853,7 +2988,8 @@
     "icon": "mdi:snowflake-melt",
     "has_value_map": false,
     "name": "Lüftermotorleistungsverhältnis zum Eintritt in das erzwungene Abtauen",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1121": {
     "code": "D16",
@@ -2874,7 +3010,8 @@
     "icon": "mdi:snowflake-melt",
     "has_value_map": false,
     "name": "Max. Lüftermotorleistung zum Eintritt in das erzwungene Abtauen",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1122": {
     "code": "D17",
@@ -2895,7 +3032,8 @@
     "icon": "mdi:snowflake-melt",
     "has_value_map": false,
     "name": "Verdampfertemperatur des Abtauausgangs",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1123": {
     "code": "D18",
@@ -2916,7 +3054,8 @@
     "icon": "mdi:snowflake-melt",
     "has_value_map": false,
     "name": "Verteilerrohrtemperatur des Abtauausgangs",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1124": {
     "code": "D19",
@@ -2937,7 +3076,8 @@
     "icon": "mdi:snowflake-melt",
     "has_value_map": false,
     "name": "Max. Abtauzeit",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1125": {
     "code": "D20",
@@ -2958,7 +3098,8 @@
     "icon": "mdi:snowflake-melt",
     "has_value_map": false,
     "name": "Abtaufrequenz",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1126": {
     "code": "D21",
@@ -2979,7 +3120,8 @@
     "icon": "mdi:snowflake-melt",
     "has_value_map": true,
     "name": "Elektrische Heizung während des Abtauens aktivieren",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1127": {
     "code": "D22",
@@ -3000,7 +3142,8 @@
     "icon": "mdi:snowflake-melt",
     "has_value_map": false,
     "name": "Wasserdurchfluss beim Abtauen",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1128": {
     "code": "D23",
@@ -3021,7 +3164,8 @@
     "icon": "mdi:snowflake-melt",
     "has_value_map": false,
     "name": "Max. Abtauzyklus durch Lüftermotorleistung",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1129": {
     "code": "D24",
@@ -3042,7 +3186,8 @@
     "icon": "mdi:snowflake-melt",
     "has_value_map": true,
     "name": "Wassertank-Abtauquelle im Heizung+WW/Kühlung+WW-Modus",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1130": {
     "code": "D25",
@@ -3063,7 +3208,8 @@
     "icon": "mdi:snowflake-melt",
     "has_value_map": false,
     "name": "Max. Einlasswassertemperaturabfall beim Abtauen",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1131": {
     "code": "E01",
@@ -3084,7 +3230,8 @@
     "icon": "mdi:valve",
     "has_value_map": true,
     "name": "EEV Regelmodus",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1132": {
     "code": "E02",
@@ -3105,7 +3252,8 @@
     "icon": "mdi:valve",
     "has_value_map": false,
     "name": "Ziel-Überhitzung Heizen",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1133": {
     "code": "E03",
@@ -3126,7 +3274,8 @@
     "icon": "mdi:valve",
     "has_value_map": false,
     "name": "EEV Anfangsschritte Heizen",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1134": {
     "code": "Z14",
@@ -3147,7 +3296,8 @@
     "icon": "mdi:home-thermometer",
     "has_value_map": false,
     "name": "Mischventil-Stellwert im Kühlbetrieb",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1135": {
     "code": "Z15",
@@ -3168,7 +3318,8 @@
     "icon": "mdi:home-thermometer",
     "has_value_map": false,
     "name": "Zone 2 maximale Wasser-Solltemperatur",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1136": {
     "code": "Z16",
@@ -3189,7 +3340,8 @@
     "icon": "mdi:home-thermometer",
     "has_value_map": false,
     "name": "Mischventil Regel-I (DIGI5 laut ASM-Kommentar) (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1137": {
     "code": "E07",
@@ -3210,7 +3362,8 @@
     "icon": "mdi:valve",
     "has_value_map": false,
     "name": "EEV minimale Anfangsschritte",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1138": {
     "code": "E08",
@@ -3231,7 +3384,8 @@
     "icon": "mdi:valve",
     "has_value_map": false,
     "name": "EEV Anfangsschritte Kühlen",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1139": {
     "code": "E09",
@@ -3252,7 +3406,8 @@
     "icon": "mdi:valve",
     "has_value_map": true,
     "name": "EVI-EEV Anpassungsmodus",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1140": {
     "code": "E10",
@@ -3273,7 +3428,8 @@
     "icon": "mdi:valve",
     "has_value_map": false,
     "name": "EVI-EEV Anfangsschritte",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1141": {
     "code": "",
@@ -3294,7 +3450,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "System 2 EVI/Enthalpie vorhanden wenn Wert != 0 (ASM V1.3)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1142": {
     "code": "E03-2",
@@ -3315,7 +3472,8 @@
     "icon": "mdi:valve",
     "has_value_map": false,
     "name": "EEV Anfangsschritte Heizen 2",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1143": {
     "code": "E13",
@@ -3336,7 +3494,8 @@
     "icon": "mdi:valve",
     "has_value_map": false,
     "name": "EVI-EEV Ziel-Überhitzungsgrad",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1144": {
     "code": "E14",
@@ -3357,7 +3516,8 @@
     "icon": "mdi:valve",
     "has_value_map": false,
     "name": "EVI-EEV minimale Schritte",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1145": {
     "code": "E15",
@@ -3378,7 +3538,8 @@
     "icon": "mdi:valve",
     "has_value_map": false,
     "name": "Temperatur-/Hystereseparameter (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1146": {
     "code": "E16",
@@ -3399,7 +3560,8 @@
     "icon": "mdi:valve",
     "has_value_map": false,
     "name": "Temperatur-/Hystereseparameter (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1147": {
     "code": "E17",
@@ -3420,7 +3582,8 @@
     "icon": "mdi:valve",
     "has_value_map": false,
     "name": "Abtau-EEV Schritte",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1148": {
     "code": "E18",
@@ -3441,7 +3604,8 @@
     "icon": "mdi:valve",
     "has_value_map": false,
     "name": "Ziel-Überhitzung Kühlen",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1149": {
     "code": "E19",
@@ -3462,7 +3626,8 @@
     "icon": "mdi:valve",
     "has_value_map": false,
     "name": "EEV Anpassungsbereich im Smart-Modus",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1150": {
     "code": "",
@@ -3483,7 +3648,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Reserviert",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1151": {
     "code": "",
@@ -3504,7 +3670,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Reserviert",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1152": {
     "code": "G01",
@@ -3525,7 +3692,8 @@
     "icon": "mdi:water-thermometer",
     "has_value_map": false,
     "name": "Desinfektionswassertemperatur",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1153": {
     "code": "G02",
@@ -3546,7 +3714,8 @@
     "icon": "mdi:water-thermometer",
     "has_value_map": false,
     "name": "Desinfektionsdauer",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1154": {
     "code": "G03",
@@ -3567,7 +3736,8 @@
     "icon": "mdi:water-thermometer",
     "has_value_map": false,
     "name": "Desinfektionsstartzeit",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1155": {
     "code": "G04",
@@ -3588,7 +3758,8 @@
     "icon": "mdi:water-thermometer",
     "has_value_map": false,
     "name": "Intervallzeit der Desinfektion",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1156": {
     "code": "G05",
@@ -3609,7 +3780,8 @@
     "icon": "mdi:water-thermometer",
     "has_value_map": true,
     "name": "Desinfektion aktivieren",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1157": {
     "code": "R01",
@@ -3630,7 +3802,8 @@
     "icon": "mdi:thermometer",
     "has_value_map": false,
     "name": "Warmwasser-Solltemperatur",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "1158": {
     "code": "R02",
@@ -3651,7 +3824,8 @@
     "icon": "mdi:thermometer",
     "has_value_map": false,
     "name": "Heizungssolltemperatur",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "1159": {
     "code": "R03",
@@ -3672,7 +3846,8 @@
     "icon": "mdi:thermometer",
     "has_value_map": false,
     "name": "Kühlsolltemperatur",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "1160": {
     "code": "R04",
@@ -3693,7 +3868,8 @@
     "icon": "mdi:thermometer",
     "has_value_map": false,
     "name": "Heizung Einschalt-Rücklaufdifferenz",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "1161": {
     "code": "R05",
@@ -3714,7 +3890,8 @@
     "icon": "mdi:thermometer",
     "has_value_map": false,
     "name": "Heizung Standby-/Abschalt-Temperaturdifferenz",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "1162": {
     "code": "R08",
@@ -3735,7 +3912,8 @@
     "icon": "mdi:thermometer",
     "has_value_map": false,
     "name": "Min. Kühlsolltemperatur",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "1163": {
     "code": "R09",
@@ -3756,7 +3934,8 @@
     "icon": "mdi:thermometer",
     "has_value_map": false,
     "name": "Max. Kühlsolltemperatur",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "1164": {
     "code": "R10",
@@ -3777,7 +3956,8 @@
     "icon": "mdi:thermometer",
     "has_value_map": false,
     "name": "Min. Heizungssolltemperatur",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "1165": {
     "code": "R11",
@@ -3798,7 +3978,8 @@
     "icon": "mdi:thermometer",
     "has_value_map": false,
     "name": "Max. Heizungssolltemperatur",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "1166": {
     "code": "R15",
@@ -3819,7 +4000,8 @@
     "icon": "mdi:thermometer",
     "has_value_map": false,
     "name": "Rückkehrdifferenz zum Verlassen des Hochtemperatur-Modus",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "1167": {
     "code": "R29",
@@ -3840,7 +4022,8 @@
     "icon": "mdi:thermometer",
     "has_value_map": false,
     "name": "Niedrige AT für Wassertemperaturbegrenzung EIN",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "1168": {
     "code": "R30",
@@ -3861,7 +4044,8 @@
     "icon": "mdi:thermometer",
     "has_value_map": false,
     "name": "Niedrige AT für Wassertemperaturbegrenzung AUS",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "1169": {
     "code": "R31",
@@ -3882,7 +4066,8 @@
     "icon": "mdi:thermometer",
     "has_value_map": false,
     "name": "Max. Auslasswassertemperaturbegrenzung bei niedriger AT",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "1170": {
     "code": "R32",
@@ -3903,7 +4088,8 @@
     "icon": "mdi:thermometer",
     "has_value_map": false,
     "name": "Hohe AT für Wassertemperaturbegrenzung EIN",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "1171": {
     "code": "R33",
@@ -3924,7 +4110,8 @@
     "icon": "mdi:thermometer",
     "has_value_map": false,
     "name": "Hohe AT für Wassertemperaturbegrenzung AUS",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "1172": {
     "code": "R34",
@@ -3945,7 +4132,8 @@
     "icon": "mdi:thermometer",
     "has_value_map": false,
     "name": "Max. Auslasswassertemperaturbegrenzung bei hoher AT",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "1173": {
     "code": "R35",
@@ -3966,7 +4154,8 @@
     "icon": "mdi:thermometer",
     "has_value_map": true,
     "name": "Position des elektrischen Heizers",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "1174": {
     "code": "R06",
@@ -3987,7 +4176,8 @@
     "icon": "mdi:thermometer",
     "has_value_map": false,
     "name": "Kühlung Einschalt-Rücklaufdifferenz",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "1175": {
     "code": "R07",
@@ -4008,7 +4198,8 @@
     "icon": "mdi:thermometer",
     "has_value_map": false,
     "name": "Kühlung Standby-/Abschalt-Temperaturdifferenz",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "1176": {
     "code": "R36",
@@ -4029,7 +4220,8 @@
     "icon": "mdi:thermometer",
     "has_value_map": false,
     "name": "Min. WW-Solltemperatur",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "1177": {
     "code": "R37",
@@ -4050,7 +4242,8 @@
     "icon": "mdi:thermometer",
     "has_value_map": false,
     "name": "Max. WW-Solltemperatur",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "1178": {
     "code": "R12",
@@ -4071,7 +4264,8 @@
     "icon": "mdi:thermometer",
     "has_value_map": false,
     "name": "Temperatur-/Hystereseparameter R12",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "1179": {
     "code": "R13",
@@ -4092,7 +4286,8 @@
     "icon": "mdi:thermometer",
     "has_value_map": false,
     "name": "Temperatur-/Hystereseparameter R13",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "1180": {
     "code": "R14",
@@ -4113,7 +4308,8 @@
     "icon": "mdi:thermometer",
     "has_value_map": false,
     "name": "Temperatur-/Hystereseparameter R14",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "1181": {
     "code": "",
@@ -4134,7 +4330,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 3 / Kennung Wort 1 / ASCII Zeichen 1-2",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1182": {
     "code": "",
@@ -4155,7 +4352,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 3 / Kennung Wort 2 / ASCII Zeichen 3-4",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1183": {
     "code": "",
@@ -4176,7 +4374,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 3 / Kennung Wort 3 / ASCII Zeichen 5-6",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1184": {
     "code": "",
@@ -4197,7 +4396,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 3 / Kennung Wort 4 / ASCII Zeichen 7-8",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1185": {
     "code": "",
@@ -4218,7 +4418,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 3 / Kennung Wort 5 / ASCII Zeichen 9-10",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1186": {
     "code": "",
@@ -4239,7 +4440,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 3 / Kennung Wort 6 / ASCII Zeichen 11-12",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1187": {
     "code": "",
@@ -4260,7 +4462,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 3 / Reserve 1",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1188": {
     "code": "",
@@ -4281,7 +4484,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 3 / Reserve 2",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1189": {
     "code": "",
@@ -4302,7 +4506,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 3 / Marker-Länge",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1190": {
     "code": "",
@@ -4323,7 +4528,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 3 / erstes Blockkopf-Register",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1191": {
     "code": "",
@@ -4344,7 +4550,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Paketmarker / Syncwort / Blockkopfkennung",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1192": {
     "code": "R39",
@@ -4365,7 +4572,8 @@
     "icon": "mdi:thermometer",
     "has_value_map": false,
     "name": "AT für Auto-Start Heizmodus",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "1193": {
     "code": "R40",
@@ -4386,7 +4594,8 @@
     "icon": "mdi:thermometer",
     "has_value_map": false,
     "name": "Temperaturparameter, Celsius-Grenze 60 °C (ASM V1.3)",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "1194": {
     "code": "R41",
@@ -4407,7 +4616,8 @@
     "icon": "mdi:thermometer",
     "has_value_map": false,
     "name": "Temperaturparameter, Celsius-Grenze 60 °C (ASM V1.3)",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "1195": {
     "code": "R16",
@@ -4428,7 +4638,8 @@
     "icon": "mdi:thermometer",
     "has_value_map": false,
     "name": "WW-Tank Einschalt-Rücklaufdifferenz",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "1196": {
     "code": "R17",
@@ -4449,7 +4660,8 @@
     "icon": "mdi:thermometer",
     "has_value_map": false,
     "name": "WW-Tank Standby-Temperaturdifferenz",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "1197": {
     "code": "P01",
@@ -4470,7 +4682,8 @@
     "icon": "mdi:water-pump",
     "has_value_map": true,
     "name": "Betriebsmodus der Hauptumwälzpumpe",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1198": {
     "code": "P02",
@@ -4491,7 +4704,8 @@
     "icon": "mdi:water-pump",
     "has_value_map": false,
     "name": "Intervallzeit",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1199": {
     "code": "P03",
@@ -4512,7 +4726,8 @@
     "icon": "mdi:water-pump",
     "has_value_map": false,
     "name": "Betriebsdauer",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1200": {
     "code": "E03-1",
@@ -4533,7 +4748,8 @@
     "icon": "mdi:valve",
     "has_value_map": false,
     "name": "EEV Anfangsschritte Heizen 1",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1201": {
     "code": "P05",
@@ -4554,7 +4770,8 @@
     "icon": "mdi:water-pump",
     "has_value_map": true,
     "name": "WW-Pumpenbetriebsmodus",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1202": {
     "code": "P06",
@@ -4575,7 +4792,8 @@
     "icon": "mdi:water-pump",
     "has_value_map": true,
     "name": "Manuelle Steuerung der Hauptumwälzpumpe",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1203": {
     "code": "P09",
@@ -4596,7 +4814,8 @@
     "icon": "mdi:water-pump",
     "has_value_map": false,
     "name": "Schutzintervall der Umwälzpumpe",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1204": {
     "code": "P08",
@@ -4617,7 +4836,8 @@
     "icon": "mdi:water-pump",
     "has_value_map": false,
     "name": "Nennleistung Hauptumwälzpumpe",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1205": {
     "code": "P10",
@@ -4638,7 +4858,8 @@
     "icon": "mdi:water-pump",
     "has_value_map": false,
     "name": "Drehzahl der Umwälzpumpe",
-    "poll_tier": "medium"
+    "poll_tier": "medium",
+    "min_firmware": null
   },
   "1206": {
     "code": "E03-3",
@@ -4659,7 +4880,8 @@
     "icon": "mdi:valve",
     "has_value_map": true,
     "name": "EEV Anfangsschritte Heizen 3",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1207": {
     "code": "E03-4",
@@ -4680,7 +4902,8 @@
     "icon": "mdi:valve",
     "has_value_map": false,
     "name": "EEV Anfangsschritte Heizen 4",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1208": {
     "code": "E03-5",
@@ -4701,7 +4924,8 @@
     "icon": "mdi:valve",
     "has_value_map": true,
     "name": "EEV Anfangsschritte Heizen 5",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1209": {
     "code": "E07-1",
@@ -4722,7 +4946,8 @@
     "icon": "mdi:valve",
     "has_value_map": false,
     "name": "EEV Min. Schritte 1",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1210": {
     "code": "E07-2",
@@ -4743,7 +4968,8 @@
     "icon": "mdi:valve",
     "has_value_map": false,
     "name": "EEV Min. Schritte 2",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1211": {
     "code": "E07-3",
@@ -4764,7 +4990,8 @@
     "icon": "mdi:valve",
     "has_value_map": false,
     "name": "EEV Min. Schritte 3",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1212": {
     "code": "",
@@ -4785,7 +5012,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Offset Inlet Temperatur",
-    "poll_tier": "medium"
+    "poll_tier": "medium",
+    "min_firmware": null
   },
   "1213": {
     "code": "",
@@ -4806,7 +5034,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Offset outlet Temperatur",
-    "poll_tier": "medium"
+    "poll_tier": "medium",
+    "min_firmware": null
   },
   "1214": {
     "code": "",
@@ -4827,7 +5056,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Offset WW Temperatur",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1215": {
     "code": "E07-4",
@@ -4848,7 +5078,8 @@
     "icon": "mdi:valve",
     "has_value_map": false,
     "name": "EEV Min. Schritte 4",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1216": {
     "code": "E07-5",
@@ -4869,7 +5100,8 @@
     "icon": "mdi:valve",
     "has_value_map": false,
     "name": "EEV Min. Schritte 5",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1217": {
     "code": "C11",
@@ -4890,7 +5122,8 @@
     "icon": "mdi:air-conditioner",
     "has_value_map": false,
     "name": "Max. Kompressorfrequenz im Kühlbetrieb bei hoher Umgebungstemperatur",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1218": {
     "code": "C01",
@@ -4911,7 +5144,8 @@
     "icon": "mdi:air-conditioner",
     "has_value_map": false,
     "name": "Manuelle Kompressorfrequenz",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1219": {
     "code": "C02",
@@ -4932,7 +5166,8 @@
     "icon": "mdi:air-conditioner",
     "has_value_map": false,
     "name": "Min. Kompressorfrequenz",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1220": {
     "code": "C03",
@@ -4953,7 +5188,8 @@
     "icon": "mdi:air-conditioner",
     "has_value_map": false,
     "name": "Max. Kompressorfrequenz",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1221": {
     "code": "C04",
@@ -4974,7 +5210,8 @@
     "icon": "mdi:air-conditioner",
     "has_value_map": false,
     "name": "Kompressormodellauswahl",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1222": {
     "code": "C05",
@@ -4995,7 +5232,8 @@
     "icon": "mdi:air-conditioner",
     "has_value_map": false,
     "name": "Min. Kompressorfrequenz im Kühlbetrieb bei niedriger Umgebungstemperatur",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1223": {
     "code": "C06",
@@ -5016,7 +5254,8 @@
     "icon": "mdi:air-conditioner",
     "has_value_map": false,
     "name": "Frequenzregelungsmodus",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1224": {
     "code": "C07",
@@ -5037,7 +5276,8 @@
     "icon": "mdi:air-conditioner",
     "has_value_map": false,
     "name": "Resonanzpunkt 1",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1225": {
     "code": "C08",
@@ -5058,7 +5298,8 @@
     "icon": "mdi:air-conditioner",
     "has_value_map": false,
     "name": "Resonanzpunkt 2",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1226": {
     "code": "C09",
@@ -5079,7 +5320,8 @@
     "icon": "mdi:air-conditioner",
     "has_value_map": false,
     "name": "Resonanzpunkt 3",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1227": {
     "code": "C10",
@@ -5100,7 +5342,8 @@
     "icon": "mdi:air-conditioner",
     "has_value_map": false,
     "name": "Min. Kompressorfrequenz im Heizbetrieb bei niedriger Umgebungstemperatur",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1228": {
     "code": "R42",
@@ -5121,7 +5364,8 @@
     "icon": "mdi:thermometer",
     "has_value_map": false,
     "name": "Max. Auslasswassertemperatur im Heizbetrieb",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "1229": {
     "code": "R43",
@@ -5142,7 +5386,8 @@
     "icon": "mdi:thermometer",
     "has_value_map": false,
     "name": "Max. Zielwassertemperaturbegrenzung bei niedriger AT im Heizbetrieb",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "1230": {
     "code": "R44",
@@ -5163,7 +5408,8 @@
     "icon": "mdi:thermometer",
     "has_value_map": false,
     "name": "Max. Zielwassertemperaturbegrenzung bei hoher AT im Heizbetrieb",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "1231": {
     "code": "R45",
@@ -5184,7 +5430,8 @@
     "icon": "mdi:thermometer",
     "has_value_map": false,
     "name": "AT zum Starten des elektrischen Heizers ohne Verzögerung",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "1232": {
     "code": "R46",
@@ -5205,7 +5452,8 @@
     "icon": "mdi:thermometer",
     "has_value_map": false,
     "name": "Temp.-Differenz zwischen max. WW-Solltemp. und max. Auslasstemp.",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "1233": {
     "code": "R60",
@@ -5226,7 +5474,8 @@
     "icon": "mdi:thermometer",
     "has_value_map": false,
     "name": "AT zum Start der Frequenzbegrenzung im Kühlbetrieb",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "1234": {
     "code": "",
@@ -5247,7 +5496,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "AT-Kompensation Slope / Steigung",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "1235": {
     "code": "",
@@ -5268,7 +5518,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "AT-Kompensation Offset / Versatz",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "1236": {
     "code": "H36",
@@ -5289,7 +5540,8 @@
     "icon": "mdi:chip",
     "has_value_map": true,
     "name": "AT-Kompensationskurve Zone 1 aktivieren",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "1237": {
     "code": "R61",
@@ -5310,7 +5562,8 @@
     "icon": "mdi:thermometer",
     "has_value_map": false,
     "name": "AT zum Stoppen der Frequenzbegrenzung im Kühlbetrieb",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "1238": {
     "code": "R62",
@@ -5331,7 +5584,8 @@
     "icon": "mdi:thermometer",
     "has_value_map": false,
     "name": "Max. Wärmepumpen-Auslasswassertemperatur",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "1239": {
     "code": "R70",
@@ -5352,7 +5606,8 @@
     "icon": "mdi:thermometer",
     "has_value_map": false,
     "name": "Ziel-Raumtemperatur",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "1240": {
     "code": "R71",
@@ -5373,7 +5628,8 @@
     "icon": "mdi:thermometer",
     "has_value_map": false,
     "name": "Raumtemperaturdifferenz zum Einschalten im Heizbetrieb",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "1241": {
     "code": "R72",
@@ -5394,7 +5650,8 @@
     "icon": "mdi:thermometer",
     "has_value_map": false,
     "name": "Raumtemperaturdifferenz für Standby im Heizbetrieb",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "1242": {
     "code": "R73",
@@ -5415,7 +5672,8 @@
     "icon": "mdi:thermometer",
     "has_value_map": false,
     "name": "Raumtemperaturdifferenz zum Einschalten im Kühlbetrieb",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "1243": {
     "code": "R74",
@@ -5436,7 +5694,8 @@
     "icon": "mdi:thermometer",
     "has_value_map": false,
     "name": "Raumtemperaturdifferenz für Standby im Kühlbetrieb",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "1244": {
     "code": "",
@@ -5457,7 +5716,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": true,
     "name": "Silentmodus Timer Start aktivieren",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1245": {
     "code": "",
@@ -5478,7 +5738,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Silentmodus Timer Startzeit (HH:MM aus Stunde+Minute)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1246": {
     "code": "",
@@ -5499,7 +5760,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Silentmodus Timer Start Minute",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1247": {
     "code": "",
@@ -5520,7 +5782,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": true,
     "name": "Silentmodus Timer Stop aktivieren",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1248": {
     "code": "",
@@ -5541,7 +5804,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Silentmodus Timer Stopzeit (HH:MM aus Stunde+Minute)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1249": {
     "code": "",
@@ -5562,7 +5826,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Silentmodus Timer Stop Minute",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1250": {
     "code": "",
@@ -5583,7 +5848,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": true,
     "name": "Systemzeit aktivieren",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1251": {
     "code": "",
@@ -5604,7 +5870,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Aktuelle Systemminute",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1252": {
     "code": "",
@@ -5625,7 +5892,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Aktuelle Systemstunde",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1253": {
     "code": "",
@@ -5646,7 +5914,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Aktueller Systemtag",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1254": {
     "code": "",
@@ -5667,7 +5936,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Aktueller Systemmonat",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1255": {
     "code": "",
@@ -5688,7 +5958,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Aktuelles Systemjahr",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1256": {
     "code": "KG1",
@@ -5709,7 +5980,8 @@
     "icon": "mdi:timer-outline",
     "has_value_map": false,
     "name": "WP Ein/Aus Timer 1 Startzeit",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1257": {
     "code": "KG2",
@@ -5730,7 +6002,8 @@
     "icon": "mdi:timer-outline",
     "has_value_map": false,
     "name": "WP Ein/Aus Timer 1 Stopzeit",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1258": {
     "code": "KG3",
@@ -5751,7 +6024,8 @@
     "icon": "mdi:timer-outline",
     "has_value_map": false,
     "name": "WP Ein/Aus Timer 2 Startzeit",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1259": {
     "code": "KG4",
@@ -5772,7 +6046,8 @@
     "icon": "mdi:timer-outline",
     "has_value_map": false,
     "name": "WP Ein/Aus Timer 2 Stopzeit",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1260": {
     "code": "KG5",
@@ -5793,7 +6068,8 @@
     "icon": "mdi:timer-outline",
     "has_value_map": false,
     "name": "WP Ein/Aus Timer 3 Startzeit",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1261": {
     "code": "KG6",
@@ -5814,7 +6090,8 @@
     "icon": "mdi:timer-outline",
     "has_value_map": false,
     "name": "WP Ein/Aus Timer 3 Stopzeit",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1262": {
     "code": "KG7",
@@ -5835,7 +6112,8 @@
     "icon": "mdi:timer-outline",
     "has_value_map": false,
     "name": "WP Ein/Aus Timer 4 Startzeit",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1263": {
     "code": "KG8",
@@ -5856,7 +6134,8 @@
     "icon": "mdi:timer-outline",
     "has_value_map": false,
     "name": "WP Ein/Aus Timer 4 Stopzeit",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1264": {
     "code": "KG9",
@@ -5877,7 +6156,8 @@
     "icon": "mdi:timer-outline",
     "has_value_map": false,
     "name": "WP Ein/Aus Timer 5 Startzeit",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1265": {
     "code": "KG10",
@@ -5898,7 +6178,8 @@
     "icon": "mdi:timer-outline",
     "has_value_map": false,
     "name": "WP Ein/Aus Timer 5 Stopzeit",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1266": {
     "code": "KG11",
@@ -5919,7 +6200,8 @@
     "icon": "mdi:timer-outline",
     "has_value_map": false,
     "name": "WP Ein/Aus Timer 6 Startzeit",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1267": {
     "code": "KG12",
@@ -5940,7 +6222,8 @@
     "icon": "mdi:timer-outline",
     "has_value_map": false,
     "name": "WP Ein/Aus Timer 6 Stopzeit",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1268": {
     "code": "KG13-KG28",
@@ -5961,7 +6244,8 @@
     "icon": "mdi:timer-outline",
     "has_value_map": false,
     "name": "WP Ein/Aus Timer 1+2 Aktiv/Tage Bitmaske",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1269": {
     "code": "KG29-KG44",
@@ -5982,7 +6266,8 @@
     "icon": "mdi:timer-outline",
     "has_value_map": false,
     "name": "WP Ein/Aus Timer 3+4 Aktiv/Tage Bitmaske",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1270": {
     "code": "KG45-KG60",
@@ -6003,7 +6288,8 @@
     "icon": "mdi:timer-outline",
     "has_value_map": false,
     "name": "WP Ein/Aus Timer 5+6 Aktiv/Tage Bitmaske",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1271": {
     "code": "",
@@ -6024,7 +6310,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 4 / Kennung Wort 1 / ASCII Zeichen 1-2",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1272": {
     "code": "",
@@ -6045,7 +6332,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 4 / Kennung Wort 2 / ASCII Zeichen 3-4",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1273": {
     "code": "",
@@ -6066,7 +6354,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 4 / Kennung Wort 3 / ASCII Zeichen 5-6",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1274": {
     "code": "",
@@ -6087,7 +6376,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 4 / Kennung Wort 4 / ASCII Zeichen 7-8",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1275": {
     "code": "",
@@ -6108,7 +6398,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 4 / Kennung Wort 5 / ASCII Zeichen 9-10",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1276": {
     "code": "",
@@ -6129,7 +6420,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 4 / Kennung Wort 6 / ASCII Zeichen 11-12",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1277": {
     "code": "",
@@ -6150,7 +6442,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 4 / Reserve 1",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1278": {
     "code": "",
@@ -6171,7 +6464,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 4 / Reserve 2",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1279": {
     "code": "",
@@ -6192,7 +6486,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 4 / Marker-Länge",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1280": {
     "code": "",
@@ -6213,7 +6508,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 4 / erstes Blockkopf-Register",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1281": {
     "code": "",
@@ -6234,7 +6530,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Timer 1 Einschaltzeit (HH:MM aus High-/Low-Byte) (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1282": {
     "code": "",
@@ -6255,7 +6552,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Timer 1 Ausschaltzeit (HH:MM aus High-/Low-Byte) (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1283": {
     "code": "",
@@ -6276,7 +6574,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Timer 1 WW-Zieltemperatur (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1284": {
     "code": "",
@@ -6297,7 +6596,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Timer 1 HZ-Zieltemperatur (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1285": {
     "code": "",
@@ -6318,7 +6618,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Timer 1 Kühlen-Zieltemperatur (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1286": {
     "code": "",
@@ -6339,7 +6640,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": true,
     "name": "Timer 1 Modus-Code (ASM; 9 = keinen Modus ändern)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1287": {
     "code": "",
@@ -6360,7 +6662,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Timer 1 max. Leistung (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1288": {
     "code": "",
@@ -6381,7 +6684,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Timer 2 Einschaltzeit (HH:MM aus High-/Low-Byte) (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1289": {
     "code": "",
@@ -6402,7 +6706,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Timer 2 Ausschaltzeit (HH:MM aus High-/Low-Byte) (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1290": {
     "code": "",
@@ -6423,7 +6728,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Timer 2 WW-Zieltemperatur (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1291": {
     "code": "",
@@ -6444,7 +6750,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Timer 2 HZ-Zieltemperatur (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1292": {
     "code": "",
@@ -6465,7 +6772,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Timer 2 Kühlen-Zieltemperatur (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1293": {
     "code": "",
@@ -6486,7 +6794,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": true,
     "name": "Timer 2 Modus (ASM) (9 = keinen Modus ändern)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1294": {
     "code": "",
@@ -6507,7 +6816,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Timer 2 max. Leistung (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1295": {
     "code": "",
@@ -6528,7 +6838,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Timer 3 Einschaltzeit (HH:MM aus High-/Low-Byte) (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1296": {
     "code": "",
@@ -6549,7 +6860,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Timer 3 Ausschaltzeit (HH:MM aus High-/Low-Byte) (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1297": {
     "code": "",
@@ -6570,7 +6882,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Timer 3 WW-Zieltemperatur (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1298": {
     "code": "",
@@ -6591,7 +6904,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Timer 3 HZ-Zieltemperatur (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1299": {
     "code": "",
@@ -6612,7 +6926,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Timer 3 Kühlen-Zieltemperatur (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1300": {
     "code": "",
@@ -6633,7 +6948,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": true,
     "name": "Timer 3 Modus (ASM) (9 = keinen Modus ändern)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1301": {
     "code": "",
@@ -6654,7 +6970,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Timer 3 max. Leistung (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1302": {
     "code": "",
@@ -6675,7 +6992,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Timer 4 Einschaltzeit (HH:MM aus High-/Low-Byte) (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1303": {
     "code": "",
@@ -6696,7 +7014,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Timer 4 Ausschaltzeit (HH:MM aus High-/Low-Byte) (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1304": {
     "code": "",
@@ -6717,7 +7036,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Timer 4 WW-Zieltemperatur (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1305": {
     "code": "",
@@ -6738,7 +7058,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Timer 4 HZ-Zieltemperatur (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1306": {
     "code": "",
@@ -6759,7 +7080,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Timer 4 Kühlen-Zieltemperatur (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1307": {
     "code": "",
@@ -6780,7 +7102,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": true,
     "name": "Timer 4 Modus (ASM) (9 = keinen Modus ändern)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1308": {
     "code": "",
@@ -6801,7 +7124,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Timer 4 max. Leistung (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1309": {
     "code": "",
@@ -6822,7 +7146,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Timer 5 Einschaltzeit (HH:MM aus High-/Low-Byte) (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1310": {
     "code": "",
@@ -6843,7 +7168,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Timer 5 Ausschaltzeit (HH:MM aus High-/Low-Byte) (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1311": {
     "code": "",
@@ -6864,7 +7190,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Timer 5 WW-Zieltemperatur (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1312": {
     "code": "",
@@ -6885,7 +7212,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Timer 5 HZ-Zieltemperatur (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1313": {
     "code": "",
@@ -6906,7 +7234,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Timer 5 Kühlen-Zieltemperatur (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1314": {
     "code": "",
@@ -6927,7 +7256,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": true,
     "name": "Timer 5 Modus (ASM) (9 = keinen Modus ändern)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1315": {
     "code": "",
@@ -6948,7 +7278,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Timer 5 max. Leistung (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1316": {
     "code": "",
@@ -6969,7 +7300,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Timer 6 Einschaltzeit (HH:MM aus High-/Low-Byte) (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1317": {
     "code": "",
@@ -6990,7 +7322,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Timer 6 Ausschaltzeit (HH:MM aus High-/Low-Byte) (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1318": {
     "code": "",
@@ -7011,7 +7344,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Timer 6 WW-Zieltemperatur (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1319": {
     "code": "",
@@ -7032,7 +7366,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Timer 6 HZ-Zieltemperatur (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1320": {
     "code": "",
@@ -7053,7 +7388,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Timer 6 Kühlen-Zieltemperatur (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1321": {
     "code": "",
@@ -7074,7 +7410,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": true,
     "name": "Timer 6 Modus (ASM) (9 = keinen Modus ändern)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1322": {
     "code": "",
@@ -7095,7 +7432,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Timer 6 max. Leistung (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1323": {
     "code": "",
@@ -7116,7 +7454,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Timer 1+2 Aktiv/Tage Bitmaske (ASM; Low-Byte erster Timer, High-Byte zweiter Timer)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1324": {
     "code": "",
@@ -7137,7 +7476,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Timer 3+4 Aktiv/Tage Bitmaske (ASM; Low-Byte erster Timer, High-Byte zweiter Timer)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1325": {
     "code": "",
@@ -7158,7 +7498,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Timer 5+6 Aktiv/Tage Bitmaske (ASM; Low-Byte erster Timer, High-Byte zweiter Timer)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1326": {
     "code": "",
@@ -7179,7 +7520,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Zirkulationspumpe Timer 1 Startzeit",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1327": {
     "code": "",
@@ -7200,7 +7542,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Zirkulationspumpe Timer 1 Stopzeit",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1328": {
     "code": "",
@@ -7221,7 +7564,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Zirkulationspumpe Timer 2 Startzeit",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1329": {
     "code": "",
@@ -7242,7 +7586,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Zirkulationspumpe Timer 2 Stopzeit",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1330": {
     "code": "",
@@ -7263,7 +7608,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Zirkulationspumpe Timer 3 Startzeit",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1331": {
     "code": "",
@@ -7284,7 +7630,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Zirkulationspumpe Timer 3 Stopzeit",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1332": {
     "code": "",
@@ -7305,7 +7652,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Zirkulationspumpe Timer 1+2 Aktiv-Bitmaske",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1333": {
     "code": "",
@@ -7326,7 +7674,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Zirkulationspumpe Timer 3 Aktiv-Bitmaske",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1334": {
     "code": "SG01",
@@ -7347,7 +7696,8 @@
     "icon": "mdi:power-socket-eu",
     "has_value_map": true,
     "name": "SG Ready Auswahl",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": 33
   },
   "1335": {
     "code": "SG02",
@@ -7368,7 +7718,8 @@
     "icon": "mdi:power-socket-eu",
     "has_value_map": false,
     "name": "SG Mode 1 Schlafmodus Zeit",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1336": {
     "code": "SG03",
@@ -7389,7 +7740,8 @@
     "icon": "mdi:power-socket-eu",
     "has_value_map": false,
     "name": "SG Mode 2 Leistung / wenig PV",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1337": {
     "code": "SG04",
@@ -7410,7 +7762,8 @@
     "icon": "mdi:power-socket-eu",
     "has_value_map": false,
     "name": "SG Mode 3 Leistung / mittel PV",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1338": {
     "code": "SG05",
@@ -7431,7 +7784,8 @@
     "icon": "mdi:power-socket-eu",
     "has_value_map": false,
     "name": "SG Mode 4 WW-Zieltemperatur-Anhebung",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1339": {
     "code": "SG06",
@@ -7452,7 +7806,8 @@
     "icon": "mdi:power-socket-eu",
     "has_value_map": false,
     "name": "SG Mode 4 HZ-Zieltemperatur-Anhebung",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1340": {
     "code": "SG07",
@@ -7473,7 +7828,8 @@
     "icon": "mdi:power-socket-eu",
     "has_value_map": false,
     "name": "SG Mode 4 Kühlen-Zieltemperatur-Anhebung",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1341": {
     "code": "SG08",
@@ -7494,7 +7850,8 @@
     "icon": "mdi:power-socket-eu",
     "has_value_map": true,
     "name": "SG Mode 4 E-Heizer / Zusatzfunktion",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1342": {
     "code": "A38",
@@ -7515,7 +7872,8 @@
     "icon": "mdi:shield-alert",
     "has_value_map": false,
     "name": "Niederdruck-Grenzwert für Frequenzbegrenzung",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1343": {
     "code": "A39",
@@ -7536,7 +7894,8 @@
     "icon": "mdi:shield-alert",
     "has_value_map": false,
     "name": "Maximaler Stromwert",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1344": {
     "code": "A40",
@@ -7557,7 +7916,8 @@
     "icon": "mdi:shield-alert",
     "has_value_map": false,
     "name": "Nenn-Wasserdurchfluss",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1345": {
     "code": "H40",
@@ -7578,7 +7938,8 @@
     "icon": "mdi:chip",
     "has_value_map": true,
     "name": "External Pump Selection / Externe Pumpenauswahl",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1346": {
     "code": "H41",
@@ -7599,7 +7960,8 @@
     "icon": "mdi:chip",
     "has_value_map": false,
     "name": "Supervisor-Passwort: 66",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1347": {
     "code": "C12",
@@ -7620,7 +7982,8 @@
     "icon": "mdi:air-conditioner",
     "has_value_map": false,
     "name": "Max. Kompressorfrequenz im Warmwasserbetrieb",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1348": {
     "code": "C13",
@@ -7641,7 +8004,8 @@
     "icon": "mdi:air-conditioner",
     "has_value_map": false,
     "name": "Display-Firmware Parameter C13",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1349": {
     "code": "C14",
@@ -7662,7 +8026,8 @@
     "icon": "mdi:air-conditioner",
     "has_value_map": false,
     "name": "Display-Firmware Parameter C14",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1350": {
     "code": "C15",
@@ -7683,7 +8048,8 @@
     "icon": "mdi:air-conditioner",
     "has_value_map": false,
     "name": "Display-Firmware Parameter C15",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1351": {
     "code": "E20",
@@ -7704,7 +8070,8 @@
     "icon": "mdi:valve",
     "has_value_map": false,
     "name": "Display-Firmware Parameter E20",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1352": {
     "code": "E21",
@@ -7725,7 +8092,8 @@
     "icon": "mdi:valve",
     "has_value_map": false,
     "name": "Display-Firmware Parameter E21",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1353": {
     "code": "",
@@ -7746,7 +8114,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Reserviert",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1354": {
     "code": "",
@@ -7767,7 +8136,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Reserviert",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1355": {
     "code": "",
@@ -7788,7 +8158,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Reserviert",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1356": {
     "code": "H42",
@@ -7809,7 +8180,8 @@
     "icon": "mdi:chip",
     "has_value_map": false,
     "name": "Einschalt-AT Gehaeusewannenheizung (D30/1437 erst wirksam, wenn AT kleiner H42 ist)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1357": {
     "code": "Z19",
@@ -7830,7 +8202,8 @@
     "icon": "mdi:home-thermometer",
     "has_value_map": false,
     "name": "Differenz: Keine Pumpe Ein bei niedriger Wassertemperatur",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1358": {
     "code": "Z20",
@@ -7851,7 +8224,8 @@
     "icon": "mdi:home-thermometer",
     "has_value_map": true,
     "name": "Zone 1 Wasserpumpe im Kühlbetrieb aktivieren",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1361": {
     "code": "",
@@ -7872,7 +8246,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 5 / Kennung Wort 1 / ASCII Zeichen 1-2",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1362": {
     "code": "",
@@ -7893,7 +8268,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 5 / Kennung Wort 2 / ASCII Zeichen 3-4",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1363": {
     "code": "",
@@ -7914,7 +8290,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 5 / Kennung Wort 3 / ASCII Zeichen 5-6",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1364": {
     "code": "",
@@ -7935,7 +8312,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 5 / Kennung Wort 4 / ASCII Zeichen 7-8",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1365": {
     "code": "",
@@ -7956,7 +8334,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 5 / Kennung Wort 5 / ASCII Zeichen 9-10",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1366": {
     "code": "",
@@ -7977,7 +8356,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 5 / Kennung Wort 6 / ASCII Zeichen 11-12",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1367": {
     "code": "",
@@ -7998,7 +8378,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 5 / Reserve 1",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1368": {
     "code": "",
@@ -8019,7 +8400,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 5 / Reserve 2",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1369": {
     "code": "",
@@ -8040,7 +8422,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 5 / Marker-Länge",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1370": {
     "code": "",
@@ -8061,7 +8444,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 5 / erstes Blockkopf-Register",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1371": {
     "code": "",
@@ -8082,7 +8466,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Werkstestmodus / manuelle Steuerung (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1372": {
     "code": "",
@@ -8103,7 +8488,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Automatischer Werkstest Ein/Aus (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1373": {
     "code": "",
@@ -8124,7 +8510,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Automatischer Werkstest Modus (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1374": {
     "code": "",
@@ -8145,7 +8532,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Automatischer Werkstest Zieltemperatur (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1375": {
     "code": "",
@@ -8166,7 +8554,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Automatischer Werkstest Kompressorfrequenz (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1376": {
     "code": "",
@@ -8187,7 +8576,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Automatischer Werkstest Lüfter 1 Drehzahl (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1377": {
     "code": "",
@@ -8208,7 +8598,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Automatischer Werkstest Lüfter 2 Drehzahl (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1378": {
     "code": "",
@@ -8229,7 +8620,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Automatischer Werkstest Haupt-EEV Schritte (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1379": {
     "code": "",
@@ -8250,7 +8642,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Automatischer Werkstest EVI-EEV Schritte (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1380": {
     "code": "",
@@ -8271,7 +8664,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Automatischer Werkstest Wasserpumpe Drehzahl (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1432": {
     "code": "P11",
@@ -8292,7 +8686,8 @@
     "icon": "mdi:water-pump",
     "has_value_map": false,
     "name": "Ziel-Temperaturdifferenz für Pumpendrehzahlregelung",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1433": {
     "code": "P12",
@@ -8313,7 +8708,8 @@
     "icon": "mdi:water-pump",
     "has_value_map": false,
     "name": "Pumpendrehzahl-Anpassbereich je Periode",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1435": {
     "code": "P13",
@@ -8334,7 +8730,8 @@
     "icon": "mdi:water-pump",
     "has_value_map": false,
     "name": "Nachfüllventil Startzyklus (IDU)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1436": {
     "code": "P14",
@@ -8355,7 +8752,8 @@
     "icon": "mdi:water-pump",
     "has_value_map": false,
     "name": "Nachfüllventil Arbeitsdauer (IDU)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1437": {
     "code": "D30",
@@ -8376,7 +8774,8 @@
     "icon": "mdi:snowflake-melt",
     "has_value_map": false,
     "name": "Gehaeusewannenheizung Delays Off Time after Defrost",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1438": {
     "code": "P15",
@@ -8397,7 +8796,8 @@
     "icon": "mdi:water-pump",
     "has_value_map": false,
     "name": "Ziel-Wasserdruck (IDU)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1444": {
     "code": "P16",
@@ -8418,7 +8818,8 @@
     "icon": "mdi:water-pump",
     "has_value_map": false,
     "name": "Stopp-Nachfülldruckdifferenz (IDU)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1451": {
     "code": "",
@@ -8439,7 +8840,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 6 / Kennung Wort 1 / ASCII Zeichen 1-2",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1452": {
     "code": "",
@@ -8460,7 +8862,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 6 / Kennung Wort 2 / ASCII Zeichen 3-4",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1453": {
     "code": "",
@@ -8481,7 +8884,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 6 / Kennung Wort 3 / ASCII Zeichen 5-6",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1454": {
     "code": "",
@@ -8502,7 +8906,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 6 / Kennung Wort 4 / ASCII Zeichen 7-8",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1455": {
     "code": "",
@@ -8523,7 +8928,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 6 / Kennung Wort 5 / ASCII Zeichen 9-10",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1456": {
     "code": "",
@@ -8544,7 +8950,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 6 / Kennung Wort 6 / ASCII Zeichen 11-12",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1457": {
     "code": "",
@@ -8565,7 +8972,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 6 / Reserve 1",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1458": {
     "code": "",
@@ -8586,7 +8994,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 6 / Reserve 2",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1459": {
     "code": "",
@@ -8607,7 +9016,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 6 / Marker-Länge",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1460": {
     "code": "",
@@ -8628,7 +9038,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 6 / erstes Blockkopf-Register",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1464": {
     "code": "",
@@ -8649,7 +9060,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Funktion unbekannt",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1466": {
     "code": "",
@@ -8670,7 +9082,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Funktion unbekannt",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1476": {
     "code": "",
@@ -8691,7 +9104,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Funktion unbekannt",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1541": {
     "code": "",
@@ -8712,7 +9126,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 7 / Kennung Wort 1",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1542": {
     "code": "",
@@ -8733,7 +9148,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 7 / Kennung Wort 2",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1543": {
     "code": "",
@@ -8754,7 +9170,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 7 / Kennung Wort 3",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1544": {
     "code": "",
@@ -8775,7 +9192,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 7 / Kennung Wort 4",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1545": {
     "code": "",
@@ -8796,7 +9214,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 7 / Kennung Wort 5",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1546": {
     "code": "",
@@ -8817,7 +9236,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 7 / Kennung Wort 6",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1547": {
     "code": "",
@@ -8838,7 +9258,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 7 / Reserve 1",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1548": {
     "code": "",
@@ -8859,7 +9280,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 7 / Reserve 2",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1549": {
     "code": "",
@@ -8880,7 +9302,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 7 / Marker-Länge",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "1550": {
     "code": "",
@@ -8901,7 +9324,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 7 / erstes Blockkopf-Register",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2001": {
     "code": "",
@@ -8922,7 +9346,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 7 / Kennung Wort 1 / ASCII Zeichen 1-2",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2002": {
     "code": "",
@@ -8943,7 +9368,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 7 / Kennung Wort 2 / ASCII Zeichen 3-4",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2003": {
     "code": "",
@@ -8964,7 +9390,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 7 / Kennung Wort 3 / ASCII Zeichen 5-6",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2004": {
     "code": "",
@@ -8985,7 +9412,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 7 / Kennung Wort 4 / ASCII Zeichen 7-8",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2005": {
     "code": "",
@@ -9006,7 +9434,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 7 / Kennung Wort 5 / ASCII Zeichen 9-10",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2006": {
     "code": "",
@@ -9027,7 +9456,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 7 / Kennung Wort 6 / ASCII Zeichen 11-12",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2007": {
     "code": "",
@@ -9048,7 +9478,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket Status 1 / Reserve 1",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2008": {
     "code": "",
@@ -9069,7 +9500,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket Status 1 / Reserve 2",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2009": {
     "code": "",
@@ -9090,7 +9522,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket Status 1 / Marker-Länge",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2010": {
     "code": "",
@@ -9111,7 +9544,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket Status 1 / erstes Blockkopf-Register",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2011": {
     "code": "",
@@ -9132,7 +9566,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": true,
     "name": "Gerätezustand",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2012": {
     "code": "",
@@ -9153,7 +9588,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": true,
     "name": "Aktueller Betriebsstatus",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2013": {
     "code": "",
@@ -9174,7 +9610,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Temperaturwert nach Begrenzung",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "2014": {
     "code": "",
@@ -9195,7 +9632,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Temperaturwert nach Wetterkompensation während des Heizens",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "2015": {
     "code": "",
@@ -9216,7 +9654,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": true,
     "name": "Zentrale Abtauautomatik anwenden",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2016": {
     "code": "",
@@ -9237,7 +9676,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Solltemperatur wie 2013 / 2014",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "2017": {
     "code": "",
@@ -9258,7 +9698,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Reserviert",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2018": {
     "code": "",
@@ -9279,7 +9720,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": true,
     "name": "025 / Lastausgang (Elektrischer Wassertankheizer)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2019": {
     "code": "",
@@ -9300,7 +9742,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "001 bis 023 / Lastausgänge Bitfeld (vollständig decodiert)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2020": {
     "code": "",
@@ -9321,7 +9764,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "015 / EEV-Schritte",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2021": {
     "code": "",
@@ -9342,7 +9786,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Reserviert",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2022": {
     "code": "",
@@ -9363,7 +9808,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "017 / EVI EEV-Schritte",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2023": {
     "code": "",
@@ -9384,7 +9830,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Anzahl Verdichter-Starts",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2024": {
     "code": "",
@@ -9405,7 +9852,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "System 2 Ventil-/EEV-Anzeige Wert (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2025": {
     "code": "",
@@ -9426,7 +9874,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "System 2 EVI-/Enthalpie-Anzeige Wert (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2026": {
     "code": "",
@@ -9447,7 +9896,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "9",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2027": {
     "code": "",
@@ -9468,7 +9918,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "9",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2028": {
     "code": "",
@@ -9489,7 +9940,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "9",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2029": {
     "code": "T-Diag5",
@@ -9510,7 +9962,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "Eingangsstrom L1",
-    "poll_tier": "medium"
+    "poll_tier": "medium",
+    "min_firmware": null
   },
   "2030": {
     "code": "T-Diag6",
@@ -9531,7 +9984,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "Eingangsstrom L2",
-    "poll_tier": "medium"
+    "poll_tier": "medium",
+    "min_firmware": null
   },
   "2031": {
     "code": "T-Diag7",
@@ -9552,7 +10006,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "Eingangsstrom L3",
-    "poll_tier": "medium"
+    "poll_tier": "medium",
+    "min_firmware": null
   },
   "2032": {
     "code": "T-Diag8",
@@ -9573,7 +10028,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "Kompressor-Laufzeit",
-    "poll_tier": "medium"
+    "poll_tier": "medium",
+    "min_firmware": null
   },
   "2033": {
     "code": "",
@@ -9594,7 +10050,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Reserviert",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2034": {
     "code": "S01",
@@ -9615,7 +10072,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Schalterzustände / Kontakte / SG Ready",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2035": {
     "code": "T40",
@@ -9636,7 +10094,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "Heizungsrücklauftemperatur",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "2036": {
     "code": "T41",
@@ -9657,7 +10116,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "Heizungsvorlauftemperatur",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "2037": {
     "code": "T42",
@@ -9678,7 +10138,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "Mischrohrauslasswassertemperatur",
-    "poll_tier": "medium"
+    "poll_tier": "medium",
+    "min_firmware": null
   },
   "2038": {
     "code": "T43",
@@ -9699,7 +10160,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "WW-Rücklauftemperatur",
-    "poll_tier": "medium"
+    "poll_tier": "medium",
+    "min_firmware": null
   },
   "2039": {
     "code": "T44",
@@ -9720,7 +10182,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "WW-Vorlauftemperatur",
-    "poll_tier": "medium"
+    "poll_tier": "medium",
+    "min_firmware": null
   },
   "2040": {
     "code": "",
@@ -9741,7 +10204,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Reserviert",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2041": {
     "code": "",
@@ -9762,7 +10226,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Reserviert",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2042": {
     "code": "T36",
@@ -9783,7 +10248,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "Phasenstrom des Kompressors",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "2043": {
     "code": "T37",
@@ -9804,7 +10270,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "DC-Power-Bus-Spannung",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "2044": {
     "code": "T38",
@@ -9825,7 +10292,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "IPM-Temperatur.",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "2045": {
     "code": "T01",
@@ -9846,7 +10314,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "Einlasswassertemperatur",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "2046": {
     "code": "T02",
@@ -9867,7 +10336,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "Auslasswassertemperatur",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "2047": {
     "code": "T08",
@@ -9888,7 +10358,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "WW-Tanktemperatur",
-    "poll_tier": "medium"
+    "poll_tier": "medium",
+    "min_firmware": null
   },
   "2048": {
     "code": "T04",
@@ -9909,7 +10380,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "Umgebungstemperatur (AT)",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "2049": {
     "code": "T03",
@@ -9930,7 +10402,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "Verdampfertemperatur",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "2050": {
     "code": "T14",
@@ -9951,7 +10424,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "Verteilerrohrtemperatur",
-    "poll_tier": "medium"
+    "poll_tier": "medium",
+    "min_firmware": null
   },
   "2051": {
     "code": "T05",
@@ -9972,7 +10446,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "Saugsungstemperatur",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "2052": {
     "code": "T07",
@@ -9993,7 +10468,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "Puffertanktemperatur",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "2053": {
     "code": "T12",
@@ -10014,7 +10490,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "Abgastemperatur",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "2054": {
     "code": "T54",
@@ -10035,7 +10512,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "Elektrische Leistung / Unit Power",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "2055": {
     "code": "T06",
@@ -10056,7 +10534,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "Frostschutztemperatur (Am PlattenWT)",
-    "poll_tier": "medium"
+    "poll_tier": "medium",
+    "min_firmware": null
   },
   "2056": {
     "code": "",
@@ -10077,7 +10556,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "T? / System 1 Frostschutztemperatur 2 / Coil/Frost Temp 2 (ASM V1.3)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2057": {
     "code": "T35",
@@ -10098,7 +10578,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "AC Input Current",
-    "poll_tier": "medium"
+    "poll_tier": "medium",
+    "min_firmware": null
   },
   "2058": {
     "code": "T09",
@@ -10119,7 +10600,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "Raumtemperatur",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "2059": {
     "code": "T59",
@@ -10140,7 +10622,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "Wärmeleistung / Unit Capacity",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "2060": {
     "code": "T60",
@@ -10161,7 +10644,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "COP",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "2061": {
     "code": "T33",
@@ -10182,7 +10666,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "IPM-Hochfehler-Temperatur",
-    "poll_tier": "medium"
+    "poll_tier": "medium",
+    "min_firmware": null
   },
   "2062": {
     "code": "T34",
@@ -10203,7 +10688,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "AC-Eingangsspannung",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "2063": {
     "code": "T10",
@@ -10224,7 +10710,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "EVI-Einlasstemperatur",
-    "poll_tier": "medium"
+    "poll_tier": "medium",
+    "min_firmware": null
   },
   "2064": {
     "code": "T11",
@@ -10245,7 +10732,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "EVI-Auslasstemperatur",
-    "poll_tier": "medium"
+    "poll_tier": "medium",
+    "min_firmware": null
   },
   "2065": {
     "code": "T-Diag1",
@@ -10266,7 +10754,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "Verdampfungstemperatur / Evaporating Temp (ASM)",
-    "poll_tier": "medium"
+    "poll_tier": "medium",
+    "min_firmware": null
   },
   "2066": {
     "code": "T-Diag2",
@@ -10287,7 +10776,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "Abgas-Überhitzung / Exhaust Superheat (ASM)",
-    "poll_tier": "medium"
+    "poll_tier": "medium",
+    "min_firmware": null
   },
   "2067": {
     "code": "T-Diag3",
@@ -10308,7 +10798,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "Rückgas-/Saug-Überhitzung / Suction Superheat (ASM)",
-    "poll_tier": "medium"
+    "poll_tier": "medium",
+    "min_firmware": null
   },
   "2068": {
     "code": "",
@@ -10329,7 +10820,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "System 2 Strom / Current (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2069": {
     "code": "T15",
@@ -10350,7 +10842,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "Niederdruck",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "2070": {
     "code": "",
@@ -10371,7 +10864,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "System 2 Druck / Pressure (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2071": {
     "code": "T30",
@@ -10392,7 +10886,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "Kompressor-Sollfrequenz",
-    "poll_tier": "medium"
+    "poll_tier": "medium",
+    "min_firmware": null
   },
   "2072": {
     "code": "T31",
@@ -10413,7 +10908,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "Betriebsfrequenz des Kompressors",
-    "poll_tier": "medium"
+    "poll_tier": "medium",
+    "min_firmware": null
   },
   "2073": {
     "code": "T32",
@@ -10434,7 +10930,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "Max. Frequenz vom Kompressortreiber",
-    "poll_tier": "medium"
+    "poll_tier": "medium",
+    "min_firmware": null
   },
   "2074": {
     "code": "T27",
@@ -10455,7 +10952,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "Drehzahl des Lüftermotors 1",
-    "poll_tier": "medium"
+    "poll_tier": "medium",
+    "min_firmware": null
   },
   "2075": {
     "code": "T28",
@@ -10476,7 +10974,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "Drehzahl des Lüftermotors 2",
-    "poll_tier": "medium"
+    "poll_tier": "medium",
+    "min_firmware": null
   },
   "2076": {
     "code": "T29",
@@ -10497,7 +10996,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "Zieldrehzahl des Lüftermotors",
-    "poll_tier": "medium"
+    "poll_tier": "medium",
+    "min_firmware": null
   },
   "2077": {
     "code": "T39",
@@ -10518,7 +11018,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "Wasserdurchflussrate",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "2078": {
     "code": "",
@@ -10539,7 +11040,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Energiezähler elektrisch high bits",
-    "poll_tier": "medium"
+    "poll_tier": "medium",
+    "min_firmware": null
   },
   "2079": {
     "code": "",
@@ -10560,7 +11062,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Energiezähler elektrisch low bits / total",
-    "poll_tier": "medium"
+    "poll_tier": "medium",
+    "min_firmware": null
   },
   "2080": {
     "code": "",
@@ -10581,7 +11084,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Status-/Datenwort (wie Displaybus 91099)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2081": {
     "code": "ERR07",
@@ -10602,7 +11106,8 @@
     "icon": "mdi:alert-circle",
     "has_value_map": false,
     "name": "Fehler 7 / Störmeldebits",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2082": {
     "code": "ERR08",
@@ -10623,7 +11128,8 @@
     "icon": "mdi:alert-circle",
     "has_value_map": false,
     "name": "Fehler 8 / Störmeldebits",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2083": {
     "code": "ERR09",
@@ -10644,7 +11150,8 @@
     "icon": "mdi:alert-circle",
     "has_value_map": false,
     "name": "Fehler 9 / Störmeldebits",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2084": {
     "code": "",
@@ -10665,7 +11172,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "9",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2085": {
     "code": "ERR01",
@@ -10686,7 +11194,8 @@
     "icon": "mdi:alert-circle",
     "has_value_map": false,
     "name": "Fehler 1 / Störmeldebits",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2086": {
     "code": "ERR02",
@@ -10707,7 +11216,8 @@
     "icon": "mdi:alert-circle",
     "has_value_map": false,
     "name": "Fehler 2 / Störmeldebits",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2087": {
     "code": "ERR03",
@@ -10728,7 +11238,8 @@
     "icon": "mdi:alert-circle",
     "has_value_map": false,
     "name": "Fehler 3 / Störmeldebits",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2088": {
     "code": "ERR04",
@@ -10749,7 +11260,8 @@
     "icon": "mdi:alert-circle",
     "has_value_map": false,
     "name": "Fehler 4 / Störmeldebits",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2089": {
     "code": "ERR05",
@@ -10770,7 +11282,8 @@
     "icon": "mdi:alert-circle",
     "has_value_map": false,
     "name": "Fehler 5 / Störmeldebits",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2090": {
     "code": "ERR06",
@@ -10791,7 +11304,8 @@
     "icon": "mdi:alert-circle",
     "has_value_map": false,
     "name": "Fehler 6 / Störmeldebits",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2091": {
     "code": "",
@@ -10812,7 +11326,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 8 / Kennung Wort 1 / ASCII Zeichen 1-2",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2092": {
     "code": "",
@@ -10833,7 +11348,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 8 / Kennung Wort 2 / ASCII Zeichen 3-4",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2093": {
     "code": "",
@@ -10854,7 +11370,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 8 / Kennung Wort 3 / ASCII Zeichen 5-6",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2094": {
     "code": "",
@@ -10875,7 +11392,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 8 / Kennung Wort 4 / ASCII Zeichen 7-8",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2095": {
     "code": "",
@@ -10896,7 +11414,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 8 / Kennung Wort 5 / ASCII Zeichen 9-10",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2096": {
     "code": "",
@@ -10917,7 +11436,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket 8 / Kennung Wort 6 / ASCII Zeichen 11-12",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2097": {
     "code": "",
@@ -10938,7 +11458,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket Status 2 / Reserve 1",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2098": {
     "code": "",
@@ -10959,7 +11480,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket Status 2 / Reserve 2",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2099": {
     "code": "",
@@ -10980,7 +11502,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket Status 2 / Marker-Länge",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2100": {
     "code": "",
@@ -11001,7 +11524,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Blockkopf Paket Status 2 / erstes Blockkopf-Register",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2101": {
     "code": "",
@@ -11022,7 +11546,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Reserviert",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2102": {
     "code": "",
@@ -11043,7 +11568,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Reserviert",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2103": {
     "code": "",
@@ -11064,18 +11590,19 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Hauptcontroler Softwarecode (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2104": {
     "code": "",
     "block": "",
     "tab": "",
     "group": "Header/Reserved",
-    "hidden": true,
+    "hidden": false,
     "editable": false,
     "platform": "sensor",
     "risk": "safe",
-    "requires_expert": true,
+    "requires_expert": false,
     "type": "RAW",
     "unit": null,
     "min": null,
@@ -11085,7 +11612,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Hauptsoftwareversion",
-    "poll_tier": "rare"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "2105": {
     "code": "",
@@ -11106,7 +11634,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Softwarecode",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2106": {
     "code": "",
@@ -11127,7 +11656,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Pumpenregel-/PWM-Regelzyklus Flag (Kandidat)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2107": {
     "code": "",
@@ -11148,7 +11678,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Kommunikations-Heartbeat / WP-Paket gültig 0x5AA5 (Merker Display-Init)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2108": {
     "code": "",
@@ -11169,7 +11700,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Lüfter-Stummschalt-Flag / Fan Mute Flag (ASM)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2109": {
     "code": "",
@@ -11190,7 +11722,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Interner V3.3-Statuswert",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2110": {
     "code": "",
@@ -11211,7 +11744,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Reserviert",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2111": {
     "code": "",
@@ -11232,7 +11766,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Display Nr.",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2112": {
     "code": "",
@@ -11253,7 +11788,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Display Version",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2113": {
     "code": "",
@@ -11274,7 +11810,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Reserviert",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2114": {
     "code": "",
@@ -11295,7 +11832,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Reserviert",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2115": {
     "code": "",
@@ -11316,7 +11854,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "UP PWM aktuell",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2116": {
     "code": "",
@@ -11337,7 +11876,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "PWM-Rückmeldung der Pumpe",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2117": {
     "code": "",
@@ -11358,7 +11898,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Reserviert",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2118": {
     "code": "",
@@ -11379,7 +11920,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Energiezähler elektrisch Heizen",
-    "poll_tier": "medium"
+    "poll_tier": "medium",
+    "min_firmware": null
   },
   "2119": {
     "code": "",
@@ -11400,7 +11942,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Reserviert",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2120": {
     "code": "",
@@ -11421,7 +11964,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Energiezähler Wärmemenge Heizen",
-    "poll_tier": "medium"
+    "poll_tier": "medium",
+    "min_firmware": null
   },
   "2121": {
     "code": "",
@@ -11442,7 +11986,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Reserviert",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2122": {
     "code": "",
@@ -11463,7 +12008,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Energiezähler elektrisch Kühlen",
-    "poll_tier": "medium"
+    "poll_tier": "medium",
+    "min_firmware": null
   },
   "2123": {
     "code": "",
@@ -11484,7 +12030,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Reserviert",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2124": {
     "code": "",
@@ -11505,7 +12052,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Energiezähler Wärmemenge Kühlen",
-    "poll_tier": "medium"
+    "poll_tier": "medium",
+    "min_firmware": null
   },
   "2125": {
     "code": "",
@@ -11526,7 +12074,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "Energiezähler elektrisch Warmwasser – High Word",
-    "poll_tier": "medium"
+    "poll_tier": "medium",
+    "min_firmware": null
   },
   "2126": {
     "code": "",
@@ -11547,7 +12096,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "Energiezähler elektrisch Warmwasser – Low Word",
-    "poll_tier": "medium"
+    "poll_tier": "medium",
+    "min_firmware": null
   },
   "2127": {
     "code": "",
@@ -11568,7 +12118,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "Energiezähler thermisch Warmwasser – High Word",
-    "poll_tier": "medium"
+    "poll_tier": "medium",
+    "min_firmware": null
   },
   "2128": {
     "code": "",
@@ -11589,7 +12140,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "Energiezähler thermisch Warmwasser – Low Word",
-    "poll_tier": "medium"
+    "poll_tier": "medium",
+    "min_firmware": null
   },
   "2129": {
     "code": "",
@@ -11610,7 +12162,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Reserviert",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2130": {
     "code": "T46",
@@ -11631,7 +12184,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "IPM-Temperatur des externen Lüftermotorantriebs",
-    "poll_tier": "medium"
+    "poll_tier": "medium",
+    "min_firmware": null
   },
   "2131": {
     "code": "T47",
@@ -11652,7 +12206,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "Leistung des externen Lüftermotorantriebs",
-    "poll_tier": "medium"
+    "poll_tier": "medium",
+    "min_firmware": null
   },
   "2132": {
     "code": "T48",
@@ -11673,7 +12228,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "Strom des externen Lüftermotorantriebs.",
-    "poll_tier": "medium"
+    "poll_tier": "medium",
+    "min_firmware": null
   },
   "2133": {
     "code": "SGstatus",
@@ -11694,7 +12250,8 @@
     "icon": "mdi:power-socket-eu",
     "has_value_map": true,
     "name": "SG Ready aktiver Modus",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2134": {
     "code": "",
@@ -11715,7 +12272,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": true,
     "name": "Timer State Leistungsbegrenzungstimer 1-6",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2135": {
     "code": "",
@@ -11736,7 +12294,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Funktion unbekannt",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2136": {
     "code": "",
@@ -11757,7 +12316,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "T04 Außentemperatur – zweiter Veröffentlichungsweg",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "2137": {
     "code": "",
@@ -11778,7 +12338,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "Elektrische WP-/Inverterleistung ohne Zusatzanteil",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "2138": {
     "code": "",
@@ -11799,7 +12360,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "Thermische WP-Leistung ohne Zusatzanteil",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "2139": {
     "code": "",
@@ -11820,7 +12382,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Funktion unbekannt",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2140": {
     "code": "",
@@ -11841,7 +12404,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Funktion unbekannt",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2141": {
     "code": "",
@@ -11862,7 +12426,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Funktion unbekannt",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2142": {
     "code": "",
@@ -11883,7 +12448,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Funktion unbekannt",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2143": {
     "code": "",
@@ -11904,7 +12470,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Funktion unbekannt",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2144": {
     "code": "",
@@ -11925,7 +12492,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Funktion unbekannt",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2145": {
     "code": "",
@@ -11946,7 +12514,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Funktion unbekannt",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2146": {
     "code": "",
@@ -11967,7 +12536,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Funktion unbekannt",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2147": {
     "code": "",
@@ -11988,7 +12558,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Funktion unbekannt",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2148": {
     "code": "",
@@ -12009,7 +12580,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Funktion unbekannt",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2149": {
     "code": "",
@@ -12030,7 +12602,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Funktion unbekannt",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "50043": {
     "code": "",
@@ -12051,7 +12624,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Service-/OTA-SSID (C37B)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "50044": {
     "code": "",
@@ -12072,7 +12646,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": true,
     "name": "C37B Quittungsstatus",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "50500": {
     "code": "",
@@ -12093,7 +12668,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Service-/OTA-SSID (C544)",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "50501": {
     "code": "",
@@ -12114,7 +12690,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Hardwarecode ASCII Wort 1/4",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "50502": {
     "code": "",
@@ -12135,7 +12712,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Hardwarecode ASCII Wort 2/4",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "50503": {
     "code": "",
@@ -12156,7 +12734,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Hardwarecode ASCII Wort 3/4",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "50504": {
     "code": "",
@@ -12177,7 +12756,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Hardwarecode ASCII Wort 4/4",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "50505": {
     "code": "",
@@ -12198,7 +12778,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Hardwareversion ASCII Wort 1/2",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "50506": {
     "code": "",
@@ -12219,7 +12800,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Hardwareversion ASCII Wort 2/2",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "50507": {
     "code": "",
@@ -12240,7 +12822,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Softwarecode ASCII Wort 1/4",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "50508": {
     "code": "",
@@ -12261,7 +12844,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Softwarecode ASCII Wort 2/4",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "50509": {
     "code": "",
@@ -12282,7 +12866,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Softwarecode ASCII Wort 3/4",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "50510": {
     "code": "",
@@ -12303,7 +12888,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Softwarecode ASCII Wort 4/4",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "50511": {
     "code": "",
@@ -12324,7 +12910,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Interne Softwareversion ASCII Wort 1/2",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "50512": {
     "code": "",
@@ -12345,7 +12932,8 @@
     "icon": "mdi:heat-pump",
     "has_value_map": false,
     "name": "Interne Softwareversion ASCII Wort 2/2",
-    "poll_tier": "rare"
+    "poll_tier": "rare",
+    "min_firmware": null
   },
   "2178": {
     "code": "",
@@ -12366,7 +12954,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "Temperatur des Temperatur-/Feuchtesensors",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "2179": {
     "code": "",
@@ -12387,7 +12976,8 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "Relative Luftfeuchtigkeit",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   },
   "2180": {
     "code": "",
@@ -12408,6 +12998,7 @@
     "icon": "mdi:pulse",
     "has_value_map": false,
     "name": "Berechneter Taupunkt",
-    "poll_tier": "quick"
+    "poll_tier": "quick",
+    "min_firmware": null
   }
 }

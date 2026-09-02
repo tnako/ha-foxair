@@ -51,7 +51,7 @@ def _ensure_cfg() -> dict:
     MODBUS_MAX_SPAN = _modbus_cfg.get("max_span", 45)
     MODBUS_MAX_GAP = _modbus_cfg.get("max_gap", 8)
     _core_marker = _markers_cfg.get("core_main_addrs", {})
-    CORE_MAIN_ADDRS = set(_core_marker.get("addr_list", [1011, 1012, 1013, 1014, 1030, 1157, 1158, 1159, 1212, 1213, 1214, 1234, 1235, 1236, 2012, 2014, 8801]))
+    CORE_MAIN_ADDRS = set(_core_marker.get("addr_list", [1011, 1012, 1013, 1014, 1030, 1157, 1158, 1159, 1212, 1213, 1214, 1234, 1235, 1236, 2012, 2014, 8801])) | {2104}
     return _CFG
 
 # Eager-load when not running inside HA event loop (tools, tests, CLI).
@@ -72,7 +72,7 @@ if not _CFG_LOADED:
     DTYPE_SPEC: dict = {}
     QUICK_INTERVAL, MEDIUM_INTERVAL, RARE_INTERVAL = 1, 4, 10
     MODBUS_MAX_SPAN, MODBUS_MAX_GAP = 45, 8
-    CORE_MAIN_ADDRS: set = {1011, 1012, 1013, 1014, 1030, 1157, 1158, 1159, 1212, 1213, 1214, 1234, 1235, 1236, 2012, 2014, 8801}
+    CORE_MAIN_ADDRS: set = {1011, 1012, 1013, 1014, 1030, 1157, 1158, 1159, 1212, 1213, 1214, 1234, 1235, 1236, 2012, 2014, 2104, 8801}
 
 # (EXPERT_BLOCKS / BLOCK_ORDER / DTYPE_SPEC / intervals / CORE_MAIN_ADDRS
 # are already set above — either by _ensure_cfg() eager load or by the
@@ -155,7 +155,7 @@ POPULAR_ADDRS = {
     1011,1012,1016,1018,1021,1030,1035,
     *range(1157, 1200),
     1197,1198,1199,1205,
-    1334,8801,2133,2034,
+    1334,8801,2133,2034,2104,
     1234,1235,1236,
     2044,2045,2046,2048,2049,2051,2053,2062,2071,2072,2074,2077,2020,2069,2019,2065,2066,2067,
 }

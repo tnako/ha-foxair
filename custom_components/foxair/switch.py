@@ -24,6 +24,8 @@ async def async_setup_entry(hass, entry, add_entities):
             continue
         if meta.get("hidden"):
             continue
+        if meta.get("min_firmware") and not coord._fw_gte(meta.get("min_firmware")):
+            continue
         if meta.get("requires_expert") and not entry.options.get("enable_expert"):
             continue
         ents.append(FoxSwitch(coord, addr, meta))
