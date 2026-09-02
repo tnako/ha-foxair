@@ -17,7 +17,7 @@ jobs:
           python3 -c "
           import pathlib, os
           text = pathlib.Path('CHANGELOG.md').read_text()
-          header = '## ' + os.environ['TAG']
+          header = '## ' + os.environ['TAG'].lstrip('v')
           idx = text.find(header)
           if idx == -1:
               body = 'No changelog entry found for this tag.'
@@ -38,11 +38,14 @@ jobs:
           script: |
             const fs = require('fs');
             const body = fs.readFileSync('RELEASE_BODY.md', 'utf8');
-            const response = await github.rest.repos.updateRelease({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              tag: context.refName,
-              body: body,
+            const tag = context.refName;
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            // Find the release by tag, then update its body
+            const getResp = await github.rest.repos.getReleaseByTag({ owner, repo, tag });
+            const releaseId = getResp.data.id;
+            const updateResp = await github.rest.repos.updateRelease({
+              owner, repo, release_id: releaseId, body
             });
             console.log('Release body updated, length:', body.length);
-            console.log('Release URL:', response.data.html_url);
+            console.log('Release URL:', updateResp.data.html_url);
