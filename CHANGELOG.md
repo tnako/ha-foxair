@@ -1,3 +1,6 @@
+## 0.5.1 - 2026-09-02
+|- chore(code-review): replace bare `except:` with `except Exception:` across all runtime platforms (sensor/number/select/switch/time/image/views/heating_curve/diagnostics) — bare excepts swallow `KeyboardInterrupt`/`CancelledError` and mask real errors under HA 2026's stricter exception handling; remove duplicate `BAR_X10` key in number.py DTYPE_CLASS
+|
 ## 0.5.0 - 2026-09-01
 - feat(prefix): configurable entity prefix (`name_prefix` in config flow) — allows multiple FoxAir/PHNIX heat pumps without entity_id collisions; device names, entity IDs, translation keys, and unique IDs all derive from prefix (default: `foxair`)
 - feat(timer): circulation pump 1326-1331 now time picker (TIME_DECIMAL HHMM 730→07:30) instead of 0-2359 slider; silent timer now 2×time + 2×switch (1245/1248 composite HH:MM via hour+minute pair, 1244/1247 as toggles) instead of 6 selects/sliders; new platform `switch` (SWITCH dtype) + types TIME_DECIMAL/TIME_SPLIT

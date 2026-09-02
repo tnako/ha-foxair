@@ -52,5 +52,5 @@ def curve_target_for_at(coord, at_c: float) -> Optional[float]:
         lo = r10["value"] if r10 else 20
         hi = r11["value"] if r11 else 60
         return max(lo, min(hi, target))
-    except:
+    except Exception:
         return None

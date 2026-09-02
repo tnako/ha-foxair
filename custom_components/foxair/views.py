@@ -62,7 +62,7 @@ class FoxAirCurveSvgView(HomeAssistantView):
                 fixed_addr = st_a.get("heating_target")
                 rec_f = coord.data.get(fixed_addr) if fixed_addr else None
                 if rec_f: fixed = rec_f.get("value")
-            except:
+            except Exception:
                 pass
         # SVG 800x460: plot 800x400 (AT -20..20 => x 60..760, flow 10..70 => y 330..30) + 60px legend strip
         W, H = 800, 460
@@ -161,7 +161,7 @@ class FoxAirCurvePanelView(HomeAssistantView):
                 if isinstance(at,(int,float)): at=f"{at:.1f}"
                 if isinstance(slope,(int,float)): slope=f"{slope}"
                 if isinstance(offset,(int,float)): offset=f"{offset}"
-            except:
+            except Exception:
                 pass
         _at_lbl = hc_a.get("at_sensor", "—")
         _slope_lbl = hc_a.get("slope", "—")

@@ -58,7 +58,8 @@ class FoxSensor(CoordinatorEntity, SensorEntity):
         self._attr_translation_key = f"{prefix}_{addr}"
         try:
             meta = coord.get_metadata(addr) if hasattr(coord, "get_metadata") else {}
-        except: meta = {}
+        except Exception:
+            meta = {}
         block = (meta.get("block") or info.get("block") or "")
         tab = (meta.get("tab") or info.get("tab") or block)
         entry_id = getattr(coord, "_entry_id", None) or getattr(coord, "config_entry", None) and getattr(coord.config_entry, "entry_id", None)
@@ -78,7 +79,8 @@ class FoxSensor(CoordinatorEntity, SensorEntity):
         # v0.3 metadata-aware category
         try:
             meta = coord.get_metadata(addr) if hasattr(coord, "get_metadata") else {}
-        except: meta={}
+        except Exception:
+            meta = {}
         risk = meta.get("risk")
         if addr in HIDDEN or risk == "blocked":
             self._attr_entity_registry_enabled_default = False
@@ -121,8 +123,10 @@ class FoxSensor(CoordinatorEntity, SensorEntity):
         if not rec: return {}
         info = rec.get("info",{})
         meta = {}
-        try: meta = self.coordinator.get_metadata(self._addr)
-        except: pass
+        try:
+            meta = self.coordinator.get_metadata(self._addr)
+        except Exception:
+            pass
         return {"raw": rec.get("raw"), "address": self._addr, "block": info.get("block"), "code": info.get("code"), "type": info.get("type"), "group": meta.get("group"), "risk": meta.get("risk"), "editable": meta.get("editable"), "min": meta.get("min"), "max": meta.get("max")}
 
 class FoxHeatingCurveTargetSensor(CoordinatorEntity, SensorEntity):
@@ -151,7 +155,8 @@ class FoxHeatingCurveTargetSensor(CoordinatorEntity, SensorEntity):
             if at is None: return None
             v = curve_target_for_at(self.coordinator, float(at))
             return round(v,1) if v is not None else None
-        except: return None
+        except Exception:
+            return None
     @property
     def extra_state_attributes(self):
         try:
@@ -167,7 +172,8 @@ class FoxHeatingCurveTargetSensor(CoordinatorEntity, SensorEntity):
             r10 = self.coordinator.data.get(hc.get("r10_min"), {}).get("value") if hc.get("r10_min") else None
             r11 = self.coordinator.data.get(hc.get("r11_max"), {}).get("value") if hc.get("r11_max") else None
             return {"at": at, "slope": slope, "offset": offset, "h36_enable": en, "fixed_r02": fixed, "after_comp_2014": after, "r10_min": r10, "r11_max": r11, "panel": "/api/foxair/heating-curve-panel", "svg": "/api/foxair/heating_curve.svg"}
-        except: return {}
+        except Exception:
+            return {}
 
 
 # ---------------------------------------------------------------------------
