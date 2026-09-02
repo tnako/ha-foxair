@@ -2,76 +2,74 @@
 
 Control and monitor your **FoxAir / PHNIX air-to-water heat pump** directly from Home Assistant over Modbus TCP — no cloud, no YAML.
 
-![Version](https://img.shields.io/badge/version-0.5.2-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2026.3-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
+![Version](https://img.shields.io/badge/version-0.5.2-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2025.3-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
 ![FoxAir Demo](docs/screenshots/foxair_demo.gif)
 
-Registers and scaling are based on the reverse-engineering in [dosordie/FoxAir_Control](https://github.com/dosordie/FoxAir_Control) (591 registers, FoxAir_Control 0.2.62 / 5607b5a).
+Register maps and scaling based on the reverse-engineering in [dosordie/FoxAir_Control](https://github.com/dosordie/FoxAir_Control).
 
 ## What you get
 
 - **Live diagnostics** — inlet/outlet, coil, ambient, exhaust, pressures, flow, compressor freq, fan RPM, voltages
-- **New in 0.4.x** — humidity sensor temp / relative humidity / dewpoint (2178-2180), DHW energy 32-bit counters (2125-2128), T04 secondary outdoor temp (2136), WP power without booster (2137-2138)
-- **Controls** — heating / DHW / cooling setpoints (R01-R03), SG Ready (1334 + virtual 8801), pump modes, zone mixing valves, climate **Off / Heat** with 4 DHW presets
-- **Heating curve** — slope (1234) / offset (1235) / mode (1236) with live panel **FoxAir Curve** (iframe `/api/foxair/heating-curve-panel`, SVG `/api/foxair/heating_curve.svg`) — no Lovelace YAML
-- **Computed sensors** — heating power, electrical power, COP from water `flow·ΔT` with EMA + hold-last-good and configurable `elec_source` (register 2054 / V×A / external meter)
-- **Safety** — 3-tier risk (`safe`/`advanced`/`dangerous`/`blocked`), expert mode gated behind ack, all writes min/max validated (117+ ranges parsed from knowledge)
-- **i18n** — English default (strings.json = en), German and Russian, 595 sensor keys sorted numerically (50043+ after 2180), no German leak
+- **Controls** — heating / DHW / cooling setpoints, SG Ready, pump modes, zone mixing valves, climate **Off / Heat** with 4 DHW presets
+- **Heating curve** — slope / offset / mode with a live panel and SVG graph — no Lovelace YAML
+- **Computed sensors** — heating power, electrical power, COP from `flow·ΔT`
+- **Multiple pumps** — configurable entity prefix so each unit gets its own IDs
+- **Safety** — expert mode gates installer controls; writes are validated
+- **i18n** — English, German, Russian, all with `CODE:` prefix
 
-## How it works (0.4.x)
+## How it works
 
-- **Pooled reads** via vendored `foxair-modbus` (`custom_components/foxair/vendor/foxair_modbus` — `modbus_connection` `Component` `gauge`/`integer`, `max_span=65`/`max_gap=12`, one request per contiguous space instead of 12 manual `POLL_BLOCKS`)
-- **Owned connection** `ModbusConnection(ModbusTcpParams(host,port)).for_unit(slave)` via `modbus_connection[pymodbus]>=4.8` (HA ≥2026.3, no 2026.9 required — see [Roadmap](docs/ROADMAP.md))
-- **Coordinator** `FoxAirCoordinator` (`DataUpdateCoordinator`, 30 s) + `FoxAir( unit ).async_update()`; entities (`sensor`/`number`/`select`/`climate`/`image`) read via `get_metadata` and write via `async_write_register` with fast 350 ms read-back
-- **591** entries in `foxair_metadata.json` (234 safe / 259 advanced / 7 dangerous / 91 blocked), 469 polled fields (service ProductKey 200-215 and C544/C37B 50043+ excluded from poll)
+Reads go through a single `pymodbus.AsyncModbusTcpClient` (the EW11 gateway allows only one TCP client) and a `FoxAirCoordinator` polling every 30 s. Entities read via shared metadata and write back with a fast 350 ms read-back. Each register carries `risk`, `requires_expert`, and `hidden` flags — hidden ones (system/reserved) are never created, polled, or written.
 
 ## Requirements
 
-- Home Assistant **≥2026.3** ( `modbus-connection[pymodbus]>=4.8` via `manifest.json` requirements)
-- FoxAir/PHNIX on Modbus TCP (tested via `Elfins EW11` @ `EW11-host:8899 slave 1` — defaults)
+- Home Assistant **>= 2025.3**
+- Python `pymodbus>=3.6.0`
+- FoxAir/PHNIX on Modbus TCP (tested with an Elfins EW11 at the default `host:8899 slave 1`)
 
 ## Installation via HACS (recommended)
 
-1. Ensure [HACS](https://hacs.xyz/docs/use/) is installed.
+1. Make sure [HACS](https://hacs.xyz/docs/use/) is installed.
 2. **HACS → Integrations → ⋯ → Custom repositories** → add `https://github.com/tnako/ha-foxair` as `Integration`.
-3. Search **FoxAir** in HACS → **Install** → **Restart**.
-4. **Settings → Devices & Services → Add Integration → FoxAir Heat Pump** → host / port / slave (defaults `EW11-host` / `8899` / `1`).
+3. Search **FoxAir** → **Install** → **Restart**.
+4. **Settings → Devices & Services → Add Integration → FoxAir Heat Pump** → host / port / slave (defaults fill in automatically).
 
-Device appears as **FoxAir Heat Pump** with sub-devices per block (`R` setpoints, `T` diagnostics incl. humidity, `P` pump, `SG` SG Ready, …). Safe controls are enabled; installer controls are `Diagnostic` disabled until you enable the entity (or enable Expert mode).
+You get a **FoxAir Heat Pump** device with sub-devices per block (setpoints, diagnostics, pump, SG Ready, …). Safe controls are on by default; enable **Expert mode** in the options to reach installer controls.
 
 ## Manual installation
 
-Copy `custom_components/foxair` to `/config/custom_components/foxair` on your HA host (HAOS: `scp -r custom_components/foxair root@homeassistant.local:/usr/share/hassio/homeassistant/custom_components/`), restart.
+Copy `custom_components/foxair` to `/config/custom_components/foxair` (HAOS: `scp -r custom_components/foxair homeassistant@homeassistant.local:/usr/share/hassio/homeassistant/custom_components/`), then restart.
 
 ## Configuration
 
-- **Options** ( ⋯ on the integration card): `Enable expert mode` + `I understand the risk` ack → exposes `advanced`/`dangerous` numbers/selects; `Electrical power source for COP` (foxair_register / foxair_v_a with gains / external_meter)
-- **Climate** `climate.foxair` → `Off` (1011=0) / `Heat` (1011=1) + presets `Heating`/`Cooling`/`Heating+Hot Water`/`Cooling+Hot Water` (1012, DHW-only mapped)
-- **Heating curve** numbers `Heating Curve Slope/Offset/Mode` on the main device → native curve target sensor `sensor.foxair_heating_curve_target` (2014) and panel/SVG
+- **Options** (⋯ on the integration card): turn on **Expert mode** (+ ack) to expose advanced controls; pick an **Electrical power source for COP**
+- **Entity prefix** — set when adding the integration so several pumps don't collide (default: `foxair`)
+- **Climate** → `Off` / `Heat` + presets `Heating`, `Cooling`, `Heating+Hot Water`, `Cooling+Hot Water`
+- **Heating curve** → Slope / Offset / Mode → live `sensor.foxair_heating_curve_target` + graph
 
-## Help and diagnostics
+## Help & diagnostics
 
-- `configuration.yaml`:
+Enable logging in `configuration.yaml`:
+```yaml
+logger:
+  logs:
+    custom_components.foxair: debug
+    pymodbus: info
+```
 
-  ```yaml
-  logger:
-    logs:
-      custom_components.foxair: debug
-      modbus_connection: debug
-  ```
+**Settings → Devices → FoxAir → Download diagnostics** shows host/port/slave, poll/error stats, and sample raw/value (no secrets).
 
-- **Settings → Devices → FoxAir → Download diagnostics** → host/port/slave, polls/errors/last_ms, sample raw/value (no passwords)
-- See [DEBUG.md](docs/DEBUG.md), [ROADMAP.md](docs/ROADMAP.md), [CHANGELOG.md](CHANGELOG.md)
-
-## Data source & attribution
-
-Register maps, block names and scaling are based on the reverse-engineering in [dosordie/FoxAir_Control](https://github.com/dosordie/FoxAir_Control) (`data/foxair_phnix_registers.json` + `foxair_phnix_knowledge.json` copied verbatim, PDFs not redistributed). Thank you to its authors. Display registers (`foxair_phnix_display_registers.json`) are kept for reference only (not polled).
+More: [DEBUG.md](docs/DEBUG.md), [ROADMAP.md](docs/ROADMAP.md), [CHANGELOG.md](CHANGELOG.md).
 
 ## Development
 
-- Generate metadata: `python3 tools/build_metadata.py` (591 entries, diagnostic group for 2125-2138+2178-2180)
-- Generate vendor model: `python3 tools/gen_foxair_modbus.py` (469 fields; ProductKey/C544 excluded from poll)
-- Fix i18n: `python3 tools/fix_translations.py` (sorts 595 sensor / 231 number / 86 select numerically, EN=DE/RU parity, fixes German leak)
+- Generate metadata: `python3 tools/build_metadata.py`
+- Generate vendor model: `python3 tools/gen_foxair_modbus.py`
+- Sort / fix translations: `python3 tools/fix_translations.py`
+- Validate: `python tools/validate.py`
+- Audit registers: `python tools/check_regs.py` (set `HASS_URL`/`HASS_TOKEN` in `.env`; `--direct` for raw Modbus, `--codes H01,P02` to filter)
+- Deploy: `tools/deploy.sh` (reads `HA_HOST` from `.env`)
 
 ## License
 
