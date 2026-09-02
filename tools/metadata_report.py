@@ -4,7 +4,10 @@
 Prints per-block/group visibility counts, risk + tier + hidden totals, and
 optionally one addr's full metadata record:  tools/metadata_report.py 1234
 """
-import json, pathlib, sys, collections
+import json
+import pathlib
+import sys
+import collections
 
 MP = pathlib.Path(__file__).parent.parent / "custom_components/foxair/data/foxair_metadata.json"
 m = json.loads(MP.read_text())

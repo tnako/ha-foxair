@@ -1,3 +1,7 @@
+## 0.5.2 - 2026-09-02
+- chore(lint): fix all ruff E701/E702/E401/E722/F401/F841 violations — expand one-liner `if x: return` / `try: stmt` / `else: stmt` / `class X: pass` into proper blocks and split semicolon-joined statements; remove unused imports/vars (`UpdateFailed`, `MODBUS_MAX_SPAN/GAP`, `QUICK_INTERVAL`, `DOMAIN` in number.py, `status` in sensor extra_state_attributes, `at` in views SvgView, `sys`/`urllib.request` in tools)
+- chore(lint): replace remaining bare `except:` with `except Exception:` (vendor/heat_pump, gen_foxair_modbus, capture_final) — bare excepts swallow CancelledError under HA 2026
+
 ## 0.5.1 - 2026-09-02
 |- chore(code-review): replace bare `except:` with `except Exception:` across all runtime platforms (sensor/number/select/switch/time/image/views/heating_curve/diagnostics) — bare excepts swallow `KeyboardInterrupt`/`CancelledError` and mask real errors under HA 2026's stricter exception handling; remove duplicate `BAR_X10` key in number.py DTYPE_CLASS
 |

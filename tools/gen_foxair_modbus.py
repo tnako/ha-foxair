@@ -88,8 +88,10 @@ __all__ = ["FoxAir"]
             continue
         try:
             addr=int(k)
-        except: continue
-        if not isinstance(v, dict): continue
+        except Exception:
+            continue
+        if not isinstance(v, dict):
+            continue
         if v.get("type")=="BLOCK":
             # skip BLOCK headers — they are not real registers
             continue
@@ -115,7 +117,7 @@ __all__ = ["FoxAir"]
     lines.append("        for name, field in self.declared_fields.items():")
     lines.append("            if not name.startswith('reg_'): continue")
     lines.append("            try: addr=int(name.split('_')[1])")
-    lines.append("            except: continue")
+    lines.append("            except Exception: continue")
     lines.append("            val=getattr(self, name, None)")
     lines.append("            # raw words not directly exposed; use value for both (compat: raw==value for scaled? keep value)")
     lines.append("            # For diagnostics we store value as both raw/value; caller can read .value")
@@ -136,7 +138,7 @@ __all__ = ["FoxAir"]
     OUT_FILE.write_text(content, encoding="utf-8")
     print(f"Wrote {len(items)} fields to {OUT_FILE}")
     # verify compile
-    import py_compile, sys
+    import py_compile
     py_compile.compile(str(OUT_FILE), doraise=True)
     print("compile OK")
 

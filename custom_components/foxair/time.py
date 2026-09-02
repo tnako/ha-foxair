@@ -171,8 +171,10 @@ def _split_to_time(hour_raw: int, minute_raw: int | None) -> time | None:
         return None
     h = int(hour_raw) & 0xFFFF
     m = int(minute_raw) & 0xFFFF
-    if h & 0x8000: h -= 0x10000
-    if m & 0x8000: m -= 0x10000
+    if h & 0x8000:
+        h -= 0x10000
+    if m & 0x8000:
+        m -= 0x10000
     if 0 <= h <= 23 and 0 <= m <= 59:
         return time(h, m)
     return None

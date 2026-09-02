@@ -209,7 +209,7 @@ def main() -> None:
         wanted = {c.strip().upper() for c in args.codes.split(",") if c.strip()}
         order = [c for c in order if c in wanted]
         if not order:
-            print(f"ERROR: none of --codes matched tabs.txt", file=sys.stderr)
+            print("ERROR: none of --codes matched tabs.txt", file=sys.stderr)
             sys.exit(2)
 
     states = ha_states(env)

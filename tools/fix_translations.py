@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Fix translations: English default everywhere, German/RU complete, block headers translated."""
-import json, pathlib, re
+import json
+import pathlib
+import re
 BASE = pathlib.Path(__file__).parents[1] / "custom_components/foxair"
 regs = json.loads((BASE / "data/foxair_phnix_registers.json").read_text(encoding="utf-8-sig"))
 meta = json.loads((BASE / "data/foxair_metadata.json").read_text(encoding="utf-8-sig"))
@@ -169,8 +171,10 @@ RU_OVERRIDES = {
 }
 
 def ensure_domain(data, domain):
-    if "entity" not in data: data["entity"]={}
-    if domain not in data["entity"]: data["entity"][domain]={}
+    if "entity" not in data:
+        data["entity"]={}
+    if domain not in data["entity"]:
+        data["entity"][domain]={}
     return data["entity"][domain]
 
 # Fix block headers and new regs
@@ -181,7 +185,8 @@ fixed = {"sensor":0, "number":0, "select":0, "total_en_leak":0, "added":0, "upda
 
 # First, fix sensor entries for all addrs (including BLOCK)
 for addr_str, rec in regs.items():
-    if addr_str.startswith("_"): continue
+    if addr_str.startswith("_"):
+        continue
     addr = addr_str
     german_name = rec.get("name","")
     # Determine expected names
@@ -217,7 +222,8 @@ for addr_str, rec in regs.items():
                 en_name = existing_en or german_name
         # ru fallback
         existing_ru = ru.get("entity",{}).get("sensor",{}).get(key,{}).get("name")
-        if existing_ru and any(ord(c)>127 for c in existing_ru): # has Cyrillic
+        if existing_ru and any(ord(c)>127 for c in existing_ru):
+            # has Cyrillic
             ru_name = existing_ru
         else:
             ru_name = en_name
@@ -247,7 +253,8 @@ for addr_str, rec in regs.items():
                     if addr in EN_OVERRIDES or "Blockkopf" in domain_dict[key].get("name","") or "Kennung" in domain_dict[key].get("name",""):
                         should_update=True
                 elif lang=="de":
-                    if addr in DE_OVERRIDES or "Blockkopf" not in name: # de should be German, if en was German leak then de was correct, no need? but ensure de is German
+                    if addr in DE_OVERRIDES or "Blockkopf" not in name:
+                        # de should be German, if en was German leak then de was correct, no need? but ensure de is German
                         if domain_dict[key].get("name") != name:
                             should_update=True
                 elif lang=="ru":
@@ -260,8 +267,10 @@ for addr_str, rec in regs.items():
 # Also ensure number and select domains are synced for editable entities
 for addr_str, meta_rec in meta.items():
     platform = meta_rec.get("platform")
-    if platform not in ("number","select"): continue
-    if not meta_rec.get("editable"): continue
+    if platform not in ("number","select"):
+        continue
+    if not meta_rec.get("editable"):
+        continue
     key = f"foxair_{addr_str}"
     # Sensor name is source
     sensor_en = en["entity"]["sensor"].get(key,{}).get("name") or strings["entity"]["sensor"].get(key,{}).get("name") or meta_rec.get("name","")
