@@ -1003,7 +1003,9 @@
         "poll_tier": "quick"
       },
       "2104": {
-        "poll_tier": "quick"
+        "poll_tier": "quick",
+        "risk": "safe",
+        "format": "firmware"
       },
       "1036": {
         "min": 0,
