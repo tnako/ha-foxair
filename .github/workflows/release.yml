@@ -41,13 +41,16 @@ jobs:
             README.md
       - name: Set release body from CHANGELOG
         uses: actions/github-script@v7
+        env:
+          TAG: ${{ github.ref_name }}
         with:
           script: |
             const fs = require('fs');
             const body = fs.readFileSync('RELEASE_BODY.md', 'utf8');
-            const tag = context.refName;
+            const tag = process.env.TAG;
             const owner = context.repo.owner;
             const repo = context.repo.repo;
+            console.log('Tag:', tag);
             const getResp = await github.rest.repos.getReleaseByTag({ owner, repo, tag });
             const releaseId = getResp.data.id;
             const updateResp = await github.rest.repos.updateRelease({
