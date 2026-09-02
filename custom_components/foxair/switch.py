@@ -18,7 +18,7 @@ async def async_setup_entry(hass, entry, add_entities):
     ):
         try:
             addr = int(addr_str)
-        except:
+        except ValueError:
             continue
         if meta.get("platform") != "switch" or not meta.get("editable"):
             continue
@@ -92,6 +92,6 @@ class FoxSwitch(CoordinatorEntity, SwitchEntity):
         meta = {}
         try:
             meta = self.coordinator.get_metadata(self._addr)
-        except:
+        except Exception:
             pass
         return {"raw": rec.get("raw"), "address": self._addr, "block": info.get("block"), "code": info.get("code"), "type": info.get("type"), "group": meta.get("group"), "risk": meta.get("risk"), "editable": meta.get("editable"), "min": meta.get("min"), "max": meta.get("max")}

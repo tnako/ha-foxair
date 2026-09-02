@@ -22,7 +22,6 @@ DTYPE_CLASS = {
     "PERCENT": None,
     "STEPS_N": None,
     "RPM": None,
-    "BAR_X10": NumberDeviceClass.PRESSURE,
 }
 
 async def async_setup_entry(hass, entry, add_entities):
@@ -35,7 +34,8 @@ async def async_setup_entry(hass, entry, add_entities):
     for addr_str, meta in sorted((coord._metadata or {}).items(), key=lambda kv: entity_sort_key(int(kv[0]) if kv[0].isdigit() else 99999, kv[1].get("code",""), kv[1].get("block",""))):
         try:
             addr = int(addr_str)
-        except: continue
+        except ValueError:
+            continue
         if meta.get("platform") != "number" or not meta.get("editable"):
             continue
         # permanently hidden (reserved/system/header addrs): never create
@@ -114,7 +114,8 @@ class FoxNumber(CoordinatorEntity, NumberEntity):
         if rec is None: return None
         v = rec.get("value")
         try: return float(v)
-        except: return None
+        except ValueError:
+            return None
 
     async def async_set_native_value(self, value: float) -> None:
         value = float(value)

@@ -31,7 +31,8 @@ async def async_get_config_entry_diagnostics(hass: HomeAssistant, entry: ConfigE
                 "max_span": getattr(fox, "max_span", None),
                 "max_gap": getattr(fox, "max_gap", None),
             }
-    except: pass
+    except Exception:
+        pass
     conn = hass.data.get("foxair_conn", {}).get(entry.entry_id)
     return {
         "poll_blocks": getattr(coord, "POLL_BLOCKS", []),
