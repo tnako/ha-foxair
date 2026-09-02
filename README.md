@@ -17,6 +17,7 @@ Register maps and scaling based on the reverse-engineering in [dosordie/FoxAir_C
 - **Multiple pumps** — configurable entity prefix so each unit gets its own IDs
 - **Safety** — expert mode gates installer controls; writes are validated
 - **i18n** — English, German, Russian, all with `CODE:` prefix
+- **Firmware-gated** — SG Ready modes 1/2 (SG01 / 1334), manual defrost / silent flag / manual heat (1016), and power-off-memory autostart (1018) are automatically hidden on devices running Firmware < 3.3 (auto-detected from register 2104) and appear when the firmware meets the gate
 
 ## How it works
 
