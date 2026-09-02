@@ -222,6 +222,7 @@ def main():
             "default": default, "icon": icon, "has_value_map": has_map,
             "name": rec.get("name", ""), "poll_tier": tier,
             "min_firmware": ov.get("min_firmware"),
+            "format": ov.get("format"),
         }
     OUT_PATH.write_text(json.dumps(out, indent=2, ensure_ascii=False), encoding="utf-8")
     # stats

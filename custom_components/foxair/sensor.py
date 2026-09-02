@@ -77,7 +77,7 @@ class FoxSensor(CoordinatorEntity, SensorEntity):
             self._attr_native_unit_of_measurement = unit
         elif info.get("unit"):
             self._attr_native_unit_of_measurement = info.get("unit")
-        if sc:
+        if sc and meta.get("format") != "firmware":
             self._attr_state_class = sc
         if dtype in ("TEMP1","TEMP","TEMP05"):
             self._attr_suggested_display_precision = 1
@@ -125,7 +125,16 @@ class FoxSensor(CoordinatorEntity, SensorEntity):
     @property
     def native_value(self):
         rec = self.coordinator.data.get(self._addr)
-        return rec["value"] if rec else None
+        if not rec:
+            return None
+        v = rec["value"]
+        # Firmware version format: raw is major*10+minor (e.g. 33 = v3.3)
+        meta = self.coordinator.get_metadata(self._addr) if hasattr(self.coordinator, "get_metadata") else {}
+        if meta.get("format") == "firmware" and isinstance(v, (int, float)):
+            major = int(v) // 10
+            minor = int(v) % 10
+            return f"v{major}.{minor}"
+        return v
     @property
     def extra_state_attributes(self):
         rec = self.coordinator.data.get(self._addr)
