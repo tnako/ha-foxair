@@ -41,6 +41,8 @@ async def async_setup_entry(hass, entry, add_entities):
         # permanently hidden (reserved/system/header addrs): never create
         if meta.get("hidden"):
             continue
+        if meta.get("min_firmware") and not coord._fw_gte(meta.get("min_firmware")):
+            continue
         if addr in (1246, 1249):
             continue  # silent-minute slaves handled by time composite
         # expert filter: if requires_expert and expert not enabled, skip creation

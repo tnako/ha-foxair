@@ -29,9 +29,11 @@ async def async_setup_entry(hass, entry, add_entities):
     for addr, rec in sorted(coord.data.items(), key=_sensor_key):
         if rec.get("info", {}).get("type") == "BLOCK":
             continue
-        # honor metadata blocked
+        # honor metadata hidden/blocked
         meta = coord.get_metadata(addr) if hasattr(coord, "get_metadata") else {}
         if meta.get("risk") == "blocked" or meta.get("hidden"):
+            continue
+        if meta.get("min_firmware") and not coord._fw_gte(meta.get("min_firmware")):
             continue
         # expert-gated (whole expert blocks + dangerous) sensors: skip unless expert on
         if meta.get("requires_expert") and not entry.options.get("enable_expert"):

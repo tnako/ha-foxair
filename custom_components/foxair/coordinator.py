@@ -100,6 +100,7 @@ class FoxAirCoordinator(DataUpdateCoordinator):
         self._lock = asyncio.Lock()
         self._poll_counter = 0
         self._flow_ema = 0.0
+        self._fw_version = 0  # firmware version parsed from register 2104 (e.g. 33 = v3.3); 0 = unknown/undetected
         # debounced write coalescer: 3s window merges rapid changes into one FC16
         self._write_pending: dict[int, int] = {}
         self._write_pending_metas: dict[int, dict] = {}
@@ -138,6 +139,20 @@ class FoxAirCoordinator(DataUpdateCoordinator):
     def get_metadata(self, addr: int) -> dict:
         return (getattr(self, "_metadata", {}) or {}).get(str(addr), {})
 
+    def fw_version(self) -> int:
+        """Return detected firmware version as integer (e.g. 33 = v3.3), 0 if unknown."""
+        return getattr(self, "_fw_version", 0)
+
+    def _fw_gte(self, min_fw: int | None) -> bool:
+        """True if the detected firmware >= min_fw, or if min_fw is None/unset.
+
+        If firmware hasn't been read yet (0), the register is considered NOT
+        available — it will appear once 2104 is polled and meets the gate.
+        """
+        if not min_fw:
+            return True
+        return self.fw_version() >= min_fw
+
     def marker(self, marker_name: str):
         """Look up a functional address marker from foxair_config.json.
 
@@ -151,8 +166,9 @@ class FoxAirCoordinator(DataUpdateCoordinator):
             return set()
         # Known-dead ranges come from foxair_config.json (dead_ranges).
         dead_addrs = {a for lo, hi in _DEAD_RANGES for a in range(lo, hi + 1)}
-        # Expert gating applies to ALL tiers: with expert off, expert-block addrs are not polled.
         # Permanently hidden addrs (reserved/header/system/service) are NEVER polled.
+        # Firmware-gated addrs (min_firmware) are skipped when the device firmware
+        # hasn't been detected yet or is below the required version.
         return {
             int(k)
             for k, v in self._metadata.items()
@@ -162,6 +178,7 @@ class FoxAirCoordinator(DataUpdateCoordinator):
             and int(k) not in dead_addrs
             and int(k) < 50000
             and (expert or not v.get("requires_expert"))
+            and self._fw_gte(v.get("min_firmware"))
         }
 
     def _validate_write(self, addr: int, value: float) -> tuple[bool, dict, str]:
@@ -187,6 +204,8 @@ class FoxAirCoordinator(DataUpdateCoordinator):
             return False, meta, f"requires expert mode code={meta.get('code')}"
         if meta.get("hidden"):
             return False, meta, f"addr {addr} is reserved/system — hidden by design"
+        if not self._fw_gte(meta.get("min_firmware")):
+            return False, meta, f"addr {addr} requires firmware >= {meta.get('min_firmware')} (detected {self.fw_version()})"
         if not math.isfinite(value):
             # TIME_HHMM may be string like "12:34" passed as float? already checked finite for numeric
             # allow time platform with string
@@ -549,10 +568,14 @@ class FoxAirCoordinator(DataUpdateCoordinator):
                 self.data = merged
             else:
                 self.data = out
-            # Startup burst: after the first quick poll, immediately fetch
-            # medium+rare tiers in background so expert entities don't stay
-            # "unknown" for 60-90s waiting for poll #2/#3. Runs once, paced
-            # with EW11 delays, serialized on the same _lock.
+            # Detect firmware version from register 2104 (Main Software Version).
+            # Raw value is v*10+minor (e.g. 33 = 3.3, 17 = 1.7). Zero means unknown.
+            fw_rec = self.data.get(2104)
+            if fw_rec and fw_rec.get("raw") is not None:
+                try:
+                    self._fw_version = int(fw_rec["raw"])
+                except (ValueError, TypeError):
+                    pass
             if is_first and not self._burst_task:
                 self._burst_task = self.hass.async_create_task(self._startup_burst())
             return self.data

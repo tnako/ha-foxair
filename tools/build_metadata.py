@@ -23,9 +23,9 @@ OUT_PATH = ROOT / "custom_components/foxair/data/foxair_metadata.json"
 # Addresses without a block/code in register json that belong to Live.
 BLOCK_T_LIVE = {2125, 2126, 2127, 2128, 2136, 2137, 2138, 2178, 2179, 2180}
 # Orphan core-control addresses that must stay non-expert (used by climate/curve):
-CORE_NON_EXPERT_ADDRS = {1011, 1012, 1013, 1014, 1015, 1016, 1017, 1030,
+CORE_NON_EXPERT_ADDRS = {1011, 1012, 1013, 1014, 1015, 1016, 1017, 1018, 1030,
                          1212, 1213, 1214, 1234, 1235, 1236, 2012,
-                         2014, 2048, 2133, 8801}
+                         2014, 2048, 2104, 2133, 8801}
 
 
 def load_config():
@@ -220,7 +220,8 @@ def main():
             "requires_expert": requires_expert, "type": dtype,
             "unit": unit, "min": lo, "max": hi, "step": step,
             "default": default, "icon": icon, "has_value_map": has_map,
-            "name": rec.get("name", ""), "poll_tier": tier
+            "name": rec.get("name", ""), "poll_tier": tier,
+            "min_firmware": ov.get("min_firmware"),
         }
     OUT_PATH.write_text(json.dumps(out, indent=2, ensure_ascii=False), encoding="utf-8")
     # stats

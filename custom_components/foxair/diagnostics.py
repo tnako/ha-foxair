@@ -46,4 +46,5 @@ async def async_get_config_entry_diagnostics(hass: HomeAssistant, entry: ConfigE
         "connected": bool(getattr(conn, "_client", None) is not None) if conn else (getattr(getattr(coord, "client", None), "connected", False) if getattr(coord, "client", None) else bool(getattr(coord, "unit", None))),
         "last_error": getattr(getattr(coord, "stats", {}), "get", lambda *a,**k: None)("last_error") if hasattr(coord, "stats") else None,
         "foxair_model": foxair_info,
+        "firmware_version": coord.fw_version() if hasattr(coord, "fw_version") else 0,
     }
