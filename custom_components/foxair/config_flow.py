@@ -18,6 +18,14 @@ def _validate_host(host: str) -> bool:
     return True
 
 
+def _validate_prefix(prefix: str) -> bool:
+    prefix = prefix.strip().lower()
+    if not prefix:
+        return True  # empty defaults to "foxair"
+    # Allow alphanumeric and underscore, max 32 chars
+    return bool(re.match(r"^[a-z0-9_]{1,32}$", prefix))
+
+
 class FoxAirConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     VERSION = 1
 
@@ -27,10 +35,13 @@ class FoxAirConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             host = str(user_input.get("host", "EW11-host")).strip()
             port = int(user_input.get("port", 8899))
             slave = int(user_input.get("slave", 1))
+            name_prefix = str(user_input.get("name_prefix", "")).strip().lower()
             if not _validate_host(host):
                 errors["base"] = "cannot_connect"
             elif not (1 <= port <= 65535) or not (1 <= slave <= 247):
                 errors["base"] = "cannot_connect"
+            elif not _validate_prefix(name_prefix):
+                errors["name_prefix"] = "invalid_prefix"
             else:
                 client = AsyncModbusTcpClient(host=host, port=port, timeout=5)
                 try:
@@ -51,14 +62,16 @@ class FoxAirConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                     except Exception:
                         pass
                 if ok:
-                    user_input["host"] = host
+                    data = {"host": host, "port": port, "slave": slave}
+                    if name_prefix:
+                        data["name_prefix"] = name_prefix
+                    prefix_display = name_prefix or "foxair"
                     return self.async_create_entry(
-                        title=f"FoxAir {host}",
-                        data=user_input,
+                        title=f"{prefix_display.title()} Heat Pump",
+                        data=data,
                         options={"enable_expert": bool(user_input.get("enable_expert", False))},
                     )
                 errors["base"] = "cannot_connect"
-        cur_opts = {}
         return self.async_show_form(
             step_id="user",
             data_schema=vol.Schema(
@@ -66,7 +79,8 @@ class FoxAirConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                     vol.Optional("host", default="EW11-host"): str,
                     vol.Optional("port", default=8899): int,
                     vol.Optional("slave", default=1): int,
-                    vol.Required("enable_expert", default=cur_opts.get("enable_expert", False)): bool,
+                    vol.Optional("name_prefix", default=""): str,
+                    vol.Required("enable_expert", default=False): bool,
                 }
             ),
             errors=errors,
@@ -108,6 +122,8 @@ class FoxAirOptionsFlow(config_entries.OptionsFlow):
                 opts.pop("expert_ack", None)
                 return self.async_create_entry(title="", data=opts)
         cur = self._entry.options
+        data = self._entry.data
+        prefix_display = data.get("name_prefix", "foxair")
         return self.async_show_form(
             step_id="init",
             data_schema=vol.Schema(
@@ -117,13 +133,7 @@ class FoxAirOptionsFlow(config_entries.OptionsFlow):
                     vol.Optional(
                         "elec_source",
                         default=cur.get("elec_source", "foxair_register"),
-                    ): vol.In(
-                        {
-                            "foxair_register": "FoxAir Unit Power register (2054) — accurate, no calibration",
-                            "foxair_v_a": "Voltage x Current (2062 x 2057) — calibratable",
-                            "external_meter": "External HA power-meter entity",
-                        }
-                    ),
+                    ): vol.In(["foxair_register", "external_meter"]),
                     vol.Optional(
                         "external_meter_entity",
                         default=cur.get("external_meter_entity", ""),
@@ -136,6 +146,7 @@ class FoxAirOptionsFlow(config_entries.OptionsFlow):
             ),
             errors=errors,
             description_placeholders={
-                "warn": "Dangerous: A/C/E/F/D/H can damage heat pump. Only enable if you know limits.\n\nElectrical-power source is used by the COP sensor. Choose the FoxAir register for best accuracy, or V x A / an external meter and calibrate against a real power meter."
+                "warn": f"Expert mode exposes advanced/dangerous parameters for {prefix_display.title()}. Acknowledge to enable.",
+                "prefix": f"Device prefix: {prefix_display}",
             },
         )

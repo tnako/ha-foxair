@@ -203,6 +203,10 @@
       2129
     ],
     [
+      2136,
+      2136
+    ],
+    [
       2139,
       2149
     ],
@@ -242,7 +246,7 @@
       "Z",
       "G"
     ],
-    "_comment_normal_mode": "Normal mode keeps: main device, R Setpoints, T Live (always visible), SG Ready, KG Timer, ERR Fault. T Diagnostic only in expert mode.",
+    "_comment_normal_mode": "Normal mode keeps: main device, R Setpoints, T Live (always visible), SG Ready, KG Timer, ERR Fault.",
     "labels": {
       "H": "Base/Hardware",
       "A": "Protection/Limits",
@@ -253,7 +257,6 @@
       "R": "Setpoints",
       "T": "Live Diagnostics",
       "T_Live": "Live",
-      "T_Diagnostic": "Diagnostic",
       "Z": "Zone",
       "G": "Legionella",
       "P": "Pump",
@@ -272,7 +275,6 @@
       "R": "mdi:thermometer",
       "T": "mdi:pulse",
       "T_Live": "mdi:pulse",
-      "T_Diagnostic": "mdi:shield-account",
       "Z": "mdi:home-thermometer",
       "G": "mdi:water-thermometer",
       "P": "mdi:water-pump",
@@ -643,6 +645,27 @@
       "unit": null,
       "device_class": null,
       "state_class": "measurement"
+    },
+    "SWITCH": {
+      "scale": 1.0,
+      "unit": null,
+      "device_class": null,
+      "state_class": "measurement",
+      "platform": "switch"
+    },
+    "TIME_DECIMAL": {
+      "scale": 1.0,
+      "unit": null,
+      "device_class": null,
+      "state_class": "measurement",
+      "platform": "time"
+    },
+    "TIME_SPLIT": {
+      "scale": 1.0,
+      "unit": null,
+      "device_class": null,
+      "state_class": "measurement",
+      "platform": "time"
     }
   },
   "markers": {

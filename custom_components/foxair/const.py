@@ -107,35 +107,47 @@ def code_sort_key(code: str) -> int:
 def entity_sort_key(addr: int, code: str = "", block: str = "") -> tuple:
     return (block_sort_key(block), code_sort_key(code), int(addr))
 
-def main_device(entry_id: str | None = None) -> DeviceInfo:
+def main_device(entry_id: str | None = None, name_prefix: str = "foxair") -> DeviceInfo:
     ident = (DOMAIN, entry_id) if entry_id else (DOMAIN, "foxair")
+    prefix_display = name_prefix.title() if name_prefix else "FoxAir"
     return DeviceInfo(
         identifiers={ident},
-        name="FoxAir Heat Pump",
+        name=f"{prefix_display} Heat Pump",
         manufacturer="FoxAir/PHNIX",
         model="Modbus TCP Heat Pump",
     )
 
+
+def get_device_prefix(entry) -> str:
+    """Get the name prefix from a config entry, defaulting to 'foxair'."""
+    if entry and hasattr(entry, "data"):
+        return entry.data.get("name_prefix", "foxair")
+    return "foxair"
+
+
 DEVICE = main_device()
 
-def device_for_block(block: str, entry_id: str | None = None, tab: str | None = None) -> DeviceInfo:
+
+def device_for_block(block: str, entry_id: str | None = None, tab: str | None = None, name_prefix: str = "foxair") -> DeviceInfo:
     ident_main = (DOMAIN, entry_id) if entry_id else (DOMAIN, "foxair")
     if not block or block not in BLOCK_SHORT:
-        return main_device(entry_id)
+        return main_device(entry_id, name_prefix)
     label = BLOCK_SHORT.get(tab or block, BLOCK_SHORT.get(block, block))
     suffix = tab or block
+    prefix_display = name_prefix.title() if name_prefix else "FoxAir"
     return DeviceInfo(
         identifiers={(DOMAIN, f"{ident_main[1]}_{suffix}")},
-        name=f"FoxAir — {label} [{suffix}]",
+        name=f"{prefix_display} — {label} [{suffix}]",
         manufacturer="FoxAir/PHNIX",
         model=f"Tab {suffix}",
         via_device=ident_main,
     )
 
-def device_for_addr(addr: int, block: str | None, entry_id: str | None = None, tab: str | None = None) -> DeviceInfo:
+
+def device_for_addr(addr: int, block: str | None, entry_id: str | None = None, tab: str | None = None, name_prefix: str = "foxair") -> DeviceInfo:
     if addr in CORE_MAIN_ADDRS:
-        return main_device(entry_id)
-    return device_for_block(block or "", entry_id, tab)
+        return main_device(entry_id, name_prefix)
+    return device_for_block(block or "", entry_id, tab, name_prefix)
 
 POLL_BLOCKS: list[tuple[int, int, str]] = []
 

@@ -6,7 +6,7 @@ from homeassistant.components.select import SelectEntity
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from .const import DEVICE, POPULAR_ADDRS, device_for_addr, main_device, entity_sort_key
+from .const import DEVICE, POPULAR_ADDRS, device_for_addr, main_device, entity_sort_key, get_device_prefix
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -233,6 +233,8 @@ async def async_setup_entry(hass, entry, add_entities):
         # permanently hidden (reserved/system/factory-test addrs): never create
         if meta.get("hidden"):
             continue
+        if addr in (1246, 1249):
+            continue  # silent-minute slaves handled by time composite
         if meta.get("requires_expert") and not entry.options.get("enable_expert"):
             continue
         ents.append(FoxSelect(coord, addr, meta))
@@ -248,12 +250,13 @@ class FoxSelect(CoordinatorEntity, SelectEntity):
         self._meta = meta
         self._optimistic = None  # slug shown during a write round-trip
         self._is_timer_bitpair = False  # set to True for TIMER_BITPAIR entities
-        self._attr_unique_id = f"foxair_sel_{addr}"
-        self._attr_translation_key = f"foxair_{addr}"
+        prefix = get_device_prefix(coord.entry)
+        self._attr_unique_id = f"{prefix}_sel_{addr}"
+        self._attr_translation_key = f"{prefix}_{addr}"
         entry_id = getattr(coord, "_entry_id", None) or getattr(coord, "config_entry", None) and getattr(coord.config_entry, "entry_id", None)
         block = meta.get("block") or ""
         tab = meta.get("tab") or block
-        self._attr_device_info = device_for_addr(addr, block, entry_id, tab)
+        self._attr_device_info = device_for_addr(addr, block, entry_id, tab, prefix)
         self._attr_icon = meta.get("icon") or "mdi:heat-pump"
         risk = meta.get("risk")
         hc = coord.marker("heat_curve") if hasattr(coord, "marker") else {}

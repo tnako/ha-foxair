@@ -29,7 +29,7 @@ from homeassistant.components.image import ImageEntity
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.helpers.translation import async_get_translations
 
-from .const import main_device
+from .const import main_device, get_device_prefix
 from .heating_curve import calc_curve_target, curve_target_for_at
 
 _LOGGER = logging.getLogger(__name__)
@@ -76,15 +76,16 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
     _attr_name = "Heating Curve"
     _attr_icon = "mdi:chart-bell-curve"
     _attr_content_type = "image/svg+xml"
-    _attr_translation_key = "foxair_heating_curve"
 
     def __init__(self, coordinator, entry_id: str):
         CoordinatorEntity.__init__(self, coordinator)
         ImageEntity.__init__(self, coordinator.hass)
         self._entry_id = entry_id
-        self._attr_unique_id = f"{entry_id}_heating_curve_image"
-        self._attr_device_info = main_device(entry_id)
-        self.entity_id = "image.foxair_heating_curve"
+        prefix = get_device_prefix(coordinator.entry)
+        self._attr_translation_key = f"{prefix}_heating_curve"
+        self._attr_unique_id = f"{prefix}_heating_curve_image"
+        self._attr_device_info = main_device(entry_id, prefix)
+        self.entity_id = f"image.{prefix}_heating_curve"
         self._image_bytes: bytes | None = None
         self._image_last_updated: datetime | None = None
         # Last inputs used to render; None until first attempt.
