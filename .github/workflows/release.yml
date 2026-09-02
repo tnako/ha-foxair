@@ -11,23 +11,25 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Extract changelog for this release
+        env:
+          TAG: ${{ github.ref_name }}
         run: |
-          TAG="## ${GITHUB_REF#refs/tags/}"
-          python3 -c "
-          import pathlib
+          python3 << 'PYEOF'
+          import pathlib, os
           text = pathlib.Path('CHANGELOG.md').read_text()
-          idx = text.find('''$TAG''')
+          tag = '## ' + os.environ['TAG']
+          idx = text.find(tag)
           if idx == -1:
-              body = 'No changelog entry found.'
+              body = 'No changelog entry found for this tag.'
           else:
-              next_idx = text.find('## ', idx + len('''$TAG'''))
+              next_idx = text.find('## ', idx + len(tag))
               if next_idx == -1:
                   body = text[idx:].strip()
               else:
                   body = text[idx:next_idx].strip()
           pathlib.Path('RELEASE_BODY.md').write_text(body)
           print(body)
-          "
+          PYEOF
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
