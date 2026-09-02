@@ -14,24 +14,24 @@ jobs:
         env:
           TAG: ${{ github.ref_name }}
         run: |
-          python3 << 'PYEOF'
+          python3 -c "
           import pathlib, os
           text = pathlib.Path('CHANGELOG.md').read_text()
-          tag = '## ' + os.environ['TAG']
-          idx = text.find(tag)
+          header = '## ' + os.environ['TAG']
+          idx = text.find(header)
           if idx == -1:
               body = 'No changelog entry found for this tag.'
           else:
-              next_idx = text.find('## ', idx + len(tag))
+              next_idx = text.find('## ', idx + len(header))
               if next_idx == -1:
                   body = text[idx:].strip()
               else:
                   body = text[idx:next_idx].strip()
           pathlib.Path('RELEASE_BODY.md').write_text(body)
-          print('=== RELEASE_BODY.md START ===')
+          print('=== RELEASE_BODY.md ===')
           print(body)
-          print('=== RELEASE_BODY.md END ===')
-          PYEOF
+          print('=== END ===')
+          "
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
