@@ -32,8 +32,8 @@ jobs:
           print(body)
           print('=== END ===')
           "
-      - name: Create Release and upload assets
-        uses: softprops/action-gh-release@v2
+      - name: Create Release
+        uses: softprops/action-gh-release@v3
         with:
           generate_release_notes: false
           files: |
