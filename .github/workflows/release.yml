@@ -28,7 +28,9 @@ jobs:
               else:
                   body = text[idx:next_idx].strip()
           pathlib.Path('RELEASE_BODY.md').write_text(body)
+          print('=== RELEASE_BODY.md START ===')
           print(body)
+          print('=== RELEASE_BODY.md END ===')
           PYEOF
       - name: Create Release
         uses: softprops/action-gh-release@v2
