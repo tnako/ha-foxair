@@ -13,16 +13,22 @@ Usage:
     cd /path/to/ha-foxair
     python3 tools/render_test.py
 """
-import sys, types, os, re, importlib.util
+import sys
+import types
+import os
+import re
+import importlib.util
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 
 # --- stub HA modules (before importing anything from custom_components) ---
-pkg = types.ModuleType("homeassistant"); pkg.__path__ = []
+pkg = types.ModuleType("homeassistant")
+pkg.__path__ = []
 sys.modules["homeassistant"] = pkg
 
-comp = types.ModuleType("homeassistant.components"); comp.__path__ = []
+comp = types.ModuleType("homeassistant.components")
+comp.__path__ = []
 sys.modules["homeassistant.components"] = comp
 
 img_mod = types.ModuleType("homeassistant.components.image")
@@ -33,7 +39,8 @@ class ImageEntity:
 img_mod.ImageEntity = ImageEntity
 sys.modules["homeassistant.components.image"] = img_mod
 
-helpers = types.ModuleType("homeassistant.helpers"); helpers.__path__ = []
+helpers = types.ModuleType("homeassistant.helpers")
+helpers.__path__ = []
 sys.modules["homeassistant.helpers"] = helpers
 
 helpers_entity = types.ModuleType("homeassistant.helpers.entity")
@@ -58,12 +65,14 @@ tr.async_get_translations = lambda *a, **k: {}
 sys.modules["homeassistant.helpers.translation"] = tr
 
 core = types.ModuleType("homeassistant.core")
-class HomeAssistant: pass
+class HomeAssistant:
+    pass
 core.HomeAssistant = HomeAssistant
 sys.modules["homeassistant.core"] = core
 
 ce = types.ModuleType("homeassistant.config_entries")
-class ConfigEntry: pass
+class ConfigEntry:
+    pass
 ce.ConfigEntry = ConfigEntry
 sys.modules["homeassistant.config_entries"] = ce
 
@@ -75,7 +84,8 @@ er.async_get = lambda *a, **k: None
 sys.modules["homeassistant.helpers.entity_registry"] = er
 
 # --- namespace packages for custom_components ---
-cc = types.ModuleType("custom_components"); cc.__path__ = [os.path.join(ROOT, "custom_components")]
+cc = types.ModuleType("custom_components")
+cc.__path__ = [os.path.join(ROOT, "custom_components")]
 sys.modules["custom_components"] = cc
 
 foxair_pkg = types.ModuleType("custom_components.foxair")

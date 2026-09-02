@@ -3,7 +3,7 @@ import logging
 from homeassistant.components.number import NumberEntity, NumberMode, NumberDeviceClass
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.helpers.entity import EntityCategory
-from .const import DOMAIN, DEVICE, POPULAR_ADDRS, device_for_addr, entity_sort_key, get_device_prefix
+from .const import POPULAR_ADDRS, device_for_addr, entity_sort_key, get_device_prefix
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -87,16 +87,21 @@ class FoxNumber(CoordinatorEntity, NumberEntity):
                 self._attr_entity_registry_enabled_default = False
         # limits
         lo, hi, step = meta.get("min"), meta.get("max"), meta.get("step") or 1
-        if lo is not None: self._attr_native_min_value = float(lo)
-        if hi is not None: self._attr_native_max_value = float(hi)
-        if step is not None: self._attr_native_step = float(step)
+        if lo is not None:
+            self._attr_native_min_value = float(lo)
+        if hi is not None:
+            self._attr_native_max_value = float(hi)
+        if step is not None:
+            self._attr_native_step = float(step)
         # mode: dangerous = box (precise), safe = slider
         self._attr_mode = NumberMode.BOX if risk == "dangerous" else NumberMode.SLIDER
         # unit/device class
         unit = meta.get("unit")
-        if unit: self._attr_native_unit_of_measurement = unit
+        if unit:
+            self._attr_native_unit_of_measurement = unit
         dc = DTYPE_CLASS.get(meta.get("type"))
-        if dc: self._attr_device_class = dc
+        if dc:
+            self._attr_device_class = dc
 
     @property
     def available(self):
@@ -111,9 +116,11 @@ class FoxNumber(CoordinatorEntity, NumberEntity):
         if self._optimistic is not None:
             return self._optimistic
         rec = self.coordinator.data.get(self._addr)
-        if rec is None: return None
+        if rec is None:
+            return None
         v = rec.get("value")
-        try: return float(v)
+        try:
+            return float(v)
         except ValueError:
             return None
 

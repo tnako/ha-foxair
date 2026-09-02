@@ -6,7 +6,7 @@ from homeassistant.components.select import SelectEntity
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from .const import DEVICE, POPULAR_ADDRS, device_for_addr, main_device, entity_sort_key, get_device_prefix
+from .const import POPULAR_ADDRS, device_for_addr, entity_sort_key, get_device_prefix
 
 _LOGGER = logging.getLogger(__name__)
 

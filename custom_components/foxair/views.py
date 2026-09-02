@@ -1,7 +1,6 @@
 """HTTP views for v0.3.3 — SVG curve + iframe panel (no Lovelace edits)."""
 from homeassistant.components.http import HomeAssistantView
 from aiohttp import web
-import math
 
 class FoxAirCurveSvgView(HomeAssistantView):
     url = "/api/foxair/heating_curve.svg"
@@ -15,7 +14,6 @@ class FoxAirCurveSvgView(HomeAssistantView):
         for data in hass.data.get("foxair", {}).values():
             coord = data
             break
-        at = 0
         slope = 0.6
         offset = 0
         r10, r11 = 20, 60
@@ -33,35 +31,48 @@ class FoxAirCurveSvgView(HomeAssistantView):
                 st = coord.marker("setpoints") if hasattr(coord, "marker") else {}
                 st_a = st.get("addr_single", {}) if isinstance(st, dict) else {}
                 rec_at = coord.data.get(hc_a.get("at_sensor")) if hc_a.get("at_sensor") else None
-                if rec_at: at_live = rec_at.get("value")
+                if rec_at:
+                    at_live = rec_at.get("value")
                 rec_slope = coord.data.get(hc_a.get("slope")) if hc_a.get("slope") else None
-                if rec_slope: slope = rec_slope.get("value", 0.6)
+                if rec_slope:
+                    slope = rec_slope.get("value", 0.6)
                 rec_off = coord.data.get(hc_a.get("offset")) if hc_a.get("offset") else None
-                if rec_off: offset = rec_off.get("value", 0)
+                if rec_off:
+                    offset = rec_off.get("value", 0)
                 # slope may be 0..100 raw if not scaled correctly, normalize
                 if slope and slope > 5:
                     slope = slope/10
                 r10 = coord.data.get(hc_a.get("r10_min")) if hc_a.get("r10_min") else None
                 r11 = coord.data.get(hc_a.get("r11_max")) if hc_a.get("r11_max") else None
-                if r10: r10 = r10.get("value", 20)
-                else: r10 = 20
-                if r11: r11 = r11.get("value", 60)
-                else: r11 = 60
+                if r10:
+                    r10 = r10.get("value", 20)
+                else:
+                    r10 = 20
+                if r11:
+                    r11 = r11.get("value", 60)
+                else:
+                    r11 = 60
                 r31 = coord.data.get(hc_a.get("r31_at_lo")) if hc_a.get("r31_at_lo") else None
                 r34 = coord.data.get(hc_a.get("r34_at_hi")) if hc_a.get("r34_at_hi") else None
-                if r31: r31 = r31.get("value", 60)
-                else: r31 = 60
-                if r34: r34 = r34.get("value", 35)
-                else: r34 = 35
+                if r31:
+                    r31 = r31.get("value", 60)
+                else:
+                    r31 = 60
+                if r34:
+                    r34 = r34.get("value", 35)
+                else:
+                    r34 = 35
                 # current computed target
                 if at_live is not None:
                     target_live = curve_target_for_at(coord, at_live)
                 live_target_addr = hc_a.get("live_target")
                 rec_ac = coord.data.get(live_target_addr) if live_target_addr else None
-                if rec_ac: after_comp = rec_ac.get("value")
+                if rec_ac:
+                    after_comp = rec_ac.get("value")
                 fixed_addr = st_a.get("heating_target")
                 rec_f = coord.data.get(fixed_addr) if fixed_addr else None
-                if rec_f: fixed = rec_f.get("value")
+                if rec_f:
+                    fixed = rec_f.get("value")
             except Exception:
                 pass
         # SVG 800x460: plot 800x400 (AT -20..20 => x 60..760, flow 10..70 => y 330..30) + 60px legend strip
@@ -155,12 +166,17 @@ class FoxAirCurvePanelView(HomeAssistantView):
                     target = curve_target_for_at(coord, at_v)
                     target = f"{target:.1f}" if target is not None else "—"
                 fixed = coord.data.get(st_a.get("heating_target"), {}).get("value", "—") if st_a.get("heating_target") else "—"
-                if isinstance(fixed,(int,float)): fixed=f"{fixed:.1f}"
+                if isinstance(fixed,(int,float)):
+                    fixed=f"{fixed:.1f}"
                 after = coord.data.get(hc_a.get("live_target"), {}).get("value", "—") if hc_a.get("live_target") else "—"
-                if isinstance(after,(int,float)): after=f"{after:.1f}"
-                if isinstance(at,(int,float)): at=f"{at:.1f}"
-                if isinstance(slope,(int,float)): slope=f"{slope}"
-                if isinstance(offset,(int,float)): offset=f"{offset}"
+                if isinstance(after,(int,float)):
+                    after=f"{after:.1f}"
+                if isinstance(at,(int,float)):
+                    at=f"{at:.1f}"
+                if isinstance(slope,(int,float)):
+                    slope=f"{slope}"
+                if isinstance(offset,(int,float)):
+                    offset=f"{offset}"
             except Exception:
                 pass
         _at_lbl = hc_a.get("at_sensor", "—")

@@ -1,7 +1,7 @@
 from homeassistant.components.sensor import SensorEntity, SensorDeviceClass, SensorStateClass
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.helpers.entity import EntityCategory
-from .const import DOMAIN, EXPERT_BLOCKS, DEVICE, POPULAR_ADDRS, device_for_addr, main_device, entity_sort_key, DTYPE_SPEC, get_device_prefix
+from .const import POPULAR_ADDRS, device_for_addr, main_device, entity_sort_key, DTYPE_SPEC, get_device_prefix
 
 # Build DTYPE_MAP from DTYPE_SPEC for backwards compatibility
 DTYPE_MAP = {}
@@ -69,13 +69,20 @@ class FoxSensor(CoordinatorEntity, SensorEntity):
         self._attr_device_info = device_for_addr(addr, block, entry_id, tab, prefix)
         dtype = info.get("type","RAW")
         dc, unit, sc = DTYPE_MAP.get(dtype, (None, info.get("unit") or None, None))
-        if dc: self._attr_device_class = dc
-        if unit: self._attr_native_unit_of_measurement = unit
-        elif info.get("unit"): self._attr_native_unit_of_measurement = info.get("unit")
-        if sc: self._attr_state_class = sc
-        if dtype in ("TEMP1","TEMP","TEMP05"): self._attr_suggested_display_precision = 1
-        elif dtype in ("VOLT","BAR_X10","POWER_KW_X10"): self._attr_suggested_display_precision = 1
-        elif dtype == "FLOW_M3H_X100": self._attr_suggested_display_precision = 2
+        if dc:
+            self._attr_device_class = dc
+        if unit:
+            self._attr_native_unit_of_measurement = unit
+        elif info.get("unit"):
+            self._attr_native_unit_of_measurement = info.get("unit")
+        if sc:
+            self._attr_state_class = sc
+        if dtype in ("TEMP1","TEMP","TEMP05"):
+            self._attr_suggested_display_precision = 1
+        elif dtype in ("VOLT","BAR_X10","POWER_KW_X10"):
+            self._attr_suggested_display_precision = 1
+        elif dtype == "FLOW_M3H_X100":
+            self._attr_suggested_display_precision = 2
         # v0.3 metadata-aware category
         try:
             meta = coord.get_metadata(addr) if hasattr(coord, "get_metadata") else {}
@@ -120,7 +127,8 @@ class FoxSensor(CoordinatorEntity, SensorEntity):
     @property
     def extra_state_attributes(self):
         rec = self.coordinator.data.get(self._addr)
-        if not rec: return {}
+        if not rec:
+            return {}
         info = rec.get("info",{})
         meta = {}
         try:
@@ -152,7 +160,8 @@ class FoxHeatingCurveTargetSensor(CoordinatorEntity, SensorEntity):
             from .heating_curve import curve_target_for_at
             hc = self._hc.get("addr_single", {}) if isinstance(self._hc, dict) else {}
             at = self.coordinator.data.get(hc.get("at_sensor"), {}).get("value") if hc.get("at_sensor") else None
-            if at is None: return None
+            if at is None:
+                return None
             v = curve_target_for_at(self.coordinator, float(at))
             return round(v,1) if v is not None else None
         except Exception:
@@ -162,7 +171,6 @@ class FoxHeatingCurveTargetSensor(CoordinatorEntity, SensorEntity):
         try:
             hc = self._hc.get("addr_single", {}) if isinstance(self._hc, dict) else {}
             st = self._st.get("addr_single", {}) if isinstance(self._st, dict) else {}
-            status = self._status.get("addr_single", {}) if isinstance(self._status, dict) else {}
             at = self.coordinator.data.get(hc.get("at_sensor"), {}).get("value") if hc.get("at_sensor") else None
             slope = self.coordinator.data.get(hc.get("slope"), {}).get("value") if hc.get("slope") else None
             offset = self.coordinator.data.get(hc.get("offset"), {}).get("value") if hc.get("offset") else None

@@ -172,15 +172,21 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
         status = self.coordinator.data.get(self._addr("status", "run_status"))
         if status:
             raw = status.get("raw")
-            if raw == 1: return HVACAction.HEATING
-            if raw == 0: return HVACAction.COOLING
-            if raw == 2: return HVACAction.DEFROSTING if hasattr(HVACAction, "DEFROSTING") else HVACAction.HEATING
-            if raw == 4: return HVACAction.HEATING
-            if raw == 3: return HVACAction.IDLE
+            if raw == 1:
+                return HVACAction.HEATING
+            if raw == 0:
+                return HVACAction.COOLING
+            if raw == 2:
+                return HVACAction.DEFROSTING if hasattr(HVACAction, "DEFROSTING") else HVACAction.HEATING
+            if raw == 4:
+                return HVACAction.HEATING
+            if raw == 3:
+                return HVACAction.IDLE
         freq = self.coordinator.data.get(self._addr("status", "compressor_freq"))
         if freq and freq.get("value", 0) > 0:
             raw_mode = self._raw_mode()
-            if raw_mode in (2, 4): return HVACAction.COOLING
+            if raw_mode in (2, 4):
+                return HVACAction.COOLING
             return HVACAction.HEATING
         return HVACAction.IDLE
 

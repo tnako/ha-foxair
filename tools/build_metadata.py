@@ -10,7 +10,9 @@ tuned without touching Python. This script is the generator only.
 
 Run: python3 tools/build_metadata.py  (see tools/README.md)
 """
-import json, pathlib, re
+import json
+import pathlib
+import re
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 REG_PATH = ROOT / "custom_components/foxair/data/foxair_phnix_registers.json"

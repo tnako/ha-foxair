@@ -23,8 +23,10 @@ def calc_curve_target(at_c: float, slope: float, offset: float, base: float = 0.
         return 0.0
 
 def clamp(v: float, lo: Optional[float], hi: Optional[float]) -> float:
-    if lo is not None and v < lo: return lo
-    if hi is not None and v > hi: return hi
+    if lo is not None and v < lo:
+        return lo
+    if hi is not None and v > hi:
+        return hi
     return v
 
 def curve_target_for_at(coord, at_c: float) -> Optional[float]:

@@ -8,11 +8,11 @@ import time
 import math
 from datetime import timedelta
 
-from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
+from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 from homeassistant.exceptions import ConfigEntryNotReady
 from pymodbus.client import AsyncModbusTcpClient
 
-from .const import MODBUS_MAX_SPAN, MODBUS_MAX_GAP, QUICK_INTERVAL, MEDIUM_INTERVAL, RARE_INTERVAL, CORE_MAIN_ADDRS
+from .const import MEDIUM_INTERVAL, RARE_INTERVAL, CORE_MAIN_ADDRS
 
 _LOGGER = logging.getLogger(__name__)
 

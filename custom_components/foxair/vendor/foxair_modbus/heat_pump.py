@@ -481,9 +481,12 @@ class FoxAir(Component):
         """Compat shim: return {addr: {raw, value, info}} like old coordinator.data."""
         out = {}
         for name, field in self.declared_fields.items():
-            if not name.startswith('reg_'): continue
-            try: addr=int(name.split('_')[1])
-            except: continue
+            if not name.startswith('reg_'):
+                continue
+            try:
+                addr=int(name.split('_')[1])
+            except Exception:
+                continue
             val=getattr(self, name, None)
             # raw words not directly exposed; use value for both (compat: raw==value for scaled? keep value)
             # For diagnostics we store value as both raw/value; caller can read .value

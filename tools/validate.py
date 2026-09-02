@@ -8,7 +8,11 @@ ru != en, no unknown poll_tier).
 Usage: tools/validate.py [--strict]
   --strict: also fail on hidden-or-reserved ru==en (default: only visible)
 """
-import ast, json, re, sys, pathlib
+import ast
+import json
+import re
+import sys
+import pathlib
 
 R = pathlib.Path(__file__).resolve().parent.parent
 CC = R / "custom_components/foxair"
