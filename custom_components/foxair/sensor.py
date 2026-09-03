@@ -150,7 +150,6 @@ class FoxSensor(CoordinatorEntity, SensorEntity):
 
 class FoxHeatingCurveTargetSensor(CoordinatorEntity, SensorEntity):
     _attr_has_entity_name = True
-    _attr_name = "Heating Curve Target"
     _attr_device_class = SensorDeviceClass.TEMPERATURE
     _attr_native_unit_of_measurement = "°C"
     _attr_state_class = SensorStateClass.MEASUREMENT
@@ -158,7 +157,10 @@ class FoxHeatingCurveTargetSensor(CoordinatorEntity, SensorEntity):
     def __init__(self, coord):
         super().__init__(coord)
         prefix = get_device_prefix(coord.entry)
-        self._attr_translation_key = f"{prefix}_heating_curve_target"
+        self._prefix = prefix
+        # translation_key stable (foxair_) - translations only exist under foxair_
+        # unique_id stays prefix-dependent so multiple prefixes don't collide
+        self._attr_translation_key = "foxair_heating_curve_target"
         self._attr_unique_id = f"{prefix}_heating_curve_target"
         entry_id = getattr(coord, "_entry_id", None) or getattr(coord, "config_entry", None) and getattr(coord.config_entry, "entry_id", None)
         self._attr_device_info = main_device(entry_id, prefix)
@@ -348,7 +350,7 @@ class FoxHeatingPowerSensor(FoxComputedSensor):
     def __init__(self, coord):
         super().__init__(coord)
         self._attr_unique_id = f"{self._prefix}_heating_power"
-        self._attr_translation_key = f"{self._prefix}_heating_power"
+        self._attr_translation_key = "foxair_heating_power"  # stable key, translations only under foxair_
 
     @property
     def native_value(self):
@@ -379,7 +381,7 @@ class FoxElectricalPowerSensor(FoxComputedSensor):
     def __init__(self, coord):
         super().__init__(coord)
         self._attr_unique_id = f"{self._prefix}_electrical_power"
-        self._attr_translation_key = f"{self._prefix}_electrical_power"
+        self._attr_translation_key = "foxair_electrical_power"  # stable key, translations only under foxair_
 
     @property
     def native_value(self):
@@ -399,7 +401,7 @@ class FoxCopSensor(FoxComputedSensor):
     def __init__(self, coord):
         super().__init__(coord)
         self._attr_unique_id = f"{self._prefix}_cop"
-        self._attr_translation_key = f"{self._prefix}_cop"
+        self._attr_translation_key = "foxair_cop"  # stable key, translations only under foxair_
 
     @property
     def native_value(self):

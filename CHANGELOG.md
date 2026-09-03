@@ -1,3 +1,6 @@
+## 0.5.5 - 2026-09-03
+- fix(i18n): heating curve image always showed English — `translation_key` was prefix-dependent (`phnix_heating_curve` has no translations) and `has_entity_name=False` with hardcoded `Heating Curve` name bypassed translation; now stable `foxair_heating_curve` key, `has_entity_name=True`, computed sensors also use stable `foxair_*` keys, SVG translations reload on language change
+
 ## 0.5.4 - 2026-09-02
 |- fix: show firmware version as \"v3.3\" (not \"33.0\") — register 2104 now uses `format: firmware` in metadata to signal native_value formatting (major*10+minor -> vX.Y), no hardcoded address
 ## 0.5.3 - 2026-09-02

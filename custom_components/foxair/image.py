@@ -72,8 +72,7 @@ def _norm_slope(v):
 
 
 class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
-    _attr_has_entity_name = False
-    _attr_name = "Heating Curve"
+    _attr_has_entity_name = True
     _attr_icon = "mdi:chart-bell-curve"
     _attr_content_type = "image/svg+xml"
 
@@ -82,7 +81,11 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
         ImageEntity.__init__(self, coordinator.hass)
         self._entry_id = entry_id
         prefix = get_device_prefix(coordinator.entry)
-        self._attr_translation_key = f"{prefix}_heating_curve"
+        self._prefix = prefix
+        # translation_key must stay stable - translations only exist under
+        # foxair_heating_curve (not phnix_heating_curve). Entity id/uniqueness
+        # still uses the user-chosen prefix.
+        self._attr_translation_key = "foxair_heating_curve"
         self._attr_unique_id = f"{prefix}_heating_curve_image"
         self._attr_device_info = main_device(entry_id, prefix)
         self.entity_id = f"image.{prefix}_heating_curve"
@@ -105,15 +108,54 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
             self._render()
         return self._image_bytes
 
+    async def async_added_to_hass(self) -> None:
+        await super().async_added_to_hass()
+        await self.async_load_translations()
+        self._render()
+        try:
+            self.async_write_ha_state()
+        except Exception:
+            pass
+        # Re-load when HA language changes (Settings -> System -> Language)
+        try:
+            from homeassistant.core import EVENT_CORE_CONFIG_UPDATE
+            self.async_on_remove(
+                self.hass.bus.async_listen(
+                    EVENT_CORE_CONFIG_UPDATE, self._handle_language_change
+                )
+            )
+        except Exception:
+            pass
+
+    async def _handle_language_change(self, _event=None) -> None:
+        await self.async_load_translations()
+        self._render()
+        try:
+            self.async_write_ha_state()
+        except Exception:
+            pass
+
     async def async_load_translations(self) -> None:
         """Load the image's translation catalog for the current UI language."""
         try:
-            lang = self.hass.config.language or "en"
+            lang = getattr(self.hass.config, "language", None) or "en"
             cat = await async_get_translations(
                 self.hass, lang, category="entity", integrations=["foxair"]
             )
-            prefix = "component.foxair.entity.image.foxair_heating_curve."
-            loaded_raw = {k[len(prefix):]: v for k, v in cat.items() if k.startswith(prefix)}
+            # Stable key: foxair_heating_curve (translations only exist there,
+            # not under phnix_*/custom prefixes). Try prefixed variant first
+            # for forward-compat, then fall back to canonical.
+            pref = getattr(self, "_prefix", "foxair")
+            keys_to_try = []
+            if pref != "foxair":
+                keys_to_try.append(f"component.foxair.entity.image.{pref}_heating_curve.")
+            keys_to_try.append("component.foxair.entity.image.foxair_heating_curve.")
+            loaded_raw: dict = {}
+            for pfx in keys_to_try:
+                hit = {k[len(pfx):]: v for k, v in cat.items() if k.startswith(pfx)}
+                if hit:
+                    loaded_raw = hit
+                    break
             # hassfest only allows custom strings under `state`, so strip that prefix
             # (keep `name` as-is, unwrap `state.<key>` -> `<key>`)
             loaded = {}
@@ -125,6 +167,8 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
                 else:
                     loaded[k] = v  # fallback for direct keys (future compat)
             self._tl = {**_TL_FALLBACK, **loaded}
+            if loaded_raw:
+                self._render()
         except Exception as e:  # pragma: no cover - never fatal
             _LOGGER.debug("heating-curve translations unavailable: %s", e)
             self._tl = dict(_TL_FALLBACK)
