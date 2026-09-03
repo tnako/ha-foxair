@@ -184,8 +184,55 @@ for p in CC.rglob("*.py"):
                     f"called with {len(node.args)} args (expected 2: addr, value)"
                 )
 
+# --- no absolute local paths / hardcoded hosts in tracked files ---  # secrets:allow
+# Public repo: must not contain hardcoded user paths or hardcoded private IPs/hosts.
+_abs_pat = re.compile(r"/Users/|/home/[a-z0-9_.-]+/(?:work|GIT|projects|Desktop|Documents)", re.I)  # secrets:allow
+_hard_host_pat = re.compile(r"HA_HOST\s*=\s*[^\s#\"']+")
+_ip_pat = re.compile(r"\b(?:192\.168\.|10\.|172\.(?:1[6-9]|2[0-9]|3[01])\.)\d{1,3}\.\d{1,3}")
+try:
+    import subprocess as _sp
+    _tracked = _sp.check_output(["git", "ls-files", "-z"], cwd=str(R)).decode().split("\x00")
+except Exception:
+    _tracked = []
+for _rel in _tracked:
+    if not _rel or _rel.startswith("tests/") or _rel.startswith(".git/"):
+        continue
+    if _rel == ".env.example":
+        _txt2 = (R / _rel).read_text(errors="ignore") if (R / _rel).exists() else ""
+        for _ln, _line in enumerate(_txt2.splitlines(), 1):
+            _stripped = _line.strip()
+            if not _stripped or _stripped.startswith("#"):
+                continue
+            if _abs_pat.search(_line):
+                errs.append(f"secrets: {_rel}:{_ln} contains absolute local path: {_line.strip()[:120]}")
+            _m = _hard_host_pat.search(_line)
+            if _m and "HA_HOST=" in _line:
+                _val = _line.split("=", 1)[1].strip().split()[0].strip('"\'')
+                if _val:
+                    errs.append(f"secrets: {_rel}:{_ln} hardcoded HA_HOST value (must be empty, filled via .env): {_line.strip()[:120]}")
+        continue
+    _fp = R / _rel
+    if not _fp.is_file():
+        continue
+    if _fp.suffix.lower() in (".png", ".jpg", ".jpeg", ".gif", ".webp", ".zip", ".gz", ".pyc"):
+        continue
+    try:
+        _txt = _fp.read_text(errors="ignore")
+    except Exception:
+        continue
+    for _ln, _line in enumerate(_txt.splitlines(), 1):
+        if "secrets:allow" in _line:
+            continue
+        if "/Users/" in _line or _abs_pat.search(_line):  # secrets:allow
+            errs.append(f"secrets: {_rel}:{_ln} contains absolute local path: {_line.strip()[:120]}")
+        if _ip_pat.search(_line):
+            errs.append(f"secrets: {_rel}:{_ln} contains private IP (use HA_HOST from .env): {_line.strip()[:120]}")
+        if "root@" in _line and "$HA_HOST" not in _line and "${HA_HOST" not in _line:
+            errs.append(f"secrets: {_rel}:{_ln} hardcoded root@host (use root@$HA_HOST from .env): {_line.strip()[:120]}")
+
 if warns:
     print("WARN:")
+
     for w in warns[:30]:
         print(f"  {w}")
 if errs:

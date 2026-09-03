@@ -32,3 +32,5 @@ jobs:
       - run: python -m json.tool custom_components/foxair/manifest.json > /dev/null && echo "manifest json ok"
       - run: python -m json.tool hacs.json > /dev/null && echo "hacs json ok"
       - run: python -m json.tool custom_components/foxair/translations/en.json > /dev/null && echo "en ok"
+      - name: No absolute paths / hardcoded hosts (secrets hygiene)
+        run: python3 tools/validate.py

@@ -2,12 +2,11 @@
 
 ## Quick Start
 ```bash
-cd .
 task validate        # Run after EVERY edit (gate): version sync + i18n + syntax + write signatures
 task pre_release     # Full pre-release gate: validate -> regen metadata -> validate -> pytest -> check_regs
 task deploy          # reads HA_HOST from .env  # Deploy to HA (requires SSH)
+# Or directly: python3 tools/validate.py / python3 tools/pre_release_check.py
 ```
-Or directly: `python3 tools/validate.py` / `python3 tools/pre_release_check.py`
 
 ## Repository Structure
 ```
@@ -137,15 +136,14 @@ BITFIELD-REG + NON-HOLDING (no per-code entity by design: O/S blocks = regs
 (UNKNOWN/UNAVAILABLE/MISMATCH/NO-RESPONSE).
 
 ## DO NOT
-- Skip `validate.py` after edits
+- Skip `validate.py` after edits (it also enforces no absolute paths / no hardcoded hosts)
 - Change `entity_id` (stable IDs required — only friendly names reorder)
 - Commit generated vendor code without running validate
+- Commit absolute local paths (`/Users/...`, `/home/...`), hardcoded IPs, or `HA_HOST=<value>` / `root@<host>` — use `HA_HOST` from `.env` (see `.env.example`; `validate.py` + CI block this) <!-- secrets:allow -->
 
 ## Related Repos
-- `sibling modbus repo/` — Go test client + `tabs.txt` mirror + PDF docs
-- `sibling desktop app repo/` — Windows desktop app (Warmlink cloud, device info, firmware analysis)
+- sibling `modbus` repo — Go test client + `tabs.txt` mirror (private, not in this repo)
+- sibling desktop app repo — Warmlink cloud / device info (private)
 
 ## HA Environment
-- HA Core (Docker) — see .env
-- Supervisor token at `<supervisor-token-path>` on host
-- Use `ha_*` tools (pre-configured with HASS_URL/HASS_TOKEN) over raw curl
+- Use `ha_*` tools (pre-configured with `HASS_URL`/`HASS_TOKEN` from `.env`) over raw curl — see `.env.example`
