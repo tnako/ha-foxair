@@ -2,7 +2,7 @@
 
 Control and monitor your **FoxAir / PHNIX air-to-water heat pump** directly from Home Assistant over Modbus TCP — no cloud, no YAML.
 
-![Version](https://img.shields.io/badge/version-0.5.4-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2025.3-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
+![Version](https://img.shields.io/badge/version-0.5.4-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2026.3-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
 ![FoxAir Demo](docs/screenshots/foxair_demo.gif)
 
@@ -25,7 +25,7 @@ Reads go through a single `pymodbus.AsyncModbusTcpClient` (the EW11 gateway allo
 
 ## Requirements
 
-- Home Assistant **>= 2025.3**
+- Home Assistant **>= 2026.3**
 - Python `pymodbus>=3.6.0`
 - FoxAir/PHNIX on Modbus TCP (tested with an Elfins EW11 at the default `host:8899 slave 1`)
 

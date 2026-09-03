@@ -14,6 +14,25 @@ tasks:
       - python3 tools/gen_foxair_modbus.py
       - python3 tools/validate.py
 
+  test:
+    desc: Run full pytest suite (signatures, firmware gates, curve math, SVG render, validate)
+    cmds:
+      - python3 -m pytest tests/ -v
+
+  pre_release:
+    desc: Pre-release gate - validate + metadata regen + pytest + check_regs
+    cmds:
+      - task: validate
+      - python3 tools/build_metadata.py
+      - task: validate
+      - task: test
+      - python3 tools/check_regs.py
+
+  check_regs:
+    desc: Check every register - HA state vs device
+    cmds:
+      - python3 tools/check_regs.py
+
   deploy:
     desc: Deploy to HA host and verify health
     cmds:
@@ -25,16 +44,13 @@ tasks:
       - cp custom_components/foxair/data/foxair_phnix_registers.json sibling desktop app repo/data/
       - cp custom_components/foxair/data/foxair_phnix_knowledge.json sibling desktop app repo/data/
 
-  check_regs:  ## Check every register: HA state vs device (add --direct for Modbus)
+  bump:
+    desc: Bump VERSION and manifest, then tag and push
+    vars:
+      version:
+        sh: "echo ''"
     cmds:
-      - python3 tools/check_regs.py
-
-  test:
-    desc: Run all checks
-    cmds:
-      - task: validate
-      - python3 -m py_compile custom_components/foxair/*.py
-      - echo "All checks passed"
+      - python3 tools/bump_version.py '{{.version}}'
 
 default:
   cmd: task --list
