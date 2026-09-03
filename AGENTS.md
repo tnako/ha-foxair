@@ -3,9 +3,11 @@
 ## Quick Start
 ```bash
 cd /Users/chado/work/GIT/ha-foxair
-python tools/validate.py          # Run after EVERY edit (gate)
-tools/deploy.sh  # reads HA_HOST from .env  # Deploy to HA (requires SSH)
+task validate        # Run after EVERY edit (gate): version sync + i18n + syntax + write signatures
+task pre_release     # Full pre-release gate: validate -> regen metadata -> validate -> pytest -> check_regs
+task deploy          # reads HA_HOST from .env  # Deploy to HA (requires SSH)
 ```
+Or directly: `python3 tools/validate.py` / `python3 tools/pre_release_check.py`
 
 ## Repository Structure
 ```
@@ -25,8 +27,10 @@ ha-foxair/
 │       └── foxair_phnix_knowledge.json
 ├── modbus/tabs.txt               # SOURCE OF TRUTH for register codes & order (247 lines)
 ├── tools/build_metadata.py       # registers+config -> metadata.json (RUN AFTER config edits)
-├── tools/validate.py             # Version sync, i18n prefix check, syntax
+├── tools/validate.py             # Version sync, i18n prefix check, syntax, async_write_register signature
 ├── tools/check_regs.py           # Register audit: tabs.txt+metadata codes vs HA entities (+ --direct Modbus)
+├── tools/pre_release_check.py    # Orchestrator: validate -> regen -> pytest -> check_regs
+├── tools/bump_version.py         # Bump VERSION + manifest + README badge
 ├── tools/deploy.sh               # rsync + HA restart (HA_HOST env required)
 ├── VERSION / manifest.json / CHANGELOG.md
 └── docs/archive/                 # Historical v0.3 reviews
@@ -60,6 +64,9 @@ you skipped the metadata one-shot and are grepping blind.
 - Every code in `modbus/tabs.txt` has `CODE: Name` prefix in **all three** translation files
 - No double prefix (`H42: H42 Name` → fail)
 - Python syntax clean
+- `foxair_metadata.json` is regenerated from `foxair_config.json` + register data (no stale metadata)
+- All `async_write_register` calls use the correct 2-arg signature (`addr, value`) — no extra meta arg
+- Firmware-gated registers (min_firmware) are present in both config overrides and metadata
 
 ## Modbus Architecture (0.4.x)
 - Own `pymodbus.AsyncModbusTcpClient` (single socket, serialized under `coordinator._lock`).
@@ -80,14 +87,44 @@ you skipped the metadata one-shot and are grepping blind.
 5. Bump `VERSION` + `manifest.json` + `README.md` badge + `CHANGELOG.md`
 6. Deploy
 
+## Add Register
+Edit `modbus/tabs.txt` → regen vendor → validate
+
+## Pre-Release Testing (BEFORE version bump)
+Main branch is protected — **never commit directly to main**. The full
+pre-release gate is:
+
+```bash
+tools/pre_release_check.sh          # orchestrates all checks below
+```
+
+This runs (and fails fast on any error):
+1. `python3 tools/validate.py` — version sync, i18n prefixes, syntax, metadata coverage
+2. `python3 tools/build_metadata.py` — regenerate metadata from config; test verifies committed metadata matches
+3. `pytest tests/ -v` — 14-test suite: version sync, syntax, metadata freshness, async_write_register signature (all platforms), firmware gates, heating curve math, SVG render (EN/DE/RU), validate pass
+4. `python3 tools/check_regs.py` — if HASS_URL/HASS_TOKEN in .env: audits all 310 register codes against live HA entities + optional `--direct` device reads
+
+**Local dev workflow** — uses Taskfile (`task` command):
+```bash
+task validate    # version sync + i18n + syntax
+task test        # pytest suite (signatures, firmware gates, curve math, SVG render)
+task pre_release # full gate: validate -> regen metadata -> validate -> pytest -> check_regs
+task bump version=X.Y.Z  # bump VERSION + manifest + README badge
+task deploy       # rsync to HA + restart
+```
+
+CI (`.github/workflows/validate.yml`) runs hassfest + hacs + lint + pytest on every push/PR, but does NOT have HA access — `check_regs.py --direct` is a manual live check before deploy.
+
 ## Common Tasks
 | Task | Command |
-|------|---------|
-| Validate | `python tools/validate.py` |
-| Check registers | `python tools/check_regs.py` (needs HASS_URL/HASS_TOKEN in `.env`; `--direct` adds raw Modbus reads, `--codes H01,P02` filters, `--show-all` lists everything) |
-| Deploy | `tools/deploy.sh  # reads HA_HOST from .env` |
-| Bump version | Edit `VERSION`, `manifest.json`, `README.md` badge, `CHANGELOG.md` |
-| Add register | Edit `modbus/tabs.txt` → regen vendor → validate |
+||------|---------|
+|| Validate | `task validate` (or `python3 tools/validate.py`) |
+|| Pre-release gate | `task pre_release` |
+|| Unit tests | `task test` (or `python3 -m pytest tests/ -v`) |
+|| Check registers | `python3 tools/check_regs.py` (needs HASS_URL/HASS_TOKEN in `.env`; `--direct` adds raw Modbus, `--codes H01,P02` filters, `--show-all` lists everything) |
+|| Deploy | `tools/deploy.sh` # reads HA_HOST from .env |
+|| Bump version | `task bump version=X.Y.Z` (updates VERSION + manifest + README badge) → `git tag vX.Y.Z` → push (triggers release CI) |
+|| Add register | Edit `modbus/tabs.txt` → regen vendor → validate |
 
 ### check_regs.py — register end-to-end audit
 Checks all 310 codes (tabs.txt order + metadata-only codes: KG timers, T-Diag,

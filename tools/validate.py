@@ -167,6 +167,23 @@ for p in CC.rglob("*.py"):
     except SyntaxError as e:
         errs.append(f"syntax {p.name}:{e.lineno} {e.msg}")
 
+# async_write_register must be called with exactly 2 positional args (addr, value).
+# The coordinator signature is `async def async_write_register(self, addr, value)`.
+# A third arg (e.g. self._meta) is a stale-call bug. (Checked via AST, like syntax.)
+for p in CC.rglob("*.py"):
+    tree = ast.parse(p.read_text())
+    for node in ast.walk(tree):
+        if (
+            isinstance(node, ast.Call)
+            and isinstance(node.func, ast.Attribute)
+            and node.func.attr == "async_write_register"
+        ):
+            if len(node.args) > 2:
+                errs.append(
+                    f"async_write_register {p.name}:{node.lineno}: "
+                    f"called with {len(node.args)} args (expected 2: addr, value)"
+                )
+
 if warns:
     print("WARN:")
     for w in warns[:30]:

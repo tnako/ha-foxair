@@ -129,6 +129,9 @@ class FakeCoord:
     def __init__(self, data):
         self.data = data
         self.hass = FHass()
+        self._metadata = {}
+        self.entry = type("E", (), {"entry_id": "test", "data": {"host": "test", "port": 8899, "slave": 1}, "options": {}})()
+        self._entry_id = "test"
     def marker(self, name):
         if name == "heat_curve":
             return {"addr_single": {

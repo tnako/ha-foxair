@@ -80,10 +80,10 @@ class FoxSwitch(CoordinatorEntity, SwitchEntity):
         return bool(val)
 
     async def async_turn_on(self, **kwargs):
-        await self.coordinator.async_write_register(self._addr, 1, self._meta)
+        await self.coordinator.async_write_register(self._addr, 1)
 
     async def async_turn_off(self, **kwargs):
-        await self.coordinator.async_write_register(self._addr, 0, self._meta)
+        await self.coordinator.async_write_register(self._addr, 0)
 
     @property
     def extra_state_attributes(self):
