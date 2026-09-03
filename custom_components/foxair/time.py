@@ -84,6 +84,27 @@ class FoxTime(CoordinatorEntity, TimeEntity):
     def available(self):
         if self._meta.get("requires_expert") and not self.coordinator.entry.options.get("enable_expert"):
             return False
+        dep = self._meta.get("depends_on")
+        if dep is not None:
+            try:
+                rec = self.coordinator.data.get(int(dep))
+                if not rec:
+                    return False
+                raw = rec.get("raw")
+                if raw is None:
+                    raw = rec.get("value")
+                if raw is None:
+                    return False
+                s = str(raw).strip().lower()
+                if s in ("0", "0.0", "off", "no", "false", ""):
+                    return False
+                try:
+                    if float(raw) == 0:
+                        return False
+                except Exception:
+                    pass
+            except Exception:
+                pass
         return super().available
 
     @property

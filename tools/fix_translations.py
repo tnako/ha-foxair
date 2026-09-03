@@ -295,6 +295,34 @@ for addr_str, meta_rec in meta.items():
 # Also fix block headers that were missing in strings sensor but present in regs but we already added sensor entries above
 # Additionally, ensure number/select translations for all languages have same structure as strings (top-level config/options)
 # Ensure en translations mirror strings for config/options
+# Registry-driven sensor enum states: sensors with value_map get "N — Label" translations
+# GER->EN/RU mapping for common values; fallback to registry label
+GER_TO_EN_STATE = {"Aus":"Off","Ein":"On","Kühlen":"Cooling","Heizen":"Heating","Abtauen":"Defrost","Sterilisieren":"Sterilization","Warmwasser":"DHW","Nein":"No","Ja":"Yes","Abtau-Modus verfügbar":"Defrost Available","WP Aus oder SG deaktiviert":"HP Off / SG Disabled","SG Mode 1 / Schlafmodus":"SG Mode 1 / Sleep","SG Mode 2 / wenig PV":"SG Mode 2 / Low PV","SG Mode 3 / mittel PV":"SG Mode 3 / Medium PV","SG Mode 4 / High PV":"SG Mode 4 / High PV","Normalbetrieb":"Normal","disabled":"Disabled","enabled":"Enabled"}
+GER_TO_RU_STATE = {"Aus":"Выкл","Ein":"Вкл","Kühlen":"Охлаждение","Heizen":"Отопление","Abtauen":"Разморозка","Sterilisieren":"Стерилизация","Warmwasser":"ГВС","Nein":"Нет","Ja":"Да","Abtau-Modus verfügbar":"Разморозка доступна","WP Aus oder SG deaktiviert":"ТН выкл / SG откл","SG Mode 1 / Schlafmodus":"SG режим 1 / Сон","SG Mode 2 / wenig PV":"SG режим 2 / мало PV","SG Mode 3 / mittel PV":"SG режим 3 / средн. PV","SG Mode 4 / High PV":"SG режим 4 / макс. PV","Normalbetrieb":"Норма","disabled":"Откл","enabled":"Вкл"}
+for addr_str, rec in regs.items():
+    if addr_str.startswith("_"):
+        continue
+    if not isinstance(rec, dict):
+        continue
+    vm = rec.get("value_map")
+    if not vm or not isinstance(vm, dict):
+        continue
+    # only for sensor platform (non-editable) — select has its own state generation
+    plat = meta.get(addr_str, {}).get("platform")
+    if plat != "sensor":
+        continue
+    for lang_data, trans_map, use_en in [(strings, GER_TO_EN_STATE, True), (en, GER_TO_EN_STATE, True), (de, {}, False), (ru, GER_TO_RU_STATE, False)]:
+        states = {}
+        for k, label in vm.items():
+            if use_en:
+                lab = trans_map.get(label, label)
+            elif lang_data is de:
+                lab = label
+            else:
+                lab = trans_map.get(label, label)
+            states[str(k)] = lab
+        lang_data.setdefault("entity",{}).setdefault("sensor",{}).setdefault(f"foxair_{addr_str}", {})["state"] = states
+
 # Validate select state completeness: keep as is
 
 # Save — sort keys numerically (foxair_2127 < foxair_2136 < foxair_50043) for deterministic diffs

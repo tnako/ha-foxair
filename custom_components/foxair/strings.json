@@ -1327,10 +1327,21 @@
         "name": "Block Header Status Packet 1 First Header Register"
       },
       "foxair_2011": {
-        "name": "Device State"
+        "name": "Device State",
+        "state": {
+          "0": "Off",
+          "1": "On"
+        }
       },
       "foxair_2012": {
-        "name": "Current Cycle Mode"
+        "name": "Current Cycle Mode",
+        "state": {
+          "0": "Cooling",
+          "1": "Heating",
+          "2": "Defrost",
+          "3": "Sterilization",
+          "4": "DHW"
+        }
       },
       "foxair_2013": {
         "name": "Temperature Value After Limiting"
@@ -1339,7 +1350,11 @@
         "name": "Temperature Value After Weather Compensation (Heating)"
       },
       "foxair_2015": {
-        "name": "Apply Central Defrost Automation"
+        "name": "Apply Central Defrost Automation",
+        "state": {
+          "0": "No",
+          "1": "Defrost Available"
+        }
       },
       "foxair_2016": {
         "name": "Setpoint Temperature as 2013 / 2014"
@@ -1348,7 +1363,11 @@
         "name": "2017: Reserved"
       },
       "foxair_2018": {
-        "name": "025 / Load Output (Electric DHW Tank Heater)"
+        "name": "025 / Load Output (Electric DHW Tank Heater)",
+        "state": {
+          "0": "Off",
+          "1": "On"
+        }
       },
       "foxair_2019": {
         "name": "001-023 / Load Outputs Bitfield (fully decoded)"
@@ -1693,10 +1712,22 @@
         "name": "T48: Current of External Fan Motor Drive"
       },
       "foxair_2133": {
-        "name": "SGstatus: SG Ready Active Mode"
+        "name": "SGstatus: SG Ready Active Mode",
+        "state": {
+          "0": "HP Off / SG Disabled",
+          "1": "SG Mode 1 / Sleep",
+          "2": "SG Mode 2 / Low PV",
+          "3": "SG Mode 3 / Medium PV",
+          "4": "SG Mode 4 / High PV",
+          "5": "Normal"
+        }
       },
       "foxair_2134": {
-        "name": "Timer State Power Limit Timers 1-6"
+        "name": "Timer State Power Limit Timers 1-6",
+        "state": {
+          "0": "Disabled",
+          "1": "Enabled"
+        }
       },
       "foxair_2135": {
         "name": "2135: Unknown Function"
@@ -1756,7 +1787,14 @@
         "name": "Service/OTA SSID (C37B)"
       },
       "foxair_50044": {
-        "name": "C37B Acknowledge Status"
+        "name": "C37B Acknowledge Status",
+        "state": {
+          "3": "Datenphase und erste MD5-/Stagingprüfung erfolgreich; Abschluss/Promotion läuft noch",
+          "4": "Daten-/Staging-/MD5- beziehungsweise Push-Fehler",
+          "5": "Mainboard-OTA/Promotion erfolgreich abgeschlossen",
+          "6": "Mainboard-Upgrade/Promotion fehlgeschlagen",
+          "7": "C544-Geräte-/Versionsinformation vom LTE-Modem verarbeitet und quittiert"
+        }
       },
       "foxair_50500": {
         "name": "Service/OTA SSID (C544)"
@@ -1805,9 +1843,6 @@
       },
       "foxair_h43": {
         "name": "H43: Normal/Eco"
-      },
-      "foxair_heating_curve_target": {
-        "name": "Heating Curve Target"
       },
       "foxair_heating_power": {
         "name": "Heating Power (calculated)"

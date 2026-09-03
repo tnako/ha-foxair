@@ -1327,10 +1327,21 @@
         "name": "Blockkopf Paket Status 1 / erstes Blockkopf-Register"
       },
       "foxair_2011": {
-        "name": "Gerätezustand"
+        "name": "Gerätezustand",
+        "state": {
+          "0": "Aus",
+          "1": "Ein"
+        }
       },
       "foxair_2012": {
-        "name": "Aktueller Betriebsstatus"
+        "name": "Aktueller Betriebsstatus",
+        "state": {
+          "0": "Kühlen",
+          "1": "Heizen",
+          "2": "Abtauen",
+          "3": "Sterilisieren",
+          "4": "Warmwasser"
+        }
       },
       "foxair_2013": {
         "name": "Temperaturwert nach Begrenzung"
@@ -1339,7 +1350,11 @@
         "name": "Temperaturwert nach Wetterkompensation während des Heizens"
       },
       "foxair_2015": {
-        "name": "Zentrale Abtauautomatik anwenden"
+        "name": "Zentrale Abtauautomatik anwenden",
+        "state": {
+          "0": "Nein",
+          "1": "Abtau-Modus verfügbar"
+        }
       },
       "foxair_2016": {
         "name": "Solltemperatur wie 2013 / 2014"
@@ -1348,7 +1363,11 @@
         "name": "Reserviert"
       },
       "foxair_2018": {
-        "name": "025 / Lastausgang (Elektrischer Wassertankheizer)"
+        "name": "025 / Lastausgang (Elektrischer Wassertankheizer)",
+        "state": {
+          "0": "Aus",
+          "1": "Ein"
+        }
       },
       "foxair_2019": {
         "name": "001 bis 023 / Lastausgänge Bitfeld (vollständig decodiert)"
@@ -1693,10 +1712,22 @@
         "name": "T48: Strom des externen Lüftermotorantriebs."
       },
       "foxair_2133": {
-        "name": "SGstatus: SG Ready aktiver Modus"
+        "name": "SGstatus: SG Ready aktiver Modus",
+        "state": {
+          "0": "WP Aus oder SG deaktiviert",
+          "1": "SG Mode 1 / Schlafmodus",
+          "2": "SG Mode 2 / wenig PV",
+          "3": "SG Mode 3 / mittel PV",
+          "4": "SG Mode 4 / High PV",
+          "5": "Normalbetrieb"
+        }
       },
       "foxair_2134": {
-        "name": "Timer State Leistungsbegrenzungstimer 1-6"
+        "name": "Timer State Leistungsbegrenzungstimer 1-6",
+        "state": {
+          "0": "disabled",
+          "1": "enabled"
+        }
       },
       "foxair_2135": {
         "name": "Funktion unbekannt"
@@ -1756,7 +1787,14 @@
         "name": "Service-/OTA-SSID (C37B)"
       },
       "foxair_50044": {
-        "name": "C37B Quittungsstatus"
+        "name": "C37B Quittungsstatus",
+        "state": {
+          "3": "Datenphase und erste MD5-/Stagingprüfung erfolgreich; Abschluss/Promotion läuft noch",
+          "4": "Daten-/Staging-/MD5- beziehungsweise Push-Fehler",
+          "5": "Mainboard-OTA/Promotion erfolgreich abgeschlossen",
+          "6": "Mainboard-Upgrade/Promotion fehlgeschlagen",
+          "7": "C544-Geräte-/Versionsinformation vom LTE-Modem verarbeitet und quittiert"
+        }
       },
       "foxair_50500": {
         "name": "Service-/OTA-SSID (C544)"
@@ -1805,9 +1843,6 @@
       },
       "foxair_h43": {
         "name": "H43: Normal/Eco"
-      },
-      "foxair_heating_curve_target": {
-        "name": "Heizkurven-Zieltemperatur"
       },
       "foxair_heating_power": {
         "name": "Heizleistung (berechnet)"

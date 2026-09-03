@@ -1,3 +1,14 @@
+## 0.5.6 - 2026-09-03
+- feat(enum-sensors): registry-driven enum sensors for value_map-based registers (2011, 2012, 2015, 2018) — native_value returns raw key, state translations provide localized labels, SensorDeviceClass.ENUM set dynamically in sensor.py
+- feat(depends_on): conditional availability — entities with depends_on are unavailable (hidden) when their dependency register reads 0/off/false; affects number/select/switch/time/sensor platforms
+- feat(depends_on): registry-driven — depends_on field added to foxair_metadata.json for 1017, 1153-1155, 2125, 2441-2443, 2449, 2892-2896, 2898-2899
+- feat(depends_on): register-driven — depends_on field added to foxair_phnix_registers.json for 1017 (→1030), 1153-1155 (→1156)
+- feat(depends_on): build_metadata.py propagates depends_on from register json into metadata json; all existing registers get depends_on: null
+- chore: removed dedicated FoxHeatingCurveTargetSensor class + heating_curve.py import — sensor.foxair_2014 (After compensation) now serves as the live curve target when H36=On (registry-driven, supports depends_on)
+- chore: const.py CORE_MAIN_ADDRS reordered (1030 removed) — 1030 now gated via depends_on on 1017
+- chore: views.py heating curve panel docs updated to reference sensor.foxair_2014 instead of sensor.foxair_heating_curve_target
+- chore: fix_translations.py generates GER→EN/RU state translations for enum sensors with value_map
+
 ## 0.5.5 - 2026-09-03
 - fix(i18n): heating curve image always showed English — `translation_key` was prefix-dependent (`phnix_heating_curve` has no translations) and `has_entity_name=False` with hardcoded `Heating Curve` name bypassed translation; now stable `foxair_heating_curve` key, `has_entity_name=True`, computed sensors also use stable `foxair_*` keys, SVG translations reload on language change
 
