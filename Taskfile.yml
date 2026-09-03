@@ -38,11 +38,7 @@ tasks:
     cmds:
       - tools/deploy.sh  # reads HA_HOST from .env
 
-  sync_fc:
-    desc: Sync register data to FoxAir_Control repo
-    cmds:
-      - cp custom_components/foxair/data/foxair_phnix_registers.json sibling desktop app repo/data/
-      - cp custom_components/foxair/data/foxair_phnix_knowledge.json sibling desktop app repo/data/
+  # sync_fc removed — sibling repo is private (copy manually if needed)
 
   bump:
     desc: Bump VERSION and manifest, then tag and push
