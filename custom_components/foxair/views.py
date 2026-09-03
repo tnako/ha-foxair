@@ -199,7 +199,8 @@ class FoxAirCurvePanelView(HomeAssistantView):
 <tr><td>Fixed R02 ({_fixed_lbl})</td><td><b>{fixed} °C</b> — used when H36=0</td></tr>
 <tr><td>After comp ({_after_lbl})</td><td><b>{after} °C</b> — live validation</td></tr>
 </table>
-<p class="muted">Tune: if cold days too cold → increase slope. If always 1K off → shift offset. Panel refreshes every 30s. Entities: number.foxair_{_slope_lbl}, number.foxair_{_offset_lbl}, select.foxair_{_h36_lbl} (H36 enable), sensor.foxair_heating_curve_target.</p>
+<p class="muted">Tune: if cold days too cold → increase slope. If always 1K off → shift offset. Panel refreshes every 30s. Entities: number.foxair_{_slope_lbl}, number.foxair_{_offset_lbl}, select.foxair_{_h36_lbl} (H36 enable), sensor.foxair_2014 (After compensation).</p>
+<p class="muted">Live curve target is sensor.foxair_2014 when H36=On; calculated curve (for reference) is shown in the graph.</p>
 <p><a href="/api/foxair/heating_curve.svg" target="_blank" style="color:#38bdf8">Open SVG standalone</a></p>
 </div>
 </div>

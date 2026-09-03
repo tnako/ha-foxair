@@ -249,7 +249,8 @@
     "mode": "r/w",
     "name": "Manuelle Steuerung / Silent Status",
     "type": "DIGI1",
-    "description": "Bit 1 (0x0002) ist Silent Mode. Derselbe Wert ist auch der Status; per Read-Modify-Write ändern."
+    "description": "Bit 1 (0x0002) ist Silent Mode. Derselbe Wert ist auch der Status; per Read-Modify-Write ändern.",
+    "depends_on": 1030
   },
   "1017": {
     "function": "03/06",
@@ -1951,7 +1952,8 @@
     "mode": "r/w",
     "name": "Desinfektionswassertemperatur",
     "type": "TEMP1",
-    "unit": "°C"
+    "unit": "°C",
+    "depends_on": 1156
   },
   "1153": {
     "app_current_video_value": "0 min",
@@ -1963,7 +1965,8 @@
     "mode": "r/w",
     "name": "Desinfektionsdauer",
     "type": "MINUTES",
-    "unit": "min"
+    "unit": "min",
+    "depends_on": 1156
   },
   "1154": {
     "app_current_video_value": "1 h",
@@ -1975,7 +1978,8 @@
     "mode": "r/w",
     "name": "Desinfektionsstartzeit",
     "type": "HOURS",
-    "unit": "h"
+    "unit": "h",
+    "depends_on": 1156
   },
   "1155": {
     "app_current_video_value": "30 days",
@@ -1987,7 +1991,8 @@
     "mode": "r/w",
     "name": "Intervallzeit der Desinfektion",
     "type": "DAYS",
-    "unit": "days"
+    "unit": "days",
+    "depends_on": 1156
   },
   "1156": {
     "app_current_video_value": "NO",
@@ -2892,7 +2897,8 @@
     "name": "AT-Kompensation Slope / Steigung",
     "type": "DIGI5",
     "unit": "",
-    "description": "Slope der AT-Kompensationskurve Zone 1. Vermutete Formel: Ziel = Offset - Slope × AT."
+    "description": "Slope der AT-Kompensationskurve Zone 1. Vermutete Formel: Ziel = Offset - Slope × AT.",
+    "depends_on": 1236
   },
   "1235": {
     "function": "03/16",
@@ -2900,7 +2906,8 @@
     "name": "AT-Kompensation Offset / Versatz",
     "type": "TEMP1",
     "unit": "°C",
-    "description": "Offset der AT-Kompensationskurve Zone 1. Vermutete Formel: Ziel = Offset - Slope × AT."
+    "description": "Offset der AT-Kompensationskurve Zone 1. Vermutete Formel: Ziel = Offset - Slope × AT.",
+    "depends_on": 1236
   },
   "1236": {
     "app_label": "Enable AT Compensation Curve Zone 1",
@@ -3025,7 +3032,8 @@
     "mode": "r/w",
     "name": "Silentmodus Timer Startzeit (HH:MM aus Stunde+Minute)",
     "type": "TIME_SPLIT",
-    "info": "Composite: hour @1245 + minute @1246 → time picker"
+    "info": "Composite: hour @1245 + minute @1246 → time picker",
+    "depends_on": 1244
   },
   "1246": {
     "function": "03/16",
@@ -3049,7 +3057,8 @@
     "mode": "r/w",
     "name": "Silentmodus Timer Stopzeit (HH:MM aus Stunde+Minute)",
     "type": "TIME_SPLIT",
-    "info": "Composite: hour @1248 + minute @1249 → time picker"
+    "info": "Composite: hour @1248 + minute @1249 → time picker",
+    "depends_on": 1247
   },
   "1249": {
     "function": "03/16",
