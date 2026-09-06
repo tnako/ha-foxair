@@ -89,7 +89,10 @@ def scaled(dtype, raw):
 
 class FoxAirCoordinator(DataUpdateCoordinator):
     def __init__(self, hass, entry):
-        super().__init__(hass, _LOGGER, name="FoxAir", update_interval=timedelta(seconds=30))
+        cfg = entry.data or {}
+        _prefix = str(cfg.get("name_prefix", "foxair") or "foxair")
+        _slave = cfg.get("slave", 1)
+        super().__init__(hass, _LOGGER, name=f"FoxAir-{_prefix}-slave{_slave}", update_interval=timedelta(seconds=30))
         self.entry = entry
         self._entry_id = entry.entry_id
         self.client = None

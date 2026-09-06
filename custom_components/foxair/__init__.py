@@ -4,6 +4,7 @@ from homeassistant.helpers import device_registry as dr
 from homeassistant.helpers.entity_registry import async_get as er_async_get
 from .const import DOMAIN, EXPERT_BLOCKS
 import logging
+import re
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -17,25 +18,30 @@ async def _cleanup_orphaned_entities(hass: HomeAssistant, entry: ConfigEntry, en
     - hidden addrs (reserved/block-header/system/wifi/factory-test): removed ALWAYS.
     - expert-gated addrs: removed when expert mode is disabled; without cleanup
       they linger in the entity registry as stale/unavailable entries.
+    - renamed prefix: after a reconfigure prefix change, old-prefix unique_ids
+      no longer match any entity and would linger as unavailable duplicates.
     """
     try:
         registry = er_async_get(hass)
         coord = hass.data.get("foxair", {}).get(entry.entry_id)
         metadata = getattr(coord, "_metadata", {}) or {}
+        prefix = entry.data.get("name_prefix", "foxair") or "foxair"
         removed = 0
         for ent in list(registry.entities.values()):
             if ent.config_entry_id != entry.entry_id:
+                continue
+            uid = ent.unique_id or ""
+            if not uid.startswith(f"{prefix}_"):
+                registry.async_remove(ent.entity_id)
+                removed += 1
                 continue
             # FoxAir entity_ids end with the register address: foxair_<addr>, foxair_num_<addr>, etc.
             # Unique IDs follow the same pattern: foxair_<addr>, foxair_num_<addr>.
             uid = ent.unique_id
             addr = None
-            for prefix in ("foxair_", "foxair_num_", "foxair_sel_", "foxair_switch_", "foxair_time_"):
-                if uid.startswith(prefix):
-                    rest = uid[len(prefix):]
-                    if rest.isdigit():
-                        addr = int(rest)
-                        break
+            m = re.match(r"^.+?_(?:num_|sel_|switch_|time_)?(\d+)$", uid or "")
+            if m:
+                addr = int(m.group(1))
             if addr is None:
                 continue
             meta = metadata.get(str(addr), {})
@@ -64,13 +70,19 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     # sub-devices set up first, the warning fires. Create main device
     # synchronously here so it always exists first.
     try:
+        from .const import main_device
         dev_reg = dr.async_get(hass)
+        host = entry.data.get("host")
+        port = entry.data.get("port")
+        slave_id = entry.data.get("slave")
+        prefix = entry.data.get("name_prefix", "foxair")
+        dev_info = main_device(entry.entry_id, prefix, slave_id, host, port)
         dev_reg.async_get_or_create(
             config_entry_id=entry.entry_id,
-            identifiers={(DOMAIN, entry.entry_id)},
-            name="FoxAir Heat Pump",
-            manufacturer="FoxAir/PHNIX",
-            model="Modbus TCP Heat Pump",
+            identifiers=dev_info["identifiers"],
+            name=dev_info["name"],
+            manufacturer=dev_info["manufacturer"],
+            model=dev_info["model"],
         )
     except Exception as e:  # pragma: no cover
         _LOGGER.debug("main device pre-create failed: %s", e)
@@ -81,23 +93,12 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
         hass.http.register_view(FoxAirCurvePanelView())
     except Exception as e:
         _LOGGER.debug("FoxAir views already registered: %s", e)
-    try:
-        from homeassistant.components.frontend import async_register_built_in_panel
-
-        if hasattr(hass, "components") and hasattr(hass.components, "frontend"):
-            await async_register_built_in_panel(
-                hass,
-                component_name="iframe",
-                sidebar_title="FoxAir Curve",
-                sidebar_icon="mdi:chart-bell-curve",
-                frontend_url_path="foxair_curve",
-                config={"url": "/api/foxair/heating-curve-panel"},
-                require_admin=False,
-            )
-    except ImportError as e:
-        _LOGGER.debug("frontend panel not available: %s", e)
-    except Exception as e:
-        _LOGGER.debug("panel registration failed: %s", e)
+    # NOTE: iframe panel is NOT auto-registered because multiple pumps need
+    # different entry_id query params. Users can add their own iframe panels:
+    # Settings -> Dashboards -> Add panel -> iframe ->
+    #   URL: /api/foxair/heating-curve-panel?entry_id=<ENTRY_ID>
+    #   Title: FoxAir Curve (House1)
+    #   Icon: mdi:chart-bell-curve
     from .coordinator import FoxAirCoordinator
 
     coord = FoxAirCoordinator(hass, entry)

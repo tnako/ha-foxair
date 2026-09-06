@@ -1,3 +1,7 @@
+## 0.5.7 - 2026-09-06
+- fix(computed-sensors): implemented missing `compute_heating_power`, `compute_electrical_power`, `compute_cop` functions in new `computed.py` module — entities `foxair_heating_power`, `foxair_electrical_power`, `foxair_cop` now return valid values from device registers (2054, 2059, 2060, 2077) with fallback calculations instead of being grayed out (NameError)
+- fix(manual-control-silent): removed `depends_on: 1030` from register 1016 (Manual Control / Silent Status) — entity is now always available as read-only status regardless of Silent Mode (H22/1030) setting; regenerated metadata via `build_metadata.py`
+
 ## 0.5.6 - 2026-09-03
 - feat(enum-sensors): registry-driven enum sensors for value_map-based registers (2011, 2012, 2015, 2018) — native_value returns raw key, state translations provide localized labels, SensorDeviceClass.ENUM set dynamically in sensor.py
 - feat(depends_on): conditional availability — entities with depends_on are unavailable (hidden) when their dependency register reads 0/off/false; affects number/select/switch/time/sensor platforms

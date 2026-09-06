@@ -2,7 +2,7 @@
 
 Control and monitor your **FoxAir / PHNIX air-to-water heat pump** directly from Home Assistant over Modbus TCP — no cloud, no YAML.
 
-![Version](https://img.shields.io/badge/version-0.5.6-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2026.3-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
+![Version](https://img.shields.io/badge/version-0.5.7-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2026.3-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
 ![FoxAir Demo](docs/screenshots/foxair_demo.gif)
 
@@ -38,6 +38,17 @@ Reads go through a single `pymodbus.AsyncModbusTcpClient` (the EW11 gateway allo
 
 You get a **FoxAir Heat Pump** device with sub-devices per block (setpoints, diagnostics, pump, SG Ready, …). Safe controls are on by default; enable **Expert mode** in the options to reach installer controls.
 
+### Heating Curve Panel (multi-pump)
+
+Each pump gets its own panel via an iframe. Add one per entry:
+
+- **Settings → Dashboards → ⋯ → Edit dashboard → Add panel → iframe**
+- **URL**: `/api/foxair/heating-curve-panel?entry_id=<ENTRY_ID>`
+- **Title**: `FoxAir Curve (House1)`
+- **Icon**: `mdi:chart-bell-curve`
+
+The panel lists all pumps at `/api/foxair/heating-curve-panel` (no `entry_id`) if you just want a picker.
+
 ## Manual installation
 
 Copy `custom_components/foxair` to `/config/custom_components/foxair` (HAOS: `scp -r custom_components/foxair homeassistant@homeassistant.local:/usr/share/hassio/homeassistant/custom_components/`), then restart.
@@ -45,7 +56,12 @@ Copy `custom_components/foxair` to `/config/custom_components/foxair` (HAOS: `sc
 ## Configuration
 
 - **Options** (⋯ on the integration card): turn on **Expert mode** (+ ack) to expose advanced controls; pick an **Electrical power source for COP**
-- **Entity prefix** — set when adding the integration so several pumps don't collide (default: `foxair`)
+- **Entity prefix** — set when adding the integration so several pumps don't collide (default: `foxair`).
+  Each pump needs its own entry with a unique prefix (`house1`, `cottage`) AND a different
+  Modbus slave ID (1, 2, …). Devices render as `House1 Heat Pump (slave 2)` with
+  sub-devices (`House1 — Setpoints [R] (slave 2)`), entities as `sensor.house1_1158`.
+  Host/port/slave/prefix stay editable via ⋯ → Reconfigure (prefix change renames all
+  entity IDs of that pump). Diagnostics show host/port/slave/prefix per entry.
 - **Climate** → `Off` / `Heat` + presets `Heating`, `Cooling`, `Heating+Hot Water`, `Cooling+Hot Water`
 - **Heating curve** → Slope / Offset / Mode → live `sensor.foxair_heating_curve_target` + graph
 

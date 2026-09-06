@@ -1,7 +1,8 @@
 from homeassistant.components.sensor import SensorEntity, SensorDeviceClass, SensorStateClass
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.helpers.entity import EntityCategory
-from .const import POPULAR_ADDRS, device_for_addr, main_device, entity_sort_key, DTYPE_SPEC, get_device_prefix
+from .const import POPULAR_ADDRS, device_for_addr, main_device, entity_sort_key, DTYPE_SPEC, get_device_prefix, get_slave_id
+from .computed import compute_heating_power, compute_electrical_power, compute_cop
 
 # Build DTYPE_MAP from DTYPE_SPEC for backwards compatibility
 DTYPE_MAP = {}
@@ -56,7 +57,8 @@ class FoxSensor(CoordinatorEntity, SensorEntity):
         info = rec.get("info", {}) if rec else {}
         prefix = get_device_prefix(coord.entry)
         self._attr_unique_id = f"{prefix}_{addr}"
-        self._attr_translation_key = f"{prefix}_{addr}"
+        self._attr_suggested_object_id = f"{prefix}_{addr}"
+        self._attr_translation_key = f"foxair_{addr}"
         try:
             meta = coord.get_metadata(addr) if hasattr(coord, "get_metadata") else {}
         except Exception:
@@ -67,7 +69,10 @@ class FoxSensor(CoordinatorEntity, SensorEntity):
         # coordinator stores entry_id via hass.data key; fallback to None -> main
         if not entry_id and hasattr(coord, "_entry_id"):
             entry_id = coord._entry_id
-        self._attr_device_info = device_for_addr(addr, block, entry_id, tab, prefix)
+        slave_id = get_slave_id(coord.entry)
+        host = coord.entry.data.get("host")
+        port = coord.entry.data.get("port")
+        self._attr_device_info = device_for_addr(addr, block, entry_id, tab, prefix, slave_id, host, port)
         dtype = info.get("type","RAW")
         dc, unit, sc = DTYPE_MAP.get(dtype, (None, info.get("unit") or None, None))
         if dc:
@@ -208,7 +213,8 @@ class FoxComputedSensor(CoordinatorEntity, SensorEntity):
             getattr(coord, "config_entry", None)
             and coord.config_entry.entry_id
         )
-        self._attr_device_info = main_device(entry_id, prefix)
+        slave_id = get_slave_id(coord.entry)
+        self._attr_device_info = main_device(entry_id, prefix, slave_id)
         self._prefix = prefix
 
     @property
@@ -225,6 +231,7 @@ class FoxHeatingPowerSensor(FoxComputedSensor):
     def __init__(self, coord):
         super().__init__(coord)
         self._attr_unique_id = f"{self._prefix}_heating_power"
+        self._attr_suggested_object_id = f"{self._prefix}_heating_power"
         self._attr_translation_key = "foxair_heating_power"  # stable key, translations only under foxair_
 
     @property
@@ -235,6 +242,7 @@ class FoxHeatingPowerSensor(FoxComputedSensor):
     @property
     def extra_state_attributes(self):
         try:
+            from .computed import _cval, _ADDR_FLOW, _ADDR_FREQ
             flow = _cval(self.coordinator, _ADDR_FLOW)
             freq = _cval(self.coordinator, _ADDR_FREQ)
             ema = getattr(self.coordinator, "_flow_ema", 0.0)
@@ -256,6 +264,7 @@ class FoxElectricalPowerSensor(FoxComputedSensor):
     def __init__(self, coord):
         super().__init__(coord)
         self._attr_unique_id = f"{self._prefix}_electrical_power"
+        self._attr_suggested_object_id = f"{self._prefix}_electrical_power"
         self._attr_translation_key = "foxair_electrical_power"  # stable key, translations only under foxair_
 
     @property
@@ -276,17 +285,9 @@ class FoxCopSensor(FoxComputedSensor):
     def __init__(self, coord):
         super().__init__(coord)
         self._attr_unique_id = f"{self._prefix}_cop"
+        self._attr_suggested_object_id = f"{self._prefix}_cop"
         self._attr_translation_key = "foxair_cop"  # stable key, translations only under foxair_
 
     @property
     def native_value(self):
-        hp = compute_heating_power(self.coordinator)
-        if hp is None:
-            return None
-        ep = compute_electrical_power(self.coordinator, self._opts)
-        if ep is None or ep <= _ELEC_MIN_FOR_COP:
-            return None
-        cop = hp / ep
-        if 0 < cop <= _COP_MAX:
-            return round(cop, 2)
-        return None
+        return compute_cop(self.coordinator, self._opts)

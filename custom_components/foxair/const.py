@@ -107,14 +107,25 @@ def code_sort_key(code: str) -> int:
 def entity_sort_key(addr: int, code: str = "", block: str = "") -> tuple:
     return (block_sort_key(block), code_sort_key(code), int(addr))
 
-def main_device(entry_id: str | None = None, name_prefix: str = "foxair") -> DeviceInfo:
+def main_device(entry_id: str | None = None, name_prefix: str = "foxair", slave_id: int | None = None, host: str | None = None, port: int | None = None) -> DeviceInfo:
     ident = (DOMAIN, entry_id) if entry_id else (DOMAIN, "foxair")
     prefix_display = name_prefix.title() if name_prefix else "FoxAir"
+    name = f"{prefix_display} Heat Pump"
+    # Show host:port as the primary differentiator, slave only if not default
+    if host:
+        port_str = f":{port}" if port and port != 8899 else ""
+        name = f"{name} ({host}{port_str}"
+        if slave_id is not None and slave_id != 1:
+            name = f"{name}, slave {slave_id})"
+        else:
+            name = f"{name})"
+    elif slave_id is not None:
+        name = f"{name} (slave {slave_id})"
     return DeviceInfo(
         identifiers={ident},
-        name=f"{prefix_display} Heat Pump",
+        name=name,
         manufacturer="FoxAir/PHNIX",
-        model="Modbus TCP Heat Pump",
+        model=f"Modbus TCP Heat Pump ({host}{port_str}" if host else f"Modbus TCP Heat Pump (slave {slave_id})" if slave_id else "Modbus TCP Heat Pump",
     )
 
 
@@ -125,29 +136,46 @@ def get_device_prefix(entry) -> str:
     return "foxair"
 
 
+def get_slave_id(entry) -> int | None:
+    """Get the Modbus slave (unit) ID from a config entry, or None."""
+    if entry and hasattr(entry, "data"):
+        return entry.data.get("slave")
+    return None
+
+
 DEVICE = main_device()
 
 
-def device_for_block(block: str, entry_id: str | None = None, tab: str | None = None, name_prefix: str = "foxair") -> DeviceInfo:
+def device_for_block(block: str, entry_id: str | None = None, tab: str | None = None, name_prefix: str = "foxair", slave_id: int | None = None, host: str | None = None, port: int | None = None) -> DeviceInfo:
     ident_main = (DOMAIN, entry_id) if entry_id else (DOMAIN, "foxair")
     if not block or block not in BLOCK_SHORT:
-        return main_device(entry_id, name_prefix)
+        return main_device(entry_id, name_prefix, slave_id, host, port)
     label = BLOCK_SHORT.get(tab or block, BLOCK_SHORT.get(block, block))
     suffix = tab or block
     prefix_display = name_prefix.title() if name_prefix else "FoxAir"
+    name = f"{prefix_display} — {label} [{suffix}]"
+    if host:
+        port_str = f":{port}" if port and port != 8899 else ""
+        name = f"{name} ({host}{port_str}"
+        if slave_id is not None and slave_id != 1:
+            name = f"{name}, slave {slave_id})"
+        else:
+            name = f"{name})"
+    elif slave_id is not None:
+        name = f"{name} (slave {slave_id})"
     return DeviceInfo(
         identifiers={(DOMAIN, f"{ident_main[1]}_{suffix}")},
-        name=f"{prefix_display} — {label} [{suffix}]",
+        name=name,
         manufacturer="FoxAir/PHNIX",
-        model=f"Tab {suffix}",
+        model=f"Tab {suffix} ({host}{port_str}" if host else f"Tab {suffix}" + (f" (slave {slave_id})" if slave_id is not None else ""),
         via_device=ident_main,
     )
 
 
-def device_for_addr(addr: int, block: str | None, entry_id: str | None = None, tab: str | None = None, name_prefix: str = "foxair") -> DeviceInfo:
+def device_for_addr(addr: int, block: str | None, entry_id: str | None = None, tab: str | None = None, name_prefix: str = "foxair", slave_id: int | None = None, host: str | None = None, port: int | None = None) -> DeviceInfo:
     if addr in CORE_MAIN_ADDRS:
-        return main_device(entry_id, name_prefix)
-    return device_for_block(block or "", entry_id, tab, name_prefix)
+        return main_device(entry_id, name_prefix, slave_id, host, port)
+    return device_for_block(block or "", entry_id, tab, name_prefix, slave_id, host, port)
 
 POLL_BLOCKS: list[tuple[int, int, str]] = []
 

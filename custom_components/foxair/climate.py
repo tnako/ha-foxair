@@ -1,7 +1,7 @@
 from homeassistant.components.climate import ClimateEntity, HVACMode, ClimateEntityFeature, HVACAction
 from homeassistant.const import UnitOfTemperature
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
-from .const import main_device, get_device_prefix
+from .const import main_device, get_device_prefix, get_slave_id
 from .heating_curve import curve_target_for_at
 import logging
 _LOGGER = logging.getLogger(__name__)
@@ -32,12 +32,16 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
     def __init__(self, coord):
         super().__init__(coord)
         prefix = get_device_prefix(coord.entry)
-        self._attr_translation_key = f"{prefix}_climate"
+        self._attr_translation_key = "foxair_climate"
         self._attr_unique_id = f"{prefix}_climate"
+        self._attr_suggested_object_id = f"{prefix}_climate"
         self._opt_hvac = None    # optimistic hvac_mode during write round-trip
         self._opt_preset = None  # optimistic preset_mode during write round-trip
         entry_id = getattr(coord, "_entry_id", None) or getattr(coord, "config_entry", None) and getattr(coord.config_entry, "entry_id", None)
-        self._attr_device_info = main_device(entry_id, prefix)
+        slave_id = get_slave_id(coord.entry)
+        host = coord.entry.data.get("host")
+        port = coord.entry.data.get("port")
+        self._attr_device_info = main_device(entry_id, prefix, slave_id, host, port)
 
     # ── marker-based address resolution ──────────────────────────
     def _addr(self, marker_name, key):

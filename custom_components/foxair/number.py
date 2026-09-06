@@ -3,7 +3,7 @@ import logging
 from homeassistant.components.number import NumberEntity, NumberMode, NumberDeviceClass
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.helpers.entity import EntityCategory
-from .const import POPULAR_ADDRS, device_for_addr, entity_sort_key, get_device_prefix
+from .const import POPULAR_ADDRS, device_for_addr, entity_sort_key, get_device_prefix, get_slave_id
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -60,11 +60,15 @@ class FoxNumber(CoordinatorEntity, NumberEntity):
         self._optimistic = None  # value shown during a write round-trip
         prefix = get_device_prefix(coord.entry)
         self._attr_unique_id = f"{prefix}_num_{addr}"
-        self._attr_translation_key = f"{prefix}_{addr}"
+        self._attr_suggested_object_id = f"{prefix}_num_{addr}"
+        self._attr_translation_key = f"foxair_{addr}"
         entry_id = getattr(coord, "_entry_id", None) or getattr(coord, "config_entry", None) and getattr(coord.config_entry, "entry_id", None)
         block = meta.get("block") or ""
         tab = meta.get("tab") or block
-        self._attr_device_info = device_for_addr(addr, block, entry_id, tab, prefix)
+        slave_id = get_slave_id(coord.entry)
+        host = coord.entry.data.get("host")
+        port = coord.entry.data.get("port")
+        self._attr_device_info = device_for_addr(addr, block, entry_id, tab, prefix, slave_id, host, port)
         self._attr_icon = meta.get("icon") or "mdi:heat-pump"
         risk = meta.get("risk")
         hc = coord.marker("heat_curve") if hasattr(coord, "marker") else {}

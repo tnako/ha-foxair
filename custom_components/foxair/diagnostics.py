@@ -42,7 +42,7 @@ async def async_get_config_entry_diagnostics(hass: HomeAssistant, entry: ConfigE
         "sample": sample,
         "curve": curve,
         "options": dict(entry.options),
-        "data": {"host": entry.data.get("host"), "port": entry.data.get("port"), "slave": entry.data.get("slave")},
+        "data": {"host": entry.data.get("host"), "port": entry.data.get("port"), "slave": entry.data.get("slave"), "name_prefix": entry.data.get("name_prefix", "foxair")},
         "connected": bool(getattr(conn, "_client", None) is not None) if conn else (getattr(getattr(coord, "client", None), "connected", False) if getattr(coord, "client", None) else bool(getattr(coord, "unit", None))),
         "last_error": (coord.stats or {}).get("last_error") if hasattr(coord, "stats") else None,
         "foxair_model": foxair_info,

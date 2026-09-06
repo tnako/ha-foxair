@@ -3,13 +3,23 @@
     "step": {
       "user": {
         "title": "FoxAir Modbus Heat Pump",
-        "description": "Connect to FoxAir / PHNIX via Modbus TCP. {warn}",
+        "description": "Connect to FoxAir / PHNIX via Modbus TCP. {warn} {multi_pump}",
         "data": {
           "host": "Host",
           "port": "Port",
           "slave": "Slave ID",
           "name_prefix": "Device prefix (e.g. foxair, phnix, house1)",
           "enable_expert": "Enable expert mode (advanced/dangerous parameters)"
+        }
+      },
+      "reconfigure": {
+        "title": "Reconfigure FoxAir Heat Pump",
+        "description": "Update connection settings for this pump. {warn}",
+        "data": {
+          "host": "Host",
+          "port": "Port",
+          "slave": "Slave ID",
+          "name_prefix": "Device prefix (e.g. foxair, phnix, house1)"
         }
       }
     },
@@ -19,7 +29,8 @@
     "error": {
       "cannot_connect": "Failed to connect — check host, port and slave ID",
       "need_ack": "You must acknowledge the risk to enable expert mode",
-      "invalid_prefix": "Prefix must be lowercase alphanumeric with underscores, 1-32 characters"
+      "invalid_prefix": "Prefix must be lowercase alphanumeric with underscores, 1-32 characters",
+      "prefix_in_use": "This prefix is already used by another FoxAir entry — pick a unique one"
     }
   },
   "entity": {

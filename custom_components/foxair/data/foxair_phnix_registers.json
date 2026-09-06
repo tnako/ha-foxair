@@ -249,8 +249,7 @@
     "mode": "r/w",
     "name": "Manuelle Steuerung / Silent Status",
     "type": "DIGI1",
-    "description": "Bit 1 (0x0002) ist Silent Mode. Derselbe Wert ist auch der Status; per Read-Modify-Write ändern.",
-    "depends_on": 1030
+    "description": "Bit 1 (0x0002) ist Silent Mode. Derselbe Wert ist auch der Status; per Read-Modify-Write ändern."
   },
   "1017": {
     "function": "03/06",

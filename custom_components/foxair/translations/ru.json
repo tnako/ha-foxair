@@ -3,13 +3,23 @@
     "step": {
       "user": {
         "title": "FoxAir Modbus Heat Pump",
-        "description": "Подключение к FoxAir / PHNIX по Modbus TCP. {warn}",
+        "description": "Подключение к FoxAir / PHNIX по Modbus TCP. {warn} {multi_pump}",
         "data": {
           "host": "Хост",
           "port": "Порт",
           "slave": "ID ведомого",
           "name_prefix": "Префикс устройства (например foxair, phnix, house1)",
           "enable_expert": "Включить экспертный режим (продвинутые / опасные параметры)"
+        }
+      },
+      "reconfigure": {
+        "title": "Перенастройка теплового насоса FoxAir",
+        "description": "Обновите параметры подключения этого насоса. {warn}",
+        "data": {
+          "host": "Хост",
+          "port": "Порт",
+          "slave": "Slave ID",
+          "name_prefix": "Префикс устройства (например foxair, phnix, house1)"
         }
       }
     },
@@ -19,7 +29,8 @@
     "error": {
       "cannot_connect": "Не удалось подключиться — проверьте хост, порт и ID ведомого",
       "need_ack": "Для включения экспертного режима нужно подтвердить риски",
-      "invalid_prefix": "Префикс должен содержать только строчные буквы, цифры и подчеркивание, 1-32 символа"
+      "invalid_prefix": "Префикс должен содержать только строчные буквы, цифры и подчеркивание, 1-32 символа",
+      "prefix_in_use": "Этот префикс уже используется другой записью FoxAir — выберите уникальный"
     }
   },
   "entity": {

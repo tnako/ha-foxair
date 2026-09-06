@@ -29,7 +29,7 @@ from homeassistant.components.image import ImageEntity
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.helpers.translation import async_get_translations
 
-from .const import main_device, get_device_prefix
+from .const import main_device, get_device_prefix, get_slave_id
 from .heating_curve import calc_curve_target, curve_target_for_at
 
 _LOGGER = logging.getLogger(__name__)
@@ -87,7 +87,10 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
         # still uses the user-chosen prefix.
         self._attr_translation_key = "foxair_heating_curve"
         self._attr_unique_id = f"{prefix}_heating_curve_image"
-        self._attr_device_info = main_device(entry_id, prefix)
+        slave_id = get_slave_id(coordinator.entry)
+        host = coordinator.entry.data.get("host")
+        port = coordinator.entry.data.get("port")
+        self._attr_device_info = main_device(entry_id, prefix, slave_id, host, port)
         self.entity_id = f"image.{prefix}_heating_curve"
         self._image_bytes: bytes | None = None
         self._image_last_updated: datetime | None = None

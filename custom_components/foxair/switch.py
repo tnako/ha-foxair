@@ -4,7 +4,7 @@ from homeassistant.components.switch import SwitchEntity
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from .const import POPULAR_ADDRS, device_for_addr, entity_sort_key, get_device_prefix
+from .const import POPULAR_ADDRS, device_for_addr, entity_sort_key, get_device_prefix, get_slave_id
 
 
 async def async_setup_entry(hass, entry, add_entities):
@@ -42,9 +42,13 @@ class FoxSwitch(CoordinatorEntity, SwitchEntity):
         self._optimistic = None
         prefix = get_device_prefix(coord.entry)
         self._attr_unique_id = f"{prefix}_switch_{addr}"
-        self._attr_translation_key = f"{prefix}_{addr}"
+        self._attr_suggested_object_id = f"{prefix}_switch_{addr}"
+        self._attr_translation_key = f"foxair_{addr}"
         entry_id = getattr(coord, "_entry_id", None) or getattr(getattr(coord, "config_entry", None), "entry_id", None)
-        self._attr_device_info = device_for_addr(addr, meta.get("block") or "", entry_id, meta.get("tab") or meta.get("block") or "", prefix)
+        slave_id = get_slave_id(coord.entry)
+        host = coord.entry.data.get("host")
+        port = coord.entry.data.get("port")
+        self._attr_device_info = device_for_addr(addr, meta.get("block") or "", entry_id, meta.get("tab") or meta.get("block") or "", prefix, slave_id, host, port)
         self._attr_icon = meta.get("icon") or "mdi:toggle-switch"
         risk = meta.get("risk")
         code = meta.get("code", "")
