@@ -1,3 +1,10 @@
+## 0.5.10 - 2026-09-07
+|- fix(external-meter): `elec_source=external_meter` was offered in Options but unimplemented — `compute_electrical_power` returned None for anything but `foxair_register`, so electrical power + COP stayed unknown; now reads `external_meter_entity` state (kW auto-converted to W) with live refresh on meter changes via `async def` tracker
+|- fix(first-poll): first refresh was quick-tier only and entities are created once from first-poll data — all 28 medium addrs (compressor freq 2071-2073, fan speeds 2074-2076, EVI temps, energy counters) never got entities; first poll now includes medium + cheap non-expert rare
+|- fix(thread-safety): `lambda` in `async_track_state_change_event` ran in executor thread → "calls async_write_ha_state from a thread other than the event loop" warnings; replaced with `async def` handlers
+|- chore(hidden): humidity trio 2178-2180 (temp/humidity/dewpoint, always 0 — no physical sensor) hidden from UI + polling
+|- chore(gates): validate.py enforces elec_source parity, no-lambda state writes, first-poll tier coverage; new `tests/test_computed.py` (8 tests: sources, kW conversion, COP gates); AGENTS.md invariants recorded
+
 ## 0.5.9 - 2026-09-07
 |- fix(i18n): duplicate heatpump error showed raw key "alread_" instead of translated text — `already_configured` was only under `config.abort` but `config_flow.py` uses it as a form error (`errors["base"]`), so HA looked for it under `config.error` and found nothing → displayed the raw key. Moved it to `config.error` in all 4 files and localized: ru "Этот тепловой насос уже настроен — проверьте хост, порт и ID ведомого", de "Diese Wärmepumpe ist bereits konfiguriert — Host, Port und Slave-ID prüfen". Also fixed English-only `config.abort.already_configured` in ru/de, and English `Slave ID` label in ru.de reconfigure step. Added config section to `fix_translations.py` and validation guard in `validate.py` + test to catch future regressions.
 

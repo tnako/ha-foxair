@@ -1,6 +1,7 @@
 from homeassistant.components.sensor import SensorEntity, SensorDeviceClass, SensorStateClass
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.helpers.entity import EntityCategory
+from homeassistant.helpers.event import async_track_state_change_event
 from .const import POPULAR_ADDRS, device_for_addr, main_device, entity_sort_key, DTYPE_SPEC, get_device_prefix, get_slave_id
 from .computed import compute_heating_power, compute_electrical_power, compute_cop
 
@@ -272,6 +273,19 @@ class FoxElectricalPowerSensor(FoxComputedSensor):
         p = compute_electrical_power(self.coordinator, self._opts)
         return None if p is None else round(p, 1)
 
+    async def async_added_to_hass(self):
+        await super().async_added_to_hass()
+        meter = (self._opts or {}).get("external_meter_entity") or ""
+        if meter.strip():
+            self.async_on_remove(
+                async_track_state_change_event(
+                    self.hass, [meter.strip()], self._async_meter_changed
+                )
+            )
+
+    async def _async_meter_changed(self, _event):
+        self.async_write_ha_state()
+
     @property
     def extra_state_attributes(self):
         source = (self._opts or {}).get("elec_source", "foxair_register")
@@ -291,3 +305,16 @@ class FoxCopSensor(FoxComputedSensor):
     @property
     def native_value(self):
         return compute_cop(self.coordinator, self._opts)
+
+    async def async_added_to_hass(self):
+        await super().async_added_to_hass()
+        meter = (self._opts or {}).get("external_meter_entity") or ""
+        if meter.strip():
+            self.async_on_remove(
+                async_track_state_change_event(
+                    self.hass, [meter.strip()], self._async_meter_changed
+                )
+            )
+
+    async def _async_meter_changed(self, _event):
+        self.async_write_ha_state()

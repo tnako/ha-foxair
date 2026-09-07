@@ -241,6 +241,81 @@ for _rel in _tracked:
         if "root@" in _line and "$HA_HOST" not in _line and "${HA_HOST" not in _line:
             errs.append(f"secrets: {_rel}:{_ln} hardcoded root@host (use root@$HA_HOST from .env): {_line.strip()[:120]}")
 
+# --- 2026-09-07 incident gates ---
+# 1. Options/backend parity: every elec_source choice offered in config_flow
+#    must be handled in computed.compute_electrical_power (an offered-but-
+#    unimplemented source shows an unknown sensor with no error anywhere).
+_m = re.search(r'"elec_source".*?vol\.In\(\[(.*?)\]\)', _cfgflow, re.S)
+if _m:
+    _offered = set(re.findall(r'"([^"]+)"', _m.group(1)))
+    _comp_src = (CC / "computed.py").read_text()
+    _handled = set(re.findall(r'source == "([^"]+)"', _comp_src))
+    if _unhandled := sorted(_offered - _handled):
+        errs.append(f"elec_source offered but unhandled in computed.py: {_unhandled}")
+else:
+    errs.append("elec_source vol.In not found in config_flow.py")
+
+# 2. Thread safety: async_write_ha_state must never run inside a lambda —
+#    HA dispatches plain-function event callbacks in an executor thread
+#    (2026-09-07: lambda in async_track_state_change_event spammed
+#    "calls async_write_ha_state from a thread other than the event loop").
+#    Use `async def` handlers, which HA runs in the event loop.
+for p in CC.rglob("*.py"):
+    try:
+        _tree = ast.parse(p.read_text())
+    except SyntaxError:
+        continue
+    for node in ast.walk(_tree):
+        if isinstance(node, ast.Lambda):
+            for sub in ast.walk(node):
+                if (
+                    isinstance(sub, ast.Call)
+                    and ((isinstance(sub.func, ast.Attribute) and sub.func.attr == "async_write_ha_state")
+                         or (isinstance(sub.func, ast.Name) and sub.func.id == "async_write_ha_state"))
+                ):
+                    errs.append(f"thread-safety {p.name}:{node.lineno}: async_write_ha_state inside lambda (use async def handler)")
+                    break
+        if (
+            isinstance(node, ast.Call)
+            and ((isinstance(node.func, ast.Attribute) and node.func.attr == "async_track_state_change_event")
+                 or (isinstance(node.func, ast.Name) and node.func.id == "async_track_state_change_event"))
+            and any(isinstance(a, ast.Lambda) for a in node.args)
+        ):
+            errs.append(f"thread-safety {p.name}:{node.lineno}: lambda passed to async_track_state_change_event (use async def handler)")
+
+# 3. First-poll coverage: async_setup_entry creates entities from coord.data
+#    exactly once, so any tier excluded from the first poll never gets entities
+#    (2026-09-07: quick-only first poll hid all 28 medium addrs incl. compressor
+#    freq 2071-2076 — no error, entities just never appeared).
+try:
+    _ctree = ast.parse((CC / "coordinator.py").read_text())
+    _found_first = False
+    for node in ast.walk(_ctree):
+        if (
+            isinstance(node, ast.If)
+            and isinstance(node.test, ast.Name)
+            and node.test.id == "is_first"
+        ):
+            _found_first = True
+            _assigns = {}
+            for sub in ast.walk(node):
+                if isinstance(sub, ast.Assign) and len(sub.targets) == 1 and isinstance(sub.targets[0], ast.Name):
+                    _assigns[sub.targets[0].id] = sub.value
+            _dm = _assigns.get("do_medium")
+            if not (isinstance(_dm, ast.Constant) and _dm.value is True):
+                errs.append("first-poll: do_medium must be True in `if is_first` (else medium-tier entities are never created)")
+            _dr = _assigns.get("do_rare")
+            _rare_ok = isinstance(_dr, ast.Constant) and _dr.value is True
+            if not _rare_ok and isinstance(_dr, ast.UnaryOp) and isinstance(_dr.op, ast.Not):
+                _rare_ok = True  # `do_rare = not enable_expert` — cheap safe-rare only
+            if not _rare_ok:
+                errs.append("first-poll: do_rare must be True (or `not enable_expert`) in `if is_first` (else rare-tier entities are never created)")
+            break
+    if not _found_first:
+        errs.append("first-poll: `if is_first` block not found in coordinator.py")
+except SyntaxError:
+    pass
+
 if warns:
     print("WARN:")
 

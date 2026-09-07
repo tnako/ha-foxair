@@ -474,12 +474,14 @@ class FoxAirCoordinator(DataUpdateCoordinator):
             self._poll_counter += 1
             is_first = self.stats["polls"] == 0
             enable_expert = bool(self.entry.options.get("enable_expert"))
-            # Startup catch-up: first refresh polls quick only (fast setup);
-            # medium/rare follow on later ticks via the normal schedule + _rare_done.
+            # Startup catch-up: first refresh polls quick+medium (+rare when cheap,
+            # i.e. non-expert safe-rare only) so entities for late tiers exist at
+            # setup time — async_setup_entry creates entities from coord.data once,
+            # and data arriving on later polls would never get entities.
             if is_first:
                 do_quick = True
-                do_medium = False
-                do_rare = False
+                do_medium = True
+                do_rare = not enable_expert
             else:
                 do_quick = True
                 do_medium = (self._poll_counter % MEDIUM_INTERVAL == 0)

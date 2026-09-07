@@ -60,8 +60,28 @@ def compute_heating_power(coord) -> Optional[float]:
 
 
 def compute_electrical_power(coord, opts: dict) -> Optional[float]:
-    """Compute electrical power from device register or estimation."""
+    """Compute electrical power from device register or external meter."""
     source = (opts or {}).get("elec_source", "foxair_register")
+
+    if source == "external_meter":
+        entity_id = (opts or {}).get("external_meter_entity") or ""
+        entity_id = entity_id.strip()
+        if not entity_id:
+            return None
+        hass = getattr(coord, "hass", None)
+        if hass is None:
+            return None
+        st = hass.states.get(entity_id)
+        if st is None or st.state in (None, "", "unknown", "unavailable"):
+            return None
+        try:
+            val = float(st.state)
+        except (TypeError, ValueError):
+            return None
+        unit = (st.attributes.get("unit_of_measurement") or "").strip().lower()
+        if unit in ("kw", "kilowatt"):
+            val *= 1000.0
+        return val
 
     if source == "foxair_register":
         # Device-provided electrical power at 2054 (kW * 10)
@@ -69,7 +89,6 @@ def compute_electrical_power(coord, opts: dict) -> Optional[float]:
         if ep is not None:
             return ep * 1000.0  # kW to W
 
-    # Could add other sources here (external meter, etc.)
     return None
 
 
