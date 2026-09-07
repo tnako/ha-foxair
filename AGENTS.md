@@ -59,13 +59,14 @@ Budget: ≤10 tool calls for a "why is entity X shown/broken" diagnosis; if more
 you skipped the metadata one-shot and are grepping blind.
 
 ## Critical Invariants (validate.py enforces)
-- `VERSION` == `manifest.json.version` == `README.md` version badge (`![Version](...version-X.Y.Z-blue)`)
-- Every code in `modbus/tabs.txt` has `CODE: Name` prefix in **all three** translation files
-- No double prefix (`H42: H42 Name` → fail)
-- Python syntax clean
-- `foxair_metadata.json` is regenerated from `foxair_config.json` + register data (no stale metadata)
-- All `async_write_register` calls use the correct 2-arg signature (`addr, value`) — no extra meta arg
-- Firmware-gated registers (min_firmware) are present in both config overrides and metadata
+|- `VERSION` == `manifest.json.version` == `README.md` version badge (`![Version](...version-X.Y.Z-blue)`)
+|- Every code in `modbus/tabs.txt` has `CODE: Name` prefix in **all three** translation files
+|- No double prefix (`H42: H42 Name` → fail)
+|- Python syntax clean
+|- `foxair_metadata.json` is regenerated from `foxair_config.json` + register data (no stale metadata)
+|- All `async_write_register` calls use the correct 2-arg signature (`addr, value`) — no extra meta arg
+|- Firmware-gated registers (min_firmware) are present in both config overrides and metadata
+|- Every `errors["..."] = "..."` key used in `config_flow.py` has a matching entry under `config.error` in `strings.json` + all translation files — `config.error` (form errors) is distinct from `config.abort` (flow abort messages); using `config.abort` for error keys shows raw key strings to users
 
 ## Modbus Architecture (0.4.x)
 - Own `pymodbus.AsyncModbusTcpClient` (single socket, serialized under `coordinator._lock`).
