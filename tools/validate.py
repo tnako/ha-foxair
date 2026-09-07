@@ -33,6 +33,26 @@ if not m:
 elif m.group(1) != ver:
     errs.append(f"README badge v{m.group(1)} != VERSION v{ver} — update README.md badge")
 
+# CHANGELOG.md must render as bullet lists on GitHub/HACS (release notes are
+# shown as markdown). 2026-09: entries written as `|- ...` rendered as broken
+# tables instead of lists (`|` opens a table row). Bullets are `- `.
+_cl = (R / "CHANGELOG.md").read_text(encoding="utf-8-sig").splitlines() if (R / "CHANGELOG.md").exists() else []
+for _ln, _line in enumerate(_cl, 1):
+    if _line.startswith("|"):
+        errs.append(f"CHANGELOG:{_ln}: line starts with '|' (renders as table on GitHub/HACS) — use '- ' bullets")
+        break
+_sections = [l for l in _cl if l.startswith("## ")]
+if not _sections:
+    errs.append("CHANGELOG: no '## X.Y.Z - YYYY-MM-DD' sections")
+else:
+    _top = re.match(r"## (\d+\.\d+\.\d+) - (\d{4}-\d{2}-\d{2})", _sections[0])
+    if not _top:
+        errs.append(f"CHANGELOG: top section malformed: '{_sections[0][:60]}' (want '## X.Y.Z - YYYY-MM-DD')")
+    elif _top.group(1) != ver:
+        errs.append(f"CHANGELOG top v{_top.group(1)} != VERSION v{ver}")
+    # older sections keep their historical shape (some lack dates) — only the
+    # top (current release) section is enforced
+
 # tabs.txt codes (official tab order)
 codes = set(re.findall(r"^\s*\*?\s*([A-Z]{1,2}\d{1,3}[a-z]?):", (R / "modbus/tabs.txt").read_text(), re.M))
 strict = "--strict" in sys.argv
@@ -254,6 +274,124 @@ if _m:
         errs.append(f"elec_source offered but unhandled in computed.py: {_unhandled}")
 else:
     errs.append("elec_source vol.In not found in config_flow.py")
+
+# 1b. Options parity (generalized): every key in the OptionsFlow schema must
+#    be consumed outside config_flow.py (2026-09-07: v_gain/v_offset/i_gain/
+#    i_offset were offered in Options for years but read nowhere — expert_ack
+#    is the only intentional exception: ack-only checkbox, popped on save).
+_opts_keys = set(re.findall(r'vol\.(?:Optional|Required)\("([^"]+)"', _cfgflow[_cfgflow.find("class FoxAirOptionsFlow"):]))
+_ACK_ONLY = {"expert_ack"}
+_other_src = "".join(
+    (CC / f).read_text() for f in (
+        "computed.py", "coordinator.py", "sensor.py", "climate.py",
+        "number.py", "select.py", "switch.py", "time.py", "image.py",
+        "views.py", "__init__.py", "heating_curve.py",
+    ) if (CC / f).exists()
+)
+for _k in sorted(_opts_keys - _ACK_ONLY):
+    if f'"{_k}"' not in _other_src and f"'{_k}'" not in _other_src:
+        errs.append(f"options parity: '{_k}' offered in OptionsFlow but never read outside config_flow.py (remove or implement)")
+
+# 1c. bit_split format (foxair_config.json -> metadata): every format==
+#    bit_split entry needs valid bits (kind button|switch, unique slugs,
+#    mask covering exactly the bits), must be editable + polled (hidden
+#    addrs are never polled, so split bits would be dead), and every slug
+#    needs a translation key foxair_<addr>_<slug> in strings + en/de/ru.
+if meta_path.exists():
+    _meta_all = json.loads(meta_path.read_text(encoding="utf-8-sig"))
+    _str_names = set()
+    for _f in [CC / "strings.json"] + [CC / "translations" / f"{_l}.json" for _l in ("en", "de", "ru")]:
+        try:
+            _d = json.loads(_f.read_text(encoding="utf-8-sig"))
+            for _plat, _items in _d.get("entity", {}).items():
+                for _k, _v in _items.items():
+                    if isinstance(_v, dict) and "name" in _v:
+                        _str_names.add((_f.name, _k))
+        except (OSError, json.JSONDecodeError):
+            pass
+    for _addr, _rec in _meta_all.items():
+        if not _addr.isdigit() or _rec.get("format") != "bit_split":
+            continue
+        _bits = _rec.get("bits") or {}
+        if not _bits:
+            errs.append(f"bit_split {_addr}: empty bits")
+            continue
+        if bad_kinds := sorted({b.get("kind") for b in _bits.values()} - {"button", "switch", "status"}):
+            errs.append(f"bit_split {_addr}: bad kinds {bad_kinds} (want button|switch|status)")
+        _slugs = [b.get("slug") for b in _bits.values()]
+        if not all(_slugs) or len(set(_slugs)) != len(_slugs):
+            errs.append(f"bit_split {_addr}: slugs must be unique non-empty")
+        _keys = [b.get("key") for b in _bits.values()]
+        if not all(_keys) or len(set(_keys)) != len(_keys):
+            errs.append(f"bit_split {_addr}: keys must be unique non-empty")
+        _covered = 0
+        for _b in _bits:
+            _covered |= 1 << int(_b)
+        if _rec.get("mask") != _covered:
+            errs.append(f"bit_split {_addr}: mask {_rec.get('mask')} != bits-covered {_covered}")
+        if not _rec.get("editable"):
+            errs.append(f"bit_split {_addr}: must be editable (R/W word)")
+        if _rec.get("hidden"):
+            errs.append(f"bit_split {_addr}: must not be hidden (hidden addrs are never polled)")
+        for _spec in _bits.values():
+            _key = f"foxair_{_spec.get('key')}"
+            for _fn in ("strings.json", "en.json", "de.json", "ru.json"):
+                if (_fn, _key) not in _str_names:
+                    errs.append(f"bit_split {_addr}: translation key '{_key}' missing in {_fn}")
+        _alias = _rec.get("alias_switch")
+        if _alias:
+            if not _alias.get("key") or not isinstance(_alias.get("on"), int) or not isinstance(_alias.get("off"), int):
+                errs.append(f"alias_switch {_addr}: need key + int on/off")
+            if not _rec.get("editable"):
+                errs.append(f"alias_switch {_addr}: target must be editable")
+            if _rec.get("hidden"):
+                errs.append(f"alias_switch {_addr}: target must not be hidden (never polled)")
+            _akey = f"foxair_{_alias.get('key')}"
+            for _fn in ("strings.json", "en.json", "de.json", "ru.json"):
+                if (_fn, _akey) not in _str_names:
+                    errs.append(f"alias_switch {_addr}: translation key '{_akey}' missing in {_fn}")
+
+# 1d. HA forward-compat: deprecated registry/device APIs fail the build.
+# (2026-09: via_device -> via_device_id, removal 2027.8; registry .devices /
+# .entities mapping access, removal 2027.9. Both warn via helpers/frame.)
+for _p in CC.rglob("*.py"):
+    _src = _p.read_text()
+    if ".devices.values()" in _src or ".entities.values()" in _src:
+        errs.append(f"ha-deprecated {_p.name}: registry mapping access (.devices/.entities.values()) — use async_entries_for_config_entry")
+    if _p.name != "const.py" and ".async_get_device(" in _src:
+        errs.append(f"ha-deprecated {_p.name}: registry.async_get_device() (use async_get_device_by_identifier)")
+for _p in CC.rglob("*.py"):
+    if _p.name == "const.py":
+        continue
+    if re.search(r"via_device\s*=", _p.read_text()):
+        errs.append(f"ha-deprecated {_p.name}: via_device= parameter (use const.bind_device_info -> via_device_id)")
+
+# 1e. Device routing: every non-empty metadata block/tab must have a label
+# in foxair_config.json blocks.labels — otherwise device_for_block silently
+# falls through to the main device (2026-09: S01 contacts landed on main).
+_cfg_labels = set(json.loads((CC / "data/foxair_config.json").read_text(encoding="utf-8-sig")).get("blocks", {}).get("labels", {}))
+if meta_path.exists():
+    _meta_all2 = json.loads(meta_path.read_text(encoding="utf-8-sig"))
+    _blocks_used = set()
+    for _addr2, _rec2 in _meta_all2.items():
+        if not _addr2.isdigit():
+            continue
+        for _fld in ("block", "tab"):
+            _b = _rec2.get(_fld) or ""
+            if _b and _b != _rec2.get("code"):
+                _blocks_used.add(_b)
+    if _unlabeled := sorted(_blocks_used - _cfg_labels):
+        errs.append(f"device routing: blocks/tabs without label (fall through to main device): {_unlabeled}")
+# non_expert_addrs + popular_addrs (foxair_config.json) must reference real metadata addrs
+_cfg_extra = json.loads((CC / "data/foxair_config.json").read_text(encoding="utf-8-sig"))
+if meta_path.exists():
+    _meta_all3 = json.loads(meta_path.read_text(encoding="utf-8-sig"))
+    for _a in _cfg_extra.get("non_expert_addrs", []):
+        if str(_a) not in _meta_all3:
+            errs.append(f"non_expert_addrs: {_a} not in metadata")
+    for _a in _cfg_extra.get("popular_addrs", []):
+        if str(_a) not in _meta_all3:
+            errs.append(f"popular_addrs: {_a} not in metadata")
 
 # 2. Thread safety: async_write_ha_state must never run inside a lambda —
 #    HA dispatches plain-function event callbacks in an executor thread

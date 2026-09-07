@@ -12,7 +12,7 @@ from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 from homeassistant.exceptions import ConfigEntryNotReady
 from pymodbus.client import AsyncModbusTcpClient
 
-from .const import MEDIUM_INTERVAL, RARE_INTERVAL, CORE_MAIN_ADDRS
+from .const import MEDIUM_INTERVAL, RARE_INTERVAL, CORE_MAIN_ADDRS, word_mask
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -187,6 +187,16 @@ class FoxAirCoordinator(DataUpdateCoordinator):
     def _validate_write(self, addr: int, value: float) -> tuple[bool, dict, str]:
         meta = self.get_metadata(addr)
         # special: power (1011) and mode (1012) have known limits even if metadata lacks them
+        # special: bit_split words (foxair_config.json) are written
+        # read-modify-write by per-bit switch/button entities — allow 0..mask
+        # (the generic DIGI1 gate below would reject combined values).
+        if meta.get("format") == "bit_split":
+            mask = meta.get("mask")
+            if mask is None:
+                mask = word_mask(meta.get("bits"))
+            if not math.isfinite(value) or not (0 <= value <= mask):
+                return False, meta, f"{addr} out of range [0,{mask}] got {value}"
+            return True, meta, ""
         status = self.marker("status") or {}
         power_addr = status.get("addr_single", {}).get("power")
         mode_addr = status.get("addr_single", {}).get("mode")

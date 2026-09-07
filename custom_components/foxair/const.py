@@ -177,6 +177,104 @@ def device_for_addr(addr: int, block: str | None, entry_id: str | None = None, t
         return main_device(entry_id, name_prefix, slave_id, host, port)
     return device_for_block(block or "", entry_id, tab, name_prefix, slave_id, host, port)
 
+
+def bind_device_info(hass, entry_id, info):
+    """Resolve DeviceInfo via_device identifiers to via_device_id.
+
+    HA deprecated the via_device parameter (warns since 2026, removal
+    2027.8): sub-devices must link by registry id. The main device is
+    pre-created in async_setup_entry, so the lookup always hits at entity
+    setup. Falls back to the unmodified info when hass/lookup is missing
+    (offline tools, tests) rather than breaking setup.
+    """
+    try:
+        via = (info or {}).get("via_device")
+    except Exception:
+        return info
+    if not via or hass is None or not entry_id:
+        return info
+    try:
+        from homeassistant.helpers import device_registry as _dr
+        reg = _dr.async_get(hass)
+        get_by_id = getattr(reg, "async_get_device_by_identifier", None)
+        if get_by_id is not None:
+            dev = get_by_id(tuple(via), entry_id)
+        else:
+            # HA < 2025.x fallback (no deprecation warning there)
+            dev = reg.async_get_device(identifiers={tuple(via)})
+        if dev is not None:
+            d = dict(info)
+            d.pop("via_device", None)
+            d["via_device_id"] = dev.id
+            return d
+    except Exception:
+        pass
+    return info
+
+
+# Generic word bit-twiddling for bit_split registers (spec in
+# foxair_config.json -> metadata format/bits/mask; entities built by
+# switch.py/button.py). Momentary trigger bits are set-only.
+def word_base(raw) -> int:
+    """Current raw word as int (0 when unknown)."""
+    try:
+        return int(raw) & 0xFFFF
+    except (TypeError, ValueError):
+        return 0
+
+
+def word_set(base: int, bit: int) -> int:
+    return base | (1 << bit)
+
+
+def word_clear(base: int, bit: int) -> int:
+    return base & ~(1 << bit)
+
+
+def word_is_set(base: int, bit: int) -> bool:
+    return bool(base & (1 << bit))
+
+
+def word_mask(bits: dict) -> int:
+    mask = 0
+    for bit in (bits or {}):
+        mask |= 1 << int(bit)
+    return mask
+
+
+# Generic BITFIELD expansion (binary_sensor platform): any R/O register with
+# a bit_map in foxair_phnix_registers.json is split into per-bit entities
+# instead of a meaningless raw decimal. Word is None until first poll.
+def bitfield_word(raw) -> int | None:
+    try:
+        return int(raw) & 0xFFFF
+    except (TypeError, ValueError):
+        return None
+
+
+def bitfield_is_set(word: int | None, bit: int) -> bool | None:
+    if word is None:
+        return None
+    return bool(word & (1 << bit))
+
+
+# Bit labels matching this are spare/unknown docs — no entity is created.
+BITFIELD_RESERVED_RE = r"reserv|unbekannt|unknown|spare|nicht belegt"
+
+
+def bitfield_expanded_bits(bit_map: dict) -> list[tuple[int, str]]:
+    import re as _re
+    out = []
+    for bit, label in (bit_map or {}).items():
+        try:
+            b = int(bit)
+        except (TypeError, ValueError):
+            continue
+        if _re.search(BITFIELD_RESERVED_RE, str(label), _re.I):
+            continue
+        out.append((b, str(label)))
+    return sorted(out)
+
 POLL_BLOCKS: list[tuple[int, int, str]] = []
 
 POPULAR_ADDRS = {
@@ -187,3 +285,7 @@ POPULAR_ADDRS = {
     1234,1235,1236,
     2044,2045,2046,2048,2049,2051,2053,2062,2071,2072,2074,2077,2020,2069,2019,2065,2066,2067,
 }
+# Config-driven extension (foxair_config.json popular_addrs): _CFG is loaded
+# above when import happens off the event loop (HA executor, tools, tests).
+if _CFG_LOADED and _CFG:
+    POPULAR_ADDRS |= set(_CFG.get("popular_addrs", []))

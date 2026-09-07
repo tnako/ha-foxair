@@ -1926,6 +1926,9 @@
     "switch": {
       "foxair_power": {
         "name": "Strom"
+      },
+      "foxair_silent_mode": {
+        "name": "H22: Silent-Modus"
       }
     },
     "number": {
@@ -2693,10 +2696,10 @@
         }
       },
       "foxair_1023": {
-        "name": "H07: Reglerwahl",
+        "name": "H07: Display-/Fernbedienung",
         "state": {
-          "display_control": "Master/Hauptregler",
-          "remote_control": "Slave/Nebenregler"
+          "display_control": "Display-Regler",
+          "remote_control": "Fernregler"
         }
       },
       "foxair_1024": {
@@ -2752,7 +2755,7 @@
         "name": "H29: Operationscode"
       },
       "foxair_1035": {
-        "name": "H25: Temp.-Regelauswahl",
+        "name": "H25: Temperatur-Regelauswahl",
         "state": {
           "outlet_water_temp": "Auslasswassertemperatur",
           "room_temp": "Raumtemperatur",
@@ -3319,6 +3322,301 @@
       },
       "foxair_1267": {
         "name": "KG12: WP Ein/Aus Timer 6 Stopzeit"
+      }
+    },
+    "button": {
+      "foxair_manual_defrost": {
+        "name": "Manuelles Abtauen starten"
+      },
+      "foxair_manual_heating_boost": {
+        "name": "Ein-Tasten-Heizen"
+      }
+    },
+    "binary_sensor": {
+      "foxair_2019_bit0": {
+        "name": "Kompressor tatsächlich laufend / Inverter-Istfrequenz ungleich 0"
+      },
+      "foxair_2019_bit10": {
+        "name": "011 Alarm-Ausgang"
+      },
+      "foxair_2019_bit11": {
+        "name": "012 Kurbelgehäuseheizung"
+      },
+      "foxair_2019_bit12": {
+        "name": "013 Wannenheizung"
+      },
+      "foxair_2019_bit13": {
+        "name": "021 Heizungswasserpumpe"
+      },
+      "foxair_2019_bit14": {
+        "name": "022 Hydraulikmodul Wasserkreislauf Elektroheizung"
+      },
+      "foxair_2019_bit15": {
+        "name": "023 Hydraulikmodul WW-Tank Elektroheizung"
+      },
+      "foxair_2019_bit2": {
+        "name": "Mindestens ein Lüfter tatsächlich aktiv / Lüfter-Istrückmeldung ungleich 0"
+      },
+      "foxair_2019_bit3": {
+        "name": "Lüfter Niedriggeschwindigkeitsausgang"
+      },
+      "foxair_2019_bit4": {
+        "name": "005 Wasserpumpen-Ausgang"
+      },
+      "foxair_2019_bit5": {
+        "name": "006 Warmwasserpumpen-Ausgang"
+      },
+      "foxair_2019_bit6": {
+        "name": "007 4-Wege-Ventil 1"
+      },
+      "foxair_2019_bit7": {
+        "name": "008 Elektrische Heizstufe 1"
+      },
+      "foxair_2019_bit8": {
+        "name": "009 Elektrische Heizstufe 2"
+      },
+      "foxair_2019_bit9": {
+        "name": "010 3-Wege-Ventil"
+      },
+      "foxair_2034_bit0": {
+        "name": "S01 Hochdruckschalter"
+      },
+      "foxair_2034_bit1": {
+        "name": "S02 Niederdruckschalter"
+      },
+      "foxair_2034_bit12": {
+        "name": "SG Kontakt 1 / AI-DI16 / Fernschalter / Klemme 1–2"
+      },
+      "foxair_2034_bit13": {
+        "name": "SG Kontakt 2 / DIN_1 / Heat/Cool On/Off / PV-Kontakt / Klemme 7–8"
+      },
+      "foxair_2034_bit2": {
+        "name": "S03 Wasserflussschalter"
+      },
+      "foxair_2034_bit3": {
+        "name": "S04 Überhitzungsschalter elektrischer Heizer"
+      },
+      "foxair_2034_bit4": {
+        "name": "S05 Fern-AN/AUS"
+      },
+      "foxair_2034_bit5": {
+        "name": "S06 Fern Heizen/Kühlen"
+      },
+      "foxair_2034_bit6": {
+        "name": "S07 Warmwasserschalter"
+      },
+      "foxair_2034_bit9": {
+        "name": "S10 Heizen/Kühlen AN/AUS"
+      },
+      "foxair_2081_bit0": {
+        "name": "IPM Überhitzung"
+      },
+      "foxair_2081_bit1": {
+        "name": "Kompressor Startfehler"
+      },
+      "foxair_2081_bit10": {
+        "name": "AC-Eingangs-Überstromabschaltung"
+      },
+      "foxair_2081_bit11": {
+        "name": "Eingangsspannungs-Abtastfehler"
+      },
+      "foxair_2081_bit12": {
+        "name": "DSP ↔ PFC Kommunikationsfehler"
+      },
+      "foxair_2081_bit13": {
+        "name": "Antriebsplatinen-Temperaturfehler"
+      },
+      "foxair_2081_bit14": {
+        "name": "DSP ↔ Kommunikationsplatine Fehler"
+      },
+      "foxair_2081_bit15": {
+        "name": "Hauptplatinen-Kommunikationsfehler"
+      },
+      "foxair_2081_bit2": {
+        "name": "Kompressor Überstrom"
+      },
+      "foxair_2081_bit3": {
+        "name": "Phasenverlust Eingangsspannung"
+      },
+      "foxair_2081_bit4": {
+        "name": "IPM Stromabtastfehler"
+      },
+      "foxair_2081_bit5": {
+        "name": "Überhitzungsschutz Antriebsplatine"
+      },
+      "foxair_2081_bit6": {
+        "name": "Vorladefehler"
+      },
+      "foxair_2081_bit7": {
+        "name": "DC-Sammelschienen-Überspannung"
+      },
+      "foxair_2081_bit8": {
+        "name": "DC-Sammelschienen-Unterspannung"
+      },
+      "foxair_2081_bit9": {
+        "name": "AC-Eingangsspannung Unterspannung"
+      },
+      "foxair_2082_bit0": {
+        "name": "IPM Überhitzungsstopp"
+      },
+      "foxair_2082_bit1": {
+        "name": "Kompressor Standardphase"
+      },
+      "foxair_2082_bit15": {
+        "name": "Kompressor-Übergeschwindigkeitsschutz"
+      },
+      "foxair_2082_bit3": {
+        "name": "Eingangsstrom-Abtastfehler"
+      },
+      "foxair_2082_bit6": {
+        "name": "EEPROM-Fehler"
+      },
+      "foxair_2082_bit7": {
+        "name": "Eingangsspannung Überbegrenzungsschutz"
+      },
+      "foxair_2083_bit0": {
+        "name": "Stromregelungsfrequenz-Alarm"
+      },
+      "foxair_2083_bit1": {
+        "name": "Kompressor Magnetschutz-Alarm"
+      },
+      "foxair_2083_bit2": {
+        "name": "Leistungseinheit Überhitzung"
+      },
+      "foxair_2083_bit4": {
+        "name": "AC-Eingangsstrom Regelungsalarm"
+      },
+      "foxair_2083_bit5": {
+        "name": "EEPROM-Fehlerwarnung"
+      },
+      "foxair_2085_bit10": {
+        "name": "Winter-Frostschutz Stufe 1"
+      },
+      "foxair_2085_bit11": {
+        "name": "Winter-Frostschutz Stufe 2"
+      },
+      "foxair_2085_bit12": {
+        "name": "Frostschutz"
+      },
+      "foxair_2085_bit14": {
+        "name": "Raumtemperaturfehler"
+      },
+      "foxair_2085_bit2": {
+        "name": "Heizungsrücklauftemperatur-Sensorfehler"
+      },
+      "foxair_2085_bit3": {
+        "name": "Heizungsauslasswassertemperatur-Sensorfehler"
+      },
+      "foxair_2085_bit4": {
+        "name": "Hochdruckschutz"
+      },
+      "foxair_2085_bit6": {
+        "name": "Niederdruckschutz"
+      },
+      "foxair_2085_bit8": {
+        "name": "Wasserflussschutz"
+      },
+      "foxair_2085_bit9": {
+        "name": "Überlastschutz der Elektroheizung"
+      },
+      "foxair_2086_bit3": {
+        "name": "Lüfter 1 Überlastungs-Drehzahlbegrenzung"
+      },
+      "foxair_2086_bit4": {
+        "name": "Lüfter 2 Überlastungs-Drehzahlbegrenzung"
+      },
+      "foxair_2086_bit5": {
+        "name": "Temp.diff. Ein-/Auslasswasser zu groß"
+      },
+      "foxair_2086_bit6": {
+        "name": "Auslasswasser überhitzt"
+      },
+      "foxair_2086_bit7": {
+        "name": "Mischwasser-Auslasswassertemperatur-Sensorfehler"
+      },
+      "foxair_2086_bit8": {
+        "name": "Warmwasserrücklauftemperatur-Sensorfehler"
+      },
+      "foxair_2086_bit9": {
+        "name": "Warmwasserauslasswassertemperatur-Sensorfehler"
+      },
+      "foxair_2087_bit12": {
+        "name": "Frostschutz (3x)"
+      },
+      "foxair_2087_bit4": {
+        "name": "Hochdruckschutz (3x)"
+      },
+      "foxair_2087_bit6": {
+        "name": "Niederdruckschutz (3x)"
+      },
+      "foxair_2087_bit8": {
+        "name": "Wasserflussschutz (3x)"
+      },
+      "foxair_2087_bit9": {
+        "name": "Elektroheizungsschutz (3x)"
+      },
+      "foxair_2088_bit2": {
+        "name": "Temp.diff. Ein-/Auslasswasser zu groß (3x)"
+      },
+      "foxair_2088_bit3": {
+        "name": "Auslasswassertemperatur zu niedrig (3x)"
+      },
+      "foxair_2088_bit4": {
+        "name": "Auslasswasser Übertemperaturschutz (3x)"
+      },
+      "foxair_2089_bit0": {
+        "name": "Einlasswassertemperaturfehler"
+      },
+      "foxair_2089_bit1": {
+        "name": "Auslasswassertemperaturfehler"
+      },
+      "foxair_2089_bit10": {
+        "name": "EVI Auslasstemperaturfehler"
+      },
+      "foxair_2089_bit11": {
+        "name": "Abgastemperaturfehler"
+      },
+      "foxair_2089_bit13": {
+        "name": "System 1 Drucksensorfehler"
+      },
+      "foxair_2089_bit14": {
+        "name": "Niedrige Umgebungstemperaturfehler"
+      },
+      "foxair_2089_bit15": {
+        "name": "Auslasstemperatur zu niedriger Schutz"
+      },
+      "foxair_2089_bit2": {
+        "name": "Spulentemperaturfehler"
+      },
+      "foxair_2089_bit3": {
+        "name": "Umgebungstemperaturfehler"
+      },
+      "foxair_2089_bit4": {
+        "name": "Sauggastemperaturfehler"
+      },
+      "foxair_2089_bit5": {
+        "name": "Frostschutztemperaturfehler"
+      },
+      "foxair_2089_bit6": {
+        "name": "Spulenauslasswassertemperatur-Sensorfehler"
+      },
+      "foxair_2089_bit9": {
+        "name": "EVI Einlasstemperaturfehler"
+      },
+      "foxair_2090_bit11": {
+        "name": "Lüfter 1 Fehler"
+      },
+      "foxair_2090_bit12": {
+        "name": "Lüfter 2 Fehler"
+      },
+      "foxair_2090_bit13": {
+        "name": "Kommunikationsfehler Hauptplatine ↔ Lüfter 1"
+      },
+      "foxair_2090_bit15": {
+        "name": "Kommunikationsfehler Hauptplatine ↔ Lüfter 2"
+      },
+      "foxair_2090_bit8": {
+        "name": "Warmwassertemperaturfehler"
       }
     }
   },

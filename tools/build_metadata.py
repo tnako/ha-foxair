@@ -13,6 +13,7 @@ Run: python3 tools/build_metadata.py  (see tools/README.md)
 import json
 import pathlib
 import re
+import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 REG_PATH = ROOT / "custom_components/foxair/data/foxair_phnix_registers.json"
@@ -33,10 +34,13 @@ def load_config():
 
 
 CFG = load_config()
+CORE_NON_EXPERT_ADDRS |= set(CFG.get("non_expert_addrs", []))
+ALIAS_SWITCH = {int(k): v for k, v in CFG.get("alias_switch", {}).items()}
 BLOCKS = CFG["blocks"]
 TYPES = CFG["types"]
 MARKERS = CFG["markers"]
 OVERRIDES = {int(k): v for k, v in MARKERS["overrides"].items()}
+BIT_SPLIT = {int(k): v for k, v in CFG.get("bit_split", {}).items()}
 EXPERT_BLOCKS = set(BLOCKS["expert_blocks"])
 HIDDEN_CFG_RANGES = [(lo, hi) for lo, hi in CFG.get("hidden", [])]
 RISK_BY_BLOCK = BLOCKS["risk_by_block"]
@@ -225,6 +229,36 @@ def main():
             "min_firmware": ov.get("min_firmware"),
             "format": ov.get("format"),
         }
+        # bit_split spec (foxair_config.json) compiles into metadata so the
+        # runtime stays data-driven: switch.py/button.py build per-bit
+        # entities, select.py skips the raw addr, coordinator gates 0..mask.
+        if addr in BIT_SPLIT:
+            spec = BIT_SPLIT[addr]
+            bits = spec.get("bits") or {}
+            kinds = {b.get("kind") for b in bits.values()}
+            if not bits or not kinds <= {"button", "switch", "status"}:
+                sys.exit(f"FAIL: bit_split[{addr}]: need non-empty bits with kind button|switch|status")
+            slugs = [b.get("slug") for b in bits.values()]
+            if not all(slugs) or len(set(slugs)) != len(slugs):
+                sys.exit(f"FAIL: bit_split[{addr}]: slugs must be unique non-empty")
+            keys = [b.get("key") for b in bits.values()]
+            if not all(keys) or len(set(keys)) != len(keys):
+                sys.exit(f"FAIL: bit_split[{addr}]: keys must be unique non-empty (translation key foxair_<key>)")
+            covered = 0
+            for bit in bits:
+                covered |= 1 << int(bit)
+            if spec.get("mask", covered) != covered:
+                sys.exit(f"FAIL: bit_split[{addr}]: mask {spec.get('mask')} != bits-covered {covered}")
+            out[addr_str]["format"] = "bit_split"
+            out[addr_str]["bits"] = bits
+            out[addr_str]["mask"] = covered
+        # alias_switch spec (foxair_config.json) compiles into the target
+        # addr's metadata: normal-mode switch backed by a plain register.
+        if addr in ALIAS_SWITCH:
+            spec = ALIAS_SWITCH[addr]
+            if not spec.get("key") or not isinstance(spec.get("on"), int) or not isinstance(spec.get("off"), int):
+                sys.exit(f"FAIL: alias_switch[{addr}]: need key + int on/off")
+            out[addr_str]["alias_switch"] = {"key": spec["key"], "on": spec["on"], "off": spec["off"], "icon": spec.get("icon")}
     OUT_PATH.write_text(json.dumps(out, indent=2, ensure_ascii=False), encoding="utf-8")
     # stats
     from collections import Counter

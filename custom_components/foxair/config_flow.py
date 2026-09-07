@@ -211,10 +211,6 @@ class FoxAirOptionsFlow(config_entries.OptionsFlow):
                 for k, default in (
                     ("elec_source", "foxair_register"),
                     ("external_meter_entity", ""),
-                    ("v_gain", 1.0),
-                    ("v_offset", 0.0),
-                    ("i_gain", 0.1),
-                    ("i_offset", 0.0),
                 ):
                     if k in user_input and user_input[k] == "":
                         if k in self._entry.options:
@@ -241,10 +237,6 @@ class FoxAirOptionsFlow(config_entries.OptionsFlow):
                         "external_meter_entity",
                         default=cur.get("external_meter_entity", ""),
                     ): str,
-                    vol.Optional("v_gain", default=cur.get("v_gain", 1.0)): vol.Coerce(float),
-                    vol.Optional("v_offset", default=cur.get("v_offset", 0.0)): vol.Coerce(float),
-                    vol.Optional("i_gain", default=cur.get("i_gain", 0.1)): vol.Coerce(float),
-                    vol.Optional("i_offset", default=cur.get("i_offset", 0.0)): vol.Coerce(float),
                 }
             ),
             errors=errors,

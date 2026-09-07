@@ -2,7 +2,7 @@ from homeassistant.components.sensor import SensorEntity, SensorDeviceClass, Sen
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.event import async_track_state_change_event
-from .const import POPULAR_ADDRS, device_for_addr, main_device, entity_sort_key, DTYPE_SPEC, get_device_prefix, get_slave_id
+from .const import POPULAR_ADDRS, device_for_addr, main_device, entity_sort_key, DTYPE_SPEC, get_device_prefix, get_slave_id, bind_device_info
 from .computed import compute_heating_power, compute_electrical_power, compute_cop
 
 # Build DTYPE_MAP from DTYPE_SPEC for backwards compatibility
@@ -40,6 +40,12 @@ async def async_setup_entry(hass, entry, add_entities):
         # expert-gated (whole expert blocks + dangerous) sensors: skip unless expert on
         if meta.get("requires_expert") and not entry.options.get("enable_expert"):
             continue
+        # BITFIELD registers with a bit_map are expanded into per-bit
+        # binary_sensors — a raw decimal sensor would be meaningless
+        if (meta.get("type") or "").upper() == "BITFIELD":
+            _rm = (getattr(coord, "_regmap", None) or {}).get(str(addr), {})
+            if _rm.get("bit_map"):
+                continue
         if meta.get("editable") and meta.get("platform") in ("number", "select", "time"):
             continue
         ents.append(FoxSensor(coord, addr))
@@ -73,7 +79,7 @@ class FoxSensor(CoordinatorEntity, SensorEntity):
         slave_id = get_slave_id(coord.entry)
         host = coord.entry.data.get("host")
         port = coord.entry.data.get("port")
-        self._attr_device_info = device_for_addr(addr, block, entry_id, tab, prefix, slave_id, host, port)
+        self._attr_device_info = bind_device_info(getattr(coord, "hass", None), entry_id, device_for_addr(addr, block, entry_id, tab, prefix, slave_id, host, port))
         dtype = info.get("type","RAW")
         dc, unit, sc = DTYPE_MAP.get(dtype, (None, info.get("unit") or None, None))
         if dc:
@@ -215,7 +221,7 @@ class FoxComputedSensor(CoordinatorEntity, SensorEntity):
             and coord.config_entry.entry_id
         )
         slave_id = get_slave_id(coord.entry)
-        self._attr_device_info = main_device(entry_id, prefix, slave_id)
+        self._attr_device_info = bind_device_info(getattr(coord, "hass", None), entry_id, main_device(entry_id, prefix, slave_id))
         self._prefix = prefix
 
     @property

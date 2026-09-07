@@ -3,7 +3,7 @@ import logging
 from homeassistant.components.number import NumberEntity, NumberMode, NumberDeviceClass
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.helpers.entity import EntityCategory
-from .const import POPULAR_ADDRS, device_for_addr, entity_sort_key, get_device_prefix, get_slave_id
+from .const import POPULAR_ADDRS, device_for_addr, entity_sort_key, get_device_prefix, get_slave_id, bind_device_info
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -68,7 +68,7 @@ class FoxNumber(CoordinatorEntity, NumberEntity):
         slave_id = get_slave_id(coord.entry)
         host = coord.entry.data.get("host")
         port = coord.entry.data.get("port")
-        self._attr_device_info = device_for_addr(addr, block, entry_id, tab, prefix, slave_id, host, port)
+        self._attr_device_info = bind_device_info(getattr(coord, "hass", None), entry_id, device_for_addr(addr, block, entry_id, tab, prefix, slave_id, host, port))
         self._attr_icon = meta.get("icon") or "mdi:heat-pump"
         risk = meta.get("risk")
         hc = coord.marker("heat_curve") if hasattr(coord, "marker") else {}

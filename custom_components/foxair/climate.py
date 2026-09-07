@@ -1,7 +1,7 @@
 from homeassistant.components.climate import ClimateEntity, HVACMode, ClimateEntityFeature, HVACAction
 from homeassistant.const import UnitOfTemperature
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
-from .const import main_device, get_device_prefix, get_slave_id
+from .const import main_device, get_device_prefix, get_slave_id, bind_device_info
 from .heating_curve import curve_target_for_at
 import logging
 _LOGGER = logging.getLogger(__name__)
@@ -41,7 +41,7 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
         slave_id = get_slave_id(coord.entry)
         host = coord.entry.data.get("host")
         port = coord.entry.data.get("port")
-        self._attr_device_info = main_device(entry_id, prefix, slave_id, host, port)
+        self._attr_device_info = bind_device_info(getattr(coord, "hass", None), entry_id, main_device(entry_id, prefix, slave_id, host, port))
 
     # ── marker-based address resolution ──────────────────────────
     def _addr(self, marker_name, key):

@@ -346,8 +346,8 @@
     "name": "Reglerwahl",
     "type": "DIGI1",
     "value_map": {
-      "0": "Master/Hauptregler",
-      "1": "Slave/Nebenregler"
+      "0": "Display-Regler",
+      "1": "Fernregler"
     }
   },
   "1024": {
@@ -532,7 +532,7 @@
     "code": "H25",
     "function": "03/16",
     "mode": "r/w",
-    "name": "Temp.-Regelauswahl",
+    "name": "Temperatur-Regelauswahl",
     "type": "DIGI1",
     "value_map": {
       "0": "Auslasswassertemperatur",

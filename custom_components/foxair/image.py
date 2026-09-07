@@ -29,7 +29,7 @@ from homeassistant.components.image import ImageEntity
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.helpers.translation import async_get_translations
 
-from .const import main_device, get_device_prefix, get_slave_id
+from .const import main_device, get_device_prefix, get_slave_id, bind_device_info
 from .heating_curve import calc_curve_target, curve_target_for_at
 
 _LOGGER = logging.getLogger(__name__)
@@ -90,7 +90,7 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
         slave_id = get_slave_id(coordinator.entry)
         host = coordinator.entry.data.get("host")
         port = coordinator.entry.data.get("port")
-        self._attr_device_info = main_device(entry_id, prefix, slave_id, host, port)
+        self._attr_device_info = bind_device_info(getattr(coordinator, "hass", None), entry_id, main_device(entry_id, prefix, slave_id, host, port))
         self.entity_id = f"image.{prefix}_heating_curve"
         self._image_bytes: bytes | None = None
         self._image_last_updated: datetime | None = None

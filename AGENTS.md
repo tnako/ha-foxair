@@ -70,6 +70,9 @@ you skipped the metadata one-shot and are grepping blind.
 - Every `elec_source` choice offered in Options must be handled in `computed.py` (`tests/test_computed.py` covers behavior with stub hass; validate fails on unhandled sources) — an offered-but-unimplemented source shows `unknown` with no error anywhere
 - Event callbacks that write state must be `async def`, never `lambda` (HA runs plain-function `async_track_state_change_event` callbacks in an executor thread → "calls async_write_ha_state from a thread other than the event loop"); validate fails on lambdas
 - First poll (`if is_first` in `coordinator.py`) must include medium + cheap (non-expert) rare tiers — `async_setup_entry` creates entities from `coord.data` once, so any tier excluded from first poll never gets entities (validate fails on quick-only first poll)
+- Multi-bit R/W registers are declared in `foxair_config.json` (`bit_split`: bits with kind button|switch|status + mask, compiled into metadata by `build_metadata.py`) and split into per-bit entities with read-modify-write — never a raw select (raw 1 on 1016 fired manual defrost); retired selects go in `RETIRED_UID_SUFFIXES`; validate enforces spec shape + per-slug translations. Plain registers needing a normal-mode switch use `alias_switch` (key/on/off compiled into the target's metadata, e.g. H22 silent enable keeps uid `foxair_silent_mode` while 1016 bit1 is status-only)
+- Read-only BITFIELD registers with a bit_map expand into per-bit binary_sensors automatically (`binary_sensor.py`, zero code per register) — raw decimal sensors are skipped in `sensor.py`, retired raw uids dropped in cleanup; per-bit names via `tools/gen_bitfield_translations.py` (fails on missing en/ru), reserved/unknown bits skipped by `BITFIELD_RESERVED_RE`; hidden addrs are never polled so expansion needs them visible; every non-empty block/tab needs a `blocks.labels` entry or it silently falls to the main device (validate gate 1e)
+- HA deprecations fail the build (validate gate 1d): sub-device links go through `const.bind_device_info` (-> `via_device_id`, never the `via_device` param, removal 2027.8); registry scans use `async_entries_for_config_entry`, never `.devices`/`.entities.values()` (removal 2027.9)
 
 ## Modbus Architecture (0.4.x)
 - Own `pymodbus.AsyncModbusTcpClient` (single socket, serialized under `coordinator._lock`).
@@ -87,7 +90,7 @@ you skipped the metadata one-shot and are grepping blind.
 3. Regenerate metadata: `python3 tools/build_metadata.py`
    (only if touching vendor code: `python3 tools/gen_foxair_modbus.py`)
 4. Run `tools/validate.py` → fix i18n prefixes in `translations/*.json`
-5. Bump `VERSION` + `manifest.json` + `README.md` badge + `CHANGELOG.md`
+5. Bump `VERSION` + `manifest.json` + `README.md` badge + `CHANGELOG.md` (bullets are `- `, never `|-` — leading `|` renders as a table on GitHub/HACS; validate fails on pipe-led lines and top-section/version mismatch)
 6. Deploy
 
 ## Add Register
@@ -104,7 +107,7 @@ tools/pre_release_check.sh          # orchestrates all checks below
 This runs (and fails fast on any error):
 1. `python3 tools/validate.py` — version sync, i18n prefixes, syntax, metadata coverage
 2. `python3 tools/build_metadata.py` — regenerate metadata from config; test verifies committed metadata matches
-3. `pytest tests/ -v` — 31-test suite: version sync, syntax, metadata freshness, async_write_register signature (all platforms), firmware gates, heating curve math, SVG render (EN/DE/RU), computed-sensor sources + COP gates, validate pass
+3. `pytest tests/ -v` — 49-test suite: version sync, syntax, metadata freshness, async_write_register signature (all platforms), firmware gates, heating curve math, SVG render (EN/DE/RU), computed-sensor sources + COP gates, bit_split/alias_switch JSON formats (RMW/entities/i18n), BITFIELD expansion (counts/gating/state/i18n/routing), via_device_id binding, validate pass
 4. `python3 tools/check_regs.py` — if HASS_URL/HASS_TOKEN in .env: audits all 310 register codes against live HA entities + optional `--direct` device reads
 
 **Local dev workflow** — uses Taskfile (`task` command):

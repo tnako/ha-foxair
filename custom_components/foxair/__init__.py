@@ -1,14 +1,24 @@
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import device_registry as dr
+from homeassistant.helpers.device_registry import async_entries_for_config_entry as dr_entries_for_entry
 from homeassistant.helpers.entity_registry import async_get as er_async_get
+from homeassistant.helpers.entity_registry import async_entries_for_config_entry as er_entries_for_entry
 from .const import DOMAIN, EXPERT_BLOCKS
 import logging
 import re
 
 _LOGGER = logging.getLogger(__name__)
 
-PLATFORMS = ["sensor", "climate", "number", "select", "switch", "time", "image"]
+PLATFORMS = ["sensor", "climate", "number", "select", "switch", "time", "image", "button", "binary_sensor"]
+
+# Retired unique_id suffixes: entities removed/renamed by design (not
+# hidden/expert), whose registry entries must be cleaned so they don't
+# linger as unavailable.
+# 2026-09: _sel_1016 raw 0/1 select replaced by bit_split entities;
+# _switch_1016 (early uid without slug) and first-gen _switch_1016_silent /
+# _btn_1016_* uids renamed to slug-based identity (compat freely broken).
+RETIRED_UID_SUFFIXES = ("_sel_1016", "_switch_1016", "_switch_1016_silent", "_btn_1016_defrost", "_btn_1016_boost", "_silent_status")
 
 
 async def _cleanup_orphaned_entities(hass: HomeAssistant, entry: ConfigEntry, enable_expert: bool):
@@ -27,11 +37,13 @@ async def _cleanup_orphaned_entities(hass: HomeAssistant, entry: ConfigEntry, en
         metadata = getattr(coord, "_metadata", {}) or {}
         prefix = entry.data.get("name_prefix", "foxair") or "foxair"
         removed = 0
-        for ent in list(registry.entities.values()):
-            if ent.config_entry_id != entry.entry_id:
-                continue
+        for ent in er_entries_for_entry(registry, entry.entry_id):
             uid = ent.unique_id or ""
             if not uid.startswith(f"{prefix}_"):
+                registry.async_remove(ent.entity_id)
+                removed += 1
+                continue
+            if uid.endswith(RETIRED_UID_SUFFIXES):
                 registry.async_remove(ent.entity_id)
                 removed += 1
                 continue
@@ -39,12 +51,24 @@ async def _cleanup_orphaned_entities(hass: HomeAssistant, entry: ConfigEntry, en
             # Unique IDs follow the same pattern: foxair_<addr>, foxair_num_<addr>.
             uid = ent.unique_id
             addr = None
-            m = re.match(r"^.+?_(?:num_|sel_|switch_|time_)?(\d+)$", uid or "")
+            m = re.match(r"^.+?_bin_(\d+)_\d+$", uid or "")
             if m:
                 addr = int(m.group(1))
+            else:
+                m = re.match(r"^.+?_(?:num_|sel_|switch_|time_)?(\d+)$", uid or "")
+                if m:
+                    addr = int(m.group(1))
             if addr is None:
                 continue
             meta = metadata.get(str(addr), {})
+            # Expanded BITFIELDs live as per-bit binary_sensors now — drop
+            # retired raw-decimal sensor entities (generic: any bit_map addr).
+            _rm = (getattr(coord, "_regmap", None) or {}).get(str(addr), {})
+            if (meta.get("type") or "").upper() == "BITFIELD" and _rm.get("bit_map"):
+                if uid.endswith(f"_{addr}") and "_bin_" not in (uid or ""):
+                    registry.async_remove(ent.entity_id)
+                    removed += 1
+                    continue
             block = meta.get("block", "")
             requires_expert = meta.get("requires_expert", False)
             min_fw = meta.get("min_firmware")
@@ -64,11 +88,11 @@ async def _cleanup_orphaned_entities(hass: HomeAssistant, entry: ConfigEntry, en
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     # ── Ensure main device exists BEFORE any sub-device ──────────
-    # HA 2025.12+ warns (and will error) when a device's via_device
-    # references a non-existing device. Sub-devices (T_Live, SG etc.)
-    # set via_device=(DOMAIN, entry_id) -> main device. If entities for
-    # sub-devices set up first, the warning fires. Create main device
-    # synchronously here so it always exists first.
+    # HA 2025.12+ warns (and will error) when a device's parent link
+    # references a non-existing device. Sub-devices (T_Live, SG etc.) link
+    # to the main device via const.bind_device_info (-> via_device_id).
+    # If entities for sub-devices set up first, the warning fires. Create
+    # main device synchronously here so it always exists first.
     try:
         from .const import main_device
         dev_reg = dr.async_get(hass)
@@ -112,7 +136,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     await _cleanup_orphaned_entities(hass, entry, enable_expert)
 
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
-    hass.async_create_task(_cleanup_orphaned_devices(hass))
+    hass.async_create_task(_cleanup_orphaned_devices(hass, entry))
     # Expert toggle (or any config change) can make a whole tier of entities
     # appear with Unknown until the next medium/rare cycle (60-90s). Trigger
     # the same force-fetch burst used on first install so they populate in
@@ -156,10 +180,15 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry):
     return ok
 
 
-async def _cleanup_orphaned_devices(hass: HomeAssistant):
+async def _cleanup_orphaned_devices(hass: HomeAssistant, entry: ConfigEntry):
+    """Remove legacy devices of this entry (pre multi-pump identifiers).
+
+    Scoped to the entry via async_entries_for_config_entry — no registry
+    mapping access (deprecated, removal 2027.9).
+    """
     try:
         registry = dr.async_get(hass)
-        for device in list(registry.devices.values()):
+        for device in dr_entries_for_entry(registry, entry.entry_id):
             for ident in list(device.identifiers):
                 if ident[0] == DOMAIN and ident[1] == "foxair":
                     registry.async_remove_device(device.id)

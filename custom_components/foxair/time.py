@@ -12,7 +12,7 @@ from homeassistant.components.time import TimeEntity
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from .const import POPULAR_ADDRS, device_for_addr, entity_sort_key, get_device_prefix, get_slave_id
+from .const import POPULAR_ADDRS, device_for_addr, entity_sort_key, get_device_prefix, get_slave_id, bind_device_info
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -66,7 +66,7 @@ class FoxTime(CoordinatorEntity, TimeEntity):
         slave_id = get_slave_id(coord.entry)
         host = coord.entry.data.get("host")
         port = coord.entry.data.get("port")
-        self._attr_device_info = device_for_addr(addr, block, entry_id, tab, prefix, slave_id, host, port)
+        self._attr_device_info = bind_device_info(getattr(coord, "hass", None), entry_id, device_for_addr(addr, block, entry_id, tab, prefix, slave_id, host, port))
         self._attr_icon = meta.get("icon") or "mdi:timer-outline"
         risk = meta.get("risk")
         code = meta.get("code", "")
