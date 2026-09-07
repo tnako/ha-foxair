@@ -1926,9 +1926,6 @@
     "switch": {
       "foxair_power": {
         "name": "Strom"
-      },
-      "foxair_silent_mode": {
-        "name": "H22: Silent-Modus"
       }
     },
     "number": {

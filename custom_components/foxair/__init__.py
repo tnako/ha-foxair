@@ -4,7 +4,7 @@ from homeassistant.helpers import device_registry as dr
 from homeassistant.helpers.device_registry import async_entries_for_config_entry as dr_entries_for_entry
 from homeassistant.helpers.entity_registry import async_get as er_async_get
 from homeassistant.helpers.entity_registry import async_entries_for_config_entry as er_entries_for_entry
-from .const import DOMAIN, EXPERT_BLOCKS
+from .const import DOMAIN, EXPERT_BLOCKS, POPULAR_ADDRS
 import logging
 import re
 
@@ -18,7 +18,9 @@ PLATFORMS = ["sensor", "climate", "number", "select", "switch", "time", "image",
 # 2026-09: _sel_1016 raw 0/1 select replaced by bit_split entities;
 # _switch_1016 (early uid without slug) and first-gen _switch_1016_silent /
 # _btn_1016_* uids renamed to slug-based identity (compat freely broken).
-RETIRED_UID_SUFFIXES = ("_sel_1016", "_switch_1016", "_switch_1016_silent", "_btn_1016_defrost", "_btn_1016_boost", "_silent_status")
+# 2026-09: _silent_mode alias switch for H22 removed — the plain select is
+# the single H22 face in all modes now.
+RETIRED_UID_SUFFIXES = ("_sel_1016", "_switch_1016", "_switch_1016_silent", "_btn_1016_defrost", "_btn_1016_boost", "_silent_status", "_silent_mode")
 
 
 async def _cleanup_orphaned_entities(hass: HomeAssistant, entry: ConfigEntry, enable_expert: bool):
@@ -37,6 +39,7 @@ async def _cleanup_orphaned_entities(hass: HomeAssistant, entry: ConfigEntry, en
         metadata = getattr(coord, "_metadata", {}) or {}
         prefix = entry.data.get("name_prefix", "foxair") or "foxair"
         removed = 0
+        reenabled = 0
         for ent in er_entries_for_entry(registry, entry.entry_id):
             uid = ent.unique_id or ""
             if not uid.startswith(f"{prefix}_"):
@@ -61,6 +64,12 @@ async def _cleanup_orphaned_entities(hass: HomeAssistant, entry: ConfigEntry, en
             if addr is None:
                 continue
             meta = metadata.get(str(addr), {})
+            # Newly popular/ungated addrs (H22, H32): rows created by older
+            # releases stay integration-disabled forever — re-enable them.
+            # Never touches user-disabled rows.
+            if addr in POPULAR_ADDRS and str(ent.disabled_by) in ("integration", "DisabledBy.INTEGRATION"):
+                registry.async_update_entity(ent.entity_id, disabled_by=None)
+                reenabled += 1
             # Expanded BITFIELDs live as per-bit binary_sensors now — drop
             # retired raw-decimal sensor entities (generic: any bit_map addr).
             _rm = (getattr(coord, "_regmap", None) or {}).get(str(addr), {})
@@ -80,8 +89,8 @@ async def _cleanup_orphaned_entities(hass: HomeAssistant, entry: ConfigEntry, en
             if drop:
                 registry.async_remove(ent.entity_id)
                 removed += 1
-        if removed:
-            _LOGGER.debug("Cleanup removed %d stale entities (hidden/expert)", removed)
+        if removed or reenabled:
+            _LOGGER.debug("Cleanup removed %d stale entities, re-enabled %d (hidden/expert)", removed, reenabled)
     except Exception as e:
         _LOGGER.debug("cleanup orphaned entities failed: %s", e)
 

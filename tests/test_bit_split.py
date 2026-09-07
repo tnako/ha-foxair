@@ -101,7 +101,6 @@ META = json.loads((CC / "data/foxair_metadata.json").read_text(encoding="utf-8-s
 SPLIT = {int(a): m for a, m in META.items() if a.isdigit() and m.get("format") == "bit_split"}
 ALIAS = {int(a): (m, m["alias_switch"]) for a, m in META.items() if a.isdigit() and m.get("alias_switch")}
 assert SPLIT, "no bit_split entries in metadata"
-assert ALIAS, "no alias_switch entries in metadata"
 
 
 class FakeEntry:

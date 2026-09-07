@@ -2465,7 +2465,7 @@
         "default": "mdi:chip"
       },
       "foxair_1030": {
-        "default": "mdi:chip"
+        "default": "mdi:volume-off"
       },
       "foxair_1032": {
         "default": "mdi:chip"
@@ -2649,11 +2649,6 @@
       },
       "foxair_1358": {
         "default": "mdi:home-thermometer"
-      }
-    },
-    "switch": {
-      "foxair_silent_mode": {
-        "default": "mdi:volume-off"
       }
     },
     "button": {

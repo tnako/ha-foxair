@@ -1,3 +1,10 @@
+## 0.6.1 - 2026-09-07
+- fix(h22): H22 (Silent Mode) showed as an electric-chip icon and, when an alias_switch was configured, a duplicate switch entity appeared alongside the raw select — the alias_switch for 1030 is removed; the plain select (Silent-Modus aus/ein) is now the single H22 face in all modes with icon mdi:volume-off
+- fix(h22): H22 was expert-only and excluded from normal-mode polling, leaving the alias switch state unknown; 1030 now polled in normal mode (non_expert_addrs) and ungated
+- fix(h32): forced switching time (H32) was appearing deactivated in normal mode; now in popular_addrs so it is enabled by default, with registry migration that re-enables integration-disabled rows
+- fix(r-setpoints): R01/R02/R03 (1157/1158/1159) moved from the main device to FoxAir — Setpoints [R] in normal and expert mode
+- fix(registry): stale alias-switch uids (`*_silent_mode`) and switch translations/icons cleaned up
+
 ## 0.6.0 - 2026-09-07
 - feat(bitfield): new binary_sensor platform expands every BITFIELD register with a bit_map into per-bit entities (95 total: S01 switch/SG contacts, O load outputs, ERR01-ERR09 faults, ERR = problem class, reserved bits skipped, unknown-until-polled never shown as off) — raw decimal sensors retired with registry cleanup
 - feat/bitsplit: multi-bit R/W words declared in foxair_config.json (bit_split: kind button|switch|status + mask, compiled into metadata) instead of raw selects — 1016 gives defrost/boost buttons with read-modify-write; generic for future words, validated shape + translations

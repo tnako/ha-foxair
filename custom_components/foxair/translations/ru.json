@@ -1926,9 +1926,6 @@
     "switch": {
       "foxair_power": {
         "name": "Power"
-      },
-      "foxair_silent_mode": {
-        "name": "H22: Тихий режим"
       }
     },
     "number": {

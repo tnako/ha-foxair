@@ -721,9 +721,6 @@
         1012,
         1013,
         1014,
-        1157,
-        1158,
-        1159,
         1212,
         1213,
         1214,
@@ -746,6 +743,9 @@
       },
       "1086": {
         "risk": "advanced"
+      },
+      "1030": {
+        "icon": "mdi:volume-off"
       },
       "1158": {
         "risk": "safe"
@@ -1098,10 +1098,9 @@
   },
   "_alias_switch_comment": "Normal-mode switches backed by a plain register (not a bit word): key -> entity foxair_<key>, uid <prefix>_<key>. Purpose-built to expose an expert-block control (e.g. H22 silent enable) without ungating the whole block. Switch reads addr (on = raw == on_value) and writes on/off values.",
   "alias_switch": {
-    "1030": {"key": "silent_mode", "on": 1, "off": 0, "icon": "mdi:volume-off"}
   },
-  "_non_expert_comment": "Expert-block addrs exposed in normal mode (merged into CORE_NON_EXPERT_ADDRS at build). H user settings; H30 excluded (installer-only, expert), H22 excluded (alias switch is its normal-mode face, no duplicates).",
-  "non_expert_addrs": [1021, 1023, 1028, 1029, 1032, 1033, 1035, 1045, 1046, 1345],
+  "_non_expert_comment": "Expert-block addrs exposed in normal mode (merged into CORE_NON_EXPERT_ADDRS at build). H user settings; H30 excluded (installer-only, expert).",
+  "non_expert_addrs": [1021, 1023, 1028, 1029, 1030, 1032, 1033, 1035, 1045, 1046, 1345],
   "_popular_comment": "Addrs enabled by default (merged into POPULAR_ADDRS at const load). Ungated H user settings: controller/mode/value selects, force-switch time, tank source, pump select.",
-  "popular_addrs": [1023, 1028, 1029, 1032, 1033, 1045, 1046, 1345]
+  "popular_addrs": [1023, 1028, 1029, 1030, 1032, 1033, 1045, 1046, 1345]
 }

@@ -208,8 +208,10 @@ def main():
         default = kd.get("default") if isinstance(kd, dict) else None
         # unit from rec
         unit = rec.get("unit")
-        # icon
+        # icon (per-address override wins over block default)
         icon = ICON_BY_BLOCK.get(block, "mdi:heat-pump")
+        if ov.get("icon"):
+            icon = ov["icon"]
         if risk == "dangerous":
             icon = "mdi:shield-alert"
         # value_map hint

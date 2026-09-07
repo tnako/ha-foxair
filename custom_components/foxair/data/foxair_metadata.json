@@ -1103,26 +1103,20 @@
     "editable": true,
     "platform": "select",
     "risk": "advanced",
-    "requires_expert": true,
+    "requires_expert": false,
     "type": "DIGI1",
     "unit": null,
     "min": 0,
     "max": 1,
     "step": 0.5,
     "default": null,
-    "icon": "mdi:chip",
+    "icon": "mdi:volume-off",
     "has_value_map": true,
     "depends_on": null,
     "name": "Silent-Modus aktivieren",
     "poll_tier": "rare",
     "min_firmware": null,
-    "format": null,
-    "alias_switch": {
-      "key": "silent_mode",
-      "on": 1,
-      "off": 0,
-      "icon": "mdi:volume-off"
-    }
+    "format": null
   },
   "1031": {
     "code": "A35",
