@@ -228,3 +228,25 @@ def test_validate_passes():
     assert result.returncode == 0, (
         f"validate.py failed:\nSTDOUT:\n{result.stdout}\nSTDERR:\n{result.stderr}"
     )
+
+
+def test_config_error_keys_covered():
+    cfgflow = (CC / "config_flow.py").read_text()
+    error_keys = set(re.findall(r'errors\["\w+"\]\s*=\s*"(\w+)"', cfgflow))
+    assert error_keys, "No error keys found in config_flow.py"
+    for lang in ("en", "de", "ru"):
+        path = CC / "translations" / f"{lang}.json"
+        data = json.loads(path.read_text())
+        errs = data.get("config", {}).get("error", {})
+        missing = error_keys - set(errs.keys())
+        assert not missing, (
+            f"translations/{lang}.json config.error missing keys: "
+            f"{sorted(missing)} (used in config_flow.py)"
+        )
+    # strings.json must also have config.error matching en
+    strings = json.loads((CC / "strings.json").read_text())
+    serrs = strings.get("config", {}).get("error", {})
+    missing_s = error_keys - set(serrs.keys())
+    assert not missing_s, (
+        f"strings.json config.error missing keys: {sorted(missing_s)}"
+    )

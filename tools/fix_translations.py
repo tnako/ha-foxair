@@ -13,7 +13,114 @@ en = load(BASE / "translations/en.json")
 de = load(BASE / "translations/de.json")
 ru = load(BASE / "translations/ru.json")
 
-# --- helpers ---
+CONFIG_TRANSLATIONS = {
+    "en": {
+        "step": {
+            "user": {
+                "title": "FoxAir Modbus Heat Pump",
+                "description": "Connect to FoxAir / PHNIX via Modbus TCP. {warn} {multi_pump}",
+                "data": {
+                    "host": "Host",
+                    "port": "Port",
+                    "slave": "Slave ID",
+                    "name_prefix": "Device prefix (e.g. foxair, phnix, house1)",
+                    "enable_expert": "Enable expert mode (advanced/dangerous parameters)"
+                }
+            },
+            "reconfigure": {
+                "title": "Reconfigure FoxAir Heat Pump",
+                "description": "Update connection settings for this pump. {warn}",
+                "data": {
+                    "host": "Host",
+                    "port": "Port",
+                    "slave": "Slave ID",
+                    "name_prefix": "Device prefix (e.g. foxair, phnix, house1)"
+                }
+            }
+        },
+        "abort": {
+            "already_configured": "Already configured"
+        },
+        "error": {
+            "already_configured": "This heat pump is already configured — check host, port and slave ID",
+            "cannot_connect": "Failed to connect — check host, port and slave ID",
+            "need_ack": "You must acknowledge the risk to enable expert mode",
+            "invalid_prefix": "Prefix must be lowercase alphanumeric with underscores, 1-32 characters",
+            "prefix_in_use": "This prefix is already used by another FoxAir entry — pick a unique one"
+        }
+    },
+    "ru": {
+        "step": {
+            "user": {
+                "title": "FoxAir Modbus Heat Pump",
+                "description": "Подключение к FoxAir / PHNIX по Modbus TCP. {warn} {multi_pump}",
+                "data": {
+                    "host": "Хост",
+                    "port": "Порт",
+                    "slave": "ID ведомого",
+                    "name_prefix": "Префикс устройства (например foxair, phnix, house1)",
+                    "enable_expert": "Включить экспертный режим (продвинутые / опасные параметры)"
+                }
+            },
+            "reconfigure": {
+                "title": "Перенастройка теплового насоса FoxAir",
+                "description": "Обновите параметры подключения этого насоса. {warn}",
+                "data": {
+                    "host": "Хост",
+                    "port": "Порт",
+                    "slave": "ID ведомого",
+                    "name_prefix": "Префикс устройства (например foxair, phnix, house1)"
+                }
+            }
+        },
+        "abort": {
+            "already_configured": "Уже настроен"
+        },
+        "error": {
+            "already_configured": "Этот тепловой насос уже настроен — проверьте хост, порт и ID ведомого",
+            "cannot_connect": "Не удалось подключиться — проверьте хост, порт и ID ведомого",
+            "need_ack": "Для включения экспертного режима нужно подтвердить риски",
+            "invalid_prefix": "Префикс должен содержать только строчные буквы, цифры и подчеркивание, 1-32 символа",
+            "prefix_in_use": "Этот префикс уже используется другой записью FoxAir — выберите уникальный"
+        }
+    },
+    "de": {
+        "step": {
+            "user": {
+                "title": "FoxAir Modbus Heat Pump",
+                "description": "Mit FoxAir / PHNIX über Modbus TCP verbinden. {warn} {multi_pump}",
+                "data": {
+                    "host": "Host",
+                    "port": "Port",
+                    "slave": "Slave-ID",
+                    "name_prefix": "Geräte-Prefix (z. B. foxair, phnix, haus1)",
+                    "enable_expert": "Expertenmodus aktivieren (erweiterte / gefährliche Parameter)"
+                }
+            },
+            "reconfigure": {
+                "title": "FoxAir-Wärmepumpe neu konfigurieren",
+                "description": "Verbindungseinstellungen dieser Pumpe aktualisieren. {warn}",
+                "data": {
+                    "host": "Host",
+                    "port": "Port",
+                    "slave": "Slave-ID",
+                    "name_prefix": "Geräte-Prefix (z. B. foxair, phnix, haus1)"
+                }
+            }
+        },
+        "abort": {
+            "already_configured": "Bereits konfiguriert"
+        },
+        "error": {
+            "already_configured": "Diese Wärmepumpe ist bereits konfiguriert — Host, Port und Slave-ID prüfen",
+            "cannot_connect": "Verbindung fehlgeschlagen — Host, Port und Slave-ID prüfen",
+            "need_ack": "Sie müssen das Risiko bestätigen, um den Expertenmodus zu aktivieren",
+            "invalid_prefix": "Prefix muss Kleinbuchstaben, Zahlen, Unterstrich, 1-32 Zeichen sein",
+            "prefix_in_use": "Dieser Prefix wird bereits von einem anderen FoxAir-Eintrag verwendet — wählen Sie einen eindeutigen"
+        }
+    }
+}
+
 def translate_block_to_en(german):
     """Translate Blockkopf German to English."""
     s = german
@@ -324,6 +431,10 @@ for addr_str, rec in regs.items():
         lang_data.setdefault("entity",{}).setdefault("sensor",{}).setdefault(f"foxair_{addr_str}", {})["state"] = states
 
 # Validate select state completeness: keep as is
+
+for lang, data in [("strings", strings), ("en", en), ("de", de), ("ru", ru)]:
+    cfg = CONFIG_TRANSLATIONS.get(lang, CONFIG_TRANSLATIONS["en"])
+    data["config"] = cfg
 
 # Save — sort keys numerically (foxair_2127 < foxair_2136 < foxair_50043) for deterministic diffs
 def _sort_key(k: str):

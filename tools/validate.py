@@ -3,8 +3,9 @@
 
 Checks: VERSION==manifest.json, translations CODE: prefix sanity (no double
 prefix; every tabs.txt code has a prefixed name in en/de/ru), python syntax,
-and full translation coverage (every visible register has en/de/ru entry,
-ru != en, no unknown poll_tier).
+full translation coverage (every visible register has en/de/ru entry,
+ru != en, no unknown poll_tier), config.error keys for every errors[] key
+used in config_flow.py.
 Usage: tools/validate.py [--strict]
   --strict: also fail on hidden-or-reserved ru==en (default: only visible)
 """
@@ -66,6 +67,16 @@ for lang in ("en", "de", "ru"):
     prefixed = {m.group(1) for n in names.values() if (m := re.match(r"^([A-Z]{1,2}\d{1,3}[a-z]?):", n))}
     if miss := sorted(codes - prefixed):
         errs.append(f"{lang}: tabs.txt codes w/o prefixed name: {', '.join(miss)}")
+
+_cfgflow = (CC / "config_flow.py").read_text()
+_form_error_keys = set(re.findall(r'errors\["\w+"\]\s*=\s*"(\w+)"', _cfgflow))
+for lang in ["strings", "en", "de", "ru"]:
+    _file = CC / "strings.json" if lang == "strings" else CC / "translations" / f"{lang}.json"
+    _fdata = json.loads(_file.read_text())
+    _cfg_err = _fdata.get("config", {}).get("error", {})
+    for ek in sorted(_form_error_keys):
+        if ek not in _cfg_err:
+            errs.append(f"{lang}: config.error missing key '{ek}' used in config_flow.py errors[]")
 
 # load metadata for coverage + poll_tier checks
 meta_path = CC / "data/foxair_metadata.json"

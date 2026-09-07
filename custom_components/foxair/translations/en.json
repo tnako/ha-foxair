@@ -27,6 +27,7 @@
       "already_configured": "Already configured"
     },
     "error": {
+      "already_configured": "This heat pump is already configured — check host, port and slave ID",
       "cannot_connect": "Failed to connect — check host, port and slave ID",
       "need_ack": "You must acknowledge the risk to enable expert mode",
       "invalid_prefix": "Prefix must be lowercase alphanumeric with underscores, 1-32 characters",

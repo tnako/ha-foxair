@@ -18,15 +18,16 @@
         "data": {
           "host": "Хост",
           "port": "Порт",
-          "slave": "Slave ID",
+          "slave": "ID ведомого",
           "name_prefix": "Префикс устройства (например foxair, phnix, house1)"
         }
       }
     },
     "abort": {
-      "already_configured": "Already configured"
+      "already_configured": "Уже настроен"
     },
     "error": {
+      "already_configured": "Этот тепловой насос уже настроен — проверьте хост, порт и ID ведомого",
       "cannot_connect": "Не удалось подключиться — проверьте хост, порт и ID ведомого",
       "need_ack": "Для включения экспертного режима нужно подтвердить риски",
       "invalid_prefix": "Префикс должен содержать только строчные буквы, цифры и подчеркивание, 1-32 символа",
