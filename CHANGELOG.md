@@ -1,4 +1,4 @@
-## 0.5.8 - 2026-09-07
+## 0.5.9 - 2026-09-07
 |- fix(i18n): duplicate heatpump error showed raw key "alread_" instead of translated text — `already_configured` was only under `config.abort` but `config_flow.py` uses it as a form error (`errors["base"]`), so HA looked for it under `config.error` and found nothing → displayed the raw key. Moved it to `config.error` in all 4 files and localized: ru "Этот тепловой насос уже настроен — проверьте хост, порт и ID ведомого", de "Diese Wärmepumpe ist bereits konfiguriert — Host, Port und Slave-ID prüfen". Also fixed English-only `config.abort.already_configured` in ru/de, and English `Slave ID` label in ru.de reconfigure step. Added config section to `fix_translations.py` and validation guard in `validate.py` + test to catch future regressions.
 
 ## 0.5.7 - 2026-09-06
