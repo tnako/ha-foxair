@@ -1095,11 +1095,13 @@
       },
       "2020": {
         "block": "O",
-        "tab": "O"
+        "tab": "O",
+        "icon": "mdi:valve"
       },
       "2022": {
         "block": "O",
-        "tab": "O"
+        "tab": "O",
+        "icon": "mdi:valve"
       }
     }
   },
