@@ -1083,6 +1083,18 @@
       },
       "1334": {
         "min_firmware": 33
+      },
+      "2019": {
+        "block": "O",
+        "tab": "O"
+      },
+      "2020": {
+        "block": "O",
+        "tab": "O"
+      },
+      "2022": {
+        "block": "O",
+        "tab": "O"
       }
     }
   },
@@ -1100,7 +1112,7 @@
   "alias_switch": {
   },
   "_non_expert_comment": "Expert-block addrs exposed in normal mode (merged into CORE_NON_EXPERT_ADDRS at build). H user settings; H30 excluded (installer-only, expert).",
-  "non_expert_addrs": [1021, 1023, 1028, 1029, 1030, 1032, 1033, 1035, 1045, 1046, 1345],
+  "non_expert_addrs": [1021, 1023, 1028, 1029, 1030, 1032, 1033, 1035, 1045, 1046, 1345, 1031, 1038, 1043, 1047, 1049, 1050, 1056, 1057, 1063, 1064, 1069, 1071, 1073, 1077, 1080, 1082, 1084, 1107, 1122, 1124, 1129, 1134, 1135, 1136, 1152, 1153, 1154, 1155, 1156, 1197, 1201, 1202, 1203, 1357, 1358],
   "_popular_comment": "Addrs enabled by default (merged into POPULAR_ADDRS at const load). Ungated H user settings: controller/mode/value selects, force-switch time, tank source, pump select.",
-  "popular_addrs": [1023, 1028, 1029, 1030, 1032, 1033, 1045, 1046, 1345]
+  "popular_addrs": [1023, 1028, 1029, 1030, 1032, 1033, 1045, 1046, 1345, 1031, 1038, 1043, 1047, 1049, 1050, 1056, 1057, 1063, 1064, 1069, 1071, 1073, 1077, 1080, 1082, 1084, 1107, 1122, 1124, 1129, 1134, 1135, 1136, 1152, 1153, 1154, 1155, 1156, 1197, 1201, 1202, 1203, 1357, 1358, 2020, 2022]
 }

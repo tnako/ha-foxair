@@ -1,3 +1,6 @@
+## 0.6.2 - 2026-09-08
+- feat(normal-mode): expert tabs A/D/P/G/Z partially visible without expert mode — all setpoints and user-facing settings from the app's Common pages are now normal-mode: A antifreeze/limits (A04/A23/A27/A28/A31-A35), D defrost (D03/D17/D19/D24/D26), R full tab (R01-R07/R16/R17/R35/R70-R74), P pump (P01/P05/P06/P09), G disinfection (G01-G05), Z zone (Z01/Z03/Z05/Z08-Z10/Z14-Z17/Z19/Z20); config-driven via non_expert_addrs + popular_addrs (registry re-enables integration-disabled rows)
+- feat(outputs): O load outputs (O01-O13, EEV O15/O17) routed to their own FoxAir Outputs [O] device and visible in normal mode (was expert-only main-device bits); 2019/2020/2022 block=O
 ## 0.6.1 - 2026-09-07
 - fix(h22): H22 (Silent Mode) showed as an electric-chip icon and, when an alias_switch was configured, a duplicate switch entity appeared alongside the raw select — the alias_switch for 1030 is removed; the plain select (Silent-Modus aus/ein) is now the single H22 face in all modes with icon mdi:volume-off
 - fix(h22): H22 was expert-only and excluded from normal-mode polling, leaving the alias switch state unknown; 1030 now polled in normal mode (non_expert_addrs) and ungated

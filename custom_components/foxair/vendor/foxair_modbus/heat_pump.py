@@ -41,7 +41,7 @@ class FoxAir(Component):
     reg_1042 = integer(1042, signed=True, writable=True)  # A11 DIGI1
     reg_1043 = gauge(1043, 0.1, writable=True)  # A23 TEMP1 Min. Auslasswassertemperatur schutz
     reg_1044 = gauge(1044, 0.1, writable=True)  # A24 TEMP1 Übermäßige Temperaturdifferenz zwischen Einlass- und Auslasswasser
-    reg_1045 = integer(1045, signed=True, writable=True)  # H32 DIGI1
+    reg_1045 = gauge(1045, 1.0, writable=True, unit="min")  # H32 MINUTES
     reg_1046 = integer(1046, signed=True, writable=True)  # H37 DIGI1
     reg_1047 = integer(1047, signed=True, writable=True)  # D26 DIGI1
     reg_1048 = gauge(1048, 1.0, writable=True)  #  RAW
@@ -77,18 +77,18 @@ class FoxAir(Component):
     reg_1078 = gauge(1078, 1.0, writable=True)  #  RAW
     reg_1079 = gauge(1079, 1.0, writable=True)  #  RAW
     reg_1080 = gauge(1080, 1.0, writable=True, unit="%")  # Z08 PERCENT
-    reg_1081 = integer(1081, signed=True, writable=True)  # F18 DIGI1
+    reg_1081 = gauge(1081, 1.0, writable=True, unit="rpm")  # F18 RPM
     reg_1082 = gauge(1082, 1.0, writable=True, unit="s")  # Z09 SECONDS
-    reg_1083 = integer(1083, signed=True, writable=True)  # F19 DIGI1
+    reg_1083 = gauge(1083, 1.0, writable=True, unit="rpm")  # F19 RPM
     reg_1084 = gauge(1084, 1.0, writable=True, unit="s")  # Z10 SECONDS
     reg_1085 = gauge(1085, 0.1, writable=True)  # Z11 DIGI5 Mischventil Regelung P-Anteil (PID)
     reg_1086 = integer(1086, signed=True, writable=True)  # F21 DIGI1
     reg_1087 = integer(1087, signed=True, writable=True)  # F22 DIGI1
     reg_1088 = gauge(1088, 0.1, writable=True)  # Z12 DIGI5 Mischventil Regelung I-Anteil (PID)
-    reg_1089 = integer(1089, signed=True, writable=True)  # F23 DIGI1
+    reg_1089 = gauge(1089, 1.0, writable=True, unit="rpm")  # F23 RPM
     reg_1090 = gauge(1090, 1.0, writable=True, unit="min")  # Z13 MINUTES
-    reg_1101 = gauge(1101, 0.1, writable=True)  # F28 TEMP1 Verdampfertemperatur des Einzel-/Doppellüfterschalters im Kühlbetrieb
-    reg_1102 = gauge(1102, 0.1, writable=True)  # F29 TEMP1 Verdampfertemperatur des Einzellüfterstopps im Kühlbetrieb
+    reg_1101 = gauge(1101, 0.1, writable=True, unit="°C")  # F28 TEMP1 Verdampfertemperatur des Einzel-/Doppellüfterschalters im Kühlbetrieb
+    reg_1102 = gauge(1102, 0.1, writable=True, unit="°C")  # F29 TEMP1 Verdampfertemperatur des Einzellüfterstopps im Kühlbetrieb
     reg_1103 = gauge(1103, 1.0, writable=True, unit="rpm")  # F25 RPM
     reg_1104 = gauge(1104, 1.0, writable=True, unit="rpm")  # F26 RPM
     reg_1105 = gauge(1105, 0.1, writable=True)  # D01 TEMP1 Umgebungstemperatur des Start-Abtauens
@@ -219,11 +219,11 @@ class FoxAir(Component):
     reg_1241 = gauge(1241, 0.1, writable=True, unit="°C")  # R72 TEMP1 Raumtemperaturdifferenz für Standby im Heizbetrieb
     reg_1242 = gauge(1242, 0.1, writable=True, unit="°C")  # R73 TEMP1 Raumtemperaturdifferenz zum Einschalten im Kühlbetrieb
     reg_1243 = gauge(1243, 0.1, writable=True, unit="°C")  # R74 TEMP1 Raumtemperaturdifferenz für Standby im Kühlbetrieb
-    reg_1244 = integer(1244, signed=True, writable=True)  #  DIGI1
-    reg_1245 = integer(1245, signed=True, writable=True)  #  DIGI1
+    reg_1244 = integer(1244, signed=True, writable=True)  #  SWITCH
+    reg_1245 = integer(1245, signed=True, writable=True)  #  TIME_SPLIT
     reg_1246 = integer(1246, signed=True, writable=True)  #  DIGI1
-    reg_1247 = integer(1247, signed=True, writable=True)  #  DIGI1
-    reg_1248 = integer(1248, signed=True, writable=True)  #  DIGI1
+    reg_1247 = integer(1247, signed=True, writable=True)  #  SWITCH
+    reg_1248 = integer(1248, signed=True, writable=True)  #  TIME_SPLIT
     reg_1249 = integer(1249, signed=True, writable=True)  #  DIGI1
     reg_1250 = integer(1250, signed=True, writable=True)  #  DIGI1
     reg_1251 = integer(1251, signed=True, writable=True)  #  DIGI1
@@ -291,12 +291,12 @@ class FoxAir(Component):
     reg_1323 = integer(1323, signed=True, writable=True)  #  TIMER_BITPAIR
     reg_1324 = integer(1324, signed=True, writable=True)  #  TIMER_BITPAIR
     reg_1325 = integer(1325, signed=True, writable=True)  #  TIMER_BITPAIR
-    reg_1326 = gauge(1326, 1.0, writable=True)  #  RAW
-    reg_1327 = gauge(1327, 1.0, writable=True)  #  RAW
-    reg_1328 = gauge(1328, 1.0, writable=True)  #  RAW
-    reg_1329 = gauge(1329, 1.0, writable=True)  #  RAW
-    reg_1330 = gauge(1330, 1.0, writable=True)  #  RAW
-    reg_1331 = gauge(1331, 1.0, writable=True)  #  RAW
+    reg_1326 = integer(1326, signed=True, writable=True)  #  TIME_DECIMAL
+    reg_1327 = integer(1327, signed=True, writable=True)  #  TIME_DECIMAL
+    reg_1328 = integer(1328, signed=True, writable=True)  #  TIME_DECIMAL
+    reg_1329 = integer(1329, signed=True, writable=True)  #  TIME_DECIMAL
+    reg_1330 = integer(1330, signed=True, writable=True)  #  TIME_DECIMAL
+    reg_1331 = integer(1331, signed=True, writable=True)  #  TIME_DECIMAL
     reg_1332 = gauge(1332, 1.0, writable=True)  #  RAW
     reg_1333 = gauge(1333, 1.0, writable=True)  #  RAW
     reg_1334 = integer(1334, signed=True, writable=True)  # SG01 SG_MODE
@@ -321,7 +321,7 @@ class FoxAir(Component):
     reg_1353 = gauge(1353, 1.0, writable=True)  #  RAW
     reg_1354 = gauge(1354, 1.0, writable=True)  #  RAW
     reg_1355 = gauge(1355, 1.0, writable=True)  #  RAW
-    reg_1356 = gauge(1356, 0.1, writable=True, unit="°C")  # H42 TEMP1 H42 Einschalt-AT Gehaeusewannenheizung (D30/1437 erst wirksam, wenn AT kleiner H42 ist)
+    reg_1356 = gauge(1356, 0.1, writable=True, unit="°C")  # H42 TEMP1 Einschalt-AT Gehaeusewannenheizung (D30/1437 erst wirksam, wenn AT kleiner H42 ist)
     reg_1357 = gauge(1357, 0.1, writable=True, unit="K")  # Z19 TEMP1 Differenz: Keine Pumpe Ein bei niedriger Wassertemperatur
     reg_1358 = integer(1358, signed=True, writable=True)  # Z20 DIGI1
     reg_1371 = gauge(1371, 1.0, writable=True)  #  RAW
@@ -481,12 +481,9 @@ class FoxAir(Component):
         """Compat shim: return {addr: {raw, value, info}} like old coordinator.data."""
         out = {}
         for name, field in self.declared_fields.items():
-            if not name.startswith('reg_'):
-                continue
-            try:
-                addr=int(name.split('_')[1])
-            except Exception:
-                continue
+            if not name.startswith('reg_'): continue
+            try: addr=int(name.split('_')[1])
+            except Exception: continue
             val=getattr(self, name, None)
             # raw words not directly exposed; use value for both (compat: raw==value for scaled? keep value)
             # For diagnostics we store value as both raw/value; caller can read .value

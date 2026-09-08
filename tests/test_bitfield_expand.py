@@ -128,8 +128,8 @@ def test_reserved_bits_skipped():
 
 def test_expansion_counts_and_expert_gating():
     plain = _setup(expert=False)
-    assert len(plain) == 80  # 95 total minus 15 expert-only O bits
-    assert not any(e._addr == 2019 for e in plain)
+    assert len(plain) == 95  # O bits (2019) are non-expert on the Outputs device
+    assert sum(1 for e in plain if e._addr == 2019) == 15
     expert = _setup(expert=True)
     assert len(expert) == 95
     assert sum(1 for e in expert if e._addr == 2019) == 15
@@ -197,7 +197,7 @@ def test_bits_routed_to_sub_devices_and_polled():
     err = ents["foxair_2081_bit0"]
     assert ("foxair", "eid_ERR") in err._attr_device_info["identifiers"]
     o = ents["foxair_2019_bit0"]
-    assert ("foxair", "eid") in o._attr_device_info["identifiers"]  # O stays main (expert)
+    assert ("foxair", "eid_O") in o._attr_device_info["identifiers"]  # Outputs device
     for addr in ("2034", "2081", "2019"):
         assert META[addr]["poll_tier"] in ("rare", "medium")  # in the poll loop
         assert META[addr]["poll_tier"] == "rare"
