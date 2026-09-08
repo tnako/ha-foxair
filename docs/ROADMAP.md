@@ -1,6 +1,6 @@
 # Roadmap
 
-**Current:** `0.6.x` (`0.6.1`) — HA **≥2026.3** via `pymodbus>=3.6.0` (single `AsyncModbusTcpClient`, `coordinator._lock`, tiered polling `quick 30 s` / `medium 120 s` / `rare 300-600 s`, batched `max_span=45`/`max_gap=8`).
+**Current:** `0.6.x` (`0.6.1`) — HA **≥2026.3** via `pymodbus>=3.6.0` (single `AsyncModbusTcpClient`, `coordinator._lock`, tiered polling `quick 30 s` / `medium 120 s` / `rare 300-600 s`, batched `max_span=100`/`max_gap=30` (config-driven)).
 
 **Next:** `0.6.x` maintenance — register syncs, i18n, bugfixes, HA ≥2026.3 stays.
 

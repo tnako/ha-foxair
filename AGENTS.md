@@ -58,6 +58,52 @@ files for register questions. One-shot recipes instead of exploratory loops:
 Budget: ≤10 tool calls for a "why is entity X shown/broken" diagnosis; if more,
 you skipped the metadata one-shot and are grepping blind.
 
+## Session bootstrap — run these FIRST, batched (saves ~20 exploratory calls)
+Do these three things in ONE terminal call before any investigation:
+```bash
+cd ha-foxair && git status --short && git log --oneline -3   # tree + pending changes
+cat VERSION custom_components/foxair/manifest.json | grep -i version
+python3 tools/validate.py 2>&1 | tail -2                     # gate status
+```
+Then, for ANY visibility/gating/polling question, run ONE python script (not a
+series of one-liners) that loads both JSONs once and answers everything:
+```python
+import json
+meta = json.load(open('custom_components/foxair/data/foxair_metadata.json'))
+cfg  = json.load(open('custom_components/foxair/data/foxair_config.json'))
+ne, po = set(cfg['non_expert_addrs']), set(cfg['popular_addrs'])
+# per-code lookup, expert/hidden/tier/popular in one table:
+bycode = {m['code']: (a, m) for a, m in meta.items() if m.get('code')}
+# batch count for first refresh (span/gap from cfg['modbus']):
+dead = {a for lo, hi in cfg['dead_ranges'] for a in range(lo, hi + 1)}
+def tier(t, expert=False):
+    return {int(k) for k, v in meta.items() if v.get('poll_tier') == t and k.isdigit()
+            and v.get('risk') != 'blocked' and not v.get('hidden')
+            and int(k) not in dead and int(k) < 50000
+            and (expert or not v.get('requires_expert'))}
+```
+This mirrors `coordinator._tier_addrs` + `_batches_for_addrs` exactly — trust it
+instead of re-reading coordinator.py.
+
+## Live-HA verification — ONE batched pull, never per-entity probes
+`ha_list_entities()` returns ALL entities (~1400). Do NOT call it repeatedly:
+pull it once, save the JSON to disk, then regex-filter locally (by entity_id
+suffix or friendly_name code) in python. For 50+ code checks, one filter pass
+over the saved file beats 50 `ha_get_state` calls. For register-level audits
+use `tools/check_regs.py` (does exactly this against the live API).
+Entity naming on the host is code-suffix based (`..._a_antifreeze_temp_a04`),
+NOT `foxair_<addr>` — regex the trailing `_[A-Z]\d+$` / `[code]` suffix.
+
+## Editing mechanics (agent tooling, not repo)
+- Use the `patch` TOOL (old_string/new_string), never `patch <<'EOF'` heredocs
+  in terminal — heredoc patches fail with "can't find a patch". For multi-spot
+  mechanical edits (JSON arrays), a small python rewrite script is fine, then
+  re-validate + `git diff --stat` to confirm the diff is minimal (a full-file
+  reindent diff means the rewrite clobbered formatting — `git checkout` the
+  file and redo with string replace).
+- Batch independent info-gathering (git status + version + validate) into one
+  terminal call; never one command per call for read-only recon.
+
 ## Critical Invariants (validate.py enforces)
 |- `VERSION` == `manifest.json.version` == `README.md` version badge (`![Version](...version-X.Y.Z-blue)`)
 |- Every code in `modbus/tabs.txt` has `CODE: Name` prefix in **all three** translation files
@@ -77,7 +123,7 @@ you skipped the metadata one-shot and are grepping blind.
 ## Modbus Architecture (0.4.x)
 - Own `pymodbus.AsyncModbusTcpClient` (single socket, serialized under `coordinator._lock`).
   `modbus_connection` was tried and REVERTED (0.4.10) — EW11 `extra data` breaks it.
-- Batches built from `foxair_metadata.json` poll tiers; `max_span=45`, `max_gap=8`,
+- Batches built from `foxair_metadata.json` poll tiers; `max_span=100`, `max_gap=30` (foxair_config.json `modbus.*`, read by coordinator at load — not hardcoded),
   split around `dead_ranges` (EW11 gateway limits).
 - Visibility model per register in metadata: `risk` (safe/advanced/dangerous/blocked),
   `requires_expert` (expert-mode gated), `hidden` (NEVER shown/polled — reserved/system).
@@ -97,8 +143,7 @@ you skipped the metadata one-shot and are grepping blind.
 Edit `modbus/tabs.txt` → regen vendor → validate
 
 ## Pre-Release Testing (BEFORE version bump)
-Main branch is protected — **never commit directly to main**. The full
-pre-release gate is:
+The full pre-release gate is:
 
 ```bash
 tools/pre_release_check.sh          # orchestrates all checks below
@@ -146,7 +191,7 @@ BITFIELD-REG + NON-HOLDING (no per-code entity by design: O/S blocks = regs
 - Skip `validate.py` after edits (it also enforces no absolute paths / no hardcoded hosts)
 - Change `entity_id` (stable IDs required — only friendly names reorder)
 - Commit generated vendor code without running validate
-- Commit absolute local paths (`/Users/...`, `/home/...`), hardcoded IPs, or `HA_HOST=<value>` / `root@<host>` — use `HA_HOST` from `.env` (see `.env.example`; `validate.py` + CI block this) <!-- secrets:allow -->
+- Commit local paths, IPs, or literal host/credential values — use `HA_HOST` from `.env` (see `.env.example`; `validate.py` + CI block this)
 
 ## Related Repos
 - sibling `modbus` repo — Go test client + `tabs.txt` mirror (private, not in this repo)
