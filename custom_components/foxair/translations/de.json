@@ -1385,13 +1385,13 @@
         "name": "001 bis 023 / Lastausgänge Bitfeld (vollständig decodiert)"
       },
       "foxair_2020": {
-        "name": "015 / EEV-Schritte"
+        "name": "EEV-Schritte"
       },
       "foxair_2021": {
         "name": "Reserviert"
       },
       "foxair_2022": {
-        "name": "017 / EVI EEV-Schritte"
+        "name": "EVI-EEV-Schritte"
       },
       "foxair_2023": {
         "name": "Anzahl Verdichter-Starts"

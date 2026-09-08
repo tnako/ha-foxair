@@ -1385,13 +1385,13 @@
         "name": "001-023 / Load Outputs Bitfield (fully decoded)"
       },
       "foxair_2020": {
-        "name": "015 / EEV Steps"
+        "name": "EEV Steps"
       },
       "foxair_2021": {
         "name": "2021: Reserved"
       },
       "foxair_2022": {
-        "name": "017 / EVI EEV Steps"
+        "name": "EVI EEV Steps"
       },
       "foxair_2023": {
         "name": "Number of Compressor Starts"
