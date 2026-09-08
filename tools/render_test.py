@@ -154,14 +154,18 @@ def make_data(at_live, after=None, h36=1, slope=0.6, offset=37.0):
     data[1164] = {"value": 20.0}
     data[1165] = {"value": 60.0}
     data[1158] = {"value": 35.0}
+    data[1160] = {"value": 3.0}  # R04 start hysteresis
+    data[1161] = {"value": 2.0}  # R05 stop hysteresis
     return data
 
 EN_TL = {
     "name": "Heating Curve",
     "legend_curve": "Curve target",
     "legend_fixed": "Fixed setpoint",
-    "legend_after": "After compensation",
     "legend_live": "Live outdoor",
+    "legend_heat": "Heating range (R04-R05)",
+    "legend_start": "Start heating",
+    "legend_stop": "Stop heating",
     "legend_band": "Limit band (R10–R11)",
     "mode_curve": "AT compensation (curve)",
     "mode_fixed": "Constant (fixed)",
@@ -175,8 +179,10 @@ RU_TL = {
     "name": "Кривая отопления",
     "legend_curve": "Цель кривой",
     "legend_fixed": "Фикс. уставка",
-    "legend_after": "После компенсации",
     "legend_live": "Тек. AT",
+    "legend_heat": "Зона нагрева (R04-R05)",
+    "legend_start": "Старт нагрева",
+    "legend_stop": "Стоп нагрева",
     "legend_band": "Диапазон (R10–R11)",
     "mode_curve": "AT-компенсация (кривая)",
     "mode_fixed": "Константа (фикс.)",
@@ -190,8 +196,10 @@ DE_TL = {
     "name": "Heizkurve",
     "legend_curve": "Kurvenziel",
     "legend_fixed": "Fester Sollwert",
-    "legend_after": "Nach Kompensation",
     "legend_live": "Live-Außen",
+    "legend_heat": "Heizbereich (R04-R05)",
+    "legend_start": "Heizstart",
+    "legend_stop": "Heizstopp",
     "legend_band": "Grenzband (R10–R11)",
     "mode_curve": "AT-Kompensation (Kurve)",
     "mode_fixed": "Konstant (fest)",
@@ -212,7 +220,7 @@ TEST_CASES = [
 
 LANGS = [("ENGLISH", EN_TL), ("RUSSIAN", RU_TL), ("GERMAN", DE_TL)]
 
-W, H = 1200, 720
+W, H = 1200, 760
 all_ok = True
 
 for lang_name, tl in LANGS:
@@ -244,7 +252,7 @@ for lang_name, tl in LANGS:
             continue
 
         # 3. All legend labels present
-        for key in ["legend_curve", "legend_fixed", "legend_after", "legend_live"]:
+        for key in ["legend_curve", "legend_fixed", "legend_heat", "legend_live"]:
             tl_val = tl.get(key, "")
             fb_val = img._TL_FALLBACK.get(key, "")
             found = tl_val in svg or fb_val in svg
@@ -252,8 +260,34 @@ for lang_name, tl in LANGS:
                 print(f"  FAIL [{test_name}]: missing legend key '{key}'")
                 all_ok = False
 
-        # 4. No legend overlap (same y-level, overlapping x-ranges)
-        legend_texts = [(float(x), float(y), txt) for x, y, txt in texts if float(y) > 560]
+        # 3b. Violet after-comp dot is gone (single-dot design)
+        if "#a78bfa" in svg:
+            print(f"  FAIL [{test_name}]: violet after-comp color still present")
+            all_ok = False
+        live_dots = re.findall(r'<circle[^>]*r="7"[^>]*>', svg)
+        if len(live_dots) != 1:
+            print(f"  FAIL [{test_name}]: expected exactly 1 live dot (r=7), got {len(live_dots)}")
+            all_ok = False
+        # 3c. Hysteresis band: 2 sub-band polygons + 2 dashed boundaries
+        if svg.count("<polygon") < 2:
+            print(f"  FAIL [{test_name}]: expected >=2 hysteresis band polygons")
+            all_ok = False
+        if 'stroke-dasharray="7 5"' not in svg:
+            print(f"  FAIL [{test_name}]: no dashed hysteresis boundaries")
+            all_ok = False
+        # 3d. Threshold markers: dotted-outline circles + start/stop temps
+        thr_markers = re.findall(r'<circle[^>]*stroke-dasharray="3 3"[^>]*>', svg)
+        if len(thr_markers) != 2:
+            print(f"  FAIL [{test_name}]: expected 2 dotted threshold markers, got {len(thr_markers)}")
+            all_ok = False
+        for key in ["legend_start", "legend_stop"]:
+            if tl.get(key, "") not in svg:
+                print(f"  FAIL [{test_name}]: missing threshold label '{key}'")
+                all_ok = False
+
+        # 4. No legend overlap (same y-level, overlapping x-ranges).
+        # Only the legend box counts (y>590): in-plot pills live above it.
+        legend_texts = [(float(x), float(y), txt) for x, y, txt in texts if float(y) > 590]
         rows = {}
         for x, y, txt in legend_texts:
             yr = round(y)
@@ -277,47 +311,51 @@ for lang_name, tl in LANGS:
             print(f"  FAIL [{test_name}]: no polyline")
             all_ok = False
 
-        # 5b. Verify marker-to-text gap is 1px and inter-item spacing is 30px.
-        # Legend markers: lines at y=584, circles (r=6) at cy=584, labels at y=590.
-        # Gap = text_x - (marker_right_edge), must be exactly 1.
-        # Inter-item = next_start_x - (prev_text_right_edge), must be exactly 30.
-        circles = re.findall(r'<circle cx="([\d.]+)" cy="([\d.]+)" r="6"', svg)
-        lines = re.findall(r'<line x1="([\d.]+)" y1="584" x2="([\d.]+)" y2="584"', svg)
-        legend_circles = [(float(cx), float(cy)) for cx, cy in circles if abs(float(cy) - 584) < 2]
-        legend_lines = [(float(x1), float(x2)) for x1, x2 in lines]
-        # Build marker list: (left_x, right_x)
-        markers = sorted(
-            [(x1, x2) for x1, x2 in legend_lines] +
-            [(cx - 6, cx + 6) for cx, _ in legend_circles]
-        )
-        # Legend text labels at y=590
-        label_texts = [(float(x), txt) for x, y, txt in texts if abs(float(y) - 590) < 2 and txt.strip()]
-        label_texts.sort(key=lambda t: t[0])
-        # Check marker-to-text gap = 1px for each item
-        for i, (m_left, m_right) in enumerate(markers):
-            if i < len(label_texts):
-                txt_x, txt = label_texts[i]
-                gap = txt_x - m_right
-                if abs(gap - 1) > 0.5:
-                    print(f"  FAIL [{test_name}]: legend gap={gap:.1f} (expected 1px) for '{txt[:20]}'")
+        # 5b. Legend grid geometry: fixed 2x2 columns.
+        # pad_l=90 -> col1=106, plot_w=1060 -> col2=636; labels start at
+        # col+SWATCH_W(26)+GAP(8) = 140 / 670. Any other label x = drift bug.
+        full_texts = re.findall(r'<text[^>]*x="([\d.]+)"[^>]*y="([\d.]+)"[^>]*font-size="(\d+)"[^>]*>([^<]*)</text>', svg)
+        for x, y, fs, txt in full_texts:
+            # legend item rows only (622/650); the summary line (676) is free
+            if 590 < float(y) < 665 and fs == "15" and txt.strip():
+                if min(abs(float(x) - 140), abs(float(x) - 670)) > 1.5:
+                    print(f"  FAIL [{test_name}]: legend label off-grid x={x} '{txt[:20]}'")
                     all_ok = False
 
-        # 5c. Legend marker types: need >=2 solid/dashed lines (curve, fixed)
-        #     and >=2 dots (r=6 at cy=584: after-compensation, live)
+        # 5c. Legend marker types: >=2 line swatches (curve, fixed),
+        #     1 live dot (r=6, solid) + 2 band-swatch rects (26x7, dashed edge).
+        legend_lines = re.findall(r'<line x1="([\d.]+)" y1="([\d.]+)" x2="([\d.]+)" y2="([\d.]+)"[^>]*stroke-width="4"', svg)
+        legend_lines = [(float(x1), float(y1)) for x1, y1, x2, y2 in legend_lines if float(y1) > 590]
+        legend_dots = []
+        for m in re.findall(r'<circle[^>]*>', svg):
+            if 'r="6"' in m and 'stroke-dasharray' not in m:
+                _cy = re.search(r'cy="([\d.]+)"', m)
+                if _cy and float(_cy.group(1)) > 590:
+                    legend_dots.append(m)
+        band_rects = re.findall(r'<rect x="([\d.]+)" y="([\d.]+)" width="26" height="7"', svg)
+
+        # (marker counts already collected in 5b/5c above)
         if len(legend_lines) < 2:
             print(f"  FAIL [{test_name}]: expected >=2 legend line-swatch markers, got {len(legend_lines)}")
             all_ok = False
-        if len(legend_circles) < 2:
-            print(f"  FAIL [{test_name}]: expected >=2 legend dot markers (r=6), got {len(legend_circles)}")
+        if len(legend_dots) < 1:
+            print(f"  FAIL [{test_name}]: expected >=1 legend dot marker (r=6), got {len(legend_dots)}")
+            all_ok = False
+        if len(band_rects) < 2:
+            print(f"  FAIL [{test_name}]: expected 2 band-swatch rects (26x7), got {len(band_rects)}")
             all_ok = False
 
         # 5d. Dotted connector lines from live AT to chart (when H36 is enabled)
         if h36 == 1 and at_live is not None and "stroke-dasharray=\"6 4\"" not in svg:
             print(f"  FAIL [{test_name}]: no dotted connector lines for live labels")
             all_ok = False
-        shadow_count = svg.count('filter="url(#ts)"')
-        if shadow_count < 12:
-            print(f"  FAIL [{test_name}]: only {shadow_count} text elements have shadow (need >=12)")
+        # vector-crisp: no raster filters (they blur on phone GPUs when the
+        # image scales down); floating labels use a paint-order halo instead
+        if "feDropShadow" in svg or "url(#ts)" in svg:
+            print(f"  FAIL [{test_name}]: raster drop-shadow filter present (blurs on mobile)")
+            all_ok = False
+        if "paint-order" not in svg:
+            print(f"  FAIL [{test_name}]: no paint-order halo on floating labels")
             all_ok = False
 
         # 7. Font sizes are large enough for small screens (min 13 for any text)
@@ -326,6 +364,55 @@ for lang_name, tl in LANGS:
         if small_fonts:
             print(f"  FAIL [{test_name}]: font-size below 13: {small_fonts}")
             all_ok = False
+
+        # 8. Full-canvas text overlap across hysteresis extremes (R04/R05 shape
+        #    the band + threshold pills; tight/wide/asymmetric combos must never
+        #    collide and nothing may leave the 1200x760 canvas). Rotated axis
+        #    titles are excluded (their visual box is vertical, not horizontal).
+        for r04v, r05v in [(0.5, 0.5), (0.2, 4.0), (10.0, 10.0)]:
+            coord_v = FakeCoord(make_data(at_live, after, h36))
+            coord_v.data[1160] = {"value": r04v}
+            coord_v.data[1161] = {"value": r05v}
+            obj_v = img.FoxAirHeatingCurveImage(coord_v, "test")
+            obj_v.hass = FHass()
+            obj_v._tl = {**img._TL_FALLBACK, **tl}
+            obj_v._render()
+            svg_v = obj_v._image_bytes.decode("utf-8")
+            vtags = [t for t in re.findall(r'(<text[^>]*>[^<]*</text>)', svg_v)
+                     if 'rotate' not in t]
+            vboxes = []
+            for vtag in vtags:
+                vm = re.search(r'x="([\d.]+)".*?y="([\d.]+)".*?font-size="(\d+)"', vtag)
+                vtm = re.search(r'>([^<]*)</text>', vtag)
+                if vm is None or vtm is None:
+                    continue
+                vt = vtm.group(1)
+                # same script-aware width as image.py _text_w (cyrillic wider)
+                _vfac = 0.72 if any("Ѐ" <= _c <= "џ" for _c in vt) else 0.62
+                vx, vy, vfs = float(vm.group(1)), float(vm.group(2)), int(vm.group(3))
+                if vx < -50 or vx > 1250 or vy < -20 or vy > 780:
+                    print(f"  FAIL [{test_name} R04={r04v} R05={r05v}]: out-of-window '{vt}' at {vx},{vy}")
+                    all_ok = False
+                vboxes.append((vx, vy, len(vt) * vfs * _vfac, vt, vtag))
+            for vi in range(len(vboxes)):
+                for vj in range(vi + 1, len(vboxes)):
+                    vx1, vy1, vw1, vt1, va1 = vboxes[vi]
+                    vx2, vy2, vw2, vt2, va2 = vboxes[vj]
+                    if abs(vy1 - vy2) > 12:
+                        continue
+
+                    def _span(wx, ww, wtag):
+                        if 'text-anchor="middle"' in wtag:
+                            return (wx - ww / 2, wx + ww / 2)
+                        if 'text-anchor="end"' in wtag:
+                            return (wx - ww, wx)
+                        return (wx, wx + ww)
+
+                    vl1, vr1 = _span(vx1, vw1, va1)
+                    vl2, vr2 = _span(vx2, vw2, va2)
+                    if vl1 < vr2 - 2 and vl2 < vr1 - 2:
+                        print(f"  FAIL [{test_name} R04={r04v} R05={r05v}]: overlap '{vt1}' vs '{vt2}'")
+                        all_ok = False
 
         print(f"  OK [{test_name}]")
 

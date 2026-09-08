@@ -7,9 +7,12 @@ or the live outdoor temp updates the picture, but unrelated polls don't.
 
 All user-visible text is pulled from HA translations (entity.image.
 foxair_heating_curve.*) so it follows the UI language; English is the
-fallback. The layout avoids in-plot floating labels (the historical overlap
-source) and uses a single bottom legend strip with color swatches that
-clearly separates the VARIABLE curve target from the CONSTANT fixed setpoint.
+fallback. A single live dot sits exactly on the active target (no duplicate
+device/computed dots). Around the target a two-tone hysteresis band shows
+the R04 start-heating side (green tint, dashed lower boundary) and the R05
+idle/stop side (slate tint, dashed upper boundary); at the live outdoor
+temperature dotted-outline markers give both threshold temps. The bottom
+legend is a fixed 2x2 grid (no flowing layout, no overlaps).
 
 Mode (driven by H36 / register 1236):
   * H36 = 1  -> AT-compensation (curve) mode:
@@ -42,9 +45,11 @@ _TL_FALLBACK = {
     "name": "Heating Curve",
     "legend_curve": "Curve target",
     "legend_fixed": "Fixed setpoint",
-    "legend_after": "After compensation",
     "legend_live": "Live outdoor",
     "legend_band": "Limit band",
+    "legend_heat": "Heating range (R04-R05)",
+    "legend_start": "Start heating",
+    "legend_stop": "Stop heating",
     "mode_curve": "AT compensation (curve)",
     "mode_fixed": "Constant (fixed)",
     "wait": "Waiting for data",
@@ -211,15 +216,18 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
         fixed = val(sta.get("heating_target"), None)
         h36 = raw(hca.get("at_comp_en"))
         at_live = val(hca.get("at_sensor"), None)
-        after = val(hca.get("live_target"), None)
         r10 = val(hca.get("r10_min"), None)
         r11 = val(hca.get("r11_max"), None)
+        # Heating hysteresis (R04 start / R05 stop); marker keys are optional,
+        # fall back to the fixed register addrs so the band works regardless.
+        r04 = val(hca.get("r04_start") or 1160, None)
+        r05 = val(hca.get("r05_stop") or 1161, None)
 
         ready = (slope is not None) and (offset is not None) and (fixed is not None)
         return {
             "slope": slope, "offset": offset, "fixed": fixed,
-            "h36": h36, "at_live": at_live, "after": after,
-            "r10": r10, "r11": r11, "ready": ready,
+            "h36": h36, "at_live": at_live,
+            "r10": r10, "r11": r11, "r04": r04, "r05": r05, "ready": ready,
         }
 
     def _handle_coordinator_update(self) -> None:
@@ -232,9 +240,9 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
 
     # -- rendering ---------------------------------------------------
     def _render(self):
-        W, H = 1200, 720
+        W, H = 1200, 760
         pad_l, pad_r, pad_t, pad_b = 90, 50, 64, 96
-        legend_h = 96
+        legend_h = 120
         plot_w = W - pad_l - pad_r
         plot_h = H - pad_t - pad_b - legend_h
         plot_right = W - pad_r
@@ -256,8 +264,11 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
 
         # Heuristic: estimate rendered text width in SVG.
         # At font-size 15, latin chars ~8px, cyrillic ~10px.
-        # We use 0.6 * font_size * len(label) as a conservative estimate.
+        # Cyrillic glyphs run visibly wider — measure them with a larger
+        # factor, otherwise RU labels overflow their pill backgrounds.
         def _text_w(label, font_size=15):
+            if any("\u0400" <= c <= "\u04ff" for c in label):
+                return len(label) * font_size * 0.72
             return len(label) * font_size * 0.62
 
         inp = self._last_inputs or self._read_inputs()
@@ -277,8 +288,13 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
         fixed = _f("fixed", 35.0)
         r10 = _f("r10", 20.0)
         r11 = _f("r11", 60.0)
+        r04 = _f("r04", 2.0)
+        r05 = _f("r05", 2.0)
+        if r04 < 0:
+            r04 = 0.0
+        if r05 < 0:
+            r05 = 0.0
         at_live = inp.get("at_live")
-        after_comp = inp.get("after")
         h36_raw = inp.get("h36")
         is_curve_mode = h36_raw != 0
 
@@ -292,8 +308,18 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
         CURVE_FILL = "rgba(14,165,233,0.08)"
         FIXED_COL = "#fbbf24"
         DOT = "#22c55e"
-        AFTER_COL = "#a78bfa"
+        START_COL = "#4ade80"
+        STOP_COL = "#cbd5e1"
+        BAND_LO_FILL = "rgba(34,197,94,0.10)"
+        BAND_HI_FILL = "rgba(148,163,184,0.10)"
         LOADING_BG = "#020617"
+        # Floating value labels get a vector halo (paint-order stroke) instead
+        # of the old feDropShadow raster filter: crisp at any scale, and much
+        # cheaper for phone GPUs (filters force rasterization → blur).
+        HALO = (
+            f'paint-order="stroke" stroke="{BG}" '
+            f'stroke-width="3" stroke-linejoin="round"'
+        )
 
         svg = []
 
@@ -301,13 +327,7 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
         if not ready:
             svg.append(
                 f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" '
-                f'viewBox="0 0 {W} {H}" font-family="sans-serif">'
-            )
-            svg.append(
-                '<defs><filter id="ts" x="-20%" y="-20%" width="140%" height="140%">'
-                '<feDropShadow dx="0" dy="1" stdDeviation="2" '
-                f'flood-color="{BG}" flood-opacity="0.9"/>'
-                "</filter></defs>"
+                f'viewBox="0 0 {W} {H}" font-family="system-ui,-apple-system,sans-serif">'
             )
             svg.append(f'<rect width="100%" height="100%" fill="{BG}"/>')
             svg.append(
@@ -315,11 +335,11 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
             )
             svg.append(
                 f'<text x="{W // 2}" y="{H // 2 - 10}" text-anchor="middle" '
-                f'fill="{TEXT_DARK}" font-size="26" filter="url(#ts)">{self._t("wait")}</text>'
+                f'fill="{TEXT_DARK}" font-size="26">{self._t("wait")}</text>'
             )
             svg.append(
                 f'<text x="{W // 2}" y="{H // 2 + 30}" text-anchor="middle" '
-                f'fill="{TEXT}" font-size="17" filter="url(#ts)">{self._t("wait_sub")}</text>'
+                f'fill="{TEXT}" font-size="17">{self._t("wait_sub")}</text>'
             )
             svg.append("</svg>")
             self._image_bytes = "".join(svg).encode("utf-8")
@@ -337,20 +357,14 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
 
         svg.append(
             f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" '
-            f'viewBox="0 0 {W} {H}" font-family="sans-serif">'
-        )
-        svg.append(
-            '<defs><filter id="ts" x="-20%" y="-20%" width="140%" height="140%">'
-            '<feDropShadow dx="0" dy="1" stdDeviation="2" '
-            f'flood-color="{BG}" flood-opacity="0.9"/>'
-            "</filter></defs>"
+            f'viewBox="0 0 {W} {H}" font-family="system-ui,-apple-system,sans-serif">'
         )
         svg.append(f'<rect width="100%" height="100%" fill="{BG}"/>')
 
         # ---- title ----
         svg.append(
             f'<text x="{W // 2}" y="34" text-anchor="middle" fill="{TEXT_DARK}" '
-            f'font-size="26" font-weight="bold" filter="url(#ts)">{self._t("name")}</text>'
+            f'font-size="26" font-weight="bold">{self._t("name")}</text>'
         )
 
         # ---- grid ----
@@ -410,21 +424,41 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
                 f'<line x1="{x}" y1="{plot_bottom}" x2="{x}" y2="{plot_bottom + 6}" '
                 f'stroke="{TEXT}" stroke-width="1"/>'
             )
-            label = f"0C->{offset:.0f}C" if at_g == 0 else f"{at_g}C"
+            label = f"{at_g}C"
             svg.append(
                 f'<text x="{x}" y="{plot_bottom + 20}" text-anchor="middle" '
                 f'fill="{TEXT_DARK if at_g == 0 else TEXT}" font-size="16" '
-                f'font-weight="bold" filter="url(#ts)">{label}</text>'
+                f'font-weight="bold">{label}</text>'
             )
 
         # ---- curve value labels at each AT tick (bold, above the curve) ----
+        # Skip labels near the live dot: the live + threshold pills show exact
+        # temps there (central pill reaches ~240px/85px), a tick label under
+        # them collides.
+        try:
+            _at_skip = float(at_live) if at_live is not None else None
+        except (TypeError, ValueError):
+            _at_skip = None
+        _dx_e = _dy_e = None
+        if _at_skip is not None:
+            _raw_e = target_live if is_curve_mode else fixed
+            if _raw_e is not None:
+                try:
+                    _tgt_e = float(_raw_e)
+                    _dx_e = max(pad_l + 14, min(plot_right - 14, round(x_at(_at_skip), 1)))
+                    _dy_e = max(pad_t + 14, min(plot_bottom - 14, round(y_flow(_tgt_e), 1)))
+                except (TypeError, ValueError):
+                    _dx_e = _dy_e = None
         for at_g in (-30, -20, -10, 0, 10, 20):
             x = round(x_at(at_g), 1)
             cv = clamp(calc_curve_target(at_g, slope, offset, base=0.0), r10, r11)
             yv = round(y_flow(cv), 1)
+            if (_dx_e is not None and _dy_e is not None
+                    and abs(x - _dx_e) < 240 and abs(yv - 8 - _dy_e) < 85):
+                continue
             svg.append(
-                f'<text x="{x}" y="{yv - 8}" text-anchor="middle" '
-                f'fill="{TEXT_DARK}" font-size="15" font-weight="bold" filter="url(#ts)">'
+                f'<text x="{x}" y="{yv - 8}" text-anchor="middle" {HALO} '
+                f'fill="{TEXT_DARK}" font-size="15" font-weight="bold">'
                 f'{cv:.0f}</text>'
             )
 
@@ -440,17 +474,17 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
             )
             svg.append(
                 f'<text x="{pad_l - 12}" y="{y + 5}" text-anchor="end" '
-                f'fill="{TEXT}" font-size="16" filter="url(#ts)">{f}C</text>'
+                f'fill="{TEXT}" font-size="16">{f}C</text>'
             )
 
         # ---- axis titles ----
         svg.append(
             f'<text x="{pad_l + plot_w // 2}" y="{plot_bottom + 38}" text-anchor="middle" '
-            f'fill="{TEXT}" font-size="16" filter="url(#ts)">{self._t("axis_x")}</text>'
+            f'fill="{TEXT}" font-size="16">{self._t("axis_x")}</text>'
         )
         svg.append(
             f'<text x="26" y="{pad_t + plot_h // 2}" text-anchor="middle" fill="{TEXT}" '
-            f'font-size="16" transform="rotate(-90 26, {pad_t + plot_h // 2})" filter="url(#ts)">'
+            f'font-size="16" transform="rotate(-90 26, {pad_t + plot_h // 2})">'
             f'{self._t("axis_y")}</text>'
         )
 
@@ -463,18 +497,47 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
             f'height="{band_h}" fill="{CURVE_FILL}"/>'
         )
 
-        # ---- curve polyline ----
+        # ---- heating hysteresis band (R04 start below, R05 idle above) ----
+        # Per-step center follows the ACTIVE target (curve or fixed setpoint);
+        # lower sub-band (green) = heating-demand side, upper (slate) = idle side.
         curve_pts = []
+        lo_pts = []
+        hi_pts = []
         for i in range(int(AT_MIN * 2), int(AT_MAX * 2) + 1):
             at_step = i / 2.0
-            raw_val = calc_curve_target(at_step, slope, offset, base=0.0)
+            if is_curve_mode:
+                raw_val = calc_curve_target(at_step, slope, offset, base=0.0)
+            else:
+                raw_val = fixed
             c = clamp(raw_val, r10, r11)
+            lo = clamp(c - r04, r10, r11)
+            hi = clamp(c + r05, r10, r11)
             curve_pts.append((round(x_at(at_step), 1), round(y_flow(c), 1)))
+            lo_pts.append((round(x_at(at_step), 1), round(y_flow(lo), 1)))
+            hi_pts.append((round(x_at(at_step), 1), round(y_flow(hi), 1)))
         poly_pts = " ".join(f"{x},{y}" for x, y in curve_pts)
         poly_fill = " ".join(
             f"{x},{y}"
             for x, y in curve_pts
             + [(curve_pts[-1][0], plot_bottom), (curve_pts[0][0], plot_bottom)]
+        )
+        # lower sub-band: curve -> start boundary
+        lo_fill = " ".join(f"{x},{y}" for x, y in curve_pts + lo_pts[::-1])
+        # upper sub-band: curve -> stop boundary
+        hi_fill = " ".join(f"{x},{y}" for x, y in curve_pts + hi_pts[::-1])
+        lo_line = " ".join(f"{x},{y}" for x, y in lo_pts)
+        hi_line = " ".join(f"{x},{y}" for x, y in hi_pts)
+
+        # ---- hysteresis band fills + dashed boundaries (under the main line) ----
+        svg.append(f'<polygon points="{lo_fill}" fill="{BAND_LO_FILL}"/>')
+        svg.append(f'<polygon points="{hi_fill}" fill="{BAND_HI_FILL}"/>')
+        svg.append(
+            f'<polyline fill="none" stroke="{START_COL}" stroke-width="2" '
+            f'stroke-dasharray="7 5" opacity="0.85" points="{lo_line}"/>'
+        )
+        svg.append(
+            f'<polyline fill="none" stroke="{STOP_COL}" stroke-width="2" '
+            f'stroke-dasharray="7 5" opacity="0.85" points="{hi_line}"/>'
         )
 
         # ---- main line + preview ----
@@ -500,10 +563,13 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
                 f'stroke-dasharray="8 6" opacity="0.4" points="{poly_pts}"/>'
             )
 
-        # ---- live AT dot + label with background pill ----
-        if at_live is not None and target_live is not None:
+        # ---- live dot (single) on the ACTIVE target ----
+        # Curve target in curve mode (= device live_target, hence the old
+        # violet duplicate is gone), fixed setpoint otherwise.
+        active_target = target_live if is_curve_mode else fixed
+        if at_live is not None and active_target is not None:
             dx = round(x_at(float(at_live)), 1)
-            dy = round(y_flow(float(target_live)), 1)
+            dy = round(y_flow(float(active_target)), 1)
             # keep the dot inside the plot
             dx = max(pad_l + 14, min(plot_right - 14, dx))
             dy = max(pad_t + 14, min(plot_bottom - 14, dy))
@@ -515,216 +581,243 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
                 f'stroke-width="2"/>'
             )
 
-            # ---- live AT label (green pill, placed above or below the dot) ----
-            txt = f"AT {float(at_live):.1f}C -> {float(target_live):.1f}C"
-            txt_len = max(len(txt), 12)
+            # ---- live cluster: target number at the dot, start/stop apart ----
+            # The target may drive inlet, outlet or room temp (H25) — so the
+            # central pill shows ONLY the number, no words that could be wrong.
+            # Stop pill rides above its marker, start pill below; the central
+            # number sits at dot height in the middle. Threshold pills yield
+            # (move further out) if they would touch the central one.
+            try:
+                _tgt_f = float(active_target)
+            except (TypeError, ValueError):
+                _tgt_f = None
+            _thr = None
+            _box_hi = None
+            _box_lo = None
+            _hy = _ly = 0.0
+            _show_lo = _show_hi = False
+            _lo_label = _hi_label = ""
+            _lx_lo = _lx_hi = 0.0
+            _ly_hi_p = _ly_lo_p = 0.0
+            _lw_lo = _lw_hi = 0.0
+            if _tgt_f is not None:
+                _c_live = clamp(_tgt_f, r10, r11)
+                _lo_live = clamp(_c_live - r04, r10, r11)
+                _hi_live = clamp(_c_live + r05, r10, r11)
+                _ly = round(y_flow(_lo_live), 1)
+                _hy = round(y_flow(_hi_live), 1)
+                _show_lo = abs(_lo_live - _c_live) >= 0.3
+                _show_hi = abs(_hi_live - _c_live) >= 0.3
+                _lo_label = f"{self._t('legend_start')} {_lo_live:.1f}C"
+                _hi_label = f"{self._t('legend_stop')} {_hi_live:.1f}C"
+                _lw_lo = _text_w(_lo_label, font_size=15) + 16
+                _lw_hi = _text_w(_hi_label, font_size=15) + 16
+
+                def _pill_side(mx, lw, prefer_right):
+                    if prefer_right:
+                        lx = mx + 14
+                        if lx + lw > plot_right - 4:
+                            lx = mx - 14 - lw
+                    else:
+                        lx = mx - 14 - lw
+                        if lx < pad_l + 4:
+                            lx = mx + 14
+                    return lx
+
+                def _pill_top(my, anchor, lh=24):
+                    if anchor == "above":
+                        ly_p = my - lh - 8
+                    elif anchor == "below":
+                        ly_p = my + 8
+                    else:
+                        ly_p = my - lh / 2
+                    return max(pad_t + 4, min(plot_bottom - lh - 4, ly_p))
+
+                _lx_lo = _pill_side(dx, _lw_lo, False)
+                _lx_hi = _pill_side(dx, _lw_hi, True)
+                _ly_hi_p = _pill_top(_hy, "above")
+                _ly_lo_p = _pill_top(_ly, "below")
+                _thr = True
+
+            def _x_overlap(b1, b2, margin=2):
+                return (b1 is not None and b2 is not None
+                        and b1[0] < b2[2] + margin and b2[0] < b1[2] + margin)
+
+            # ---- central pill: just the target number, at dot height ----
+            txt = f"{float(active_target):.1f}C"
             txt_w = _text_w(txt, font_size=16)
             pill_pad = 8
-            pill_h = 26  # taller for better vertical centering
+            pill_h = 26
             pill_w = txt_w + pill_pad * 2
-
-            # Extended connector: 3-7x longer than before.
-            # Vertical span = the gap between dot edge and pill, multiplied dynamically.
             dot_r = 7  # match the circle r above
+            if dx + 14 + pill_w <= plot_right - 4:
+                pill_x = dx + 14
+            else:
+                pill_x = dx - 14 - pill_w
+            pill_y = round(dy - pill_h / 2, 1)
+            pill_y = max(pad_t + 4, min(plot_bottom - pill_h - 4, pill_y))
+            box_c = (pill_x, pill_y, pill_x + pill_w, pill_y + pill_h)
 
-            # Try placing above the dot first
-            conn_min = 20  # min connector length
-            conn_max = 60  # max connector length
-            base_conn = max(conn_min, min(conn_max, txt_len * 4))  # 2-5x scale
+            # thresholds yield to the central pill: move further out as needed
+            if _thr:
+                if _show_hi:
+                    _box_hi = (_lx_hi, _ly_hi_p, _lx_hi + _lw_hi, _ly_hi_p + 24)
+                    if _x_overlap(box_c, _box_hi) and _box_hi[3] > box_c[1] - 6:
+                        _ly_hi_p = max(pad_t + 4, box_c[1] - 6 - 24)
+                        _box_hi = (_lx_hi, _ly_hi_p, _lx_hi + _lw_hi, _ly_hi_p + 24)
+                if _show_lo:
+                    _box_lo = (_lx_lo, _ly_lo_p, _lx_lo + _lw_lo, _ly_lo_p + 24)
+                    if _x_overlap(box_c, _box_lo) and _box_lo[1] < box_c[3] + 6:
+                        _ly_lo_p = min(plot_bottom - 28, box_c[3] + 6)
+                        _box_lo = (_lx_lo, _ly_lo_p, _lx_lo + _lw_lo, _ly_lo_p + 24)
 
-            pill_y_above = dy - base_conn - pill_h / 2
-            if pill_y_above < pad_t + 8:
-                pill_y_above = None  # not enough room, place below
-
-            if pill_y_above is not None:
-                pill_y = round(pill_y_above, 1)
-                # long dotted line from dot top up to pill bottom
-                line_len = dy - dot_r - (pill_y + pill_h)
-                if line_len < conn_min:
-                    line_len = conn_min
+            # short horizontal connector from dot edge to the number pill
+            if pill_x > dx:
                 svg.append(
-                    f'<line x1="{dx}" y1="{dy - dot_r}" x2="{dx}" y2="{pill_y + pill_h}" '
+                    f'<line x1="{dx + dot_r}" y1="{dy}" x2="{pill_x}" y2="{dy}" '
                     f'stroke="{DOT}" stroke-width="1.5" stroke-dasharray="6 4" opacity="0.7"/>'
                 )
             else:
-                # place below the dot
-                pill_y = round(dy + base_conn + dot_r, 1)
-                line_len = pill_y - (dy + dot_r)
                 svg.append(
-                    f'<line x1="{dx}" y1="{dy + dot_r}" x2="{dx}" y2="{pill_y}" '
+                    f'<line x1="{dx - dot_r}" y1="{dy}" x2="{pill_x + pill_w}" y2="{dy}" '
                     f'stroke="{DOT}" stroke-width="1.5" stroke-dasharray="6 4" opacity="0.7"/>'
                 )
-
-            text_y = pill_y + 17  # vertically center text in pill (pill_h=26)
-
-            # clamp pill x to plot bounds
-            pill_x = max(pad_l + 4, min(plot_right - pill_w - 4, dx - pill_w / 2 - pill_pad))
-
             svg.append(
                 f'<rect x="{pill_x}" y="{pill_y}" width="{pill_w}" '
                 f'height="{pill_h}" rx="4" fill="{BG}" stroke="{DOT}" '
-                f'stroke-width="1.5" opacity="0.9" filter="url(#ts)"/>'
+                f'stroke-width="1.5" opacity="0.9"/>'
             )
             svg.append(
-                f'<text x="{pill_x + pill_w / 2}" y="{text_y}" '
-                f'text-anchor="middle" fill="{DOT}" font-size="16" font-weight="bold" '
-                f'filter="url(#ts)">{txt}</text>'
+                f'<text x="{pill_x + pill_w / 2}" y="{pill_y + 17}" '
+                f'text-anchor="middle" fill="{DOT}" font-size="16" font-weight="bold">'
+                f'{txt}</text>'
             )
 
-            # ---- after-comp dot + label (violet, on the same AT but at its own height) ----
-            if after_comp is not None:
-                ay = round(y_flow(float(after_comp)), 1)
-                ay = max(pad_t + 12, min(plot_bottom - 12, ay))
-                # Don't let the violet dot overlap the green dot — if they're
-                # too close vertically, offset the violet dot slightly right
-                if abs(ay - dy) < 12:
-                    svg.append(
-                        f'<circle cx="{dx + 8}" cy="{ay}" r="5" fill="{AFTER_COL}" '
-                        f'stroke="#fff" stroke-width="1.5"/>'
-                    )
-                    vdx = dx + 8
-                else:
-                    svg.append(
-                        f'<circle cx="{dx}" cy="{ay}" r="5" fill="{AFTER_COL}" '
-                        f'stroke="#fff" stroke-width="1.5"/>'
-                    )
-                    vdx = dx
-
-                # after-comp label: placed to the right of the violet dot,
-                # connected by a single long dotted line. Always below to
-                # avoid the cyan curve.
-                a_label = f"{self._t('legend_after')}: {float(after_comp):.1f}C"
-                a_w = _text_w(a_label, font_size=14)
-                pill_pad_a = 8
-                pill_h_a = 24
-                pill_w_a = a_w + pill_pad_a * 2
-
-                # Extended connector — 2-5x longer than before.
-                # Dynamic: pick the side with more room; connector length scales
-                # with the label so it never overlaps the dot or other labels.
-                conn_len = max(20, min(60, len(a_label) * 4))  # 2-5x scale
-                a_dy = ay + conn_len  # well below the dot
-
-                # place pill to the right if it fits, otherwise left
-                if vdx + pill_pad_a + pill_w_a + 10 < plot_right - 6:
-                    a_tx = vdx + pill_pad_a
-                    # single long dotted line from dot edge to pill left edge
-                    svg.append(
-                        f'<line x1="{vdx}" y1="{ay + 5}" x2="{a_tx}" y2="{a_dy}" '
-                        f'stroke="{AFTER_COL}" stroke-width="1.5" stroke-dasharray="6 4" opacity="0.7"/>'
-                    )
-                else:
-                    a_tx = max(pad_l + 6, vdx - pill_pad_a - pill_w_a)
-                    svg.append(
-                        f'<line x1="{vdx}" y1="{ay + 5}" x2="{a_tx + pill_w_a}" y2="{a_dy}" '
-                        f'stroke="{AFTER_COL}" stroke-width="1.5" stroke-dasharray="6 4" opacity="0.7"/>'
-                    )
-
+            # ---- hysteresis thresholds at live AT (dotted-outline markers) ----
+            if _thr:
+                # thin dotted range line through the dot
                 svg.append(
-                    f'<rect x="{a_tx}" y="{a_dy}" width="{pill_w_a}" '
-                    f'height="{pill_h_a}" rx="4" fill="{BG}" stroke="{AFTER_COL}" '
-                    f'stroke-width="1.5" opacity="0.9" filter="url(#ts)"/>'
-                )
-                svg.append(
-                    f'<text x="{a_tx + pill_pad_a}" y="{a_dy + 17}" text-anchor="start" '
-                    f'fill="{AFTER_COL}" font-size="14" font-weight="bold" filter="url(#ts)">'
-                    f'{a_label}</text>'
+                    f'<line x1="{dx}" y1="{_hy}" x2="{dx}" y2="{_ly}" '
+                    f'stroke="{DOT}" stroke-width="2" stroke-dasharray="2 4" opacity="0.55"/>'
                 )
 
-        # ---- legend strip (bottom) ----
-        # Two-row layout:
-        #   top row: 4 swatch+label pairs (flowing left-to-right)
-        #   bottom row: compact summary (left-aligned)
-        # If the 4th item would overflow the right edge, wrap it to a
-        # second row within the legend box.
-        ly_top = plot_bottom + 56
-        ly_bot = plot_bottom + 88
+                def _side_pill(mx, my, label, color, lx, ly_p, font_size=15):
+                    lw = _text_w(label, font_size=font_size) + 16
+                    lh = 24
+                    anchor = "start" if lx > mx else "end"
+                    ex = lx if anchor == "start" else lx + lw
+                    svg.append(
+                        f'<line x1="{mx}" y1="{my}" x2="{ex}" y2="{ly_p + lh / 2}" '
+                        f'stroke="{color}" stroke-width="1.5" stroke-dasharray="3 4" opacity="0.8"/>'
+                    )
+                    svg.append(
+                        f'<rect x="{lx}" y="{ly_p}" width="{lw}" '
+                        f'height="{lh}" rx="4" fill="{BG}" stroke="{color}" '
+                        f'stroke-width="1.5" opacity="0.95"/>'
+                    )
+                    tx = lx + 8 if anchor == "start" else lx + lw - 8
+                    svg.append(
+                        f'<text x="{tx}" y="{ly_p + 17}" text-anchor="{anchor}" '
+                        f'fill="{color}" font-size="{font_size}" font-weight="bold">'
+                        f'{label}</text>'
+                    )
+
+                if _show_lo:
+                    svg.append(
+                        f'<circle cx="{dx}" cy="{_ly}" r="6" fill="{BG}" '
+                        f'stroke="{START_COL}" stroke-width="2" stroke-dasharray="3 3"/>'
+                    )
+                    _side_pill(dx, _ly, _lo_label, START_COL, _lx_lo, _ly_lo_p)
+                if _show_hi:
+                    svg.append(
+                        f'<circle cx="{dx}" cy="{_hy}" r="6" fill="{BG}" '
+                        f'stroke="{STOP_COL}" stroke-width="2" stroke-dasharray="3 3"/>'
+                    )
+                    _side_pill(dx, _hy, _hi_label, STOP_COL, _lx_hi, _ly_hi_p)
+
+        # ---- legend (fixed 2x2 grid + summary; column x-positions are fixed
+        # so labels can never drift into each other in any language) ----
+        ly1 = plot_bottom + 72
+        ly2 = plot_bottom + 100
+        ly_sum = plot_bottom + 128
         svg.append(
             f'<rect x="{pad_l}" y="{plot_bottom + 46}" width="{plot_w}" '
             f'height="{legend_h - 8}" fill="#020617" stroke="{AXIS}" rx="6"/>'
         )
-        # Legend layout constants — used by _legend_item which draws both
-        # the marker swatch and the text label, so callers never compute
-        # text x-positions manually (prevents the off-by-N spacing bugs where
-        # changing swatch_w/gap/item_gap broke every text offset).
+        col1 = pad_l + 16
+        col2 = pad_l + 16 + plot_w // 2
         SWATCH_W = 26
-        LEGEND_GAP = 1       # marker-to-text gap
-        LEGEND_ITEM_GAP = 30  # inter-item spacing (after label)
+        LEGEND_GAP = 8  # marker-to-text gap (breathing room, overlap-proof)
 
-        def _legend_item(x, color, label, active=False, is_line=True, dash=False, font_size=15, text_y=None, text_color=TEXT, font_weight="normal"):
-            """Draws marker swatch + text label at horizontal position x on the
-            legend row. Returns x_advance = x + SWATCH_W + LEGEND_GAP + label_w + LEGEND_ITEM_GAP
-            so the next item starts at the right spot.
-            """
-            if text_y is None:
-                text_y = ly_top + 6
-            opacity = 1.0 if active else 0.5
-            dash_frag = ' stroke-dasharray="6 4"' if dash else ''
-            if is_line:
-                svg.append(
-                    f'<line x1="{x}" y1="{ly_top}" x2="{x + SWATCH_W}" y2="{ly_top}" '
-                    f'stroke="{color}" stroke-width="4"{dash_frag} opacity="{opacity}"/>'
-                )
-            else:
-                svg.append(
-                    f'<circle cx="{x + SWATCH_W - 6}" cy="{ly_top}" r="6" fill="{color}" '
-                    f'opacity="{1.0 if active else 0.6}"/>'
-                )
-            label_w = _text_w(label, font_size=font_size)
-            text_x = x + SWATCH_W + LEGEND_GAP
-            fw_part = f' font-weight="{font_weight}"' if font_weight != "normal" else ""
+        def _legend_line(x, y, color, label, active, dash=False,
+                         text_color=None, font_weight="normal"):
+            opacity = 1.0 if active else 0.45
+            dash_frag = ' stroke-dasharray="6 4"' if dash else ""
             svg.append(
-                f'<text x="{text_x}" y="{text_y}" fill="{text_color}" '
-                f'font-size="{font_size}"{fw_part} filter="url(#ts)">{label}</text>'
+                f'<line x1="{x}" y1="{y}" x2="{x + SWATCH_W}" y2="{y}" '
+                f'stroke="{color}" stroke-width="4"{dash_frag} opacity="{opacity}"/>'
             )
-            return x + SWATCH_W + LEGEND_GAP + label_w + LEGEND_ITEM_GAP
-
-        # 1) curve target
-        x = pad_l + 16
-        label_c = self._t("legend_curve")
-        x = _legend_item(x, CURVE, label_c, active=is_curve_mode, dash=not is_curve_mode,
-                         text_color=TEXT_DARK if is_curve_mode else TEXT)
-
-        # 2) fixed setpoint
-        label_f = self._t("legend_fixed")
-        x = _legend_item(x, FIXED_COL, label_f, active=not is_curve_mode, dash=is_curve_mode,
-                         text_color=TEXT_DARK if not is_curve_mode else TEXT)
-
-        # 3) after compensation (violet dot) — with separator bar
-        label_a = self._t("legend_after")
-        # thin separator between line-swatch group and dot-swatch group
-        svg.append(
-            f'<rect x="{x + 4}" y="{ly_top - 12}" width="2" height="24" '
-            f'fill="{AXIS}" opacity="0.4" rx="1"/>'
-        )
-        x = _legend_item(x, AFTER_COL, label_a, is_line=False)
-
-        # 4) live AT (green dot) — wrap to second row if overflowing
-        live_label = self._t("legend_live")
-        live_w = _text_w(live_label)
-        if x + SWATCH_W + LEGEND_GAP + live_w > plot_right - 6:
-            # wrap to second row
-            ly_live_top = ly_top + 24
+            fw = f' font-weight="{font_weight}"' if font_weight != "normal" else ""
             svg.append(
-                f'<rect x="{pad_l}" y="{plot_bottom + 46}" width="{plot_w}" '
-                f'height="{legend_h - 8 + 24}" fill="#020617" stroke="{AXIS}" rx="6"/>'
+                f'<text x="{x + SWATCH_W + LEGEND_GAP}" y="{y + 6}" fill="{text_color}" '
+                f'font-size="15"{fw}>{label}</text>'
             )
-            x = pad_l + 16
-            live_y = ly_live_top + 6
-        else:
-            live_y = ly_top + 6
-        x = _legend_item(x, DOT, live_label, is_line=False,
-                         text_y=live_y, text_color=TEXT_DARK, font_weight="bold")
 
-        # ---- summary on bottom row ----
+        def _legend_dot(x, y, color, label, text_color, font_weight="normal"):
+            svg.append(
+                f'<circle cx="{x + SWATCH_W - 6}" cy="{y}" r="6" fill="{color}"/>'
+            )
+            fw = f' font-weight="{font_weight}"' if font_weight != "normal" else ""
+            svg.append(
+                f'<text x="{x + SWATCH_W + LEGEND_GAP}" y="{y + 6}" fill="{text_color}" '
+                f'font-size="15"{fw}>{label}</text>'
+            )
+
+        def _legend_band(x, y, label):
+            # mini preview of the two-tone hysteresis band with dashed edges
+            svg.append(
+                f'<rect x="{x}" y="{y - 7}" width="{SWATCH_W}" height="7" '
+                f'fill="{BAND_HI_FILL}" stroke="{STOP_COL}" stroke-width="1" '
+                f'stroke-dasharray="3 2"/>'
+            )
+            svg.append(
+                f'<rect x="{x}" y="{y}" width="{SWATCH_W}" height="7" '
+                f'fill="{BAND_LO_FILL}" stroke="{START_COL}" stroke-width="1" '
+                f'stroke-dasharray="3 2"/>'
+            )
+            svg.append(
+                f'<line x1="{x}" y1="{y}" x2="{x + SWATCH_W}" y2="{y}" '
+                f'stroke="{CURVE}" stroke-width="2"/>'
+            )
+            svg.append(
+                f'<text x="{x + SWATCH_W + LEGEND_GAP}" y="{y + 6}" fill="{TEXT}" '
+                f'font-size="15">{label}</text>'
+            )
+
+        # row 1: active target line vs inactive line
+        _legend_line(col1, ly1, CURVE, self._t("legend_curve"),
+                     active=is_curve_mode, dash=not is_curve_mode,
+                     text_color=TEXT_DARK if is_curve_mode else TEXT,
+                     font_weight="bold" if is_curve_mode else "normal")
+        _legend_line(col2, ly1, FIXED_COL, self._t("legend_fixed"),
+                     active=not is_curve_mode, dash=is_curve_mode,
+                     text_color=TEXT_DARK if not is_curve_mode else TEXT,
+                     font_weight="bold" if not is_curve_mode else "normal")
+        # row 2: live dot + hysteresis band
+        _legend_dot(col1, ly2, DOT, self._t("legend_live"),
+                    text_color=TEXT_DARK, font_weight="bold")
+        _legend_band(col2, ly2, self._t("legend_heat"))
+
+        # ---- summary ----
         summary = (
             f'slope {slope:.2f}  ·  offset {offset:.1f}C  ·  '
             f'{self._t("legend_band")}: {r10:.0f}–{r11:.0f}C  ·  '
+            f'R04 -{r04:.1f} / R05 +{r05:.1f}C  ·  '
             f'{self._t("mode_curve" if is_curve_mode else "mode_fixed")}'
         )
         svg.append(
-            f'<text x="{pad_l + 8}" y="{ly_bot + 4}" fill="{TEXT}" '
-            f'font-size="14" filter="url(#ts)">{summary}</text>'
+            f'<text x="{pad_l + 8}" y="{ly_sum + 4}" fill="{TEXT}" '
+            f'font-size="15">{summary}</text>'
         )
 
         svg.append("</svg>")

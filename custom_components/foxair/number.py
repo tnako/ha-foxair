@@ -101,10 +101,11 @@ class FoxNumber(CoordinatorEntity, NumberEntity):
             self._attr_native_max_value = float(hi)
         if step is not None:
             self._attr_native_step = float(step)
-        # mode: dangerous = box (precise), safe = slider
-        self._attr_mode = NumberMode.BOX if risk == "dangerous" else NumberMode.SLIDER
-        # unit/device class
+        # mode: uniform sliders (HA device page has no per-entity UI toggle;
+        # precise input on phones goes through Assist / more-info dialog)
         unit = meta.get("unit")
+        self._attr_mode = NumberMode.SLIDER
+        # unit/device class
         if unit:
             self._attr_native_unit_of_measurement = unit
         dc = DTYPE_CLASS.get(meta.get("type"))

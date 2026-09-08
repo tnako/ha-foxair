@@ -3271,8 +3271,10 @@
         "state": {
           "legend_curve": "Curve target",
           "legend_fixed": "Fixed setpoint",
-          "legend_after": "After compensation",
           "legend_live": "Live outdoor",
+          "legend_heat": "Heating range (R04-R05)",
+          "legend_start": "Start heating",
+          "legend_stop": "Stop heating",
           "legend_band": "Limit band (R10–R11)",
           "mode_curve": "AT compensation (curve)",
           "mode_fixed": "Constant (fixed)",

@@ -3271,8 +3271,10 @@
         "state": {
           "legend_curve": "Kurvenziel",
           "legend_fixed": "Fester Sollwert",
-          "legend_after": "Nach Kompensation",
           "legend_live": "Live-Außen",
+          "legend_heat": "Heizbereich (R04-R05)",
+          "legend_start": "Heizstart",
+          "legend_stop": "Heizstopp",
           "legend_band": "Grenzband (R10–R11)",
           "mode_curve": "AT-Kompensation (Kurve)",
           "mode_fixed": "Konstant (fest)",
