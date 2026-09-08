@@ -1,3 +1,6 @@
+## 0.6.3 - 2026-09-08
+- feat(normal-mode): P02/P03 (pump interval/run times), P10 (pump speed) and P11 (pump control temp diff) visible without expert mode (non_expert_addrs + popular_addrs)
+- perf(modbus): batch span 45->100, gap 8->30 (foxair_config.json modbus.* consumed by coordinator) — first refresh drops from 16 to 7 serial bus round-trips on the EW11; dead-range split logic unchanged so 200-215/2029-2032 are never spanned
 ## 0.6.2 - 2026-09-08
 - feat(normal-mode): expert tabs A/D/P/G/Z partially visible without expert mode — all setpoints and user-facing settings from the app's Common pages are now normal-mode: A antifreeze/limits (A04/A23/A27/A28/A31-A35), D defrost (D03/D17/D19/D24/D26), R full tab (R01-R07/R16/R17/R35/R70-R74), P pump (P01/P05/P06/P09), G disinfection (G01-G05), Z zone (Z01/Z03/Z05/Z08-Z10/Z14-Z17/Z19/Z20); config-driven via non_expert_addrs + popular_addrs (registry re-enables integration-disabled rows)
 - feat(outputs): O load outputs (O01-O13, EEV O15/O17) routed to their own FoxAir Outputs [O] device and visible in normal mode (was expert-only main-device bits); 2019/2020/2022 block=O

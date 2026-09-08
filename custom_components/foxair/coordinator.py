@@ -12,7 +12,14 @@ from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 from homeassistant.exceptions import ConfigEntryNotReady
 from pymodbus.client import AsyncModbusTcpClient
 
-from .const import MEDIUM_INTERVAL, RARE_INTERVAL, CORE_MAIN_ADDRS, word_mask
+from .const import (
+    MEDIUM_INTERVAL,
+    RARE_INTERVAL,
+    CORE_MAIN_ADDRS,
+    MODBUS_MAX_SPAN,
+    MODBUS_MAX_GAP,
+    word_mask,
+)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -434,7 +441,13 @@ class FoxAirCoordinator(DataUpdateCoordinator):
         _LOGGER.debug("Write many queued %s pending=%s", raws, sorted(self._write_pending.keys()))
         return await fut
 
-    def _batches_for_addrs(self, addrs: set[int], max_span=45, max_gap=8) -> list[tuple[int, int]]:
+    def _batches_for_addrs(self, addrs: set[int], max_span: int | None = None, max_gap: int | None = None) -> list[tuple[int, int]]:
+        """Batch addrs into contiguous reads. Defaults come from foxair_config.json
+        modbus.max_span/max_gap (const.MODBUS_MAX_SPAN/GAP). A larger span cuts
+        the number of serial bus round-trips on the EW11 — the dominant cost of
+        first-refresh latency; filler words in gaps are cheap."""
+        max_span = MODBUS_MAX_SPAN if max_span is None else max_span
+        max_gap = MODBUS_MAX_GAP if max_gap is None else max_gap
         if not addrs:
             return []
         sorted_addrs = sorted(addrs)
@@ -521,7 +534,7 @@ class FoxAirCoordinator(DataUpdateCoordinator):
             # Fallback to at least quick if empty
             if not addrs:
                 addrs = self._tier_addrs("quick", enable_expert)
-            batches = self._batches_for_addrs(addrs, max_span=45, max_gap=8)
+            batches = self._batches_for_addrs(addrs)
             t0 = time.monotonic()
             out: dict[int, dict] = {}
             for addr, qty in batches:
@@ -600,7 +613,7 @@ class FoxAirCoordinator(DataUpdateCoordinator):
         if not addrs:
             return {}
         cfg = self.entry.data
-        batches = self._batches_for_addrs(addrs, max_span=45, max_gap=8)
+        batches = self._batches_for_addrs(addrs)
         out: dict[int, dict] = {}
         async with self._lock:
             if not self.client or not getattr(self.client, "connected", False):
