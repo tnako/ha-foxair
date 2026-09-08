@@ -41,10 +41,7 @@ tasks:
   # sync_fc removed — sibling repo is private (copy manually if needed)
 
   bump:
-    desc: Bump VERSION and manifest, then tag and push
-    vars:
-      version:
-        sh: "echo ''"
+    desc: "Bump VERSION and manifest (usage: task bump version=X.Y.Z)"
     cmds:
       - python3 tools/bump_version.py '{{.version}}'
 
