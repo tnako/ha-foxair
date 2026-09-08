@@ -1,80 +1,33 @@
 # AGENTS.md — Working in ha-foxair
 
-## Quick Start
+## Commands (one list, no alternatives)
+
 ```bash
-task validate        # Run after EVERY edit (gate): version sync + i18n + syntax + write signatures
-task pre_release     # Full pre-release gate: validate -> regen metadata -> validate -> pytest -> check_regs
-task deploy          # reads HA_HOST from .env  # Deploy to HA (requires SSH)
-# Or directly: python3 tools/validate.py / python3 tools/pre_release_check.py
+task validate        # gate after EVERY edit: version sync + i18n + syntax + signatures
+task test            # pytest suite
+task pre_release     # full gate: validate -> regen metadata -> validate -> pytest -> check_regs
+task bump version=X.Y.Z  # bump VERSION + manifest.json + README badge (fixed: CLI var passes through, no vars block)
+task deploy          # rsync to HA + restart, reads HA_HOST from .env (needs SSH)
 ```
 
-## Repository Structure
-```
-ha-foxair/
-├── custom_components/foxair/     # HA integration (source of truth)
-│   ├── coordinator.py            # pymodbus polling quick(30s)/medium(120s)/rare(300-600s)
-│   │                             #   + debounced write coalescer + tier/hidden filtering
-│   ├── sensor.py / climate.py / number.py / select.py / image.py
-│   ├── const.py                  # loads foxair_config.json; order/sort/device routing
-│   ├── translations/en/de/ru.json  # 3000+ lines each, CODE: prefix mandatory
-│   └── data/
-│       ├── foxair_config.json    # EDIT HERE: blocks, expert_blocks, HIDDEN ranges,
-│       │                         #   dead_ranges, types, markers, per-addr overrides
-│       ├── foxair_phnix_registers.json  # raw register knowledge (name/type/mode)
-│       ├── foxair_metadata.json  # GENERATED — per-addr: platform, risk, requires_expert,
-│       │                         #   hidden, poll_tier, group, min/max. Runtime truth.
-│       └── foxair_phnix_knowledge.json
-├── modbus/tabs.txt               # SOURCE OF TRUTH for register codes & order (247 lines)
-├── tools/build_metadata.py       # registers+config -> metadata.json (RUN AFTER config edits)
-├── tools/validate.py             # Version sync, i18n prefix check, syntax, async_write_register signature
-├── tools/check_regs.py           # Register audit: tabs.txt+metadata codes vs HA entities (+ --direct Modbus)
-├── tools/pre_release_check.py    # Orchestrator: validate -> regen -> pytest -> check_regs
-├── tools/bump_version.py         # Bump VERSION + manifest + README badge
-├── tools/deploy.sh               # rsync + HA restart (HA_HOST env required)
-├── VERSION / manifest.json / CHANGELOG.md
-└── docs/archive/                 # Historical v0.3 reviews
-```
+## Session bootstrap — ONE call before any work
 
-## Fast Path — how to navigate without burning tool calls
-Read metadata.json ONCE and derive everything from it; do NOT re-read
-foxair_phnix_registers.json (5770 lines) or grep the 3×3000-line translation
-files for register questions. One-shot recipes instead of exploratory loops:
-- "Is addr X visible / editable / polled / hidden, which device/tab/tier?" →
-  ONE call: `python3 -c "import json; print(json.load(open('custom_components/foxair/data/foxair_metadata.json'))['<X>'])"`
-- "Show me the whole picture" → `python3 tools/metadata_report.py` (counts per
-  group/risk/tier/hidden + any addrs in hidden ranges; extend it, don't re-derive).
-- Entity-visibility bugs → check `requires_expert` + `hidden` + `risk` in metadata
-  first; the platform code just filters on those 3 fields — never hunt through
-  sensor.py/number.py/select.py unless a filter is suspected broken.
-- Live-state checks → `ha_get_state` / `curl $HASS_URL/api/states` filtered in ONE
-  pass (source HASS_URL/HASS_TOKEN from .env); no repeated single-entity probes.
-- Modbus bus errors (transaction_id mismatch / Repeating / No response) → the
-  EW11 allows ONE TCP client. Grep for `AsyncModbusTcpClient(` — there must be
-  exactly one client lifetime, all I/O serialized on `coordinator._lock`.
-  A second connect anywhere (write path, config flow probe, tools) = frame corruption.
-- Register add/change: edit `foxair_config.json` (hidden/dead_ranges/overrides) or
-  `foxair_phnix_registers.json` (names/types) → `python3 tools/build_metadata.py`
-  → `python3 tools/validate.py`. Do NOT hand-edit foxair_metadata.json — regen clobbers it.
-Budget: ≤10 tool calls for a "why is entity X shown/broken" diagnosis; if more,
-you skipped the metadata one-shot and are grepping blind.
-
-## Session bootstrap — run these FIRST, batched (saves ~20 exploratory calls)
-Do these three things in ONE terminal call before any investigation:
 ```bash
-cd ha-foxair && git status --short && git log --oneline -3   # tree + pending changes
-cat VERSION custom_components/foxair/manifest.json | grep -i version
-python3 tools/validate.py 2>&1 | tail -2                     # gate status
+cd ha-foxair && git status --short && git log --oneline -3 && cat VERSION && python3 tools/validate.py 2>&1 | tail -2
 ```
-Then, for ANY visibility/gating/polling question, run ONE python script (not a
-series of one-liners) that loads both JSONs once and answers everything:
+The workspace snapshot in your context is stale on arrival — never trust it, re-check.
+
+## Register questions — metadata one-shots, never exploratory greps
+
+- `foxair_metadata.json` is runtime truth (platform, risk, requires_expert, hidden, poll_tier, group, min/max). Do NOT re-read the 5000-line register JSON or grep 3000-line translation files for register questions.
+- Single addr: `python3 -c "import json; print(json.load(open('custom_components/foxair/data/foxair_metadata.json'))['<ADDR>'])"`
+- Whole picture: `python3 tools/metadata_report.py` (extend it, don't re-derive).
+- Visibility bugs: check `requires_expert` + `hidden` + `risk` first — platform code only filters on those; don't hunt sensor.py/number.py/select.py unless a filter is broken.
+- This snippet mirrors `coordinator._tier_addrs` + `_batches_for_addrs` — trust it over re-reading coordinator.py:
 ```python
 import json
 meta = json.load(open('custom_components/foxair/data/foxair_metadata.json'))
 cfg  = json.load(open('custom_components/foxair/data/foxair_config.json'))
-ne, po = set(cfg['non_expert_addrs']), set(cfg['popular_addrs'])
-# per-code lookup, expert/hidden/tier/popular in one table:
-bycode = {m['code']: (a, m) for a, m in meta.items() if m.get('code')}
-# batch count for first refresh (span/gap from cfg['modbus']):
 dead = {a for lo, hi in cfg['dead_ranges'] for a in range(lo, hi + 1)}
 def tier(t, expert=False):
     return {int(k) for k, v in meta.items() if v.get('poll_tier') == t and k.isdigit()
@@ -82,120 +35,46 @@ def tier(t, expert=False):
             and int(k) not in dead and int(k) < 50000
             and (expert or not v.get('requires_expert'))}
 ```
-This mirrors `coordinator._tier_addrs` + `_batches_for_addrs` exactly — trust it
-instead of re-reading coordinator.py.
+- Budget: ≤10 tool calls per "why is entity X shown/broken" diagnosis — more means you're grepping blind.
 
-## Live-HA verification — ONE batched pull, never per-entity probes
-`ha_list_entities()` returns ALL entities (~1400). Do NOT call it repeatedly:
-pull it once, save the JSON to disk, then regex-filter locally (by entity_id
-suffix or friendly_name code) in python. For 50+ code checks, one filter pass
-over the saved file beats 50 `ha_get_state` calls. For register-level audits
-use `tools/check_regs.py` (does exactly this against the live API).
-Entity naming on the host is code-suffix based (`..._a_antifreeze_temp_a04`),
-NOT `foxair_<addr>` — regex the trailing `_[A-Z]\d+$` / `[code]` suffix.
+## Editing rules
 
-## Editing mechanics (agent tooling, not repo)
-- Use the `patch` TOOL (old_string/new_string), never `patch <<'EOF'` heredocs
-  in terminal — heredoc patches fail with "can't find a patch". For multi-spot
-  mechanical edits (JSON arrays), a small python rewrite script is fine, then
-  re-validate + `git diff --stat` to confirm the diff is minimal (a full-file
-  reindent diff means the rewrite clobbered formatting — `git checkout` the
-  file and redo with string replace).
-- Batch independent info-gathering (git status + version + validate) into one
-  terminal call; never one command per call for read-only recon.
+- Edit `foxair_config.json` (hidden/dead_ranges/overrides/tiers) or `foxair_phnix_registers.json` (names/types), then `python3 tools/build_metadata.py`, then `task validate`. NEVER hand-edit `foxair_metadata.json` (regen clobbers it). New tab code also goes in `modbus/tabs.txt` first.
+- New translations need `CODE: Name` prefix in en/de/ru (validate fails on missing or double prefix).
+- Use the `patch` TOOL, never heredoc patches in terminal. For mechanical multi-spot JSON edits a small python rewrite is fine — then `git diff --stat` must stay minimal (full-file reindent = clobbered formatting → `git checkout` + redo with string replace).
+- Batch independent reads into one turn; one terminal call per read-only recon.
+- `task validate` after EVERY edit. It also blocks absolute paths / hardcoded hosts — use `HA_HOST` from `.env` (`.env.example` committed, `.env` ignored).
 
-## Critical Invariants (validate.py enforces)
-|- `VERSION` == `manifest.json.version` == `README.md` version badge (`![Version](...version-X.Y.Z-blue)`)
-|- Every code in `modbus/tabs.txt` has `CODE: Name` prefix in **all three** translation files
-|- No double prefix (`H42: H42 Name` → fail)
-|- Python syntax clean
-|- `foxair_metadata.json` is regenerated from `foxair_config.json` + register data (no stale metadata)
-|- All `async_write_register` calls use the correct 2-arg signature (`addr, value`) — no extra meta arg
-|- Firmware-gated registers (min_firmware) are present in both config overrides and metadata
-|- Every `errors["..."] = "..."` key used in `config_flow.py` has a matching entry under `config.error` in `strings.json` + all translation files — `config.error` (form errors) is distinct from `config.abort` (flow abort messages); using `config.abort` for error keys shows raw key strings to users
-- Every `elec_source` choice offered in Options must be handled in `computed.py` (`tests/test_computed.py` covers behavior with stub hass; validate fails on unhandled sources) — an offered-but-unimplemented source shows `unknown` with no error anywhere
-- Event callbacks that write state must be `async def`, never `lambda` (HA runs plain-function `async_track_state_change_event` callbacks in an executor thread → "calls async_write_ha_state from a thread other than the event loop"); validate fails on lambdas
-- First poll (`if is_first` in `coordinator.py`) must include medium + cheap (non-expert) rare tiers — `async_setup_entry` creates entities from `coord.data` once, so any tier excluded from first poll never gets entities (validate fails on quick-only first poll)
-- Multi-bit R/W registers are declared in `foxair_config.json` (`bit_split`: bits with kind button|switch|status + mask, compiled into metadata by `build_metadata.py`) and split into per-bit entities with read-modify-write — never a raw select (raw 1 on 1016 fired manual defrost); retired selects go in `RETIRED_UID_SUFFIXES`; validate enforces spec shape + per-slug translations. Plain registers needing a normal-mode switch use `alias_switch` (key/on/off compiled into the target's metadata, e.g. H22 silent enable keeps uid `foxair_silent_mode` while 1016 bit1 is status-only)
-- Read-only BITFIELD registers with a bit_map expand into per-bit binary_sensors automatically (`binary_sensor.py`, zero code per register) — raw decimal sensors are skipped in `sensor.py`, retired raw uids dropped in cleanup; per-bit names via `tools/gen_bitfield_translations.py` (fails on missing en/ru), reserved/unknown bits skipped by `BITFIELD_RESERVED_RE`; hidden addrs are never polled so expansion needs them visible; every non-empty block/tab needs a `blocks.labels` entry or it silently falls to the main device (validate gate 1e)
-- HA deprecations fail the build (validate gate 1d): sub-device links go through `const.bind_device_info` (-> `via_device_id`, never the `via_device` param, removal 2027.8); registry scans use `async_entries_for_config_entry`, never `.devices`/`.entities.values()` (removal 2027.9)
+## Live HA — one batched pull, know the traps
 
-## Modbus Architecture (0.4.x)
-- Own `pymodbus.AsyncModbusTcpClient` (single socket, serialized under `coordinator._lock`).
-  `modbus_connection` was tried and REVERTED (0.4.10) — EW11 `extra data` breaks it.
-- Batches built from `foxair_metadata.json` poll tiers; `max_span=100`, `max_gap=30` (foxair_config.json `modbus.*`, read by coordinator at load — not hardcoded),
-  split around `dead_ranges` (EW11 gateway limits).
-- Visibility model per register in metadata: `risk` (safe/advanced/dangerous/blocked),
-  `requires_expert` (expert-mode gated), `hidden` (NEVER shown/polled — reserved/system).
-- `vendor/foxair_modbus/` is generated but unused at runtime (kept for reference).
+- `ha_list_entities()` dumps ~1400 rows: pull ONCE, save to disk, filter locally. Entity names are code-suffix based (`..._a_antifreeze_temp_a04`), not `foxair_<addr>`. For register audits use `tools/check_regs.py` (`--codes H01,P02` filters, `--direct` reads the device raw).
+- EW11 allows ONE TCP client: exactly one `AsyncModbusTcpClient(` lifetime, all I/O under `coordinator._lock`. A second connect anywhere = frame corruption.
+- `check_regs` UNAVAILABLE is not always a regression — check the `depends_on` chain first (e.g. G01–G04 go unavailable by design when G05 legionella enable = off). Don't block a release on by-design unavailability.
+- HA host runs the deployed tree (deploy = `task deploy` + entry reload). Uncommitted local edits are NOT on the host.
 
-## Adding/Changing Registers
-1. Edit `modbus/tabs.txt` (source of truth) if a NEW tab code is involved
-2. Update `custom_components/foxair/data/foxair_phnix_registers.json` (knowledge)
-   and/or `foxair_config.json` (hidden/dead_ranges/overrides/tiers)
-3. Regenerate metadata: `python3 tools/build_metadata.py`
-   (only if touching vendor code: `python3 tools/gen_foxair_modbus.py`)
-4. Run `tools/validate.py` → fix i18n prefixes in `translations/*.json`
-5. Bump `VERSION` + `manifest.json` + `README.md` badge + `CHANGELOG.md` (bullets are `- `, never `|-` — leading `|` renders as a table on GitHub/HACS; validate fails on pipe-led lines and top-section/version mismatch)
-6. Deploy
+## Platform-specific gates (run the named tool, don't eyeball)
 
-## Add Register
-Edit `modbus/tabs.txt` → regen vendor → validate
+- `image.py` (AT curve) → `python3 tools/render_test.py` after EVERY edit. It enforces: zero text overlaps, nothing outside the 1200×760 canvas, legend labels on grid, no raster filters (vector `paint-order` halo only), EN/DE/RU. Dump a sample to /tmp for a visual check when layout changes.
+- Curve UX (locked Sep 2026, don't re-litigate): single live dot on the active target, two-tone heating/idle band with dashed R04/R05 bounds, start/stop pills above/below the central number-only pill.
+- `number.py`: entities stay uniform SLIDERS (box-stepper experiment reverted — mixed rows look inconsistent). Exact phone input goes through `number.set_value` / Assist, not widget changes.
 
-## Pre-Release Testing (BEFORE version bump)
-The full pre-release gate is:
+## Release (autonomous end-to-end, no prompt needed)
 
-```bash
-tools/pre_release_check.sh          # orchestrates all checks below
-```
+1. `task pre_release` (all green; triage check_regs UNAVAILABLE per above, don't chase by-design ones)
+2. `task bump version=X.Y.Z`
+3. CHANGELOG entry on top: `## X.Y.Z - YYYY-MM-DD`, bullets start with `- ` never `|-` (validate enforces this + top-section == VERSION)
+4. `task validate` + `task test`
+5. `git commit` + `git tag vX.Y.Z` + `git push` + `git push origin vX.Y.Z` (push triggers release CI; CI has no HA access)
 
-This runs (and fails fast on any error):
-1. `python3 tools/validate.py` — version sync, i18n prefixes, syntax, metadata coverage
-2. `python3 tools/build_metadata.py` — regenerate metadata from config; test verifies committed metadata matches
-3. `pytest tests/ -v` — 49-test suite: version sync, syntax, metadata freshness, async_write_register signature (all platforms), firmware gates, heating curve math, SVG render (EN/DE/RU), computed-sensor sources + COP gates, bit_split/alias_switch JSON formats (RMW/entities/i18n), BITFIELD expansion (counts/gating/state/i18n/routing), via_device_id binding, validate pass
-4. `python3 tools/check_regs.py` — if HASS_URL/HASS_TOKEN in .env: audits all 310 register codes against live HA entities + optional `--direct` device reads
+## Invariants (all enforced by validate.py — triggers, not docs)
 
-**Local dev workflow** — uses Taskfile (`task` command):
-```bash
-task validate    # version sync + i18n + syntax
-task test        # pytest suite (signatures, firmware gates, curve math, SVG render)
-task pre_release # full gate: validate -> regen metadata -> validate -> pytest -> check_regs
-task bump version=X.Y.Z  # bump VERSION + manifest + README badge
-task deploy       # rsync to HA + restart
-```
-
-CI (`.github/workflows/validate.yml`) runs hassfest + hacs + lint + pytest on every push/PR, but does NOT have HA access — `check_regs.py --direct` is a manual live check before deploy.
-
-## Common Tasks
-| Task | Command |
-||------|---------|
-|| Validate | `task validate` (or `python3 tools/validate.py`) |
-|| Pre-release gate | `task pre_release` |
-|| Unit tests | `task test` (or `python3 -m pytest tests/ -v`) |
-|| Check registers | `python3 tools/check_regs.py` (needs HASS_URL/HASS_TOKEN in `.env`; `--direct` adds raw Modbus, `--codes H01,P02` filters, `--show-all` lists everything) |
-|| Deploy | `tools/deploy.sh` # reads HA_HOST from .env |
-|| Bump version | `task bump version=X.Y.Z` (updates VERSION + manifest + README badge) → `git tag vX.Y.Z` → push (triggers release CI) |
-|| Add register | Edit `modbus/tabs.txt` → regen vendor → validate |
-
-### check_regs.py — register end-to-end audit
-Checks all 310 codes (tabs.txt order + metadata-only codes: KG timers, T-Diag,
-ERR, SG, sub-codes) against live HA entities via REST, optionally against the
-device directly (`--direct`, EW11 single-client — pause the integration for a
-clean comparison). Verdicts: OK / UNKNOWN / UNAVAILABLE / MISMATCH /
-NOT-EXPOSED (disabled or hidden entity, informational) / EXPERT-ONLY /
-BITFIELD-REG + NON-HOLDING (no per-code entity by design: O/S blocks = regs
-2019/2034; H43/E01/T35 coil/cloud-only). Exit 1 only on real problems
-(UNKNOWN/UNAVAILABLE/MISMATCH/NO-RESPONSE).
+- `VERSION` == manifest.json == README badge.
+- i18n `CODE:` prefix in all 3 languages, no double prefix, python syntax clean, metadata freshly regenerated, `async_write_register(addr, value)` 2-arg everywhere, min_firmware in config + metadata.
+- `config_flow.py` error keys need `config.error` entries (not `config.abort`) in strings.json + all translations.
+- Every Options `elec_source` handled in computed.py. State-writing event callbacks are `async def`, never `lambda`. First poll includes medium + cheap non-expert rare tiers (entities are created once from first-poll data).
+- Multi-bit R/W words: `bit_split` in config + read-modify-write (never raw select); retired selects in `RETIRED_UID_SUFFIXES`. Plain-register normal-mode switches: `alias_switch`. Read-only BITFIELD + bit_map → auto binary_sensors; raw decimals skipped/retired. Every non-empty block/tab needs a `blocks.labels` entry.
+- No deprecated HA APIs: `via_device_id` via `const.bind_device_info` (never `via_device` param); `async_entries_for_config_entry` (never `.devices`/`.entities.values()`).
 
 ## DO NOT
-- Skip `validate.py` after edits (it also enforces no absolute paths / no hardcoded hosts)
-- Change `entity_id` (stable IDs required — only friendly names reorder)
-- Commit generated vendor code without running validate
-- Commit local paths, IPs, or literal host/credential values — use `HA_HOST` from `.env` (see `.env.example`; `validate.py` + CI block this)
 
-## Related Repos
-- sibling `modbus` repo — Go test client + `tabs.txt` mirror (private, not in this repo)
-- sibling desktop app repo — Warmlink cloud / device info (private)
-
-## HA Environment
-- Use `ha_*` tools (pre-configured with `HASS_URL`/`HASS_TOKEN` from `.env`) over raw curl — see `.env.example`
+- Skip validate after edits. Change `entity_id` (only friendly names reorder). Commit generated vendor code without validate. Commit paths/IPs/credentials. Add Lovelace/YAML/HACS-config steps — everything ships via integration install only.
