@@ -1,3 +1,7 @@
+## 0.6.4 - 2026-09-08
+- fix(switches): plain switches (1244/1247 silent-timer enable) had no optimistic state — UI went stale up to 300s (rare tier) after every toggle; same fix class as the 0.6.0 bit-switch optimistic state, with poll-caught-up base check
+- refactor(time-split): TIME_SPLIT minute-slave pairs (1245->1246, 1248->1249) moved from hardcoded lists in 3 platforms to foxair_config.json markers.time_split, compiled into metadata (time_split_minute / time_split_slave); add a new composite by editing JSON only
+- chore: 2020/2022 (EEV steps, read-only sensors) stay in popular_addrs — POPULAR only sets enabled-default for them, no behavior change
 ## 0.6.3 - 2026-09-08
 - feat(normal-mode): P02/P03 (pump interval/run times), P10 (pump speed) and P11 (pump control temp diff) visible without expert mode (non_expert_addrs + popular_addrs)
 - perf(modbus): batch span 45->100, gap 8->30 (foxair_config.json modbus.* consumed by coordinator) — first refresh drops from 16 to 7 serial bus round-trips on the EW11; dead-range split logic unchanged so 200-215/2029-2032 are never spanned

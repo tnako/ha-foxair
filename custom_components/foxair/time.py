@@ -16,8 +16,8 @@ from .const import POPULAR_ADDRS, device_for_addr, entity_sort_key, get_device_p
 
 _LOGGER = logging.getLogger(__name__)
 
-# Silent-mode composites: primary hour addr -> slave minute addr
-SPLIT_PAIRS = {1245: 1246, 1248: 1249}
+# Silent-mode composites are declared in foxair_config.json markers.time_split
+# and compiled into metadata (time_split_minute on the hour addr) — no hardcode.
 
 
 async def async_setup_entry(hass, entry, add_entities):
@@ -33,8 +33,9 @@ async def async_setup_entry(hass, entry, add_entities):
             addr = int(addr_str)
         except ValueError:
             continue
-        # hide minute slaves — they are written via the composite entity
-        if addr in (1246, 1249):
+        # time_split minute slaves have no standalone entity — the hour
+        # composite reads/writes them (meta["time_split_slave"] from config)
+        if meta.get("time_split_slave"):
             continue
         if meta.get("platform") != "time" or not meta.get("editable"):
             continue
@@ -121,7 +122,7 @@ class FoxTime(CoordinatorEntity, TimeEntity):
         dtype = (self._meta.get("type") or "").upper()
         raw = int(rec["raw"])
         if dtype == "TIME_SPLIT":
-            minute_addr = SPLIT_PAIRS.get(self._addr)
+            minute_addr = self._meta.get("time_split_minute")
             rec2 = self.coordinator.data.get(minute_addr) if minute_addr else None
             minute = int(rec2["raw"]) if rec2 and rec2.get("raw") is not None else None
             return _split_to_time(raw, minute)
@@ -136,7 +137,7 @@ class FoxTime(CoordinatorEntity, TimeEntity):
         dtype = (self._meta.get("type") or "").upper()
         try:
             if dtype == "TIME_SPLIT":
-                minute_addr = SPLIT_PAIRS.get(self._addr)
+                minute_addr = self._meta.get("time_split_minute")
                 if not minute_addr:
                     raise ValueError("No minute slave for split time")
                 ok1 = await self.coordinator.async_write_register(self._addr, float(value.hour))

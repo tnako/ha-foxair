@@ -235,7 +235,9 @@ async def async_setup_entry(hass, entry, add_entities):
             continue
         if meta.get("min_firmware") and not coord._fw_gte(meta.get("min_firmware")):
             continue
-        if addr in (1246, 1249):
+        # time_split minute slaves have no standalone entity — the hour
+        # composite reads/writes them (metadata time_split_slave from config)
+        if meta.get("time_split_slave"):
             continue  # silent-minute slaves handled by time composite
         if meta.get("format") == "bit_split":
             continue  # multi-bit word: per-bit switch/button entities instead of raw select

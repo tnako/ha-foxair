@@ -41,6 +41,11 @@ TYPES = CFG["types"]
 MARKERS = CFG["markers"]
 OVERRIDES = {int(k): v for k, v in MARKERS["overrides"].items()}
 BIT_SPLIT = {int(k): v for k, v in CFG.get("bit_split", {}).items()}
+# TIME_SPLIT composites: markers.time_split {hour_addr: minute_addr}
+TIME_SPLIT = {int(k): int(v) for k, v in (MARKERS.get("time_split") or {}).items()}
+TIME_SPLIT_SLAVES = set(TIME_SPLIT.values())
+if len(TIME_SPLIT_SLAVES) != len(TIME_SPLIT):
+    sys.exit("FAIL: markers.time_split: minute addrs must be unique")
 EXPERT_BLOCKS = set(BLOCKS["expert_blocks"])
 HIDDEN_CFG_RANGES = [(lo, hi) for lo, hi in CFG.get("hidden", [])]
 RISK_BY_BLOCK = BLOCKS["risk_by_block"]
@@ -254,6 +259,14 @@ def main():
             out[addr_str]["format"] = "bit_split"
             out[addr_str]["bits"] = bits
             out[addr_str]["mask"] = covered
+        # time_split composite (foxair_config.json markers.time_split): the hour
+        # addr's minute-slave. Slave gets no standalone entity (written by the
+        # composite) but stays polled; platforms read meta["time_split_slave"].
+        if addr in TIME_SPLIT:
+            out[addr_str]["time_split_minute"] = TIME_SPLIT[addr]
+        if addr in TIME_SPLIT_SLAVES:
+            if dtype != "TIME_SPLIT":
+                out[addr_str]["time_split_slave"] = True
         # alias_switch spec (foxair_config.json) compiles into the target
         # addr's metadata: normal-mode switch backed by a plain register.
         if addr in ALIAS_SWITCH:

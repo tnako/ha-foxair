@@ -43,7 +43,9 @@ async def async_setup_entry(hass, entry, add_entities):
             continue
         if meta.get("min_firmware") and not coord._fw_gte(meta.get("min_firmware")):
             continue
-        if addr in (1246, 1249):
+        # time_split minute slaves have no standalone entity — the hour
+        # composite reads/writes them (metadata time_split_slave from config)
+        if meta.get("time_split_slave"):
             continue  # silent-minute slaves handled by time composite
         # expert filter: if requires_expert and expert not enabled, skip creation
         if meta.get("requires_expert") and not entry.options.get("enable_expert"):

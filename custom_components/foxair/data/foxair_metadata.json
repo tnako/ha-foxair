@@ -6276,7 +6276,8 @@
     "name": "Silentmodus Timer Startzeit (HH:MM aus Stunde+Minute)",
     "poll_tier": "rare",
     "min_firmware": null,
-    "format": null
+    "format": null,
+    "time_split_minute": 1246
   },
   "1246": {
     "code": "",
@@ -6300,7 +6301,8 @@
     "name": "Silentmodus Timer Start Minute",
     "poll_tier": "rare",
     "min_firmware": null,
-    "format": null
+    "format": null,
+    "time_split_slave": true
   },
   "1247": {
     "code": "",
@@ -6348,7 +6350,8 @@
     "name": "Silentmodus Timer Stopzeit (HH:MM aus Stunde+Minute)",
     "poll_tier": "rare",
     "min_firmware": null,
-    "format": null
+    "format": null,
+    "time_split_minute": 1249
   },
   "1249": {
     "code": "",
@@ -6372,7 +6375,8 @@
     "name": "Silentmodus Timer Stop Minute",
     "poll_tier": "rare",
     "min_firmware": null,
-    "format": null
+    "format": null,
+    "time_split_slave": true
   },
   "1250": {
     "code": "",

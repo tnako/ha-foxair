@@ -70,6 +70,7 @@ class FoxSwitch(CoordinatorEntity, SwitchEntity):
         self._addr = addr
         self._meta = meta
         self._optimistic = None
+        self._optimistic_base = None
         prefix = get_device_prefix(coord.entry)
         self._attr_unique_id = f"{prefix}_switch_{addr}"
         self._attr_suggested_object_id = f"{prefix}_switch_{addr}"
@@ -129,16 +130,29 @@ class FoxSwitch(CoordinatorEntity, SwitchEntity):
         rec = self.coordinator.data.get(self._addr)
         if not rec:
             return None
+        if self._optimistic is not None:
+            polled = rec.get("value")
+            base = word_base(polled)
+            if base != self._optimistic_base:
+                self._optimistic = None  # poll caught up with the write
+            else:
+                return self._optimistic
         val = rec.get("value")
         if val is None:
             return None
         return bool(val)
 
     async def async_turn_on(self, **kwargs):
-        await self.coordinator.async_write_register(self._addr, 1)
+        base = word_base((self.coordinator.data.get(self._addr) or {}).get("value"))
+        if await self.coordinator.async_write_register(self._addr, 1):
+            self._optimistic, self._optimistic_base = True, base
+            self.async_write_ha_state()
 
     async def async_turn_off(self, **kwargs):
-        await self.coordinator.async_write_register(self._addr, 0)
+        base = word_base((self.coordinator.data.get(self._addr) or {}).get("value"))
+        if await self.coordinator.async_write_register(self._addr, 0):
+            self._optimistic, self._optimistic_base = False, base
+            self.async_write_ha_state()
 
     @property
     def extra_state_attributes(self):
