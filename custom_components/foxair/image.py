@@ -216,6 +216,7 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
         fixed = val(sta.get("heating_target"), None)
         h36 = raw(hca.get("at_comp_en"))
         at_live = val(hca.get("at_sensor"), None)
+        live_target = val(hca.get("live_target"), None)
         r10 = val(hca.get("r10_min"), None)
         r11 = val(hca.get("r11_max"), None)
         # Heating hysteresis (R04 start / R05 stop); marker keys are optional,
@@ -226,7 +227,7 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
         ready = (slope is not None) and (offset is not None) and (fixed is not None)
         return {
             "slope": slope, "offset": offset, "fixed": fixed,
-            "h36": h36, "at_live": at_live,
+            "h36": h36, "at_live": at_live, "live_target": live_target,
             "r10": r10, "r11": r11, "r04": r04, "r05": r05, "ready": ready,
         }
 
@@ -346,9 +347,19 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
             self._image_last_updated = datetime.now(timezone.utc)
             return
 
-        # ---- live computed target (for the moving dot) ----
+        # ---- live device target = register 2014 (for the moving dot) ----
+        # 2014 is the pump's own AT-compensated flow setpoint — the vendor
+        # value, so in curve mode the dot sits exactly on the pump's target.
+        # curve_target_for_at() (offset/slope formula) stays as the fallback
+        # for when 2014 is missing from the poll data.
+        live_target = inp.get("live_target")
         target_live = None
-        if at_live is not None and self.coordinator is not None:
+        if is_curve_mode and live_target is not None:
+            try:
+                target_live = float(live_target)
+            except (TypeError, ValueError):
+                target_live = None
+        if target_live is None and at_live is not None and self.coordinator is not None:
             try:
                 target_live = curve_target_for_at(self.coordinator, float(at_live))
             except Exception as e:
@@ -564,8 +575,8 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
             )
 
         # ---- live dot (single) on the ACTIVE target ----
-        # Curve target in curve mode (= device live_target, hence the old
-        # violet duplicate is gone), fixed setpoint otherwise.
+        # Curve mode = device register 2014 (live_target), fixed mode =
+        # the R02 setpoint. The formula stays only as fallback in target_live.
         active_target = target_live if is_curve_mode else fixed
         if at_live is not None and active_target is not None:
             dx = round(x_at(float(at_live)), 1)

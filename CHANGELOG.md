@@ -1,3 +1,5 @@
+## 0.6.6 - 2026-09-13
+- fix(curve-image): live dot in AT-compensation mode sits on the pump's own target (register 2014, Temperature Value After Weather Compensation) instead of the offset/slope formula — the graph dot, the central pill and the 2014 sensor now always agree; formula kept only as fallback when 2014 is missing
 ## 0.6.5 - 2026-09-08
 - feat(curve-image): AT compensation image shows a single live dot on the active target (violet device dot removed; fixed mode dots the fixed line, not the preview curve) with a two-tone heating/idle band around it — green heating side down to the dashed R04 start line, slate idle side up to the dashed R05 stop line (R04/R05 live from 1160/1161, clamped to R10/R11)
 - feat(curve-image): dotted-outline start/stop markers at live AT with temp pills (Start heating X / Stop heating Y) above and below the central target-number pill — pills precompute boxes, anchor apart and dodge each other; tick value labels near the dot are skipped; zero-overlap/zero-out-of-window audit is now a permanent render_test gate (3 langs x 6 cases x 9 hysteresis combos)
