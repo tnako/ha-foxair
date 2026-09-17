@@ -1,3 +1,5 @@
+## 0.6.7 - 2026-09-17
+- fix(diagnostics): full register dump (up to 250 entries) instead of the first 50 — power/COP/flow regs (T54/T59/T60/T39, 2xxx range) are now always included, plus a computed section with heating/electrical power, COP, source register values and external-meter state, so missing COP is directly explainable from the file
 ## 0.6.6 - 2026-09-13
 - fix(curve-image): live dot in AT-compensation mode sits on the pump's own target (register 2014, Temperature Value After Weather Compensation) instead of the offset/slope formula — the graph dot, the central pill and the 2014 sensor now always agree; formula kept only as fallback when 2014 is missing
 ## 0.6.5 - 2026-09-08

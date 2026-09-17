@@ -2,14 +2,46 @@
 from homeassistant.core import HomeAssistant
 from homeassistant.config_entries import ConfigEntry
 
+def _reg_sample(v: dict) -> dict:
+    info = v.get("info", {})
+    return {"raw": v.get("raw"), "value": v.get("value"),
+            "code": info.get("code"), "type": info.get("type")}
+
+
 async def async_get_config_entry_diagnostics(hass: HomeAssistant, entry: ConfigEntry):
     coord = hass.data.get("foxair", {}).get(entry.entry_id)
     if not coord:
         return {"error": "no coordinator"}
-    sample = {}
-    for k,v in list((coord.data or {}).items())[:50]:
-        info = v.get("info",{})
-        sample[str(k)] = {"raw": v.get("raw"), "value": v.get("value"), "code": info.get("code"), "type": info.get("type")}
+    data = coord.data or {}
+    # Full register dump (cap 250 for safety — coord.data is ~115 entries,
+    # a flat [:50] slice only ever showed low 1xxx addrs and hid the 2xxx
+    # power/COP/flow regs exactly when debugging them).
+    registers = {str(k): _reg_sample(v) for k, v in list(data.items())[:250]}
+    sample = dict(list(registers.items())[:50])  # compat with older tooling
+    computed = {}
+    try:
+        from .computed import compute_heating_power, compute_electrical_power, compute_cop, _cval
+        opts = dict(entry.options)
+        computed = {"heating_power_w": compute_heating_power(coord),
+                    "electrical_power_w": compute_electrical_power(coord, opts),
+                    "cop": compute_cop(coord, opts),
+                    "elec_source": (opts or {}).get("elec_source", "foxair_register")}
+        meter = ((opts or {}).get("external_meter_entity") or "").strip()
+        if meter:
+            st = hass.states.get(meter)
+            computed["meter_entity"] = meter
+            computed["meter_state"] = st.state if st else None
+            computed["meter_unit"] = (st.attributes.get("unit_of_measurement")
+                                      if st else None)
+        # Source register values behind the computed sensors, so a missing
+        # computed value is directly explainable (None = not polled/answered).
+        for label, addr in (("t59_heating_kw", 2059), ("t54_elec_kw", 2054),
+                            ("t60_cop", 2060), ("t39_flow_m3h", 2077),
+                            ("t31_freq_hz", 2072), ("t36_amps", 2042),
+                            ("t37_dc_v", 2043), ("t34_ac_v", 2062)):
+            computed[label] = _cval(coord, addr)
+    except Exception as e:
+        computed = {"error": str(e)}
     curve = {}
     try:
         from .heating_curve import curve_target_for_at
@@ -40,6 +72,8 @@ async def async_get_config_entry_diagnostics(hass: HomeAssistant, entry: ConfigE
         "data_keys": list((coord.data or {}).keys()),
         "data_count": len(coord.data or {}),
         "sample": sample,
+        "registers": registers,
+        "computed": computed,
         "curve": curve,
         "options": dict(entry.options),
         "data": {"host": entry.data.get("host"), "port": entry.data.get("port"), "slave": entry.data.get("slave"), "name_prefix": entry.data.get("name_prefix", "foxair")},
