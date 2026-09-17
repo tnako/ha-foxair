@@ -1,3 +1,5 @@
+## 0.6.8 - 2026-09-17
+- fix(power-fallback): heating-power fallback used the DHW tank sensor (2047/T08) as water inlet — now uses the real inlet 2045 (T01 Einlasswasser) with outlet 2046 (T02 Auslasswasser): P = flow(T39) x 4186 x dT / 3600; units that do not report T59 get a correct self-calculated heating power and COP
 ## 0.6.7 - 2026-09-17
 - fix(diagnostics): full register dump (up to 250 entries) instead of the first 50 — power/COP/flow regs (T54/T59/T60/T39, 2xxx range) are now always included, plus a computed section with heating/electrical power, COP, source register values and external-meter state, so missing COP is directly explainable from the file
 ## 0.6.6 - 2026-09-13

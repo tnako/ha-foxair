@@ -43,9 +43,10 @@ def compute_heating_power(coord) -> Optional[float]:
         return None
 
     # Try to get delta T from available sensors
-    # Outlet: 2046, Inlet: 2047 (or similar)
+    # Outlet: 2046 (T02 Auslasswasser), Inlet: 2045 (T01 Einlasswasser).
+    # NOTE: 2047 is T08 WW-Tanktemperatur (DHW tank), NOT the inlet.
     outlet = _cval(coord, 2046)
-    inlet = _cval(coord, 2047)
+    inlet = _cval(coord, 2045)
     if outlet is None or inlet is None:
         return None
 

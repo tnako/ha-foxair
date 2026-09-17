@@ -16,6 +16,8 @@ import re
 import sys
 import types
 
+import pytest
+
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 CC = ROOT / "custom_components/foxair"
 
@@ -128,6 +130,14 @@ def test_cop_gated_below_min_power():
     hass = FakeHass({"sensor.meter10_power": FakeState("50", "W")})
     coord = FakeCoord({2059: {"value": 2.0}}, hass)
     assert comp.compute_cop(coord, _opts("external_meter")) is None
+
+
+def test_heating_power_fallback_flow_delta_t():
+    # Fallback: P = flow * 1000 * 4186 * dT / 3600
+    # Inlet is 2045 (T01), outlet 2046 (T02); 2047 is the DHW tank, not inlet.
+    coord = FakeCoord({2077: {"value": 1.0}, 2046: {"value": 35.0},
+                       2045: {"value": 30.0}, 2047: {"value": 50.0}})
+    assert comp.compute_heating_power(coord) == pytest.approx(1.0 * 1000 * 4186 * 5.0 / 3600)
 
 
 def test_elec_source_options_all_handled():
