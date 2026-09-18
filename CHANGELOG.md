@@ -1,3 +1,5 @@
+## 0.6.13 - 2026-09-18
+- feat(stats): per-tier error counters (quick_errors/medium_errors/rare_errors) — a diagnostics file now shows which tier is dying instead of one flat error count
 ## 0.6.12 - 2026-09-18
 - fix(poll): one dead Modbus batch no longer wipes the whole cycle — tier-ordered batches (quick first), reconnect-and-continue on timeouts (abort only after 3 in a row), 0.35s EW11 read pacing; rare tier (H31 etc.) survives single timeouts
 ## 0.6.11 - 2026-09-18

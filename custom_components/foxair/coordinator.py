@@ -100,7 +100,8 @@ class FoxAirCoordinator(DataUpdateCoordinator):
         self._entry_id = entry.entry_id
         self.client = None
         self.data = {}
-        self.stats = {"polls": 0, "errors": 0, "last_ms": 0, "quick_polls": 0, "medium_polls": 0, "rare_polls": 0}
+        self.stats = {"polls": 0, "errors": 0, "last_ms": 0, "quick_polls": 0, "medium_polls": 0, "rare_polls": 0,
+                        "quick_errors": 0, "medium_errors": 0, "rare_errors": 0}
         self._regmap = None
         self._metadata = {}
         self._lock = asyncio.Lock()
@@ -538,25 +539,28 @@ class FoxAirCoordinator(DataUpdateCoordinator):
             # Tier-ordered batches: quick first, then medium, then rare.
             # A connection failure mid-cycle only kills the tiers after it,
             # never the fresh quick data HA renders every poll.
-            tier_groups: list[set[int]] = []
+            # Batches carry their tier label so failures attribute to
+            # quick_errors/medium_errors/rare_errors in stats.
+            tier_groups: list[tuple[str, set[int]]] = []
             if do_quick:
-                tier_groups.append(set(self._tier_addrs("quick", enable_expert)))
+                tier_groups.append(("quick", set(self._tier_addrs("quick", enable_expert))))
                 if is_first:
-                    tier_groups[-1].update(_const.CORE_MAIN_ADDRS)
+                    tier_groups[-1][1].update(_const.CORE_MAIN_ADDRS)
             if do_medium:
-                tier_groups.append(set(self._tier_addrs("medium", enable_expert)))
+                tier_groups.append(("medium", set(self._tier_addrs("medium", enable_expert))))
             if do_rare:
-                tier_groups.append(set(self._tier_addrs("rare", enable_expert)))
-            if not tier_groups or not any(tier_groups):
-                tier_groups = [set(addrs)]
-            batches: list[tuple[int, int]] = []
-            for group in tier_groups:
+                tier_groups.append(("rare", set(self._tier_addrs("rare", enable_expert))))
+            if not tier_groups or not any(g for _, g in tier_groups):
+                tier_groups = [("quick", set(addrs))]
+            batches: list[tuple[str, int, int]] = []
+            for tier_label, group in tier_groups:
                 if group:
-                    batches.extend(self._batches_for_addrs(group))
+                    batches.extend((tier_label, a, q)
+                                   for a, q in self._batches_for_addrs(group))
             t0 = time.monotonic()
             out: dict[int, dict] = {}
             consec_conn_fail = 0
-            for addr, qty in batches:
+            for tier_label, addr, qty in batches:
                 try:
                     sid = cfg.get("slave", 1)
                     await asyncio.sleep(0.35)  # EW11 half-duplex pacing (writes use 0.25-0.35)
@@ -566,6 +570,8 @@ class FoxAirCoordinator(DataUpdateCoordinator):
                         rr = await self.client.read_holding_registers(address=addr, count=qty, device_id=sid)
                     if rr.isError():
                         self.stats["errors"] += 1
+                        _ek = f"{tier_label}_errors"
+                        self.stats[_ek] = self.stats.get(_ek, 0) + 1
                         _LOGGER.debug("read %s/%s error %s", addr, qty, rr)
                         continue
                     consec_conn_fail = 0
@@ -583,6 +589,8 @@ class FoxAirCoordinator(DataUpdateCoordinator):
                         out[a] = {"raw": raw, "value": scaled(info.get("type", "RAW"), raw), "info": info}
                 except Exception as e:
                     self.stats["errors"] += 1
+                    _ek = f"{tier_label}_errors"
+                    self.stats[_ek] = self.stats.get(_ek, 0) + 1
                     self.stats["last_error"] = str(e)
                     _LOGGER.debug("poll %s/%s exception %s", addr, qty, e)
                     # Connection-level failure (EW11 idle-drop, no response):

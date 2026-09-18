@@ -177,6 +177,10 @@ def test_reconnect_and_continue_after_single_failure():
     assert 1011 in coord.data and 1012 in coord.data
     assert 1041 in coord.data
     assert coord.stats["errors"] == 1
+    # Failure attributes to the dying tier only.
+    assert coord.stats["medium_errors"] == 1
+    assert coord.stats.get("quick_errors", 0) == 0
+    assert coord.stats.get("rare_errors", 0) == 0
 
 
 def test_abort_after_three_consecutive_failures():
@@ -217,6 +221,30 @@ def test_tier_order_quick_first():
         FlakyClient.read_holding_registers = orig
     # Tier-ordered: quick batch first even though its addr sorts last.
     assert seen == [5000, 100, 200], seen
+
+
+def test_per_tier_error_counters():
+    # quick batch (1011+1012 merge into one) and rare batch die once each,
+    # medium stays clean — errors attribute per tier.
+    FlakyClient.instances.clear()
+    tiers = {"quick": {1011, 1012}, "medium": {2019}, "rare": {1041}}
+    coord = _make_coord(tiers)
+    orig = FlakyClient.read_holding_registers
+
+    async def fail_quick_and_rare(self, address=None, count=0, **kw):
+        if address in (1011, 1041):
+            raise Exception("No response received after 3 retries")
+        return FakeResp(regs=[7] * count)
+
+    FlakyClient.read_holding_registers = fail_quick_and_rare
+    try:
+        _run(mod.FoxAirCoordinator._async_update_data(coord))
+    finally:
+        FlakyClient.read_holding_registers = orig
+    assert coord.stats["errors"] == 2
+    assert coord.stats["quick_errors"] == 1
+    assert coord.stats.get("medium_errors", 0) == 0
+    assert coord.stats["rare_errors"] == 1
 
 
 def test_read_pacing_is_035():
