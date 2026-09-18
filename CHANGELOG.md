@@ -1,3 +1,5 @@
+## 0.6.10 - 2026-09-18
+- chore(config): all hardcoded address sets moved into foxair_config.json — CORE_MAIN / POPULAR / core-non-expert / T-Live orphans / sensor-hidden are now JSON lists consumed dynamically, with a validate gate banning literals in Python; also drops 8801 from the poll set (documentation-only SG reference, absent from the register map) so no dead word is ever requested on any firmware
 ## 0.6.9 - 2026-09-18
 - fix(devices): Live and other sub-devices (Outputs, SG, Timer, Fault) could silently collapse into the main Heat Pump device with missing units — inside HA the config import is lazy, so device labels and sensor types stayed empty at entity setup; the coordinator now pushes the loaded config before entities are created, and a validate gate plus regression test lock this in
 ## 0.6.8 - 2026-09-17

@@ -30,18 +30,18 @@ BLOCK_SHORT: dict = {}
 DTYPE_SPEC: dict = {}
 QUICK_INTERVAL, MEDIUM_INTERVAL, RARE_INTERVAL = 1, 4, 10
 MODBUS_MAX_SPAN, MODBUS_MAX_GAP = 100, 30
-CORE_MAIN_ADDRS: set = {1011, 1012, 1013, 1014, 1212, 1213, 1214, 1234, 1235, 1236, 2012, 2014, 2104, 8801}
+# Address sets: EMPTY fallbacks, populated from foxair_config.json by
+# _apply_dict() (eager off-loop via _ensure_cfg, inside HA via apply_config
+# from the coordinator before entity setup). Never hardcode addr lists here —
+# not every addr exists on every firmware (e.g. 8801 is documentation-only,
+# T59/T60 absent below v3.3), and a stale literal silently polls dead words.
+CORE_MAIN_ADDRS: set = set()
 
 POLL_BLOCKS: list = []
 
-POPULAR_ADDRS = {
-    1011,1012,1016,1018,1021,1030,1035,
-    *range(1157, 1200),
-    1197,1198,1199,1205,
-    1334,8801,2133,2034,2104,
-    1234,1235,1236,
-    2044,2045,2046,2048,2049,2051,2053,2062,2071,2072,2074,2077,2020,2069,2019,2065,2066,2067,
-}
+POPULAR_ADDRS: set = set()
+
+SENSOR_HIDDEN_ADDRS: set = set()
 
 def _apply_dict(cfg: dict) -> dict:
     """Set all config-derived globals from an already-loaded dict (no I/O).
@@ -80,9 +80,11 @@ def _apply_dict(cfg: dict) -> dict:
     MODBUS_MAX_GAP = _modbus_cfg.get("max_gap", 30)
     _core_marker = _markers_cfg.get("core_main_addrs", {})
     CORE_MAIN_ADDRS.clear()
-    CORE_MAIN_ADDRS.update(_core_marker.get("addr_list", [1011, 1012, 1013, 1014, 1212, 1213, 1214, 1234, 1235, 1236, 2012, 2014, 8801]))
-    CORE_MAIN_ADDRS.add(2104)
+    CORE_MAIN_ADDRS.update(_core_marker.get("addr_list", []))
+    POPULAR_ADDRS.clear()
     POPULAR_ADDRS.update(_CFG.get("popular_addrs", []) or [])
+    SENSOR_HIDDEN_ADDRS.clear()
+    SENSOR_HIDDEN_ADDRS.update(_CFG.get("sensor_hidden_addrs", []) or [])
     return _CFG
 
 

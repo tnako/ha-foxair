@@ -475,6 +475,28 @@ try:
 except OSError:
     pass
 
+# 5. No hardcoded address sets in Python: CORE_MAIN_ADDRS / POPULAR_ADDRS /
+#    sensor-hidden addrs come from foxair_config.json only (populated by
+#    const._apply_dict at load). Literals rot: 8801 was polled as a real
+#    register for months but is documentation-only (absent from the register
+#    map), and T59/T60 are absent below firmware v3.3.
+try:
+    _const_src2 = (CC / "const.py").read_text()
+except OSError:
+    _const_src2 = ""
+for _lit in ("1011, 1012", "1011,1012", "range(1157", "HIDDEN = {", "2057}"):
+    if _lit in _const_src2 or _lit in (CC / "sensor.py").read_text():
+        errs.append(f"hardcoded-addrs: literal '{_lit}' in const.py/sensor.py — address sets live in foxair_config.json only")
+        break
+try:
+    _bm_src = (R / "tools/build_metadata.py").read_text()
+    for _lit in ("BLOCK_T_LIVE = {", "CORE_NON_EXPERT_ADDRS = {"):
+        if _lit in _bm_src:
+            errs.append(f"hardcoded-addrs: literal '{_lit}...' in tools/build_metadata.py — move to foxair_config.json")
+            break
+except OSError:
+    pass
+
 if warns:
     print("WARN:")
 

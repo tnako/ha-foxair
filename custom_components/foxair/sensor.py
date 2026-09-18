@@ -2,7 +2,7 @@ from homeassistant.components.sensor import SensorEntity, SensorDeviceClass, Sen
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.event import async_track_state_change_event
-from .const import POPULAR_ADDRS, device_for_addr, main_device, entity_sort_key, get_device_prefix, get_slave_id, bind_device_info
+from .const import POPULAR_ADDRS, SENSOR_HIDDEN_ADDRS, device_for_addr, main_device, entity_sort_key, get_device_prefix, get_slave_id, bind_device_info
 from .computed import compute_heating_power, compute_electrical_power, compute_cop
 
 # Build DTYPE_MAP lazily from DTYPE_SPEC: const globals are populated by
@@ -21,7 +21,10 @@ def _dtype_map():
         out[dtype] = (device_class, s.get("unit"), state_class)
     return out
 
-HIDDEN = {2057}
+# Sensor addrs with no standalone entity (shown via computed sensors instead).
+# From foxair_config.json sensor_hidden_addrs — never hardcoded here: not
+# every addr exists on every firmware, and literals rot silently.
+HIDDEN = SENSOR_HIDDEN_ADDRS
 
 async def async_setup_entry(hass, entry, add_entities):
     coord = hass.data["foxair"][entry.entry_id]
