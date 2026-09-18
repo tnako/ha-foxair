@@ -19,60 +19,104 @@ _CFG_PATH = pathlib.Path(__file__).parent / "data/foxair_config.json"
 _CFG: dict | None = None  # type: ignore[assignment]
 _CFG_LOADED = False
 
+# Module-level names always exist (fallback defaults until config loads).
+# _apply_dict() mutates these containers in place so `from .const import X`
+# references in platforms stay valid.
+_blocks_cfg, _types_cfg, _modbus_cfg, _poll_cfg, _markers_cfg = {}, {}, {}, {}, {}
+EXPERT_BLOCKS: set = set()
+BLOCK_ORDER: list = ["H", "A", "F", "D", "E", "R", "P", "G", "C", "Z", "O", "S", "T", "SG", "KG", "ERR"]
+BLOCK_ORDER_INDEX: dict = {b: i for i, b in enumerate(BLOCK_ORDER)}
+BLOCK_SHORT: dict = {}
+DTYPE_SPEC: dict = {}
+QUICK_INTERVAL, MEDIUM_INTERVAL, RARE_INTERVAL = 1, 4, 10
+MODBUS_MAX_SPAN, MODBUS_MAX_GAP = 100, 30
+CORE_MAIN_ADDRS: set = {1011, 1012, 1013, 1014, 1212, 1213, 1214, 1234, 1235, 1236, 2012, 2014, 2104, 8801}
+
+POLL_BLOCKS: list = []
+
+POPULAR_ADDRS = {
+    1011,1012,1016,1018,1021,1030,1035,
+    *range(1157, 1200),
+    1197,1198,1199,1205,
+    1334,8801,2133,2034,2104,
+    1234,1235,1236,
+    2044,2045,2046,2048,2049,2051,2053,2062,2071,2072,2074,2077,2020,2069,2019,2065,2066,2067,
+}
+
+def _apply_dict(cfg: dict) -> dict:
+    """Set all config-derived globals from an already-loaded dict (no I/O).
+
+    Mutates containers IN PLACE (clear/update) so existing
+    `from .const import X` references in platforms stay valid — rebinding
+    would leave them pointing at the stale fallback objects.
+    """
+    global _CFG, _CFG_LOADED, _blocks_cfg, _types_cfg, _modbus_cfg, _poll_cfg, _markers_cfg
+    global BLOCK_ORDER, QUICK_INTERVAL, MEDIUM_INTERVAL, RARE_INTERVAL
+    global MODBUS_MAX_SPAN, MODBUS_MAX_GAP
+    _CFG = cfg or {}
+    _CFG_LOADED = True
+    _blocks_cfg = _CFG.get("blocks", {})
+    _types_cfg = _CFG.get("types", {})
+    _modbus_cfg = _CFG.get("modbus", {})
+    _poll_cfg = _CFG.get("poll_intervals", {})
+    _markers_cfg = _CFG.get("markers", {})
+    EXPERT_BLOCKS.clear()
+    EXPERT_BLOCKS.update(_blocks_cfg.get("expert_blocks", []))
+    BLOCK_ORDER[:] = _blocks_cfg.get("order", ["H", "A", "F", "D", "E", "R", "P", "G", "C", "Z", "O", "S", "T", "SG", "KG", "ERR"])
+    BLOCK_ORDER_INDEX.clear()
+    BLOCK_ORDER_INDEX.update({b: i for i, b in enumerate(BLOCK_ORDER)})
+    BLOCK_SHORT.clear()
+    BLOCK_SHORT.update(_blocks_cfg.get("labels", {}))
+    DTYPE_SPEC.clear()
+    DTYPE_SPEC.update({
+        t: {k: v for k, v in spec.items() if k != "platform"}
+        for t, spec in _types_cfg.items()
+        if isinstance(spec, dict)
+    })
+    QUICK_INTERVAL = _poll_cfg.get("quick", 1)
+    MEDIUM_INTERVAL = _poll_cfg.get("medium", 4)
+    RARE_INTERVAL = _poll_cfg.get("rare", 10)
+    MODBUS_MAX_SPAN = _modbus_cfg.get("max_span", 100)
+    MODBUS_MAX_GAP = _modbus_cfg.get("max_gap", 30)
+    _core_marker = _markers_cfg.get("core_main_addrs", {})
+    CORE_MAIN_ADDRS.clear()
+    CORE_MAIN_ADDRS.update(_core_marker.get("addr_list", [1011, 1012, 1013, 1014, 1212, 1213, 1214, 1234, 1235, 1236, 2012, 2014, 8801]))
+    CORE_MAIN_ADDRS.add(2104)
+    POPULAR_ADDRS.update(_CFG.get("popular_addrs", []) or [])
+    return _CFG
+
+
+def apply_config(cfg: dict) -> dict:
+    """Push an already-loaded config dict (no file read).
+
+    Called by the coordinator after loading foxair_config.json off the event
+    loop — this is what makes BLOCK_SHORT / DTYPE_SPEC / POPULAR_ADDRS real
+    inside HA, where _ensure_cfg() must never do blocking I/O.
+    """
+    return _apply_dict(cfg or {})
+
+
 def _ensure_cfg() -> dict:
     global _CFG, _CFG_LOADED, _blocks_cfg, _types_cfg, _modbus_cfg, _poll_cfg, _markers_cfg
     global EXPERT_BLOCKS, BLOCK_ORDER, BLOCK_ORDER_INDEX, BLOCK_SHORT
     global DTYPE_SPEC, QUICK_INTERVAL, MEDIUM_INTERVAL, RARE_INTERVAL
-    global MODBUS_MAX_SPAN, MODBUS_MAX_GAP, CORE_MAIN_ADDRS
+    global MODBUS_MAX_SPAN, MODBUS_MAX_GAP, CORE_MAIN_ADDRS, POPULAR_ADDRS
     if _CFG_LOADED and _CFG is not None:
         return _CFG  # type: ignore[return-value]
     try:
-        _CFG = json.loads(_CFG_PATH.read_text(encoding="utf-8-sig"))
+        cfg = json.loads(_CFG_PATH.read_text(encoding="utf-8-sig"))
     except (OSError, json.JSONDecodeError):
-        _CFG = {}
-    _CFG_LOADED = True
-    _blocks_cfg = _CFG.get("blocks", {})  # type: ignore[union-attr]
-    _types_cfg = _CFG.get("types", {})  # type: ignore[union-attr]
-    _modbus_cfg = _CFG.get("modbus", {})  # type: ignore[union-attr]
-    _poll_cfg = _CFG.get("poll_intervals", {})  # type: ignore[union-attr]
-    _markers_cfg = _CFG.get("markers", {})  # type: ignore[union-attr]
-    EXPERT_BLOCKS = set(_blocks_cfg.get("expert_blocks", []))
-    BLOCK_ORDER = _blocks_cfg.get("order", ["H", "A", "F", "D", "E", "R", "P", "G", "C", "Z", "O", "S", "T", "SG", "KG", "ERR"])
-    BLOCK_ORDER_INDEX = {b: i for i, b in enumerate(BLOCK_ORDER)}
-    BLOCK_SHORT = _blocks_cfg.get("labels", {})
-    DTYPE_SPEC = {
-        t: {k: v for k, v in spec.items() if k != "platform"}
-        for t, spec in _types_cfg.items()
-        if isinstance(spec, dict)
-    }
-    QUICK_INTERVAL = _poll_cfg.get("quick", 1)
-    MEDIUM_INTERVAL = _poll_cfg.get("medium", 4)
-    RARE_INTERVAL = _poll_cfg.get("rare", 10)
-    MODBUS_MAX_SPAN = _modbus_cfg.get("max_span", 45)
-    MODBUS_MAX_GAP = _modbus_cfg.get("max_gap", 8)
-    _core_marker = _markers_cfg.get("core_main_addrs", {})
-    CORE_MAIN_ADDRS = set(_core_marker.get("addr_list", [1011, 1012, 1013, 1014, 1212, 1213, 1214, 1234, 1235, 1236, 2012, 2014, 8801])) | {2104}
-    return _CFG
+        cfg = {}
+    return _apply_dict(cfg)
 
 # Eager-load when not running inside HA event loop (tools, tests, CLI).
 # Inside HA the import happens on the event loop — keep it lazy there.
+# Globals above already hold fallback defaults, so nothing more to do here.
 try:
     import asyncio as _asyncio
     _asyncio.get_running_loop()
 except RuntimeError:
     _ensure_cfg()
-
-# Fallback defaults so module-level names always exist (used before lazy load)
-if not _CFG_LOADED:
-    _blocks_cfg, _types_cfg, _modbus_cfg, _poll_cfg, _markers_cfg = {}, {}, {}, {}, {}
-    EXPERT_BLOCKS: set = set()
-    BLOCK_ORDER: list = ["H", "A", "F", "D", "E", "R", "P", "G", "C", "Z", "O", "S", "T", "SG", "KG", "ERR"]
-    BLOCK_ORDER_INDEX: dict = {b: i for i, b in enumerate(BLOCK_ORDER)}
-    BLOCK_SHORT: dict = {}
-    DTYPE_SPEC: dict = {}
-    QUICK_INTERVAL, MEDIUM_INTERVAL, RARE_INTERVAL = 1, 4, 10
-    MODBUS_MAX_SPAN, MODBUS_MAX_GAP = 45, 8
-    CORE_MAIN_ADDRS: set = {1011, 1012, 1013, 1014, 1212, 1213, 1214, 1234, 1235, 1236, 2012, 2014, 2104, 8801}
 
 # (EXPERT_BLOCKS / BLOCK_ORDER / DTYPE_SPEC / intervals / CORE_MAIN_ADDRS
 # are already set above — either by _ensure_cfg() eager load or by the
@@ -147,6 +191,11 @@ DEVICE = main_device()
 
 
 def device_for_block(block: str, entry_id: str | None = None, tab: str | None = None, name_prefix: str = "foxair", slave_id: int | None = None, host: str | None = None, port: int | None = None) -> DeviceInfo:
+    # NOTE: no _ensure_cfg() here — file I/O on the HA event loop is blocked
+    # by HA 2026's loop guard. Globals are populated by apply_config(), called
+    # from the coordinator's _load_config() (executor-loaded) before any
+    # entity setup. Off-loop (tools/tests/CLI) the eager _ensure_cfg() above
+    # already populated them.
     ident_main = (DOMAIN, entry_id) if entry_id else (DOMAIN, "foxair")
     if not block or block not in BLOCK_SHORT:
         return main_device(entry_id, name_prefix, slave_id, host, port)
@@ -275,17 +324,5 @@ def bitfield_expanded_bits(bit_map: dict) -> list[tuple[int, str]]:
         out.append((b, str(label)))
     return sorted(out)
 
-POLL_BLOCKS: list[tuple[int, int, str]] = []
-
-POPULAR_ADDRS = {
-    1011,1012,1016,1018,1021,1030,1035,
-    *range(1157, 1200),
-    1197,1198,1199,1205,
-    1334,8801,2133,2034,2104,
-    1234,1235,1236,
-    2044,2045,2046,2048,2049,2051,2053,2062,2071,2072,2074,2077,2020,2069,2019,2065,2066,2067,
-}
-# Config-driven extension (foxair_config.json popular_addrs): _CFG is loaded
-# above when import happens off the event loop (HA executor, tools, tests).
-if _CFG_LOADED and _CFG:
-    POPULAR_ADDRS |= set(_CFG.get("popular_addrs", []))
+# (module-level POLL_BLOCKS / POPULAR_ADDRS are declared near the top so
+# _apply_dict() can mutate them in place; config extension is applied there.)

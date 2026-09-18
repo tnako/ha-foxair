@@ -1,3 +1,5 @@
+## 0.6.9 - 2026-09-18
+- fix(devices): Live and other sub-devices (Outputs, SG, Timer, Fault) could silently collapse into the main Heat Pump device with missing units — inside HA the config import is lazy, so device labels and sensor types stayed empty at entity setup; the coordinator now pushes the loaded config before entities are created, and a validate gate plus regression test lock this in
 ## 0.6.8 - 2026-09-17
 - fix(power-fallback): heating-power fallback used the DHW tank sensor (2047/T08) as water inlet — now uses the real inlet 2045 (T01 Einlasswasser) with outlet 2046 (T02 Auslasswasser): P = flow(T39) x 4186 x dT / 3600; units that do not report T59 get a correct self-calculated heating power and COP
 ## 0.6.7 - 2026-09-17

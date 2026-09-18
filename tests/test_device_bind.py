@@ -90,3 +90,21 @@ def test_fallbacks_keep_unmodified_info():
     assert const.bind_device_info(object(), None, info) == info  # no entry
     _stub_modules(with_registry=False)  # device_registry unimportable
     assert const.bind_device_info(object(), "eid", info) == info
+
+
+def test_apply_config_restores_routing_after_lazy_fallback():
+    # Inside HA the import runs on the event loop: BLOCK_SHORT/DTYPE_SPEC
+    # stay fallback-empty until the coordinator pushes the executor-loaded
+    # config via apply_config(). Simulate: wipe, route (must fall back to
+    # main), apply, route again (must hit the Live sub-device).
+    import json
+    const.BLOCK_SHORT.clear()
+    const.DTYPE_SPEC.clear()
+    fallback = const.device_for_block("T", "eid", "T_Live", "foxair", 1, "h", 502)
+    assert "Live" not in str(fallback.get("name"))
+    cfg = json.loads((CC / "data/foxair_config.json").read_text(encoding="utf-8-sig"))
+    const.apply_config(cfg)
+    assert "T_Live" in const.BLOCK_SHORT
+    assert len(const.DTYPE_SPEC) > 50
+    live = const.device_for_block("T", "eid", "T_Live", "foxair", 1, "h", 502)
+    assert "Live" in str(live.get("name"))

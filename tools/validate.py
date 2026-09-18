@@ -454,6 +454,27 @@ try:
 except SyntaxError:
     pass
 
+# 4. Config-lazy-load: inside HA the import runs on the event loop, so const
+#    globals (BLOCK_SHORT/labels, DTYPE_SPEC, POPULAR_ADDRS, MODBUS spans)
+#    start as fallbacks. The coordinator must push the executor-loaded config
+#    via const.apply_config() in _load_config, or sub-devices silently fall
+#    back to the main device and units/device classes go missing
+#    (2026-09: T_Live sensors landed on the main "Heat Pump" device +
+#    no units, because BLOCK_SHORT was still {} at entity setup).
+try:
+    _load_cfg_src = (CC / "coordinator.py").read_text()
+except OSError:
+    _load_cfg_src = ""
+if "const.apply_config" not in _load_cfg_src and "apply_config(" not in _load_cfg_src:
+    errs.append("lazy-config: coordinator._load_config must call const.apply_config(cfg) (else BLOCK_SHORT/POPULAR stay fallback inside HA)")
+try:
+    _const_src = (CC / "const.py").read_text()
+    _m = re.search(r"def device_for_block\(.*?\):(.*?)(?=\ndef |\Z)", _const_src, re.S)
+    if _m and "_ensure_cfg()" in _m.group(1):
+        errs.append("lazy-config: device_for_block must not call _ensure_cfg() (blocking I/O on HA event loop)")
+except OSError:
+    pass
+
 if warns:
     print("WARN:")
 

@@ -2,15 +2,24 @@ from homeassistant.components.sensor import SensorEntity, SensorDeviceClass, Sen
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.event import async_track_state_change_event
-from .const import POPULAR_ADDRS, device_for_addr, main_device, entity_sort_key, DTYPE_SPEC, get_device_prefix, get_slave_id, bind_device_info
+from .const import POPULAR_ADDRS, device_for_addr, main_device, entity_sort_key, get_device_prefix, get_slave_id, bind_device_info
 from .computed import compute_heating_power, compute_electrical_power, compute_cop
 
-# Build DTYPE_MAP from DTYPE_SPEC for backwards compatibility
-DTYPE_MAP = {}
-for dtype, spec in DTYPE_SPEC.items():
-    device_class = getattr(SensorDeviceClass, spec["device_class"].upper()) if spec["device_class"] else None
-    state_class = getattr(SensorStateClass, spec["state_class"].upper()) if spec["state_class"] else None
-    DTYPE_MAP[dtype] = (device_class, spec["unit"], state_class)
+# Build DTYPE_MAP lazily from DTYPE_SPEC: const globals are populated by
+# apply_config() at coordinator load (in-place), so resolve at entity-setup
+# time, not at import time (import happens before config load inside HA).
+def _dtype_map():
+    from . import const as _const
+    spec = _const.DTYPE_SPEC or {}
+    out = {}
+    for dtype, s in spec.items():
+        try:
+            device_class = getattr(SensorDeviceClass, s["device_class"].upper()) if s["device_class"] else None
+            state_class = getattr(SensorStateClass, s["state_class"].upper()) if s["state_class"] else None
+        except Exception:
+            device_class, state_class = None, None
+        out[dtype] = (device_class, s.get("unit"), state_class)
+    return out
 
 HIDDEN = {2057}
 
@@ -81,7 +90,7 @@ class FoxSensor(CoordinatorEntity, SensorEntity):
         port = coord.entry.data.get("port")
         self._attr_device_info = bind_device_info(getattr(coord, "hass", None), entry_id, device_for_addr(addr, block, entry_id, tab, prefix, slave_id, host, port))
         dtype = info.get("type","RAW")
-        dc, unit, sc = DTYPE_MAP.get(dtype, (None, info.get("unit") or None, None))
+        dc, unit, sc = _dtype_map().get(dtype, (None, info.get("unit") or None, None))
         if dc:
             self._attr_device_class = dc
         if unit:

@@ -13,13 +13,9 @@ from homeassistant.exceptions import ConfigEntryNotReady
 from pymodbus.client import AsyncModbusTcpClient
 
 from .const import (
-    MEDIUM_INTERVAL,
-    RARE_INTERVAL,
-    CORE_MAIN_ADDRS,
-    MODBUS_MAX_SPAN,
-    MODBUS_MAX_GAP,
     word_mask,
 )
+from . import const as _const
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -127,6 +123,11 @@ class FoxAirCoordinator(DataUpdateCoordinator):
             return
         cfg = await self.hass.async_add_executor_job(_read_config_file)
         _apply_config(cfg)
+        try:
+            from .const import apply_config as _apply_const_cfg
+            _apply_const_cfg(cfg)
+        except Exception:
+            pass
 
     async def _load_map(self):
         p = pathlib.Path(__file__).parent / "data/foxair_phnix_registers.json"
@@ -446,8 +447,8 @@ class FoxAirCoordinator(DataUpdateCoordinator):
         modbus.max_span/max_gap (const.MODBUS_MAX_SPAN/GAP). A larger span cuts
         the number of serial bus round-trips on the EW11 — the dominant cost of
         first-refresh latency; filler words in gaps are cheap."""
-        max_span = MODBUS_MAX_SPAN if max_span is None else max_span
-        max_gap = MODBUS_MAX_GAP if max_gap is None else max_gap
+        max_span = _const.MODBUS_MAX_SPAN if max_span is None else max_span
+        max_gap = _const.MODBUS_MAX_GAP if max_gap is None else max_gap
         if not addrs:
             return []
         sorted_addrs = sorted(addrs)
@@ -507,8 +508,8 @@ class FoxAirCoordinator(DataUpdateCoordinator):
                 do_rare = not enable_expert
             else:
                 do_quick = True
-                do_medium = (self._poll_counter % MEDIUM_INTERVAL == 0)
-                rare_interval = RARE_INTERVAL * 2 if enable_expert else RARE_INTERVAL  # 600s expert, 300s non-expert
+                do_medium = (self._poll_counter % _const.MEDIUM_INTERVAL == 0)
+                rare_interval = _const.RARE_INTERVAL * 2 if enable_expert else _const.RARE_INTERVAL  # 600s expert, 300s non-expert
                 do_rare = (self._poll_counter % rare_interval == 0)
                 # startup catch-up: poll 2 = +medium, poll 3 = +rare (spread, no burst)
                 if not self._medium_done and self._poll_counter >= 2:
@@ -530,7 +531,7 @@ class FoxAirCoordinator(DataUpdateCoordinator):
             # (1030) are populated immediately instead of waiting for the rare
             # tier's first cycle (~90s) to render "unknown".
             if is_first:
-                addrs.update(CORE_MAIN_ADDRS)
+                addrs.update(_const.CORE_MAIN_ADDRS)
             # Fallback to at least quick if empty
             if not addrs:
                 addrs = self._tier_addrs("quick", enable_expert)
