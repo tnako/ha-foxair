@@ -12,12 +12,39 @@ async def async_get_config_entry_diagnostics(hass: HomeAssistant, entry: ConfigE
     coord = hass.data.get("foxair", {}).get(entry.entry_id)
     if not coord:
         return {"error": "no coordinator"}
-    data = coord.data or {}
-    # Full register dump (cap 250 for safety — coord.data is ~115 entries,
-    # a flat [:50] slice only ever showed low 1xxx addrs and hid the 2xxx
-    # power/COP/flow regs exactly when debugging them).
-    registers = {str(k): _reg_sample(v) for k, v in list(data.items())[:250]}
+    data = dict(coord.data or {})
+    # Key addrs the reply always needs (pump type, power/COP/flow sources,
+    # firmware, curve). If a normal poll cycle missed them (EW11 timeout —
+    # the coordinator aborts the rest of the cycle on connection errors),
+    # fetch them live here so the file answers the question instead of
+    # forcing another round-trip with the user.
+    KEY_ADDRS = (1041,                              # H31 pump type
+                 2059, 2054, 2060, 2077, 2072,      # T59 T54 T60 T39 T31
+                 2042, 2043, 2062,                  # T36 T37 T34
+                 2045, 2046,                        # T01 T02 inlet/outlet
+                 2104, 1234, 1235, 1236)            # fw version, curve
+    missing = [a for a in KEY_ADDRS if a not in data]
+    fetch_error = None
+    if missing:
+        try:
+            out = await coord._fetch_addrs(set(missing))
+            data.update(out)
+            # Write back so computed sensors below (and entities) see them.
+            try:
+                coord.data = {**(coord.data or {}), **out}
+            except Exception:  # noqa: BLE001 — never break diagnostics
+                pass
+        except Exception as e:  # noqa: BLE001 — diagnostics must never fail
+            fetch_error = str(e)
+    still_missing = [a for a in KEY_ADDRS if a not in data]
+    # Full register dump, no cap — coord.data peaks around ~380 entries and
+    # any slice hides exactly the regs needed for debugging (v0.6.7 lesson:
+    # a [:50] slice hid all 2xxx power/COP/flow regs).
+    registers = {str(k): _reg_sample(v) for k, v in data.items()}
     sample = dict(list(registers.items())[:50])  # compat with older tooling
+    key_fetch: dict = {"requested": list(missing), "still_missing": still_missing}
+    if fetch_error:
+        key_fetch["fetch_error"] = fetch_error
     computed = {}
     try:
         from .computed import compute_heating_power, compute_electrical_power, compute_cop, _cval
@@ -73,6 +100,7 @@ async def async_get_config_entry_diagnostics(hass: HomeAssistant, entry: ConfigE
         "data_count": len(coord.data or {}),
         "sample": sample,
         "registers": registers,
+        "key_fetch": key_fetch,
         "computed": computed,
         "curve": curve,
         "options": dict(entry.options),

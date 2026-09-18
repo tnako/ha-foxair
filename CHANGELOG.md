@@ -1,3 +1,5 @@
+## 0.6.11 - 2026-09-18
+- fix(diagnostics): Download diagnostics now fetches key addrs live (H31 pump type, T59/T54/T60/T39/T31/T36/T37/T34, T01/T02, firmware, curve) when the normal poll cycle missed them, writes them back so computed sensors see them, and drops the 250-entry cap — a file can never again silently omit the regs needed to answer the question
 ## 0.6.10 - 2026-09-18
 - chore(config): all hardcoded address sets moved into foxair_config.json — CORE_MAIN / POPULAR / core-non-expert / T-Live orphans / sensor-hidden are now JSON lists consumed dynamically, with a validate gate banning literals in Python; also drops 8801 from the poll set (documentation-only SG reference, absent from the register map) so no dead word is ever requested on any firmware
 ## 0.6.9 - 2026-09-18
