@@ -74,6 +74,7 @@ def tier(t, expert=False):
 - Every Options `elec_source` handled in computed.py. State-writing event callbacks are `async def`, never `lambda`. First poll includes medium + cheap non-expert rare tiers (entities are created once from first-poll data).
 - Multi-bit R/W words: `bit_split` in config + read-modify-write (never raw select); retired selects in `RETIRED_UID_SUFFIXES`. Plain-register normal-mode switches: `alias_switch`. Read-only BITFIELD + bit_map → auto binary_sensors; raw decimals skipped/retired. Every non-empty block/tab needs a `blocks.labels` entry.
 - No deprecated HA APIs: `via_device_id` via `const.bind_device_info` (never `via_device` param); `async_entries_for_config_entry` (never `.devices`/`.entities.values()`).
+- Poll resilience (validate gates 6-7): tier-ordered batches (quick first, `tier_groups`), reconnect-and-continue (`consec_conn_fail`, abort only after 3 in a row), 0.35s read pacing (never 0.22s). Diagnostics live-fetches `KEY_ADDRS` via `coord._fetch_addrs`, reports `key_fetch`, never caps the dump.
 
 ## DO NOT
 

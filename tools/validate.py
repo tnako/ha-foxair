@@ -475,6 +475,37 @@ try:
 except OSError:
     pass
 
+# 6. Poll-loop resilience (2026-09-18: 15 EW11 timeouts wiped all 269 rare
+#    addrs incl. H31 because one dead batch aborted the whole cycle):
+#    tier-ordered batches (quick first), reconnect-and-continue (abort only
+#    after 3 consecutive connection failures), 0.35s EW11 read pacing.
+try:
+    _coord_src = (CC / "coordinator.py").read_text()
+except OSError:
+    _coord_src = ""
+if _coord_src:
+    if "tier_groups" not in _coord_src:
+        errs.append("poll-resilience: tier-ordered batches (tier_groups) missing in coordinator.py — one dead batch must not kill later tiers")
+    if "consec_conn_fail" not in _coord_src:
+        errs.append("poll-resilience: reconnect-and-continue (consec_conn_fail) missing in coordinator.py — single timeout must not abort the cycle")
+    if "await asyncio.sleep(0.22" in _coord_src:
+        errs.append("poll-resilience: 0.22s read pacing in coordinator.py — EW11 half-duplex needs 0.35s (writes keep 0.25s, reads must be 0.35s)")
+
+# 7. Diagnostics live-fetch (2026-09-18: H31 missing from a user file because
+#    the rare cycle failed — diagnostics must fetch key addrs live instead of
+#    forcing another round-trip with the user, and must never cap the dump).
+try:
+    _diag_src = (CC / "diagnostics.py").read_text()
+except OSError:
+    _diag_src = ""
+if _diag_src:
+    if "KEY_ADDRS" not in _diag_src or "_fetch_addrs" not in _diag_src:
+        errs.append("diagnostics: KEY_ADDRS live-fetch via coord._fetch_addrs missing in diagnostics.py (key addrs must be fetched when the poll cycle missed them)")
+    if "key_fetch" not in _diag_src:
+        errs.append("diagnostics: key_fetch {requested, still_missing} report missing in diagnostics.py output")
+    if "[:250]" in _diag_src or "list(data.items())[:250" in _diag_src:
+        errs.append("diagnostics: capped register dump ([:250]) in diagnostics.py — coord.data peaks ~380 entries, any slice hides the regs needed for debugging")
+
 # 5. No hardcoded address sets in Python: CORE_MAIN_ADDRS / POPULAR_ADDRS /
 #    sensor-hidden addrs come from foxair_config.json only (populated by
 #    const._apply_dict at load). Literals rot: 8801 was polled as a real
