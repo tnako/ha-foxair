@@ -11548,7 +11548,7 @@
     "platform": "sensor",
     "risk": "safe",
     "requires_expert": false,
-    "type": "RAW",
+    "type": "AMP_X10",
     "unit": "A",
     "min": null,
     "max": null,

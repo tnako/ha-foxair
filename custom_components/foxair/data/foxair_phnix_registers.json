@@ -4828,7 +4828,7 @@
     "function": "16",
     "mode": "read",
     "name": "AC Input Current",
-    "type": "RAW",
+    "type": "AMP_X10",
     "unit": "A",
     "notes": "Firmware V3.3: T35 / AC-Eingangsstrom. T34 / AC-Spannung ist Register 2062.",
     "last_review": "FW3.3 Reverse Engineering",
