@@ -31,9 +31,9 @@ def compute_heating_power(coord) -> Optional[float]:
     Formula: P_heat = flow * 4.186 * delta_T * 1000 (Watts)
     But the device provides it directly at 2059 (POWER_KW_X10).
     """
-    # Try device-provided heating power first
+    # Try device-provided heating power first (0 = unit does not compute it).
     hp = _cval(coord, _ADDR_HEATING_POWER)
-    if hp is not None:
+    if hp is not None and hp > 0:
         return hp * 1000.0  # kW to W
 
     # Fallback: calculate from flow and temperatures
@@ -85,9 +85,10 @@ def compute_electrical_power(coord, opts: dict) -> Optional[float]:
         return val
 
     if source == "foxair_register":
-        # Device-provided electrical power at 2054 (kW * 10)
+        # Device-provided electrical power at 2054 (kW * 10);
+        # 0 = unit does not compute it, fall through (callers may estimate).
         ep = _cval(coord, _ADDR_ELECTRICAL_POWER)
-        if ep is not None:
+        if ep is not None and ep > 0:
             return ep * 1000.0  # kW to W
 
     return None
