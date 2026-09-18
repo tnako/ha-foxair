@@ -271,6 +271,12 @@ def main():
             if not spec.get("key") or not isinstance(spec.get("on"), int) or not isinstance(spec.get("off"), int):
                 sys.exit(f"FAIL: alias_switch[{addr}]: need key + int on/off")
             out[addr_str]["alias_switch"] = {"key": spec["key"], "on": spec["on"], "off": spec["off"], "icon": spec.get("icon")}
+    # Warn about config-referenced addrs with no register definition —
+    # these become orphan translation keys (8801 bug: in config +
+    # translations + select.py but missing from foxair_phnix_registers.json).
+    _missing = [str(a) for a in CORE_NON_EXPERT_ADDRS if str(a) not in regs]
+    if _missing:
+        print(f"WARN: core_non_expert_addrs without register defs: {_missing}")
     OUT_PATH.write_text(json.dumps(out, indent=2, ensure_ascii=False), encoding="utf-8")
     # stats
     from collections import Counter

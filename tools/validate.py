@@ -389,6 +389,9 @@ if meta_path.exists():
     for _a in _cfg_extra.get("non_expert_addrs", []):
         if str(_a) not in _meta_all3:
             errs.append(f"non_expert_addrs: {_a} not in metadata")
+    for _a in _cfg_extra.get("core_non_expert_addrs", []):
+        if str(_a) not in _meta_all3:
+            errs.append(f"core_non_expert_addrs: {_a} not in metadata")
     for _a in _cfg_extra.get("popular_addrs", []):
         if str(_a) not in _meta_all3:
             errs.append(f"popular_addrs: {_a} not in metadata")
