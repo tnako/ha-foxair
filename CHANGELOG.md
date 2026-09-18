@@ -1,3 +1,5 @@
+## 0.6.18 - 2026-09-18
+- fix(metadata): add missing register 8801 (SG Ready Active Mode) to foxair_phnix_registers.json — was in translations + select.py but absent from register defs, causing orphan translation keys
 ## 0.6.17 - 2026-09-18
 - fix(evi): T10/T11 go unavailable when H27 = no EVI (depends_on H27, like G01-G04 on G05); non-expert users keep seeing them since H27 itself is expert-gated
 ## 0.6.16 - 2026-09-18

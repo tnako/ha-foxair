@@ -3254,7 +3254,7 @@
         }
       },
       "foxair_8801": {
-        "name": "SG Ready Active Mode",
+        "name": "SG01: Активный режим SG Ready",
         "state": {
           "off_disabled": "ТН выкл / SG выкл",
           "sg1_sleep": "SG 1 / сон",

@@ -3254,7 +3254,7 @@
         }
       },
       "foxair_8801": {
-        "name": "SG Ready Active Mode",
+        "name": "SG01: SG Ready Active Mode",
         "state": {
           "off_disabled": "HP Off / SG Disabled",
           "sg1_sleep": "SG Mode 1 / Sleep",
