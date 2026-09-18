@@ -1,3 +1,5 @@
+## 0.6.17 - 2026-09-18
+- fix(evi): T10/T11 go unavailable when H27 = no EVI (depends_on H27, like G01-G04 on G05); non-expert users keep seeing them since H27 itself is expert-gated
 ## 0.6.16 - 2026-09-18
 - fix(t35): AC Input Current moved out of Diagnostics into Live sensors and rescaled RAW to 0.1 A steps (was showing 25 A, now 2.5 A)
 ## 0.6.15 - 2026-09-18

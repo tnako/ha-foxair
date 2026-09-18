@@ -4891,7 +4891,8 @@
     "name": "EVI-Einlasstemperatur",
     "type": "TEMP1",
     "unit": "°C",
-    "notes": "User confirmed unit °C in v0.2.35"
+    "notes": "User confirmed unit °C in v0.2.35",
+    "depends_on": 1027
   },
   "2064": {
     "block": "T",
@@ -4899,7 +4900,8 @@
     "function": "16",
     "mode": "read",
     "name": "EVI-Auslasstemperatur",
-    "type": "TEMP1"
+    "type": "TEMP1",
+    "depends_on": 1027
   },
   "2065": {
     "function": "16",

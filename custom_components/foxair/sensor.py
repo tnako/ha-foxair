@@ -170,7 +170,9 @@ class FoxSensor(CoordinatorEntity, SensorEntity):
             try:
                 rec = self.coordinator.data.get(int(dep))
                 if not rec:
-                    return False
+                    # dep not polled (e.g. expert-gated H27 for a non-expert
+                    # user) — can't prove disabled, so keep showing.
+                    return super().available
                 raw = rec.get("raw")
                 if raw is None:
                     raw = rec.get("value")
