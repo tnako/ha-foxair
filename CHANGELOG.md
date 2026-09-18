@@ -1,3 +1,5 @@
+## 0.6.15 - 2026-09-18
+- fix(changelog): reworded 0.6.14 entry, no code change
 ## 0.6.14 - 2026-09-18
 - fix(power): T59/T54 reading 0 no longer forces heating/electrical power to 0 — 0 means the unit does not compute it, so heating power falls back to flow × deltaT; use the Options external meter for electrical power + COP until the firmware reports T54
 ## 0.6.13 - 2026-09-18
