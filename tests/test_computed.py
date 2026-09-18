@@ -94,6 +94,17 @@ def test_register_source_kw_to_w():
     assert comp.compute_electrical_power(coord, _opts("foxair_register")) == 500.0
 
 
+def test_register_source_zero_falls_through_to_fallback():
+    # His unit reports T54/T59/T60 = 0 while actually heating (flow 1.45,
+    # deltaT 1.6K). 0 means "unit does not compute it", not 0 W.
+    coord = FakeCoord({2054: {"value": 0.0}, 2059: {"value": 0.0},
+                       2077: {"value": 1.45}, 2045: {"value": 43.3},
+                       2046: {"value": 44.9}})
+    assert comp.compute_electrical_power(coord, _opts("foxair_register")) is None
+    assert comp.compute_heating_power(coord) == pytest.approx(
+        1.45 * 1000 * 4186 * 1.6 / 3600)
+
+
 def test_register_source_missing_is_none():
     coord = FakeCoord({})
     assert comp.compute_electrical_power(coord, _opts("foxair_register")) is None
