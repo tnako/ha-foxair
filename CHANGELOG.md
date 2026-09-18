@@ -1,3 +1,5 @@
+## 0.6.12 - 2026-09-18
+- fix(poll): one dead Modbus batch no longer wipes the whole cycle — tier-ordered batches (quick first), reconnect-and-continue on timeouts (abort only after 3 in a row), 0.35s EW11 read pacing; rare tier (H31 etc.) survives single timeouts
 ## 0.6.11 - 2026-09-18
 - fix(diagnostics): Download diagnostics now fetches key addrs live (H31 pump type, T59/T54/T60/T39/T31/T36/T37/T34, T01/T02, firmware, curve) when the normal poll cycle missed them, writes them back so computed sensors see them, and drops the 250-entry cap — a file can never again silently omit the regs needed to answer the question
 ## 0.6.10 - 2026-09-18
