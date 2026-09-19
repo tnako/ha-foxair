@@ -80,9 +80,13 @@ class FakeHass:
 
 
 class FakeCoord:
-    def __init__(self, data, hass=None):
+    def __init__(self, data, hass=None, fw=33):
         self.data = data
         self.hass = hass or FakeHass({})
+        self._fw = fw
+
+    def fw_version(self):
+        return self._fw
 
 
 def _opts(source, entity="sensor.meter10_power"):
@@ -108,6 +112,43 @@ def test_register_source_zero_falls_through_to_fallback():
 def test_register_source_missing_is_none():
     coord = FakeCoord({})
     assert comp.compute_electrical_power(coord, _opts("foxair_register")) is None
+
+
+def test_pre33_fw_falls_back_to_ac_va():
+    # fw 13 (v1.3) unit: T54 reads 0 while heating (diagnostics-confirmed);
+    # apparent power = AC volts (2062) x amps (2057, 0.1 A scaling).
+    coord = FakeCoord({2054: {"value": 0.0}, 2062: {"value": 231.0},
+                       2057: {"value": 4.8}}, fw=13)
+    assert comp.compute_electrical_power(coord, _opts("foxair_register")) == pytest.approx(1108.8)
+
+
+def test_pre33_fw_missing_va_inputs_are_none():
+    coord = FakeCoord({2054: {"value": 0.0}, 2062: {"value": 231.0}}, fw=13)
+    assert comp.compute_electrical_power(coord, _opts("foxair_register")) is None
+    coord = FakeCoord({2054: {"value": 0.0}}, fw=13)
+    assert comp.compute_electrical_power(coord, _opts("foxair_register")) is None
+
+
+def test_pre33_fw_t54_wins_when_nonzero():
+    coord = FakeCoord({2054: {"value": 0.5}, 2062: {"value": 231.0},
+                       2057: {"value": 4.8}}, fw=13)
+    assert comp.compute_electrical_power(coord, _opts("foxair_register")) == 500.0
+
+
+def test_fw_unknown_gets_no_va_estimate():
+    coord = FakeCoord({2054: {"value": 0.0}, 2062: {"value": 231.0},
+                       2057: {"value": 4.8}}, fw=0)
+    assert comp.compute_electrical_power(coord, _opts("foxair_register")) is None
+
+
+def test_cop_from_ac_va_on_pre33_fw():
+    # Same shape as the reporter's diagnostics snapshot: flow 1.45, dT 1.6 K.
+    coord = FakeCoord({2059: {"value": 0.0}, 2077: {"value": 1.45},
+                       2045: {"value": 43.3}, 2046: {"value": 44.9},
+                       2062: {"value": 231.0}, 2057: {"value": 4.8}}, fw=13)
+    hp = 1.45 * 1000 * 4186 * 1.6 / 3600
+    assert comp.compute_cop(coord, _opts("foxair_register")) == pytest.approx(
+        round(hp / 1108.8, 2))
 
 
 def test_external_meter_watts_passthrough():

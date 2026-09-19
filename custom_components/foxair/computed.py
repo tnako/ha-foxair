@@ -10,6 +10,12 @@ _ADDR_FREQ = 2072        # T31 DIGI1 Kompressor-Betriebsfrequenz
 _ADDR_ELECTRICAL_POWER = 2054   # T54 POWER_KW_X10 Elektrische Leistung
 _ADDR_HEATING_POWER = 2059      # T59 POWER_KW_X10 Wärmeleistung
 _ADDR_COP = 2060              # T60 COP_X100 COP
+_ADDR_AC_VOLT = 2062          # T34 VOLT AC-Eingangsspannung
+_ADDR_AC_CURRENT = 2057       # T35 AMP_X10 AC Input Current
+
+# Firmware that first computes T54/T59/T60 (v3.3). Pre-3.3 units report 0
+# there; compute_electrical_power falls back to AC V x A for them.
+_FW_AC_VA = 33
 
 # COP calculation constants
 _ELEC_MIN_FOR_COP = 100     # Minimum electrical power (W) for valid COP
@@ -86,10 +92,19 @@ def compute_electrical_power(coord, opts: dict) -> Optional[float]:
 
     if source == "foxair_register":
         # Device-provided electrical power at 2054 (kW * 10);
-        # 0 = unit does not compute it, fall through (callers may estimate).
+        # 0 = unit does not compute it. Pre-v3.3 firmware never computes
+        # T54/T59/T60, so fall back to apparent power = AC volts (2062) x
+        # amps (2057, 0.1 A) to keep COP alive. v3.3+ keeps register-only
+        # behaviour (no estimate).
         ep = _cval(coord, _ADDR_ELECTRICAL_POWER)
         if ep is not None and ep > 0:
             return ep * 1000.0  # kW to W
+        fw = coord.fw_version() if hasattr(coord, "fw_version") else 0
+        if 0 < fw < _FW_AC_VA:  # 33 = v3.3; 0 = unknown → no estimate
+            v = _cval(coord, _ADDR_AC_VOLT)
+            a = _cval(coord, _ADDR_AC_CURRENT)
+            if v is not None and a is not None:
+                return v * a
 
     return None
 

@@ -1,3 +1,6 @@
+## 0.7.1 - 2026-09-19
+- feat(cop): pre-v3.3 firmware units now get COP automatically, with zero configuration. Old firmware leaves the power registers T54/T59/T60 at 0, so the integration now estimates electrical power as AC input volts x current (T34 x T35, apparent power — COP reads slightly low, fine for the trend). Units on v3.3+ and external-meter setups are unaffected
+
 ## 0.7.0 - 2026-09-19
 - feat(entities): clean, code-based entity ids (sensor.foxair_t04, number.foxair_r02 instead of long address-based names). Old registry entries are removed automatically on first start. Heads-up: entity ids changed, so dashboards and automations pointing at the old ids need a one-time update
 - feat(device): device names no longer contain the host address; multi-pump setups are told apart by their prefix alone
