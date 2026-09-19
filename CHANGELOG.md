@@ -1,3 +1,6 @@
+## 0.7.4 - 2026-09-20
+- fix: the two SG Ready selects no longer collide. Both the SG Ready selection and the SG Ready active mode carried the same internal register code, so Home Assistant dropped the second entity with a "does not generate unique IDs" warning at startup. The active mode is now SG01A with its own entity — thanks to the user for spotting it in the logs
+
 ## 0.7.3 - 2026-09-20
 - feat: the heat pump now tracks how much energy it delivers per mode — five new sensors: Energy — Heating, Energy — Cooling, Energy — DHW, Energy — Defrost and Energy — Electrical (kWh). They plug straight into the Home Assistant Energy dashboard. Counters continue from where they stopped after an HA restart, so nothing is lost by rebooting; they reset only if you delete the integration or reset the entity
 - feat: COP is now split into three — COP — Heating, COP — Cooling and COP — DHW (your existing COP sensor simply became COP — Heating, nothing to reconfigure). Each one only shows a number while the heat pump is actually running in that mode, so you always see a real operating COP, never a stale leftover

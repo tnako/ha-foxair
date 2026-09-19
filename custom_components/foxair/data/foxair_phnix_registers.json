@@ -5663,7 +5663,7 @@
   },
   "8801": {
     "block": "SG",
-    "code": "SG01",
+    "code": "SG01A",
     "function": "03/16",
     "mode": "r/w",
     "name": "SG Ready Active Mode",
