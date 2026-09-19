@@ -47,7 +47,7 @@ class FoxBitButton(CoordinatorEntity, ButtonEntity):
         self._bit = bit
         prefix = get_device_prefix(coord.entry)
         self._attr_unique_id = f"{prefix}_{slug}"
-        self._attr_suggested_object_id = f"{prefix}_{slug}"
+        self.entity_id = f"button.{prefix}_{slug}"
         self._attr_translation_key = f"foxair_{key}"
         entry_id = getattr(coord, "_entry_id", None) or getattr(getattr(coord, "config_entry", None), "entry_id", None)
         slave_id = get_slave_id(coord.entry)

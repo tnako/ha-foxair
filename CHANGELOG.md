@@ -1,3 +1,10 @@
+## 0.7.0 - 2026-09-19
+- feat(entities): clean, code-based entity ids (sensor.foxair_t04, number.foxair_r02 instead of long address-based names). Old registry entries are removed automatically on first start. Heads-up: entity ids changed, so dashboards and automations pointing at the old ids need a one-time update
+- feat(device): device names no longer contain the host address; multi-pump setups are told apart by their prefix alone
+- refactor(select): English option labels now live in the register definitions (app_values). The duplicated German-to-English map is gone, so option slugs can no longer drift between code and data
+- i18n: around 70 sensor names now show proper English and Russian instead of German leftovers (fan speeds, mixing valve, defrost, setpoints, compressor limits and more)
+- chore: Home Assistant 2026.9 is now the minimum version
+- chore: validate prints all errors instead of the first 60, checks translations by code-based keys; tests updated to the new entity identity; retired icon keys cleaned up
 ## 0.6.18 - 2026-09-18
 - fix(metadata): add missing register 8801 (SG Ready Active Mode) to foxair_phnix_registers.json — was in translations + select.py but absent from register defs, causing orphan translation keys
 ## 0.6.17 - 2026-09-18

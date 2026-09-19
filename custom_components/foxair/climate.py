@@ -34,7 +34,7 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
         prefix = get_device_prefix(coord.entry)
         self._attr_translation_key = "foxair_climate"
         self._attr_unique_id = f"{prefix}_climate"
-        self._attr_suggested_object_id = f"{prefix}_climate"
+        self.entity_id = f"climate.{prefix}_climate"
         self._opt_hvac = None    # optimistic hvac_mode during write round-trip
         self._opt_preset = None  # optimistic preset_mode during write round-trip
         entry_id = getattr(coord, "_entry_id", None) or getattr(coord, "config_entry", None) and getattr(coord.config_entry, "entry_id", None)

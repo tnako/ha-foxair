@@ -12,7 +12,7 @@ from homeassistant.components.time import TimeEntity
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from .const import POPULAR_ADDRS, device_for_addr, entity_sort_key, get_device_prefix, get_slave_id, bind_device_info
+from .const import POPULAR_ADDRS, device_for_addr, entity_sort_key, get_device_prefix, get_slave_id, bind_device_info, entity_suffix
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -58,9 +58,10 @@ class FoxTime(CoordinatorEntity, TimeEntity):
         self._meta = meta
         self._optimistic = None
         prefix = get_device_prefix(coord.entry)
-        self._attr_unique_id = f"{prefix}_time_{addr}"
-        self._attr_suggested_object_id = f"{prefix}_time_{addr}"
-        self._attr_translation_key = f"foxair_{addr}"
+        suffix = entity_suffix(coord, addr)
+        self._attr_unique_id = f"{prefix}_{suffix}"
+        self.entity_id = f"time.{prefix}_{suffix}"
+        self._attr_translation_key = f"foxair_{suffix}"
         entry_id = getattr(coord, "_entry_id", None) or getattr(coord.config_entry, "entry_id", None)
         block = meta.get("block") or ""
         tab = meta.get("tab") or block

@@ -47,7 +47,7 @@ def tier(t, expert=False):
 
 ## Live HA — one batched pull, know the traps
 
-- `ha_list_entities()` dumps ~1400 rows: pull ONCE, save to disk, filter locally. Entity names are code-suffix based (`..._a_antifreeze_temp_a04`), not `foxair_<addr>`. For register audits use `tools/check_regs.py` (`--codes H01,P02` filters, `--direct` reads the device raw).
+- `ha_list_entities()` dumps ~1400 rows: pull ONCE, save to disk, filter locally. Entity_ids are code-based (`sensor.foxair_t04`, `number.foxair_r02`); unique_ids = `prefix_<slugified code or addr>`; legacy midfix uids (`_num_/_switch_/_sel_/_time_/_bin_`) are cleaned up on startup. For register audits use `tools/check_regs.py` (`--codes H01,P02` filters, `--direct` reads the device raw).
 - EW11 allows ONE TCP client: exactly one `AsyncModbusTcpClient(` lifetime, all I/O under `coordinator._lock`. A second connect anywhere = frame corruption.
 - `check_regs` UNAVAILABLE is not always a regression — check the `depends_on` chain first (e.g. G01–G04 go unavailable by design when G05 legionella enable = off). Don't block a release on by-design unavailability.
 - HA host runs the deployed tree (deploy = `task deploy` + entry reload). Uncommitted local edits are NOT on the host.

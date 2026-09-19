@@ -4,7 +4,8 @@ from homeassistant.helpers import device_registry as dr
 from homeassistant.helpers.device_registry import async_entries_for_config_entry as dr_entries_for_entry
 from homeassistant.helpers.entity_registry import async_get as er_async_get
 from homeassistant.helpers.entity_registry import async_entries_for_config_entry as er_entries_for_entry
-from .const import DOMAIN, EXPERT_BLOCKS, POPULAR_ADDRS
+from homeassistant.util import slugify
+from .const import DOMAIN, EXPERT_BLOCKS, POPULAR_ADDRS, slug_code
 import logging
 import re
 
@@ -15,12 +16,14 @@ PLATFORMS = ["sensor", "climate", "number", "select", "switch", "time", "image",
 # Retired unique_id suffixes: entities removed/renamed by design (not
 # hidden/expert), whose registry entries must be cleaned so they don't
 # linger as unavailable.
-# 2026-09: _sel_1016 raw 0/1 select replaced by bit_split entities;
-# _switch_1016 (early uid without slug) and first-gen _switch_1016_silent /
-# _btn_1016_* uids renamed to slug-based identity (compat freely broken).
-# 2026-09: _silent_mode alias switch for H22 removed — the plain select is
-# the single H22 face in all modes now.
-RETIRED_UID_SUFFIXES = ("_sel_1016", "_switch_1016", "_switch_1016_silent", "_btn_1016_defrost", "_btn_1016_boost", "_silent_status", "_silent_mode")
+# 2026-09: code-based entity naming (no _num_/_switch_/_sel_/_time_/_bin_
+# intermediates): old addr-based patterns cleaned by the new regex below.
+RETIRED_UID_SUFFIXES = (
+    "_sel_1016", "_switch_1016", "_switch_1016_silent",
+    "_btn_1016_defrost", "_btn_1016_boost", "_silent_status", "_silent_mode",
+    # addr-based patterns being replaced by code-based naming
+    "_num_", "_switch_", "_sel_", "_time_", "_bin_",
+)
 
 
 async def _cleanup_orphaned_entities(hass: HomeAssistant, entry: ConfigEntry, enable_expert: bool):
@@ -40,30 +43,63 @@ async def _cleanup_orphaned_entities(hass: HomeAssistant, entry: ConfigEntry, en
         prefix = entry.data.get("name_prefix", "foxair") or "foxair"
         removed = 0
         reenabled = 0
+        renamed = 0
+        # Reverse map: slugified code -> addr (mirrors const.entity_suffix).
+        code_to_addr = {}
+        for a_str, a_meta in (metadata or {}).items():
+            c = a_meta.get("code")
+            if c:
+                code_to_addr.setdefault(slug_code(c), int(a_str))
         for ent in er_entries_for_entry(registry, entry.entry_id):
             uid = ent.unique_id or ""
             if not uid.startswith(f"{prefix}_"):
                 registry.async_remove(ent.entity_id)
                 removed += 1
                 continue
-            if uid.endswith(RETIRED_UID_SUFFIXES):
+            # Legacy entities with midfixes (_num_, _switch_, _sel_, _time_,
+            # _bin_) or specific retired suffixes are removed unconditionally.
+            if uid.endswith(RETIRED_UID_SUFFIXES) or re.search(
+                r"_num_|_switch_|_sel_|_time_|_bin_", uid
+            ):
                 registry.async_remove(ent.entity_id)
                 removed += 1
                 continue
-            # FoxAir entity_ids end with the register address: foxair_<addr>, foxair_num_<addr>, etc.
-            # Unique IDs follow the same pattern: foxair_<addr>, foxair_num_<addr>.
+            # FoxAir unique_ids: code-based (foxair_<code or addr>) or
+            # legacy addr-based (foxair_num_<addr>, foxair_switch_<addr>,
+            # foxair_sel_<addr>, foxair_time_<addr>, foxair_bin_<addr>_<bit>).
+            # Extract addr so we can look up metadata for hidden/expert/fw checks.
             uid = ent.unique_id
             addr = None
             m = re.match(r"^.+?_bin_(\d+)_\d+$", uid or "")
             if m:
                 addr = int(m.group(1))
             else:
-                m = re.match(r"^.+?_(?:num_|sel_|switch_|time_)?(\d+)$", uid or "")
+                # Legacy midfix patterns: foxair_<midfix>_<addr>
+                m = re.match(r"^.+?_(?:num_|switch_|sel_|time_)?(\d+)$", uid or "")
                 if m:
                     addr = int(m.group(1))
+                else:
+                    # Code-based: foxair_<suffix> — suffix is code or addr
+                    # Strip _bit<n> for bitfield binary sensors
+                    m2 = re.match(r"^.+?_(.*?)(?:_bit\d+)?$", uid or "")
+                    if m2:
+                        suffix = m2.group(1)
+                        if suffix.isdigit():
+                            addr = int(suffix)
+                        else:
+                            # Reverse lookup: slugified code -> addr
+                            addr = code_to_addr.get(suffix)
             if addr is None:
                 continue
             meta = metadata.get(str(addr), {})
+            # Legacy plain-addr uid (foxair_<addr>) on a register that now has
+            # a code-based uid (foxair_<code>): drop it, platform setup
+            # recreates the entity under the code-based identity. Registers
+            # without a code keep the numeric uid — that is the current scheme.
+            if uid == f"{prefix}_{addr}" and meta.get("code"):
+                registry.async_remove(ent.entity_id)
+                removed += 1
+                continue
             # Newly popular/ungated addrs (H22, H32): rows created by older
             # releases stay integration-disabled forever — re-enable them.
             # Never touches user-disabled rows.
@@ -89,10 +125,32 @@ async def _cleanup_orphaned_entities(hass: HomeAssistant, entry: ConfigEntry, en
             if drop:
                 registry.async_remove(ent.entity_id)
                 removed += 1
-        if removed or reenabled:
-            _LOGGER.debug("Cleanup removed %d stale entities, re-enabled %d (hidden/expert)", removed, reenabled)
-    except Exception as e:
-        _LOGGER.debug("cleanup orphaned entities failed: %s", e)
+        # Object-id normalization: registry entries created by pre-code-naming
+        # builds (has_entity_name=True) carry the device slug + IP inside the
+        # entity_id (e.g. sensor.foxair_live_t_live_172_16_79_26_t02_...).
+        # suggested_object_id only applies at FIRST registration, so those ids
+        # never self-heal — force entity_id back to the current scheme
+        # (object_id == slugify(unique_id)) for every surviving entry.
+        for ent in er_entries_for_entry(registry, entry.entry_id):
+            uid = ent.unique_id or ""
+            if not uid.startswith(f"{prefix}_"):
+                continue
+            expected = slugify(uid)
+            # HA 2026.x RegistryEntry has no .object_id attr — derive it
+            current = ent.entity_id.split(".", 1)[1]
+            if current == expected:
+                continue
+            new_entity_id = f"{ent.domain}.{expected}"
+            if registry.async_get(new_entity_id) is not None:
+                registry.async_remove(ent.entity_id)
+                removed += 1
+            else:
+                registry.async_update_entity(ent.entity_id, new_entity_id=new_entity_id)
+                renamed += 1
+        if removed or reenabled or renamed:
+            _LOGGER.debug("Cleanup removed %d stale entities, re-enabled %d, renamed %d entity_ids", removed, reenabled, renamed)
+    except Exception:
+        _LOGGER.exception("cleanup orphaned entities failed")
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):

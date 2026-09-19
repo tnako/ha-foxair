@@ -100,184 +100,184 @@
       "foxair_1017": {
         "default": "mdi:heat-pump"
       },
-      "foxair_1018": {
+      "foxair_h01": {
         "default": "mdi:numeric-1-box-outline"
       },
-      "foxair_1019": {
+      "foxair_h33": {
         "default": "mdi:fan"
       },
-      "foxair_1020": {
+      "foxair_h34": {
         "default": "mdi:numeric-1-box-outline"
       },
-      "foxair_1021": {
+      "foxair_h05": {
         "default": "mdi:numeric-1-box-outline"
       },
       "foxair_1022": {
         "default": "mdi:heat-pump"
       },
-      "foxair_1023": {
+      "foxair_h07": {
         "default": "mdi:numeric-1-box-outline"
       },
-      "foxair_1024": {
+      "foxair_h10": {
         "default": "mdi:numeric-1-box-outline"
       },
-      "foxair_1025": {
+      "foxair_h38": {
         "default": "mdi:heat-pump"
       },
-      "foxair_1026": {
+      "foxair_h39": {
         "default": "mdi:heat-pump"
       },
-      "foxair_1027": {
+      "foxair_h27": {
         "default": "mdi:numeric-1-box-outline"
       },
-      "foxair_1028": {
+      "foxair_h28": {
         "default": "mdi:numeric-1-box-outline"
       },
-      "foxair_1029": {
+      "foxair_h21": {
         "default": "mdi:numeric-1-box-outline"
       },
-      "foxair_1030": {
+      "foxair_h22": {
         "default": "mdi:numeric-1-box-outline"
       },
-      "foxair_1031": {
+      "foxair_a35": {
         "default": "mdi:thermometer"
       },
-      "foxair_1032": {
+      "foxair_h18": {
         "default": "mdi:numeric-1-box-outline"
       },
-      "foxair_1033": {
+      "foxair_h20": {
         "default": "mdi:numeric-1-box-outline"
       },
-      "foxair_1034": {
+      "foxair_h29": {
         "default": "mdi:numeric-1-box-outline"
       },
-      "foxair_1035": {
+      "foxair_h25": {
         "default": "mdi:numeric-1-box-outline"
       },
-      "foxair_1036": {
+      "foxair_h30": {
         "default": "mdi:heat-pump"
       },
-      "foxair_1037": {
+      "foxair_a03": {
         "default": "mdi:thermometer"
       },
-      "foxair_1038": {
+      "foxair_a04": {
         "default": "mdi:thermometer"
       },
-      "foxair_1039": {
+      "foxair_a05": {
         "default": "mdi:thermometer"
       },
-      "foxair_1040": {
+      "foxair_a06": {
         "default": "mdi:thermometer"
       },
-      "foxair_1041": {
+      "foxair_h31": {
         "default": "mdi:numeric-1-box-outline"
       },
-      "foxair_1042": {
+      "foxair_a11": {
         "default": "mdi:numeric-1-box-outline"
       },
-      "foxair_1043": {
+      "foxair_a23": {
         "default": "mdi:thermometer"
       },
-      "foxair_1044": {
+      "foxair_a24": {
         "default": "mdi:thermometer"
       },
-      "foxair_1045": {
+      "foxair_h32": {
         "default": "mdi:numeric-1-box-outline"
       },
-      "foxair_1046": {
+      "foxair_h37": {
         "default": "mdi:numeric-1-box-outline"
       },
-      "foxair_1047": {
+      "foxair_d26": {
         "default": "mdi:snowflake-melt"
       },
       "foxair_1048": {
         "default": "mdi:heat-pump"
       },
-      "foxair_1049": {
+      "foxair_a31": {
         "default": "mdi:thermometer"
       },
-      "foxair_1050": {
+      "foxair_a32": {
         "default": "mdi:timer-outline"
       },
-      "foxair_1051": {
+      "foxair_a30": {
         "default": "mdi:thermometer"
       },
-      "foxair_1052": {
+      "foxair_a21": {
         "default": "mdi:numeric-1-box-outline"
       },
-      "foxair_1053": {
+      "foxair_a22": {
         "default": "mdi:thermometer"
       },
-      "foxair_1054": {
+      "foxair_a26": {
         "default": "mdi:numeric-1-box-outline"
       },
-      "foxair_1055": {
+      "foxair_a25": {
         "default": "mdi:thermometer"
       },
-      "foxair_1056": {
+      "foxair_a27": {
         "default": "mdi:thermometer"
       },
-      "foxair_1057": {
+      "foxair_a28": {
         "default": "mdi:thermometer"
       },
-      "foxair_1058": {
+      "foxair_a29": {
         "default": "mdi:numeric-1-box-outline"
       },
-      "foxair_1059": {
+      "foxair_f01": {
         "default": "mdi:fan"
       },
-      "foxair_1060": {
+      "foxair_f02": {
         "default": "mdi:fan"
       },
-      "foxair_1061": {
+      "foxair_f27": {
         "default": "mdi:fan"
       },
-      "foxair_1062": {
+      "foxair_f03": {
         "default": "mdi:fan"
       },
-      "foxair_1063": {
+      "foxair_a33": {
         "default": "mdi:thermometer"
       },
-      "foxair_1064": {
+      "foxair_a34": {
         "default": "mdi:timer-outline"
       },
       "foxair_1065": {
         "default": "mdi:heat-pump"
       },
-      "foxair_1066": {
+      "foxair_f05": {
         "default": "mdi:fan"
       },
       "foxair_1067": {
         "default": "mdi:heat-pump"
       },
-      "foxair_1068": {
+      "foxair_f06": {
         "default": "mdi:fan"
       },
-      "foxair_1069": {
+      "foxair_z01": {
         "default": "mdi:numeric-1-box-outline"
       },
-      "foxair_1070": {
+      "foxair_z02": {
         "default": "mdi:thermometer"
       },
-      "foxair_1071": {
+      "foxair_z03": {
         "default": "mdi:thermometer"
       },
-      "foxair_1072": {
+      "foxair_z04": {
         "default": "mdi:thermometer"
       },
-      "foxair_1073": {
+      "foxair_z05": {
         "default": "mdi:thermometer"
       },
-      "foxair_1074": {
+      "foxair_f10": {
         "default": "mdi:fan"
       },
-      "foxair_1075": {
+      "foxair_z06": {
         "default": "mdi:thermometer"
       },
-      "foxair_1076": {
+      "foxair_z07": {
         "default": "mdi:thermometer"
       },
-      "foxair_1077": {
+      "foxair_z17": {
         "default": "mdi:numeric-1-box-outline"
       },
       "foxair_1078": {
@@ -286,37 +286,37 @@
       "foxair_1079": {
         "default": "mdi:heat-pump"
       },
-      "foxair_1080": {
+      "foxair_z08": {
         "default": "mdi:percent"
       },
-      "foxair_1081": {
+      "foxair_f18": {
         "default": "mdi:fan"
       },
-      "foxair_1082": {
+      "foxair_z09": {
         "default": "mdi:timer-outline"
       },
-      "foxair_1083": {
+      "foxair_f19": {
         "default": "mdi:fan"
       },
-      "foxair_1084": {
+      "foxair_z10": {
         "default": "mdi:timer-outline"
       },
-      "foxair_1085": {
+      "foxair_z11": {
         "default": "mdi:numeric-5-box-outline"
       },
-      "foxair_1086": {
+      "foxair_f21": {
         "default": "mdi:timer-cog-outline"
       },
-      "foxair_1087": {
+      "foxair_f22": {
         "default": "mdi:fan"
       },
-      "foxair_1088": {
+      "foxair_z12": {
         "default": "mdi:numeric-5-box-outline"
       },
-      "foxair_1089": {
+      "foxair_f23": {
         "default": "mdi:fan"
       },
-      "foxair_1090": {
+      "foxair_z13": {
         "default": "mdi:timer-outline"
       },
       "foxair_1091": {
@@ -349,151 +349,151 @@
       "foxair_1100": {
         "default": "mdi:heat-pump"
       },
-      "foxair_1101": {
+      "foxair_f28": {
         "default": "mdi:fan"
       },
-      "foxair_1102": {
+      "foxair_f29": {
         "default": "mdi:fan"
       },
-      "foxair_1103": {
+      "foxair_f25": {
         "default": "mdi:fan"
       },
-      "foxair_1104": {
+      "foxair_f26": {
         "default": "mdi:fan"
       },
-      "foxair_1105": {
+      "foxair_d01": {
         "default": "mdi:snowflake-melt"
       },
-      "foxair_1106": {
+      "foxair_d02": {
         "default": "mdi:snowflake-melt"
       },
-      "foxair_1107": {
+      "foxair_d03": {
         "default": "mdi:snowflake-melt"
       },
-      "foxair_1108": {
+      "foxair_d04": {
         "default": "mdi:snowflake-melt"
       },
-      "foxair_1109": {
+      "foxair_d05_1": {
         "default": "mdi:snowflake-melt"
       },
-      "foxair_1110": {
+      "foxair_d05_2": {
         "default": "mdi:snowflake-melt"
       },
-      "foxair_1111": {
+      "foxair_d06": {
         "default": "mdi:snowflake-melt"
       },
-      "foxair_1112": {
+      "foxair_d07": {
         "default": "mdi:snowflake-melt"
       },
-      "foxair_1113": {
+      "foxair_d08": {
         "default": "mdi:snowflake-melt"
       },
-      "foxair_1114": {
+      "foxair_d09": {
         "default": "mdi:snowflake-melt"
       },
-      "foxair_1115": {
+      "foxair_d10": {
         "default": "mdi:snowflake-melt"
       },
-      "foxair_1116": {
+      "foxair_d11": {
         "default": "mdi:snowflake-melt"
       },
-      "foxair_1117": {
+      "foxair_d12": {
         "default": "mdi:snowflake-melt"
       },
-      "foxair_1118": {
+      "foxair_d13": {
         "default": "mdi:snowflake-melt"
       },
-      "foxair_1119": {
+      "foxair_d14": {
         "default": "mdi:fan"
       },
-      "foxair_1120": {
+      "foxair_d15": {
         "default": "mdi:fan"
       },
-      "foxair_1121": {
+      "foxair_d16": {
         "default": "mdi:fan"
       },
-      "foxair_1122": {
+      "foxair_d17": {
         "default": "mdi:snowflake-melt"
       },
-      "foxair_1123": {
+      "foxair_d18": {
         "default": "mdi:snowflake-melt"
       },
-      "foxair_1124": {
+      "foxair_d19": {
         "default": "mdi:snowflake-melt"
       },
-      "foxair_1125": {
+      "foxair_d20": {
         "default": "mdi:snowflake-melt"
       },
-      "foxair_1126": {
+      "foxair_d21": {
         "default": "mdi:snowflake-melt"
       },
-      "foxair_1127": {
+      "foxair_d22": {
         "default": "mdi:snowflake-melt"
       },
-      "foxair_1128": {
+      "foxair_d23": {
         "default": "mdi:fan"
       },
-      "foxair_1129": {
+      "foxair_d24": {
         "default": "mdi:snowflake-melt"
       },
-      "foxair_1130": {
+      "foxair_d25": {
         "default": "mdi:snowflake-melt"
       },
-      "foxair_1131": {
+      "foxair_e01": {
         "default": "mdi:numeric-1-box-outline"
       },
-      "foxair_1132": {
+      "foxair_e02": {
         "default": "mdi:thermometer"
       },
-      "foxair_1133": {
+      "foxair_e03": {
         "default": "mdi:stairs"
       },
-      "foxair_1134": {
+      "foxair_z14": {
         "default": "mdi:percent"
       },
-      "foxair_1135": {
+      "foxair_z15": {
         "default": "mdi:thermometer"
       },
-      "foxair_1136": {
+      "foxair_z16": {
         "default": "mdi:numeric-5-box-outline"
       },
-      "foxair_1137": {
+      "foxair_e07": {
         "default": "mdi:stairs"
       },
-      "foxair_1138": {
+      "foxair_e08": {
         "default": "mdi:stairs"
       },
-      "foxair_1139": {
+      "foxair_e09": {
         "default": "mdi:numeric-1-box-outline"
       },
-      "foxair_1140": {
+      "foxair_e10": {
         "default": "mdi:stairs"
       },
       "foxair_1141": {
         "default": "mdi:heat-pump"
       },
-      "foxair_1142": {
+      "foxair_e03_2": {
         "default": "mdi:stairs"
       },
-      "foxair_1143": {
+      "foxair_e13": {
         "default": "mdi:thermometer"
       },
-      "foxair_1144": {
+      "foxair_e14": {
         "default": "mdi:stairs"
       },
-      "foxair_1145": {
+      "foxair_e15": {
         "default": "mdi:thermometer"
       },
-      "foxair_1146": {
+      "foxair_e16": {
         "default": "mdi:thermometer"
       },
-      "foxair_1147": {
+      "foxair_e17": {
         "default": "mdi:stairs"
       },
-      "foxair_1148": {
+      "foxair_e18": {
         "default": "mdi:thermometer"
       },
-      "foxair_1149": {
+      "foxair_e19": {
         "default": "mdi:percent"
       },
       "foxair_1150": {
@@ -502,91 +502,91 @@
       "foxair_1151": {
         "default": "mdi:heat-pump"
       },
-      "foxair_1152": {
+      "foxair_g01": {
         "default": "mdi:thermometer"
       },
-      "foxair_1153": {
+      "foxair_g02": {
         "default": "mdi:timer-outline"
       },
-      "foxair_1154": {
+      "foxair_g03": {
         "default": "mdi:timer-outline"
       },
-      "foxair_1155": {
+      "foxair_g04": {
         "default": "mdi:timer-outline"
       },
-      "foxair_1156": {
+      "foxair_g05": {
         "default": "mdi:numeric-1-box-outline"
       },
-      "foxair_1157": {
+      "foxair_r01": {
         "default": "mdi:thermometer"
       },
-      "foxair_1158": {
+      "foxair_r02": {
         "default": "mdi:thermometer"
       },
-      "foxair_1159": {
+      "foxair_r03": {
         "default": "mdi:thermometer"
       },
-      "foxair_1160": {
+      "foxair_r04": {
         "default": "mdi:thermometer"
       },
-      "foxair_1161": {
+      "foxair_r05": {
         "default": "mdi:thermometer"
       },
-      "foxair_1162": {
+      "foxair_r08": {
         "default": "mdi:thermometer"
       },
-      "foxair_1163": {
+      "foxair_r09": {
         "default": "mdi:thermometer"
       },
-      "foxair_1164": {
+      "foxair_r10": {
         "default": "mdi:thermometer"
       },
-      "foxair_1165": {
+      "foxair_r11": {
         "default": "mdi:thermometer"
       },
-      "foxair_1166": {
+      "foxair_r15": {
         "default": "mdi:thermometer"
       },
-      "foxair_1167": {
+      "foxair_r29": {
         "default": "mdi:thermometer"
       },
-      "foxair_1168": {
+      "foxair_r30": {
         "default": "mdi:thermometer"
       },
-      "foxair_1169": {
+      "foxair_r31": {
         "default": "mdi:thermometer"
       },
-      "foxair_1170": {
+      "foxair_r32": {
         "default": "mdi:thermometer"
       },
-      "foxair_1171": {
+      "foxair_r33": {
         "default": "mdi:thermometer"
       },
-      "foxair_1172": {
+      "foxair_r34": {
         "default": "mdi:thermometer"
       },
-      "foxair_1173": {
+      "foxair_r35": {
         "default": "mdi:numeric-1-box-outline"
       },
-      "foxair_1174": {
+      "foxair_r06": {
         "default": "mdi:thermometer"
       },
-      "foxair_1175": {
+      "foxair_r07": {
         "default": "mdi:thermometer"
       },
-      "foxair_1176": {
+      "foxair_r36": {
         "default": "mdi:thermometer"
       },
-      "foxair_1177": {
+      "foxair_r37": {
         "default": "mdi:thermometer"
       },
-      "foxair_1178": {
+      "foxair_r12": {
         "default": "mdi:thermometer"
       },
-      "foxair_1179": {
+      "foxair_r13": {
         "default": "mdi:thermometer"
       },
-      "foxair_1180": {
+      "foxair_r14": {
         "default": "mdi:thermometer"
       },
       "foxair_1181": {
@@ -622,64 +622,64 @@
       "foxair_1191": {
         "default": "mdi:heat-pump"
       },
-      "foxair_1192": {
+      "foxair_r39": {
         "default": "mdi:thermometer"
       },
-      "foxair_1193": {
+      "foxair_r40": {
         "default": "mdi:thermometer"
       },
-      "foxair_1194": {
+      "foxair_r41": {
         "default": "mdi:thermometer"
       },
-      "foxair_1195": {
+      "foxair_r16": {
         "default": "mdi:thermometer"
       },
-      "foxair_1196": {
+      "foxair_r17": {
         "default": "mdi:thermometer"
       },
-      "foxair_1197": {
+      "foxair_p01": {
         "default": "mdi:water-pump"
       },
-      "foxair_1198": {
+      "foxair_p02": {
         "default": "mdi:water-pump"
       },
-      "foxair_1199": {
+      "foxair_p03": {
         "default": "mdi:water-pump"
       },
-      "foxair_1200": {
+      "foxair_e03_1": {
         "default": "mdi:stairs"
       },
-      "foxair_1201": {
+      "foxair_p05": {
         "default": "mdi:water-pump"
       },
-      "foxair_1202": {
+      "foxair_p06": {
         "default": "mdi:water-pump"
       },
-      "foxair_1203": {
+      "foxair_p09": {
         "default": "mdi:water-pump"
       },
-      "foxair_1204": {
+      "foxair_p08": {
         "default": "mdi:water-pump"
       },
-      "foxair_1205": {
+      "foxair_p10": {
         "default": "mdi:water-pump"
       },
-      "foxair_1206": {
+      "foxair_e03_3": {
         "default": "mdi:stairs"
       },
-      "foxair_1207": {
+      "foxair_e03_4": {
         "default": "mdi:stairs"
       },
-      "foxair_1208": {
+      "foxair_e03_5": {
         "default": "mdi:stairs"
       },
-      "foxair_1209": {
+      "foxair_e07_1": {
         "default": "mdi:stairs"
       },
-      "foxair_1210": {
+      "foxair_e07_2": {
         "default": "mdi:stairs"
       },
-      "foxair_1211": {
+      "foxair_e07_3": {
         "default": "mdi:stairs"
       },
       "foxair_1212": {
@@ -691,61 +691,61 @@
       "foxair_1214": {
         "default": "mdi:thermometer"
       },
-      "foxair_1215": {
+      "foxair_e07_4": {
         "default": "mdi:stairs"
       },
-      "foxair_1216": {
+      "foxair_e07_5": {
         "default": "mdi:stairs"
       },
-      "foxair_1217": {
+      "foxair_c11": {
         "default": "mdi:air-conditioner"
       },
-      "foxair_1218": {
+      "foxair_c01": {
         "default": "mdi:air-conditioner"
       },
-      "foxair_1219": {
+      "foxair_c02": {
         "default": "mdi:air-conditioner"
       },
-      "foxair_1220": {
+      "foxair_c03": {
         "default": "mdi:air-conditioner"
       },
-      "foxair_1221": {
+      "foxair_c04": {
         "default": "mdi:air-conditioner"
       },
-      "foxair_1222": {
+      "foxair_c05": {
         "default": "mdi:air-conditioner"
       },
-      "foxair_1223": {
+      "foxair_c06": {
         "default": "mdi:numeric-1-box-outline"
       },
-      "foxair_1224": {
+      "foxair_c07": {
         "default": "mdi:sine-wave"
       },
-      "foxair_1225": {
+      "foxair_c08": {
         "default": "mdi:sine-wave"
       },
-      "foxair_1226": {
+      "foxair_c09": {
         "default": "mdi:sine-wave"
       },
-      "foxair_1227": {
+      "foxair_c10": {
         "default": "mdi:air-conditioner"
       },
-      "foxair_1228": {
+      "foxair_r42": {
         "default": "mdi:thermometer"
       },
-      "foxair_1229": {
+      "foxair_r43": {
         "default": "mdi:thermometer"
       },
-      "foxair_1230": {
+      "foxair_r44": {
         "default": "mdi:thermometer"
       },
-      "foxair_1231": {
+      "foxair_r45": {
         "default": "mdi:thermometer"
       },
-      "foxair_1232": {
+      "foxair_r46": {
         "default": "mdi:thermometer"
       },
-      "foxair_1233": {
+      "foxair_r60": {
         "default": "mdi:thermometer"
       },
       "foxair_1234": {
@@ -754,28 +754,28 @@
       "foxair_1235": {
         "default": "mdi:thermometer"
       },
-      "foxair_1236": {
+      "foxair_h36": {
         "default": "mdi:numeric-1-box-outline"
       },
-      "foxair_1237": {
+      "foxair_r61": {
         "default": "mdi:thermometer"
       },
-      "foxair_1238": {
+      "foxair_r62": {
         "default": "mdi:thermometer"
       },
-      "foxair_1239": {
+      "foxair_r70": {
         "default": "mdi:thermometer"
       },
-      "foxair_1240": {
+      "foxair_r71": {
         "default": "mdi:thermometer"
       },
-      "foxair_1241": {
+      "foxair_r72": {
         "default": "mdi:thermometer"
       },
-      "foxair_1242": {
+      "foxair_r73": {
         "default": "mdi:thermometer"
       },
-      "foxair_1243": {
+      "foxair_r74": {
         "default": "mdi:thermometer"
       },
       "foxair_1244": {
@@ -814,49 +814,49 @@
       "foxair_1255": {
         "default": "mdi:heat-pump"
       },
-      "foxair_1256": {
+      "foxair_kg1": {
         "default": "mdi:timer-cog-outline"
       },
-      "foxair_1257": {
+      "foxair_kg2": {
         "default": "mdi:timer-cog-outline"
       },
-      "foxair_1258": {
+      "foxair_kg3": {
         "default": "mdi:timer-cog-outline"
       },
-      "foxair_1259": {
+      "foxair_kg4": {
         "default": "mdi:timer-cog-outline"
       },
-      "foxair_1260": {
+      "foxair_kg5": {
         "default": "mdi:timer-cog-outline"
       },
-      "foxair_1261": {
+      "foxair_kg6": {
         "default": "mdi:timer-cog-outline"
       },
-      "foxair_1262": {
+      "foxair_kg7": {
         "default": "mdi:timer-cog-outline"
       },
-      "foxair_1263": {
+      "foxair_kg8": {
         "default": "mdi:timer-cog-outline"
       },
-      "foxair_1264": {
+      "foxair_kg9": {
         "default": "mdi:timer-cog-outline"
       },
-      "foxair_1265": {
+      "foxair_kg10": {
         "default": "mdi:timer-cog-outline"
       },
-      "foxair_1266": {
+      "foxair_kg11": {
         "default": "mdi:timer-cog-outline"
       },
-      "foxair_1267": {
+      "foxair_kg12": {
         "default": "mdi:timer-cog-outline"
       },
-      "foxair_1268": {
+      "foxair_kg13_kg28": {
         "default": "mdi:timer-cog-outline"
       },
-      "foxair_1269": {
+      "foxair_kg29_kg44": {
         "default": "mdi:timer-cog-outline"
       },
-      "foxair_1270": {
+      "foxair_kg45_kg60": {
         "default": "mdi:timer-cog-outline"
       },
       "foxair_1271": {
@@ -1048,61 +1048,64 @@
       "foxair_1333": {
         "default": "mdi:timer-cog-outline"
       },
-      "foxair_1334": {
+      "foxair_sg01": {
         "default": "mdi:power-socket-eu"
       },
-      "foxair_1335": {
+      "foxair_sg01a": {
         "default": "mdi:power-socket-eu"
       },
-      "foxair_1336": {
+      "foxair_sg02": {
         "default": "mdi:power-socket-eu"
       },
-      "foxair_1337": {
+      "foxair_sg03": {
         "default": "mdi:power-socket-eu"
       },
-      "foxair_1338": {
+      "foxair_sg04": {
         "default": "mdi:power-socket-eu"
       },
-      "foxair_1339": {
+      "foxair_sg05": {
         "default": "mdi:power-socket-eu"
       },
-      "foxair_1340": {
+      "foxair_sg06": {
         "default": "mdi:power-socket-eu"
       },
-      "foxair_1341": {
+      "foxair_sg07": {
         "default": "mdi:power-socket-eu"
       },
-      "foxair_1342": {
+      "foxair_sg08": {
+        "default": "mdi:power-socket-eu"
+      },
+      "foxair_a38": {
         "default": "mdi:gauge"
       },
-      "foxair_1343": {
+      "foxair_a39": {
         "default": "mdi:current-ac"
       },
-      "foxair_1344": {
+      "foxair_a40": {
         "default": "mdi:water-pump"
       },
-      "foxair_1345": {
+      "foxair_h40": {
         "default": "mdi:numeric-1-box-outline"
       },
-      "foxair_1346": {
+      "foxair_h41": {
         "default": "mdi:heat-pump"
       },
-      "foxair_1347": {
+      "foxair_c12": {
         "default": "mdi:air-conditioner"
       },
-      "foxair_1348": {
+      "foxair_c13": {
         "default": "mdi:heat-pump"
       },
-      "foxair_1349": {
+      "foxair_c14": {
         "default": "mdi:heat-pump"
       },
-      "foxair_1350": {
+      "foxair_c15": {
         "default": "mdi:heat-pump"
       },
-      "foxair_1351": {
+      "foxair_e20": {
         "default": "mdi:heat-pump"
       },
-      "foxair_1352": {
+      "foxair_e21": {
         "default": "mdi:heat-pump"
       },
       "foxair_1353": {
@@ -1114,13 +1117,13 @@
       "foxair_1355": {
         "default": "mdi:heat-pump"
       },
-      "foxair_1356": {
+      "foxair_h42": {
         "default": "mdi:thermometer"
       },
-      "foxair_1357": {
+      "foxair_z19": {
         "default": "mdi:thermometer"
       },
-      "foxair_1358": {
+      "foxair_z20": {
         "default": "mdi:numeric-1-box-outline"
       },
       "foxair_1361": {
@@ -1183,25 +1186,25 @@
       "foxair_1380": {
         "default": "mdi:heat-pump"
       },
-      "foxair_1432": {
+      "foxair_p11": {
         "default": "mdi:water-pump"
       },
-      "foxair_1433": {
+      "foxair_p12": {
         "default": "mdi:water-pump"
       },
-      "foxair_1435": {
+      "foxair_p13": {
         "default": "mdi:water-pump"
       },
-      "foxair_1436": {
+      "foxair_p14": {
         "default": "mdi:water-pump"
       },
-      "foxair_1437": {
+      "foxair_d30": {
         "default": "mdi:snowflake-melt"
       },
-      "foxair_1438": {
+      "foxair_p15": {
         "default": "mdi:water-pump"
       },
-      "foxair_1444": {
+      "foxair_p16": {
         "default": "mdi:water-pump"
       },
       "foxair_1451": {
@@ -1357,37 +1360,37 @@
       "foxair_2028": {
         "default": "mdi:heat-pump"
       },
-      "foxair_2029": {
+      "foxair_t_diag5": {
         "default": "mdi:numeric-5-box-outline"
       },
-      "foxair_2030": {
+      "foxair_t_diag6": {
         "default": "mdi:numeric-5-box-outline"
       },
-      "foxair_2031": {
+      "foxair_t_diag7": {
         "default": "mdi:numeric-5-box-outline"
       },
-      "foxair_2032": {
+      "foxair_t_diag8": {
         "default": "mdi:air-conditioner"
       },
       "foxair_2033": {
         "default": "mdi:heat-pump"
       },
-      "foxair_2034": {
+      "foxair_s01": {
         "default": "mdi:power-socket-eu"
       },
-      "foxair_2035": {
+      "foxair_t40": {
         "default": "mdi:thermometer"
       },
-      "foxair_2036": {
+      "foxair_t41": {
         "default": "mdi:thermometer"
       },
-      "foxair_2037": {
+      "foxair_t42": {
         "default": "mdi:thermometer"
       },
-      "foxair_2038": {
+      "foxair_t43": {
         "default": "mdi:thermometer"
       },
-      "foxair_2039": {
+      "foxair_t44": {
         "default": "mdi:thermometer"
       },
       "foxair_2040": {
@@ -1396,112 +1399,112 @@
       "foxair_2041": {
         "default": "mdi:heat-pump"
       },
-      "foxair_2042": {
+      "foxair_t36": {
         "default": "mdi:air-conditioner"
       },
-      "foxair_2043": {
+      "foxair_t37": {
         "default": "mdi:lightning-bolt"
       },
-      "foxair_2044": {
+      "foxair_t38": {
         "default": "mdi:thermometer"
       },
-      "foxair_2045": {
+      "foxair_t01": {
         "default": "mdi:thermometer"
       },
-      "foxair_2046": {
+      "foxair_t02": {
         "default": "mdi:thermometer"
       },
-      "foxair_2047": {
+      "foxair_t08": {
         "default": "mdi:thermometer"
       },
-      "foxair_2048": {
+      "foxair_t04": {
         "default": "mdi:thermometer"
       },
-      "foxair_2049": {
+      "foxair_t03": {
         "default": "mdi:thermometer"
       },
-      "foxair_2050": {
+      "foxair_t14": {
         "default": "mdi:thermometer"
       },
-      "foxair_2051": {
+      "foxair_t05": {
         "default": "mdi:thermometer"
       },
-      "foxair_2052": {
+      "foxair_t07": {
         "default": "mdi:thermometer"
       },
-      "foxair_2053": {
+      "foxair_t12": {
         "default": "mdi:thermometer"
       },
-      "foxair_2054": {
+      "foxair_t54": {
         "default": "mdi:lightning-bolt"
       },
-      "foxair_2055": {
+      "foxair_t06": {
         "default": "mdi:thermometer"
       },
       "foxair_2056": {
         "default": "mdi:thermometer"
       },
-      "foxair_2057": {
+      "foxair_t35": {
         "default": "mdi:heat-pump"
       },
-      "foxair_2058": {
+      "foxair_t09": {
         "default": "mdi:numeric-5-box-outline"
       },
-      "foxair_2059": {
+      "foxair_t59": {
         "default": "mdi:lightning-bolt"
       },
-      "foxair_2060": {
+      "foxair_t60": {
         "default": "mdi:chart-bell-curve"
       },
-      "foxair_2061": {
+      "foxair_t33": {
         "default": "mdi:thermometer"
       },
-      "foxair_2062": {
+      "foxair_t34": {
         "default": "mdi:lightning-bolt"
       },
-      "foxair_2063": {
+      "foxair_t10": {
         "default": "mdi:thermometer"
       },
-      "foxair_2064": {
+      "foxair_t11": {
         "default": "mdi:thermometer"
       },
-      "foxair_2065": {
+      "foxair_t_diag1": {
         "default": "mdi:thermometer"
       },
-      "foxair_2066": {
+      "foxair_t_diag2": {
         "default": "mdi:thermometer"
       },
-      "foxair_2067": {
+      "foxair_t_diag3": {
         "default": "mdi:thermometer"
       },
       "foxair_2068": {
         "default": "mdi:numeric-5-box-outline"
       },
-      "foxair_2069": {
+      "foxair_t15": {
         "default": "mdi:gauge"
       },
       "foxair_2070": {
         "default": "mdi:numeric-5-box-outline"
       },
-      "foxair_2071": {
+      "foxair_t30": {
         "default": "mdi:air-conditioner"
       },
-      "foxair_2072": {
+      "foxair_t31": {
         "default": "mdi:air-conditioner"
       },
-      "foxair_2073": {
+      "foxair_t32": {
         "default": "mdi:air-conditioner"
       },
-      "foxair_2074": {
+      "foxair_t27": {
         "default": "mdi:fan"
       },
-      "foxair_2075": {
+      "foxair_t28": {
         "default": "mdi:fan"
       },
-      "foxair_2076": {
+      "foxair_t29": {
         "default": "mdi:fan"
       },
-      "foxair_2077": {
+      "foxair_t39": {
         "default": "mdi:water-pump"
       },
       "foxair_2078": {
@@ -1513,34 +1516,34 @@
       "foxair_2080": {
         "default": "mdi:heat-pump"
       },
-      "foxair_2081": {
+      "foxair_err07": {
         "default": "mdi:logic-gate"
       },
-      "foxair_2082": {
+      "foxair_err08": {
         "default": "mdi:logic-gate"
       },
-      "foxair_2083": {
+      "foxair_err09": {
         "default": "mdi:logic-gate"
       },
       "foxair_2084": {
         "default": "mdi:heat-pump"
       },
-      "foxair_2085": {
+      "foxair_err01": {
         "default": "mdi:logic-gate"
       },
-      "foxair_2086": {
+      "foxair_err02": {
         "default": "mdi:logic-gate"
       },
-      "foxair_2087": {
+      "foxair_err03": {
         "default": "mdi:logic-gate"
       },
-      "foxair_2088": {
+      "foxair_err04": {
         "default": "mdi:logic-gate"
       },
-      "foxair_2089": {
+      "foxair_err05": {
         "default": "mdi:logic-gate"
       },
-      "foxair_2090": {
+      "foxair_err06": {
         "default": "mdi:logic-gate"
       },
       "foxair_2091": {
@@ -1660,16 +1663,16 @@
       "foxair_2129": {
         "default": "mdi:heat-pump"
       },
-      "foxair_2130": {
+      "foxair_t46": {
         "default": "mdi:fan"
       },
-      "foxair_2131": {
+      "foxair_t47": {
         "default": "mdi:fan"
       },
-      "foxair_2132": {
+      "foxair_t48": {
         "default": "mdi:fan"
       },
-      "foxair_2133": {
+      "foxair_sgstatus": {
         "default": "mdi:power-socket-eu"
       },
       "foxair_2134": {
@@ -1719,9 +1722,6 @@
       },
       "foxair_2149": {
         "default": "mdi:heat-pump"
-      },
-      "foxair_heating_curve_target": {
-        "default": "mdi:chart-bell-curve"
       }
     },
     "climate": {
@@ -1742,103 +1742,103 @@
       "foxair_1022": {
         "default": "mdi:heat-pump"
       },
-      "foxair_1025": {
+      "foxair_h38": {
         "default": "mdi:chip"
       },
-      "foxair_1026": {
+      "foxair_h39": {
         "default": "mdi:chip"
       },
-      "foxair_1031": {
+      "foxair_a35": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1036": {
+      "foxair_h30": {
         "default": "mdi:chip"
       },
-      "foxair_1037": {
+      "foxair_a03": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1038": {
+      "foxair_a04": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1039": {
+      "foxair_a05": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1040": {
+      "foxair_a06": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1043": {
+      "foxair_a23": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1044": {
+      "foxair_a24": {
         "default": "mdi:shield-alert"
       },
       "foxair_1048": {
         "default": "mdi:heat-pump"
       },
-      "foxair_1049": {
+      "foxair_a31": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1050": {
+      "foxair_a32": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1051": {
+      "foxair_a30": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1053": {
+      "foxair_a22": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1055": {
+      "foxair_a25": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1056": {
+      "foxair_a27": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1057": {
+      "foxair_a28": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1060": {
+      "foxair_f02": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1061": {
+      "foxair_f27": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1062": {
+      "foxair_f03": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1063": {
+      "foxair_a33": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1064": {
+      "foxair_a34": {
         "default": "mdi:shield-alert"
       },
       "foxair_1065": {
         "default": "mdi:heat-pump"
       },
-      "foxair_1066": {
+      "foxair_f05": {
         "default": "mdi:shield-alert"
       },
       "foxair_1067": {
         "default": "mdi:heat-pump"
       },
-      "foxair_1068": {
+      "foxair_f06": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1070": {
+      "foxair_z02": {
         "default": "mdi:home-thermometer"
       },
-      "foxair_1071": {
+      "foxair_z03": {
         "default": "mdi:home-thermometer"
       },
-      "foxair_1072": {
+      "foxair_z04": {
         "default": "mdi:home-thermometer"
       },
-      "foxair_1073": {
+      "foxair_z05": {
         "default": "mdi:home-thermometer"
       },
-      "foxair_1075": {
+      "foxair_z06": {
         "default": "mdi:home-thermometer"
       },
-      "foxair_1076": {
+      "foxair_z07": {
         "default": "mdi:home-thermometer"
       },
       "foxair_1078": {
@@ -1847,151 +1847,151 @@
       "foxair_1079": {
         "default": "mdi:heat-pump"
       },
-      "foxair_1080": {
+      "foxair_z08": {
         "default": "mdi:home-thermometer"
       },
-      "foxair_1082": {
+      "foxair_z09": {
         "default": "mdi:home-thermometer"
       },
-      "foxair_1084": {
+      "foxair_z10": {
         "default": "mdi:home-thermometer"
       },
-      "foxair_1085": {
+      "foxair_z11": {
         "default": "mdi:home-thermometer"
       },
-      "foxair_1088": {
+      "foxair_z12": {
         "default": "mdi:home-thermometer"
       },
-      "foxair_1090": {
+      "foxair_z13": {
         "default": "mdi:home-thermometer"
       },
-      "foxair_1101": {
+      "foxair_f28": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1102": {
+      "foxair_f29": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1103": {
+      "foxair_f25": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1104": {
+      "foxair_f26": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1105": {
+      "foxair_d01": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1106": {
+      "foxair_d02": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1107": {
+      "foxair_d03": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1108": {
+      "foxair_d04": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1109": {
+      "foxair_d05_1": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1110": {
+      "foxair_d05_2": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1112": {
+      "foxair_d07": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1113": {
+      "foxair_d08": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1114": {
+      "foxair_d09": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1115": {
+      "foxair_d10": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1116": {
+      "foxair_d11": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1117": {
+      "foxair_d12": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1118": {
+      "foxair_d13": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1119": {
+      "foxair_d14": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1120": {
+      "foxair_d15": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1122": {
+      "foxair_d17": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1123": {
+      "foxair_d18": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1124": {
+      "foxair_d19": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1125": {
+      "foxair_d20": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1127": {
+      "foxair_d22": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1128": {
+      "foxair_d23": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1130": {
+      "foxair_d25": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1132": {
+      "foxair_e02": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1133": {
+      "foxair_e03": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1134": {
+      "foxair_z14": {
         "default": "mdi:home-thermometer"
       },
-      "foxair_1135": {
+      "foxair_z15": {
         "default": "mdi:home-thermometer"
       },
-      "foxair_1136": {
+      "foxair_z16": {
         "default": "mdi:home-thermometer"
       },
-      "foxair_1137": {
+      "foxair_e07": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1138": {
+      "foxair_e08": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1140": {
+      "foxair_e10": {
         "default": "mdi:shield-alert"
       },
       "foxair_1141": {
         "default": "mdi:heat-pump"
       },
-      "foxair_1142": {
+      "foxair_e03_2": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1143": {
+      "foxair_e13": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1144": {
+      "foxair_e14": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1145": {
+      "foxair_e15": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1146": {
+      "foxair_e16": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1147": {
+      "foxair_e17": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1148": {
+      "foxair_e18": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1149": {
+      "foxair_e19": {
         "default": "mdi:shield-alert"
       },
       "foxair_1150": {
@@ -2000,136 +2000,136 @@
       "foxair_1151": {
         "default": "mdi:heat-pump"
       },
-      "foxair_1152": {
+      "foxair_g01": {
         "default": "mdi:water-thermometer"
       },
-      "foxair_1153": {
+      "foxair_g02": {
         "default": "mdi:water-thermometer"
       },
-      "foxair_1154": {
+      "foxair_g03": {
         "default": "mdi:water-thermometer"
       },
-      "foxair_1155": {
+      "foxair_g04": {
         "default": "mdi:water-thermometer"
       },
-      "foxair_1157": {
+      "foxair_r01": {
         "default": "mdi:thermometer"
       },
-      "foxair_1158": {
+      "foxair_r02": {
         "default": "mdi:thermometer"
       },
-      "foxair_1159": {
+      "foxair_r03": {
         "default": "mdi:thermometer"
       },
-      "foxair_1160": {
+      "foxair_r04": {
         "default": "mdi:thermometer"
       },
-      "foxair_1161": {
+      "foxair_r05": {
         "default": "mdi:thermometer"
       },
-      "foxair_1162": {
+      "foxair_r08": {
         "default": "mdi:thermometer"
       },
-      "foxair_1163": {
+      "foxair_r09": {
         "default": "mdi:thermometer"
       },
-      "foxair_1164": {
+      "foxair_r10": {
         "default": "mdi:thermometer"
       },
-      "foxair_1165": {
+      "foxair_r11": {
         "default": "mdi:thermometer"
       },
-      "foxair_1166": {
+      "foxair_r15": {
         "default": "mdi:thermometer"
       },
-      "foxair_1167": {
+      "foxair_r29": {
         "default": "mdi:thermometer"
       },
-      "foxair_1168": {
+      "foxair_r30": {
         "default": "mdi:thermometer"
       },
-      "foxair_1169": {
+      "foxair_r31": {
         "default": "mdi:thermometer"
       },
-      "foxair_1170": {
+      "foxair_r32": {
         "default": "mdi:thermometer"
       },
-      "foxair_1171": {
+      "foxair_r33": {
         "default": "mdi:thermometer"
       },
-      "foxair_1172": {
+      "foxair_r34": {
         "default": "mdi:thermometer"
       },
-      "foxair_1174": {
+      "foxair_r06": {
         "default": "mdi:thermometer"
       },
-      "foxair_1175": {
+      "foxair_r07": {
         "default": "mdi:thermometer"
       },
-      "foxair_1176": {
+      "foxair_r36": {
         "default": "mdi:thermometer"
       },
-      "foxair_1177": {
+      "foxair_r37": {
         "default": "mdi:thermometer"
       },
-      "foxair_1178": {
+      "foxair_r12": {
         "default": "mdi:thermometer"
       },
-      "foxair_1179": {
+      "foxair_r13": {
         "default": "mdi:thermometer"
       },
-      "foxair_1180": {
+      "foxair_r14": {
         "default": "mdi:thermometer"
       },
-      "foxair_1192": {
+      "foxair_r39": {
         "default": "mdi:thermometer"
       },
-      "foxair_1193": {
+      "foxair_r40": {
         "default": "mdi:thermometer"
       },
-      "foxair_1194": {
+      "foxair_r41": {
         "default": "mdi:thermometer"
       },
-      "foxair_1195": {
+      "foxair_r16": {
         "default": "mdi:thermometer"
       },
-      "foxair_1196": {
+      "foxair_r17": {
         "default": "mdi:thermometer"
       },
-      "foxair_1198": {
+      "foxair_p02": {
         "default": "mdi:water-pump"
       },
-      "foxair_1199": {
+      "foxair_p03": {
         "default": "mdi:water-pump"
       },
-      "foxair_1200": {
+      "foxair_e03_1": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1203": {
+      "foxair_p09": {
         "default": "mdi:water-pump"
       },
-      "foxair_1204": {
+      "foxair_p08": {
         "default": "mdi:water-pump"
       },
-      "foxair_1205": {
+      "foxair_p10": {
         "default": "mdi:water-pump"
       },
-      "foxair_1206": {
+      "foxair_e03_3": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1207": {
+      "foxair_e03_4": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1208": {
+      "foxair_e03_5": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1209": {
+      "foxair_e07_1": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1210": {
+      "foxair_e07_2": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1211": {
+      "foxair_e07_3": {
         "default": "mdi:shield-alert"
       },
       "foxair_1212": {
@@ -2141,55 +2141,55 @@
       "foxair_1214": {
         "default": "mdi:heat-pump"
       },
-      "foxair_1215": {
+      "foxair_e07_4": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1216": {
+      "foxair_e07_5": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1217": {
+      "foxair_c11": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1218": {
+      "foxair_c01": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1219": {
+      "foxair_c02": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1220": {
+      "foxair_c03": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1222": {
+      "foxair_c05": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1224": {
+      "foxair_c07": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1225": {
+      "foxair_c08": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1226": {
+      "foxair_c09": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1227": {
+      "foxair_c10": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1228": {
+      "foxair_r42": {
         "default": "mdi:thermometer"
       },
-      "foxair_1229": {
+      "foxair_r43": {
         "default": "mdi:thermometer"
       },
-      "foxair_1230": {
+      "foxair_r44": {
         "default": "mdi:thermometer"
       },
-      "foxair_1231": {
+      "foxair_r45": {
         "default": "mdi:thermometer"
       },
-      "foxair_1232": {
+      "foxair_r46": {
         "default": "mdi:thermometer"
       },
-      "foxair_1233": {
+      "foxair_r60": {
         "default": "mdi:thermometer"
       },
       "foxair_1234": {
@@ -2198,25 +2198,25 @@
       "foxair_1235": {
         "default": "mdi:tune-vertical"
       },
-      "foxair_1237": {
+      "foxair_r61": {
         "default": "mdi:thermometer"
       },
-      "foxair_1238": {
+      "foxair_r62": {
         "default": "mdi:thermometer"
       },
-      "foxair_1239": {
+      "foxair_r70": {
         "default": "mdi:thermometer"
       },
-      "foxair_1240": {
+      "foxair_r71": {
         "default": "mdi:thermometer"
       },
-      "foxair_1241": {
+      "foxair_r72": {
         "default": "mdi:thermometer"
       },
-      "foxair_1242": {
+      "foxair_r73": {
         "default": "mdi:thermometer"
       },
-      "foxair_1243": {
+      "foxair_r74": {
         "default": "mdi:thermometer"
       },
       "foxair_1255": {
@@ -2318,43 +2318,43 @@
       "foxair_1333": {
         "default": "mdi:heat-pump"
       },
-      "foxair_1335": {
+      "foxair_sg02": {
         "default": "mdi:power-socket-eu"
       },
-      "foxair_1336": {
+      "foxair_sg03": {
         "default": "mdi:power-socket-eu"
       },
-      "foxair_1337": {
+      "foxair_sg04": {
         "default": "mdi:power-socket-eu"
       },
-      "foxair_1338": {
+      "foxair_sg05": {
         "default": "mdi:power-socket-eu"
       },
-      "foxair_1339": {
+      "foxair_sg06": {
         "default": "mdi:power-socket-eu"
       },
-      "foxair_1340": {
+      "foxair_sg07": {
         "default": "mdi:power-socket-eu"
       },
-      "foxair_1342": {
+      "foxair_a38": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1347": {
+      "foxair_c12": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1348": {
+      "foxair_c13": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1349": {
+      "foxair_c14": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1350": {
+      "foxair_c15": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1351": {
+      "foxair_e20": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1352": {
+      "foxair_e21": {
         "default": "mdi:shield-alert"
       },
       "foxair_1353": {
@@ -2366,10 +2366,10 @@
       "foxair_1355": {
         "default": "mdi:heat-pump"
       },
-      "foxair_1356": {
+      "foxair_h42": {
         "default": "mdi:chip"
       },
-      "foxair_1357": {
+      "foxair_z19": {
         "default": "mdi:home-thermometer"
       },
       "foxair_1371": {
@@ -2402,25 +2402,25 @@
       "foxair_1380": {
         "default": "mdi:heat-pump"
       },
-      "foxair_1432": {
+      "foxair_p11": {
         "default": "mdi:water-pump"
       },
-      "foxair_1433": {
+      "foxair_p12": {
         "default": "mdi:water-pump"
       },
-      "foxair_1435": {
+      "foxair_p13": {
         "default": "mdi:water-pump"
       },
-      "foxair_1436": {
+      "foxair_p14": {
         "default": "mdi:water-pump"
       },
-      "foxair_1437": {
+      "foxair_d30": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1438": {
+      "foxair_p15": {
         "default": "mdi:water-pump"
       },
-      "foxair_1444": {
+      "foxair_p16": {
         "default": "mdi:water-pump"
       }
     },
@@ -2437,136 +2437,136 @@
       "foxair_1016": {
         "default": "mdi:heat-pump"
       },
-      "foxair_1018": {
+      "foxair_h01": {
         "default": "mdi:chip"
       },
-      "foxair_1019": {
+      "foxair_h33": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1020": {
+      "foxair_h34": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1021": {
+      "foxair_h05": {
         "default": "mdi:chip"
       },
-      "foxair_1023": {
+      "foxair_h07": {
         "default": "mdi:chip"
       },
-      "foxair_1024": {
+      "foxair_h10": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1027": {
+      "foxair_h27": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1028": {
+      "foxair_h28": {
         "default": "mdi:chip"
       },
-      "foxair_1029": {
+      "foxair_h21": {
         "default": "mdi:chip"
       },
-      "foxair_1030": {
+      "foxair_h22": {
         "default": "mdi:volume-off"
       },
-      "foxair_1032": {
+      "foxair_h18": {
         "default": "mdi:chip"
       },
-      "foxair_1033": {
+      "foxair_h20": {
         "default": "mdi:chip"
       },
-      "foxair_1034": {
+      "foxair_h29": {
         "default": "mdi:chip"
       },
-      "foxair_1035": {
+      "foxair_h25": {
         "default": "mdi:chip"
       },
-      "foxair_1041": {
+      "foxair_h31": {
         "default": "mdi:chip"
       },
-      "foxair_1042": {
+      "foxair_a11": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1045": {
+      "foxair_h32": {
         "default": "mdi:chip"
       },
-      "foxair_1046": {
+      "foxair_h37": {
         "default": "mdi:chip"
       },
-      "foxair_1047": {
+      "foxair_d26": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1052": {
+      "foxair_a21": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1054": {
+      "foxair_a26": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1058": {
+      "foxair_a29": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1059": {
+      "foxair_f01": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1069": {
+      "foxair_z01": {
         "default": "mdi:home-thermometer"
       },
-      "foxair_1074": {
+      "foxair_f10": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1077": {
+      "foxair_z17": {
         "default": "mdi:home-thermometer"
       },
-      "foxair_1081": {
+      "foxair_f18": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1083": {
+      "foxair_f19": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1086": {
+      "foxair_f21": {
         "default": "mdi:fan"
       },
-      "foxair_1087": {
+      "foxair_f22": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1089": {
+      "foxair_f23": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1111": {
+      "foxair_d06": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1126": {
+      "foxair_d21": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1129": {
+      "foxair_d24": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1131": {
+      "foxair_e01": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1139": {
+      "foxair_e09": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1156": {
+      "foxair_g05": {
         "default": "mdi:water-thermometer"
       },
-      "foxair_1173": {
+      "foxair_r35": {
         "default": "mdi:thermometer"
       },
-      "foxair_1197": {
+      "foxair_p01": {
         "default": "mdi:water-pump"
       },
-      "foxair_1201": {
+      "foxair_p05": {
         "default": "mdi:water-pump"
       },
-      "foxair_1202": {
+      "foxair_p06": {
         "default": "mdi:water-pump"
       },
-      "foxair_1221": {
+      "foxair_c04": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1223": {
+      "foxair_c06": {
         "default": "mdi:shield-alert"
       },
-      "foxair_1236": {
+      "foxair_h36": {
         "default": "mdi:chip"
       },
       "foxair_1244": {
@@ -2602,13 +2602,13 @@
       "foxair_1254": {
         "default": "mdi:heat-pump"
       },
-      "foxair_1268": {
+      "foxair_kg13_kg28": {
         "default": "mdi:timer-outline"
       },
-      "foxair_1269": {
+      "foxair_kg29_kg44": {
         "default": "mdi:timer-outline"
       },
-      "foxair_1270": {
+      "foxair_kg45_kg60": {
         "default": "mdi:timer-outline"
       },
       "foxair_1286": {
@@ -2638,16 +2638,16 @@
       "foxair_1325": {
         "default": "mdi:heat-pump"
       },
-      "foxair_1334": {
+      "foxair_sg01": {
         "default": "mdi:power-socket-eu"
       },
-      "foxair_1341": {
+      "foxair_sg08": {
         "default": "mdi:power-socket-eu"
       },
-      "foxair_1345": {
+      "foxair_h40": {
         "default": "mdi:chip"
       },
-      "foxair_1358": {
+      "foxair_z20": {
         "default": "mdi:home-thermometer"
       }
     },
@@ -2705,244 +2705,244 @@
       "foxair_2019_bit9": {
         "default": "mdi:toggle-switch"
       },
-      "foxair_2034_bit0": {
+      "foxair_s01_bit0": {
         "default": "mdi:electric-switch"
       },
-      "foxair_2034_bit1": {
+      "foxair_s01_bit1": {
         "default": "mdi:electric-switch"
       },
-      "foxair_2034_bit12": {
+      "foxair_s01_bit12": {
         "default": "mdi:electric-switch"
       },
-      "foxair_2034_bit13": {
+      "foxair_s01_bit13": {
         "default": "mdi:electric-switch"
       },
-      "foxair_2034_bit2": {
+      "foxair_s01_bit2": {
         "default": "mdi:electric-switch"
       },
-      "foxair_2034_bit3": {
+      "foxair_s01_bit3": {
         "default": "mdi:electric-switch"
       },
-      "foxair_2034_bit4": {
+      "foxair_s01_bit4": {
         "default": "mdi:electric-switch"
       },
-      "foxair_2034_bit5": {
+      "foxair_s01_bit5": {
         "default": "mdi:electric-switch"
       },
-      "foxair_2034_bit6": {
+      "foxair_s01_bit6": {
         "default": "mdi:electric-switch"
       },
-      "foxair_2034_bit9": {
+      "foxair_s01_bit9": {
         "default": "mdi:electric-switch"
       },
-      "foxair_2081_bit0": {
+      "foxair_err07_bit0": {
         "default": "mdi:alert"
       },
-      "foxair_2081_bit1": {
+      "foxair_err07_bit1": {
         "default": "mdi:alert"
       },
-      "foxair_2081_bit10": {
+      "foxair_err07_bit10": {
         "default": "mdi:alert"
       },
-      "foxair_2081_bit11": {
+      "foxair_err07_bit11": {
         "default": "mdi:alert"
       },
-      "foxair_2081_bit12": {
+      "foxair_err07_bit12": {
         "default": "mdi:alert"
       },
-      "foxair_2081_bit13": {
+      "foxair_err07_bit13": {
         "default": "mdi:alert"
       },
-      "foxair_2081_bit14": {
+      "foxair_err07_bit14": {
         "default": "mdi:alert"
       },
-      "foxair_2081_bit15": {
+      "foxair_err07_bit15": {
         "default": "mdi:alert"
       },
-      "foxair_2081_bit2": {
+      "foxair_err07_bit2": {
         "default": "mdi:alert"
       },
-      "foxair_2081_bit3": {
+      "foxair_err07_bit3": {
         "default": "mdi:alert"
       },
-      "foxair_2081_bit4": {
+      "foxair_err07_bit4": {
         "default": "mdi:alert"
       },
-      "foxair_2081_bit5": {
+      "foxair_err07_bit5": {
         "default": "mdi:alert"
       },
-      "foxair_2081_bit6": {
+      "foxair_err07_bit6": {
         "default": "mdi:alert"
       },
-      "foxair_2081_bit7": {
+      "foxair_err07_bit7": {
         "default": "mdi:alert"
       },
-      "foxair_2081_bit8": {
+      "foxair_err07_bit8": {
         "default": "mdi:alert"
       },
-      "foxair_2081_bit9": {
+      "foxair_err07_bit9": {
         "default": "mdi:alert"
       },
-      "foxair_2082_bit0": {
+      "foxair_err08_bit0": {
         "default": "mdi:alert"
       },
-      "foxair_2082_bit1": {
+      "foxair_err08_bit1": {
         "default": "mdi:alert"
       },
-      "foxair_2082_bit15": {
+      "foxair_err08_bit15": {
         "default": "mdi:alert"
       },
-      "foxair_2082_bit3": {
+      "foxair_err08_bit3": {
         "default": "mdi:alert"
       },
-      "foxair_2082_bit6": {
+      "foxair_err08_bit6": {
         "default": "mdi:alert"
       },
-      "foxair_2082_bit7": {
+      "foxair_err08_bit7": {
         "default": "mdi:alert"
       },
-      "foxair_2083_bit0": {
+      "foxair_err09_bit0": {
         "default": "mdi:alert"
       },
-      "foxair_2083_bit1": {
+      "foxair_err09_bit1": {
         "default": "mdi:alert"
       },
-      "foxair_2083_bit2": {
+      "foxair_err09_bit2": {
         "default": "mdi:alert"
       },
-      "foxair_2083_bit4": {
+      "foxair_err09_bit4": {
         "default": "mdi:alert"
       },
-      "foxair_2083_bit5": {
+      "foxair_err09_bit5": {
         "default": "mdi:alert"
       },
-      "foxair_2085_bit10": {
+      "foxair_err01_bit10": {
         "default": "mdi:alert"
       },
-      "foxair_2085_bit11": {
+      "foxair_err01_bit11": {
         "default": "mdi:alert"
       },
-      "foxair_2085_bit12": {
+      "foxair_err01_bit12": {
         "default": "mdi:alert"
       },
-      "foxair_2085_bit14": {
+      "foxair_err01_bit14": {
         "default": "mdi:alert"
       },
-      "foxair_2085_bit2": {
+      "foxair_err01_bit2": {
         "default": "mdi:alert"
       },
-      "foxair_2085_bit3": {
+      "foxair_err01_bit3": {
         "default": "mdi:alert"
       },
-      "foxair_2085_bit4": {
+      "foxair_err01_bit4": {
         "default": "mdi:alert"
       },
-      "foxair_2085_bit6": {
+      "foxair_err01_bit6": {
         "default": "mdi:alert"
       },
-      "foxair_2085_bit8": {
+      "foxair_err01_bit8": {
         "default": "mdi:alert"
       },
-      "foxair_2085_bit9": {
+      "foxair_err01_bit9": {
         "default": "mdi:alert"
       },
-      "foxair_2086_bit3": {
+      "foxair_err02_bit3": {
         "default": "mdi:alert"
       },
-      "foxair_2086_bit4": {
+      "foxair_err02_bit4": {
         "default": "mdi:alert"
       },
-      "foxair_2086_bit5": {
+      "foxair_err02_bit5": {
         "default": "mdi:alert"
       },
-      "foxair_2086_bit6": {
+      "foxair_err02_bit6": {
         "default": "mdi:alert"
       },
-      "foxair_2086_bit7": {
+      "foxair_err02_bit7": {
         "default": "mdi:alert"
       },
-      "foxair_2086_bit8": {
+      "foxair_err02_bit8": {
         "default": "mdi:alert"
       },
-      "foxair_2086_bit9": {
+      "foxair_err02_bit9": {
         "default": "mdi:alert"
       },
-      "foxair_2087_bit12": {
+      "foxair_err03_bit12": {
         "default": "mdi:alert"
       },
-      "foxair_2087_bit4": {
+      "foxair_err03_bit4": {
         "default": "mdi:alert"
       },
-      "foxair_2087_bit6": {
+      "foxair_err03_bit6": {
         "default": "mdi:alert"
       },
-      "foxair_2087_bit8": {
+      "foxair_err03_bit8": {
         "default": "mdi:alert"
       },
-      "foxair_2087_bit9": {
+      "foxair_err03_bit9": {
         "default": "mdi:alert"
       },
-      "foxair_2088_bit2": {
+      "foxair_err04_bit2": {
         "default": "mdi:alert"
       },
-      "foxair_2088_bit3": {
+      "foxair_err04_bit3": {
         "default": "mdi:alert"
       },
-      "foxair_2088_bit4": {
+      "foxair_err04_bit4": {
         "default": "mdi:alert"
       },
-      "foxair_2089_bit0": {
+      "foxair_err05_bit0": {
         "default": "mdi:alert"
       },
-      "foxair_2089_bit1": {
+      "foxair_err05_bit1": {
         "default": "mdi:alert"
       },
-      "foxair_2089_bit10": {
+      "foxair_err05_bit10": {
         "default": "mdi:alert"
       },
-      "foxair_2089_bit11": {
+      "foxair_err05_bit11": {
         "default": "mdi:alert"
       },
-      "foxair_2089_bit13": {
+      "foxair_err05_bit13": {
         "default": "mdi:alert"
       },
-      "foxair_2089_bit14": {
+      "foxair_err05_bit14": {
         "default": "mdi:alert"
       },
-      "foxair_2089_bit15": {
+      "foxair_err05_bit15": {
         "default": "mdi:alert"
       },
-      "foxair_2089_bit2": {
+      "foxair_err05_bit2": {
         "default": "mdi:alert"
       },
-      "foxair_2089_bit3": {
+      "foxair_err05_bit3": {
         "default": "mdi:alert"
       },
-      "foxair_2089_bit4": {
+      "foxair_err05_bit4": {
         "default": "mdi:alert"
       },
-      "foxair_2089_bit5": {
+      "foxair_err05_bit5": {
         "default": "mdi:alert"
       },
-      "foxair_2089_bit6": {
+      "foxair_err05_bit6": {
         "default": "mdi:alert"
       },
-      "foxair_2089_bit9": {
+      "foxair_err05_bit9": {
         "default": "mdi:alert"
       },
-      "foxair_2090_bit11": {
+      "foxair_err06_bit11": {
         "default": "mdi:alert"
       },
-      "foxair_2090_bit12": {
+      "foxair_err06_bit12": {
         "default": "mdi:alert"
       },
-      "foxair_2090_bit13": {
+      "foxair_err06_bit13": {
         "default": "mdi:alert"
       },
-      "foxair_2090_bit15": {
+      "foxair_err06_bit15": {
         "default": "mdi:alert"
       },
-      "foxair_2090_bit8": {
+      "foxair_err06_bit8": {
         "default": "mdi:alert"
       }
     }

@@ -15,6 +15,7 @@ from .const import (
     word_clear,
     word_is_set,
     word_set,
+    entity_suffix,
 )
 
 
@@ -72,9 +73,10 @@ class FoxSwitch(CoordinatorEntity, SwitchEntity):
         self._optimistic = None
         self._optimistic_base = None
         prefix = get_device_prefix(coord.entry)
-        self._attr_unique_id = f"{prefix}_switch_{addr}"
-        self._attr_suggested_object_id = f"{prefix}_switch_{addr}"
-        self._attr_translation_key = f"foxair_{addr}"
+        suffix = entity_suffix(coord, addr)
+        self._attr_unique_id = f"{prefix}_{suffix}"
+        self.entity_id = f"switch.{prefix}_{suffix}"
+        self._attr_translation_key = f"foxair_{suffix}"
         entry_id = getattr(coord, "_entry_id", None) or getattr(getattr(coord, "config_entry", None), "entry_id", None)
         slave_id = get_slave_id(coord.entry)
         host = coord.entry.data.get("host")
@@ -184,8 +186,8 @@ class FoxBitSwitch(CoordinatorEntity, SwitchEntity):
         self._optimistic_base = None
         prefix = get_device_prefix(coord.entry)
         self._attr_unique_id = f"{prefix}_{slug}"
-        self._attr_suggested_object_id = f"{prefix}_{slug}"
-        self._attr_translation_key = f"foxair_{key}"
+        self.entity_id = f"switch.{prefix}_{slug}"
+        self._attr_translation_key = f"foxair_{slug}"
         entry_id = getattr(coord, "_entry_id", None) or getattr(getattr(coord, "config_entry", None), "entry_id", None)
         slave_id = get_slave_id(coord.entry)
         host = coord.entry.data.get("host")
@@ -245,7 +247,7 @@ class FoxAliasSwitch(CoordinatorEntity, SwitchEntity):
         self._optimistic = None
         prefix = get_device_prefix(coord.entry)
         self._attr_unique_id = f"{prefix}_{alias['key']}"
-        self._attr_suggested_object_id = f"{prefix}_{alias['key']}"
+        self.entity_id = f"switch.{prefix}_{alias['key']}"
         self._attr_translation_key = f"foxair_{alias['key']}"
         entry_id = getattr(coord, "_entry_id", None) or getattr(getattr(coord, "config_entry", None), "entry_id", None)
         slave_id = get_slave_id(coord.entry)

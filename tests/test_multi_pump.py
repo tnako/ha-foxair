@@ -150,16 +150,16 @@ def test_device_names_carry_prefix_and_slave():
 
 
 def test_translation_key_stable_and_object_id_prefixed():
-    for plat, uid_pat in (("sensor", None), ("number", "_num_"),
-                          ("select", "_sel_"), ("switch", "_switch_"),
-                          ("time", "_time_")):
+    for plat in ("sensor", "number", "select", "switch", "time"):
         src = (CC / f"{plat}.py").read_text()
-        assert 'f"foxair_{addr}"' in src or '"foxair_{addr}"' in src, plat
-        assert 'translation_key = f"{prefix}' not in src, plat
-        assert "_attr_suggested_object_id" in src, plat
+        assert "entity_suffix" in src, f"{plat} should use entity_suffix"
+        # HA 2026.9 ignores _attr_suggested_object_id; the id override is a
+        # pre-set entity_id (applied without the device-name prefix).
+        assert f'self.entity_id = f"{plat}.' in src, plat
+        assert "_attr_has_entity_name = True" in src, plat
     climate = (CC / "climate.py").read_text()
     assert '"foxair_climate"' in climate
-    assert "_attr_suggested_object_id" in climate
+    assert 'self.entity_id = f"climate.' in climate
     image = (CC / "image.py").read_text()
     assert '"foxair_heating_curve"' in image
 

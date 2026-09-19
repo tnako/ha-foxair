@@ -2,7 +2,7 @@ from homeassistant.components.sensor import SensorEntity, SensorDeviceClass, Sen
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.event import async_track_state_change_event
-from .const import POPULAR_ADDRS, SENSOR_HIDDEN_ADDRS, device_for_addr, main_device, entity_sort_key, get_device_prefix, get_slave_id, bind_device_info
+from .const import POPULAR_ADDRS, SENSOR_HIDDEN_ADDRS, device_for_addr, main_device, entity_sort_key, get_device_prefix, get_slave_id, bind_device_info, entity_suffix
 from .computed import compute_heating_power, compute_electrical_power, compute_cop
 
 # Build DTYPE_MAP lazily from DTYPE_SPEC: const globals are populated by
@@ -68,6 +68,8 @@ async def async_setup_entry(hass, entry, add_entities):
     add_entities(ents)
 
 class FoxSensor(CoordinatorEntity, SensorEntity):
+    # has_entity_name=True is REQUIRED for translation_key-based names to
+    # resolve (HA _name_internal only translates when has_entity_name is set).
     _attr_has_entity_name = True
     def __init__(self, coord, addr):
         super().__init__(coord)
@@ -75,9 +77,12 @@ class FoxSensor(CoordinatorEntity, SensorEntity):
         rec = coord.data.get(addr, {})
         info = rec.get("info", {}) if rec else {}
         prefix = get_device_prefix(coord.entry)
-        self._attr_unique_id = f"{prefix}_{addr}"
-        self._attr_suggested_object_id = f"{prefix}_{addr}"
-        self._attr_translation_key = f"foxair_{addr}"
+        suffix = entity_suffix(coord, addr)
+        self._attr_unique_id = f"{prefix}_{suffix}"
+        # HA 2026.9 ignores _attr_suggested_object_id (computed from name now);
+        # the supported id override is a pre-set entity_id (no device prefix).
+        self.entity_id = f"sensor.{prefix}_{suffix}"
+        self._attr_translation_key = f"foxair_{suffix}"
         try:
             meta = coord.get_metadata(addr) if hasattr(coord, "get_metadata") else {}
         except Exception:
@@ -229,14 +234,13 @@ class FoxComputedSensor(CoordinatorEntity, SensorEntity):
 
     def __init__(self, coord):
         super().__init__(coord)
-        prefix = get_device_prefix(coord.entry)
+        self._prefix = get_device_prefix(coord.entry)
         entry_id = getattr(coord, "_entry_id", None) or (
             getattr(coord, "config_entry", None)
             and coord.config_entry.entry_id
         )
         slave_id = get_slave_id(coord.entry)
-        self._attr_device_info = bind_device_info(getattr(coord, "hass", None), entry_id, main_device(entry_id, prefix, slave_id))
-        self._prefix = prefix
+        self._attr_device_info = bind_device_info(getattr(coord, "hass", None), entry_id, main_device(entry_id, self._prefix, slave_id))
 
     @property
     def _opts(self):
@@ -252,7 +256,7 @@ class FoxHeatingPowerSensor(FoxComputedSensor):
     def __init__(self, coord):
         super().__init__(coord)
         self._attr_unique_id = f"{self._prefix}_heating_power"
-        self._attr_suggested_object_id = f"{self._prefix}_heating_power"
+        self.entity_id = f"sensor.{self._prefix}_heating_power"
         self._attr_translation_key = "foxair_heating_power"  # stable key, translations only under foxair_
 
     @property
@@ -285,7 +289,7 @@ class FoxElectricalPowerSensor(FoxComputedSensor):
     def __init__(self, coord):
         super().__init__(coord)
         self._attr_unique_id = f"{self._prefix}_electrical_power"
-        self._attr_suggested_object_id = f"{self._prefix}_electrical_power"
+        self.entity_id = f"sensor.{self._prefix}_electrical_power"
         self._attr_translation_key = "foxair_electrical_power"  # stable key, translations only under foxair_
 
     @property
@@ -319,7 +323,7 @@ class FoxCopSensor(FoxComputedSensor):
     def __init__(self, coord):
         super().__init__(coord)
         self._attr_unique_id = f"{self._prefix}_cop"
-        self._attr_suggested_object_id = f"{self._prefix}_cop"
+        self.entity_id = f"sensor.{self._prefix}_cop"
         self._attr_translation_key = "foxair_cop"  # stable key, translations only under foxair_
 
     @property

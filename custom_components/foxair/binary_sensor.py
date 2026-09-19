@@ -19,6 +19,7 @@ from .const import (
     entity_sort_key,
     get_device_prefix,
     get_slave_id,
+    entity_suffix,
 )
 
 # Per-register presentation: device class + fallback icon.
@@ -92,9 +93,10 @@ class FoxBitSensor(CoordinatorEntity, BinarySensorEntity):
         self._addr = addr
         self._bit = bit
         prefix = get_device_prefix(coord.entry)
-        self._attr_unique_id = f"{prefix}_bin_{addr}_{bit}"
-        self._attr_suggested_object_id = f"{prefix}_bin_{addr}_{bit}"
-        self._attr_translation_key = f"foxair_{addr}_bit{bit}"
+        suffix = entity_suffix(coord, addr)
+        self._attr_unique_id = f"{prefix}_{suffix}_bit{bit}"
+        self.entity_id = f"binary_sensor.{prefix}_{suffix}_bit{bit}"
+        self._attr_translation_key = f"foxair_{suffix}_bit{bit}"
         entry_id = getattr(coord, "_entry_id", None) or getattr(getattr(coord, "config_entry", None), "entry_id", None)
         slave_id = get_slave_id(coord.entry)
         host = coord.entry.data.get("host")
@@ -129,7 +131,7 @@ class FoxWordStatusSensor(CoordinatorEntity, BinarySensorEntity):
         self._bit = bit
         prefix = get_device_prefix(coord.entry)
         self._attr_unique_id = f"{prefix}_{slug}"
-        self._attr_suggested_object_id = f"{prefix}_{slug}"
+        self.entity_id = f"binary_sensor.{prefix}_{slug}"
         self._attr_translation_key = f"foxair_{key}"
         entry_id = getattr(coord, "_entry_id", None) or getattr(getattr(coord, "config_entry", None), "entry_id", None)
         slave_id = get_slave_id(coord.entry)

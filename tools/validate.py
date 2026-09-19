@@ -136,17 +136,17 @@ if meta_path.exists():
             pass
         else:
             code = rec.get("code", "")
+            code_key = f"foxair_{re.sub(r'[^a-z0-9]+', '_', code.lower()).strip('_')}" if code else f"foxair_{addr}"
             for lang in ("en", "de", "ru"):
                 if lang not in translations:
                     continue
-                key = f"foxair_{addr}"
-                name = translations[lang]["names"].get(key)
+                name = translations[lang]["names"].get(code_key)
                 if name is None:
-                    errs.append(f"{lang}: missing translation for {key} ({code or 'no-code'} addr {addr} hidden={hidden})")
+                    errs.append(f"{lang}: missing translation for {code_key} ({code or 'no-code'} addr {addr} hidden={hidden})")
                     continue
                 if code:
                     if not name.startswith(f"{code}:"):
-                        errs.append(f"{lang}: {key} name must start with '{code}:' got '{name[:40]}'")
+                        errs.append(f"{lang}: {code_key} name must start with '{code}:' got '{name[:40]}'")
                 # ru: visible entries must be translated (Cyrillic) and not identical to en
                 if lang == "ru" and not hidden and code:
                     # allow acronym-only values like COP, SG (no Cyrillic expected)
@@ -154,12 +154,12 @@ if meta_path.exists():
                     if tail in ("COP", "SG", "SG Ready", "SGstatus"):
                         pass
                     elif not cyr.search(name):
-                        errs.append(f"ru: {key} ({code}) not translated (no Cyrillic): '{name[:60]}'")
+                        errs.append(f"ru: {code_key} ({code}) not translated (no Cyrillic): '{name[:60]}'")
                 # de: visible entries with code should differ from en if en is English? we only check en german residue
-        # also check poll_tier
-        tier = rec.get("poll_tier")
-        if tier not in ("quick", "medium", "rare"):
-            errs.append(f"metadata {addr} ({rec.get('code')}) poll_tier invalid: {tier}")
+            # also check poll_tier
+            tier = rec.get("poll_tier")
+            if tier not in ("quick", "medium", "rare"):
+                errs.append(f"metadata {addr} ({rec.get('code')}) poll_tier invalid: {tier}")
 
     # cross-lang identical check: ru == en for visible entries
     if "en" in translations and "ru" in translations:
@@ -168,19 +168,19 @@ if meta_path.exists():
         for addr, rec in addr_to_meta.items():
             if rec.get("hidden") and not strict:
                 continue
-            key = f"foxair_{addr}"
-            en_n = en_names.get(key)
-            ru_n = ru_names.get(key)
+            code = rec.get("code", "")
+            code_key = f"foxair_{re.sub(r'[^a-z0-9]+', '_', code.lower()).strip('_')}" if code else f"foxair_{addr}"
+            en_n = en_names.get(code_key)
+            ru_n = ru_names.get(code_key)
             if en_n and ru_n and en_n == ru_n:
                 # allow identical for purely numeric/reserved names (e.g. "1355: Reserved" is same in all langs except de)
                 # but for codes with meaningful name, identical means untranslated
-                code = rec.get("code", "")
                 if code:
                     tail = en_n.split(":", 1)[1].strip() if ":" in en_n else en_n
                     if tail in ("COP", "SG", "SG Ready") or "Reserved" in en_n and not strict:
-                        warns.append(f"ru==en (allowed) {key}: '{en_n[:40]}'")
+                        warns.append(f"ru==en (allowed) {code_key}: '{en_n[:40]}'")
                     else:
-                        errs.append(f"ru: {key} ({code}) identical to en (untranslated): '{en_n[:60]}'")
+                        errs.append(f"ru: {code_key} ({code}) identical to en (untranslated): '{en_n[:60]}'")
 
     # en german residue
     if "en" in translations:
@@ -538,7 +538,7 @@ if warns:
         print(f"  {w}")
 if errs:
     print("FAIL:")
-    for e in errs[:60]:
+    for e in errs:
         print(f"  {e}")
     sys.exit(1)
 print(f"OK v{ver} — {len(codes)} tab codes, en/de/ru prefixes + syntax clean")

@@ -17,7 +17,6 @@ import types
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 CC = ROOT / "custom_components/foxair"
 
-
 def _stub_modules():
     ha = types.ModuleType("homeassistant")
     ha.helpers = types.ModuleType("homeassistant.helpers")
@@ -56,7 +55,6 @@ def _stub_modules():
               ha.components.binary_sensor):
         sys.modules[m.__name__] = m
 
-
 def _load_pkg():
     _stub_modules()
     pkg = types.ModuleType("foxpkgbits")
@@ -73,7 +71,6 @@ def _load_pkg():
         mods[name] = mod
     return mods
 
-
 MODS = _load_pkg()
 const = MODS["const"]
 bs = MODS["binary_sensor"]
@@ -81,13 +78,11 @@ bs = MODS["binary_sensor"]
 REGS = json.loads((CC / "data/foxair_phnix_registers.json").read_text(encoding="utf-8-sig"))
 META = json.loads((CC / "data/foxair_metadata.json").read_text(encoding="utf-8-sig"))
 
-
 class FakeEntry:
     def __init__(self, expert=False):
         self.entry_id = "eid"
         self.data = {"name_prefix": "foxair", "host": "h", "port": 8899, "slave": 1}
         self.options = {"enable_expert": expert}
-
 
 class FakeCoord:
     def __init__(self, expert=False, data=None):
@@ -97,9 +92,11 @@ class FakeCoord:
         self._metadata = META
         self._regmap = REGS
 
+    def get_metadata(self, addr):
+        return self._metadata.get(str(addr), {})
+
     def _fw_gte(self, v):
         return True
-
 
 def _setup(expert=False, data=None):
     coord = FakeCoord(expert, data)
@@ -109,7 +106,6 @@ def _setup(expert=False, data=None):
         bs.async_setup_entry(hass, coord.entry, added.extend))
     return added
 
-
 def test_word_and_decode():
     assert const.bitfield_word(15460) == 15460
     assert const.bitfield_word(None) is None
@@ -118,13 +114,11 @@ def test_word_and_decode():
     assert const.bitfield_is_set(0x3000, 0) is False
     assert const.bitfield_is_set(None, 12) is None  # unknown, not off
 
-
 def test_reserved_bits_skipped():
     bits_2034 = const.bitfield_expanded_bits(REGS["2034"]["bit_map"])
     assert [b for b, _ in bits_2034] == [0, 1, 2, 3, 4, 5, 6, 9, 12, 13]
     bits_2019 = const.bitfield_expanded_bits(REGS["2019"]["bit_map"])
     assert [b for b, _ in bits_2019] == [0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
-
 
 def test_expansion_counts_and_expert_gating():
     plain = _setup(expert=False)
@@ -134,30 +128,27 @@ def test_expansion_counts_and_expert_gating():
     assert len(expert) == 95
     assert sum(1 for e in expert if e._addr == 2019) == 15
 
-
 def test_identity_and_problem_class():
     ents = _setup(expert=True)
     by_key = {e._attr_translation_key: e for e in ents}
-    e = by_key["foxair_2034_bit12"]
-    assert e._attr_unique_id == "foxair_bin_2034_12"
+    e = by_key["foxair_s01_bit12"]
+    assert e._attr_unique_id == "foxair_s01_bit12"
     assert e._attr_device_class is None  # contacts, not faults
-    assert by_key["foxair_2081_bit0"]._attr_device_class == "problem"
+    assert by_key["foxair_err07_bit0"]._attr_device_class == "problem"
     assert by_key["foxair_2019_bit0"]._attr_device_class is None
-
 
 def test_state_tracks_word_and_unknown():
     data = {2034: {"raw": 0x3000, "value": 0x3000}}  # SG1+SG2 set
     ents = _setup(expert=False, data=data)
     by_key = {e._attr_translation_key: e for e in ents}
-    assert by_key["foxair_2034_bit12"].is_on is True
-    assert by_key["foxair_2034_bit13"].is_on is True
-    assert by_key["foxair_2034_bit0"].is_on is False
-    assert by_key["foxair_2034_bit12"].available is True
+    assert by_key["foxair_s01_bit12"].is_on is True
+    assert by_key["foxair_s01_bit13"].is_on is True
+    assert by_key["foxair_s01_bit0"].is_on is False
+    assert by_key["foxair_s01_bit12"].available is True
     # never polled -> unknown, not off
     ents2 = _setup(expert=False, data={})
     assert ents2[0].is_on is None
     assert ents2[0].available is False
-
 
 def test_every_bit_translated_with_icons():
     files = {"strings": CC / "strings.json", "en": CC / "translations/en.json",
@@ -176,25 +167,22 @@ def test_every_bit_translated_with_icons():
         n += 1
     assert n == 95
 
-
 def re_cyr(s):
     import re
     return bool(re.search(r"[А-Яа-яЁё]", s))
-
 
 def test_raw_sensors_retired_and_cleanup_covers():
     sensor_src = (CC / "sensor.py").read_text()
     assert 'bit_map' in sensor_src  # raw BITFIELD sensors skipped at setup
     init_src = (CC / "__init__.py").read_text()
-    assert "_bin_" in init_src  # registry cleanup parses bin uids + drops retired raw uids
+    assert "_num_|_switch_|_sel_|_time_|_bin_" in init_src  # registry cleanup parses bin uids + drops retired raw uids
     assert "binary_sensor" in init_src.split("PLATFORMS")[1].split("]")[0]
-
 
 def test_bits_routed_to_sub_devices_and_polled():
     ents = {e._attr_translation_key: e for e in _setup(expert=True)}
-    s01 = ents["foxair_2034_bit12"]
+    s01 = ents["foxair_s01_bit12"]
     assert ("foxair", "eid_S") in s01._attr_device_info["identifiers"]  # S device, not main
-    err = ents["foxair_2081_bit0"]
+    err = ents["foxair_err07_bit0"]
     assert ("foxair", "eid_ERR") in err._attr_device_info["identifiers"]
     o = ents["foxair_2019_bit0"]
     assert ("foxair", "eid_O") in o._attr_device_info["identifiers"]  # Outputs device

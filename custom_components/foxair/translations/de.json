@@ -187,7 +187,7 @@
         "name": "H29: Operationscode"
       },
       "foxair_1035": {
-        "name": "H25: Temp.-Regelauswahl"
+        "name": "H25: Temperatur-Regelauswahl"
       },
       "foxair_1036": {
         "name": "H30: Indoor Unit Type / Hydraulikmodul-Typ"
@@ -1150,7 +1150,7 @@
         "name": "Reserviert"
       },
       "foxair_1356": {
-        "name": "H42: Einschalt-AT Gehaeusewannenheizung (D30/1437 erst wirksam, wenn AT kleiner H42 ist)"
+        "name": "H42: Einschalt-AT Gehäusewannenheizung (D30/1437 erst wirksam, wenn AT kleiner H42 ist)"
       },
       "foxair_1357": {
         "name": "Z19: Differenz: Keine Pumpe Ein bei niedriger Wassertemperatur"
@@ -1231,7 +1231,7 @@
         "name": "P14: Nachfüllventil Arbeitsdauer (IDU)"
       },
       "foxair_1437": {
-        "name": "D30: Gehaeusewannenheizung Delays Off Time after Defrost"
+        "name": "D30: Gehäusewannenheizung Delays Off Time after Defrost"
       },
       "foxair_1438": {
         "name": "P15: Ziel-Wasserdruck (IDU)"
@@ -1385,13 +1385,13 @@
         "name": "001 bis 023 / Lastausgänge Bitfeld (vollständig decodiert)"
       },
       "foxair_2020": {
-        "name": "EEV-Schritte"
+        "name": "015 / EEV-Schritte"
       },
       "foxair_2021": {
         "name": "Reserviert"
       },
       "foxair_2022": {
-        "name": "EVI-EEV-Schritte"
+        "name": "017 / EVI EEV-Schritte"
       },
       "foxair_2023": {
         "name": "Anzahl Verdichter-Starts"
@@ -1795,6 +1795,9 @@
       "foxair_2180": {
         "name": "Berechneter Taupunkt"
       },
+      "foxair_8801": {
+        "name": "SG01: SG Ready Active Mode"
+      },
       "foxair_50043": {
         "name": "Service-/OTA-SSID (C37B)"
       },
@@ -1847,17 +1850,500 @@
       "foxair_50512": {
         "name": "Interne Softwareversion ASCII Wort 2/2"
       },
+      "foxair_a03": {
+        "name": "A03: Abschalttemperatur Umgebung"
+      },
+      "foxair_a04": {
+        "name": "A04: Frostschutztemperatur"
+      },
+      "foxair_a05": {
+        "name": "A05: Frostschutztemperaturdifferenz"
+      },
+      "foxair_a06": {
+        "name": "A06: Max. Abgastemperatur"
+      },
+      "foxair_a11": {
+        "name": "A11: Niederdrucksensor aktivieren"
+      },
+      "foxair_a21": {
+        "name": "A21: Umgebungs-/Saug-/Spulensensortyp"
+      },
+      "foxair_a22": {
+        "name": "A22: Min. Frostschutztemperatur"
+      },
+      "foxair_a23": {
+        "name": "A23: Min. Auslasswassertemperatur schutz"
+      },
+      "foxair_a24": {
+        "name": "A24: Übermäßige Temperaturdifferenz zwischen Einlass- und Auslasswasser"
+      },
+      "foxair_a25": {
+        "name": "A25: Minimale Verdampfungstemperatur der Kühlung"
+      },
+      "foxair_a26": {
+        "name": "A26: Kältemitteltyp"
+      },
+      "foxair_a27": {
+        "name": "A27: Temperaturdifferenz der Begrenzungsfrequenz"
+      },
+      "foxair_a28": {
+        "name": "A28: Temperaturdifferenz zwischen Auslass- und WW-Temperatur"
+      },
+      "foxair_a29": {
+        "name": "A29: Hochdrucksensor aktivieren"
+      },
+      "foxair_a30": {
+        "name": "A30: Min. Umgebungstemperatur im Kühlmodus"
+      },
+      "foxair_a31": {
+        "name": "A31: Electric-Heater-On AT Grenzwert / Temperaturparameter (ASM)"
+      },
+      "foxair_a32": {
+        "name": "A32: Electric Heater Delays Comp on Time"
+      },
+      "foxair_a33": {
+        "name": "A33: E-Heizer Einschalt-Temperaturdifferenz"
+      },
+      "foxair_a34": {
+        "name": "A34: Kurbelgehäuseheizung Vorheizzeit"
+      },
+      "foxair_a35": {
+        "name": "A35: Electric Heater Off Temp Diff / E-Heizer Ausschalt-Temperaturdifferenz"
+      },
+      "foxair_a38": {
+        "name": "A38: Niederdruck-Grenzwert für Frequenzbegrenzung"
+      },
+      "foxair_a39": {
+        "name": "A39: Maximaler Stromwert"
+      },
+      "foxair_a40": {
+        "name": "A40: Nenn-Wasserdurchfluss"
+      },
+      "foxair_c01": {
+        "name": "C01: Manuelle Kompressorfrequenz"
+      },
+      "foxair_c02": {
+        "name": "C02: Min. Kompressorfrequenz"
+      },
+      "foxair_c03": {
+        "name": "C03: Max. Kompressorfrequenz"
+      },
+      "foxair_c04": {
+        "name": "C04: Kompressormodellauswahl"
+      },
+      "foxair_c05": {
+        "name": "C05: Min. Kompressorfrequenz im Kühlbetrieb bei niedriger Umgebungstemperatur"
+      },
+      "foxair_c06": {
+        "name": "C06: Frequenzregelungsmodus"
+      },
+      "foxair_c07": {
+        "name": "C07: Resonanzpunkt 1"
+      },
+      "foxair_c08": {
+        "name": "C08: Resonanzpunkt 2"
+      },
+      "foxair_c09": {
+        "name": "C09: Resonanzpunkt 3"
+      },
+      "foxair_c10": {
+        "name": "C10: Min. Kompressorfrequenz im Heizbetrieb bei niedriger Umgebungstemperatur"
+      },
+      "foxair_c11": {
+        "name": "C11: Max. Kompressorfrequenz im Kühlbetrieb bei hoher Umgebungstemperatur"
+      },
+      "foxair_c12": {
+        "name": "C12: Max. Kompressorfrequenz im Warmwasserbetrieb"
+      },
+      "foxair_c13": {
+        "name": "C13: Display-Firmware Parameter C13"
+      },
+      "foxair_c14": {
+        "name": "C14: Display-Firmware Parameter C14"
+      },
+      "foxair_c15": {
+        "name": "C15: Display-Firmware Parameter C15"
+      },
       "foxair_cop": {
         "name": "COP (berechnet)"
       },
+      "foxair_d01": {
+        "name": "D01: Umgebungstemperatur des Start-Abtauens"
+      },
+      "foxair_d02": {
+        "name": "D02: Heizbetriebszeit vor dem Abtauen"
+      },
+      "foxair_d03": {
+        "name": "D03: Intervallzeit zwischen den Abtauzyklen"
+      },
+      "foxair_d04": {
+        "name": "D04: Heißgastemperaturkorrektur für den Abtauzyklus"
+      },
+      "foxair_d05_1": {
+        "name": "D05-1: Abtau-Saugsdruck 1"
+      },
+      "foxair_d05_2": {
+        "name": "D05-2: Abtau-Saugsdruck 2"
+      },
+      "foxair_d06": {
+        "name": "D06: Abtauzykluszeitkorrektur"
+      },
+      "foxair_d07": {
+        "name": "D07: Umgebungstemperatur des Start-Gleitabtauens"
+      },
+      "foxair_d08": {
+        "name": "D08: Saugsungstemperatur des Start-Gleitabtauens"
+      },
+      "foxair_d09": {
+        "name": "D09: Umgebungstemperatur des Stopp-Gleitabtauens"
+      },
+      "foxair_d10": {
+        "name": "D10: Saugsungstemperatur des Stopp-Gleitabtauens"
+      },
+      "foxair_d11": {
+        "name": "D11: Min. Einlasswassertemperatur des Abtauens"
+      },
+      "foxair_d12": {
+        "name": "D12: Saugsdruck des erzwungenen Abtauens"
+      },
+      "foxair_d13": {
+        "name": "D13: Heizbetriebszeit vor dem erzwungenen Abtauen"
+      },
+      "foxair_d14": {
+        "name": "D14: Lüftermotorleistungsverhältnis zur Verlängerung des Abtauzyklus"
+      },
+      "foxair_d15": {
+        "name": "D15: Lüftermotorleistungsverhältnis zum Eintritt in das erzwungene Abtauen"
+      },
+      "foxair_d16": {
+        "name": "D16: Max. Lüftermotorleistung zum Eintritt in das erzwungene Abtauen"
+      },
+      "foxair_d17": {
+        "name": "D17: Verdampfertemperatur des Abtauausgangs"
+      },
+      "foxair_d18": {
+        "name": "D18: Verteilerrohrtemperatur des Abtauausgangs"
+      },
+      "foxair_d19": {
+        "name": "D19: Max. Abtauzeit"
+      },
+      "foxair_d20": {
+        "name": "D20: Abtaufrequenz"
+      },
+      "foxair_d21": {
+        "name": "D21: Elektrische Heizung während des Abtauens aktivieren"
+      },
+      "foxair_d22": {
+        "name": "D22: Wasserdurchfluss beim Abtauen"
+      },
+      "foxair_d23": {
+        "name": "D23: Max. Abtauzyklus durch Lüftermotorleistung"
+      },
+      "foxair_d24": {
+        "name": "D24: Wassertank-Abtauquelle im Heizung+WW/Kühlung+WW-Modus"
+      },
+      "foxair_d25": {
+        "name": "D25: Max. Einlasswassertemperaturabfall beim Abtauen"
+      },
+      "foxair_d26": {
+        "name": "D26: Zentrale Abtaufunktion aktivieren"
+      },
+      "foxair_d30": {
+        "name": "D30: Gehaeusewannenheizung Delays Off Time after Defrost"
+      },
+      "foxair_e01": {
+        "name": "E01: EEV Regelmodus"
+      },
+      "foxair_e02": {
+        "name": "E02: Ziel-Überhitzung Heizen"
+      },
+      "foxair_e03": {
+        "name": "E03: EEV Anfangsschritte Heizen"
+      },
+      "foxair_e03_1": {
+        "name": "E03-1: EEV Anfangsschritte Heizen 1"
+      },
+      "foxair_e03_2": {
+        "name": "E03-2: EEV Anfangsschritte Heizen 2"
+      },
+      "foxair_e03_3": {
+        "name": "E03-3: EEV Anfangsschritte Heizen 3"
+      },
+      "foxair_e03_4": {
+        "name": "E03-4: EEV Anfangsschritte Heizen 4"
+      },
+      "foxair_e03_5": {
+        "name": "E03-5: EEV Anfangsschritte Heizen 5"
+      },
+      "foxair_e07": {
+        "name": "E07: EEV minimale Anfangsschritte"
+      },
+      "foxair_e07_1": {
+        "name": "E07-1: EEV Min. Schritte 1"
+      },
+      "foxair_e07_2": {
+        "name": "E07-2: EEV Min. Schritte 2"
+      },
+      "foxair_e07_3": {
+        "name": "E07-3: EEV Min. Schritte 3"
+      },
+      "foxair_e07_4": {
+        "name": "E07-4: EEV Min. Schritte 4"
+      },
+      "foxair_e07_5": {
+        "name": "E07-5: EEV Min. Schritte 5"
+      },
+      "foxair_e08": {
+        "name": "E08: EEV Anfangsschritte Kühlen"
+      },
+      "foxair_e09": {
+        "name": "E09: EVI-EEV Anpassungsmodus"
+      },
+      "foxair_e10": {
+        "name": "E10: EVI-EEV Anfangsschritte"
+      },
+      "foxair_e13": {
+        "name": "E13: EVI-EEV Ziel-Überhitzungsgrad"
+      },
+      "foxair_e14": {
+        "name": "E14: EVI-EEV minimale Schritte"
+      },
+      "foxair_e15": {
+        "name": "E15: Temperatur-/Hystereseparameter (ASM)"
+      },
+      "foxair_e16": {
+        "name": "E16: Temperatur-/Hystereseparameter (ASM)"
+      },
+      "foxair_e17": {
+        "name": "E17: Abtau-EEV Schritte"
+      },
+      "foxair_e18": {
+        "name": "E18: Ziel-Überhitzung Kühlen"
+      },
+      "foxair_e19": {
+        "name": "E19: EEV Anpassungsbereich im Smart-Modus"
+      },
+      "foxair_e20": {
+        "name": "E20: Display-Firmware Parameter E20"
+      },
+      "foxair_e21": {
+        "name": "E21: Display-Firmware Parameter E21"
+      },
       "foxair_electrical_power": {
         "name": "Elektrische Leistung (berechnet)"
+      },
+      "foxair_err01": {
+        "name": "ERR01: Fehler 1 / Störmeldebits"
+      },
+      "foxair_err02": {
+        "name": "ERR02: Fehler 2 / Störmeldebits"
+      },
+      "foxair_err03": {
+        "name": "ERR03: Fehler 3 / Störmeldebits"
+      },
+      "foxair_err04": {
+        "name": "ERR04: Fehler 4 / Störmeldebits"
+      },
+      "foxair_err05": {
+        "name": "ERR05: Fehler 5 / Störmeldebits"
+      },
+      "foxair_err06": {
+        "name": "ERR06: Fehler 6 / Störmeldebits"
+      },
+      "foxair_err07": {
+        "name": "ERR07: Fehler 7 / Störmeldebits"
+      },
+      "foxair_err08": {
+        "name": "ERR08: Fehler 8 / Störmeldebits"
+      },
+      "foxair_err09": {
+        "name": "ERR09: Fehler 9 / Störmeldebits"
+      },
+      "foxair_f01": {
+        "name": "F01: Lüftermotortyp"
+      },
+      "foxair_f02": {
+        "name": "F02: Verdampfertemperatur für maximale Lüfterdrehzahl im Kühlbetrieb"
+      },
+      "foxair_f03": {
+        "name": "F03: Verdampfertemperatur für minimale Lüfterdrehzahl im Kühlbetrieb"
+      },
+      "foxair_f05": {
+        "name": "F05: Verdampfertemperatur für maximale Lüfterdrehzahl im Heizbetrieb"
+      },
+      "foxair_f06": {
+        "name": "F06: Verdampfertemperatur für minimale Lüfterdrehzahl im Heizbetrieb"
+      },
+      "foxair_f10": {
+        "name": "F10: Lüfteranzahl"
+      },
+      "foxair_f18": {
+        "name": "F18: Min. Lüfterdrehzahl im Kühlbetrieb"
+      },
+      "foxair_f19": {
+        "name": "F19: Min. Lüfterdrehzahl im Heizbetrieb"
+      },
+      "foxair_f21": {
+        "name": "F21: Timer-Stummschaltung aktivieren (ASM V1.3: 243E)"
+      },
+      "foxair_f22": {
+        "name": "F22: Manuelle Lüfterdrehzahl aktivieren"
+      },
+      "foxair_f23": {
+        "name": "F23: Nenn-DC-Lüftermotordrehzahl"
+      },
+      "foxair_f25": {
+        "name": "F25: Max. Lüfterdrehzahl im Kühlbetrieb"
+      },
+      "foxair_f26": {
+        "name": "F26: Max. Lüfterdrehzahl im Heizbetrieb"
+      },
+      "foxair_f27": {
+        "name": "F27: Fan Motor Power Curve / Lüftermotor-Leistungskurve"
+      },
+      "foxair_f28": {
+        "name": "F28: Verdampfertemperatur des Einzel-/Doppellüfterschalters im Kühlbetrieb"
+      },
+      "foxair_f29": {
+        "name": "F29: Verdampfertemperatur des Einzellüfterstopps im Kühlbetrieb"
+      },
+      "foxair_g01": {
+        "name": "G01: Desinfektionswassertemperatur"
+      },
+      "foxair_g02": {
+        "name": "G02: Desinfektionsdauer"
+      },
+      "foxair_g03": {
+        "name": "G03: Desinfektionsstartzeit"
+      },
+      "foxair_g04": {
+        "name": "G04: Intervallzeit der Desinfektion"
+      },
+      "foxair_g05": {
+        "name": "G05: Desinfektion aktivieren"
+      },
+      "foxair_h01": {
+        "name": "H01: Power Off Memory aktivieren (Autostart)"
+      },
+      "foxair_h05": {
+        "name": "H05: Kühlfunktion aktivieren"
+      },
+      "foxair_h07": {
+        "name": "H07: Reglerwahl"
+      },
+      "foxair_h10": {
+        "name": "H10: Geräteadresse"
+      },
+      "foxair_h18": {
+        "name": "H18: Elektrische Heizstufe"
+      },
+      "foxair_h20": {
+        "name": "H20: 3-Wege-Ventil-Polarität"
+      },
+      "foxair_h21": {
+        "name": "H21: Temperatureinheit"
+      },
+      "foxair_h22": {
+        "name": "H22: Silent-Modus aktivieren"
+      },
+      "foxair_h25": {
+        "name": "H25: Temp.-Regelauswahl"
+      },
+      "foxair_h27": {
+        "name": "H27: EVI aktivieren"
+      },
+      "foxair_h28": {
+        "name": "H28: Heiz-/Kühl- und Warmwasserfunktion aktiviert"
+      },
+      "foxair_h29": {
+        "name": "H29: Operationscode"
+      },
+      "foxair_h30": {
+        "name": "H30: Indoor Unit Type / Hydraulikmodul-Typ"
+      },
+      "foxair_h31": {
+        "name": "H31: Zirkulationswasserpumpentyp"
+      },
+      "foxair_h32": {
+        "name": "H32: Erzwungene Umschaltzeit"
+      },
+      "foxair_h33": {
+        "name": "H33: Lüftermotorantrieb und Kompressorantrieb integriert"
+      },
+      "foxair_h34": {
+        "name": "H34: ERP Testmodus"
+      },
+      "foxair_h36": {
+        "name": "H36: AT-Kompensationskurve Zone 1 aktivieren"
+      },
+      "foxair_h37": {
+        "name": "H37: Wassertank-Temperaturquelle"
+      },
+      "foxair_h38": {
+        "name": "H38: Spracheinstellung"
+      },
+      "foxair_h39": {
+        "name": "H39: Logo-Auswahl / Kundenlogo-Code (ASM)"
+      },
+      "foxair_h40": {
+        "name": "H40: External Pump Selection / Externe Pumpenauswahl"
+      },
+      "foxair_h41": {
+        "name": "H41: Supervisor-Passwort: 66"
+      },
+      "foxair_h42": {
+        "name": "H42: Einschalt-AT Gehaeusewannenheizung (D30/1437 erst wirksam, wenn AT kleiner H42 ist)"
       },
       "foxair_h43": {
         "name": "H43: Normal/Eco"
       },
       "foxair_heating_power": {
         "name": "Heizleistung (berechnet)"
+      },
+      "foxair_kg1": {
+        "name": "KG1: WP Ein/Aus Timer 1 Startzeit"
+      },
+      "foxair_kg10": {
+        "name": "KG10: WP Ein/Aus Timer 5 Stopzeit"
+      },
+      "foxair_kg11": {
+        "name": "KG11: WP Ein/Aus Timer 6 Startzeit"
+      },
+      "foxair_kg12": {
+        "name": "KG12: WP Ein/Aus Timer 6 Stopzeit"
+      },
+      "foxair_kg13_kg28": {
+        "name": "KG13-KG28: WP Ein/Aus Timer 1+2 Aktiv/Tage Bitmaske"
+      },
+      "foxair_kg2": {
+        "name": "KG2: WP Ein/Aus Timer 1 Stopzeit"
+      },
+      "foxair_kg29_kg44": {
+        "name": "KG29-KG44: WP Ein/Aus Timer 3+4 Aktiv/Tage Bitmaske"
+      },
+      "foxair_kg3": {
+        "name": "KG3: WP Ein/Aus Timer 2 Startzeit"
+      },
+      "foxair_kg4": {
+        "name": "KG4: WP Ein/Aus Timer 2 Stopzeit"
+      },
+      "foxair_kg45_kg60": {
+        "name": "KG45-KG60: WP Ein/Aus Timer 5+6 Aktiv/Tage Bitmaske"
+      },
+      "foxair_kg5": {
+        "name": "KG5: WP Ein/Aus Timer 3 Startzeit"
+      },
+      "foxair_kg6": {
+        "name": "KG6: WP Ein/Aus Timer 3 Stopzeit"
+      },
+      "foxair_kg7": {
+        "name": "KG7: WP Ein/Aus Timer 4 Startzeit"
+      },
+      "foxair_kg8": {
+        "name": "KG8: WP Ein/Aus Timer 4 Stopzeit"
+      },
+      "foxair_kg9": {
+        "name": "KG9: WP Ein/Aus Timer 5 Startzeit"
       },
       "foxair_o_o05": {
         "name": "O05: Hauptumwälzpumpe"
@@ -1892,6 +2378,177 @@
       "foxair_o_o17": {
         "name": "O17: EEV(EVI) Schritte"
       },
+      "foxair_p01": {
+        "name": "P01: Betriebsmodus der Hauptumwälzpumpe"
+      },
+      "foxair_p02": {
+        "name": "P02: Intervallzeit"
+      },
+      "foxair_p03": {
+        "name": "P03: Betriebsdauer"
+      },
+      "foxair_p05": {
+        "name": "P05: WW-Pumpenbetriebsmodus"
+      },
+      "foxair_p06": {
+        "name": "P06: Manuelle Steuerung der Hauptumwälzpumpe"
+      },
+      "foxair_p08": {
+        "name": "P08: Nennleistung Hauptumwälzpumpe"
+      },
+      "foxair_p09": {
+        "name": "P09: Schutzintervall der Umwälzpumpe"
+      },
+      "foxair_p10": {
+        "name": "P10: Drehzahl der Umwälzpumpe"
+      },
+      "foxair_p11": {
+        "name": "P11: Ziel-Temperaturdifferenz für Pumpendrehzahlregelung"
+      },
+      "foxair_p12": {
+        "name": "P12: Pumpendrehzahl-Anpassbereich je Periode"
+      },
+      "foxair_p13": {
+        "name": "P13: Nachfüllventil Startzyklus (IDU)"
+      },
+      "foxair_p14": {
+        "name": "P14: Nachfüllventil Arbeitsdauer (IDU)"
+      },
+      "foxair_p15": {
+        "name": "P15: Ziel-Wasserdruck (IDU)"
+      },
+      "foxair_p16": {
+        "name": "P16: Stopp-Nachfülldruckdifferenz (IDU)"
+      },
+      "foxair_r01": {
+        "name": "R01: Warmwasser-Solltemperatur"
+      },
+      "foxair_r02": {
+        "name": "R02: Heizungssolltemperatur"
+      },
+      "foxair_r03": {
+        "name": "R03: Kühlsolltemperatur"
+      },
+      "foxair_r04": {
+        "name": "R04: Heizung Einschalt-Rücklaufdifferenz"
+      },
+      "foxair_r05": {
+        "name": "R05: Heizung Standby-/Abschalt-Temperaturdifferenz"
+      },
+      "foxair_r06": {
+        "name": "R06: Kühlung Einschalt-Rücklaufdifferenz"
+      },
+      "foxair_r07": {
+        "name": "R07: Kühlung Standby-/Abschalt-Temperaturdifferenz"
+      },
+      "foxair_r08": {
+        "name": "R08: Min. Kühlsolltemperatur"
+      },
+      "foxair_r09": {
+        "name": "R09: Max. Kühlsolltemperatur"
+      },
+      "foxair_r10": {
+        "name": "R10: Min. Heizungssolltemperatur"
+      },
+      "foxair_r11": {
+        "name": "R11: Max. Heizungssolltemperatur"
+      },
+      "foxair_r12": {
+        "name": "R12: Temperatur-/Hystereseparameter R12"
+      },
+      "foxair_r13": {
+        "name": "R13: Temperatur-/Hystereseparameter R13"
+      },
+      "foxair_r14": {
+        "name": "R14: Temperatur-/Hystereseparameter R14"
+      },
+      "foxair_r15": {
+        "name": "R15: Rückkehrdifferenz zum Verlassen des Hochtemperatur-Modus"
+      },
+      "foxair_r16": {
+        "name": "R16: WW-Tank Einschalt-Rücklaufdifferenz"
+      },
+      "foxair_r17": {
+        "name": "R17: WW-Tank Standby-Temperaturdifferenz"
+      },
+      "foxair_r29": {
+        "name": "R29: Niedrige AT für Wassertemperaturbegrenzung EIN"
+      },
+      "foxair_r30": {
+        "name": "R30: Niedrige AT für Wassertemperaturbegrenzung AUS"
+      },
+      "foxair_r31": {
+        "name": "R31: Max. Auslasswassertemperaturbegrenzung bei niedriger AT"
+      },
+      "foxair_r32": {
+        "name": "R32: Hohe AT für Wassertemperaturbegrenzung EIN"
+      },
+      "foxair_r33": {
+        "name": "R33: Hohe AT für Wassertemperaturbegrenzung AUS"
+      },
+      "foxair_r34": {
+        "name": "R34: Max. Auslasswassertemperaturbegrenzung bei hoher AT"
+      },
+      "foxair_r35": {
+        "name": "R35: Position des elektrischen Heizers"
+      },
+      "foxair_r36": {
+        "name": "R36: Min. WW-Solltemperatur"
+      },
+      "foxair_r37": {
+        "name": "R37: Max. WW-Solltemperatur"
+      },
+      "foxair_r39": {
+        "name": "R39: AT für Auto-Start Heizmodus"
+      },
+      "foxair_r40": {
+        "name": "R40: Temperaturparameter, Celsius-Grenze 60 °C (ASM V1.3)"
+      },
+      "foxair_r41": {
+        "name": "R41: Temperaturparameter, Celsius-Grenze 60 °C (ASM V1.3)"
+      },
+      "foxair_r42": {
+        "name": "R42: Max. Auslasswassertemperatur im Heizbetrieb"
+      },
+      "foxair_r43": {
+        "name": "R43: Max. Zielwassertemperaturbegrenzung bei niedriger AT im Heizbetrieb"
+      },
+      "foxair_r44": {
+        "name": "R44: Max. Zielwassertemperaturbegrenzung bei hoher AT im Heizbetrieb"
+      },
+      "foxair_r45": {
+        "name": "R45: AT zum Starten des elektrischen Heizers ohne Verzögerung"
+      },
+      "foxair_r46": {
+        "name": "R46: Temp.-Differenz zwischen max. WW-Solltemp. und max. Auslasstemp."
+      },
+      "foxair_r60": {
+        "name": "R60: AT zum Start der Frequenzbegrenzung im Kühlbetrieb"
+      },
+      "foxair_r61": {
+        "name": "R61: AT zum Stoppen der Frequenzbegrenzung im Kühlbetrieb"
+      },
+      "foxair_r62": {
+        "name": "R62: Max. Wärmepumpen-Auslasswassertemperatur"
+      },
+      "foxair_r70": {
+        "name": "R70: Ziel-Raumtemperatur"
+      },
+      "foxair_r71": {
+        "name": "R71: Raumtemperaturdifferenz zum Einschalten im Heizbetrieb"
+      },
+      "foxair_r72": {
+        "name": "R72: Raumtemperaturdifferenz für Standby im Heizbetrieb"
+      },
+      "foxair_r73": {
+        "name": "R73: Raumtemperaturdifferenz zum Einschalten im Kühlbetrieb"
+      },
+      "foxair_r74": {
+        "name": "R74: Raumtemperaturdifferenz für Standby im Kühlbetrieb"
+      },
+      "foxair_s01": {
+        "name": "S01: Schalterzustände / Kontakte / SG Ready"
+      },
       "foxair_s_s02": {
         "name": "S02: Niederdruckschalter"
       },
@@ -1912,6 +2569,233 @@
       },
       "foxair_s_s10": {
         "name": "S10: Heizen/Kühlen AN/AUS"
+      },
+      "foxair_sg01": {
+        "name": "SG01: SG Ready Auswahl"
+      },
+      "foxair_sg02": {
+        "name": "SG02: SG Mode 1 Schlafmodus Zeit"
+      },
+      "foxair_sg03": {
+        "name": "SG03: SG Mode 2 Leistung / wenig PV"
+      },
+      "foxair_sg04": {
+        "name": "SG04: SG Mode 3 Leistung / mittel PV"
+      },
+      "foxair_sg05": {
+        "name": "SG05: SG Mode 4 WW-Zieltemperatur-Anhebung"
+      },
+      "foxair_sg06": {
+        "name": "SG06: SG Mode 4 HZ-Zieltemperatur-Anhebung"
+      },
+      "foxair_sg07": {
+        "name": "SG07: SG Mode 4 Kühlen-Zieltemperatur-Anhebung"
+      },
+      "foxair_sg08": {
+        "name": "SG08: SG Mode 4 E-Heizer / Zusatzfunktion"
+      },
+      "foxair_sgstatus": {
+        "name": "SGstatus: SG Ready aktiver Modus",
+        "state": {
+          "0": "WP Aus oder SG deaktiviert",
+          "1": "SG Mode 1 / Schlafmodus",
+          "2": "SG Mode 2 / wenig PV",
+          "3": "SG Mode 3 / mittel PV",
+          "4": "SG Mode 4 / High PV",
+          "5": "Normalbetrieb"
+        }
+      },
+      "foxair_t01": {
+        "name": "T01: Einlasswassertemperatur"
+      },
+      "foxair_t02": {
+        "name": "T02: Auslasswassertemperatur"
+      },
+      "foxair_t03": {
+        "name": "T03: Verdampfertemperatur"
+      },
+      "foxair_t04": {
+        "name": "T04: Umgebungstemperatur (AT)"
+      },
+      "foxair_t05": {
+        "name": "T05: Saugsungstemperatur"
+      },
+      "foxair_t06": {
+        "name": "T06: Frostschutztemperatur (Am PlattenWT)"
+      },
+      "foxair_t07": {
+        "name": "T07: Puffertanktemperatur"
+      },
+      "foxair_t08": {
+        "name": "T08: WW-Tanktemperatur"
+      },
+      "foxair_t09": {
+        "name": "T09: Raumtemperatur"
+      },
+      "foxair_t10": {
+        "name": "T10: EVI-Einlasstemperatur"
+      },
+      "foxair_t11": {
+        "name": "T11: EVI-Auslasstemperatur"
+      },
+      "foxair_t12": {
+        "name": "T12: Abgastemperatur"
+      },
+      "foxair_t14": {
+        "name": "T14: Verteilerrohrtemperatur"
+      },
+      "foxair_t15": {
+        "name": "T15: Niederdruck"
+      },
+      "foxair_t27": {
+        "name": "T27: Drehzahl des Lüftermotors 1"
+      },
+      "foxair_t28": {
+        "name": "T28: Drehzahl des Lüftermotors 2"
+      },
+      "foxair_t29": {
+        "name": "T29: Zieldrehzahl des Lüftermotors"
+      },
+      "foxair_t30": {
+        "name": "T30: Kompressor-Sollfrequenz"
+      },
+      "foxair_t31": {
+        "name": "T31: Betriebsfrequenz des Kompressors"
+      },
+      "foxair_t32": {
+        "name": "T32: Max. Frequenz vom Kompressortreiber"
+      },
+      "foxair_t33": {
+        "name": "T33: IPM-Hochfehler-Temperatur"
+      },
+      "foxair_t34": {
+        "name": "T34: AC-Eingangsspannung"
+      },
+      "foxair_t35": {
+        "name": "T35: AC Input Current"
+      },
+      "foxair_t36": {
+        "name": "T36: Phasenstrom des Kompressors"
+      },
+      "foxair_t37": {
+        "name": "T37: DC-Power-Bus-Spannung"
+      },
+      "foxair_t38": {
+        "name": "T38: IPM-Temperatur."
+      },
+      "foxair_t39": {
+        "name": "T39: Wasserdurchflussrate"
+      },
+      "foxair_t40": {
+        "name": "T40: Heizungsrücklauftemperatur"
+      },
+      "foxair_t41": {
+        "name": "T41: Heizungsvorlauftemperatur"
+      },
+      "foxair_t42": {
+        "name": "T42: Mischrohrauslasswassertemperatur"
+      },
+      "foxair_t43": {
+        "name": "T43: WW-Rücklauftemperatur"
+      },
+      "foxair_t44": {
+        "name": "T44: WW-Vorlauftemperatur"
+      },
+      "foxair_t46": {
+        "name": "T46: IPM-Temperatur des externen Lüftermotorantriebs"
+      },
+      "foxair_t47": {
+        "name": "T47: Leistung des externen Lüftermotorantriebs"
+      },
+      "foxair_t48": {
+        "name": "T48: Strom des externen Lüftermotorantriebs."
+      },
+      "foxair_t54": {
+        "name": "T54: Elektrische Leistung / Unit Power"
+      },
+      "foxair_t59": {
+        "name": "T59: Wärmeleistung / Unit Capacity"
+      },
+      "foxair_t60": {
+        "name": "T60: COP"
+      },
+      "foxair_t_diag1": {
+        "name": "T-Diag1: Verdampfungstemperatur / Evaporating Temp (ASM)"
+      },
+      "foxair_t_diag2": {
+        "name": "T-Diag2: Abgas-Überhitzung / Exhaust Superheat (ASM)"
+      },
+      "foxair_t_diag3": {
+        "name": "T-Diag3: Rückgas-/Saug-Überhitzung / Suction Superheat (ASM)"
+      },
+      "foxair_t_diag5": {
+        "name": "T-Diag5: Eingangsstrom L1"
+      },
+      "foxair_t_diag6": {
+        "name": "T-Diag6: Eingangsstrom L2"
+      },
+      "foxair_t_diag7": {
+        "name": "T-Diag7: Eingangsstrom L3"
+      },
+      "foxair_t_diag8": {
+        "name": "T-Diag8: Kompressor-Laufzeit"
+      },
+      "foxair_z01": {
+        "name": "Z01: Mehrzonenregelung aktivieren"
+      },
+      "foxair_z02": {
+        "name": "Z02: Zone 1 Raumtemperatur-Sollwert"
+      },
+      "foxair_z03": {
+        "name": "Z03: Zone 1 Raumtemperatur-Differenz zum Start"
+      },
+      "foxair_z04": {
+        "name": "Z04: Zone 2 Raumtemperatur-Sollwert"
+      },
+      "foxair_z05": {
+        "name": "Z05: Zone 2 Raumtemperatur-Differenz zum Start"
+      },
+      "foxair_z06": {
+        "name": "Z06: Zone 1 Heizungs-Auslasswasser-Sollwert"
+      },
+      "foxair_z07": {
+        "name": "Z07: Zone 2 Mischwasser-Auslasswasser-Sollwert"
+      },
+      "foxair_z08": {
+        "name": "Z08: Mischventil manuelle Stellrate (0% = Auto-Regelung)"
+      },
+      "foxair_z09": {
+        "name": "Z09: Mischventil Öffnungszeit"
+      },
+      "foxair_z10": {
+        "name": "Z10: Mischventil Schließzeit"
+      },
+      "foxair_z11": {
+        "name": "Z11: Mischventil Regelung P-Anteil (PID)"
+      },
+      "foxair_z12": {
+        "name": "Z12: Mischventil Regelung I-Anteil (PID)"
+      },
+      "foxair_z13": {
+        "name": "Z13: Mischventil PID-Zyklus"
+      },
+      "foxair_z14": {
+        "name": "Z14: Mischventil-Stellwert im Kühlbetrieb"
+      },
+      "foxair_z15": {
+        "name": "Z15: Zone 2 maximale Wasser-Solltemperatur"
+      },
+      "foxair_z16": {
+        "name": "Z16: Mischventil Regel-I (DIGI5 laut ASM-Kommentar) (ASM)"
+      },
+      "foxair_z17": {
+        "name": "Z17: AT-Kompensationskurve Zone 2 aktivieren"
+      },
+      "foxair_z19": {
+        "name": "Z19: Differenz: Keine Pumpe Ein bei niedriger Wassertemperatur"
+      },
+      "foxair_z20": {
+        "name": "Z20: Zone 1 Wasserpumpe im Kühlbetrieb aktivieren"
       }
     },
     "climate": {
@@ -2578,7 +3462,7 @@
         "name": "Reserviert"
       },
       "foxair_1356": {
-        "name": "H42: Einschalt-AT Gehaeusewannenheizung (D30/1437 erst wirksam, wenn AT kleiner H42 ist)"
+        "name": "H42: Einschalt-AT Gehäusewannenheizung (D30/1437 erst wirksam, wenn AT kleiner H42 ist)"
       },
       "foxair_1357": {
         "name": "Z19: Differenz: Keine Pumpe Ein bei niedriger Wassertemperatur"
@@ -2626,13 +3510,529 @@
         "name": "P14: Nachfüllventil Arbeitsdauer (IDU)"
       },
       "foxair_1437": {
-        "name": "D30: Gehaeusewannenheizung Delays Off Time after Defrost"
+        "name": "D30: Gehäusewannenheizung Delays Off Time after Defrost"
       },
       "foxair_1438": {
         "name": "P15: Ziel-Wasserdruck (IDU)"
       },
       "foxair_1444": {
         "name": "P16: Stopp-Nachfülldruckdifferenz (IDU)"
+      },
+      "foxair_a03": {
+        "name": "A03: Abschalttemperatur Umgebung"
+      },
+      "foxair_a04": {
+        "name": "A04: Frostschutztemperatur"
+      },
+      "foxair_a05": {
+        "name": "A05: Frostschutztemperaturdifferenz"
+      },
+      "foxair_a06": {
+        "name": "A06: Max. Abgastemperatur"
+      },
+      "foxair_a22": {
+        "name": "A22: Min. Frostschutztemperatur"
+      },
+      "foxair_a23": {
+        "name": "A23: Min. Auslasswassertemperatur schutz"
+      },
+      "foxair_a24": {
+        "name": "A24: Übermäßige Temperaturdifferenz zwischen Einlass- und Auslasswasser"
+      },
+      "foxair_a25": {
+        "name": "A25: Minimale Verdampfungstemperatur der Kühlung"
+      },
+      "foxair_a27": {
+        "name": "A27: Temperaturdifferenz der Begrenzungsfrequenz"
+      },
+      "foxair_a28": {
+        "name": "A28: Temperaturdifferenz zwischen Auslass- und WW-Temperatur"
+      },
+      "foxair_a30": {
+        "name": "A30: Min. Umgebungstemperatur im Kühlmodus"
+      },
+      "foxair_a31": {
+        "name": "A31: Electric-Heater-On AT Grenzwert / Temperaturparameter (ASM)"
+      },
+      "foxair_a32": {
+        "name": "A32: Electric Heater Delays Comp on Time"
+      },
+      "foxair_a33": {
+        "name": "A33: E-Heizer Einschalt-Temperaturdifferenz"
+      },
+      "foxair_a34": {
+        "name": "A34: Kurbelgehäuseheizung Vorheizzeit"
+      },
+      "foxair_a35": {
+        "name": "A35: Electric Heater Off Temp Diff / E-Heizer Ausschalt-Temperaturdifferenz"
+      },
+      "foxair_a38": {
+        "name": "A38: Niederdruck-Grenzwert für Frequenzbegrenzung"
+      },
+      "foxair_c01": {
+        "name": "C01: Manuelle Kompressorfrequenz"
+      },
+      "foxair_c02": {
+        "name": "C02: Min. Kompressorfrequenz"
+      },
+      "foxair_c03": {
+        "name": "C03: Max. Kompressorfrequenz"
+      },
+      "foxair_c05": {
+        "name": "C05: Min. Kompressorfrequenz im Kühlbetrieb bei niedriger Umgebungstemperatur"
+      },
+      "foxair_c07": {
+        "name": "C07: Resonanzpunkt 1"
+      },
+      "foxair_c08": {
+        "name": "C08: Resonanzpunkt 2"
+      },
+      "foxair_c09": {
+        "name": "C09: Resonanzpunkt 3"
+      },
+      "foxair_c10": {
+        "name": "C10: Min. Kompressorfrequenz im Heizbetrieb bei niedriger Umgebungstemperatur"
+      },
+      "foxair_c11": {
+        "name": "C11: Max. Kompressorfrequenz im Kühlbetrieb bei hoher Umgebungstemperatur"
+      },
+      "foxair_c12": {
+        "name": "C12: Max. Kompressorfrequenz im Warmwasserbetrieb"
+      },
+      "foxair_c13": {
+        "name": "C13: Display-Firmware Parameter C13"
+      },
+      "foxair_c14": {
+        "name": "C14: Display-Firmware Parameter C14"
+      },
+      "foxair_c15": {
+        "name": "C15: Display-Firmware Parameter C15"
+      },
+      "foxair_d01": {
+        "name": "D01: Umgebungstemperatur des Start-Abtauens"
+      },
+      "foxair_d02": {
+        "name": "D02: Heizbetriebszeit vor dem Abtauen"
+      },
+      "foxair_d03": {
+        "name": "D03: Intervallzeit zwischen den Abtauzyklen"
+      },
+      "foxair_d04": {
+        "name": "D04: Heißgastemperaturkorrektur für den Abtauzyklus"
+      },
+      "foxair_d05_1": {
+        "name": "D05-1: Abtau-Saugsdruck 1"
+      },
+      "foxair_d05_2": {
+        "name": "D05-2: Abtau-Saugsdruck 2"
+      },
+      "foxair_d07": {
+        "name": "D07: Umgebungstemperatur des Start-Gleitabtauens"
+      },
+      "foxair_d08": {
+        "name": "D08: Saugsungstemperatur des Start-Gleitabtauens"
+      },
+      "foxair_d09": {
+        "name": "D09: Umgebungstemperatur des Stopp-Gleitabtauens"
+      },
+      "foxair_d10": {
+        "name": "D10: Saugsungstemperatur des Stopp-Gleitabtauens"
+      },
+      "foxair_d11": {
+        "name": "D11: Min. Einlasswassertemperatur des Abtauens"
+      },
+      "foxair_d12": {
+        "name": "D12: Saugsdruck des erzwungenen Abtauens"
+      },
+      "foxair_d13": {
+        "name": "D13: Heizbetriebszeit vor dem erzwungenen Abtauen"
+      },
+      "foxair_d14": {
+        "name": "D14: Lüftermotorleistungsverhältnis zur Verlängerung des Abtauzyklus"
+      },
+      "foxair_d15": {
+        "name": "D15: Lüftermotorleistungsverhältnis zum Eintritt in das erzwungene Abtauen"
+      },
+      "foxair_d17": {
+        "name": "D17: Verdampfertemperatur des Abtauausgangs"
+      },
+      "foxair_d18": {
+        "name": "D18: Verteilerrohrtemperatur des Abtauausgangs"
+      },
+      "foxair_d19": {
+        "name": "D19: Max. Abtauzeit"
+      },
+      "foxair_d20": {
+        "name": "D20: Abtaufrequenz"
+      },
+      "foxair_d22": {
+        "name": "D22: Wasserdurchfluss beim Abtauen"
+      },
+      "foxair_d23": {
+        "name": "D23: Max. Abtauzyklus durch Lüftermotorleistung"
+      },
+      "foxair_d25": {
+        "name": "D25: Max. Einlasswassertemperaturabfall beim Abtauen"
+      },
+      "foxair_d30": {
+        "name": "D30: Gehaeusewannenheizung Delays Off Time after Defrost"
+      },
+      "foxair_e02": {
+        "name": "E02: Ziel-Überhitzung Heizen"
+      },
+      "foxair_e03": {
+        "name": "E03: EEV Anfangsschritte Heizen"
+      },
+      "foxair_e03_1": {
+        "name": "E03-1: EEV Anfangsschritte Heizen 1"
+      },
+      "foxair_e03_2": {
+        "name": "E03-2: EEV Anfangsschritte Heizen 2"
+      },
+      "foxair_e03_3": {
+        "name": "E03-3: EEV Anfangsschritte Heizen 3"
+      },
+      "foxair_e03_4": {
+        "name": "E03-4: EEV Anfangsschritte Heizen 4"
+      },
+      "foxair_e03_5": {
+        "name": "E03-5: EEV Anfangsschritte Heizen 5"
+      },
+      "foxair_e07": {
+        "name": "E07: EEV minimale Anfangsschritte"
+      },
+      "foxair_e07_1": {
+        "name": "E07-1: EEV Min. Schritte 1"
+      },
+      "foxair_e07_2": {
+        "name": "E07-2: EEV Min. Schritte 2"
+      },
+      "foxair_e07_3": {
+        "name": "E07-3: EEV Min. Schritte 3"
+      },
+      "foxair_e07_4": {
+        "name": "E07-4: EEV Min. Schritte 4"
+      },
+      "foxair_e07_5": {
+        "name": "E07-5: EEV Min. Schritte 5"
+      },
+      "foxair_e08": {
+        "name": "E08: EEV Anfangsschritte Kühlen"
+      },
+      "foxair_e10": {
+        "name": "E10: EVI-EEV Anfangsschritte"
+      },
+      "foxair_e13": {
+        "name": "E13: EVI-EEV Ziel-Überhitzungsgrad"
+      },
+      "foxair_e14": {
+        "name": "E14: EVI-EEV minimale Schritte"
+      },
+      "foxair_e15": {
+        "name": "E15: Temperatur-/Hystereseparameter (ASM)"
+      },
+      "foxair_e16": {
+        "name": "E16: Temperatur-/Hystereseparameter (ASM)"
+      },
+      "foxair_e17": {
+        "name": "E17: Abtau-EEV Schritte"
+      },
+      "foxair_e18": {
+        "name": "E18: Ziel-Überhitzung Kühlen"
+      },
+      "foxair_e19": {
+        "name": "E19: EEV Anpassungsbereich im Smart-Modus"
+      },
+      "foxair_e20": {
+        "name": "E20: Display-Firmware Parameter E20"
+      },
+      "foxair_e21": {
+        "name": "E21: Display-Firmware Parameter E21"
+      },
+      "foxair_f02": {
+        "name": "F02: Verdampfertemperatur für maximale Lüfterdrehzahl im Kühlbetrieb"
+      },
+      "foxair_f03": {
+        "name": "F03: Verdampfertemperatur für minimale Lüfterdrehzahl im Kühlbetrieb"
+      },
+      "foxair_f05": {
+        "name": "F05: Verdampfertemperatur für maximale Lüfterdrehzahl im Heizbetrieb"
+      },
+      "foxair_f06": {
+        "name": "F06: Verdampfertemperatur für minimale Lüfterdrehzahl im Heizbetrieb"
+      },
+      "foxair_f18": {
+        "name": "F18: Min. Lüfterdrehzahl im Kühlbetrieb"
+      },
+      "foxair_f19": {
+        "name": "F19: Min. Lüfterdrehzahl im Heizbetrieb"
+      },
+      "foxair_f23": {
+        "name": "F23: Nenn-DC-Lüftermotordrehzahl"
+      },
+      "foxair_f25": {
+        "name": "F25: Max. Lüfterdrehzahl im Kühlbetrieb"
+      },
+      "foxair_f26": {
+        "name": "F26: Max. Lüfterdrehzahl im Heizbetrieb"
+      },
+      "foxair_f27": {
+        "name": "F27: Fan Motor Power Curve / Lüftermotor-Leistungskurve"
+      },
+      "foxair_f28": {
+        "name": "F28: Verdampfertemperatur des Einzel-/Doppellüfterschalters im Kühlbetrieb"
+      },
+      "foxair_f29": {
+        "name": "F29: Verdampfertemperatur des Einzellüfterstopps im Kühlbetrieb"
+      },
+      "foxair_g01": {
+        "name": "G01: Desinfektionswassertemperatur"
+      },
+      "foxair_g02": {
+        "name": "G02: Desinfektionsdauer"
+      },
+      "foxair_g03": {
+        "name": "G03: Desinfektionsstartzeit"
+      },
+      "foxair_g04": {
+        "name": "G04: Intervallzeit der Desinfektion"
+      },
+      "foxair_h30": {
+        "name": "H30: Indoor Unit Type / Hydraulikmodul-Typ"
+      },
+      "foxair_h32": {
+        "name": "H32: Erzwungene Umschaltzeit"
+      },
+      "foxair_h38": {
+        "name": "H38: Spracheinstellung"
+      },
+      "foxair_h39": {
+        "name": "H39: Logo-Auswahl / Kundenlogo-Code (ASM)"
+      },
+      "foxair_h42": {
+        "name": "H42: Einschalt-AT Gehaeusewannenheizung (D30/1437 erst wirksam, wenn AT kleiner H42 ist)"
+      },
+      "foxair_p02": {
+        "name": "P02: Intervallzeit"
+      },
+      "foxair_p03": {
+        "name": "P03: Betriebsdauer"
+      },
+      "foxair_p08": {
+        "name": "P08: Nennleistung Hauptumwälzpumpe"
+      },
+      "foxair_p09": {
+        "name": "P09: Schutzintervall der Umwälzpumpe"
+      },
+      "foxair_p10": {
+        "name": "P10: Drehzahl der Umwälzpumpe"
+      },
+      "foxair_p11": {
+        "name": "P11: Ziel-Temperaturdifferenz für Pumpendrehzahlregelung"
+      },
+      "foxair_p12": {
+        "name": "P12: Pumpendrehzahl-Anpassbereich je Periode"
+      },
+      "foxair_p13": {
+        "name": "P13: Nachfüllventil Startzyklus (IDU)"
+      },
+      "foxair_p14": {
+        "name": "P14: Nachfüllventil Arbeitsdauer (IDU)"
+      },
+      "foxair_p15": {
+        "name": "P15: Ziel-Wasserdruck (IDU)"
+      },
+      "foxair_p16": {
+        "name": "P16: Stopp-Nachfülldruckdifferenz (IDU)"
+      },
+      "foxair_r01": {
+        "name": "R01: Warmwasser-Solltemperatur"
+      },
+      "foxair_r02": {
+        "name": "R02: Heizungssolltemperatur"
+      },
+      "foxair_r03": {
+        "name": "R03: Kühlsolltemperatur"
+      },
+      "foxair_r04": {
+        "name": "R04: Heizung Einschalt-Rücklaufdifferenz"
+      },
+      "foxair_r05": {
+        "name": "R05: Heizung Standby-/Abschalt-Temperaturdifferenz"
+      },
+      "foxair_r06": {
+        "name": "R06: Kühlung Einschalt-Rücklaufdifferenz"
+      },
+      "foxair_r07": {
+        "name": "R07: Kühlung Standby-/Abschalt-Temperaturdifferenz"
+      },
+      "foxair_r08": {
+        "name": "R08: Min. Kühlsolltemperatur"
+      },
+      "foxair_r09": {
+        "name": "R09: Max. Kühlsolltemperatur"
+      },
+      "foxair_r10": {
+        "name": "R10: Min. Heizungssolltemperatur"
+      },
+      "foxair_r11": {
+        "name": "R11: Max. Heizungssolltemperatur"
+      },
+      "foxair_r12": {
+        "name": "R12: Temperatur-/Hystereseparameter R12"
+      },
+      "foxair_r13": {
+        "name": "R13: Temperatur-/Hystereseparameter R13"
+      },
+      "foxair_r14": {
+        "name": "R14: Temperatur-/Hystereseparameter R14"
+      },
+      "foxair_r15": {
+        "name": "R15: Rückkehrdifferenz zum Verlassen des Hochtemperatur-Modus"
+      },
+      "foxair_r16": {
+        "name": "R16: WW-Tank Einschalt-Rücklaufdifferenz"
+      },
+      "foxair_r17": {
+        "name": "R17: WW-Tank Standby-Temperaturdifferenz"
+      },
+      "foxair_r29": {
+        "name": "R29: Niedrige AT für Wassertemperaturbegrenzung EIN"
+      },
+      "foxair_r30": {
+        "name": "R30: Niedrige AT für Wassertemperaturbegrenzung AUS"
+      },
+      "foxair_r31": {
+        "name": "R31: Max. Auslasswassertemperaturbegrenzung bei niedriger AT"
+      },
+      "foxair_r32": {
+        "name": "R32: Hohe AT für Wassertemperaturbegrenzung EIN"
+      },
+      "foxair_r33": {
+        "name": "R33: Hohe AT für Wassertemperaturbegrenzung AUS"
+      },
+      "foxair_r34": {
+        "name": "R34: Max. Auslasswassertemperaturbegrenzung bei hoher AT"
+      },
+      "foxair_r36": {
+        "name": "R36: Min. WW-Solltemperatur"
+      },
+      "foxair_r37": {
+        "name": "R37: Max. WW-Solltemperatur"
+      },
+      "foxair_r39": {
+        "name": "R39: AT für Auto-Start Heizmodus"
+      },
+      "foxair_r40": {
+        "name": "R40: Temperaturparameter, Celsius-Grenze 60 °C (ASM V1.3)"
+      },
+      "foxair_r41": {
+        "name": "R41: Temperaturparameter, Celsius-Grenze 60 °C (ASM V1.3)"
+      },
+      "foxair_r42": {
+        "name": "R42: Max. Auslasswassertemperatur im Heizbetrieb"
+      },
+      "foxair_r43": {
+        "name": "R43: Max. Zielwassertemperaturbegrenzung bei niedriger AT im Heizbetrieb"
+      },
+      "foxair_r44": {
+        "name": "R44: Max. Zielwassertemperaturbegrenzung bei hoher AT im Heizbetrieb"
+      },
+      "foxair_r45": {
+        "name": "R45: AT zum Starten des elektrischen Heizers ohne Verzögerung"
+      },
+      "foxair_r46": {
+        "name": "R46: Temp.-Differenz zwischen max. WW-Solltemp. und max. Auslasstemp."
+      },
+      "foxair_r60": {
+        "name": "R60: AT zum Start der Frequenzbegrenzung im Kühlbetrieb"
+      },
+      "foxair_r61": {
+        "name": "R61: AT zum Stoppen der Frequenzbegrenzung im Kühlbetrieb"
+      },
+      "foxair_r62": {
+        "name": "R62: Max. Wärmepumpen-Auslasswassertemperatur"
+      },
+      "foxair_r70": {
+        "name": "R70: Ziel-Raumtemperatur"
+      },
+      "foxair_r71": {
+        "name": "R71: Raumtemperaturdifferenz zum Einschalten im Heizbetrieb"
+      },
+      "foxair_r72": {
+        "name": "R72: Raumtemperaturdifferenz für Standby im Heizbetrieb"
+      },
+      "foxair_r73": {
+        "name": "R73: Raumtemperaturdifferenz zum Einschalten im Kühlbetrieb"
+      },
+      "foxair_r74": {
+        "name": "R74: Raumtemperaturdifferenz für Standby im Kühlbetrieb"
+      },
+      "foxair_sg02": {
+        "name": "SG02: SG Mode 1 Schlafmodus Zeit"
+      },
+      "foxair_sg03": {
+        "name": "SG03: SG Mode 2 Leistung / wenig PV"
+      },
+      "foxair_sg04": {
+        "name": "SG04: SG Mode 3 Leistung / mittel PV"
+      },
+      "foxair_sg05": {
+        "name": "SG05: SG Mode 4 WW-Zieltemperatur-Anhebung"
+      },
+      "foxair_sg06": {
+        "name": "SG06: SG Mode 4 HZ-Zieltemperatur-Anhebung"
+      },
+      "foxair_sg07": {
+        "name": "SG07: SG Mode 4 Kühlen-Zieltemperatur-Anhebung"
+      },
+      "foxair_z02": {
+        "name": "Z02: Zone 1 Raumtemperatur-Sollwert"
+      },
+      "foxair_z03": {
+        "name": "Z03: Zone 1 Raumtemperatur-Differenz zum Start"
+      },
+      "foxair_z04": {
+        "name": "Z04: Zone 2 Raumtemperatur-Sollwert"
+      },
+      "foxair_z05": {
+        "name": "Z05: Zone 2 Raumtemperatur-Differenz zum Start"
+      },
+      "foxair_z06": {
+        "name": "Z06: Zone 1 Heizungs-Auslasswasser-Sollwert"
+      },
+      "foxair_z07": {
+        "name": "Z07: Zone 2 Mischwasser-Auslasswasser-Sollwert"
+      },
+      "foxair_z08": {
+        "name": "Z08: Mischventil manuelle Stellrate (0% = Auto-Regelung)"
+      },
+      "foxair_z09": {
+        "name": "Z09: Mischventil Öffnungszeit"
+      },
+      "foxair_z10": {
+        "name": "Z10: Mischventil Schließzeit"
+      },
+      "foxair_z11": {
+        "name": "Z11: Mischventil Regelung P-Anteil (PID)"
+      },
+      "foxair_z12": {
+        "name": "Z12: Mischventil Regelung I-Anteil (PID)"
+      },
+      "foxair_z13": {
+        "name": "Z13: Mischventil PID-Zyklus"
+      },
+      "foxair_z14": {
+        "name": "Z14: Mischventil-Stellwert im Kühlbetrieb"
+      },
+      "foxair_z15": {
+        "name": "Z15: Zone 2 maximale Wasser-Solltemperatur"
+      },
+      "foxair_z16": {
+        "name": "Z16: Mischventil Regel-I (DIGI5 laut ASM-Kommentar) (ASM)"
+      },
+      "foxair_z19": {
+        "name": "Z19: Differenz: Keine Pumpe Ein bei niedriger Wassertemperatur"
       }
     },
     "select": {
@@ -2664,325 +4064,115 @@
         "name": "Manuelle Steuerung / Silent Status"
       },
       "foxair_1018": {
-        "name": "H01: Power Off Memory aktivieren (Autostart)",
-        "state": {
-          "no": "Nein",
-          "yes": "Ja"
-        }
+        "name": "H01: Power Off Memory aktivieren (Autostart)"
       },
       "foxair_1019": {
-        "name": "H33: Lüftermotorantrieb und Kompressorantrieb integriert",
-        "state": {
-          "no": "Nein",
-          "yes": "Ja"
-        }
+        "name": "H33: Lüftermotorantrieb und Kompressorantrieb integriert"
       },
       "foxair_1020": {
-        "name": "H34: ERP Testmodus",
-        "state": {
-          "no_erp_test": "Nein / kein ERP-Test",
-          "opt_35_c_test_condition": "35 °C Testbedingung",
-          "opt_55_c_test_condition": "55 °C Testbedingung"
-        }
+        "name": "H34: ERP Testmodus"
       },
       "foxair_1021": {
-        "name": "H05: Kühlfunktion aktivieren",
-        "state": {
-          "no": "Kühlfunktion nicht vorhanden/aus",
-          "yes": "Kühlfunktion vorhanden/ein"
-        }
+        "name": "H05: Kühlfunktion aktivieren"
       },
       "foxair_1023": {
-        "name": "H07: Display-/Fernbedienung",
-        "state": {
-          "display_control": "Display-Regler",
-          "remote_control": "Fernregler"
-        }
+        "name": "H07: Reglerwahl"
       },
       "foxair_1024": {
         "name": "H10: Geräteadresse"
       },
       "foxair_1027": {
-        "name": "H27: EVI aktivieren",
-        "state": {
-          "no_evi": "kein EVI",
-          "evi_for_cooling": "EVI bei Kühlung",
-          "evi_for_heating": "EVI bei Heizung",
-          "evi_for_heating_and_cooling": "EVI bei Heizung und Kühlung"
-        }
+        "name": "H27: EVI aktivieren"
       },
       "foxair_1028": {
-        "name": "H28: Heiz-/Kühl- und Warmwasserfunktion aktiviert",
-        "state": {
-          "no": "ohne Warmwasserfunktion",
-          "yes": "mit Warmwasserfunktion",
-          "only_dhw": "Nur Warmwasser / Only DHW"
-        }
+        "name": "H28: Heiz-/Kühl- und Warmwasserfunktion aktiviert"
       },
       "foxair_1029": {
-        "name": "H21: Temperatureinheit",
-        "state": {
-          "c": "Celsius",
-          "f": "Fahrenheit"
-        }
+        "name": "H21: Temperatureinheit"
       },
       "foxair_1030": {
-        "name": "H22: Silent-Modus aktivieren",
-        "state": {
-          "no": "Silent-Modus aus",
-          "yes": "Silent-Modus ein"
-        }
+        "name": "H22: Silent-Modus aktivieren"
       },
       "foxair_1032": {
-        "name": "H18: Elektrische Heizstufe",
-        "state": {
-          "stage1": "Elektrische Heizstufe 1",
-          "stage2": "Elektrische Heizstufe 2",
-          "stage3": "Elektrische Heizstufe 3"
-        }
+        "name": "H18: Elektrische Heizstufe"
       },
       "foxair_1033": {
-        "name": "H20: 3-Wege-Ventil-Polarität",
-        "state": {
-          "hot_water_on": "3-Wege-Ventil EIN im Warmwasser-Modus",
-          "hot_water_off": "3-Wege-Ventil AUS im Warmwasser-Modus"
-        }
+        "name": "H20: 3-Wege-Ventil-Polarität"
       },
       "foxair_1034": {
         "name": "H29: Operationscode"
       },
       "foxair_1035": {
-        "name": "H25: Temperatur-Regelauswahl",
-        "state": {
-          "outlet_water_temp": "Auslasswassertemperatur",
-          "room_temp": "Raumtemperatur",
-          "buffer_tank_temp": "Puffertanktemperatur",
-          "inlet_water_temp": "Einlasswassertemperatur"
-        }
-      },
-      "foxair_1036": {
-        "name": "H30: Indoor Unit Type / Hydraulikmodul-Typ",
-        "state": {
-          "none": "None",
-          "opt_1st_type": "1st Type",
-          "opt_2nd_type": "2nd Type",
-          "opt_3rd_type": "3rd Type"
-        }
+        "name": "H25: Temperatur-Regelauswahl"
       },
       "foxair_1041": {
-        "name": "H31: Zirkulationswasserpumpentyp",
-        "state": {
-          "no_flow_detection": "keine Durchflusserkennung",
-          "grundfos_25_75": "Grundfos 25-75",
-          "grundfos_25_105": "Grundfos 25-105",
-          "grundfos_25_125": "Grundfos 25-125",
-          "apm25_9_130": "APM25 9-130",
-          "apm25_12_130": "APM25 12-130"
-        }
+        "name": "H31: Zirkulationswasserpumpentyp"
       },
       "foxair_1042": {
-        "name": "A11: Niederdrucksensor aktivieren",
-        "state": {
-          "no": "Nein",
-          "yes": "Ja"
-        }
-      },
-      "foxair_1045": {
-        "name": "H32: Erzwungene Umschaltzeit"
+        "name": "A11: Niederdrucksensor aktivieren"
       },
       "foxair_1046": {
-        "name": "H37: Wassertank-Temperaturquelle",
-        "state": {
-          "heat_pump_tank_sensor": "Wärmepumpe / Wassertank-Temperatursensor",
-          "modbus_central_controller": "Modbus / Zentralregler"
-        }
+        "name": "H37: Wassertank-Temperaturquelle"
       },
       "foxair_1047": {
-        "name": "D26: Zentrale Abtaufunktion aktivieren",
-        "state": {
-          "no": "Nein",
-          "yes": "Ja"
-        }
+        "name": "D26: Zentrale Abtaufunktion aktivieren"
       },
       "foxair_1052": {
-        "name": "A21: Umgebungs-/Saug-/Spulensensortyp",
-        "state": {
-          "opt_5k": "5K Sensortyp",
-          "opt_2k": "2K Sensortyp"
-        }
+        "name": "A21: Umgebungs-/Saug-/Spulensensortyp"
       },
       "foxair_1054": {
-        "name": "A26: Kältemitteltyp",
-        "state": {
-          "r32": "R32",
-          "r290": "R290",
-          "r32_1": "R32-1",
-          "r290_1": "R290-1",
-          "r32_2": "R32-2",
-          "r290_2": "R290-2",
-          "r32_3": "R32-3",
-          "r290_3": "R290-3"
-        }
+        "name": "A26: Kältemitteltyp"
       },
       "foxair_1058": {
-        "name": "A29: Hochdrucksensor aktivieren",
-        "state": {
-          "no": "Nein",
-          "yes": "Ja"
-        }
+        "name": "A29: Hochdrucksensor aktivieren"
       },
       "foxair_1059": {
-        "name": "F01: Lüftermotortyp",
-        "state": {
-          "legacy_high_speed_fan": "Legacy: Hochgeschwindigkeits-Lüfter",
-          "legacy_2_stage_fan": "Legacy: zweistufiger Lüfter",
-          "dc_fan_motor": "DC Fan Motor",
-          "dc_fan_external": "DC Fan Motor External Drive"
-        }
+        "name": "F01: Lüftermotortyp"
       },
       "foxair_1069": {
-        "name": "Z01: Mehrzonenregelung aktivieren",
-        "state": {
-          "none": "Keine Zone",
-          "zone_1_s": "Zone 1-S",
-          "zone_2_s": "Zone 2-S",
-          "zone_1_2_s": "Zone 1+2-S",
-          "zone_1_t": "Zone 1-T",
-          "zone_2_t": "Zone 2-T",
-          "zone_1_2_t": "Zone 1+2-T",
-          "zone_1_p": "Zone 1-P",
-          "zone_2_p": "Zone 2-P",
-          "zone_1_2_p": "Zone 1+2-P"
-        }
+        "name": "Z01: Mehrzonenregelung aktivieren"
       },
       "foxair_1074": {
-        "name": "F10: Lüfteranzahl",
-        "state": {
-          "single": "Einzellüfter",
-          "double": "Doppellüfter"
-        }
+        "name": "F10: Lüfteranzahl"
       },
       "foxair_1077": {
-        "name": "Z17: AT-Kompensationskurve Zone 2 aktivieren",
-        "state": {
-          "no": "Nein",
-          "yes": "Ja"
-        }
-      },
-      "foxair_1080": {
-        "name": "Z08: Mischventil manuelle Stellrate (0% = Auto-Regelung)",
-        "state": {
-          "manual": "Manuell",
-          "auto": "Auto"
-        }
-      },
-      "foxair_1081": {
-        "name": "F18: Min. Lüfterdrehzahl im Kühlbetrieb"
-      },
-      "foxair_1083": {
-        "name": "F19: Min. Lüfterdrehzahl im Heizbetrieb"
+        "name": "Z17: AT-Kompensationskurve Zone 2 aktivieren"
       },
       "foxair_1086": {
-        "name": "F21: Timer-Stummschaltung aktivieren (ASM V1.3: 243E)",
-        "state": {
-          "off": "Aus",
-          "on": "Ein"
-        }
+        "name": "F21: Timer-Stummschaltung aktivieren (ASM V1.3: 243E)"
       },
       "foxair_1087": {
-        "name": "F22: Manuelle Lüfterdrehzahl aktivieren",
-        "state": {
-          "no": "Nein",
-          "yes": "Ja"
-        }
-      },
-      "foxair_1089": {
-        "name": "F23: Nenn-DC-Lüftermotordrehzahl"
+        "name": "F22: Manuelle Lüfterdrehzahl aktivieren"
       },
       "foxair_1111": {
         "name": "D06: Abtauzykluszeitkorrektur"
       },
       "foxair_1126": {
-        "name": "D21: Elektrische Heizung während des Abtauens aktivieren",
-        "state": {
-          "no": "Nein",
-          "yes": "Ja"
-        }
+        "name": "D21: Elektrische Heizung während des Abtauens aktivieren"
       },
       "foxair_1129": {
-        "name": "D24: Wassertank-Abtauquelle im Heizung+WW/Kühlung+WW-Modus",
-        "state": {
-          "stay_current_circuit": "nicht umschalten",
-          "dhw_circuit": "WW-Seite / WW-Tank",
-          "heating_circuit": "Heizseite / Pufferspeicher"
-        }
+        "name": "D24: Wassertank-Abtauquelle im Heizung+WW/Kühlung+WW-Modus"
       },
       "foxair_1131": {
-        "name": "E01: EEV Regelmodus",
-        "state": {
-          "manual": "Manual",
-          "auto": "Auto",
-          "smart": "Smart"
-        }
+        "name": "E01: EEV Regelmodus"
       },
       "foxair_1139": {
-        "name": "E09: EVI-EEV Anpassungsmodus",
-        "state": {
-          "manual": "Manual",
-          "auto": "Auto"
-        }
+        "name": "E09: EVI-EEV Anpassungsmodus"
       },
       "foxair_1156": {
-        "name": "G05: Desinfektion aktivieren",
-        "state": {
-          "no": "NO",
-          "yes": "YES"
-        }
+        "name": "G05: Desinfektion aktivieren"
       },
       "foxair_1173": {
-        "name": "R35: Position des elektrischen Heizers",
-        "state": {
-          "not_available": "Not Available",
-          "heating_water_circuit": "Heating water circuit",
-          "tank_buffer_heater": "Tank/buffer heater"
-        }
+        "name": "R35: Position des elektrischen Heizers"
       },
       "foxair_1197": {
-        "name": "P01: Betriebsmodus der Hauptumwälzpumpe",
-        "state": {
-          "always_on": "Always On",
-          "saving": "Saving",
-          "interval": "Interval"
-        }
+        "name": "P01: Betriebsmodus der Hauptumwälzpumpe"
       },
       "foxair_1201": {
-        "name": "P05: WW-Pumpenbetriebsmodus",
-        "state": {
-          "always_on": "Always On",
-          "saving": "Saving",
-          "interval": "Interval"
-        }
+        "name": "P05: WW-Pumpenbetriebsmodus"
       },
       "foxair_1202": {
-        "name": "P06: Manuelle Steuerung der Hauptumwälzpumpe",
-        "state": {
-          "no": "NO",
-          "yes": "YES"
-        }
-      },
-      "foxair_1206": {
-        "name": "E03-3: EEV Anfangsschritte Heizen 3",
-        "state": {
-          "no": "Nein",
-          "yes": "Ja"
-        }
-      },
-      "foxair_1208": {
-        "name": "E03-5: EEV Anfangsschritte Heizen 5",
-        "state": {
-          "no": "Nein",
-          "yes": "Ja"
-        }
+        "name": "P06: Manuelle Steuerung der Hauptumwälzpumpe"
       },
       "foxair_1221": {
         "name": "C04: Kompressormodellauswahl"
@@ -2991,11 +4181,7 @@
         "name": "C06: Frequenzregelungsmodus"
       },
       "foxair_1236": {
-        "name": "H36: AT-Kompensationskurve Zone 1 aktivieren",
-        "state": {
-          "fixed": "Festtemperatur",
-          "curve": "Witterungsgeführt (Kurve)"
-        }
+        "name": "H36: AT-Kompensationskurve Zone 1 aktivieren"
       },
       "foxair_1244": {
         "name": "Silentmodus Timer Start aktivieren",
@@ -3043,61 +4229,13 @@
         "name": "Aktueller Systemmonat"
       },
       "foxair_1268": {
-        "name": "KG13-KG28: WP Ein/Aus Timer 1+2 Aktiv/Tage Bitmaske",
-        "state": {
-          "off": "Aus",
-          "mon": "Mo",
-          "tue": "Di",
-          "wed": "Mi",
-          "thu": "Do",
-          "fri": "Fr",
-          "sat": "Sa",
-          "sun": "So",
-          "weekdays_mon_fri": "Wochentage (Mo-Fr)",
-          "weekends_sat_sun": "Wochenende (Sa-So)",
-          "every_day_mon_sun": "Jeden Tag (Mo-So)",
-          "mon_tue": "Mo-Di",
-          "wed_thu": "Mi-Do",
-          "fri_sat": "Fr-Sa"
-        }
+        "name": "KG13-KG28: WP Ein/Aus Timer 1+2 Aktiv/Tage Bitmaske"
       },
       "foxair_1269": {
-        "name": "KG29-KG44: WP Ein/Aus Timer 3+4 Aktiv/Tage Bitmaske",
-        "state": {
-          "off": "Aus",
-          "mon": "Mo",
-          "tue": "Di",
-          "wed": "Mi",
-          "thu": "Do",
-          "fri": "Fr",
-          "sat": "Sa",
-          "sun": "So",
-          "weekdays_mon_fri": "Wochentage (Mo-Fr)",
-          "weekends_sat_sun": "Wochenende (Sa-So)",
-          "every_day_mon_sun": "Jeden Tag (Mo-So)",
-          "mon_tue": "Mo-Di",
-          "wed_thu": "Mi-Do",
-          "fri_sat": "Fr-Sa"
-        }
+        "name": "KG29-KG44: WP Ein/Aus Timer 3+4 Aktiv/Tage Bitmaske"
       },
       "foxair_1270": {
-        "name": "KG45-KG60: WP Ein/Aus Timer 5+6 Aktiv/Tage Bitmaske",
-        "state": {
-          "off": "Aus",
-          "mon": "Mo",
-          "tue": "Di",
-          "wed": "Mi",
-          "thu": "Do",
-          "fri": "Fr",
-          "sat": "Sa",
-          "sun": "So",
-          "weekdays_mon_fri": "Wochentage (Mo-Fr)",
-          "weekends_sat_sun": "Wochenende (Sa-So)",
-          "every_day_mon_sun": "Jeden Tag (Mo-So)",
-          "mon_tue": "Mo-Di",
-          "wed_thu": "Mi-Do",
-          "fri_sat": "Fr-Sa"
-        }
+        "name": "KG45-KG60: WP Ein/Aus Timer 5+6 Aktiv/Tage Bitmaske"
       },
       "foxair_1286": {
         "name": "Timer 1 Modus-Code (ASM; 9 = keinen Modus ändern)",
@@ -3175,34 +4313,16 @@
         "name": "Timer 5+6 Aktiv/Tage Bitmaske (ASM; Low-Byte erster Timer, High-Byte zweiter Timer)"
       },
       "foxair_1334": {
-        "name": "SG01: SG Ready Auswahl",
-        "state": {
-          "off": "Aus",
-          "single_contact": "Einfach / 1 Kontakt",
-          "dual_contacts": "2 Kontakte"
-        }
+        "name": "SG01: SG Ready Auswahl"
       },
       "foxair_1341": {
-        "name": "SG08: SG Mode 4 E-Heizer / Zusatzfunktion",
-        "state": {
-          "no": "Nein",
-          "yes": "Ja"
-        }
+        "name": "SG08: SG Mode 4 E-Heizer / Zusatzfunktion"
       },
       "foxair_1345": {
-        "name": "H40: External Pump Selection / Externe Pumpenauswahl",
-        "state": {
-          "hot_water_pump": "Hot Water Pump / Warmwasserpumpe",
-          "warm_water_circulation_pump": "Warm Water Circulation Pump / Warmwasser-Zirkulationspumpe",
-          "off_signal_when_defrosting": "Off Signal when defrosting / Aus-Signal beim Abtauen"
-        }
+        "name": "H40: External Pump Selection / Externe Pumpenauswahl"
       },
       "foxair_1358": {
-        "name": "Z20: Zone 1 Wasserpumpe im Kühlbetrieb aktivieren",
-        "state": {
-          "no": "Nein",
-          "yes": "Ja"
-        }
+        "name": "Z20: Zone 1 Wasserpumpe im Kühlbetrieb aktivieren"
       },
       "foxair_2011": {
         "name": "Gerätezustand",
@@ -3235,7 +4355,414 @@
           "on": "Ein"
         }
       },
-      "foxair_2133": {
+      "foxair_2134": {
+        "name": "Timer State Leistungsbegrenzungstimer 1-6",
+        "state": {
+          "disabled": "disabled",
+          "enabled": "enabled"
+        }
+      },
+      "foxair_8801": {
+        "name": "SG01: SG Ready Active Mode"
+      },
+      "foxair_a11": {
+        "name": "A11: Niederdrucksensor aktivieren",
+        "state": {
+          "no": "Nein",
+          "yes": "Ja"
+        }
+      },
+      "foxair_a21": {
+        "name": "A21: Umgebungs-/Saug-/Spulensensortyp",
+        "state": {
+          "opt_5k": "5K Sensortyp",
+          "opt_2k": "2K Sensortyp"
+        }
+      },
+      "foxair_a26": {
+        "name": "A26: Kältemitteltyp",
+        "state": {
+          "r32": "R32",
+          "r290": "R290",
+          "r32_1": "R32-1",
+          "r290_1": "R290-1",
+          "r32_2": "R32-2",
+          "r290_2": "R290-2",
+          "r32_3": "R32-3",
+          "r290_3": "R290-3"
+        }
+      },
+      "foxair_a29": {
+        "name": "A29: Hochdrucksensor aktivieren",
+        "state": {
+          "no": "Nein",
+          "yes": "Ja"
+        }
+      },
+      "foxair_c04": {
+        "name": "C04: Kompressormodellauswahl"
+      },
+      "foxair_c06": {
+        "name": "C06: Frequenzregelungsmodus"
+      },
+      "foxair_d06": {
+        "name": "D06: Abtauzykluszeitkorrektur"
+      },
+      "foxair_d21": {
+        "name": "D21: Elektrische Heizung während des Abtauens aktivieren",
+        "state": {
+          "no": "Nein",
+          "yes": "Ja"
+        }
+      },
+      "foxair_d24": {
+        "name": "D24: Wassertank-Abtauquelle im Heizung+WW/Kühlung+WW-Modus",
+        "state": {
+          "stay_current_circuit": "nicht umschalten",
+          "dhw_circuit": "WW-Seite / WW-Tank",
+          "heating_circuit": "Heizseite / Pufferspeicher"
+        }
+      },
+      "foxair_d26": {
+        "name": "D26: Zentrale Abtaufunktion aktivieren",
+        "state": {
+          "no": "Nein",
+          "yes": "Ja"
+        }
+      },
+      "foxair_e01": {
+        "name": "E01: EEV Regelmodus",
+        "state": {
+          "manual": "Manual",
+          "auto": "Auto",
+          "smart": "Smart"
+        }
+      },
+      "foxair_e03_3": {
+        "name": "E03-3: EEV Anfangsschritte Heizen 3",
+        "state": {
+          "no": "Nein",
+          "yes": "Ja"
+        }
+      },
+      "foxair_e03_5": {
+        "name": "E03-5: EEV Anfangsschritte Heizen 5",
+        "state": {
+          "no": "Nein",
+          "yes": "Ja"
+        }
+      },
+      "foxair_e09": {
+        "name": "E09: EVI-EEV Anpassungsmodus",
+        "state": {
+          "manual": "Manual",
+          "auto": "Auto"
+        }
+      },
+      "foxair_f01": {
+        "name": "F01: Lüftermotortyp",
+        "state": {
+          "legacy_high_speed_fan": "Legacy: Hochgeschwindigkeits-Lüfter",
+          "legacy_2_stage_fan": "Legacy: zweistufiger Lüfter",
+          "dc_fan_motor": "DC Fan Motor",
+          "dc_fan_external": "DC Fan Motor External Drive"
+        }
+      },
+      "foxair_f10": {
+        "name": "F10: Lüfteranzahl",
+        "state": {
+          "single": "Einzellüfter",
+          "double": "Doppellüfter"
+        }
+      },
+      "foxair_f18": {
+        "name": "F18: Min. Lüfterdrehzahl im Kühlbetrieb"
+      },
+      "foxair_f19": {
+        "name": "F19: Min. Lüfterdrehzahl im Heizbetrieb"
+      },
+      "foxair_f21": {
+        "name": "F21: Timer-Stummschaltung aktivieren (ASM V1.3: 243E)",
+        "state": {
+          "off": "Aus",
+          "on": "Ein"
+        }
+      },
+      "foxair_f22": {
+        "name": "F22: Manuelle Lüfterdrehzahl aktivieren",
+        "state": {
+          "no": "Nein",
+          "yes": "Ja"
+        }
+      },
+      "foxair_f23": {
+        "name": "F23: Nenn-DC-Lüftermotordrehzahl"
+      },
+      "foxair_g05": {
+        "name": "G05: Desinfektion aktivieren",
+        "state": {
+          "no": "NO",
+          "yes": "YES"
+        }
+      },
+      "foxair_h01": {
+        "name": "H01: Power Off Memory aktivieren (Autostart)",
+        "state": {
+          "no": "Nein",
+          "yes": "Ja"
+        }
+      },
+      "foxair_h05": {
+        "name": "H05: Kühlfunktion aktivieren",
+        "state": {
+          "no": "Kühlfunktion nicht vorhanden/aus",
+          "yes": "Kühlfunktion vorhanden/ein"
+        }
+      },
+      "foxair_h07": {
+        "name": "H07: Display-/Fernbedienung",
+        "state": {
+          "display_control": "Display-Regler",
+          "remote_control": "Fernregler"
+        }
+      },
+      "foxair_h10": {
+        "name": "H10: Geräteadresse"
+      },
+      "foxair_h18": {
+        "name": "H18: Elektrische Heizstufe",
+        "state": {
+          "stage1": "Elektrische Heizstufe 1",
+          "stage2": "Elektrische Heizstufe 2",
+          "stage3": "Elektrische Heizstufe 3"
+        }
+      },
+      "foxair_h20": {
+        "name": "H20: 3-Wege-Ventil-Polarität",
+        "state": {
+          "hot_water_on": "3-Wege-Ventil EIN im Warmwasser-Modus",
+          "hot_water_off": "3-Wege-Ventil AUS im Warmwasser-Modus"
+        }
+      },
+      "foxair_h21": {
+        "name": "H21: Temperatureinheit",
+        "state": {
+          "c": "Celsius",
+          "f": "Fahrenheit"
+        }
+      },
+      "foxair_h22": {
+        "name": "H22: Silent-Modus aktivieren",
+        "state": {
+          "no": "Silent-Modus aus",
+          "yes": "Silent-Modus ein"
+        }
+      },
+      "foxair_h25": {
+        "name": "H25: Temperatur-Regelauswahl",
+        "state": {
+          "outlet_water_temp": "Auslasswassertemperatur",
+          "room_temp": "Raumtemperatur",
+          "buffer_tank_temp": "Puffertanktemperatur",
+          "inlet_water_temp": "Einlasswassertemperatur"
+        }
+      },
+      "foxair_h27": {
+        "name": "H27: EVI aktivieren",
+        "state": {
+          "no_evi": "kein EVI",
+          "evi_for_cooling": "EVI bei Kühlung",
+          "evi_for_heating": "EVI bei Heizung",
+          "evi_for_heating_and_cooling": "EVI bei Heizung und Kühlung"
+        }
+      },
+      "foxair_h28": {
+        "name": "H28: Heiz-/Kühl- und Warmwasserfunktion aktiviert",
+        "state": {
+          "no": "ohne Warmwasserfunktion",
+          "yes": "mit Warmwasserfunktion",
+          "only_dhw": "Nur Warmwasser / Only DHW"
+        }
+      },
+      "foxair_h29": {
+        "name": "H29: Operationscode"
+      },
+      "foxair_h30": {
+        "name": "H30: Indoor Unit Type / Hydraulikmodul-Typ",
+        "state": {
+          "none": "None",
+          "opt_1st_type": "1st Type",
+          "opt_2nd_type": "2nd Type",
+          "opt_3rd_type": "3rd Type"
+        }
+      },
+      "foxair_h31": {
+        "name": "H31: Zirkulationswasserpumpentyp",
+        "state": {
+          "no_flow_detection": "keine Durchflusserkennung",
+          "grundfos_25_75": "Grundfos 25-75",
+          "grundfos_25_105": "Grundfos 25-105",
+          "grundfos_25_125": "Grundfos 25-125",
+          "apm25_9_130": "APM25 9-130",
+          "apm25_12_130": "APM25 12-130"
+        }
+      },
+      "foxair_h32": {
+        "name": "H32: Erzwungene Umschaltzeit"
+      },
+      "foxair_h33": {
+        "name": "H33: Lüftermotorantrieb und Kompressorantrieb integriert",
+        "state": {
+          "no": "Nein",
+          "yes": "Ja"
+        }
+      },
+      "foxair_h34": {
+        "name": "H34: ERP Testmodus",
+        "state": {
+          "no_erp_test": "Nein / kein ERP-Test",
+          "opt_35_c_test_condition": "35 °C Testbedingung",
+          "opt_55_c_test_condition": "55 °C Testbedingung"
+        }
+      },
+      "foxair_h36": {
+        "name": "H36: AT-Kompensationskurve Zone 1 aktivieren",
+        "state": {
+          "fixed": "Festtemperatur",
+          "curve": "Witterungsgeführt (Kurve)"
+        }
+      },
+      "foxair_h37": {
+        "name": "H37: Wassertank-Temperaturquelle",
+        "state": {
+          "heat_pump_tank_sensor": "Wärmepumpe / Wassertank-Temperatursensor",
+          "modbus_central_controller": "Modbus / Zentralregler"
+        }
+      },
+      "foxair_h40": {
+        "name": "H40: External Pump Selection / Externe Pumpenauswahl",
+        "state": {
+          "hot_water_pump": "Hot Water Pump / Warmwasserpumpe",
+          "warm_water_circulation_pump": "Warm Water Circulation Pump / Warmwasser-Zirkulationspumpe",
+          "off_signal_when_defrosting": "Off Signal when defrosting / Aus-Signal beim Abtauen"
+        }
+      },
+      "foxair_kg13_kg28": {
+        "name": "KG13-KG28: WP Ein/Aus Timer 1+2 Aktiv/Tage Bitmaske",
+        "state": {
+          "off": "Aus",
+          "mon": "Mo",
+          "tue": "Di",
+          "wed": "Mi",
+          "thu": "Do",
+          "fri": "Fr",
+          "sat": "Sa",
+          "sun": "So",
+          "weekdays_mon_fri": "Wochentage (Mo-Fr)",
+          "weekends_sat_sun": "Wochenende (Sa-So)",
+          "every_day_mon_sun": "Jeden Tag (Mo-So)",
+          "mon_tue": "Mo-Di",
+          "wed_thu": "Mi-Do",
+          "fri_sat": "Fr-Sa"
+        }
+      },
+      "foxair_kg29_kg44": {
+        "name": "KG29-KG44: WP Ein/Aus Timer 3+4 Aktiv/Tage Bitmaske",
+        "state": {
+          "off": "Aus",
+          "mon": "Mo",
+          "tue": "Di",
+          "wed": "Mi",
+          "thu": "Do",
+          "fri": "Fr",
+          "sat": "Sa",
+          "sun": "So",
+          "weekdays_mon_fri": "Wochentage (Mo-Fr)",
+          "weekends_sat_sun": "Wochenende (Sa-So)",
+          "every_day_mon_sun": "Jeden Tag (Mo-So)",
+          "mon_tue": "Mo-Di",
+          "wed_thu": "Mi-Do",
+          "fri_sat": "Fr-Sa"
+        }
+      },
+      "foxair_kg45_kg60": {
+        "name": "KG45-KG60: WP Ein/Aus Timer 5+6 Aktiv/Tage Bitmaske",
+        "state": {
+          "off": "Aus",
+          "mon": "Mo",
+          "tue": "Di",
+          "wed": "Mi",
+          "thu": "Do",
+          "fri": "Fr",
+          "sat": "Sa",
+          "sun": "So",
+          "weekdays_mon_fri": "Wochentage (Mo-Fr)",
+          "weekends_sat_sun": "Wochenende (Sa-So)",
+          "every_day_mon_sun": "Jeden Tag (Mo-So)",
+          "mon_tue": "Mo-Di",
+          "wed_thu": "Mi-Do",
+          "fri_sat": "Fr-Sa"
+        }
+      },
+      "foxair_p01": {
+        "name": "P01: Betriebsmodus der Hauptumwälzpumpe",
+        "state": {
+          "always_on": "Always On",
+          "saving": "Saving",
+          "interval": "Interval"
+        }
+      },
+      "foxair_p05": {
+        "name": "P05: WW-Pumpenbetriebsmodus",
+        "state": {
+          "always_on": "Always On",
+          "saving": "Saving",
+          "interval": "Interval"
+        }
+      },
+      "foxair_p06": {
+        "name": "P06: Manuelle Steuerung der Hauptumwälzpumpe",
+        "state": {
+          "no": "NO",
+          "yes": "YES"
+        }
+      },
+      "foxair_r35": {
+        "name": "R35: Position des elektrischen Heizers",
+        "state": {
+          "not_available": "Not Available",
+          "heating_water_circuit": "Heating water circuit",
+          "tank_buffer_heater": "Tank/buffer heater"
+        }
+      },
+      "foxair_sg01": {
+        "name": "SG01: SG Ready Auswahl",
+        "state": {
+          "off": "Aus",
+          "single_contact": "Einfach / 1 Kontakt",
+          "dual_contacts": "2 Kontakte",
+          "modbus_virtueller_sg_eingang": "Modbus / virtueller SG-Eingang"
+        }
+      },
+      "foxair_sg01a": {
+        "name": "SG01A: SG Ready aktiver Modus",
+        "state": {
+          "off_disabled": "WP Aus oder SG deaktiviert",
+          "sg1_sleep": "SG Mode 1 / Schlafmodus",
+          "sg2_low_pv": "SG Mode 2 / wenig PV",
+          "sg3_medium_pv": "SG Mode 3 / mittel PV",
+          "sg4_high_pv": "SG Mode 4 / High PV",
+          "normal": "Normalbetrieb"
+        }
+      },
+      "foxair_sg08": {
+        "name": "SG08: SG Mode 4 E-Heizer / Zusatzfunktion",
+        "state": {
+          "no": "Nein",
+          "yes": "Ja"
+        }
+      },
+      "foxair_sgstatus": {
         "name": "SGstatus: SG Ready aktiver Modus",
         "state": {
           "off_disabled": "WP Aus oder SG deaktiviert",
@@ -3246,22 +4773,40 @@
           "normal": "Normalbetrieb"
         }
       },
-      "foxair_2134": {
-        "name": "Timer State Leistungsbegrenzungstimer 1-6",
+      "foxair_z01": {
+        "name": "Z01: Mehrzonenregelung aktivieren",
         "state": {
-          "disabled": "disabled",
-          "enabled": "enabled"
+          "none": "Keine Zone",
+          "zone_1_s": "Zone 1-S",
+          "zone_2_s": "Zone 2-S",
+          "zone_1_2_s": "Zone 1+2-S",
+          "zone_1_t": "Zone 1-T",
+          "zone_2_t": "Zone 2-T",
+          "zone_1_2_t": "Zone 1+2-T",
+          "zone_1_p": "Zone 1-P",
+          "zone_2_p": "Zone 2-P",
+          "zone_1_2_p": "Zone 1+2-P"
         }
       },
-      "foxair_8801": {
-        "name": "SG01: SG Ready Active Mode",
+      "foxair_z08": {
+        "name": "Z08: Mischventil manuelle Stellrate (0% = Auto-Regelung)",
         "state": {
-          "off_disabled": "WP Aus oder SG deaktiviert",
-          "sg1_sleep": "SG Mode 1 / Schlafmodus",
-          "sg2_low_pv": "SG Mode 2 / wenig PV",
-          "sg3_medium_pv": "SG Mode 3 / mittel PV",
-          "sg4_high_pv": "SG Mode 4 / High PV",
-          "normal": "Normalbetrieb"
+          "manual": "Manuell",
+          "auto": "Auto"
+        }
+      },
+      "foxair_z17": {
+        "name": "Z17: AT-Kompensationskurve Zone 2 aktivieren",
+        "state": {
+          "no": "Nein",
+          "yes": "Ja"
+        }
+      },
+      "foxair_z20": {
+        "name": "Z20: Zone 1 Wasserpumpe im Kühlbetrieb aktivieren",
+        "state": {
+          "no": "Nein",
+          "yes": "Ja"
         }
       }
     },
@@ -3286,41 +4831,41 @@
       }
     },
     "time": {
-      "foxair_1256": {
+      "foxair_kg1": {
         "name": "KG1: WP Ein/Aus Timer 1 Startzeit"
       },
-      "foxair_1257": {
-        "name": "KG2: WP Ein/Aus Timer 1 Stopzeit"
-      },
-      "foxair_1258": {
-        "name": "KG3: WP Ein/Aus Timer 2 Startzeit"
-      },
-      "foxair_1259": {
-        "name": "KG4: WP Ein/Aus Timer 2 Stopzeit"
-      },
-      "foxair_1260": {
-        "name": "KG5: WP Ein/Aus Timer 3 Startzeit"
-      },
-      "foxair_1261": {
-        "name": "KG6: WP Ein/Aus Timer 3 Stopzeit"
-      },
-      "foxair_1262": {
-        "name": "KG7: WP Ein/Aus Timer 4 Startzeit"
-      },
-      "foxair_1263": {
-        "name": "KG8: WP Ein/Aus Timer 4 Stopzeit"
-      },
-      "foxair_1264": {
-        "name": "KG9: WP Ein/Aus Timer 5 Startzeit"
-      },
-      "foxair_1265": {
+      "foxair_kg10": {
         "name": "KG10: WP Ein/Aus Timer 5 Stopzeit"
       },
-      "foxair_1266": {
+      "foxair_kg11": {
         "name": "KG11: WP Ein/Aus Timer 6 Startzeit"
       },
-      "foxair_1267": {
+      "foxair_kg12": {
         "name": "KG12: WP Ein/Aus Timer 6 Stopzeit"
+      },
+      "foxair_kg2": {
+        "name": "KG2: WP Ein/Aus Timer 1 Stopzeit"
+      },
+      "foxair_kg3": {
+        "name": "KG3: WP Ein/Aus Timer 2 Startzeit"
+      },
+      "foxair_kg4": {
+        "name": "KG4: WP Ein/Aus Timer 2 Stopzeit"
+      },
+      "foxair_kg5": {
+        "name": "KG5: WP Ein/Aus Timer 3 Startzeit"
+      },
+      "foxair_kg6": {
+        "name": "KG6: WP Ein/Aus Timer 3 Stopzeit"
+      },
+      "foxair_kg7": {
+        "name": "KG7: WP Ein/Aus Timer 4 Startzeit"
+      },
+      "foxair_kg8": {
+        "name": "KG8: WP Ein/Aus Timer 4 Stopzeit"
+      },
+      "foxair_kg9": {
+        "name": "KG9: WP Ein/Aus Timer 5 Startzeit"
       }
     },
     "button": {
@@ -3377,245 +4922,245 @@
       "foxair_2019_bit9": {
         "name": "010 3-Wege-Ventil"
       },
-      "foxair_2034_bit0": {
-        "name": "S01 Hochdruckschalter"
-      },
-      "foxair_2034_bit1": {
-        "name": "S02 Niederdruckschalter"
-      },
-      "foxair_2034_bit12": {
-        "name": "SG Kontakt 1 / AI-DI16 / Fernschalter / Klemme 1–2"
-      },
-      "foxair_2034_bit13": {
-        "name": "SG Kontakt 2 / DIN_1 / Heat/Cool On/Off / PV-Kontakt / Klemme 7–8"
-      },
-      "foxair_2034_bit2": {
-        "name": "S03 Wasserflussschalter"
-      },
-      "foxair_2034_bit3": {
-        "name": "S04 Überhitzungsschalter elektrischer Heizer"
-      },
-      "foxair_2034_bit4": {
-        "name": "S05 Fern-AN/AUS"
-      },
-      "foxair_2034_bit5": {
-        "name": "S06 Fern Heizen/Kühlen"
-      },
-      "foxair_2034_bit6": {
-        "name": "S07 Warmwasserschalter"
-      },
-      "foxair_2034_bit9": {
-        "name": "S10 Heizen/Kühlen AN/AUS"
-      },
-      "foxair_2081_bit0": {
-        "name": "IPM Überhitzung"
-      },
-      "foxair_2081_bit1": {
-        "name": "Kompressor Startfehler"
-      },
-      "foxair_2081_bit10": {
-        "name": "AC-Eingangs-Überstromabschaltung"
-      },
-      "foxair_2081_bit11": {
-        "name": "Eingangsspannungs-Abtastfehler"
-      },
-      "foxair_2081_bit12": {
-        "name": "DSP ↔ PFC Kommunikationsfehler"
-      },
-      "foxair_2081_bit13": {
-        "name": "Antriebsplatinen-Temperaturfehler"
-      },
-      "foxair_2081_bit14": {
-        "name": "DSP ↔ Kommunikationsplatine Fehler"
-      },
-      "foxair_2081_bit15": {
-        "name": "Hauptplatinen-Kommunikationsfehler"
-      },
-      "foxair_2081_bit2": {
-        "name": "Kompressor Überstrom"
-      },
-      "foxair_2081_bit3": {
-        "name": "Phasenverlust Eingangsspannung"
-      },
-      "foxair_2081_bit4": {
-        "name": "IPM Stromabtastfehler"
-      },
-      "foxair_2081_bit5": {
-        "name": "Überhitzungsschutz Antriebsplatine"
-      },
-      "foxair_2081_bit6": {
-        "name": "Vorladefehler"
-      },
-      "foxair_2081_bit7": {
-        "name": "DC-Sammelschienen-Überspannung"
-      },
-      "foxair_2081_bit8": {
-        "name": "DC-Sammelschienen-Unterspannung"
-      },
-      "foxair_2081_bit9": {
-        "name": "AC-Eingangsspannung Unterspannung"
-      },
-      "foxair_2082_bit0": {
-        "name": "IPM Überhitzungsstopp"
-      },
-      "foxair_2082_bit1": {
-        "name": "Kompressor Standardphase"
-      },
-      "foxair_2082_bit15": {
-        "name": "Kompressor-Übergeschwindigkeitsschutz"
-      },
-      "foxair_2082_bit3": {
-        "name": "Eingangsstrom-Abtastfehler"
-      },
-      "foxair_2082_bit6": {
-        "name": "EEPROM-Fehler"
-      },
-      "foxair_2082_bit7": {
-        "name": "Eingangsspannung Überbegrenzungsschutz"
-      },
-      "foxair_2083_bit0": {
-        "name": "Stromregelungsfrequenz-Alarm"
-      },
-      "foxair_2083_bit1": {
-        "name": "Kompressor Magnetschutz-Alarm"
-      },
-      "foxair_2083_bit2": {
-        "name": "Leistungseinheit Überhitzung"
-      },
-      "foxair_2083_bit4": {
-        "name": "AC-Eingangsstrom Regelungsalarm"
-      },
-      "foxair_2083_bit5": {
-        "name": "EEPROM-Fehlerwarnung"
-      },
-      "foxair_2085_bit10": {
+      "foxair_err01_bit10": {
         "name": "Winter-Frostschutz Stufe 1"
       },
-      "foxair_2085_bit11": {
+      "foxair_err01_bit11": {
         "name": "Winter-Frostschutz Stufe 2"
       },
-      "foxair_2085_bit12": {
+      "foxair_err01_bit12": {
         "name": "Frostschutz"
       },
-      "foxair_2085_bit14": {
+      "foxair_err01_bit14": {
         "name": "Raumtemperaturfehler"
       },
-      "foxair_2085_bit2": {
+      "foxair_err01_bit2": {
         "name": "Heizungsrücklauftemperatur-Sensorfehler"
       },
-      "foxair_2085_bit3": {
+      "foxair_err01_bit3": {
         "name": "Heizungsauslasswassertemperatur-Sensorfehler"
       },
-      "foxair_2085_bit4": {
+      "foxair_err01_bit4": {
         "name": "Hochdruckschutz"
       },
-      "foxair_2085_bit6": {
+      "foxair_err01_bit6": {
         "name": "Niederdruckschutz"
       },
-      "foxair_2085_bit8": {
+      "foxair_err01_bit8": {
         "name": "Wasserflussschutz"
       },
-      "foxair_2085_bit9": {
+      "foxair_err01_bit9": {
         "name": "Überlastschutz der Elektroheizung"
       },
-      "foxair_2086_bit3": {
+      "foxair_err02_bit3": {
         "name": "Lüfter 1 Überlastungs-Drehzahlbegrenzung"
       },
-      "foxair_2086_bit4": {
+      "foxair_err02_bit4": {
         "name": "Lüfter 2 Überlastungs-Drehzahlbegrenzung"
       },
-      "foxair_2086_bit5": {
+      "foxair_err02_bit5": {
         "name": "Temp.diff. Ein-/Auslasswasser zu groß"
       },
-      "foxair_2086_bit6": {
+      "foxair_err02_bit6": {
         "name": "Auslasswasser überhitzt"
       },
-      "foxair_2086_bit7": {
+      "foxair_err02_bit7": {
         "name": "Mischwasser-Auslasswassertemperatur-Sensorfehler"
       },
-      "foxair_2086_bit8": {
+      "foxair_err02_bit8": {
         "name": "Warmwasserrücklauftemperatur-Sensorfehler"
       },
-      "foxair_2086_bit9": {
+      "foxair_err02_bit9": {
         "name": "Warmwasserauslasswassertemperatur-Sensorfehler"
       },
-      "foxair_2087_bit12": {
+      "foxair_err03_bit12": {
         "name": "Frostschutz (3x)"
       },
-      "foxair_2087_bit4": {
+      "foxair_err03_bit4": {
         "name": "Hochdruckschutz (3x)"
       },
-      "foxair_2087_bit6": {
+      "foxair_err03_bit6": {
         "name": "Niederdruckschutz (3x)"
       },
-      "foxair_2087_bit8": {
+      "foxair_err03_bit8": {
         "name": "Wasserflussschutz (3x)"
       },
-      "foxair_2087_bit9": {
+      "foxair_err03_bit9": {
         "name": "Elektroheizungsschutz (3x)"
       },
-      "foxair_2088_bit2": {
+      "foxair_err04_bit2": {
         "name": "Temp.diff. Ein-/Auslasswasser zu groß (3x)"
       },
-      "foxair_2088_bit3": {
+      "foxair_err04_bit3": {
         "name": "Auslasswassertemperatur zu niedrig (3x)"
       },
-      "foxair_2088_bit4": {
+      "foxair_err04_bit4": {
         "name": "Auslasswasser Übertemperaturschutz (3x)"
       },
-      "foxair_2089_bit0": {
+      "foxair_err05_bit0": {
         "name": "Einlasswassertemperaturfehler"
       },
-      "foxair_2089_bit1": {
+      "foxair_err05_bit1": {
         "name": "Auslasswassertemperaturfehler"
       },
-      "foxair_2089_bit10": {
+      "foxair_err05_bit10": {
         "name": "EVI Auslasstemperaturfehler"
       },
-      "foxair_2089_bit11": {
+      "foxair_err05_bit11": {
         "name": "Abgastemperaturfehler"
       },
-      "foxair_2089_bit13": {
+      "foxair_err05_bit13": {
         "name": "System 1 Drucksensorfehler"
       },
-      "foxair_2089_bit14": {
+      "foxair_err05_bit14": {
         "name": "Niedrige Umgebungstemperaturfehler"
       },
-      "foxair_2089_bit15": {
+      "foxair_err05_bit15": {
         "name": "Auslasstemperatur zu niedriger Schutz"
       },
-      "foxair_2089_bit2": {
+      "foxair_err05_bit2": {
         "name": "Spulentemperaturfehler"
       },
-      "foxair_2089_bit3": {
+      "foxair_err05_bit3": {
         "name": "Umgebungstemperaturfehler"
       },
-      "foxair_2089_bit4": {
+      "foxair_err05_bit4": {
         "name": "Sauggastemperaturfehler"
       },
-      "foxair_2089_bit5": {
+      "foxair_err05_bit5": {
         "name": "Frostschutztemperaturfehler"
       },
-      "foxair_2089_bit6": {
+      "foxair_err05_bit6": {
         "name": "Spulenauslasswassertemperatur-Sensorfehler"
       },
-      "foxair_2089_bit9": {
+      "foxair_err05_bit9": {
         "name": "EVI Einlasstemperaturfehler"
       },
-      "foxair_2090_bit11": {
+      "foxair_err06_bit11": {
         "name": "Lüfter 1 Fehler"
       },
-      "foxair_2090_bit12": {
+      "foxair_err06_bit12": {
         "name": "Lüfter 2 Fehler"
       },
-      "foxair_2090_bit13": {
+      "foxair_err06_bit13": {
         "name": "Kommunikationsfehler Hauptplatine ↔ Lüfter 1"
       },
-      "foxair_2090_bit15": {
+      "foxair_err06_bit15": {
         "name": "Kommunikationsfehler Hauptplatine ↔ Lüfter 2"
       },
-      "foxair_2090_bit8": {
+      "foxair_err06_bit8": {
         "name": "Warmwassertemperaturfehler"
+      },
+      "foxair_err07_bit0": {
+        "name": "IPM Überhitzung"
+      },
+      "foxair_err07_bit1": {
+        "name": "Kompressor Startfehler"
+      },
+      "foxair_err07_bit10": {
+        "name": "AC-Eingangs-Überstromabschaltung"
+      },
+      "foxair_err07_bit11": {
+        "name": "Eingangsspannungs-Abtastfehler"
+      },
+      "foxair_err07_bit12": {
+        "name": "DSP ↔ PFC Kommunikationsfehler"
+      },
+      "foxair_err07_bit13": {
+        "name": "Antriebsplatinen-Temperaturfehler"
+      },
+      "foxair_err07_bit14": {
+        "name": "DSP ↔ Kommunikationsplatine Fehler"
+      },
+      "foxair_err07_bit15": {
+        "name": "Hauptplatinen-Kommunikationsfehler"
+      },
+      "foxair_err07_bit2": {
+        "name": "Kompressor Überstrom"
+      },
+      "foxair_err07_bit3": {
+        "name": "Phasenverlust Eingangsspannung"
+      },
+      "foxair_err07_bit4": {
+        "name": "IPM Stromabtastfehler"
+      },
+      "foxair_err07_bit5": {
+        "name": "Überhitzungsschutz Antriebsplatine"
+      },
+      "foxair_err07_bit6": {
+        "name": "Vorladefehler"
+      },
+      "foxair_err07_bit7": {
+        "name": "DC-Sammelschienen-Überspannung"
+      },
+      "foxair_err07_bit8": {
+        "name": "DC-Sammelschienen-Unterspannung"
+      },
+      "foxair_err07_bit9": {
+        "name": "AC-Eingangsspannung Unterspannung"
+      },
+      "foxair_err08_bit0": {
+        "name": "IPM Überhitzungsstopp"
+      },
+      "foxair_err08_bit1": {
+        "name": "Kompressor Standardphase"
+      },
+      "foxair_err08_bit15": {
+        "name": "Kompressor-Übergeschwindigkeitsschutz"
+      },
+      "foxair_err08_bit3": {
+        "name": "Eingangsstrom-Abtastfehler"
+      },
+      "foxair_err08_bit6": {
+        "name": "EEPROM-Fehler"
+      },
+      "foxair_err08_bit7": {
+        "name": "Eingangsspannung Überbegrenzungsschutz"
+      },
+      "foxair_err09_bit0": {
+        "name": "Stromregelungsfrequenz-Alarm"
+      },
+      "foxair_err09_bit1": {
+        "name": "Kompressor Magnetschutz-Alarm"
+      },
+      "foxair_err09_bit2": {
+        "name": "Leistungseinheit Überhitzung"
+      },
+      "foxair_err09_bit4": {
+        "name": "AC-Eingangsstrom Regelungsalarm"
+      },
+      "foxair_err09_bit5": {
+        "name": "EEPROM-Fehlerwarnung"
+      },
+      "foxair_s01_bit0": {
+        "name": "S01 Hochdruckschalter"
+      },
+      "foxair_s01_bit1": {
+        "name": "S02 Niederdruckschalter"
+      },
+      "foxair_s01_bit12": {
+        "name": "SG Kontakt 1 / AI-DI16 / Fernschalter / Klemme 1–2"
+      },
+      "foxair_s01_bit13": {
+        "name": "SG Kontakt 2 / DIN_1 / Heat/Cool On/Off / PV-Kontakt / Klemme 7–8"
+      },
+      "foxair_s01_bit2": {
+        "name": "S03 Wasserflussschalter"
+      },
+      "foxair_s01_bit3": {
+        "name": "S04 Überhitzungsschalter elektrischer Heizer"
+      },
+      "foxair_s01_bit4": {
+        "name": "S05 Fern-AN/AUS"
+      },
+      "foxair_s01_bit5": {
+        "name": "S06 Fern Heizen/Kühlen"
+      },
+      "foxair_s01_bit6": {
+        "name": "S07 Warmwasserschalter"
+      },
+      "foxair_s01_bit9": {
+        "name": "S10 Heizen/Kühlen AN/AUS"
       }
     }
   },

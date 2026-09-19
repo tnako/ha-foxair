@@ -6,6 +6,7 @@ table (platform key stripped). TABS_CODE_ORDER is the exact code sequence
 from modbus/tabs.txt — each menu and entity in required order.
 """
 import json
+import re
 import pathlib
 from homeassistant.helpers.entity import DeviceInfo
 
@@ -156,22 +157,16 @@ def entity_sort_key(addr: int, code: str = "", block: str = "") -> tuple:
 def main_device(entry_id: str | None = None, name_prefix: str = "foxair", slave_id: int | None = None, host: str | None = None, port: int | None = None) -> DeviceInfo:
     ident = (DOMAIN, entry_id) if entry_id else (DOMAIN, "foxair")
     prefix_display = name_prefix.title() if name_prefix else "FoxAir"
+    # Prefix is the multi-pump differentiator — no host in device names.
     name = f"{prefix_display} Heat Pump"
-    # Show host:port as the primary differentiator, slave only if not default
-    if host:
-        port_str = f":{port}" if port and port != 8899 else ""
-        name = f"{name} ({host}{port_str}"
-        if slave_id is not None and slave_id != 1:
-            name = f"{name}, slave {slave_id})"
-        else:
-            name = f"{name})"
-    elif slave_id is not None:
+    if slave_id is not None and slave_id != 1:
         name = f"{name} (slave {slave_id})"
+    port_str = f":{port}" if port and port != 8899 else ""
     return DeviceInfo(
         identifiers={ident},
         name=name,
         manufacturer="FoxAir/PHNIX",
-        model=f"Modbus TCP Heat Pump ({host}{port_str}" if host else f"Modbus TCP Heat Pump (slave {slave_id})" if slave_id else "Modbus TCP Heat Pump",
+        model=f"Modbus TCP Heat Pump ({host}{port_str})" if host else f"Modbus TCP Heat Pump (slave {slave_id})" if slave_id else "Modbus TCP Heat Pump",
     )
 
 
@@ -187,6 +182,31 @@ def get_slave_id(entry) -> int | None:
     if entry and hasattr(entry, "data"):
         return entry.data.get("slave")
     return None
+
+
+def slug_code(code: str) -> str:
+    """Slugify a register code for uid/entity_id/translation_key use."""
+    return re.sub(r"[^a-z0-9]+", "_", (code or "").lower()).strip("_")
+
+
+def entity_suffix(coord, addr: int) -> str:
+    """Return the name suffix for entity_id/unique_id/translation_key.
+
+    Uses metadata ``code`` when present (e.g. ``t02``, ``h36``, ``r04``),
+    falls back to the raw address string (e.g. ``2014``, ``1012``) when no
+    code exists.  Code-based naming is the single consistent scheme across
+    all platforms.
+    """
+    meta = {}
+    try:
+        meta = coord.get_metadata(addr) if hasattr(coord, "get_metadata") else {}
+    except Exception:
+        pass
+    info = (coord.data.get(addr) or {}).get("info", {})
+    code = meta.get("code") or info.get("code") or ""
+    if code:
+        return slug_code(code)
+    return str(addr)
 
 
 DEVICE = main_device()
@@ -205,20 +225,14 @@ def device_for_block(block: str, entry_id: str | None = None, tab: str | None = 
     suffix = tab or block
     prefix_display = name_prefix.title() if name_prefix else "FoxAir"
     name = f"{prefix_display} — {label} [{suffix}]"
-    if host:
-        port_str = f":{port}" if port and port != 8899 else ""
-        name = f"{name} ({host}{port_str}"
-        if slave_id is not None and slave_id != 1:
-            name = f"{name}, slave {slave_id})"
-        else:
-            name = f"{name})"
-    elif slave_id is not None:
+    if slave_id is not None and slave_id != 1:
         name = f"{name} (slave {slave_id})"
+    port_str = f":{port}" if port and port != 8899 else ""
     return DeviceInfo(
         identifiers={(DOMAIN, f"{ident_main[1]}_{suffix}")},
         name=name,
         manufacturer="FoxAir/PHNIX",
-        model=f"Tab {suffix} ({host}{port_str}" if host else f"Tab {suffix}" + (f" (slave {slave_id})" if slave_id is not None else ""),
+        model=f"Tab {suffix} ({host}{port_str})" if host else f"Tab {suffix}" + (f" (slave {slave_id})" if slave_id is not None else ""),
         via_device=ident_main,
     )
 

@@ -6,85 +6,10 @@ from homeassistant.components.select import SelectEntity
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from .const import POPULAR_ADDRS, device_for_addr, entity_sort_key, get_device_prefix, get_slave_id, bind_device_info
+from .const import POPULAR_ADDRS, device_for_addr, entity_sort_key, get_device_prefix, get_slave_id, bind_device_info, entity_suffix
 
 _LOGGER = logging.getLogger(__name__)
 
-# Mirror of GER_TO_EN used to generate strings.json — must stay in sync with tools/build
-GER_TO_EN = {
-    "Aus": "Off",
-    "Ein": "On",
-    "Nein": "No",
-    "Ja": "Yes",
-    "nicht zulassen": "Disabled",
-    "zulassen": "Enabled",
-    "kein EVI": "No EVI",
-    "EVI bei Kühlung": "EVI for Cooling",
-    "EVI bei Heizung": "EVI for Heating",
-    "EVI bei Heizung und Kühlung": "EVI for Heating and Cooling",
-    "ohne Warmwasserfunktion": "Without DHW",
-    "mit Warmwasserfunktion": "With DHW",
-    "Nur Warmwasser / Only DHW": "DHW Only",
-    "Celsius": "Celsius",
-    "Fahrenheit": "Fahrenheit",
-    "Silent-Modus aus": "Silent Off",
-    "Silent-Modus ein": "Silent On",
-    "Elektrische Heizstufe 1": "Electric Stage 1",
-    "Elektrische Heizstufe 2": "Electric Stage 2",
-    "Elektrische Heizstufe 3": "Electric Stage 3",
-    "3-Wege-Ventil EIN im Warmwasser-Modus": "3-Way Valve ON in DHW",
-    "3-Wege-Ventil AUS im Warmwasser-Modus": "3-Way Valve OFF in DHW",
-    "Auslasswassertemperatur": "Outlet Water Temp",
-    "Raumtemperatur": "Room Temperature",
-    "Puffertanktemperatur": "Buffer Tank Temperature",
-    "keine Durchflusserkennung": "No Flow Detection",
-    "Wärmepumpe / Wassertank-Temperatursensor": "Heat Pump / Tank Sensor",
-    "Modbus / Zentralregler": "Modbus / Central Controller",
-    "Master/Hauptregler": "Primary Controller",
-    "Slave/Nebenregler": "Secondary Controller",
-    "Kühlfunktion nicht vorhanden/aus": "Cooling Disabled",
-    "Kühlfunktion vorhanden/ein": "Cooling Enabled",
-    "Nein / kein ERP-Test": "No ERP Test",
-    "35 °C Testbedingung": "35°C Test Condition",
-    "55 °C Testbedingung": "55°C Test Condition",
-    "Warmwasser": "DHW",
-    "Heizen": "Heating",
-    "Kühlen": "Cooling",
-    "Warmwasser + Heizen": "DHW + Heating",
-    "Warmwasser + Kühlen": "DHW + Cooling",
-    "WP Aus oder SG deaktiviert": "HP Off / SG Disabled",
-    "SG Mode 1 / Schlafmodus": "SG Mode 1 / Sleep",
-    "SG Mode 2 / wenig PV": "SG Mode 2 / Low PV",
-    "SG Mode 3 / mittel PV": "SG Mode 3 / Medium PV",
-    "SG Mode 4 / High PV": "SG Mode 4 / High PV",
-    "Normalbetrieb": "Normal Operation",
-    "Einfach / 1 Kontakt": "Single Contact",
-    "2 Kontakte": "Dual Contacts",
-    "2K Sensortyp": "2K Sensor Type",
-    "5K Sensortyp": "5K Sensor Type",
-    "Abtau-Modus verfügbar": "Defrost Available",
-    "Abtauen": "Defrost",
-    "Einlasswassertemperatur": "Inlet Water Temp",
-    "Doppellüfter": "Dual Fan",
-    "Einzellüfter": "Single Fan",
-    "Heizseite / Pufferspeicher": "Heating Side / Buffer",
-    "WW-Seite / WW-Tank": "DHW Side / Tank",
-    "Keine Zone": "No Zone",
-    "Manuell": "Manual",
-    "Heating water circuit": "Heating Circuit",
-    "Hot Water Pump / Warmwasserpumpe": "Hot Water Pump",
-    "Warm Water Circulation Pump / Warmwasser-Zirkulationspumpe": "DHW Circulation Pump",
-    "Sterilisieren": "Sterilization",
-    "keinen Modus ändern / Code 9": "Keep Mode / Code 9",
-    "nicht umschalten": "No Switch",
-    "Off Signal when defrosting / Aus-Signal beim Abtauen": "Off During Defrost",
-    "Always On": "Always On",
-    "Interval": "Interval",
-    "Legacy: Hochgeschwindigkeits-Lüfter": "Legacy: High-Speed Fan",
-    "Legacy: zweistufiger Lüfter": "Legacy: 2-Stage Fan",
-    "Auto": "Auto",
-    "Manual": "Manual",
-}
 
 # Virtual SG 8801 / 2133 use nice short slugs (must match strings.json override)
 VIRTUAL_SG_MAP = {
@@ -128,7 +53,9 @@ def _build_option_maps(vm: dict, app_values: dict | None, addr: int):
             elif en_label == "no EVI":
                 en_label = "No EVI"
         else:
-            en_label = GER_TO_EN.get(ger, ger)
+            # English labels belong in app_values (foxair_phnix_registers.json).
+            # German value_map text is only a last-resort slug source.
+            en_label = ger
         slug = _slugify(en_label)
         base = slug
         i = 2
@@ -257,9 +184,10 @@ class FoxSelect(CoordinatorEntity, SelectEntity):
         self._optimistic = None  # slug shown during a write round-trip
         self._is_timer_bitpair = False  # set to True for TIMER_BITPAIR entities
         prefix = get_device_prefix(coord.entry)
-        self._attr_unique_id = f"{prefix}_sel_{addr}"
-        self._attr_suggested_object_id = f"{prefix}_sel_{addr}"
-        self._attr_translation_key = f"foxair_{addr}"
+        suffix = entity_suffix(coord, addr)
+        self._attr_unique_id = f"{prefix}_{suffix}"
+        self.entity_id = f"select.{prefix}_{suffix}"
+        self._attr_translation_key = f"foxair_{suffix}"
         entry_id = getattr(coord, "_entry_id", None) or getattr(coord, "config_entry", None) and getattr(coord.config_entry, "entry_id", None)
         block = meta.get("block") or ""
         tab = meta.get("tab") or block

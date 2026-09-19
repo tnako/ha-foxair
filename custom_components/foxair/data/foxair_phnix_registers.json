@@ -194,6 +194,10 @@
     "type": "BLOCK"
   },
   "1011": {
+    "app_values": {
+      "0": "Off",
+      "1": "On"
+    },
     "function": "03/16",
     "mode": "r/w",
     "name": "AN/AUS",
@@ -204,6 +208,13 @@
     }
   },
   "1012": {
+    "app_values": {
+      "0": "DHW",
+      "1": "Heating",
+      "2": "Cooling",
+      "3": "DHW + Heating",
+      "4": "DHW + Cooling"
+    },
     "function": "03/16",
     "mode": "r/w",
     "name": "Modus setzen",
@@ -224,6 +235,10 @@
     "type": "TEMP1"
   },
   "1014": {
+    "app_values": {
+      "0": "Disabled",
+      "1": "Enabled"
+    },
     "function": "06",
     "mode": "r/w",
     "name": "Zentralregler zum Abtauen zulassen bei D26-1",
@@ -298,6 +313,11 @@
     "app_mapping_mode": "app_label_only; technical name/value_map preserved",
     "block": "H",
     "code": "H34",
+    "app_values": {
+      "0": "No ERP Test",
+      "1": "35°C Test Condition",
+      "2": "55°C Test Condition"
+    },
     "function": "03/16",
     "mode": "r/w",
     "name": "ERP Testmodus",
@@ -386,7 +406,8 @@
     "app_values": {
       "0": "no EVI",
       "1": "EVI for cooling",
-      "2": "EVI for heating"
+      "2": "EVI for heating",
+      "3": "EVI for heating and cooling"
     },
     "block": "H",
     "code": "H27",
@@ -684,6 +705,10 @@
     "app_mapping_mode": "app_label_only; technical name/value_map preserved; user-tested H37 register 1046",
     "block": "H",
     "code": "H37",
+    "app_values": {
+      "0": "Heat Pump / Tank Sensor",
+      "1": "Modbus / Central Controller"
+    },
     "function": "03/16",
     "mode": "r/w",
     "name": "Wassertank-Temperaturquelle",
@@ -866,6 +891,10 @@
     "app_label": "Fan Motor Type",
     "block": "F",
     "code": "F01",
+    "app_values": {
+      "0": "Legacy: High-Speed Fan",
+      "1": "Legacy: 2-Stage Fan"
+    },
     "function": "03/16",
     "last_review": "v39",
     "mode": "r/w",
@@ -1128,6 +1157,9 @@
     "block": "Z",
     "code": "Z08",
     "default": "0%",
+    "app_values": {
+      "0": "Manual"
+    },
     "function": "03/16",
     "last_review": "v0.2.32-zblock",
     "mode": "r/w",
@@ -1203,6 +1235,10 @@
   "1086": {
     "block": "F",
     "code": "F21",
+    "app_values": {
+      "0": "Off",
+      "1": "On"
+    },
     "function": "03/16",
     "mode": "r/w",
     "name": "Timer-Stummschaltung aktivieren (ASM V1.3: 243E)",
@@ -2566,6 +2602,10 @@
     "app_label": "EEV Initial Steps for Heating3",
     "block": "E",
     "code": "E03-3",
+    "app_values": {
+      "0": "No",
+      "1": "Yes"
+    },
     "function": "03/16",
     "last_review": "v0.2.32 video 2026-06-14",
     "mode": "r/w",
@@ -2594,6 +2634,10 @@
     "app_label": "EEV Initial Steps for Heating5",
     "block": "E",
     "code": "E03-5",
+    "app_values": {
+      "0": "No",
+      "1": "Yes"
+    },
     "function": "03/16",
     "last_review": "v0.2.32 video 2026-06-14",
     "mode": "r/w",
@@ -3016,6 +3060,10 @@
     "unit": "°C"
   },
   "1244": {
+    "app_values": {
+      "0": "Off",
+      "1": "On"
+    },
     "function": "03/16",
     "info": "Quelle: Firmware/App-Review; Start und Stop sind getrennt aktivierbar.",
     "mode": "r/w",
@@ -3041,6 +3089,10 @@
     "type": "DIGI1"
   },
   "1247": {
+    "app_values": {
+      "0": "Off",
+      "1": "On"
+    },
     "function": "03/16",
     "info": "Quelle: Firmware/App-Review; Start und Stop sind getrennt aktivierbar.",
     "mode": "r/w",
@@ -3066,6 +3118,10 @@
     "type": "DIGI1"
   },
   "1250": {
+    "app_values": {
+      "0": "No",
+      "1": "Yes"
+    },
     "function": "03/16",
     "mode": "r/w",
     "name": "Systemzeit aktivieren",
@@ -3349,6 +3405,14 @@
     "type": "TEMP1"
   },
   "1286": {
+    "app_values": {
+      "0": "DHW",
+      "1": "Heating",
+      "2": "Cooling",
+      "3": "DHW + Heating",
+      "4": "DHW + Cooling",
+      "9": "Keep Mode / Code 9"
+    },
     "function": "03/16",
     "mode": "r/w",
     "name": "Timer 1 Modus-Code (ASM; 9 = keinen Modus ändern)",
@@ -3399,6 +3463,14 @@
     "type": "TEMP1"
   },
   "1293": {
+    "app_values": {
+      "0": "DHW",
+      "1": "Heating",
+      "2": "Cooling",
+      "3": "DHW + Heating",
+      "4": "DHW + Cooling",
+      "9": "Keep Mode / Code 9"
+    },
     "function": "03/16",
     "mode": "r/w",
     "name": "Timer 2 Modus (ASM) (9 = keinen Modus ändern)",
@@ -3449,6 +3521,14 @@
     "type": "TEMP1"
   },
   "1300": {
+    "app_values": {
+      "0": "DHW",
+      "1": "Heating",
+      "2": "Cooling",
+      "3": "DHW + Heating",
+      "4": "DHW + Cooling",
+      "9": "Keep Mode / Code 9"
+    },
     "function": "03/16",
     "mode": "r/w",
     "name": "Timer 3 Modus (ASM) (9 = keinen Modus ändern)",
@@ -3499,6 +3579,14 @@
     "type": "TEMP1"
   },
   "1307": {
+    "app_values": {
+      "0": "DHW",
+      "1": "Heating",
+      "2": "Cooling",
+      "3": "DHW + Heating",
+      "4": "DHW + Cooling",
+      "9": "Keep Mode / Code 9"
+    },
     "function": "03/16",
     "mode": "r/w",
     "name": "Timer 4 Modus (ASM) (9 = keinen Modus ändern)",
@@ -3549,6 +3637,14 @@
     "type": "TEMP1"
   },
   "1314": {
+    "app_values": {
+      "0": "DHW",
+      "1": "Heating",
+      "2": "Cooling",
+      "3": "DHW + Heating",
+      "4": "DHW + Cooling",
+      "9": "Keep Mode / Code 9"
+    },
     "function": "03/16",
     "mode": "r/w",
     "name": "Timer 5 Modus (ASM) (9 = keinen Modus ändern)",
@@ -3599,6 +3695,14 @@
     "type": "TEMP1"
   },
   "1321": {
+    "app_values": {
+      "0": "DHW",
+      "1": "Heating",
+      "2": "Cooling",
+      "3": "DHW + Heating",
+      "4": "DHW + Cooling",
+      "9": "Keep Mode / Code 9"
+    },
     "function": "03/16",
     "mode": "r/w",
     "name": "Timer 6 Modus (ASM) (9 = keinen Modus ändern)",
@@ -3687,6 +3791,11 @@
   "1334": {
     "block": "SG",
     "code": "SG01",
+    "app_values": {
+      "0": "Off",
+      "1": "Single Contact",
+      "2": "Dual Contacts"
+    },
     "function": "03/16",
     "mode": "r/w",
     "name": "SG Ready Auswahl",
@@ -4428,6 +4537,10 @@
     "type": "BLOCK"
   },
   "2011": {
+    "app_values": {
+      "0": "Off",
+      "1": "On"
+    },
     "function": "16",
     "mode": "read",
     "name": "Gerätezustand",
@@ -4438,6 +4551,13 @@
     }
   },
   "2012": {
+    "app_values": {
+      "0": "Cooling",
+      "1": "Heating",
+      "2": "Defrost",
+      "3": "Sterilization",
+      "4": "DHW"
+    },
     "function": "16",
     "mode": "read",
     "name": "Aktueller Betriebsstatus",
@@ -4464,6 +4584,10 @@
     "type": "TEMP1"
   },
   "2015": {
+    "app_values": {
+      "0": "No",
+      "1": "Defrost Available"
+    },
     "function": "16",
     "mode": "read",
     "name": "Zentrale Abtauautomatik anwenden",
@@ -4488,6 +4612,10 @@
     "type": "RAW"
   },
   "2018": {
+    "app_values": {
+      "0": "Off",
+      "1": "On"
+    },
     "function": "03",
     "mode": "read-only",
     "name": "025 / Lastausgang (Elektrischer Wassertankheizer)",
@@ -5514,6 +5642,13 @@
   "2133": {
     "block": "SG",
     "code": "SGstatus",
+    "app_values": {
+      "0": "HP Off / SG Disabled",
+      "1": "SG Mode 1 / Sleep",
+      "2": "SG Mode 2 / Low PV",
+      "3": "SG Mode 3 / Medium PV",
+      "5": "Normal Operation"
+    },
     "function": "03",
     "mode": "read-only",
     "name": "SG Ready aktiver Modus",
