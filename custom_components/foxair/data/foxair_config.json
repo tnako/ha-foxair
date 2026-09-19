@@ -940,6 +940,9 @@
       "2132": {
         "poll_tier": "medium"
       },
+      "2012": {
+        "poll_tier": "quick"
+      },
       "2013": {
         "poll_tier": "quick"
       },

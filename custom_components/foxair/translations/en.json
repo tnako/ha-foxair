@@ -1958,7 +1958,28 @@
         "name": "C15: Display-Firmware Parameter C15"
       },
       "foxair_cop": {
-        "name": "COP (calculated)"
+        "name": "COP — Heating"
+      },
+      "foxair_cop_cooling": {
+        "name": "COP — Cooling"
+      },
+      "foxair_cop_dhw": {
+        "name": "COP — DHW"
+      },
+      "foxair_energy_heating": {
+        "name": "Energy — Heating"
+      },
+      "foxair_energy_cooling": {
+        "name": "Energy — Cooling"
+      },
+      "foxair_energy_dhw": {
+        "name": "Energy — DHW"
+      },
+      "foxair_energy_defrost": {
+        "name": "Energy — Defrost"
+      },
+      "foxair_energy_electrical": {
+        "name": "Energy — Electrical"
       },
       "foxair_d01": {
         "name": "D01: Ambient Temp. of Starting Defrosting"

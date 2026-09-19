@@ -22,6 +22,7 @@ async def async_get_config_entry_diagnostics(hass: HomeAssistant, entry: ConfigE
                  2059, 2054, 2060, 2077, 2072,      # T59 T54 T60 T39 T31
                  2042, 2043, 2062,                  # T36 T37 T34
                  2045, 2046,                        # T01 T02 inlet/outlet
+                 2012,                              # run status (mode)
                  2104, 1234, 1235, 1236)            # fw version, curve
     missing = [a for a in KEY_ADDRS if a not in data]
     fetch_error = None
@@ -47,11 +48,19 @@ async def async_get_config_entry_diagnostics(hass: HomeAssistant, entry: ConfigE
         key_fetch["fetch_error"] = fetch_error
     computed = {}
     try:
-        from .computed import compute_heating_power, compute_electrical_power, compute_cop, _cval
+        from .computed import (compute_heating_power, compute_electrical_power,
+                               compute_cop, compute_cop_mode, compute_cooling_power,
+                               active_mode, _cval)
         opts = dict(entry.options)
         computed = {"heating_power_w": compute_heating_power(coord),
+                    "cooling_power_w": compute_cooling_power(coord),
                     "electrical_power_w": compute_electrical_power(coord, opts),
                     "cop": compute_cop(coord, opts),
+                    "cop_heating": compute_cop(coord, opts),
+                    "cop_cooling": compute_cop_mode(coord, opts, "cooling"),
+                    "cop_dhw": compute_cop_mode(coord, opts, "dhw"),
+                    "active_mode": active_mode(coord),
+                    "energy_kwh": dict(getattr(coord, "energy_kwh", {})),
                     "elec_source": (opts or {}).get("elec_source", "foxair_register")}
         meter = ((opts or {}).get("external_meter_entity") or "").strip()
         if meter:

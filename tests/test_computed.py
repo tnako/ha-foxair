@@ -192,6 +192,26 @@ def test_heating_power_fallback_flow_delta_t():
     assert comp.compute_heating_power(coord) == pytest.approx(1.0 * 1000 * 4186 * 5.0 / 3600)
 
 
+def test_v34_t31_zero_while_running_not_suppressed():
+    # v3.4 real snapshot 2026-09: T31=0 AND 2019 bit0=0 for a whole poll
+    # while the compressor runs — T54=600 W, T59=3.4 kW, water-side
+    # balance 3.3 kW. The draw+balance evidence must un-suppress T59.
+    coord = FakeCoord({2072: {"value": 0.0}, 2019: {"raw": 0},
+                       2054: {"value": 0.6}, 2059: {"value": 3.4},
+                       2077: {"value": 1.36}, 2045: {"value": 22.0},
+                       2046: {"value": 24.1}})
+    assert comp.compute_heating_power(coord) == 3400.0
+
+
+def test_pump_only_high_draw_but_no_balance_still_suppressed():
+    # Pump-only phantom with a nonzero T54 (300 W): T59 far above the
+    # water-side balance (dT is just the sensor offset) must stay None.
+    coord = FakeCoord({2072: {"value": 0.0}, 2054: {"value": 0.3},
+                       2059: {"value": 2.5}, 2077: {"value": 1.45},
+                       2045: {"value": 19.7}, 2046: {"value": 20.0}})
+    assert comp.compute_heating_power(coord) is None
+
+
 def test_pump_only_t59_phantom_is_suppressed():
     # v3.3+/v3.4: compressor off (T31 = 0) but T59 keeps counting heat while
     # the water pump circulates -> heating power must be None, not phantom kW.

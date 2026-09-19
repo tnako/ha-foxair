@@ -1958,7 +1958,28 @@
         "name": "C15: Display-Firmware Parameter C15"
       },
       "foxair_cop": {
-        "name": "COP (berechnet)"
+        "name": "COP — Heizen"
+      },
+      "foxair_cop_cooling": {
+        "name": "COP — Kühlen"
+      },
+      "foxair_cop_dhw": {
+        "name": "COP — Warmwasser"
+      },
+      "foxair_energy_heating": {
+        "name": "Energie — Heizen"
+      },
+      "foxair_energy_cooling": {
+        "name": "Energie — Kühlen"
+      },
+      "foxair_energy_dhw": {
+        "name": "Energie — Warmwasser"
+      },
+      "foxair_energy_defrost": {
+        "name": "Energie — Abtauen"
+      },
+      "foxair_energy_electrical": {
+        "name": "Energie — Elektrisch"
       },
       "foxair_d01": {
         "name": "D01: Umgebungstemperatur des Start-Abtauens"

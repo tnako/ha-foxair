@@ -1958,7 +1958,28 @@
         "name": "C15: Display-Firmware Parameter C15"
       },
       "foxair_cop": {
-        "name": "COP (расчёт)"
+        "name": "COP — Нагрев"
+      },
+      "foxair_cop_cooling": {
+        "name": "COP — Охлаждение"
+      },
+      "foxair_cop_dhw": {
+        "name": "COP — ГВС"
+      },
+      "foxair_energy_heating": {
+        "name": "Энергия — Нагрев"
+      },
+      "foxair_energy_cooling": {
+        "name": "Энергия — Охлаждение"
+      },
+      "foxair_energy_dhw": {
+        "name": "Энергия — ГВС"
+      },
+      "foxair_energy_defrost": {
+        "name": "Энергия — Разморозка"
+      },
+      "foxair_energy_electrical": {
+        "name": "Энергия — Электрическая"
       },
       "foxair_d01": {
         "name": "D01: Темп. окр. старта разморозки"

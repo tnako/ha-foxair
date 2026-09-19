@@ -79,7 +79,7 @@ def test_key_addrs_fetched_when_missing():
 def test_no_fetch_when_all_present():
     data = {a: {"raw": 1, "value": 1.0, "info": {}} for a in
             (1041, 2059, 2054, 2060, 2077, 2072, 2042, 2043, 2062,
-             2045, 2046, 2104, 1234, 1235, 1236)}
+             2045, 2046, 2012, 2104, 1234, 1235, 1236)}
     coord = FakeCoord(data)
     out = asyncio.run(diag.async_get_config_entry_diagnostics(
         FakeHass(coord), FakeEntry()))

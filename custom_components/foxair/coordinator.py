@@ -16,6 +16,7 @@ from .const import (
     word_mask,
 )
 from . import const as _const
+from . import computed as _computed
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -117,6 +118,12 @@ class FoxAirCoordinator(DataUpdateCoordinator):
         self._medium_done = False
         self._rare_done = False
         self._burst_task: asyncio.Task | None = None
+        # Per-mode energy accumulation (kWh). Runs in the coordinator so the
+        # integration survives entity reloads. Counters restart at 0 on HA
+        # restart (long-term stats keep the history) — documented behaviour.
+        self.energy_kwh = {"heating": 0.0, "cooling": 0.0, "dhw": 0.0,
+                           "defrost": 0.0, "electrical": 0.0}
+        self._energy_last_ts: float | None = None
 
     async def _load_config(self) -> None:
         """Load foxair_config.json off the event loop (HA 2026 blocks sync I/O)."""
@@ -649,7 +656,48 @@ class FoxAirCoordinator(DataUpdateCoordinator):
                     pass
             if is_first and not self._burst_task:
                 self._burst_task = self.hass.async_create_task(self._startup_burst())
+            self._accumulate_energy()
             return self.data
+
+    def _accumulate_energy(self):
+        """Integrate per-mode power into energy_kwh each poll.
+
+        The mode read this cycle (2012, quick tier) is paired with the
+        power measured this cycle: at 30 s granularity a mode flip between
+        polls charges at most one interval to the new mode, which is the
+        standard metering approximation and never cross-counts modes.
+        Electrical energy accumulates whenever any draw is reported
+        (T54 / external meter / V*A fallback), regardless of mode.
+        """
+        active_mode = _computed.active_mode
+        compute_thermal_power = _computed.compute_thermal_power
+        compute_cooling_power = _computed.compute_cooling_power
+        compute_electrical_power = _computed.compute_electrical_power
+        now = time.monotonic()
+        try:
+            mode = active_mode(self)
+            if self._energy_last_ts is not None:
+                dt_h = (now - self._energy_last_ts) / 3600.0
+                # Guard against clock jumps / long suspensions: skip gaps
+                # larger than ~5 poll cycles (0.04 h) — the single power
+                # sample is not representative of a long gap.
+                if 0 < dt_h <= 0.04:
+                    p = None
+                    if mode:
+                        bucket = "cooling" if mode == "cooling" else mode
+                        p = (compute_cooling_power(self) if mode == "cooling"
+                             else compute_thermal_power(self, mode))
+                        if p is not None:
+                            self.energy_kwh[bucket] = (
+                                self.energy_kwh.get(bucket, 0.0) + p * dt_h / 1000.0)
+                    ep = compute_electrical_power(self, self.entry.options)
+                    if ep is not None:
+                        self.energy_kwh["electrical"] = (
+                            self.energy_kwh.get("electrical", 0.0) + ep * dt_h / 1000.0)
+        except Exception as e:  # never break the poll on accounting
+            _LOGGER.debug("energy accumulation error: %s", e)
+        finally:
+            self._energy_last_ts = now
 
     async def _fetch_addrs(self, addrs: set[int]) -> dict[int, dict]:
         """Read a set of addrs in batches (same EW11 pacing/dead-range logic)."""

@@ -87,6 +87,15 @@ _src = (CC / "coordinator.py").read_text()
 _src = _src.replace("from .const import (", "from foxair_poll_const import (")
 _src = _src.replace("from . import const as _const",
                     "import foxair_poll_const as _const")
+_src = _src.replace("from . import computed as _computed",
+                    "import foxair_poll_computed as _computed")
+# computed stub: energy accumulation helpers unused by these tests.
+_comp_stub = types.ModuleType("foxair_poll_computed")
+_comp_stub.active_mode = lambda coord: None
+_comp_stub.compute_thermal_power = lambda coord, mode: None
+_comp_stub.compute_cooling_power = lambda coord: None
+_comp_stub.compute_electrical_power = lambda coord, opts: None
+sys.modules["foxair_poll_computed"] = _comp_stub
 mod = types.ModuleType("foxair_coord_test")
 sys.modules["foxair_coord_test"] = mod
 mod.__dict__["__file__"] = str(CC / "coordinator.py")

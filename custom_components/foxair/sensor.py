@@ -2,8 +2,10 @@ from homeassistant.components.sensor import SensorEntity, SensorDeviceClass, Sen
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.event import async_track_state_change_event
+from homeassistant.helpers.restore_state import RestoreEntity
 from .const import POPULAR_ADDRS, SENSOR_HIDDEN_ADDRS, device_for_addr, main_device, entity_sort_key, get_device_prefix, get_slave_id, bind_device_info, entity_suffix
-from .computed import compute_heating_power, compute_electrical_power, compute_cop
+from .computed import (compute_heating_power, compute_electrical_power, compute_cop,
+                       compute_cop_mode, active_mode, _cval)
 
 # Build DTYPE_MAP lazily from DTYPE_SPEC: const globals are populated by
 # apply_config() at coordinator load (in-place), so resolve at entity-setup
@@ -61,10 +63,16 @@ async def async_setup_entry(hass, entry, add_entities):
         if meta.get("editable") and meta.get("platform") in ("number", "select", "time"):
             continue
         ents.append(FoxSensor(coord, addr))
-    # computed (derived) sensors: heating power, electrical power, COP
+    # computed (derived) sensors: heating power, electrical power, COP,
+    # per-mode energy meters (heating/cooling/dhw + electrical), per-mode COPs
     ents.append(FoxHeatingPowerSensor(coord))
     ents.append(FoxElectricalPowerSensor(coord))
     ents.append(FoxCopSensor(coord))
+    for _mode in ("heating", "cooling", "dhw", "defrost"):
+        ents.append(FoxEnergySensor(coord, _mode))
+    ents.append(FoxElectricalEnergySensor(coord))
+    for _mode in ("cooling", "dhw"):
+        ents.append(FoxModeCopSensor(coord, _mode))
     add_entities(ents)
 
 class FoxSensor(CoordinatorEntity, SensorEntity):
@@ -317,6 +325,11 @@ class FoxElectricalPowerSensor(FoxComputedSensor):
 
 
 class FoxCopSensor(FoxComputedSensor):
+    """Overall COP — counts while the unit produces heat (heating/defrost).
+
+    Historically the only COP entity; now the heating member of the
+    heating/cooling/dhw COP trio (uid `foxair_cop` kept stable).
+    """
     _attr_state_class = SensorStateClass.MEASUREMENT
     _attr_icon = "mdi:sigma"
 
@@ -342,3 +355,115 @@ class FoxCopSensor(FoxComputedSensor):
 
     async def _async_meter_changed(self, _event):
         self.async_write_ha_state()
+
+
+class FoxModeCopSensor(FoxCopSensor):
+    """Per-mode COP (cooling/dhw): mode thermal power / total electrical power.
+
+    Shows a value only while the unit's run status (2012) reports that
+    mode, so the number is always a real operating COP, never a leftover.
+    """
+
+    def __init__(self, coord, mode):
+        super().__init__(coord)
+        self._mode = mode
+        self._attr_unique_id = f"{self._prefix}_cop_{mode}"
+        self.entity_id = f"sensor.{self._prefix}_cop_{mode}"
+        self._attr_translation_key = f"foxair_cop_{mode}"
+
+    @property
+    def native_value(self):
+        return compute_cop_mode(self.coordinator, self._opts, self._mode)
+
+
+class FoxEnergySensor(FoxComputedSensor, RestoreEntity):
+    """Per-mode thermal energy (kWh), integrated in the coordinator.
+
+    total_increasing + device_class energy -> feeds the HA Energy
+    dashboard. Counters live in coord.energy_kwh and are restored from
+    the last written state on HA restart, so each meter continues where
+    it stopped instead of restarting at 0. Counters persist across
+    integration reloads too (they live on the coordinator, which
+    survives an entity reload); they reset only when the config entry
+    is deleted or the counter battery of history is manually reset.
+    """
+    _attr_device_class = SensorDeviceClass.ENERGY
+    _attr_native_unit_of_measurement = "kWh"
+    _attr_state_class = SensorStateClass.TOTAL_INCREASING
+    _attr_icon = "mdi:fire"  # cooling/dhw override below
+
+    _ICONS = {"heating": "mdi:fire", "cooling": "mdi:snowflake",
+              "dhw": "mdi:water-boiler", "defrost": "mdi:snowflake-melt"}
+
+    def __init__(self, coord, mode):
+        super().__init__(coord)
+        self._mode = mode
+        self._attr_icon = self._ICONS[mode]
+        self._attr_unique_id = f"{self._prefix}_energy_{mode}"
+        self.entity_id = f"sensor.{self._prefix}_energy_{mode}"
+        self._attr_translation_key = f"foxair_energy_{mode}"
+
+    async def async_added_to_hass(self) -> None:
+        """Restore the counter from HA's last state after a restart.
+
+        The restored kWh is written back into the coordinator bucket so
+        accumulation continues from where the previous run stopped. The
+        accumulator's first poll after restart only measures from now on
+        (its _energy_last_ts starts at None), so nothing is double-counted
+        for the offline period.
+        """
+        await super().async_added_to_hass()
+        if (last := await self.async_get_last_state()) is not None:
+            try:
+                restored = float(last.state)
+            except (TypeError, ValueError):
+                return
+            if restored <= 0:
+                return
+            bucket = getattr(self, "_mode", None)
+            if not bucket:
+                return
+            ek = getattr(self.coordinator, "energy_kwh", None)
+            if ek is None:
+                return
+            ek[bucket] = max(ek.get(bucket, 0.0), restored)
+
+    @property
+    def native_value(self):
+        val = getattr(self.coordinator, "energy_kwh", {}).get(self._mode, 0.0)
+        return round(val, 3)
+
+    @property
+    def extra_state_attributes(self):
+        attrs = {"mode": self._mode}
+        try:
+            active = active_mode(self.coordinator)
+        except Exception:
+            active = None
+        if active is not None:
+            attrs["active_mode"] = active
+        return attrs
+
+
+class FoxElectricalEnergySensor(FoxEnergySensor):
+    """Electrical energy consumed by the heat pump (kWh).
+
+    Integrates the electrical draw (T54 / external meter / V*A fallback)
+    whenever any power is reported, regardless of mode. Standby and
+    pump-only draw are included; the per-mode thermal buckets are not
+    affected by this sensor.
+    """
+    _attr_icon = "mdi:transmission-tower"
+
+    def __init__(self, coord):
+        super().__init__(coord, "heating")
+        self._mode = "electrical"  # coordinator bucket key
+        self._attr_icon = "mdi:transmission-tower"  # after super(): it sets mode icon
+        self._attr_unique_id = f"{self._prefix}_energy_electrical"
+        self.entity_id = f"sensor.{self._prefix}_energy_electrical"
+        self._attr_translation_key = "foxair_energy_electrical"
+
+    @property
+    def native_value(self):
+        val = getattr(self.coordinator, "energy_kwh", {}).get("electrical", 0.0)
+        return round(val, 3)

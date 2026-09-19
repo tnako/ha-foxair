@@ -10478,7 +10478,7 @@
     "has_value_map": true,
     "depends_on": null,
     "name": "Aktueller Betriebsstatus",
-    "poll_tier": "rare",
+    "poll_tier": "quick",
     "min_firmware": null,
     "format": null
   },
