@@ -1,0 +1,36 @@
+name: Auto-tag
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: write
+jobs:
+  auto-tag:
+    # Self-healing release trigger: when a push to main carries a VERSION
+    # bump whose tag does not exist yet and whose CHANGELOG section is
+    # present, create and push the vX.Y.Z tag. The tag push is what starts
+    # the Release workflow — so a forgotten manual `git tag` can no longer
+    # silently skip a release.
+    # Guards against stray bumps: no tag without a matching CHANGELOG
+    # section (validate.py additionally enforces top section == VERSION).
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # full history + tags needed for the rev-parse check
+      - name: Tag VERSION when untagged
+        run: |
+          VER="$(tr -d '[:space:]' < VERSION)"
+          if git rev-parse -q --verify "refs/tags/v$VER" >/dev/null; then
+            echo "v$VER already tagged — nothing to do"
+            exit 0
+          fi
+          if ! grep -q "^## $VER" CHANGELOG.md; then
+            echo "no CHANGELOG section for $VER — not tagging"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag -a "v$VER" -m "v$VER"
+          git push origin "v$VER"
+          echo "tagged v$VER — Release workflow will pick it up"
