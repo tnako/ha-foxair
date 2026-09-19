@@ -2672,15 +2672,6 @@
       "foxair_2019_bit12": {
         "default": "mdi:toggle-switch"
       },
-      "foxair_2019_bit13": {
-        "default": "mdi:toggle-switch"
-      },
-      "foxair_2019_bit14": {
-        "default": "mdi:toggle-switch"
-      },
-      "foxair_2019_bit15": {
-        "default": "mdi:toggle-switch"
-      },
       "foxair_2019_bit2": {
         "default": "mdi:toggle-switch"
       },
@@ -2944,6 +2935,258 @@
       },
       "foxair_err06_bit8": {
         "default": "mdi:alert"
+      },
+      "foxair_2034_bit0": {
+        "default": "mdi:electric-switch"
+      },
+      "foxair_2034_bit1": {
+        "default": "mdi:electric-switch"
+      },
+      "foxair_2034_bit12": {
+        "default": "mdi:electric-switch"
+      },
+      "foxair_2034_bit13": {
+        "default": "mdi:electric-switch"
+      },
+      "foxair_2034_bit2": {
+        "default": "mdi:electric-switch"
+      },
+      "foxair_2034_bit3": {
+        "default": "mdi:electric-switch"
+      },
+      "foxair_2034_bit4": {
+        "default": "mdi:electric-switch"
+      },
+      "foxair_2034_bit5": {
+        "default": "mdi:electric-switch"
+      },
+      "foxair_2034_bit6": {
+        "default": "mdi:electric-switch"
+      },
+      "foxair_2034_bit9": {
+        "default": "mdi:electric-switch"
+      },
+      "foxair_2081_bit0": {
+        "default": "mdi:alert"
+      },
+      "foxair_2081_bit1": {
+        "default": "mdi:alert"
+      },
+      "foxair_2081_bit10": {
+        "default": "mdi:alert"
+      },
+      "foxair_2081_bit11": {
+        "default": "mdi:alert"
+      },
+      "foxair_2081_bit12": {
+        "default": "mdi:alert"
+      },
+      "foxair_2081_bit13": {
+        "default": "mdi:alert"
+      },
+      "foxair_2081_bit14": {
+        "default": "mdi:alert"
+      },
+      "foxair_2081_bit15": {
+        "default": "mdi:alert"
+      },
+      "foxair_2081_bit2": {
+        "default": "mdi:alert"
+      },
+      "foxair_2081_bit3": {
+        "default": "mdi:alert"
+      },
+      "foxair_2081_bit4": {
+        "default": "mdi:alert"
+      },
+      "foxair_2081_bit5": {
+        "default": "mdi:alert"
+      },
+      "foxair_2081_bit6": {
+        "default": "mdi:alert"
+      },
+      "foxair_2081_bit7": {
+        "default": "mdi:alert"
+      },
+      "foxair_2081_bit8": {
+        "default": "mdi:alert"
+      },
+      "foxair_2081_bit9": {
+        "default": "mdi:alert"
+      },
+      "foxair_2082_bit0": {
+        "default": "mdi:alert"
+      },
+      "foxair_2082_bit1": {
+        "default": "mdi:alert"
+      },
+      "foxair_2082_bit15": {
+        "default": "mdi:alert"
+      },
+      "foxair_2082_bit3": {
+        "default": "mdi:alert"
+      },
+      "foxair_2082_bit6": {
+        "default": "mdi:alert"
+      },
+      "foxair_2082_bit7": {
+        "default": "mdi:alert"
+      },
+      "foxair_2083_bit0": {
+        "default": "mdi:alert"
+      },
+      "foxair_2083_bit1": {
+        "default": "mdi:alert"
+      },
+      "foxair_2083_bit2": {
+        "default": "mdi:alert"
+      },
+      "foxair_2083_bit4": {
+        "default": "mdi:alert"
+      },
+      "foxair_2083_bit5": {
+        "default": "mdi:alert"
+      },
+      "foxair_2085_bit10": {
+        "default": "mdi:alert"
+      },
+      "foxair_2085_bit11": {
+        "default": "mdi:alert"
+      },
+      "foxair_2085_bit12": {
+        "default": "mdi:alert"
+      },
+      "foxair_2085_bit14": {
+        "default": "mdi:alert"
+      },
+      "foxair_2085_bit2": {
+        "default": "mdi:alert"
+      },
+      "foxair_2085_bit3": {
+        "default": "mdi:alert"
+      },
+      "foxair_2085_bit4": {
+        "default": "mdi:alert"
+      },
+      "foxair_2085_bit6": {
+        "default": "mdi:alert"
+      },
+      "foxair_2085_bit8": {
+        "default": "mdi:alert"
+      },
+      "foxair_2085_bit9": {
+        "default": "mdi:alert"
+      },
+      "foxair_2086_bit3": {
+        "default": "mdi:alert"
+      },
+      "foxair_2086_bit4": {
+        "default": "mdi:alert"
+      },
+      "foxair_2086_bit5": {
+        "default": "mdi:alert"
+      },
+      "foxair_2086_bit6": {
+        "default": "mdi:alert"
+      },
+      "foxair_2086_bit7": {
+        "default": "mdi:alert"
+      },
+      "foxair_2086_bit8": {
+        "default": "mdi:alert"
+      },
+      "foxair_2086_bit9": {
+        "default": "mdi:alert"
+      },
+      "foxair_2087_bit12": {
+        "default": "mdi:alert"
+      },
+      "foxair_2087_bit4": {
+        "default": "mdi:alert"
+      },
+      "foxair_2087_bit6": {
+        "default": "mdi:alert"
+      },
+      "foxair_2087_bit8": {
+        "default": "mdi:alert"
+      },
+      "foxair_2087_bit9": {
+        "default": "mdi:alert"
+      },
+      "foxair_2088_bit2": {
+        "default": "mdi:alert"
+      },
+      "foxair_2088_bit3": {
+        "default": "mdi:alert"
+      },
+      "foxair_2088_bit4": {
+        "default": "mdi:alert"
+      },
+      "foxair_2089_bit0": {
+        "default": "mdi:alert"
+      },
+      "foxair_2089_bit1": {
+        "default": "mdi:alert"
+      },
+      "foxair_2089_bit10": {
+        "default": "mdi:alert"
+      },
+      "foxair_2089_bit11": {
+        "default": "mdi:alert"
+      },
+      "foxair_2089_bit13": {
+        "default": "mdi:alert"
+      },
+      "foxair_2089_bit14": {
+        "default": "mdi:alert"
+      },
+      "foxair_2089_bit15": {
+        "default": "mdi:alert"
+      },
+      "foxair_2089_bit2": {
+        "default": "mdi:alert"
+      },
+      "foxair_2089_bit3": {
+        "default": "mdi:alert"
+      },
+      "foxair_2089_bit4": {
+        "default": "mdi:alert"
+      },
+      "foxair_2089_bit5": {
+        "default": "mdi:alert"
+      },
+      "foxair_2089_bit6": {
+        "default": "mdi:alert"
+      },
+      "foxair_2089_bit9": {
+        "default": "mdi:alert"
+      },
+      "foxair_2090_bit11": {
+        "default": "mdi:alert"
+      },
+      "foxair_2090_bit12": {
+        "default": "mdi:alert"
+      },
+      "foxair_2090_bit13": {
+        "default": "mdi:alert"
+      },
+      "foxair_2090_bit15": {
+        "default": "mdi:alert"
+      },
+      "foxair_2090_bit8": {
+        "default": "mdi:alert"
+      },
+      "foxair_2018_bit0": {
+        "default": "mdi:toggle-switch"
+      },
+      "foxair_2018_bit10": {
+        "default": "mdi:toggle-switch"
+      },
+      "foxair_2018_bit8": {
+        "default": "mdi:toggle-switch"
+      },
+      "foxair_2018_bit9": {
+        "default": "mdi:toggle-switch"
       }
     }
   }

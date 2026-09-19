@@ -280,7 +280,7 @@ def main() -> None:
                     row["verdict"] = "OK"  # HA fine, device just busy — keep OK but note
                 continue
             row["device_raw"] = raw
-            dtype = by_code.get(row.get("code", ""), {}).get("type", "RAW")
+            dtype = by_code.get(row.get("code", ""), ({}, {}))[1].get("type", "RAW")
             row["device_value"] = scaled(dtype, raw)
             ha_val = row.get("ha_value")
             if ha_val is not None:

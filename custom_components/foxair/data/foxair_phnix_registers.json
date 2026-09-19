@@ -4612,18 +4612,16 @@
     "type": "RAW"
   },
   "2018": {
-    "app_values": {
-      "0": "Off",
-      "1": "On"
+    "bit_map": {
+      "0": "025 Elektroheizer Warmwasserspeicher (0=AUS/1=EIN)",
+      "10": "3-Wege-Ventil Kuehlung (0=AUS/1=EIN)",
+      "8": "Pumpe Zone 1 (0=AUS/1=EIN)",
+      "9": "Pumpe Zone 2 (0=AUS/1=EIN)"
     },
     "function": "03",
     "mode": "read-only",
-    "name": "025 / Lastausgang (Elektrischer Wassertankheizer)",
-    "type": "DIGI1",
-    "value_map": {
-      "0": "Aus",
-      "1": "Ein"
-    }
+    "name": "Lastausgaenge Bitfeld: 025 WW-Heizstab, Zonenpumpen, Kuehl-3-Wege-Ventil",
+    "type": "BITFIELD"
   },
   "2019": {
     "bit_map": {
@@ -4632,9 +4630,9 @@
       "10": "011 Alarm-Ausgang (0=AUS/1=EIN)",
       "11": "012 Kurbelgehäuseheizung (0=AUS/1=EIN)",
       "12": "013 Wannenheizung (0=AUS/1=EIN)",
-      "13": "021 Heizungswasserpumpe (0=AUS/1=EIN)",
-      "14": "022 Hydraulikmodul Wasserkreislauf Elektroheizung (0=AUS/1=EIN)",
-      "15": "023 Hydraulikmodul WW-Tank Elektroheizung (0=AUS/1=EIN)",
+      "13": "Reserviert — 021 Heizungswasserpumpe unbestaetigt",
+      "14": "Reserviert — 022 Hydraulikmodul Wasserkreislauf Elektroheizung unbestaetigt",
+      "15": "Reserviert — 023 Hydraulikmodul WW-Tank Elektroheizung unbestaetigt",
       "2": "Mindestens ein Lüfter tatsächlich aktiv / Lüfter-Istrückmeldung ungleich 0 (0=AUS/1=EIN)",
       "3": "Lüfter Niedriggeschwindigkeitsausgang (0=AUS/1=EIN)",
       "4": "005 Wasserpumpen-Ausgang (0=AUS/1=EIN)",
@@ -4646,7 +4644,7 @@
     },
     "function": "03",
     "mode": "read-only",
-    "name": "001 bis 023 / Lastausgänge Bitfeld (vollständig decodiert)",
+    "name": "001 bis 013 / Lastausgaenge Bitfeld (Bits 13-15 unbestaetigt)",
     "type": "BITFIELD"
   },
   "2020": {

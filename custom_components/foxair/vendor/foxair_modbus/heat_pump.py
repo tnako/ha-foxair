@@ -351,7 +351,7 @@ class FoxAir(Component):
     reg_2015 = integer(2015, signed=True, writable=False)  #  DIGI1
     reg_2016 = gauge(2016, 0.1, writable=False, unit="°C")  #  TEMP1 Solltemperatur wie 2013 / 2014
     reg_2017 = gauge(2017, 1.0, writable=False)  #  RAW
-    reg_2018 = integer(2018, signed=True, writable=False)  #  DIGI1
+    reg_2018 = integer(2018, signed=True, writable=False)  #  BITFIELD
     reg_2019 = integer(2019, signed=True, writable=False)  #  BITFIELD
     reg_2020 = integer(2020, signed=True, writable=False)  #  DIGI1
     reg_2021 = gauge(2021, 1.0, writable=False)  #  RAW
@@ -390,7 +390,7 @@ class FoxAir(Component):
     reg_2054 = gauge(2054, 0.1, writable=False, unit="kW")  # T54 POWER_KW_X10 Elektrische Leistung / Unit Power
     reg_2055 = gauge(2055, 0.1, writable=False)  # T06 TEMP1 Frostschutztemperatur (Am PlattenWT)
     reg_2056 = gauge(2056, 0.1, writable=False)  #  TEMP1 T? / System 1 Frostschutztemperatur 2 / Coil/Frost Temp 2 (ASM V1.3)
-    reg_2057 = gauge(2057, 1.0, writable=False, unit="A")  # T35 RAW
+    reg_2057 = gauge(2057, 0.1, writable=False, unit="A")  # T35 AMP_X10 AC Input Current
     reg_2058 = gauge(2058, 0.1, writable=False)  # T09 DIGI5 Raumtemperatur
     reg_2059 = gauge(2059, 0.1, writable=False, unit="kW")  # T59 POWER_KW_X10 Wärmeleistung / Unit Capacity
     reg_2060 = gauge(2060, 0.01, writable=False, unit="COP")  # T60 COP_X100 COP
@@ -476,6 +476,7 @@ class FoxAir(Component):
     reg_2178 = gauge(2178, 0.1, writable=False, unit="°C")  #  TEMP1 Temperatur des Temperatur-/Feuchtesensors
     reg_2179 = gauge(2179, 0.1, writable=False, unit="% rF")  #  DIGI5 Relative Luftfeuchtigkeit
     reg_2180 = gauge(2180, 0.1, writable=False, unit="°C")  #  TEMP1 Berechneter Taupunkt
+    reg_8801 = integer(8801, signed=True, writable=True)  # SG01 SG_MODE
 
     def as_dict(self, regmap=None):
         """Compat shim: return {addr: {raw, value, info}} like old coordinator.data."""

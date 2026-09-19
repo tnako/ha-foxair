@@ -17,6 +17,20 @@ _ADDR_AC_CURRENT = 2057       # T35 AMP_X10 AC Input Current
 # there; compute_electrical_power falls back to AC V x A for them.
 _FW_AC_VA = 33
 
+# Firmware quirk (confirmed on v3.3 and v3.4; old v1.3 verified unaffected
+# via diagnostics): with only the water pump running (compressor off), T59
+# (2059) keeps counting heat produced — phantom heating that wrecks COP.
+# Register 2012 (run_status: 0=Cooling, 1=Heating, 2=Defrost, 3=
+# Sterilization, 4=DHW) is the unit's own answer to "is it really heating",
+# but it is not a code register and stayed off most installs; the
+# compressor evidence is enough: T31 (2072) compressor frequency > 0, else
+# bit 0 of the 2019 outputs word ("Kompressor läuft"). No compressor = no
+# heating, regardless of T59/dT. Pre-v3.3 units report T54/T59/T60 = 0
+# whenever the compressor is off anyway, so the gate cannot hide real heat
+# there.
+_COMPRESSOR_FREQ = 2072     # T31 DIGI1 Kompressor-Betriebsfrequenz
+_OUTPUTS_WORD = 2019        # BITFIELD: bit 0 = compressor actually running
+
 # COP calculation constants
 _ELEC_MIN_FOR_COP = 100     # Minimum electrical power (W) for valid COP
 _COP_MAX = 15.0             # Maximum plausible COP
@@ -31,12 +45,40 @@ def _cval(coord, addr: int) -> Optional[float]:
     return float(v) if v is not None else None
 
 
+def _compressor_running(coord) -> Optional[bool]:
+    """True when the compressor is actually running.
+
+    Primary evidence: T31 (2072) compressor frequency > 0. Fallback: bit 0
+    of the 2019 outputs bitfield ("Kompressor läuft"). None = no evidence
+    available (registers missing) — callers decide how to treat that.
+    """
+    freq = _cval(coord, _COMPRESSOR_FREQ)
+    if freq is not None:
+        return freq > 0
+    rec = coord.data.get(_OUTPUTS_WORD)
+    if rec:
+        raw = rec.get("raw")
+        if raw is not None:
+            return bool(int(raw) & 0x1)
+    return None
+
+
 def compute_heating_power(coord) -> Optional[float]:
     """Compute heating power from flow and delta T (or use device register).
 
     Formula: P_heat = flow * 4.186 * delta_T * 1000 (Watts)
     But the device provides it directly at 2059 (POWER_KW_X10).
     """
+    # Pump-only quirk (v3.3+ confirmed): T59 keeps counting while only the
+    # water pump runs. Without a running compressor there is no heat
+    # production — neither trust T59 nor the flow/dT fallback (pump-only
+    # circulation shifts temps too). Missing evidence (None) keeps the old
+    # behaviour: pre-v3.3 firmware reports T54/T59/T60 = 0 whenever the
+    # compressor is off, and the v1.3 COP fix relies on the fallback there.
+    comp_on = _compressor_running(coord)
+    if comp_on is False:
+        return None
+
     # Try device-provided heating power first (0 = unit does not compute it).
     hp = _cval(coord, _ADDR_HEATING_POWER)
     if hp is not None and hp > 0:

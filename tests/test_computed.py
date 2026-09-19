@@ -192,6 +192,75 @@ def test_heating_power_fallback_flow_delta_t():
     assert comp.compute_heating_power(coord) == pytest.approx(1.0 * 1000 * 4186 * 5.0 / 3600)
 
 
+def test_pump_only_t59_phantom_is_suppressed():
+    # v3.3+/v3.4: compressor off (T31 = 0) but T59 keeps counting heat while
+    # the water pump circulates -> heating power must be None, not phantom kW.
+    coord = FakeCoord({2072: {"value": 0.0}, 2059: {"value": 2.5}})
+    assert comp.compute_heating_power(coord) is None
+
+
+def test_pump_only_delta_t_offset_is_suppressed():
+    # v3.4 pump-only: no compressor, but flow + small sensor-offset dT
+    # (T02 20.0 vs T01 19.7) produced phantom watts via the fallback.
+    coord = FakeCoord({2072: {"value": 0.0}, 2077: {"value": 1.45},
+                       2045: {"value": 19.7}, 2046: {"value": 20.0}})
+    assert comp.compute_heating_power(coord) is None
+
+
+def test_pump_only_2019_bit0_fallback_gate():
+    # T31 missing -> bit 0 of 2019 ("Kompressor läuft") gates instead.
+    # raw bit0=0 (pump only, 0x10 = pump output bit 4):
+    coord = FakeCoord({2019: {"raw": 0x10}, 2059: {"value": 2.5}})
+    assert comp.compute_heating_power(coord) is None
+    # raw bit0=1 (compressor running): T59 trusted again.
+    coord = FakeCoord({2019: {"raw": 0x11}, 2059: {"value": 2.5}})
+    assert comp.compute_heating_power(coord) == 2500.0
+
+
+def test_compressor_running_keeps_t59_trust():
+    # Compressor on (T31 > 0): unchanged behaviour, register wins.
+    coord = FakeCoord({2072: {"value": 42.0}, 2059: {"value": 7.8}})
+    assert comp.compute_heating_power(coord) == pytest.approx(7800.0)
+
+
+def test_missing_compressor_evidence_keeps_old_behaviour():
+    # No T31 and no 2019 in data (older units / partial polls): do NOT gate,
+    # pre-v3.3 COP fix relied on the fallback path with such data.
+    coord = FakeCoord({2077: {"value": 1.45}, 2045: {"value": 43.3},
+                       2046: {"value": 44.9}})
+    assert comp.compute_heating_power(coord) == pytest.approx(
+        1.45 * 1000 * 4186 * 1.6 / 3600)
+    coord = FakeCoord({2059: {"value": 2.0}})
+    assert comp.compute_heating_power(coord) == 2000.0
+
+
+def test_v13_diagnostics_snapshot_unaffected():
+    # Replay of the real v1.3 diagnostics dump (config_entry-...-4.json):
+    # compressor running (T31=47, 2019=0b10101) while heating, T54/T59/T60
+    # all report 0 (old firmware never computes them). The gate must not
+    # change the outcome: fallback flow/dT heating power + V*A electrical
+    # power keep COP alive exactly as the v1.3 fix intended.
+    coord = FakeCoord({2012: {"raw": 1}, 2019: {"raw": 21},
+                       2045: {"value": 43.3}, 2046: {"value": 44.9},
+                       2054: {"value": 0.0}, 2059: {"value": 0.0},
+                       2060: {"value": 0.0}, 2062: {"value": 231.0},
+                       2057: {"value": 4.8}, 2072: {"value": 47.0},
+                       2077: {"value": 1.45}}, fw=13)
+    hp = comp.compute_heating_power(coord)
+    assert hp == pytest.approx(1.45 * 1000 * 4186 * 1.6 / 3600)
+    ep = comp.compute_electrical_power(coord, _opts("foxair_register"))
+    assert ep == pytest.approx(1108.8)
+    assert comp.compute_cop(coord, _opts("foxair_register")) == pytest.approx(
+        round(hp / 1108.8, 2))
+
+
+def test_cop_none_when_pump_only():
+    # End to end: pump-only phantom T59 must not produce a COP.
+    coord = FakeCoord({2072: {"value": 0.0}, 2059: {"value": 2.5},
+                       2054: {"value": 0.3}})
+    assert comp.compute_cop(coord, _opts("foxair_register")) is None
+
+
 def test_elec_source_options_all_handled():
     flow = (CC / "config_flow.py").read_text()
     m = re.search(r'"elec_source".*?vol\.In\(\[(.*?)\]\)', flow, re.S)

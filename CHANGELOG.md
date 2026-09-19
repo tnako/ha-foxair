@@ -1,3 +1,9 @@
+## 0.7.2 - 2026-09-19
+- fix(cop): no more phantom heating power and COP while only the water pump runs. On v3.3+ the unit keeps counting T59 while the compressor is off, and pump-only circulation also skews inlet/outlet temps, so the flow x deltaT fallback invented watts out of thin air. Heating power (and with it COP) is now gated on real compressor activity: compressor frequency T31 > 0, or the compressor bit in the outputs word 2019. Compressor off means no heat, no matter what the registers claim. Units without those registers (old v1.3, verified against its diagnostics) keep the old behaviour unchanged
+- feat(outputs): the second load-output word (2018) is now decoded as a proper output bitfield on the Outputs device: DHW tank electric heater, zone 1 and zone 2 pump feedback, cooling 3-way valve show as separate binary sensors. Replaces the raw "Lastausgang" sensor that misread the packed word as on/off
+- fix(outputs): three unconfirmed reserved outputs (2019 bits 13-15) removed — the controller has no matching relay behind them
+- chore(evi): EVI live values are hidden for units without EVI: T10/T11 (EVI inlet/outlet temperatures) and the EEV / EVI-EEV step counters are no longer created or polled. The expert EVI/EEV settings (E09, E10, E13, E14, H27) remain available in expert mode
+
 ## 0.7.1 - 2026-09-19
 - feat(cop): pre-v3.3 firmware units now get COP automatically, with zero configuration. Old firmware leaves the power registers T54/T59/T60 at 0, so the integration now estimates electrical power as AC input volts x current (T34 x T35, apparent power — COP reads slightly low, fine for the trend). Units on v3.3+ and external-meter setups are unaffected
 

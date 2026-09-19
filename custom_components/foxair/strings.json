@@ -1374,15 +1374,8 @@
       "foxair_2017": {
         "name": "2017: Reserved"
       },
-      "foxair_2018": {
-        "name": "025 / Load Output (Electric DHW Tank Heater)",
-        "state": {
-          "0": "Off",
-          "1": "On"
-        }
-      },
       "foxair_2019": {
-        "name": "001-023 / Load Outputs Bitfield (fully decoded)"
+        "name": "001-013 / Load Outputs Bitfield (bits 13-15 unconfirmed)"
       },
       "foxair_2020": {
         "name": "EEV Steps"
@@ -4889,15 +4882,6 @@
       "foxair_2019_bit12": {
         "name": "Drain pan heater"
       },
-      "foxair_2019_bit13": {
-        "name": "Heating water pump"
-      },
-      "foxair_2019_bit14": {
-        "name": "Hydro module water-circuit electric heating"
-      },
-      "foxair_2019_bit15": {
-        "name": "Hydro module DHW-tank electric heating"
-      },
       "foxair_2019_bit2": {
         "name": "At least one fan actually running"
       },
@@ -5161,6 +5145,258 @@
       },
       "foxair_s01_bit9": {
         "name": "S10 Heating/cooling on/off"
+      },
+      "foxair_2034_bit0": {
+        "name": "S01 High-pressure switch"
+      },
+      "foxair_2034_bit1": {
+        "name": "S02 Low-pressure switch"
+      },
+      "foxair_2034_bit12": {
+        "name": "SG contact 1 / remote switch / terminals 1-2"
+      },
+      "foxair_2034_bit13": {
+        "name": "SG contact 2 / PV contact / terminals 7-8"
+      },
+      "foxair_2034_bit2": {
+        "name": "S03 Water flow switch"
+      },
+      "foxair_2034_bit3": {
+        "name": "S04 Electric-heater overheat switch"
+      },
+      "foxair_2034_bit4": {
+        "name": "S05 Remote on/off"
+      },
+      "foxair_2034_bit5": {
+        "name": "S06 Remote heating/cooling"
+      },
+      "foxair_2034_bit6": {
+        "name": "S07 DHW switch"
+      },
+      "foxair_2034_bit9": {
+        "name": "S10 Heating/cooling on/off"
+      },
+      "foxair_2081_bit0": {
+        "name": "ERR07 IPM overheating"
+      },
+      "foxair_2081_bit1": {
+        "name": "ERR07 Compressor start failure"
+      },
+      "foxair_2081_bit10": {
+        "name": "ERR07 AC input overcurrent trip"
+      },
+      "foxair_2081_bit11": {
+        "name": "ERR07 Input voltage sensing fault"
+      },
+      "foxair_2081_bit12": {
+        "name": "ERR07 DSP-PFC communication fault"
+      },
+      "foxair_2081_bit13": {
+        "name": "ERR07 Drive board temperature fault"
+      },
+      "foxair_2081_bit14": {
+        "name": "ERR07 DSP-comm board fault"
+      },
+      "foxair_2081_bit15": {
+        "name": "ERR07 Main board communication fault"
+      },
+      "foxair_2081_bit2": {
+        "name": "ERR07 Compressor overcurrent"
+      },
+      "foxair_2081_bit3": {
+        "name": "ERR07 Input voltage phase loss"
+      },
+      "foxair_2081_bit4": {
+        "name": "ERR07 IPM current sensing fault"
+      },
+      "foxair_2081_bit5": {
+        "name": "ERR07 Drive board overheat protection"
+      },
+      "foxair_2081_bit6": {
+        "name": "ERR07 Precharge fault"
+      },
+      "foxair_2081_bit7": {
+        "name": "ERR07 DC bus overvoltage"
+      },
+      "foxair_2081_bit8": {
+        "name": "ERR07 DC bus undervoltage"
+      },
+      "foxair_2081_bit9": {
+        "name": "ERR07 AC input undervoltage"
+      },
+      "foxair_2082_bit0": {
+        "name": "ERR08 IPM overheat stop"
+      },
+      "foxair_2082_bit1": {
+        "name": "ERR08 Compressor default phase"
+      },
+      "foxair_2082_bit15": {
+        "name": "ERR08 Compressor overspeed protection"
+      },
+      "foxair_2082_bit3": {
+        "name": "ERR08 Input current sensing fault"
+      },
+      "foxair_2082_bit6": {
+        "name": "ERR08 EEPROM fault"
+      },
+      "foxair_2082_bit7": {
+        "name": "ERR08 Input overvoltage limit protection"
+      },
+      "foxair_2083_bit0": {
+        "name": "ERR09 Current control frequency alarm"
+      },
+      "foxair_2083_bit1": {
+        "name": "ERR09 Compressor magnet protection alarm"
+      },
+      "foxair_2083_bit2": {
+        "name": "ERR09 Power unit overheating"
+      },
+      "foxair_2083_bit4": {
+        "name": "ERR09 AC input current control alarm"
+      },
+      "foxair_2083_bit5": {
+        "name": "ERR09 EEPROM fault warning"
+      },
+      "foxair_2085_bit10": {
+        "name": "ERR01 Winter antifreeze stage 1"
+      },
+      "foxair_2085_bit11": {
+        "name": "ERR01 Winter antifreeze stage 2"
+      },
+      "foxair_2085_bit12": {
+        "name": "ERR01 Antifreeze protection"
+      },
+      "foxair_2085_bit14": {
+        "name": "ERR01 Room temperature fault"
+      },
+      "foxair_2085_bit2": {
+        "name": "ERR01 Heating return temp sensor fault"
+      },
+      "foxair_2085_bit3": {
+        "name": "ERR01 Heating outlet water temp sensor fault"
+      },
+      "foxair_2085_bit4": {
+        "name": "ERR01 High-pressure protection"
+      },
+      "foxair_2085_bit6": {
+        "name": "ERR01 Low-pressure protection"
+      },
+      "foxair_2085_bit8": {
+        "name": "ERR01 Water flow protection"
+      },
+      "foxair_2085_bit9": {
+        "name": "ERR01 Electric heating overload protection"
+      },
+      "foxair_2086_bit3": {
+        "name": "ERR02 Fan 1 overload speed limit"
+      },
+      "foxair_2086_bit4": {
+        "name": "ERR02 Fan 2 overload speed limit"
+      },
+      "foxair_2086_bit5": {
+        "name": "ERR02 Inlet/outlet water temp diff too large"
+      },
+      "foxair_2086_bit6": {
+        "name": "ERR02 Outlet water overheated"
+      },
+      "foxair_2086_bit7": {
+        "name": "ERR02 Mixed-water outlet temp sensor fault"
+      },
+      "foxair_2086_bit8": {
+        "name": "ERR02 DHW return temp sensor fault"
+      },
+      "foxair_2086_bit9": {
+        "name": "ERR02 DHW outlet temp sensor fault"
+      },
+      "foxair_2087_bit12": {
+        "name": "ERR03 Antifreeze protection (3x latched)"
+      },
+      "foxair_2087_bit4": {
+        "name": "ERR03 High-pressure protection (3x latched)"
+      },
+      "foxair_2087_bit6": {
+        "name": "ERR03 Low-pressure protection (3x latched)"
+      },
+      "foxair_2087_bit8": {
+        "name": "ERR03 Water flow protection (3x latched)"
+      },
+      "foxair_2087_bit9": {
+        "name": "ERR03 Electric heating protection (3x latched)"
+      },
+      "foxair_2088_bit2": {
+        "name": "ERR04 Inlet/outlet water temp diff too large (3x latched)"
+      },
+      "foxair_2088_bit3": {
+        "name": "ERR04 Outlet water temp too low (3x latched)"
+      },
+      "foxair_2088_bit4": {
+        "name": "ERR04 Outlet water overtemp protection (3x latched)"
+      },
+      "foxair_2089_bit0": {
+        "name": "ERR05 Inlet water temp fault"
+      },
+      "foxair_2089_bit1": {
+        "name": "ERR05 Outlet water temp fault"
+      },
+      "foxair_2089_bit10": {
+        "name": "ERR05 EVI outlet temp fault"
+      },
+      "foxair_2089_bit11": {
+        "name": "ERR05 Discharge temp fault"
+      },
+      "foxair_2089_bit13": {
+        "name": "ERR05 System 1 pressure sensor fault"
+      },
+      "foxair_2089_bit14": {
+        "name": "ERR05 Low ambient temp fault"
+      },
+      "foxair_2089_bit15": {
+        "name": "ERR05 Outlet temp too-low protection"
+      },
+      "foxair_2089_bit2": {
+        "name": "ERR05 Coil temp fault"
+      },
+      "foxair_2089_bit3": {
+        "name": "ERR05 Ambient temp fault"
+      },
+      "foxair_2089_bit4": {
+        "name": "ERR05 Suction gas temp fault"
+      },
+      "foxair_2089_bit5": {
+        "name": "ERR05 Antifreeze temp fault"
+      },
+      "foxair_2089_bit6": {
+        "name": "ERR05 Coil outlet water temp sensor fault"
+      },
+      "foxair_2089_bit9": {
+        "name": "ERR05 EVI inlet temp fault"
+      },
+      "foxair_2090_bit11": {
+        "name": "ERR06 Fan 1 fault"
+      },
+      "foxair_2090_bit12": {
+        "name": "ERR06 Fan 2 fault"
+      },
+      "foxair_2090_bit13": {
+        "name": "ERR06 Main board - fan 1 comm fault"
+      },
+      "foxair_2090_bit15": {
+        "name": "ERR06 Main board - fan 2 comm fault"
+      },
+      "foxair_2090_bit8": {
+        "name": "ERR06 DHW temp fault"
+      },
+      "foxair_2018_bit0": {
+        "name": "DHW tank electric heater"
+      },
+      "foxair_2018_bit10": {
+        "name": "3-way valve cooling"
+      },
+      "foxair_2018_bit8": {
+        "name": "Zone 1 pump output"
+      },
+      "foxair_2018_bit9": {
+        "name": "Zone 2 pump output"
       }
     }
   },

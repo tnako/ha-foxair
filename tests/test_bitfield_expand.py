@@ -118,15 +118,19 @@ def test_reserved_bits_skipped():
     bits_2034 = const.bitfield_expanded_bits(REGS["2034"]["bit_map"])
     assert [b for b, _ in bits_2034] == [0, 1, 2, 3, 4, 5, 6, 9, 12, 13]
     bits_2019 = const.bitfield_expanded_bits(REGS["2019"]["bit_map"])
-    assert [b for b, _ in bits_2019] == [0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+    assert [b for b, _ in bits_2019] == [0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    bits_2018 = const.bitfield_expanded_bits(REGS["2018"]["bit_map"])
+    assert [b for b, _ in bits_2018] == [0, 8, 9, 10]
 
 def test_expansion_counts_and_expert_gating():
     plain = _setup(expert=False)
-    assert len(plain) == 95  # O bits (2019) are non-expert on the Outputs device
-    assert sum(1 for e in plain if e._addr == 2019) == 15
+    assert len(plain) == 96  # O bits (2019+2018) are non-expert on the Outputs device
+    assert sum(1 for e in plain if e._addr == 2019) == 12
+    assert sum(1 for e in plain if e._addr == 2018) == 4
     expert = _setup(expert=True)
-    assert len(expert) == 95
-    assert sum(1 for e in expert if e._addr == 2019) == 15
+    assert len(expert) == 96
+    assert sum(1 for e in expert if e._addr == 2019) == 12
+    assert sum(1 for e in expert if e._addr == 2018) == 4
 
 def test_identity_and_problem_class():
     ents = _setup(expert=True)
@@ -165,7 +169,7 @@ def test_every_bit_translated_with_icons():
                 assert re_cyr(name), f"ru: {k} not translated: {name}"
         assert k in icons, f"icons: missing {k}"
         n += 1
-    assert n == 95
+    assert n == 96
 
 def re_cyr(s):
     import re
@@ -186,7 +190,7 @@ def test_bits_routed_to_sub_devices_and_polled():
     assert ("foxair", "eid_ERR") in err._attr_device_info["identifiers"]
     o = ents["foxair_2019_bit0"]
     assert ("foxair", "eid_O") in o._attr_device_info["identifiers"]  # Outputs device
-    for addr in ("2034", "2081", "2019"):
+    for addr in ("2034", "2081", "2019", "2018"):
         assert META[addr]["poll_tier"] in ("rare", "medium")  # in the poll loop
         assert META[addr]["poll_tier"] == "rare"
     assert META["2034"]["requires_expert"] is False  # S contacts without expert

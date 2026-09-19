@@ -34,9 +34,10 @@ BIT_TEXT = {
     (2019, 10): ("Alarm output", "Выход аварии"),
     (2019, 11): ("Crankcase heater", "Подогрев картера"),
     (2019, 12): ("Drain pan heater", "Подогрев поддона"),
-    (2019, 13): ("Heating water pump", "Насос отопления"),
-    (2019, 14): ("Hydro module water-circuit electric heating", "Электронагрев водяного контура гидромодуля"),
-    (2019, 15): ("Hydro module DHW-tank electric heating", "Электронагрев бака ГВС гидромодуля"),
+    (2018, 0): ("DHW tank electric heater", "Электронагреватель бака ГВС"),
+    (2018, 8): ("Zone 1 pump output", "Выход насоса зоны 1"),
+    (2018, 9): ("Zone 2 pump output", "Выход насоса зоны 2"),
+    (2018, 10): ("3-way valve cooling", "3-ходовой клапан охлаждения"),
     # 2034 S01 switch states / SG Ready
     (2034, 0): ("S01 High-pressure switch", "S01 Реле высокого давления"),
     (2034, 1): ("S02 Low-pressure switch", "S02 Реле низкого давления"),
