@@ -11894,7 +11894,7 @@
     "has_value_map": false,
     "depends_on": null,
     "name": "Kompressor-Sollfrequenz",
-    "poll_tier": "medium",
+    "poll_tier": "quick",
     "min_firmware": null,
     "format": null
   },
@@ -11918,7 +11918,7 @@
     "has_value_map": false,
     "depends_on": null,
     "name": "Betriebsfrequenz des Kompressors",
-    "poll_tier": "medium",
+    "poll_tier": "quick",
     "min_firmware": null,
     "format": null
   },

@@ -1,3 +1,6 @@
+## 0.7.5 - 2026-09-20
+- fix(poll): compressor frequencies T30/T31 are now polled on the quick tier so the actual and target compressor frequency update in step with the rest of the live compressor cluster (T36 phase current, T37 DC-bus voltage), instead of lagging on the medium schedule
+
 ## 0.7.4 - 2026-09-20
 - fix: the two SG Ready selects no longer collide. Both the SG Ready selection and the SG Ready active mode carried the same internal register code, so Home Assistant dropped the second entity with a "does not generate unique IDs" warning at startup. The active mode is now SG01A with its own entity — thanks to the user for spotting it in the logs
 
