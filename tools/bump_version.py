@@ -25,6 +25,15 @@ def main():
         print(f"Invalid version: {version} (expected X.Y.Z)", file=sys.stderr)
         sys.exit(1)
 
+    # 0. CHANGELOG.md must already have the section for this version
+    cl_path = ROOT / "CHANGELOG.md"
+    m = re.search(r"^## (\d+\.\d+\.\d+) - ", cl_path.read_text(), re.M) if cl_path.exists() else None
+    if not m or m.group(1) != version:
+        top = m.group(1) if m else "none"
+        print(f"CHANGELOG.md top section is {top}, expected {version}.", file=sys.stderr)
+        print(f"Add '## {version} - YYYY-MM-DD' with bullets first, then re-run the bump.", file=sys.stderr)
+        sys.exit(1)
+
     # 1. VERSION
     (ROOT / "VERSION").write_text(f"{version}\n")
     print(f"  VERSION: {version}")

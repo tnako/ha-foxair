@@ -15,6 +15,12 @@ If system python3 is too old for pytest/HA (macOS CLT = 3.9), point tasks at a
 (create with `python3.11 -m venv /tmp/venvfox11 && /tmp/venvfox11/bin/pip install
 pytest homeassistant pymodbus`). All tasks honor FOXAIR_PY / `task test PY=...`.
 
+## Release flow — order is enforced
+1. Write the `## X.Y.Z - YYYY-MM-DD` CHANGELOG.md section FIRST (bump_version.py refuses to run without it; validate.py gates top entry == VERSION).
+2. `task bump version=X.Y.Z`
+3. Commit, tag `vX.Y.Z`, push — git hooks (`.githooks/`, enabled via `task hooks` / `git config core.hooksPath .githooks`) run validate on commit and validate+pytest on push. Never bypass with `--no-verify`; fix the gate instead.
+4. Never chain `git commit` after gates through pipes — `cmd | tail` masks the gate's exit code and the commit lands anyway. Run gates as their own command, check exit code, then commit.
+
 ## Session bootstrap — ONE call before any work
 
 ```bash
