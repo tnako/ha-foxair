@@ -67,6 +67,7 @@ def _stub_modules():
     ha.helpers.entity.DeviceInfo = DeviceInfo
     ha.helpers.entity.EntityCategory = EntityCategory
     ha.helpers.update_coordinator.CoordinatorEntity = CoordinatorEntity
+    ha.helpers.update_coordinator.UpdateFailed = type("UpdateFailed", (Exception,), {})
     ha.components.switch.SwitchEntity = SwitchEntity
     ha.components.button.ButtonEntity = ButtonEntity
     ha.components.binary_sensor.BinarySensorDeviceClass = BinarySensorDeviceClass

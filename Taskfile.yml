@@ -1,37 +1,40 @@
 version: '3'
 
+vars:
+  PY: '{{.PY | default (env "FOXAIR_PY") | default "python3"}}'
+
 tasks:
   validate:
     desc: Run validation checks (VERSION==manifest, i18n prefixes, syntax)
     cmds:
-      - python3 tools/validate.py
+      - '{{.PY}} tools/validate.py'
 
   build:
     desc: Regenerate metadata and vendor package
     cmds:
-      - python3 tools/build_metadata.py
-      - python3 tools/fix_translations.py
-      - python3 tools/gen_foxair_modbus.py
-      - python3 tools/validate.py
+      - '{{.PY}} tools/build_metadata.py'
+      - '{{.PY}} tools/fix_translations.py'
+      - '{{.PY}} tools/gen_foxair_modbus.py'
+      - '{{.PY}} tools/validate.py'
 
   test:
     desc: Run full pytest suite (signatures, firmware gates, curve math, SVG render, validate)
     cmds:
-      - python3 -m pytest tests/ -v
+      - '{{.PY}} -m pytest tests/ -v'
 
   pre_release:
     desc: Pre-release gate - validate + metadata regen + pytest + check_regs
     cmds:
       - task: validate
-      - python3 tools/build_metadata.py
+      - '{{.PY}} tools/build_metadata.py'
       - task: validate
       - task: test
-      - python3 tools/check_regs.py
+      - '{{.PY}} tools/check_regs.py'
 
   check_regs:
     desc: Check every register - HA state vs device
     cmds:
-      - python3 tools/check_regs.py
+      - '{{.PY}} tools/check_regs.py'
 
   deploy:
     desc: Deploy to HA host and verify health
@@ -43,7 +46,7 @@ tasks:
   bump:
     desc: "Bump VERSION and manifest (usage: task bump version=X.Y.Z)"
     cmds:
-      - python3 tools/bump_version.py '{{.version}}'
+      - '{{.PY}} tools/bump_version.py ''{{.version}}'''
 
 default:
   cmd: task --list

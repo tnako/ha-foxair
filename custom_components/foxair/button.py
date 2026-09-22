@@ -19,7 +19,7 @@ from .const import (
 
 
 async def async_setup_entry(hass, entry, add_entities):
-    coord = hass.data["foxair"][entry.entry_id]
+    coord = getattr(entry, "runtime_data", None) or hass.data["foxair"][entry.entry_id]
     if not getattr(coord, "_metadata", None):
         await coord._load_map()
     ents = []

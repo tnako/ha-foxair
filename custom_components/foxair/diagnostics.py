@@ -9,7 +9,7 @@ def _reg_sample(v: dict) -> dict:
 
 
 async def async_get_config_entry_diagnostics(hass: HomeAssistant, entry: ConfigEntry):
-    coord = hass.data.get("foxair", {}).get(entry.entry_id)
+    coord = getattr(entry, "runtime_data", None) or hass.data.get("foxair", {}).get(entry.entry_id)
     if not coord:
         return {"error": "no coordinator"}
     data = dict(coord.data or {})
@@ -105,6 +105,7 @@ async def async_get_config_entry_diagnostics(hass: HomeAssistant, entry: ConfigE
     return {
         "poll_blocks": getattr(coord, "POLL_BLOCKS", []),
         "stats": getattr(coord, "stats", {}),
+        "freshness": coord.freshness_summary() if hasattr(coord, "freshness_summary") else {},
         "data_keys": list((coord.data or {}).keys()),
         "data_count": len(coord.data or {}),
         "sample": sample,

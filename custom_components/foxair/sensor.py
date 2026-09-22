@@ -29,7 +29,7 @@ def _dtype_map():
 HIDDEN = SENSOR_HIDDEN_ADDRS
 
 async def async_setup_entry(hass, entry, add_entities):
-    coord = hass.data["foxair"][entry.entry_id]
+    coord = getattr(entry, "runtime_data", None) or hass.data["foxair"][entry.entry_id]
     # ensure metadata ready for category logic
     if not getattr(coord, "_metadata", None):
         await coord._load_map()
@@ -201,6 +201,11 @@ class FoxSensor(CoordinatorEntity, SensorEntity):
                     pass
             except Exception:
                 pass
+        try:
+            if hasattr(self.coordinator, "is_stale") and self.coordinator.is_stale(self._addr):
+                return False
+        except Exception:
+            pass
         return super().available
 
     @property

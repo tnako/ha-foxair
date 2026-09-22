@@ -8,7 +8,7 @@ import time
 import math
 from datetime import timedelta
 
-from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
+from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 from homeassistant.exceptions import ConfigEntryNotReady
 from pymodbus.client import AsyncModbusTcpClient
 
@@ -124,6 +124,7 @@ class FoxAirCoordinator(DataUpdateCoordinator):
         self.energy_kwh = {"heating": 0.0, "cooling": 0.0, "dhw": 0.0,
                            "defrost": 0.0, "electrical": 0.0}
         self._energy_last_ts: float | None = None
+        self._last_seen: dict[int, float] = {}
 
     async def _load_config(self) -> None:
         """Load foxair_config.json off the event loop (HA 2026 blocks sync I/O)."""
@@ -450,6 +451,128 @@ class FoxAirCoordinator(DataUpdateCoordinator):
         _LOGGER.debug("Write many queued %s pending=%s", raws, sorted(self._write_pending.keys()))
         return await fut
 
+    def _count_error(self, tier_label: str | None, exc: Exception | None = None) -> None:
+        """Single place for poll error accounting."""
+        self.stats["errors"] += 1
+        if tier_label:
+            key = f"{tier_label}_errors"
+            self.stats[key] = self.stats.get(key, 0) + 1
+        if exc is not None:
+            self.stats["last_error"] = str(exc)
+
+    async def _ensure_connected(self, cfg) -> bool:
+        """(Re)connect the Modbus client if needed. Returns True when connected."""
+        if self.client and getattr(self.client, "connected", False):
+            return True
+        if self.client:
+            try:
+                self.client.close()
+            except Exception:
+                pass
+            self.client = None
+        self.client = AsyncModbusTcpClient(host=cfg["host"], port=cfg["port"], timeout=8)
+        ok = await self.client.connect()
+        if not ok:
+            self.client = None
+        return bool(ok)
+
+    async def _read_batches(self, batches: list[tuple[str | None, int, int]],
+                            addrs: set[int], cfg, *, max_conn_failures: int = 3) -> dict[int, dict]:
+        """Shared Modbus batch-read loop used by the tiered poll and burst fetches.
+
+        batches: (tier_label|None, start_addr, qty), already tier-ordered.
+        addrs: requested addrs — gap-filler words in a batch are dropped.
+        Policy: 0.35s EW11 half-duplex pacing before every read;
+        reconnect-and-continue on connection errors; abort only after
+        max_conn_failures in a row (next poll reconnects anyway).
+        """
+        out: dict[int, dict] = {}
+        consec_conn_fail = 0
+        sid = cfg.get("slave", 1)
+        if not hasattr(self, "_last_seen"):
+            self._last_seen = {}
+        for tier_label, addr, qty in batches:
+            try:
+                await asyncio.sleep(0.35)  # EW11 half-duplex pacing (writes use 0.25-0.35)
+                try:
+                    rr = await self.client.read_holding_registers(address=addr, count=qty, slave=sid)
+                except TypeError:
+                    rr = await self.client.read_holding_registers(address=addr, count=qty, device_id=sid)
+                if rr.isError():
+                    self._count_error(tier_label)
+                    _LOGGER.debug("read %s/%s error %s", addr, qty, rr)
+                    continue
+                consec_conn_fail = 0
+                now = time.monotonic()
+                for i, raw in enumerate(rr.registers):
+                    a = addr + i
+                    # Only keep if this addr was requested (avoid filling gaps with stale)
+                    if a not in addrs:
+                        continue
+                    info = self._regmap.get(str(a))
+                    if not info or info.get("type") == "BLOCK":
+                        continue
+                    out[a] = {"raw": raw, "value": scaled(info.get("type", "RAW"), raw), "info": info}
+                    self._last_seen[a] = now
+            except Exception as e:
+                self._count_error(tier_label, e)
+                _LOGGER.debug("poll %s/%s exception %s", addr, qty, e)
+                # Connection-level failure (EW11 idle-drop, no response):
+                # reconnect and continue instead of aborting the cycle.
+                if type(e).__name__ in ("ConnectionException", "ConnectionResetError") \
+                        or "No response" in str(e) or "Connection" in str(e):
+                    consec_conn_fail += 1
+                    client_cls = type(self.client) if self.client is not None else AsyncModbusTcpClient
+                    try:
+                        self.client.close()
+                    except Exception:
+                        pass
+                    self.client = None
+                    if consec_conn_fail >= max_conn_failures:
+                        break
+                    try:
+                        self.client = client_cls(
+                            host=cfg["host"], port=cfg["port"], timeout=8)
+                        ok = await self.client.connect()
+                        if not ok:
+                            self.client = None
+                            break
+                    except Exception:
+                        self.client = None
+                        break
+                continue
+        return out
+
+    def last_seen_age(self, addr: int) -> float | None:
+        """Seconds since addr was last successfully read; None if never."""
+        ts = self._last_seen.get(addr)
+        return None if ts is None else time.monotonic() - ts
+
+    def is_stale(self, addr: int) -> bool:
+        """True when a value has missed >=3 of its tier's poll cycles (min 120s)."""
+        age = self.last_seen_age(addr)
+        if age is None:
+            return False  # never read yet — startup handles its own gating
+        tier = self.get_metadata(addr).get("poll_tier") or "quick"
+        expert = bool(self.entry.options.get("enable_expert"))
+        rare_mult = _const.RARE_INTERVAL * 2 if expert else _const.RARE_INTERVAL
+        base = {"quick": 30.0,
+                "medium": 30.0 * _const.MEDIUM_INTERVAL,
+                "rare": 30.0 * rare_mult}.get(tier, 30.0)
+        return age > max(3.0 * base, 120.0)
+
+    def freshness_summary(self) -> dict:
+        """Diagnostics helper: how stale is the dataset overall."""
+        if not self._last_seen:
+            return {"tracked": 0, "stale": 0, "oldest_age_s": None}
+        now = time.monotonic()
+        ages = [now - ts for ts in self._last_seen.values()]
+        stale = [a for a in self._last_seen if self.is_stale(a)]
+        return {"tracked": len(self._last_seen),
+                "stale": len(stale),
+                "stale_addrs": sorted(stale)[:50],
+                "oldest_age_s": round(max(ages), 1)}
+
     def _batches_for_addrs(self, addrs: set[int], max_span: int | None = None, max_gap: int | None = None) -> list[tuple[int, int]]:
         """Batch addrs into contiguous reads. Defaults come from foxair_config.json
         modbus.max_span/max_gap (const.MODBUS_MAX_SPAN/GAP). A larger span cuts
@@ -490,17 +613,11 @@ class FoxAirCoordinator(DataUpdateCoordinator):
         if self._regmap is None:
             await self._load_map()
         cfg = self.entry.data
-        if not self.client or not getattr(self.client, "connected", False):
-            if self.client:
-                try:
-                    self.client.close()
-                except Exception:
-                    pass
-                self.client = None
-            self.client = AsyncModbusTcpClient(host=cfg["host"], port=cfg["port"], timeout=8)
-            ok = await self.client.connect()
-            if not ok:
-                raise ConfigEntryNotReady(f"Modbus connect failed {cfg['host']}:{cfg['port']}")
+        if not await self._ensure_connected(cfg):
+            msg = f"Modbus connect failed {cfg['host']}:{cfg['port']}"
+            if self.stats["polls"] == 0:
+                raise ConfigEntryNotReady(msg)
+            raise UpdateFailed(msg)
         async with self._lock:
             # Tier selection
             self._poll_counter += 1
@@ -565,68 +682,7 @@ class FoxAirCoordinator(DataUpdateCoordinator):
                     batches.extend((tier_label, a, q)
                                    for a, q in self._batches_for_addrs(group))
             t0 = time.monotonic()
-            out: dict[int, dict] = {}
-            consec_conn_fail = 0
-            for tier_label, addr, qty in batches:
-                try:
-                    sid = cfg.get("slave", 1)
-                    await asyncio.sleep(0.35)  # EW11 half-duplex pacing (writes use 0.25-0.35)
-                    try:
-                        rr = await self.client.read_holding_registers(address=addr, count=qty, slave=sid)
-                    except TypeError:
-                        rr = await self.client.read_holding_registers(address=addr, count=qty, device_id=sid)
-                    if rr.isError():
-                        self.stats["errors"] += 1
-                        _ek = f"{tier_label}_errors"
-                        self.stats[_ek] = self.stats.get(_ek, 0) + 1
-                        _LOGGER.debug("read %s/%s error %s", addr, qty, rr)
-                        continue
-                    consec_conn_fail = 0
-                    regs = rr.registers
-                    for i, raw in enumerate(regs):
-                        a = addr + i
-                        info = self._regmap.get(str(a))
-                        if not info:
-                            continue
-                        if info.get("type") == "BLOCK":
-                            continue
-                        # Only keep if this addr was requested (avoid filling gaps with stale)
-                        if a not in addrs:
-                            continue
-                        out[a] = {"raw": raw, "value": scaled(info.get("type", "RAW"), raw), "info": info}
-                except Exception as e:
-                    self.stats["errors"] += 1
-                    _ek = f"{tier_label}_errors"
-                    self.stats[_ek] = self.stats.get(_ek, 0) + 1
-                    self.stats["last_error"] = str(e)
-                    _LOGGER.debug("poll %s/%s exception %s", addr, qty, e)
-                    # Connection-level failure (EW11 idle-drop, no response):
-                    # reconnect and continue with the next batch instead of
-                    # aborting the cycle — one dead batch must not kill the
-                    # remaining tiers. Only give up after 3 in a row (socket
-                    # is really dead; next poll reconnects anyway).
-                    if type(e).__name__ in ("ConnectionException", "ConnectionResetError",
-                                            "CancelledError") or "No response" in str(e) or "Connection" in str(e):
-                        consec_conn_fail += 1
-                        client_cls = type(self.client) if self.client is not None else AsyncModbusTcpClient
-                        try:
-                            self.client.close()
-                        except Exception:
-                            pass
-                        self.client = None
-                        if consec_conn_fail >= 3:
-                            break
-                        try:
-                            self.client = client_cls(
-                                host=cfg["host"], port=cfg["port"], timeout=8)
-                            ok = await self.client.connect()
-                            if not ok:
-                                self.client = None
-                                break
-                        except Exception:
-                            self.client = None
-                            break
-                    continue
+            out = await self._read_batches(batches, addrs, cfg)
             self.stats["polls"] += 1
             if do_quick:
                 self.stats["quick_polls"] += 1
@@ -704,63 +760,12 @@ class FoxAirCoordinator(DataUpdateCoordinator):
         if not addrs:
             return {}
         cfg = self.entry.data
-        batches = self._batches_for_addrs(addrs)
-        out: dict[int, dict] = {}
+        batches = [(None, a, q) for a, q in self._batches_for_addrs(addrs)]
         async with self._lock:
-            if not self.client or not getattr(self.client, "connected", False):
-                if self.client:
-                    try:
-                        self.client.close()
-                    except Exception:
-                        pass
-                    self.client = None
-                self.client = AsyncModbusTcpClient(host=cfg["host"], port=cfg["port"], timeout=8)
-                ok = await self.client.connect()
-                if not ok:
-                    _LOGGER.debug("burst connect failed %s:%s", cfg["host"], cfg["port"])
-                    return {}
-            for addr, qty in batches:
-                try:
-                    sid = cfg.get("slave", 1)
-                    await asyncio.sleep(0.35)  # EW11 half-duplex pacing
-                    try:
-                        rr = await self.client.read_holding_registers(address=addr, count=qty, slave=sid)
-                    except TypeError:
-                        rr = await self.client.read_holding_registers(address=addr, count=qty, device_id=sid)
-                    if rr.isError():
-                        self.stats["errors"] += 1
-                        _LOGGER.debug("burst read %s/%s error %s", addr, qty, rr)
-                        continue
-                    regs = rr.registers
-                    for i, raw in enumerate(regs):
-                        a = addr + i
-                        if a not in addrs:
-                            continue
-                        info = self._regmap.get(str(a))
-                        if not info or info.get("type") == "BLOCK":
-                            continue
-                        out[a] = {"raw": raw, "value": scaled(info.get("type", "RAW"), raw), "info": info}
-                except Exception as e:
-                    self.stats["errors"] += 1
-                    _LOGGER.debug("burst poll %s/%s exception %s", addr, qty, e)
-                    if type(e).__name__ in ("ConnectionException", "ConnectionResetError", "CancelledError") or "No response" in str(e) or "Connection" in str(e):
-                        try:
-                            self.client.close()
-                        except Exception:
-                            pass
-                        self.client = None
-                        # Reconnect and continue — one dead batch must not
-                        # kill the rest (same policy as the main poll loop).
-                        try:
-                            self.client = AsyncModbusTcpClient(
-                                host=cfg["host"], port=cfg["port"], timeout=8)
-                            if not await self.client.connect():
-                                self.client = None
-                                break
-                        except Exception:
-                            self.client = None
-                            break
-        return out
+            if not await self._ensure_connected(cfg):
+                _LOGGER.debug("burst connect failed %s:%s", cfg["host"], cfg["port"])
+                return {}
+            return await self._read_batches(batches, set(addrs), cfg)
 
     async def async_burst_missing(self, delay: float = 0.0):
         """Fetch any poll-tier addr missing from self.data (expert-aware).

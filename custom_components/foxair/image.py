@@ -223,12 +223,20 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
         # fall back to the fixed register addrs so the band works regardless.
         r04 = val(hca.get("r04_start") or 1160, None)
         r05 = val(hca.get("r05_stop") or 1161, None)
+        st_status = (coord.marker("status") if hasattr(coord, "marker") else None) or {}
+        sts = st_status.get("addr_single", {}) or {}
+        comp_freq = val(sts.get("compressor_freq"), None)
+        try:
+            compressor_on = comp_freq is not None and float(comp_freq) > 0
+        except (TypeError, ValueError):
+            compressor_on = False
 
         ready = (slope is not None) and (offset is not None) and (fixed is not None)
         return {
             "slope": slope, "offset": offset, "fixed": fixed,
             "h36": h36, "at_live": at_live, "live_target": live_target,
             "r10": r10, "r11": r11, "r04": r04, "r05": r05, "ready": ready,
+            "compressor_on": compressor_on,
         }
 
     def _handle_coordinator_update(self) -> None:
@@ -313,7 +321,6 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
         STOP_COL = "#cbd5e1"
         BAND_LO_FILL = "rgba(34,197,94,0.10)"
         BAND_HI_FILL = "rgba(148,163,184,0.10)"
-        LOADING_BG = "#020617"
         # Floating value labels get a vector halo (paint-order stroke) instead
         # of the old feDropShadow raster filter: crisp at any scale, and much
         # cheaper for phone GPUs (filters force rasterization → blur).
@@ -331,8 +338,26 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
                 f'viewBox="0 0 {W} {H}" font-family="system-ui,-apple-system,sans-serif">'
             )
             svg.append(f'<rect width="100%" height="100%" fill="{BG}"/>')
+            for at_g in range(-30, 21, 10):
+                x = round(x_at(at_g), 1)
+                svg.append(f'<line x1="{x}" y1="{pad_t}" x2="{x}" y2="{plot_bottom}" '
+                           f'stroke="{GRID}" stroke-width="1"/>')
+            for fg in range(10, 71, 10):
+                y = round(y_flow(fg), 1)
+                svg.append(f'<line x1="{pad_l}" y1="{y}" x2="{plot_right}" y2="{y}" '
+                           f'stroke="{GRID}" stroke-width="1"/>')
+            svg.append(f'<line x1="{pad_l}" y1="{pad_t}" x2="{pad_l}" y2="{plot_bottom}" '
+                       f'stroke="{AXIS}" stroke-width="2"/>')
+            svg.append(f'<line x1="{pad_l}" y1="{plot_bottom}" x2="{plot_right}" y2="{plot_bottom}" '
+                       f'stroke="{AXIS}" stroke-width="2"/>')
+            ghost = " ".join(
+                f"{round(x_at(at), 1)},{round(y_flow(min(60.0, max(20.0, 35.0 - 0.6 * at))), 1)}"
+                for at in range(-30, 21, 2))
             svg.append(
-                f'<rect x="0" y="0" width="{W}" height="{H}" fill="{LOADING_BG}" opacity="0.95"/>'
+                f'<polyline fill="none" stroke="{CURVE}" stroke-width="3" opacity="0.25" '
+                f'points="{ghost}">'
+                f'<animate attributeName="opacity" values="0.15;0.35;0.15" dur="1.8s" '
+                f'repeatCount="indefinite"/></polyline>'
             )
             svg.append(
                 f'<text x="{W // 2}" y="{H // 2 - 10}" text-anchor="middle" '
@@ -578,17 +603,27 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
         # Curve mode = device register 2014 (live_target), fixed mode =
         # the R02 setpoint. The formula stays only as fallback in target_live.
         active_target = target_live if is_curve_mode else fixed
+        compressor_on = bool(inp.get("compressor_on"))
         if at_live is not None and active_target is not None:
             dx = round(x_at(float(at_live)), 1)
             dy = round(y_flow(float(active_target)), 1)
             # keep the dot inside the plot
             dx = max(pad_l + 14, min(plot_right - 14, dx))
             dy = max(pad_t + 14, min(plot_bottom - 14, dy))
+            if compressor_on:
+                svg.append(
+                    f'<circle cx="{dx}" cy="{dy}" r="9" fill="none" '
+                    f'stroke="{DOT}" stroke-width="2" opacity="0.8">'
+                    f'<animate attributeName="r" values="9;16;9" dur="2.4s" repeatCount="indefinite"/>'
+                    f'<animate attributeName="opacity" values="0.8;0;0.8" dur="2.4s" repeatCount="indefinite"/>'
+                    f'</circle>'
+                )
             svg.append(
                 f'<circle cx="{dx}" cy="{dy}" r="9" fill="#fff" opacity="0.9"/>'
             )
+            dot_fill = DOT if compressor_on else "#64748b"
             svg.append(
-                f'<circle cx="{dx}" cy="{dy}" r="7" fill="{DOT}" stroke="#fff" '
+                f'<circle cx="{dx}" cy="{dy}" r="7" fill="{dot_fill}" stroke="#fff" '
                 f'stroke-width="2"/>'
             )
 
@@ -837,7 +872,7 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
 
 
 async def async_setup_entry(hass, entry, async_add_entities):
-    coord = hass.data.get("foxair", {}).get(entry.entry_id)
+    coord = getattr(entry, "runtime_data", None) or hass.data.get("foxair", {}).get(entry.entry_id)
     if not coord:
         return
     entity = FoxAirHeatingCurveImage(coord, entry.entry_id)
