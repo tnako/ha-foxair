@@ -47,6 +47,12 @@ _TL_FALLBACK = {
     "legend_fixed": "Fixed setpoint",
     "legend_live": "Live outdoor",
     "legend_band": "Limit band",
+    "cap_mode": "Mode",
+    "cap_slope": "Slope",
+    "cap_design": "Flow at 0C",
+    "cap_limits": "Limits (R10\u2013R11)",
+    "cap_start": "Start (R04)",
+    "cap_stop": "Stop (R05)",
     "legend_heat": "Heating range (R04-R05)",
     "legend_start": "Start heating",
     "legend_stop": "Stop heating",
@@ -251,7 +257,7 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
     def _render(self):
         W, H = 1200, 760
         pad_l, pad_r, pad_t, pad_b = 90, 50, 64, 96
-        legend_h = 120
+        legend_h = 46
         plot_w = W - pad_l - pad_r
         plot_h = H - pad_t - pad_b - legend_h
         plot_right = W - pad_r
@@ -485,18 +491,19 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
                     _dy_e = max(pad_t + 14, min(plot_bottom - 14, round(y_flow(_tgt_e), 1)))
                 except (TypeError, ValueError):
                     _dx_e = _dy_e = None
-        for at_g in (-30, -20, -10, 0, 10, 20):
-            x = round(x_at(at_g), 1)
-            cv = clamp(calc_curve_target(at_g, slope, offset, base=0.0), r10, r11)
-            yv = round(y_flow(cv), 1)
-            if (_dx_e is not None and _dy_e is not None
-                    and abs(x - _dx_e) < 240 and abs(yv - 8 - _dy_e) < 85):
-                continue
-            svg.append(
-                f'<text x="{x}" y="{yv - 8}" text-anchor="middle" {HALO} '
-                f'fill="{TEXT_DARK}" font-size="15" font-weight="bold">'
-                f'{cv:.0f}</text>'
-            )
+        if is_curve_mode:
+            for at_g in (-30, -20, -10, 0, 10, 20):
+                x = round(x_at(at_g), 1)
+                cv = clamp(calc_curve_target(at_g, slope, offset, base=0.0), r10, r11)
+                yv = round(y_flow(cv), 1)
+                if (_dx_e is not None and _dy_e is not None
+                        and abs(x - _dx_e) < 240 and abs(yv - 8 - _dy_e) < 85):
+                    continue
+                svg.append(
+                    f'<text x="{x}" y="{yv - 8}" text-anchor="middle" {HALO} '
+                    f'fill="{TEXT_DARK}" font-size="15" font-weight="bold">'
+                    f'{cv:.0f}</text>'
+                )
 
         # ---- Y axis ticks (tick marks + labels) ----
         for f in (10, 20, 30, 40, 50, 60, 70):
@@ -576,27 +583,22 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
             f'stroke-dasharray="7 5" opacity="0.85" points="{hi_line}"/>'
         )
 
-        # ---- main line + preview ----
+        # ---- main line (only the ACTIVE target is drawn) ----
+        fixed_y = round(y_flow(clamp(fixed, r10, r11)), 1)
         if is_curve_mode:
             svg.append(f'<polygon points="{poly_fill}" fill="{CURVE_FILL}"/>')
             svg.append(
                 f'<polyline fill="none" stroke="{CURVE}" stroke-width="4" '
                 f'stroke-linejoin="round" points="{poly_pts}"/>'
             )
-            fixed_y = round(y_flow(clamp(fixed, r10, r11)), 1)
-            svg.append(
-                f'<line x1="{pad_l}" y1="{fixed_y}" x2="{plot_right}" y2="{fixed_y}" '
-                f'stroke="{FIXED_COL}" stroke-width="2" stroke-dasharray="8 6" opacity="0.45"/>'
-            )
         else:
-            fixed_y = round(y_flow(clamp(fixed, r10, r11)), 1)
             svg.append(
                 f'<line x1="{pad_l}" y1="{fixed_y}" x2="{plot_right}" y2="{fixed_y}" '
                 f'stroke="{FIXED_COL}" stroke-width="4"/>'
             )
             svg.append(
-                f'<polyline fill="none" stroke="{CURVE}" stroke-width="2" '
-                f'stroke-dasharray="8 6" opacity="0.4" points="{poly_pts}"/>'
+                f'<text x="{pad_l + 10}" y="{fixed_y - 10}" {HALO} fill="{FIXED_COL}" '
+                f'font-size="16" font-weight="bold">{clamp(fixed, r10, r11):.0f}C</text>'
             )
 
         # ---- live dot (single) on the ACTIVE target ----
@@ -781,90 +783,41 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
                     )
                     _side_pill(dx, _hy, _hi_label, STOP_COL, _lx_hi, _ly_hi_p)
 
-        # ---- legend (fixed 2x2 grid + summary; column x-positions are fixed
-        # so labels can never drift into each other in any language) ----
-        ly1 = plot_bottom + 72
-        ly2 = plot_bottom + 100
-        ly_sum = plot_bottom + 128
-        svg.append(
-            f'<rect x="{pad_l}" y="{plot_bottom + 46}" width="{plot_w}" '
-            f'height="{legend_h - 8}" fill="#020617" stroke="{AXIS}" rx="6"/>'
-        )
-        col1 = pad_l + 16
-        col2 = pad_l + 16 + plot_w // 2
-        SWATCH_W = 26
-        LEGEND_GAP = 8  # marker-to-text gap (breathing room, overlap-proof)
 
-        def _legend_line(x, y, color, label, active, dash=False,
-                         text_color=None, font_weight="normal"):
-            opacity = 1.0 if active else 0.45
-            dash_frag = ' stroke-dasharray="6 4"' if dash else ""
-            svg.append(
-                f'<line x1="{x}" y1="{y}" x2="{x + SWATCH_W}" y2="{y}" '
-                f'stroke="{color}" stroke-width="4"{dash_frag} opacity="{opacity}"/>'
-            )
-            fw = f' font-weight="{font_weight}"' if font_weight != "normal" else ""
-            svg.append(
-                f'<text x="{x + SWATCH_W + LEGEND_GAP}" y="{y + 6}" fill="{text_color}" '
-                f'font-size="15"{fw}>{label}</text>'
-            )
+        # ---- stat footer (caption-over-value cells) ----
+        cap_y = plot_bottom + 62
+        val_y = cap_y + 24
+        mode_label = self._t("mode_curve" if is_curve_mode else "mode_fixed")
+        mode_col = CURVE if is_curve_mode else FIXED_COL
+        cells = [(self._t("cap_mode"), mode_label, mode_col)]
+        if is_curve_mode:
+            cells.append((self._t("cap_design"), f"{offset:.0f}C", TEXT_DARK))
+            cells.append((self._t("cap_slope"), f"{slope:.2f}", TEXT_DARK))
+        else:
+            cells.append((self._t("legend_fixed"), f"{fixed:.0f}C", TEXT_DARK))
+        cells.append((self._t("cap_limits"), f"{r10:.0f}\u2013{r11:.0f}C", TEXT_DARK))
+        cells.append((self._t("cap_start"), f"\u2212{r04:.1f}C", START_COL))
+        cells.append((self._t("cap_stop"), f"+{r05:.1f}C", STOP_COL))
 
-        def _legend_dot(x, y, color, label, text_color, font_weight="normal"):
+        cx = pad_l
+        for cap, val, vcol in cells:
+            cell_w = max(_text_w(cap, font_size=13) + 8,
+                         _text_w(val, font_size=18) + 8, 70)
             svg.append(
-                f'<circle cx="{x + SWATCH_W - 6}" cy="{y}" r="6" fill="{color}"/>'
+                f'<text x="{cx:.1f}" y="{cap_y}" fill="{TEXT}" font-size="13" '
+                f'letter-spacing="0.5">{cap.upper()}</text>'
             )
-            fw = f' font-weight="{font_weight}"' if font_weight != "normal" else ""
             svg.append(
-                f'<text x="{x + SWATCH_W + LEGEND_GAP}" y="{y + 6}" fill="{text_color}" '
-                f'font-size="15"{fw}>{label}</text>'
+                f'<text x="{cx:.1f}" y="{val_y}" fill="{vcol}" font-size="18" '
+                f'font-weight="bold">{val}</text>'
             )
+            cx += cell_w + 34
+            svg.append(
+                f'<line x1="{cx - 17:.1f}" y1="{cap_y - 12}" x2="{cx - 17:.1f}" '
+                f'y2="{val_y + 4}" stroke="{GRID}" stroke-width="1"/>'
+            )
+        svg.pop()
 
-        def _legend_band(x, y, label):
-            # mini preview of the two-tone hysteresis band with dashed edges
-            svg.append(
-                f'<rect x="{x}" y="{y - 7}" width="{SWATCH_W}" height="7" '
-                f'fill="{BAND_HI_FILL}" stroke="{STOP_COL}" stroke-width="1" '
-                f'stroke-dasharray="3 2"/>'
-            )
-            svg.append(
-                f'<rect x="{x}" y="{y}" width="{SWATCH_W}" height="7" '
-                f'fill="{BAND_LO_FILL}" stroke="{START_COL}" stroke-width="1" '
-                f'stroke-dasharray="3 2"/>'
-            )
-            svg.append(
-                f'<line x1="{x}" y1="{y}" x2="{x + SWATCH_W}" y2="{y}" '
-                f'stroke="{CURVE}" stroke-width="2"/>'
-            )
-            svg.append(
-                f'<text x="{x + SWATCH_W + LEGEND_GAP}" y="{y + 6}" fill="{TEXT}" '
-                f'font-size="15">{label}</text>'
-            )
-
-        # row 1: active target line vs inactive line
-        _legend_line(col1, ly1, CURVE, self._t("legend_curve"),
-                     active=is_curve_mode, dash=not is_curve_mode,
-                     text_color=TEXT_DARK if is_curve_mode else TEXT,
-                     font_weight="bold" if is_curve_mode else "normal")
-        _legend_line(col2, ly1, FIXED_COL, self._t("legend_fixed"),
-                     active=not is_curve_mode, dash=is_curve_mode,
-                     text_color=TEXT_DARK if not is_curve_mode else TEXT,
-                     font_weight="bold" if not is_curve_mode else "normal")
-        # row 2: live dot + hysteresis band
-        _legend_dot(col1, ly2, DOT, self._t("legend_live"),
-                    text_color=TEXT_DARK, font_weight="bold")
-        _legend_band(col2, ly2, self._t("legend_heat"))
-
-        # ---- summary ----
-        summary = (
-            f'slope {slope:.2f}  ·  offset {offset:.1f}C  ·  '
-            f'{self._t("legend_band")}: {r10:.0f}–{r11:.0f}C  ·  '
-            f'R04 -{r04:.1f} / R05 +{r05:.1f}C  ·  '
-            f'{self._t("mode_curve" if is_curve_mode else "mode_fixed")}'
-        )
-        svg.append(
-            f'<text x="{pad_l + 8}" y="{ly_sum + 4}" fill="{TEXT}" '
-            f'font-size="15">{summary}</text>'
-        )
 
         svg.append("</svg>")
         self._image_bytes = "".join(svg).encode("utf-8")

@@ -4840,7 +4840,13 @@
           "wait": "Waiting for data",
           "wait_sub": "First poll in progress (quick 30 s)",
           "axis_x": "Outdoor temperature (AT)",
-          "axis_y": "Flow temperature"
+          "axis_y": "Flow temperature",
+          "cap_mode": "Mode",
+          "cap_slope": "Slope",
+          "cap_design": "Flow at 0C",
+          "cap_limits": "Limits (R10–R11)",
+          "cap_start": "Start (R04)",
+          "cap_stop": "Stop (R05)"
         }
       }
     },

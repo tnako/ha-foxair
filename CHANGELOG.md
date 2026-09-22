@@ -1,3 +1,9 @@
+## 0.7.7 - 2026-09-22
+- feat(curve image): heating-curve card redesigned for readability. Each mode now draws only its active line — curve mode shows the blue curve with flow values at every 10C tick, fixed mode shows just the amber setpoint line with its value (no more phantom curve numbers). The bottom legend box was replaced by a dashboard-style stat footer: uppercase captions over large bold values (Mode, Flow at 0C, Slope, Limits R10–R11, Start R04, Stop R05), with start/stop colored to match the dashed hysteresis boundaries on the chart
+- feat(curve image): plot area grew about 70px taller on the same canvas since the old legend rows are gone
+- feat(i18n): new caption keys (cap_mode, cap_slope, cap_design, cap_limits, cap_start, cap_stop) translated in en/de/ru
+- chore(tests): render harness now asserts mode isolation (no fixed line in curve mode, no curve values in fixed mode) and stat-footer presence across all three languages
+
 ## 0.7.6 - 2026-09-22
 - fix(reliability): sensors whose register keeps missing its Modbus poll cycles (three tier intervals, at least two minutes) now go unavailable instead of freezing at the last value — a stuck EW11 no longer masquerades as a live compressor stage or defrost state. Diagnostics gained a freshness block showing tracked/stale registers and the oldest age
 - fix(poll): the tiered poll and the startup burst now share a single Modbus read loop, so pacing, reconnect and error handling can no longer drift apart between the two paths
