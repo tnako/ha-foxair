@@ -4840,7 +4840,13 @@
           "wait": "Warte auf Daten",
           "wait_sub": "Erster Abruf läuft (quick 30 s)",
           "axis_x": "Außentemperatur (AT)",
-          "axis_y": "Vorlauftemperatur"
+          "axis_y": "Vorlauftemperatur",
+          "cap_mode": "Modus",
+          "cap_slope": "Steigung",
+          "cap_design": "Vorlauf bei 0C",
+          "cap_limits": "Grenzen (R10–R11)",
+          "cap_start": "Start (R04)",
+          "cap_stop": "Stopp (R05)"
         }
       }
     },

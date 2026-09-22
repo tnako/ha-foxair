@@ -251,13 +251,21 @@ for lang_name, tl in LANGS:
             all_ok = False
             continue
 
-        # 3. All legend labels present
-        for key in ["legend_curve", "legend_fixed", "legend_heat", "legend_live"]:
-            tl_val = tl.get(key, "")
-            fb_val = img._TL_FALLBACK.get(key, "")
-            found = tl_val in svg or fb_val in svg
-            if not found:
-                print(f"  FAIL [{test_name}]: missing legend key '{key}'")
+        # 3. Mode badge names the active line; inactive line is not drawn
+        mode_key = "mode_curve" if h36 else "mode_fixed"
+        if tl.get(mode_key, "") not in svg and img._TL_FALLBACK[mode_key] not in svg:
+            print(f"  FAIL [{test_name}]: missing mode badge '{mode_key}'")
+            all_ok = False
+        if h36:
+            if 'stroke="#fbbf24" stroke-width="4"' in svg:
+                print(f"  FAIL [{test_name}]: fixed line drawn in curve mode")
+                all_ok = False
+        else:
+            if 'stroke="#38bdf8" stroke-width="4"' in svg:
+                print(f"  FAIL [{test_name}]: curve line drawn in fixed mode")
+                all_ok = False
+            if re.search(r'>\d\d</text>', svg):
+                print(f"  FAIL [{test_name}]: curve tick values present in fixed mode")
                 all_ok = False
 
         # 3b. Violet after-comp dot is gone (single-dot design)
@@ -285,20 +293,20 @@ for lang_name, tl in LANGS:
                 print(f"  FAIL [{test_name}]: missing threshold label '{key}'")
                 all_ok = False
 
-        # 4. No legend overlap (same y-level, overlapping x-ranges).
-        # Only the legend box counts (y>590): in-plot pills live above it.
-        legend_texts = [(float(x), float(y), txt) for x, y, txt in texts if float(y) > 590]
+        # 4. No text overlap anywhere (same y-level, overlapping x-ranges).
         rows = {}
-        for x, y, txt in legend_texts:
-            yr = round(y)
-            tw = len(txt) * 9.4  # ~0.62 * 15px font-size (latin + cyrillic)
-            rows.setdefault(yr, []).append((x, x + tw, txt))
+        for x, y, txt in texts:
+            if not txt.strip():
+                continue
+            yr = round(float(y) / 12)
+            tw = len(txt) * 9.4
+            rows.setdefault(yr, []).append((float(x), float(x) + tw, txt))
         for yr, items in sorted(rows.items()):
             items.sort(key=lambda t: t[0])
             for i in range(len(items) - 1):
                 a, b = items[i], items[i + 1]
                 if a[1] > b[0]:
-                    print(f"  FAIL [{test_name}]: legend overlap at y={yr}: '{a[2][:40]}' vs '{b[2][:20]}'")
+                    print(f"  FAIL [{test_name}]: overlap y~{yr*12}: '{a[2][:40]}' vs '{b[2][:20]}'")
                     all_ok = False
 
         # 5. Polyline present
@@ -306,44 +314,17 @@ for lang_name, tl in LANGS:
             print(f"  FAIL [{test_name}]: no polyline")
             all_ok = False
 
-        # 5. Polyline present
-        if '<polyline' not in svg:
-            print(f"  FAIL [{test_name}]: no polyline")
+        # 5b. Stat footer: caption cells present (uppercase captions, fs 12)
+        caps = re.findall(r'font-size="13"[^>]*>([^<]+)</text>', svg)
+        if len(caps) < 4:
+            print(f"  FAIL [{test_name}]: stat footer captions missing, got {caps}")
             all_ok = False
-
-        # 5b. Legend grid geometry: fixed 2x2 columns.
-        # pad_l=90 -> col1=106, plot_w=1060 -> col2=636; labels start at
-        # col+SWATCH_W(26)+GAP(8) = 140 / 670. Any other label x = drift bug.
-        full_texts = re.findall(r'<text[^>]*x="([\d.]+)"[^>]*y="([\d.]+)"[^>]*font-size="(\d+)"[^>]*>([^<]*)</text>', svg)
-        for x, y, fs, txt in full_texts:
-            # legend item rows only (622/650); the summary line (676) is free
-            if 590 < float(y) < 665 and fs == "15" and txt.strip():
-                if min(abs(float(x) - 140), abs(float(x) - 670)) > 1.5:
-                    print(f"  FAIL [{test_name}]: legend label off-grid x={x} '{txt[:20]}'")
-                    all_ok = False
-
-        # 5c. Legend marker types: >=2 line swatches (curve, fixed),
-        #     1 live dot (r=6, solid) + 2 band-swatch rects (26x7, dashed edge).
-        legend_lines = re.findall(r'<line x1="([\d.]+)" y1="([\d.]+)" x2="([\d.]+)" y2="([\d.]+)"[^>]*stroke-width="4"', svg)
-        legend_lines = [(float(x1), float(y1)) for x1, y1, x2, y2 in legend_lines if float(y1) > 590]
-        legend_dots = []
-        for m in re.findall(r'<circle[^>]*>', svg):
-            if 'r="6"' in m and 'stroke-dasharray' not in m:
-                _cy = re.search(r'cy="([\d.]+)"', m)
-                if _cy and float(_cy.group(1)) > 590:
-                    legend_dots.append(m)
-        band_rects = re.findall(r'<rect x="([\d.]+)" y="([\d.]+)" width="26" height="7"', svg)
-
-        # (marker counts already collected in 5b/5c above)
-        if len(legend_lines) < 2:
-            print(f"  FAIL [{test_name}]: expected >=2 legend line-swatch markers, got {len(legend_lines)}")
-            all_ok = False
-        if len(legend_dots) < 1:
-            print(f"  FAIL [{test_name}]: expected >=1 legend dot marker (r=6), got {len(legend_dots)}")
-            all_ok = False
-        if len(band_rects) < 2:
-            print(f"  FAIL [{test_name}]: expected 2 band-swatch rects (26x7), got {len(band_rects)}")
-            all_ok = False
+        # 5c. Line labels sit inside the canvas right edge (skip end/middle-anchored)
+        anchored = re.findall(r'<text[^>]*text-anchor="(?:end|middle)"[^>]*>([^<]*)</text>', svg)
+        for x, y, txt in texts:
+            if txt.strip() and txt not in anchored and float(x) + len(txt) * 9.4 > 1200:
+                print(f"  FAIL [{test_name}]: label past right edge: '{txt[:30]}'")
+                all_ok = False
 
         # 5d. Dotted connector lines from live AT to chart (when H36 is enabled)
         if h36 == 1 and at_live is not None and "stroke-dasharray=\"6 4\"" not in svg:
