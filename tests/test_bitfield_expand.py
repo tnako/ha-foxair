@@ -50,6 +50,7 @@ def _stub_modules():
     ha.components.binary_sensor.BinarySensorDeviceClass = BinarySensorDeviceClass
     ha.components.binary_sensor.BinarySensorEntity = BinarySensorEntity
     ha.helpers.update_coordinator.CoordinatorEntity = CoordinatorEntity
+    ha.helpers.update_coordinator.UpdateFailed = type("UpdateFailed", (Exception,), {})
     for m in (ha, ha.helpers, ha.helpers.entity,
               ha.helpers.update_coordinator, ha.components,
               ha.components.binary_sensor):

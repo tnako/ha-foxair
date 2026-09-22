@@ -1,3 +1,10 @@
+## 0.7.6 - 2026-09-22
+- fix(reliability): sensors whose register keeps missing its Modbus poll cycles (three tier intervals, at least two minutes) now go unavailable instead of freezing at the last value — a stuck EW11 no longer masquerades as a live compressor stage or defrost state. Diagnostics gained a freshness block showing tracked/stale registers and the oldest age
+- fix(poll): the tiered poll and the startup burst now share a single Modbus read loop, so pacing, reconnect and error handling can no longer drift apart between the two paths
+- fix(poll): a connect failure during a routine poll is now reported the proper Home Assistant way (entities briefly unavailable, next poll retries) instead of the setup-time error path
+- feat(curve image): the live dot on the heating curve shows compressor state — green with a soft pulse while running, grey while idle on target; while the first poll is still fetching data the card shows a skeleton chart with a ghost curve instead of a blank dark panel
+- chore: config entries store the coordinator via runtime_data (HA quality scale); Taskfile accepts PY/FOXAIR_PY interpreter override so gates run on machines with an old system python
+
 ## 0.7.5 - 2026-09-20
 - fix(poll): compressor frequencies T30/T31 are now polled on the quick tier so the actual and target compressor frequency update in step with the rest of the live compressor cluster (T36 phase current, T37 DC-bus voltage), instead of lagging on the medium schedule
 

@@ -220,6 +220,7 @@ def _mk_coord_cls(comp_mod):
             pass
 
     ha_uc.DataUpdateCoordinator = DataUpdateCoordinator
+    ha_uc.UpdateFailed = type("UpdateFailed", (Exception,), {})
     sys.modules["homeassistant.helpers.update_coordinator"] = ha_uc
     ha_ex = types.ModuleType("homeassistant.exceptions")
 

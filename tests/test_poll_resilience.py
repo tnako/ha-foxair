@@ -33,6 +33,11 @@ def _stub_modules():
             self.hass = hass
 
     ha.uc.DataUpdateCoordinator = DataUpdateCoordinator
+
+    class UpdateFailed(Exception):
+        pass
+
+    ha.uc.UpdateFailed = UpdateFailed
     ha.exc = types.ModuleType("homeassistant.exceptions")
 
     class ConfigEntryNotReady(Exception):
@@ -269,4 +274,39 @@ def test_read_pacing_is_035():
         assert float(m.group(1)) >= 0.35, \
             f"read pacing {m.group(1)} < 0.35 before line {i + 1}"
         checked += 1
-    assert checked >= 2  # main loop + _fetch_addrs
+    assert checked >= 1
+
+
+def test_single_shared_read_loop():
+    """The tiered poll and burst fetch must both delegate to _read_batches."""
+    src = (CC / "coordinator.py").read_text()
+    assert "_read_batches" in src
+    for caller in ("_async_update_data", "_fetch_addrs"):
+        body = src.split(f"async def {caller}", 1)[1].split("async def", 1)[0]
+        assert "_read_batches(" in body, f"{caller} must delegate to _read_batches"
+        assert "read_holding_registers" not in body, f"{caller} has its own read loop"
+
+
+def test_last_seen_stamped_on_success():
+    FlakyClient.instances.clear()
+    tiers = {"quick": {1011, 1012}, "medium": {2019}, "rare": {1041}}
+    coord = _make_coord(tiers)
+    FlakyClient.fail_start = 2019  # medium batch dies
+    _run(mod.FoxAirCoordinator._async_update_data(coord))
+    assert 1011 in coord._last_seen and 1041 in coord._last_seen
+    assert 2019 not in coord._last_seen
+
+
+def test_staleness_policy():
+    tiers = {"quick": {1011}, "medium": {2019}, "rare": {1041}}
+    coord = _make_coord(tiers)
+    FlakyClient.fail_start = -1
+    _run(mod.FoxAirCoordinator._async_update_data(coord))
+    coord._metadata = {"1011": {"poll_tier": "quick"}}
+    assert not coord.is_stale(1011)
+    assert not coord.is_stale(9999)
+    import time as _time
+    coord._last_seen[1011] = _time.monotonic() - 300
+    assert coord.is_stale(1011)
+    s = coord.freshness_summary()
+    assert s["tracked"] >= 1 and 1011 in s["stale_addrs"]

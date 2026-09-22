@@ -10,6 +10,11 @@ task bump version=X.Y.Z  # bump VERSION + manifest.json + README badge (fixed: C
 task deploy          # rsync to HA + restart, reads HA_HOST from .env (needs SSH)
 ```
 
+If system python3 is too old for pytest/HA (macOS CLT = 3.9), point tasks at a
+3.11+ interpreter once per shell: `export FOXAIR_PY=/tmp/venvfox11/bin/python3`
+(create with `python3.11 -m venv /tmp/venvfox11 && /tmp/venvfox11/bin/pip install
+pytest homeassistant pymodbus`). All tasks honor FOXAIR_PY / `task test PY=...`.
+
 ## Session bootstrap — ONE call before any work
 
 ```bash

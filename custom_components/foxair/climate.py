@@ -277,5 +277,5 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
 
 
 async def async_setup_entry(hass, entry, add_entities):
-    coord = hass.data["foxair"][entry.entry_id]
+    coord = getattr(entry, "runtime_data", None) or hass.data["foxair"][entry.entry_id]
     add_entities([FoxAirClimate(coord)])

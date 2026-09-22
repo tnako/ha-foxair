@@ -38,7 +38,7 @@ async def _cleanup_orphaned_entities(hass: HomeAssistant, entry: ConfigEntry, en
     """
     try:
         registry = er_async_get(hass)
-        coord = hass.data.get("foxair", {}).get(entry.entry_id)
+        coord = getattr(entry, "runtime_data", None) or hass.data.get("foxair", {}).get(entry.entry_id)
         metadata = getattr(coord, "_metadata", {}) or {}
         prefix = entry.data.get("name_prefix", "foxair") or "foxair"
         removed = 0
@@ -196,6 +196,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     await coord._load_config()  # load foxair_config.json off the event loop
     await coord._load_map()     # load regmap + metadata off the event loop
     await coord.async_config_entry_first_refresh()
+    entry.runtime_data = coord
     hass.data.setdefault("foxair", {})[entry.entry_id] = coord
     entry.async_on_unload(entry.add_update_listener(async_reload_entry))
 
@@ -231,7 +232,7 @@ async def async_reload_entry(hass: HomeAssistant, entry: ConfigEntry):
 
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry):
-    coord = hass.data.get("foxair", {}).get(entry.entry_id)
+    coord = getattr(entry, "runtime_data", None) or hass.data.get("foxair", {}).get(entry.entry_id)
     if coord and getattr(coord, "_burst_task", None):
         try:
             coord._burst_task.cancel()
