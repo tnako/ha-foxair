@@ -44,9 +44,14 @@ tasks:
   # sync_fc removed — sibling repo is private (copy manually if needed)
 
   bump:
-    desc: "Bump VERSION and manifest (usage: task bump version=X.Y.Z)"
+    desc: "Bump VERSION and manifest (usage: task bump version=X.Y.Z; CHANGELOG entry must exist first)"
     cmds:
       - '{{.PY}} tools/bump_version.py ''{{.version}}'''
+
+  hooks:
+    desc: Enable repo git hooks (pre-commit validate, pre-push validate+pytest)
+    cmds:
+      - git config core.hooksPath .githooks
 
 default:
   cmd: task --list
