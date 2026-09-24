@@ -56,11 +56,12 @@ def main():
     readme_path.write_text(readme)
     print(f"  README.md badge: {version}")
 
-    print(f"\nBumped to v{version}. Commit + tag + push manually:")
-    print(f"  git add VERSION custom_components/foxair/manifest.json README.md")
+    print(f"\nBumped to v{version}. Commit + push to main; CI tags and releases:")
+    print(f"  git add VERSION custom_components/foxair/manifest.json README.md CHANGELOG.md")
     print(f'  git commit -m "chore(release): v{version}"')
-    print(f'  git tag v{version}')
-    print(f"  git push && git push origin v{version}")
+    print(f"  git push")
+    print(f"Do NOT push the tag yourself: .github/workflows/release.yml tags v{version} and")
+    print(f"publishes the release in one run (re-run it from the Actions tab if it failed).")
 
 
 if __name__ == "__main__":

@@ -1,3 +1,8 @@
+## 0.7.9 - 2026-09-25
+- fix(ci): every push to main that bumps VERSION now publishes the GitHub release automatically. One Release workflow runs the gate (validate, tests, render), creates the tag and publishes the release in the same run; the separate Auto-tag workflow is gone. A tag pushed by the workflow token never starts another workflow, which is why v0.7.8 got a tag but no release. Re-running the workflow repairs a half-finished release, and a bumped VERSION without its changelog section fails the run
+- chore(release): release notes come from tools/release_notes.py (exact version match, fails when the section is missing); tests guard the pipeline so tag and release cannot be split again
+- note: this release also ships everything listed under 0.7.8, which was tagged but never published
+
 ## 0.7.8 - 2026-09-25
 - fix(climate): the thermostat now follows H25 (temperature control selection). Current temperature comes from the selected sensor (outlet T02, room T09, buffer T07, inlet T01) instead of always outlet water, and the target follows the same choice (room: R70). Switching H25 to inlet no longer leaves the thermostat showing outlet values. H25 is polled every 30 s so a switch shows up quickly
 - fix(climate): cooling with the heating curve enabled showed the heating-curve target and refused manual changes; cooling now uses the cooling setpoint R03 and its own limits

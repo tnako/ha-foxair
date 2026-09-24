@@ -1,55 +1,73 @@
 name: Release
+# Every push to main that bumps VERSION ships a GitHub release (HACS reads
+# releases). Tagging and releasing happen in THIS workflow run on purpose:
+# a tag pushed with GITHUB_TOKEN never triggers another workflow, so a
+# separate "tag on push -> release on tag" chain silently stops at the tag.
+# Idempotent: an existing tag/release is reused, a missing one is created,
+# so re-running the workflow (or workflow_dispatch) heals a half-finished
+# release. A bumped VERSION without a CHANGELOG section fails the run.
 on:
   push:
-    tags:
-      - "v*"
+    branches: [main]
+    tags: ["v*"]
+  workflow_dispatch:
 permissions:
   contents: write
+concurrency:
+  group: release
+  cancel-in-progress: false
 jobs:
-  release:
+  gate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Extract changelog for this release
-        env:
-          TAG: ${{ github.ref_name }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: python3 -m pip install pytest
+      - run: python3 tools/validate.py
+      - run: python3 -m pytest tests/ -q
+      - run: python3 tools/render_test.py
+  release:
+    needs: gate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Resolve version and changelog
+        id: ver
         run: |
-          python3 -c "
-          import pathlib, os
-          text = pathlib.Path('CHANGELOG.md').read_text()
-          header = '## ' + os.environ['TAG'].lstrip('v')
-          idx = text.find(header)
-          if idx == -1:
-              body = 'No changelog entry found for this tag.'
-          else:
-              next_idx = text.find('## ', idx + len(header))
-              if next_idx == -1:
-                  body = text[idx:].strip()
-              else:
-                  body = text[idx:next_idx].strip()
-          pathlib.Path('RELEASE_BODY.md').write_text(body)
-          "
-      - name: Create Release
-        uses: softprops/action-gh-release@v3
-        with:
-          generate_release_notes: false
-          files: |
-            custom_components/foxair/manifest.json
-            README.md
-      - name: Set release body from CHANGELOG
-        uses: actions/github-script@v9
+          VER="$(tr -d '[:space:]' < VERSION)"
+          if [ "$GITHUB_REF_TYPE" = "tag" ] && [ "$GITHUB_REF_NAME" != "v$VER" ]; then
+            echo "::error::tag $GITHUB_REF_NAME does not match VERSION $VER"
+            exit 1
+          fi
+          python3 tools/release_notes.py "$VER" > RELEASE_BODY.md
+          echo "tag=v$VER" >> "$GITHUB_OUTPUT"
+      - name: Tag (idempotent)
         env:
-          TAG: ${{ github.ref_name }}
-        with:
-          script: |
-            const fs = require('fs');
-            const body = fs.readFileSync('RELEASE_BODY.md', 'utf8');
-            const tag = process.env.TAG;
-            const owner = context.repo.owner;
-            const repo = context.repo.repo;
-            const getResp = await github.rest.repos.getReleaseByTag({ owner, repo, tag });
-            const releaseId = getResp.data.id;
-            await github.rest.repos.updateRelease({
-              owner, repo, release_id: releaseId, body
-            });
-            console.log('Release body updated, length:', body.length);
+          TAG: ${{ steps.ver.outputs.tag }}
+        run: |
+          if git ls-remote --exit-code --tags origin "refs/tags/$TAG" >/dev/null; then
+            echo "$TAG already on origin"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag -a "$TAG" -m "$TAG" "$GITHUB_SHA"
+          git push origin "$TAG" || git ls-remote --exit-code --tags origin "refs/tags/$TAG" >/dev/null
+      - name: Release (idempotent)
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.ver.outputs.tag }}
+        run: |
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            # already published by an earlier run: only undo a stuck draft,
+            # never overwrite notes/assets with a later commit's files
+            gh release edit "$TAG" --draft=false >/dev/null
+          else
+            gh release create "$TAG" --verify-tag --title "$TAG" --notes-file RELEASE_BODY.md \
+              custom_components/foxair/manifest.json README.md
+          fi
+          gh release view "$TAG" --json tagName,isDraft,url -q '"released \(.tagName) draft=\(.isDraft) \(.url)"'
