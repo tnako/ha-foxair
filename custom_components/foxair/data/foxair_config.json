@@ -223,10 +223,6 @@
       2180
     ],
     [
-      2020,
-      2020
-    ],
-    [
       2022,
       2022
     ],
@@ -239,7 +235,7 @@
       50999
     ]
   ],
-  "hidden_note": "Ranges above are hidden from UI + polling even in expert mode. Block-header (BLOCK-type) registers and per-block 'Reserve' words are auto-detected by build_metadata; these ranges cover named reserved/system/service addrs. 2020/2022 (EEV-Schritte / EVI EEV-Schritte) and 2063-2064 (T10/T11 EVI Ein-/Auslasstemperatur) hidden because the unit has no EVI hardware.",
+  "hidden_note": "Ranges above are hidden from UI + polling even in expert mode. Block-header (BLOCK-type) registers and per-block 'Reserve' words are auto-detected by build_metadata; these ranges cover named reserved/system/service addrs. 2022 (EVI EEV-Schritte) and 2063-2064 (T10/T11 EVI Ein-/Auslasstemperatur) hidden because the unit has no EVI hardware.",
   "blocks": {
     "order": [
       "H",
@@ -1142,13 +1138,13 @@
         "tab": "O"
       },
       "2020": {
-        "block": "O",
-        "tab": "O",
+        "block": "T",
+        "tab": "T_Live",
         "icon": "mdi:valve"
       },
       "2022": {
-        "block": "O",
-        "tab": "O",
+        "block": "T",
+        "tab": "T_Live",
         "icon": "mdi:valve"
       }
     }

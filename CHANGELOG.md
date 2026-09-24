@@ -1,3 +1,6 @@
+## 0.7.10 - 2026-09-25
+- fix(live): EEV steps (2020) now show in the Live section without expert mode, like the mobile app. The register was wrongly grouped with the hidden EVI registers and never appeared, even in Outputs. EVI EEV steps (2022) moved to Live too but stay hidden (no EVI hardware)
+
 ## 0.7.9 - 2026-09-25
 - fix(ci): every push to main that bumps VERSION now publishes the GitHub release automatically. One Release workflow runs the gate (validate, tests, render), creates the tag and publishes the release in the same run; the separate Auto-tag workflow is gone. A tag pushed by the workflow token never starts another workflow, which is why v0.7.8 got a tag but no release. Re-running the workflow repairs a half-finished release, and a bumped VERSION without its changelog section fails the run
 - chore(release): release notes come from tools/release_notes.py (exact version match, fails when the section is missing); tests guard the pipeline so tag and release cannot be split again
