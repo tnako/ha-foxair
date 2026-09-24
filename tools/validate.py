@@ -111,6 +111,7 @@ if meta_path.exists():
 
     # build addr->name map per lang keyed by foxair_<addr>
     addr_to_meta = {int(k): v for k, v in meta.items() if k.isdigit()}
+    _bitmapped = {int(k) for k, v in json.loads((CC / "data/foxair_phnix_registers.json").read_text(encoding="utf-8")).items() if k.isdigit() and isinstance(v, dict) and v.get("bit_map")}
     for lang in ("en", "de", "ru"):
         if lang not in translations:
             continue
@@ -146,6 +147,9 @@ if meta_path.exists():
                 if name is None:
                     errs.append(f"{lang}: missing translation for {code_key} ({code or 'no-code'} addr {addr} hidden={hidden})")
                     continue
+                _plat = rec.get("platform")
+                if not hidden and _plat and addr not in _bitmapped and rec.get("format") != "bit_split" and not rec.get("time_split_slave") and code_key not in translations[lang]["raw"].get("entity", {}).get(_plat, {}):
+                    errs.append(f"{lang}: {code_key} (addr {addr}) has no entity.{_plat} translation - HA shows only the device name")
                 if code:
                     if not name.startswith(f"{code}:"):
                         errs.append(f"{lang}: {code_key} name must start with '{code}:' got '{name[:40]}'")

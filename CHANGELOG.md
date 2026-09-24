@@ -1,3 +1,9 @@
+## 0.7.11 - 2026-09-25
+- fix(names): 22 expert entities (silent-mode timer start/stop, power timer 1-6 on/off times) showed only "FoxAir Heat pump" as their name. They now have proper names in English, German and Russian, and validate fails when an entity has no name for its own platform
+- fix(devices): silent-mode timer (1244-1249), power timers (1281-1325) and circulation-pump timers (1326-1331) moved from the main device to the Timer device. They stay expert-only, entity ids are unchanged
+- fix(firmware): power timers are only created on firmware V3.4 and later. On older firmware an active power timer replaces the heating curve with a fixed setpoint; existing entities are removed there
+- fix(safety): circulation-pump timers are read-only sensors (raw value) until their encoding is confirmed on a real unit; the old time entities are removed
+
 ## 0.7.10 - 2026-09-25
 - fix(live): EEV steps (2020) now show in the Live section without expert mode, like the mobile app. The register was wrongly grouped with the hidden EVI registers and never appeared, even in Outputs. EVI EEV steps (2022) moved to Live too but stay hidden (no EVI hardware)
 
