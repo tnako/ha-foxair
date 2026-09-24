@@ -38,7 +38,7 @@ async def _cleanup_orphaned_entities(hass: HomeAssistant, entry: ConfigEntry, en
     """
     try:
         registry = er_async_get(hass)
-        coord = getattr(entry, "runtime_data", None) or hass.data.get("foxair", {}).get(entry.entry_id)
+        coord = entry.runtime_data
         metadata = getattr(coord, "_metadata", {}) or {}
         prefix = entry.data.get("name_prefix", "foxair") or "foxair"
         removed = 0
@@ -177,19 +177,6 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
         )
     except Exception as e:  # pragma: no cover
         _LOGGER.debug("main device pre-create failed: %s", e)
-    try:
-        from .views import FoxAirCurveSvgView, FoxAirCurvePanelView
-
-        hass.http.register_view(FoxAirCurveSvgView())
-        hass.http.register_view(FoxAirCurvePanelView())
-    except Exception as e:
-        _LOGGER.debug("FoxAir views already registered: %s", e)
-    # NOTE: iframe panel is NOT auto-registered because multiple pumps need
-    # different entry_id query params. Users can add their own iframe panels:
-    # Settings -> Dashboards -> Add panel -> iframe ->
-    #   URL: /api/foxair/heating-curve-panel?entry_id=<ENTRY_ID>
-    #   Title: FoxAir Curve (House1)
-    #   Icon: mdi:chart-bell-curve
     from .coordinator import FoxAirCoordinator
 
     coord = FoxAirCoordinator(hass, entry)
@@ -197,7 +184,6 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     await coord._load_map()     # load regmap + metadata off the event loop
     await coord.async_config_entry_first_refresh()
     entry.runtime_data = coord
-    hass.data.setdefault("foxair", {})[entry.entry_id] = coord
     entry.async_on_unload(entry.add_update_listener(async_reload_entry))
 
     enable_expert = bool(entry.options.get("enable_expert"))
@@ -232,14 +218,13 @@ async def async_reload_entry(hass: HomeAssistant, entry: ConfigEntry):
 
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry):
-    coord = getattr(entry, "runtime_data", None) or hass.data.get("foxair", {}).get(entry.entry_id)
+    coord = entry.runtime_data
     if coord and getattr(coord, "_burst_task", None):
         try:
             coord._burst_task.cancel()
         except Exception:
             pass
     ok = await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
-    hass.data.get("foxair", {}).pop(entry.entry_id, None)
     if coord and getattr(coord, "client", None):
         try:
             coord.client.close()

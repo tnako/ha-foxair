@@ -17,17 +17,23 @@ jobs:
           ignore: topics brands
   lint:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.13", "3.14"]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: |
           python3 -m pip install --upgrade pip
           python3 -m pip install pytest
       - name: Run pre-release test suite
         run: python3 -m pytest tests/ -v
+      - name: Render harness (heating-curve SVG)
+        run: python3 tools/render_test.py
       - run: python -m py_compile custom_components/foxair/*.py
       - run: python -m json.tool custom_components/foxair/manifest.json > /dev/null && echo "manifest json ok"
       - run: python -m json.tool hacs.json > /dev/null && echo "hacs json ok"

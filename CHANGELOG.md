@@ -1,3 +1,15 @@
+## 0.7.8 - 2026-09-25
+- fix(climate): the thermostat now follows H25 (temperature control selection). Current temperature comes from the selected sensor (outlet T02, room T09, buffer T07, inlet T01) instead of always outlet water, and the target follows the same choice (room: R70). Switching H25 to inlet no longer leaves the thermostat showing outlet values. H25 is polled every 30 s so a switch shows up quickly
+- fix(climate): cooling with the heating curve enabled showed the heating-curve target and refused manual changes; cooling now uses the cooling setpoint R03 and its own limits
+- fix(climate): setting a temperature with an explicit mode (automations, scripts) always wrote the heating setpoint, even while cooling
+- fix(climate): the target slider uses the unit's own setpoint limits (R08-R11); run status 3 (sterilization) shows as heating instead of idle; turning on from DHW-only mode selects Heating
+- fix(curve image): the card no longer draws the heating curve while cooling or under room control; its y-axis names the sensor H25 regulates on
+- fix(ci): Auto-tag no longer fails when the release tag was already pushed by hand
+- feat(compat): runs and tests on Python 3.9 through 3.14 (CI matrix 3.9 / 3.13 / 3.14)
+- refactor: one resolver (active_control) decides sensor, setpoint, curve and limits from H25, operating mode and H36 for both climate and curve card; all registers and mode values come from foxair_config.json
+- refactor: removed unused code: vendored foxair_modbus package and its generator, the separate curve SVG/panel HTTP views (use the heating-curve image entity; the /api/foxair/heating-curve-panel URL is gone), orphaned tools, and the hass.data coordinator mirror
+- chore(gates): validate checks switch wiring (marker registers exist, quick-polled, non-expert; H25 mapping complete and translated; no hardcoded marker registers in climate/image); check_regs adds live CLIMATE rows comparing the thermostat with H25; new tests cover every H25 value x curve x heat/cool
+
 ## 0.7.7 - 2026-09-22
 - feat(curve image): heating-curve card redesigned for readability. Each mode now draws only its active line — curve mode shows the blue curve with flow values at every 10C tick, fixed mode shows just the amber setpoint line with its value (no more phantom curve numbers). The bottom legend box was replaced by a dashboard-style stat footer: uppercase captions over large bold values (Mode, Flow at 0C, Slope, Limits R10–R11, Start R04, Stop R05), with start/stop colored to match the dashed hysteresis boundaries on the chart
 - feat(curve image): plot area grew about 70px taller on the same canvas since the old legend rows are gone

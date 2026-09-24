@@ -1,4 +1,5 @@
 """FoxAir coordinator — tiered pymodbus polling (quick 30s / medium 120s / rare 300/600s) — revert from modbus_connection."""
+from __future__ import annotations
 
 import json
 import pathlib

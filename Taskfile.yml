@@ -10,11 +10,10 @@ tasks:
       - '{{.PY}} tools/validate.py'
 
   build:
-    desc: Regenerate metadata and vendor package
+    desc: Regenerate metadata and translations
     cmds:
       - '{{.PY}} tools/build_metadata.py'
       - '{{.PY}} tools/fix_translations.py'
-      - '{{.PY}} tools/gen_foxair_modbus.py'
       - '{{.PY}} tools/validate.py'
 
   test:
@@ -29,7 +28,9 @@ tasks:
       - '{{.PY}} tools/build_metadata.py'
       - task: validate
       - task: test
-      - '{{.PY}} tools/check_regs.py'
+      - '{{.PY}} tools/render_test.py'
+      - |
+        if [ -f .env ]; then {{.PY}} tools/check_regs.py; else echo "check_regs skipped: no .env (HASS_URL/HASS_TOKEN)"; fi
 
   check_regs:
     desc: Check every register - HA state vs device

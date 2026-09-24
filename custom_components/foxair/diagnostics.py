@@ -9,7 +9,7 @@ def _reg_sample(v: dict) -> dict:
 
 
 async def async_get_config_entry_diagnostics(hass: HomeAssistant, entry: ConfigEntry):
-    coord = getattr(entry, "runtime_data", None) or hass.data.get("foxair", {}).get(entry.entry_id)
+    coord = entry.runtime_data
     if not coord:
         return {"error": "no coordinator"}
     data = dict(coord.data or {})
@@ -24,7 +24,11 @@ async def async_get_config_entry_diagnostics(hass: HomeAssistant, entry: ConfigE
                  2045, 2046,                        # T01 T02 inlet/outlet
                  2012,                              # run status (mode)
                  2104, 1234, 1235, 1236)            # fw version, curve
-    missing = [a for a in KEY_ADDRS if a not in data]
+    cs = coord.marker("control_source")
+    KEY_ADDRS += tuple({(cs.get("addr_single") or {}).get("selector")} - {None})
+    for src in (cs.get("by_value") or {}).values():
+        KEY_ADDRS += tuple(a for a in (src.get("current"), src.get("target")) if a)
+    missing = [a for a in dict.fromkeys(KEY_ADDRS) if a not in data]
     fetch_error = None
     if missing:
         try:
@@ -37,7 +41,7 @@ async def async_get_config_entry_diagnostics(hass: HomeAssistant, entry: ConfigE
                 pass
         except Exception as e:  # noqa: BLE001 — diagnostics must never fail
             fetch_error = str(e)
-    still_missing = [a for a in KEY_ADDRS if a not in data]
+    still_missing = [a for a in dict.fromkeys(KEY_ADDRS) if a not in data]
     # Full register dump, no cap — coord.data peaks around ~380 entries and
     # any slice hides exactly the regs needed for debugging (v0.6.7 lesson:
     # a [:50] slice hid all 2xxx power/COP/flow regs).
@@ -80,30 +84,20 @@ async def async_get_config_entry_diagnostics(hass: HomeAssistant, entry: ConfigE
         computed = {"error": str(e)}
     curve = {}
     try:
-        from .heating_curve import curve_target_for_at
-        hc = coord.marker("heat_curve") if hasattr(coord, "marker") else {}
-        hc_a = hc.get("addr_single", {}) if isinstance(hc, dict) else {}
-        at = (coord.data.get(hc_a.get("at_sensor", 2048)) or {}).get("value")
+        from .heating_curve import control_source, curve_target_for_at
+        hc_a = coord.marker("heat_curve").get("addr_single") or {}
+
+        def _v(key, field="value"):
+            return (data.get(hc_a.get(key)) or {}).get(field)
+
+        at = _v("at_sensor")
+        curve = {"at": at, "slope": _v("slope"), "offset": _v("offset"), "h36": _v("at_comp_en", "raw"),
+                 "live_target": _v("live_target"), "control_source": control_source(coord).get("key")}
         if at is not None:
-            ct = curve_target_for_at(coord, float(at))
-            curve = {"at": at, "curve_target": ct, "slope": (coord.data.get(hc_a.get("slope", 1234)) or {}).get("value"), "offset": (coord.data.get(hc_a.get("offset", 1235)) or {}).get("value"), "h36": (coord.data.get(hc_a.get("at_comp_en", 1236)) or {}).get("raw")}
+            curve["curve_target"] = curve_target_for_at(coord, float(at))
     except Exception as e:
         curve = {"error": str(e)}
-    foxair_info = {}
-    try:
-        fox = getattr(coord, "foxair", None)
-        if fox is not None:
-            foxair_info = {
-                "fields": len(getattr(fox, "declared_fields", {})),
-                "has_unit": getattr(coord, "unit", None) is not None,
-                "max_span": getattr(fox, "max_span", None),
-                "max_gap": getattr(fox, "max_gap", None),
-            }
-    except Exception:
-        pass
-    conn = hass.data.get("foxair_conn", {}).get(entry.entry_id)
     return {
-        "poll_blocks": getattr(coord, "POLL_BLOCKS", []),
         "stats": getattr(coord, "stats", {}),
         "freshness": coord.freshness_summary() if hasattr(coord, "freshness_summary") else {},
         "data_keys": list((coord.data or {}).keys()),
@@ -115,8 +109,7 @@ async def async_get_config_entry_diagnostics(hass: HomeAssistant, entry: ConfigE
         "curve": curve,
         "options": dict(entry.options),
         "data": {"host": entry.data.get("host"), "port": entry.data.get("port"), "slave": entry.data.get("slave"), "name_prefix": entry.data.get("name_prefix", "foxair")},
-        "connected": bool(getattr(conn, "_client", None) is not None) if conn else (getattr(getattr(coord, "client", None), "connected", False) if getattr(coord, "client", None) else bool(getattr(coord, "unit", None))),
+        "connected": bool(getattr(getattr(coord, "client", None), "connected", False)),
         "last_error": (coord.stats or {}).get("last_error") if hasattr(coord, "stats") else None,
-        "foxair_model": foxair_info,
         "firmware_version": coord.fw_version() if hasattr(coord, "fw_version") else 0,
     }

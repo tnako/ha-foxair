@@ -29,7 +29,7 @@ def _dtype_map():
 HIDDEN = SENSOR_HIDDEN_ADDRS
 
 async def async_setup_entry(hass, entry, add_entities):
-    coord = getattr(entry, "runtime_data", None) or hass.data["foxair"][entry.entry_id]
+    coord = entry.runtime_data
     # ensure metadata ready for category logic
     if not getattr(coord, "_metadata", None):
         await coord._load_map()

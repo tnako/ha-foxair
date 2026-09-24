@@ -14,6 +14,9 @@ Modes:
   --show-all  list every checked code, not only problems
   --json      machine-readable output
 
+Also checks the climate entity against the H25 control source (CLIMATE:* rows):
+the climate's current/target registers must match what H25 selects.
+
 Verdicts:
   OK              entity exists and has a value that matches the device (with --direct)
   UNKNOWN         entity exists but state is unknown (device value never polled/decoded)
@@ -27,6 +30,7 @@ Verdicts:
 
 Exit code: 0 = no real problems, 1 = problems found, 2 = config error.
 """
+from __future__ import annotations
 
 import argparse
 import json
@@ -41,6 +45,7 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
 META_PATH = REPO / "custom_components/foxair/data/foxair_metadata.json"
+CONFIG_PATH = REPO / "custom_components/foxair/data/foxair_config.json"
 TABS_PATH = REPO / "modbus/tabs.txt"
 
 # Minimal scale map mirroring const.py DTYPE_SPEC (const.py imports homeassistant,
@@ -186,6 +191,69 @@ def domain_for(meta_rec: dict) -> str:
     return "sensor"
 
 
+def climate_wiring_rows(states: dict, meta: dict) -> list:
+    """Climate entity vs the sensor/setpoint H25 + mode + H36 select (live).
+
+    Catches the 2026-09 class of bug: H25 switched to inlet while the climate
+    kept showing outlet. Reads the entity's own control_source/current_addr/
+    target_addr attributes and cross-checks them against the H25 select state
+    and the register entities, all resolved from foxair_config.json markers.
+    """
+    cfg = json.loads(CONFIG_PATH.read_text(encoding="utf-8"))["markers"]
+    cs = cfg.get("control_source") or {}
+    sel = (cs.get("addr_single") or {}).get("selector")
+    rows = []
+
+    def entity_for(addr):
+        m = meta.get(str(addr)) or {}
+        for dom in (domain_for(m), "sensor", "number", "select"):
+            ent = find_entity(states, m.get("code") or "", int(addr), dom)
+            if ent:
+                return ent
+        return None
+
+    def num(v):
+        try:
+            return float(v)
+        except (TypeError, ValueError):
+            return None
+
+    for cl in (st for eid, st in states.items() if eid.startswith("climate.") and "raw_mode" in st["attributes"]):
+        a = cl["attributes"]
+        eid = cl["entity_id"]
+        if "control_source" not in a:
+            rows.append({"code": "CLIMATE:source", "entity": eid, "verdict": "MISMATCH",
+                         "detail": "climate has no control_source attribute: build ignores H25"})
+            continue
+        h25 = entity_for(sel) if sel else None
+        want = next((e for e in (cs.get("by_value") or {}).values() if h25 and e.get("key") == h25["state"]), None)
+        checks = []
+        if want is None:
+            checks.append(("H25", "UNKNOWN", f"H25 select state {h25 and h25['state']!r} not in control_source.by_value"))
+        else:
+            checks.append(("source", "OK" if a.get("control_source") == want["key"] else "MISMATCH",
+                           f"climate={a.get('control_source')} H25={want['key']}"))
+            checks.append(("current_addr", "OK" if a.get("current_addr") == want["current"] else "MISMATCH",
+                           f"climate={a.get('current_addr')} expected={want['current']}"))
+            if want.get("target"):
+                checks.append(("target_addr", "OK" if a.get("target_addr") == want["target"] else "MISMATCH",
+                               f"climate={a.get('target_addr')} expected={want['target']}"))
+        curve_addr = ((cfg.get("heat_curve") or {}).get("addr_single") or {}).get("live_target")
+        curve_drives = a.get("control_mode") == "weather_curve" and a.get("hvac_action") != "cooling" \
+            and not (want or {}).get("target") and a.get("mode_code") not in ("cooling", "cooling_dhw")
+        for label, attr, key in (("current", "current_addr", "current_temperature"), ("target", "target_addr", "temperature")):
+            addr = curve_addr if label == "target" and curve_drives else a.get(attr)
+            src = entity_for(addr) if addr else None
+            cv, sv = num(a.get(key)), num(src and src["state"])
+            if cv is None or sv is None:
+                checks.append((label, "UNKNOWN", f"climate {key}={a.get(key)} reg {addr}={src and src['state']}"))
+            else:
+                checks.append((label, "OK" if abs(cv - sv) <= 0.15 else "MISMATCH", f"climate {cv} vs reg {addr} {sv}"))
+        for what, verdict, detail in checks:
+            rows.append({"code": f"CLIMATE:{what}", "entity": eid, "verdict": verdict, "detail": detail})
+    return rows
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description="FoxAir register end-to-end checker")
     ap.add_argument("--direct", action="store_true",
@@ -259,6 +327,9 @@ def main() -> None:
             row["ha_value"] = state
         rows.append(row)
 
+    if not args.codes:
+        rows.extend(climate_wiring_rows(states, meta))
+
     # direct device reads
     if args.direct:
         host = env.get("MODBUS_HOST")
@@ -316,6 +387,8 @@ def main() -> None:
                 extra = f" ha={r.get('ha_value')} device={r.get('device_value')} (raw {r.get('device_raw')})"
             elif r.get("device_raw") is not None:
                 extra = f" device raw={r['device_raw']}"
+            elif r.get("detail"):
+                extra = f" {r['detail']}"
             print(f"{r['code']:6} {str(r.get('addr', '')):>6} {r['verdict']:16} {r.get('entity', '')}{extra}")
         print()
         print(f"total: {len(rows)}  problems: {len(problems)}")

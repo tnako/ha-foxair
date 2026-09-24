@@ -10,10 +10,11 @@ task bump version=X.Y.Z  # bump VERSION + manifest.json + README badge (fixed: C
 task deploy          # rsync to HA + restart, reads HA_HOST from .env (needs SSH)
 ```
 
-If system python3 is too old for pytest/HA (macOS CLT = 3.9), point tasks at a
-3.11+ interpreter once per shell: `export FOXAIR_PY=/tmp/venvfox11/bin/python3`
-(create with `python3.11 -m venv /tmp/venvfox11 && /tmp/venvfox11/bin/pip install
-pytest homeassistant pymodbus`). All tasks honor FOXAIR_PY / `task test PY=...`.
+Gates run on any Python 3.9+ (CI matrix: 3.9, 3.13, 3.14). Tests stub HA, so
+only `pytest` is needed. Every module using `X | None` annotations starts with
+`from __future__ import annotations`; create asyncio primitives inside a
+running loop (3.9 has no implicit loop). Pick an interpreter once per shell
+with `export FOXAIR_PY=<venv>/bin/python3`; all tasks and git hooks honor it.
 
 ## Release flow — order is enforced
 1. Write the `## X.Y.Z - YYYY-MM-DD` CHANGELOG.md section FIRST (bump_version.py refuses to run without it; validate.py gates top entry == VERSION).
@@ -63,6 +64,44 @@ def tier(t, expert=False):
 - `check_regs` UNAVAILABLE is not always a regression — check the `depends_on` chain first (e.g. G01–G04 go unavailable by design when G05 legionella enable = off). Don't block a release on by-design unavailability.
 - HA host runs the deployed tree (deploy = `task deploy` + entry reload). Uncommitted local edits are NOT on the host.
 
+## Control-source switches (H25/H36/mode) — read before touching climate/image
+
+Bug class this prevents: a device register that changes what OTHER entities
+mean gets exposed as a plain select, and nothing downstream reads it. 2026-09:
+H25 switched to inlet, the climate kept showing outlet (sensor hardcoded to
+2046, target picked by mode only, H25 polled every 5 min).
+
+- `heating_curve.active_control(coord)` is the ONLY resolver of what the unit
+  regulates: sensor, setpoint, curve on/off, limits and start/stop registers,
+  from H25 (1035, `markers.control_source`), 1012 (`markers.status.mode_values`)
+  and H36 (1236). Entity code never reads `outlet_water_temp`, R02/R03 or raw
+  mode numbers directly; `validate.py` fails on marker register literals in
+  climate.py/image.py.
+- The H36 curve (2014) drives the target only while heating from a water
+  source; cooling uses R03 (+R08/R09, R06/R07); a source with its own `target`
+  (room: R70, R71-R74) uses its own registers.
+- The curve card always draws the heating water side (curve or R02); its y-axis
+  names the H25 sensor via the H25 select translations.
+
+Adding or changing a switch (new selector register, new H25 value, new mode):
+1. Map it in `foxair_config.json` markers (never in Python). A register that
+   changes another entity's meaning is a marker, not just a select.
+2. Resolve it in `active_control()`; consumers read the returned dict.
+3. `task validate` enforces: every marker register exists, is quick-polled and
+   non-expert (a stale switch = a stale entity); `control_source.by_value`
+   covers the selector's full value_map; keys are the selector's option slugs in
+   strings + en/de/ru; all `mode_values` keys exist.
+4. Extend `tests/test_climate_control_source.py` (matrix: every by_value x H36 x
+   heat/cool) and the render harness switch-gating cases. Run the new test
+   against HEAD's code once: it must fail there.
+5. Live: `tools/check_regs.py` emits `CLIMATE:*` rows comparing the climate's
+   `control_source`/`current_addr`/`target_addr` attributes with the H25 select
+   and register entities. Flip the switch on the unit, rerun, expect all OK.
+
+Before building on an ad-hoc dict/logic in one entity, grep for siblings that
+derive the same thing (climate + image both did "which target is active" and
+drifted). Shared meaning goes into `heating_curve.py`.
+
 ## Platform-specific gates (run the named tool, don't eyeball)
 
 - `image.py` (AT curve) → `python3 tools/render_test.py` after EVERY edit. It enforces: zero text overlaps, nothing outside the 1200×760 canvas, legend labels on grid, no raster filters (vector `paint-order` halo only), EN/DE/RU. Dump a sample to /tmp for a visual check when layout changes.
@@ -89,4 +128,4 @@ def tier(t, expert=False):
 
 ## DO NOT
 
-- Skip validate after edits. Change `entity_id` (only friendly names reorder). Commit generated vendor code without validate. Commit paths/IPs/credentials. Add Lovelace/YAML/HACS-config steps — everything ships via integration install only.
+- Skip validate after edits. Change `entity_id` (only friendly names reorder). Commit paths/IPs/credentials. Add Lovelace/YAML/HACS-config steps — everything ships via integration install only.

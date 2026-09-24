@@ -62,7 +62,6 @@
 | `tabs.txt` | `modbus/tabs.txt` / `ha-foxair/modbus/tabs.txt` | **Source of truth** — code, name, order |
 | `foxair_phnix_registers.json` | `ha-foxair/custom_components/foxair/data/` + `FoxAir_Control/core/` | Full register metadata (type, scale, limits, writable, desc) |
 | `foxair_phnix_knowledge.json` | Same | Parsed ranges, value maps, risk tiers |
-| `heat_pump.py` | `ha-foxair/custom_components/foxair/vendor/foxair_modbus/` | Generated `modbus_connection.Component` (591 regs) |
 | `registerMap` | `modbus/main.go` | Go test client subset |
 | `TABS_CODE_ORDER` | `ha-foxair/custom_components/foxair/const.py` | HA entity creation order |
 
@@ -75,9 +74,9 @@ vim modbus/tabs.txt
 #    foxair_phnix_registers.json ← tabs.txt + PDF specs
 #    foxair_phnix_knowledge.json ← registers.json + value maps
 
-# 3. Regenerate vendor Component
+# 3. Regenerate metadata
 cd ha-foxair
-python tools/gen_foxair_modbus.py
+python tools/build_metadata.py
 
 # 4. Validate (i18n prefixes, version, syntax)
 python tools/validate.py
@@ -87,7 +86,7 @@ cp custom_components/foxair/data/foxair_phnix_*.json sibling desktop app repo/co
 ```
 
 ## Maintenance Notes
-- **Never edit generated files directly** (`heat_pump.py`, `TABS_CODE_ORDER`)
+- **Never edit generated files directly** (`foxair_metadata.json`, `TABS_CODE_ORDER`)
 - **Tabs.txt is the contract** — if it's not in tabs.txt, it doesn't exist
 - **Translations must mirror tabs.txt prefixes exactly** (`H01: Name`, not `Name [H01]`)
 - **New registers → add to tabs.txt first**, then propagate

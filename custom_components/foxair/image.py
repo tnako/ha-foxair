@@ -33,7 +33,7 @@ from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.helpers.translation import async_get_translations
 
 from .const import main_device, get_device_prefix, get_slave_id, bind_device_info
-from .heating_curve import calc_curve_target, curve_target_for_at
+from .heating_curve import active_control, calc_curve_target, curve_target_for_at
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -180,6 +180,7 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
                     loaded[k[6:]] = v
                 else:
                     loaded[k] = v  # fallback for direct keys (future compat)
+            loaded.update(self._source_labels(cat))
             self._tl = {**_TL_FALLBACK, **loaded}
             if loaded_raw:
                 self._render()
@@ -189,6 +190,14 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
 
     def _t(self, key: str) -> str:
         return self._tl.get(key, _TL_FALLBACK.get(key, key))
+
+    def _source_labels(self, cat: dict) -> dict:
+        """H25 select state labels as source.<key>, so the y-axis names the controlled sensor."""
+        coord = self.coordinator
+        selector = ((coord.marker("control_source") or {}).get("addr_single") or {}).get("selector")
+        code = (coord.get_metadata(selector).get("code") or "").lower() if selector else ""
+        pfx = f"component.foxair.entity.select.foxair_{code}.state."
+        return {f"source.{k[len(pfx):]}": v for k, v in cat.items() if code and k.startswith(pfx)}
 
     # -- data helpers -------------------------------------------------
     def _read_inputs(self) -> dict:
@@ -214,21 +223,20 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
 
         hc = (coord.marker("heat_curve") if hasattr(coord, "marker") else None) or {}
         hca = hc.get("addr_single", {}) or {}
-        st = (coord.marker("setpoints") if hasattr(coord, "marker") else None) or {}
-        sta = st.get("addr_single", {}) or {}
 
+        ctl = active_control(coord)
+        sp = ((coord.marker("setpoints") if hasattr(coord, "marker") else None) or {}).get("addr_single") or {}
         slope = val(hca.get("slope"), None)
         offset = val(hca.get("offset"), None)
-        fixed = val(sta.get("heating_target"), None)
-        h36 = raw(hca.get("at_comp_en"))
+        fixed = val(sp.get("heating_target"), None)
+        h36 = 1 if ctl.get("curve") else 0
         at_live = val(hca.get("at_sensor"), None)
         live_target = val(hca.get("live_target"), None)
-        r10 = val(hca.get("r10_min"), None)
-        r11 = val(hca.get("r11_max"), None)
-        # Heating hysteresis (R04 start / R05 stop); marker keys are optional,
-        # fall back to the fixed register addrs so the band works regardless.
-        r04 = val(hca.get("r04_start") or 1160, None)
-        r05 = val(hca.get("r05_stop") or 1161, None)
+        r10 = val(sp.get("heating_min"), None)
+        r11 = val(sp.get("heating_max"), None)
+        r04 = val(sp.get("heating_start"), None)
+        r05 = val(sp.get("heating_stop"), None)
+
         st_status = (coord.marker("status") if hasattr(coord, "marker") else None) or {}
         sts = st_status.get("addr_single", {}) or {}
         comp_freq = val(sts.get("compressor_freq"), None)
@@ -240,7 +248,7 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
         ready = (slope is not None) and (offset is not None) and (fixed is not None)
         return {
             "slope": slope, "offset": offset, "fixed": fixed,
-            "h36": h36, "at_live": at_live, "live_target": live_target,
+            "h36": h36, "source": None if ctl.get("own_target") else ctl.get("source"), "at_live": at_live, "live_target": live_target,
             "r10": r10, "r11": r11, "r04": r04, "r05": r05, "ready": ready,
             "compressor_on": compressor_on,
         }
@@ -521,6 +529,7 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
             )
 
         # ---- axis titles ----
+        axis_y = self._tl.get(f"source.{inp.get('source')}") or self._t("axis_y")
         svg.append(
             f'<text x="{pad_l + plot_w // 2}" y="{plot_bottom + 38}" text-anchor="middle" '
             f'fill="{TEXT}" font-size="16">{self._t("axis_x")}</text>'
@@ -528,7 +537,7 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
         svg.append(
             f'<text x="26" y="{pad_t + plot_h // 2}" text-anchor="middle" fill="{TEXT}" '
             f'font-size="16" transform="rotate(-90 26, {pad_t + plot_h // 2})">'
-            f'{self._t("axis_y")}</text>'
+            f'{axis_y}</text>'
         )
 
         # ---- min/max band ----
@@ -825,7 +834,7 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
 
 
 async def async_setup_entry(hass, entry, async_add_entities):
-    coord = getattr(entry, "runtime_data", None) or hass.data.get("foxair", {}).get(entry.entry_id)
+    coord = entry.runtime_data
     if not coord:
         return
     entity = FoxAirHeatingCurveImage(coord, entry.entry_id)

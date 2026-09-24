@@ -162,7 +162,6 @@ def _make_coord(tier_map):
     coord._regmap = {str(a): {"type": "RAW"} for tier in tier_map.values()
                      for a in tier}
     coord._metadata = {}
-    coord._lock = asyncio.Lock()
     coord._poll_counter = 19  # +=1 -> 20: divisible by medium(4) and rare(10)
     coord._fw_version = 0
     coord._medium_done = True
@@ -177,8 +176,11 @@ def _make_coord(tier_map):
     return coord
 
 
-def _run(coro):
-    return asyncio.run(coro)
+def _run(coord):
+    async def _main():
+        coord._lock = asyncio.Lock()
+        return await mod.FoxAirCoordinator._async_update_data(coord)
+    return asyncio.run(_main())
 
 
 def test_reconnect_and_continue_after_single_failure():
@@ -186,7 +188,7 @@ def test_reconnect_and_continue_after_single_failure():
     tiers = {"quick": {1011, 1012}, "medium": {2019}, "rare": {1041}}
     coord = _make_coord(tiers)
     FlakyClient.fail_start = 2019  # medium batch dies
-    _run(mod.FoxAirCoordinator._async_update_data(coord))
+    _run(coord)
     # quick (before failure) AND rare (after reconnect) both present
     assert 1011 in coord.data and 1012 in coord.data
     assert 1041 in coord.data
@@ -209,7 +211,7 @@ def test_abort_after_three_consecutive_failures():
 
     FlakyClient.read_holding_registers = always_fail
     try:
-        _run(mod.FoxAirCoordinator._async_update_data(coord))
+        _run(coord)
     finally:
         FlakyClient.read_holding_registers = orig
     assert coord.data == {}
@@ -230,7 +232,7 @@ def test_tier_order_quick_first():
 
     FlakyClient.read_holding_registers = record
     try:
-        _run(mod.FoxAirCoordinator._async_update_data(coord))
+        _run(coord)
     finally:
         FlakyClient.read_holding_registers = orig
     # Tier-ordered: quick batch first even though its addr sorts last.
@@ -252,7 +254,7 @@ def test_per_tier_error_counters():
 
     FlakyClient.read_holding_registers = fail_quick_and_rare
     try:
-        _run(mod.FoxAirCoordinator._async_update_data(coord))
+        _run(coord)
     finally:
         FlakyClient.read_holding_registers = orig
     assert coord.stats["errors"] == 2
@@ -292,7 +294,7 @@ def test_last_seen_stamped_on_success():
     tiers = {"quick": {1011, 1012}, "medium": {2019}, "rare": {1041}}
     coord = _make_coord(tiers)
     FlakyClient.fail_start = 2019  # medium batch dies
-    _run(mod.FoxAirCoordinator._async_update_data(coord))
+    _run(coord)
     assert 1011 in coord._last_seen and 1041 in coord._last_seen
     assert 2019 not in coord._last_seen
 
@@ -301,7 +303,7 @@ def test_staleness_policy():
     tiers = {"quick": {1011}, "medium": {2019}, "rare": {1041}}
     coord = _make_coord(tiers)
     FlakyClient.fail_start = -1
-    _run(mod.FoxAirCoordinator._async_update_data(coord))
+    _run(coord)
     coord._metadata = {"1011": {"poll_tier": "quick"}}
     assert not coord.is_stale(1011)
     assert not coord.is_stale(9999)

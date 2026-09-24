@@ -12,7 +12,7 @@ Source-of-truth is [dosordie/FoxAir_Control](https://github.com/dosordie/FoxAir_
 After updating `foxair_phnix_*.json`:
 
 ```bash
-python3 tools/build_metadata.py && python3 tools/gen_foxair_modbus.py && python3 tools/fix_translations.py
+python3 tools/build_metadata.py && python3 tools/fix_translations.py
 ```
 
 Vendor `foxair_modbus` polls 469 fields (ProductKey 200-215 + C544/C37B 50043+ excluded from poll, diagnostic Header/Reserved). See `tools/README.md`.
