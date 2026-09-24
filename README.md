@@ -2,7 +2,7 @@
 
 Control and monitor your **FoxAir / PHNIX air-to-water heat pump** directly from Home Assistant over Modbus TCP — no cloud, no YAML.
 
-![Version](https://img.shields.io/badge/version-0.7.7-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2026.9-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
+![Version](https://img.shields.io/badge/version-0.7.8-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2026.9-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
 ![FoxAir Demo](docs/screenshots/foxair_demo.gif)
 
@@ -12,7 +12,7 @@ Register maps and scaling based on the reverse-engineering in [dosordie/FoxAir_C
 
 - **Live diagnostics** — inlet/outlet, coil, ambient, exhaust, pressures, flow, compressor freq, fan RPM, voltages
 - **Controls** — heating / DHW / cooling setpoints, SG Ready, pump modes, zone mixing valves, climate **Off / Heat** with 4 DHW presets
-- **Heating curve** — slope / offset / mode with a live panel and SVG graph — no Lovelace YAML
+- **Heating curve** — slope / offset / mode with an SVG graph image entity — no Lovelace YAML
 - **Computed sensors** — heating power, electrical power, COP from `flow·ΔT`
 - **Multiple pumps** — configurable entity prefix so each unit gets its own IDs
 - **Safety** — expert mode gates installer controls; writes are validated
@@ -22,6 +22,17 @@ Register maps and scaling based on the reverse-engineering in [dosordie/FoxAir_C
 ## How it works
 
 Reads go through a single `pymodbus.AsyncModbusTcpClient` (the EW11 gateway allows only one TCP client) and a `FoxAirCoordinator` polling every 30 s. Entities read via shared metadata and write back with a fast 350 ms read-back. Each register carries `risk`, `requires_expert`, and `hidden` flags — hidden ones (system/reserved) are never created, polled, or written.
+
+## Which temperature the thermostat shows (H25)
+
+The climate entity follows the unit's own control settings, it never assumes outlet water:
+
+| Setting | Climate current temperature | Climate target |
+| --- | --- | --- |
+| H25 = Outlet / Inlet / Buffer water | T02 / T01 / T07 | R02 heating, R03 cooling; the live curve target (2014) while heating with H36 = on |
+| H25 = Room | T09 | R70 target room temperature |
+
+The climate attributes `control_source`, `current_addr` and `target_addr` show which registers are in use. If they disagree with H25, run `tools/check_regs.py` (the `CLIMATE:*` rows) and include its output plus a diagnostics download in the issue. The heating-curve image always plots the heating water side; its y-axis names the H25 sensor.
 
 ## Requirements
 
@@ -37,17 +48,6 @@ Reads go through a single `pymodbus.AsyncModbusTcpClient` (the EW11 gateway allo
 4. **Settings → Devices & Services → Add Integration → FoxAir Heat Pump** → host / port / slave (defaults fill in automatically).
 
 You get a **FoxAir Heat Pump** device with sub-devices per block (setpoints, diagnostics, pump, SG Ready, …). Safe controls are on by default; enable **Expert mode** in the options to reach installer controls.
-
-### Heating Curve Panel (multi-pump)
-
-Each pump gets its own panel via an iframe. Add one per entry:
-
-- **Settings → Dashboards → ⋯ → Edit dashboard → Add panel → iframe**
-- **URL**: `/api/foxair/heating-curve-panel?entry_id=<ENTRY_ID>`
-- **Title**: `FoxAir Curve (House1)`
-- **Icon**: `mdi:chart-bell-curve`
-
-The panel lists all pumps at `/api/foxair/heating-curve-panel` (no `entry_id`) if you just want a picker.
 
 ## Manual installation
 
@@ -82,7 +82,6 @@ More: [DEBUG.md](docs/DEBUG.md), [ROADMAP.md](docs/ROADMAP.md), [CHANGELOG.md](C
 ## Development
 
 - Generate metadata: `python3 tools/build_metadata.py`
-- Generate vendor model: `python3 tools/gen_foxair_modbus.py`
 - Sort / fix translations: `python3 tools/fix_translations.py`
 - Validate: `python tools/validate.py`
 - Audit registers: `python tools/check_regs.py` (set `HASS_URL`/`HASS_TOKEN` in `.env`; `--direct` for raw Modbus, `--codes H01,P02` to filter)

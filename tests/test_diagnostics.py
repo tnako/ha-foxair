@@ -6,6 +6,7 @@ power/COP/flow sources, firmware, curve) even when the normal poll cycle
 missed them, and must never cap the register dump.
 """
 import asyncio
+import json
 import importlib.util
 import pathlib
 import sys
@@ -38,18 +39,21 @@ _stub_modules()
 diag = _load("foxair_diag_test", CC / "diagnostics.py")
 
 
+MARKERS = json.loads((CC / "data/foxair_config.json").read_text(encoding="utf-8"))["markers"]
+
+
 class FakeEntry:
-    def __init__(self):
+    def __init__(self, coord):
         self.entry_id = "e1"
         self.options = {}
         self.data = {"host": "h", "port": 502, "slave": 1}
+        self.runtime_data = coord
 
 
 class FakeHass:
     def __init__(self, coord):
         self._coord = coord
         self.states = types.SimpleNamespace(get=lambda _eid: None)
-        self.data = {"foxair": {"e1": coord}}
 
 
 class FakeCoord:
@@ -57,6 +61,9 @@ class FakeCoord:
         self.data = data
         self.stats = {}
         self.fetched = None
+
+    def marker(self, name):
+        return MARKERS.get(name, {})
 
     async def _fetch_addrs(self, addrs):
         self.fetched = set(addrs)
@@ -68,21 +75,24 @@ class FakeCoord:
 def test_key_addrs_fetched_when_missing():
     coord = FakeCoord({1011: {"raw": 1, "value": 1.0, "info": {}}})
     out = asyncio.run(diag.async_get_config_entry_diagnostics(
-        FakeHass(coord), FakeEntry()))
+        FakeHass(coord), FakeEntry(coord)))
     assert 1041 in coord.fetched  # H31 pump type requested live
     assert "1041" in out["registers"]
     assert out["key_fetch"]["still_missing"] == []
+    cs = MARKERS["control_source"]
+    assert cs["addr_single"]["selector"] in coord.fetched
+    assert all(src["current"] in coord.fetched for src in cs["by_value"].values())
     # Written back so computed sensors / entities see them too.
     assert 1041 in coord.data
 
 
 def test_no_fetch_when_all_present():
-    data = {a: {"raw": 1, "value": 1.0, "info": {}} for a in
-            (1041, 2059, 2054, 2060, 2077, 2072, 2042, 2043, 2062,
-             2045, 2046, 2012, 2104, 1234, 1235, 1236)}
+    probe = FakeCoord({})
+    asyncio.run(diag.async_get_config_entry_diagnostics(FakeHass(probe), FakeEntry(probe)))
+    data = {a: {"raw": 1, "value": 1.0, "info": {}} for a in probe.fetched}
     coord = FakeCoord(data)
     out = asyncio.run(diag.async_get_config_entry_diagnostics(
-        FakeHass(coord), FakeEntry()))
+        FakeHass(coord), FakeEntry(coord)))
     assert coord.fetched is None
     assert out["key_fetch"] == {"requested": [], "still_missing": []}
 
@@ -91,5 +101,5 @@ def test_no_register_cap():
     data = {a: {"raw": 1, "value": 1.0, "info": {}} for a in range(1, 400)}
     coord = FakeCoord(data)
     out = asyncio.run(diag.async_get_config_entry_diagnostics(
-        FakeHass(coord), FakeEntry()))
+        FakeHass(coord), FakeEntry(coord)))
     assert len(out["registers"]) >= 399

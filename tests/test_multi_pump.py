@@ -9,8 +9,6 @@ Covers the 2+ heat-pump hardening:
  - suggested_object_id is prefix-scoped on all platforms
  - reconfigure step + prefix_in_use error exist in strings + en/de/ru
  - diagnostics exposes name_prefix
- - views require entry_id and return error SVG/HTML when missing
- - views list entries when no entry_id provided to panel
 
 Run: pytest tests/test_multi_pump.py -v
 """
@@ -107,21 +105,6 @@ class FakeEntry:
         self.data = data
 
 
-class FakeCoord:
-    """Minimal coordinator stub for views testing."""
-    def __init__(self, entry):
-        self.entry = entry
-        self.data = {}
-
-    def marker(self, name):
-        return {"addr_single": {
-            "slope": 1234, "offset": 1235, "at_comp_en": 1236,
-            "live_target": 2014, "at_sensor": 2048,
-            "r10_min": 1164, "r11_max": 1165,
-            "r31_at_lo": 1166, "r34_at_hi": 1167,
-        }}
-
-
 def test_conflict_matrix():
     e1 = FakeEntry("e1", {"host": "h", "port": 8899, "slave": 1,
                           "name_prefix": "foxair"})
@@ -177,34 +160,6 @@ def test_diagnostics_exposes_prefix():
     assert "name_prefix" in src
 
 
-class FakeRequest:
-    """Minimal aiohttp request stub."""
-    def __init__(self, query_params, hass_data):
-        self.query = query_params
-        self.app = {"hass": types.SimpleNamespace(data=hass_data)}
-
-
-def test_views_require_entry_id():
-    """Views should return error SVG/HTML when entry_id missing or invalid."""
-    views_src = (CC / "views.py").read_text()
-    # SVG view checks entry_id and returns error SVG
-    assert 'entry_id' in views_src
-    assert 'entry_id not in foxair_data' in views_src
-    # Panel view lists entries when no entry_id
-    assert 'entries_html' in views_src
-    assert 'entry_id' in views_src
-
-
-def test_views_list_entries_no_entry_id():
-    """Panel view should show picker when no entry_id provided."""
-    # Load views module
-    views_src = (CC / "views.py").read_text()
-    # The panel view should have fallback HTML listing entries
-    assert 'No pumps configured' in views_src
-    assert 'entry_id' in views_src
-    assert 'heating_curve.svg' in views_src
-
-
 if __name__ == "__main__":
     test_conflict_matrix()
     test_legacy_entry_defaults_foxair()
@@ -212,6 +167,4 @@ if __name__ == "__main__":
     test_translation_key_stable_and_object_id_prefixed()
     test_reconfigure_strings_all_langs()
     test_diagnostics_exposes_prefix()
-    test_views_require_entry_id()
-    test_views_list_entries_no_entry_id()
     print("All tests passed!")

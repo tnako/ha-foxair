@@ -18,6 +18,7 @@ import types
 import os
 import re
 import importlib.util
+import json
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
@@ -121,6 +122,10 @@ img_spec.loader.exec_module(img)
 # Fake coordinator + test harness
 # ======================================================================
 
+MARKERS = json.load(open(os.path.join(ROOT, "custom_components", "foxair", "data", "foxair_config.json"), encoding="utf-8"))["markers"]
+METADATA = json.load(open(os.path.join(ROOT, "custom_components", "foxair", "data", "foxair_metadata.json"), encoding="utf-8"))
+
+
 class FHass:
     class config:
         language = "en"
@@ -133,15 +138,9 @@ class FakeCoord:
         self.entry = type("E", (), {"entry_id": "test", "data": {"host": "test", "port": 8899, "slave": 1}, "options": {}})()
         self._entry_id = "test"
     def marker(self, name):
-        if name == "heat_curve":
-            return {"addr_single": {
-                "slope": 1234, "offset": 1235, "at_comp_en": 1236,
-                "at_sensor": 2048, "live_target": 2014,
-                "r10_min": 1164, "r11_max": 1165,
-            }}
-        if name == "setpoints":
-            return {"addr_single": {"heating_target": 1158}}
-        return {}
+        return MARKERS.get(name, {})
+    def get_metadata(self, addr):
+        return METADATA.get(str(addr), {})
 
 def make_data(at_live, after=None, h36=1, slope=0.6, offset=37.0):
     data = {}
@@ -396,6 +395,35 @@ for lang_name, tl in LANGS:
                         all_ok = False
 
         print(f"  OK [{test_name}]")
+
+# Switch gating: the card always shows the heating water side. H36 draws the
+# curve only while heating from a water source; the y-axis names the H25 sensor.
+_mv = MARKERS["status"]["mode_values"]
+_mode_addr = MARKERS["status"]["addr_single"]["mode"]
+_cs = MARKERS["control_source"]
+_sel = _cs["addr_single"]["selector"]
+_code = METADATA[str(_sel)]["code"].lower()
+_src_tl = {f"source.{k}": f"AXIS {k}" for k in (e["key"] for e in _cs["by_value"].values())}
+for h25, src in sorted(_cs["by_value"].items()):
+    for label, mode in (("heating", _mv["heating"]), ("cooling", _mv["cooling"])):
+        d = make_data(0.0, 37.0, 1)
+        d[_mode_addr] = {"raw": mode, "value": mode}
+        d[_sel] = {"raw": int(h25), "value": int(h25)}
+        obj = img.FoxAirHeatingCurveImage(FakeCoord(d), "test")
+        obj.hass = FHass()
+        obj._tl = {**img._TL_FALLBACK, **EN_TL, **_src_tl}
+        obj._last_inputs = obj._read_inputs()
+        obj._render()
+        svg = obj._image_bytes.decode("utf-8")
+        want = "mode_curve" if label == "heating" and not src.get("target") else "mode_fixed"
+        axis = EN_TL["axis_y"] if src.get("target") else f"AXIS {src['key']}"
+        name = f"switch gating H25={h25}/{src['key']} {label}"
+        problems = [p for p, ok in ((EN_TL[want], EN_TL[want] in svg), (axis, axis in svg)) if not ok]
+        if problems:
+            print(f"  FAIL [{name}]: missing {problems}")
+            all_ok = False
+        else:
+            print(f"  OK [{name}]")
 
 print(f"\n{'='*60}")
 print("  ALL TESTS PASSED" if all_ok else "  SOME TESTS FAILED")

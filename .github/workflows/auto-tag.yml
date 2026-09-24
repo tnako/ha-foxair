@@ -4,25 +4,26 @@ on:
     branches: [main]
 permissions:
   contents: write
+concurrency:
+  group: auto-tag
+  cancel-in-progress: false
 jobs:
   auto-tag:
-    # Self-healing release trigger: when a push to main carries a VERSION
-    # bump whose tag does not exist yet and whose CHANGELOG section is
-    # present, create and push the vX.Y.Z tag. The tag push is what starts
-    # the Release workflow — so a forgotten manual `git tag` can no longer
-    # silently skip a release.
-    # Guards against stray bumps: no tag without a matching CHANGELOG
-    # section (validate.py additionally enforces top section == VERSION).
+    # Tag VERSION when a push to main bumps it and its CHANGELOG section
+    # exists. The tag push starts the Release workflow. Pushing the tag by
+    # hand alongside the commit is fine: an existing tag (local or remote)
+    # is a no-op, not a failure.
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # full history + tags needed for the rev-parse check
+          fetch-depth: 0
       - name: Tag VERSION when untagged
         run: |
           VER="$(tr -d '[:space:]' < VERSION)"
-          if git rev-parse -q --verify "refs/tags/v$VER" >/dev/null; then
-            echo "v$VER already tagged — nothing to do"
+          TAG="v$VER"
+          if git ls-remote --exit-code --tags origin "refs/tags/$TAG" >/dev/null; then
+            echo "$TAG already on origin — nothing to do"
             exit 0
           fi
           if ! grep -q "^## $VER" CHANGELOG.md; then
@@ -31,6 +32,12 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git tag -a "v$VER" -m "v$VER"
-          git push origin "v$VER"
-          echo "tagged v$VER — Release workflow will pick it up"
+          git tag -a "$TAG" -m "$TAG"
+          if ! git push origin "$TAG"; then
+            if git ls-remote --exit-code --tags origin "refs/tags/$TAG" >/dev/null; then
+              echo "$TAG was pushed concurrently — nothing to do"
+              exit 0
+            fi
+            exit 1
+          fi
+          echo "tagged $TAG — Release workflow will pick it up"

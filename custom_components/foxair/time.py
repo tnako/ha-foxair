@@ -4,6 +4,7 @@
 - TIME_DECIMAL: one register, decimal HHMM e.g. 730=07:30      (circ pump 1326-1331)
 - TIME_SPLIT  : two registers: this addr=hour, addr+1=minute   (silent 1245/1248)
 """
+from __future__ import annotations
 
 import logging
 from datetime import time
@@ -21,7 +22,7 @@ _LOGGER = logging.getLogger(__name__)
 
 
 async def async_setup_entry(hass, entry, add_entities):
-    coord = getattr(entry, "runtime_data", None) or hass.data["foxair"][entry.entry_id]
+    coord = entry.runtime_data
     if not getattr(coord, "_metadata", None):
         await coord._load_map()
     ents = []

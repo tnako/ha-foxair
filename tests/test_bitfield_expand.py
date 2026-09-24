@@ -88,6 +88,7 @@ class FakeEntry:
 class FakeCoord:
     def __init__(self, expert=False, data=None):
         self.entry = FakeEntry(expert)
+        self.entry.runtime_data = self
         self._entry_id = "eid"
         self.data = data if data is not None else {}
         self._metadata = META

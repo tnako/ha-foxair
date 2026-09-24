@@ -1234,7 +1234,7 @@
     "has_value_map": true,
     "depends_on": null,
     "name": "Temperatur-Regelauswahl",
-    "poll_tier": "rare",
+    "poll_tier": "quick",
     "min_firmware": null,
     "format": null
   },

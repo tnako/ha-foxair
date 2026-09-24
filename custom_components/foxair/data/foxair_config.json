@@ -702,9 +702,14 @@
         "mode": 1012,
         "run_status": 2012,
         "compressor_freq": 2072,
-        "outlet_water_temp": 2046,
-        "at_outdoor": 2048,
-        "curve_live_target": 2014
+        "outlet_water_temp": 2046
+      },
+      "mode_values": {
+        "heating": 1,
+        "cooling": 2,
+        "heating_dhw": 3,
+        "cooling_dhw": 4,
+        "dhw_only": 0
       }
     },
     "heat_curve": {
@@ -724,7 +729,28 @@
       "addr_single": {
         "heating_target": 1158,
         "cooling_target": 1159,
-        "dhw_target": 1157
+        "dhw_target": 1157,
+        "heating_min": 1164,
+        "heating_max": 1165,
+        "cooling_min": 1162,
+        "cooling_max": 1163,
+        "heating_start": 1160,
+        "heating_stop": 1161,
+        "cooling_start": 1174,
+        "cooling_stop": 1175
+      }
+    },
+    "_control_source_comment": "H25 control source selector, resolved by heating_curve.active_control(). by_value maps every H25 raw value (key = H25 select option slug) to the sensor the unit regulates on (current) and, when that source has its own setpoint, its target plus heating/cooling start/stop registers. Without target the setpoints marker applies (R02/R03, limits, start/stop, or the H36 curve while heating). default is used while H25 is unknown. validate.py checks coverage of the H25 value_map, translations and quick polling.",
+    "control_source": {
+      "addr_single": {
+        "selector": 1035
+      },
+      "default": "0",
+      "by_value": {
+        "0": {"key": "outlet_water_temp", "current": 2046},
+        "1": {"key": "room_temp", "current": 2058, "target": 1239, "heating_start": 1240, "heating_stop": 1241, "cooling_start": 1242, "cooling_stop": 1243},
+        "2": {"key": "buffer_tank_temp", "current": 2052},
+        "3": {"key": "inlet_water_temp", "current": 2045}
       }
     },
     "core_main_addrs": {
@@ -792,6 +818,9 @@
       "1236": {
         "poll_tier": "quick",
         "risk": "safe"
+      },
+      "1035": {
+        "poll_tier": "quick"
       },
       "2029": {
         "risk": "blocked"

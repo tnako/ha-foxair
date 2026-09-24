@@ -12,6 +12,6 @@ if "$PY" -c "import pytest" 2>/dev/null; then
         exit 1
     }
 else
-    echo "pre-push: pytest not available in $PY — set FOXAIR_PY to a 3.11+ venv (see AGENTS.md)" >&2
+    echo "pre-push: pytest not available in $PY — pip install pytest or set FOXAIR_PY (see AGENTS.md)" >&2
     exit 1
 fi

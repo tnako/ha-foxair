@@ -1,4 +1,5 @@
 """Select platform for v0.3 — DIGI1/TIMER/SG as selects with HA state translation."""
+from __future__ import annotations
 import logging
 import re
 
@@ -146,7 +147,7 @@ def load_value_map(coord, addr):
 
 
 async def async_setup_entry(hass, entry, add_entities):
-    coord = getattr(entry, "runtime_data", None) or hass.data["foxair"][entry.entry_id]
+    coord = entry.runtime_data
     if not getattr(coord, "_metadata", None):
         await coord._load_map()
     ents = []

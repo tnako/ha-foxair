@@ -5,7 +5,9 @@ Checks: VERSION==manifest.json, translations CODE: prefix sanity (no double
 prefix; every tabs.txt code has a prefixed name in en/de/ru), python syntax,
 full translation coverage (every visible register has en/de/ru entry,
 ru != en, no unknown poll_tier), config.error keys for every errors[] key
-used in config_flow.py.
+used in config_flow.py, switch wiring (markers.status/heat_curve/setpoints/
+control_source: every register exists, quick-polled, non-expert; H25 mapping
+complete + translated; no marker register literals in climate.py/image.py).
 Usage: tools/validate.py [--strict]
   --strict: also fail on hidden-or-reserved ru==en (default: only visible)
 """
@@ -282,11 +284,7 @@ else:
 _opts_keys = set(re.findall(r'vol\.(?:Optional|Required)\("([^"]+)"', _cfgflow[_cfgflow.find("class FoxAirOptionsFlow"):]))
 _ACK_ONLY = {"expert_ack"}
 _other_src = "".join(
-    (CC / f).read_text() for f in (
-        "computed.py", "coordinator.py", "sensor.py", "climate.py",
-        "number.py", "select.py", "switch.py", "time.py", "image.py",
-        "views.py", "__init__.py", "heating_curve.py",
-    ) if (CC / f).exists()
+    f.read_text() for f in sorted(CC.glob("*.py")) if f.name != "config_flow.py"
 )
 for _k in sorted(_opts_keys - _ACK_ONLY):
     if f'"{_k}"' not in _other_src and f"'{_k}'" not in _other_src:
@@ -530,6 +528,84 @@ try:
             break
 except OSError:
     pass
+
+# 8. Switch wiring (2026-09: H25 "control by inlet" had no effect — climate
+#    hardcoded the outlet sensor and never read H25). Registers that change
+#    what other entities mean are resolved in heating_curve.active_control()
+#    from foxair_config.json markers; these gates keep that wiring intact.
+#    a) every register named in a runtime marker exists, is polled on the quick
+#       tier and is visible without expert mode (a stale switch = stale entity);
+#    b) control_source.by_value covers every H25 value_map entry, each key is an
+#       H25 select option slug, each entry names its sensor;
+#    c) entity code (climate/image) reads switch registers via markers only.
+_RUNTIME_MARKERS = ("status", "heat_curve", "setpoints", "control_source")
+try:
+    _cfg8 = json.loads((CC / "data/foxair_config.json").read_text(encoding="utf-8"))
+    _meta8 = json.loads((CC / "data/foxair_metadata.json").read_text(encoding="utf-8"))
+    _regs8 = json.loads((CC / "data/foxair_phnix_registers.json").read_text(encoding="utf-8"))
+except (OSError, ValueError) as _e:
+    errs.append(f"switch-wiring: cannot load data files: {_e}")
+    _cfg8 = {}
+_mk8 = _cfg8.get("markers", {}) if _cfg8 else {}
+
+
+def _marker_addrs(obj, path):
+    if isinstance(obj, dict):
+        for k, val in obj.items():
+            if k != "mode_values":
+                yield from _marker_addrs(val, f"{path}.{k}")
+    elif isinstance(obj, int) and not isinstance(obj, bool):
+        yield path, obj
+
+
+for _name in _RUNTIME_MARKERS if _mk8 else ():
+    if _name not in _mk8:
+        errs.append(f"switch-wiring: markers.{_name} missing in foxair_config.json")
+        continue
+    for _path, _a in _marker_addrs(_mk8[_name], f"markers.{_name}"):
+        if _path.endswith(".default"):
+            continue
+        _m = _meta8.get(str(_a))
+        if not _m:
+            errs.append(f"switch-wiring: {_path}={_a} not in foxair_metadata.json")
+        elif _m.get("hidden") or _m.get("requires_expert") or _m.get("poll_tier") != "quick":
+            errs.append(f"switch-wiring: {_path}={_a} ({_m.get('code')}) must be visible, non-expert and poll_tier quick (is {_m.get('poll_tier')}, hidden={_m.get('hidden')}, expert={_m.get('requires_expert')})")
+if _mk8.get("control_source"):
+    _cs8 = _mk8["control_source"]
+    _sel8 = (_cs8.get("addr_single") or {}).get("selector")
+    _vm8 = set(((_regs8.get(str(_sel8)) or {}).get("value_map") or {}))
+    _bv8 = _cs8.get("by_value") or {}
+    if set(_bv8) != _vm8:
+        errs.append(f"switch-wiring: control_source.by_value keys {sorted(_bv8)} != register {_sel8} value_map {sorted(_vm8)}")
+    if str(_cs8.get("default")) not in _bv8:
+        errs.append(f"switch-wiring: control_source.default {_cs8.get('default')!r} not in by_value")
+    _code8 = (_meta8.get(str(_sel8)) or {}).get("code", "").lower()
+    for _lang in ("strings", "translations/en", "translations/de", "translations/ru"):
+        try:
+            _st8 = json.loads((CC / f"{_lang}.json").read_text(encoding="utf-8"))["entity"]["select"][f"foxair_{_code8}"]["state"]
+        except (OSError, KeyError, ValueError):
+            errs.append(f"switch-wiring: {_lang}.json has no select foxair_{_code8} states")
+            continue
+        for _raw, _e8 in _bv8.items():
+            if _e8.get("key") not in _st8:
+                errs.append(f"switch-wiring: control_source.by_value[{_raw}].key {_e8.get('key')!r} is not a foxair_{_code8} option in {_lang}.json")
+    for _raw, _e8 in _bv8.items():
+        if not _e8.get("current"):
+            errs.append(f"switch-wiring: control_source.by_value[{_raw}] has no current sensor")
+    _mv8 = (_mk8.get("status") or {}).get("mode_values") or {}
+    for _k in ("heating", "cooling", "heating_dhw", "cooling_dhw", "dhw_only"):
+        if _k not in _mv8:
+            errs.append(f"switch-wiring: markers.status.mode_values.{_k} missing")
+    _switch_addrs = {a for n in _RUNTIME_MARKERS for _p, a in _marker_addrs(_mk8.get(n, {}), n)}
+    for _f in ("climate.py", "image.py"):
+        try:
+            _tree = ast.parse((CC / _f).read_text(encoding="utf-8"))
+        except (OSError, SyntaxError):
+            continue
+        _hits = sorted({n.value for n in ast.walk(_tree)
+                        if isinstance(n, ast.Constant) and type(n.value) is int and n.value in _switch_addrs})
+        if _hits:
+            errs.append(f"switch-wiring: {_f} uses marker register literal(s) {_hits} — read them via coordinator.marker()/active_control()")
 
 if warns:
     print("WARN:")

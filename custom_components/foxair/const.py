@@ -5,6 +5,7 @@ Loads blocks, types, intervals, and core addresses from foxair_config.json
 table (platform key stripped). TABS_CODE_ORDER is the exact code sequence
 from modbus/tabs.txt — each menu and entity in required order.
 """
+from __future__ import annotations
 import json
 import re
 import pathlib
