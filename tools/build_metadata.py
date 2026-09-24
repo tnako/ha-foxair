@@ -155,14 +155,14 @@ def main():
         group = APP_TAB_TITLES.get(tab, BLOCK_SHORT.get(block, "Other" if block else "Header/Reserved"))
         if dtype == "BLOCK" or (not code and addr not in BLOCK_T_LIVE):
             group = "Header/Reserved"
+        # per-register overrides (risk, poll_tier, range, block, etc.)
+        ov = OVERRIDES.get(addr, {})
         mode = rec.get("mode", "read")
-        editable = mode == "r/w" and dtype != "BLOCK"
+        editable = mode == "r/w" and dtype != "BLOCK" and ov.get("editable", True)
         # platform
         platform = TYPE_TO_PLATFORM.get(dtype, "sensor")
         if not editable:
             platform = "sensor"
-        # per-register overrides (risk, poll_tier, range, block, etc.)
-        ov = OVERRIDES.get(addr, {})
         # risk
         risk = ov.get("risk", RISK_BY_BLOCK.get(block, "advanced" if editable else "safe"))
         if dtype == "BLOCK":
@@ -182,6 +182,8 @@ def main():
         # are expert-only, EXCEPT core control/curve addrs used by climate & main device.
         if not block and not code and addr not in CORE_NON_EXPERT_ADDRS:
             requires_expert = True
+        if "requires_expert" in ov:
+            requires_expert = ov["requires_expert"]
         # Permanently hidden: reserved / protocol-header / system / wifi / factory-test
         # / service addrs — never shown (not even expert) and never polled.
         hidden = (dtype == "BLOCK" or any(lo <= addr <= hi for lo, hi in HIDDEN_CFG_RANGES))

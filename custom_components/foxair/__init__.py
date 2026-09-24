@@ -122,6 +122,8 @@ async def _cleanup_orphaned_entities(hass: HomeAssistant, entry: ConfigEntry, en
             )
             if min_fw and not coord._fw_gte(min_fw):
                 drop = True
+            if ent.domain == "time" and meta.get("platform") != "time":
+                drop = True
             if drop:
                 registry.async_remove(ent.entity_id)
                 removed += 1

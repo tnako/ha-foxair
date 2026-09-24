@@ -132,9 +132,32 @@ def test_firmware_gate_present():
     }
     assert fw_gated, "No min_firmware overrides in foxair_config.json"
     meta = json.loads((DATA / "foxair_metadata.json").read_text())
-    for addr in fw_gated:
+    for addr, v in fw_gated.items():
         assert addr in meta, f"Firmware-gated addr {addr} not in metadata"
-        assert meta[addr].get("min_firmware") == 33
+        assert meta[addr].get("min_firmware") == v["min_firmware"]
+
+
+def test_power_timers_gated_to_v34():
+    """Power timers override the heating curve below V3.4 (upstream firmware_overview)."""
+    meta = json.loads((DATA / "foxair_metadata.json").read_text())
+    for addr in range(1281, 1326):
+        m = meta[str(addr)]
+        assert m["min_firmware"] == 34, addr
+        assert (m["block"], m["requires_expert"]) == ("KG", True), addr
+
+
+def test_circulation_timers_read_only():
+    """1326-1331 encoding is unverified upstream (RAW): expose as sensors, never write."""
+    meta = json.loads((DATA / "foxair_metadata.json").read_text())
+    for addr in range(1326, 1332):
+        m = meta[str(addr)]
+        assert (m["platform"], m["editable"], m["block"]) == ("sensor", False, "KG"), addr
+
+
+def test_timer_registers_off_main_device():
+    meta = json.loads((DATA / "foxair_metadata.json").read_text())
+    for addr in list(range(1244, 1250)) + list(range(1281, 1332)):
+        assert meta[str(addr)]["block"] == "KG", addr
 
 
 # ── Heating curve math ────────────────────────────────────────────

@@ -2822,6 +2822,12 @@
       }
     },
     "switch": {
+      "foxair_1244": {
+        "name": "Silent Mode Timer Start Enable"
+      },
+      "foxair_1247": {
+        "name": "Silent Mode Timer Stop Enable"
+      },
       "foxair_power": {
         "name": "Power"
       }
@@ -4851,6 +4857,48 @@
       }
     },
     "time": {
+      "foxair_1245": {
+        "name": "Silent Mode Timer Start Time"
+      },
+      "foxair_1248": {
+        "name": "Silent Mode Timer Stop Time"
+      },
+      "foxair_1281": {
+        "name": "Timer 1 On Time (ASM)"
+      },
+      "foxair_1282": {
+        "name": "Timer 1 Off Time (ASM)"
+      },
+      "foxair_1288": {
+        "name": "Timer 2 On Time (ASM)"
+      },
+      "foxair_1289": {
+        "name": "Timer 2 Off Time (ASM)"
+      },
+      "foxair_1295": {
+        "name": "Timer 3 On Time (ASM)"
+      },
+      "foxair_1296": {
+        "name": "Timer 3 Off Time (ASM)"
+      },
+      "foxair_1302": {
+        "name": "Timer 4 On Time (ASM)"
+      },
+      "foxair_1303": {
+        "name": "Timer 4 Off Time (ASM)"
+      },
+      "foxair_1309": {
+        "name": "Timer 5 On Time (ASM)"
+      },
+      "foxair_1310": {
+        "name": "Timer 5 Off Time (ASM)"
+      },
+      "foxair_1316": {
+        "name": "Timer 6 On Time (ASM)"
+      },
+      "foxair_1317": {
+        "name": "Timer 6 Off Time (ASM)"
+      },
       "foxair_kg1": {
         "name": "KG1: HP On/Off Timer 1 Start"
       },

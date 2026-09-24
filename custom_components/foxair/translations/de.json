@@ -2822,6 +2822,12 @@
       }
     },
     "switch": {
+      "foxair_1244": {
+        "name": "Silentmodus Timer Start aktivieren"
+      },
+      "foxair_1247": {
+        "name": "Silentmodus Timer Stop aktivieren"
+      },
       "foxair_power": {
         "name": "Strom"
       }
@@ -4851,6 +4857,48 @@
       }
     },
     "time": {
+      "foxair_1245": {
+        "name": "Silentmodus Timer Startzeit"
+      },
+      "foxair_1248": {
+        "name": "Silentmodus Timer Stopzeit"
+      },
+      "foxair_1281": {
+        "name": "Timer 1 Einschaltzeit (ASM)"
+      },
+      "foxair_1282": {
+        "name": "Timer 1 Ausschaltzeit (ASM)"
+      },
+      "foxair_1288": {
+        "name": "Timer 2 Einschaltzeit (ASM)"
+      },
+      "foxair_1289": {
+        "name": "Timer 2 Ausschaltzeit (ASM)"
+      },
+      "foxair_1295": {
+        "name": "Timer 3 Einschaltzeit (ASM)"
+      },
+      "foxair_1296": {
+        "name": "Timer 3 Ausschaltzeit (ASM)"
+      },
+      "foxair_1302": {
+        "name": "Timer 4 Einschaltzeit (ASM)"
+      },
+      "foxair_1303": {
+        "name": "Timer 4 Ausschaltzeit (ASM)"
+      },
+      "foxair_1309": {
+        "name": "Timer 5 Einschaltzeit (ASM)"
+      },
+      "foxair_1310": {
+        "name": "Timer 5 Ausschaltzeit (ASM)"
+      },
+      "foxair_1316": {
+        "name": "Timer 6 Einschaltzeit (ASM)"
+      },
+      "foxair_1317": {
+        "name": "Timer 6 Ausschaltzeit (ASM)"
+      },
       "foxair_kg1": {
         "name": "KG1: WP Ein/Aus Timer 1 Startzeit"
       },

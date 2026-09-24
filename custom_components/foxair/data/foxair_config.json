@@ -767,13 +767,313 @@
         8801
       ]
     },
-    "_override_comment": "Per-register overrides mirroring the original code tables exactly: RISK_OVERRIDES, RANGE_OVERRIDES(min/max only), POLL_TIER_OVERRIDES, UNREADABLE_ADDRS->blocked, T_QUICK, T_MEDIUM. Only risk/min/max/poll_tier/tier — platform, step, requires_expert are derived by the generator.",
+    "_override_comment": "Per-register overrides mirroring the original code tables exactly: RISK_OVERRIDES, RANGE_OVERRIDES(min/max only), POLL_TIER_OVERRIDES, UNREADABLE_ADDRS->blocked, T_QUICK, T_MEDIUM. Keys: risk/min/max/poll_tier/icon/format/min_firmware, block+tab (entity section), requires_expert (pin expert gating after a block move), editable=false (read-only sensor while the encoding is unverified). Platform and step stay derived by the generator.",
     "time_split_comment": "TIME_SPLIT composite (hour addr -> minute addr): hour addr is a time platform entity, minute addr is written by the composite and gets no standalone entity but stays polled.",
     "time_split": {
       "1245": 1246,
       "1248": 1249
     },
     "overrides": {
+      "1244": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true
+      },
+      "1245": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true
+      },
+      "1246": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true
+      },
+      "1247": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true
+      },
+      "1248": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true
+      },
+      "1249": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true
+      },
+      "1281": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "min_firmware": 34
+      },
+      "1282": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "min_firmware": 34
+      },
+      "1283": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "min_firmware": 34
+      },
+      "1284": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "min_firmware": 34
+      },
+      "1285": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "min_firmware": 34
+      },
+      "1286": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "min_firmware": 34
+      },
+      "1287": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "min_firmware": 34
+      },
+      "1288": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "min_firmware": 34
+      },
+      "1289": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "min_firmware": 34
+      },
+      "1290": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "min_firmware": 34
+      },
+      "1291": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "min_firmware": 34
+      },
+      "1292": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "min_firmware": 34
+      },
+      "1293": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "min_firmware": 34
+      },
+      "1294": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "min_firmware": 34
+      },
+      "1295": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "min_firmware": 34
+      },
+      "1296": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "min_firmware": 34
+      },
+      "1297": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "min_firmware": 34
+      },
+      "1298": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "min_firmware": 34
+      },
+      "1299": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "min_firmware": 34
+      },
+      "1300": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "min_firmware": 34
+      },
+      "1301": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "min_firmware": 34
+      },
+      "1302": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "min_firmware": 34
+      },
+      "1303": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "min_firmware": 34
+      },
+      "1304": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "min_firmware": 34
+      },
+      "1305": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "min_firmware": 34
+      },
+      "1306": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "min_firmware": 34
+      },
+      "1307": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "min_firmware": 34
+      },
+      "1308": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "min_firmware": 34
+      },
+      "1309": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "min_firmware": 34
+      },
+      "1310": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "min_firmware": 34
+      },
+      "1311": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "min_firmware": 34
+      },
+      "1312": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "min_firmware": 34
+      },
+      "1313": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "min_firmware": 34
+      },
+      "1314": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "min_firmware": 34
+      },
+      "1315": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "min_firmware": 34
+      },
+      "1316": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "min_firmware": 34
+      },
+      "1317": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "min_firmware": 34
+      },
+      "1318": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "min_firmware": 34
+      },
+      "1319": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "min_firmware": 34
+      },
+      "1320": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "min_firmware": 34
+      },
+      "1321": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "min_firmware": 34
+      },
+      "1322": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "min_firmware": 34
+      },
+      "1323": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "min_firmware": 34
+      },
+      "1324": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "min_firmware": 34
+      },
+      "1325": {
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "min_firmware": 34
+      },
       "1011": {
         "poll_tier": "quick"
       },
@@ -1071,27 +1371,51 @@
       },
       "1326": {
         "min": 0,
-        "max": 2359
+        "max": 2359,
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "editable": false
       },
       "1327": {
         "min": 0,
-        "max": 2359
+        "max": 2359,
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "editable": false
       },
       "1328": {
         "min": 0,
-        "max": 2359
+        "max": 2359,
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "editable": false
       },
       "1329": {
         "min": 0,
-        "max": 2359
+        "max": 2359,
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "editable": false
       },
       "1330": {
         "min": 0,
-        "max": 2359
+        "max": 2359,
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "editable": false
       },
       "1331": {
         "min": 0,
-        "max": 2359
+        "max": 2359,
+        "block": "KG",
+        "tab": "KG",
+        "requires_expert": true,
+        "editable": false
       },
       "1332": {
         "min": 0,
