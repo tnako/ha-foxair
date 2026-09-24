@@ -19,8 +19,9 @@ with `export FOXAIR_PY=<venv>/bin/python3`; all tasks and git hooks honor it.
 ## Release flow — order is enforced
 1. Write the `## X.Y.Z - YYYY-MM-DD` CHANGELOG.md section FIRST (bump_version.py refuses to run without it; validate.py gates top entry == VERSION).
 2. `task bump version=X.Y.Z`
-3. Commit, tag `vX.Y.Z`, push — git hooks (`.githooks/`, enabled via `task hooks` / `git config core.hooksPath .githooks`) run validate on commit and validate+pytest on push. Never bypass with `--no-verify`; fix the gate instead.
-4. Never chain `git commit` after gates through pipes — `cmd | tail` masks the gate's exit code and the commit lands anyway. Run gates as their own command, check exit code, then commit.
+3. Commit and push to main — git hooks (`.githooks/`, enabled via `task hooks` / `git config core.hooksPath .githooks`) run validate on commit and validate+pytest on push. Never bypass with `--no-verify`; fix the gate instead.
+4. Do NOT tag by hand. `.github/workflows/release.yml` runs on every push to main: gate (validate + pytest + render) -> tag `vX.Y.Z` -> publish the GitHub release (HACS update) in ONE run, idempotently. A tag pushed with GITHUB_TOKEN never triggers another workflow, so never split tag and release into separate workflows (v0.7.8 got a tag and no release that way). A bumped VERSION without its CHANGELOG section fails the run. Missing release: re-run the workflow or `gh workflow run Release`. After a release push, confirm with `gh release view vX.Y.Z`.
+5. Never chain `git commit` after gates through pipes — `cmd | tail` masks the gate's exit code and the commit lands anyway. Run gates as their own command, check exit code, then commit.
 
 ## Session bootstrap — ONE call before any work
 
