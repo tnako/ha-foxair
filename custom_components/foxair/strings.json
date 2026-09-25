@@ -1390,7 +1390,7 @@
         "name": "EVI EEV Steps"
       },
       "foxair_2023": {
-        "name": "Number of Compressor Starts"
+        "name": "Compressor starts"
       },
       "foxair_2024": {
         "name": "System 2 Valve / EEV Display Value (ASM)"
@@ -2755,7 +2755,7 @@
         "name": "T-Diag7: Eingangsstrom L3"
       },
       "foxair_t_diag8": {
-        "name": "T-Diag8: Compressor Runtime"
+        "name": "T-Diag8: Compressor runtime"
       },
       "foxair_z01": {
         "name": "Z01: Enable Multi-Zone Control"
@@ -2827,6 +2827,9 @@
     "switch": {
       "foxair_power": {
         "name": "Power"
+      },
+      "foxair_pv_surplus": {
+        "name": "PV surplus (SG Ready High PV)"
       }
     },
     "number": {
@@ -5427,6 +5430,14 @@
       },
       "foxair_2146_bit4": {
         "name": "Heating/summer cut-off active"
+      },
+      "foxair_fault": {
+        "name": "Fault"
+      }
+    },
+    "water_heater": {
+      "foxair_dhw": {
+        "name": "Hot water"
       }
     }
   },

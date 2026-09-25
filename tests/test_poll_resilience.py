@@ -312,3 +312,33 @@ def test_staleness_policy():
     assert coord.is_stale(1011)
     s = coord.freshness_summary()
     assert s["tracked"] >= 1 and 1011 in s["stale_addrs"]
+
+
+def test_isolated_addr_read_alone_and_never_spanned():
+    mod._ISOLATED.clear()
+    mod._ISOLATED.add(2032)
+    mod._DEAD_RANGES[:] = [(2029, 2031)]
+    try:
+        coord = _make_coord({"quick": set(), "medium": set(), "rare": set()})
+        batches = coord._batches_for_addrs({2020, 2028, 2032, 2040, 2045})
+        assert (2032, 1) in batches
+        assert all(not (s < 2032 < s + q) for s, q in batches if (s, q) != (2032, 1))
+        assert all(not (s <= 2031 and s + q - 1 >= 2029) for s, q in batches)
+        assert coord._batches_for_addrs({2032}) == [(2032, 1)]
+    finally:
+        mod._ISOLATED.clear()
+        mod._DEAD_RANGES[:] = []
+
+
+def test_isolated_addr_failure_keeps_rest_of_tier():
+    FlakyClient.instances.clear()
+    mod._ISOLATED.clear()
+    mod._ISOLATED.add(2032)
+    try:
+        coord = _make_coord({"quick": set(), "medium": {2020, 2032, 2040}, "rare": set()})
+        FlakyClient.fail_start = 2032
+        _run(coord)
+        assert 2020 in coord.data and 2040 in coord.data
+        assert 2032 not in coord.data
+    finally:
+        mod._ISOLATED.clear()

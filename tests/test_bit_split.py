@@ -133,8 +133,12 @@ def _run(coro):
     return asyncio.new_event_loop().run_until_complete(coro)
 
 
+async def _in_executor(fn, *args):
+    return fn(*args)
+
+
 def _hass(coord):
-    return types.SimpleNamespace(data={"foxair": {"eid": coord}})
+    return types.SimpleNamespace(data={"foxair": {"eid": coord}}, async_add_executor_job=_in_executor)
 
 
 def test_word_helpers():
@@ -188,6 +192,16 @@ def test_alias_switch_reads_writes_plain_register():
         assert c.writes == [(addr, alias["on"])]
         _run(sw_cls(c, addr, meta, alias).async_turn_off())
         assert c.writes[-1] == (addr, alias["off"])
+
+
+def test_pv_surplus_switch_drives_virtual_sg_input():
+    meta, alias = ALIAS[8801]
+    assert (alias["on"], alias["off"], meta["min_firmware"]) == (4, 2, 33)
+    sw = MODS["switch"].FoxAliasSwitch(FakeCoord({8801: {"raw": 4}}), 8801, meta, alias)
+    assert sw._attr_unique_id == "foxair_pv_surplus"
+    assert sw._attr_entity_category is None
+    assert sw._attr_entity_registry_enabled_default is True
+    assert sw.is_on is True
 
 
 def test_status_bits_become_readonly_binaries():

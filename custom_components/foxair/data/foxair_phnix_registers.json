@@ -4677,7 +4677,7 @@
     "function": "16",
     "mode": "read",
     "name": "Anzahl Verdichter-Starts",
-    "type": "RAW",
+    "type": "COUNT_TOTAL",
     "note": "Quelle: Forum / Endif; Hinweis: Erst ab Firmware V3.3 vorhanden; Status: selbst getestet."
   },
   "2024": {
@@ -4744,10 +4744,11 @@
     "function": "16",
     "mode": "read",
     "name": "Kompressor-Laufzeit",
-    "type": "RAW",
+    "type": "HOURS_TOTAL",
     "block": "T",
     "code": "T-Diag8",
-    "unit": "h"
+    "unit": "h",
+    "note": "Kumulative Kompressor-Laufzeit in Stunden (FoxAir_Control knowledge; DIAG 6048 liefert denselben RAW-Wert, Issue #117). Wird einzeln gelesen (isolated_addrs), nie in einem Batch."
   },
   "2033": {
     "function": "16",

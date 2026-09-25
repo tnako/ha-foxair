@@ -2,7 +2,7 @@
 
 Control and monitor your **FoxAir / PHNIX air-to-water heat pump** directly from Home Assistant over Modbus TCP — no cloud, no YAML.
 
-![Version](https://img.shields.io/badge/version-0.7.12-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2026.9-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
+![Version](https://img.shields.io/badge/version-0.7.13-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2026.9-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
 ![FoxAir Demo](docs/screenshots/foxair_demo.gif)
 
@@ -12,6 +12,10 @@ Register maps and scaling based on the reverse-engineering in [dosordie/FoxAir_C
 
 - **Live diagnostics** — inlet/outlet, coil, ambient, exhaust, pressures, flow, compressor freq, fan RPM, voltages
 - **Controls** — heating / DHW / cooling setpoints, SG Ready, pump modes, zone mixing valves, climate **Off / Heat** with 4 DHW presets
+- **Hot water** — `water_heater.foxair_dhw`: tank temperature (T08), target (R01) within the unit's R36/R37 limits
+- **Fault alarm** — `binary_sensor.foxair_fault` (problem) is on while any documented fault bit is set; `active_faults` lists them
+- **PV surplus** — `switch.foxair_pv_surplus` for EVCC or HA automations, see below
+- **Runtime counters** — compressor runtime (2032, h) and compressor starts (2023, firmware 3.3+) as total counters, read from the unit
 - **Heating curve** — slope / offset / mode with an SVG graph image entity — no Lovelace YAML
 - **Computed sensors** — heating power, electrical power, COP from `flow·ΔT`
 - **Multiple pumps** — configurable entity prefix so each unit gets its own IDs
@@ -66,6 +70,7 @@ Copy `custom_components/foxair` to `/config/custom_components/foxair` (HAOS: `sc
   entity IDs of that pump). Diagnostics show host/port/slave/prefix per entry.
 - **Climate** → `Off` / `Heat` + presets `Heating`, `Cooling`, `Heating+Hot Water`, `Cooling+Hot Water`
 - **Heating curve** → Slope / Offset / Mode → live `sensor.foxair_heating_curve_target` + graph
+- **PV surplus** → `switch.foxair_pv_surplus` (firmware 3.3+): on = SG Ready mode 4 High PV, off = mode 2 normal, written to the virtual SG input 8801. Needs **SG01 = Modbus / virtual SG input** (1334 = 3), no SG contacts wired. In EVCC use the *Home Assistant switch* charger with this entity. The unit applies a new SG mode at most every 10 minutes: the switch shows the request at once, `sensor.foxair_sgstatus` shows the mode the unit accepted. Mode 4 behaviour (setpoint raise, power) is set in the SG block (SG03-SG08)
 
 ## Help & diagnostics
 

@@ -1,3 +1,11 @@
+## 0.7.13 - 2026-09-25
+- feat(faults): `binary_sensor.<prefix>_fault` (problem, Fault device) is on while any documented fault bit of ERR01-ERR09 is set. Attributes `active_faults` (English names) and `fault_keys` (e.g. `err01_bit8`) list the active ones, so one automation covers every fault
+- feat(dhw): `water_heater.<prefix>_dhw` for the DHW tank: tank temperature T08 (2047), target R01 (1157) limited to R36/R37 (1176/1177), unavailable when H28 = no DHW function. State is heat_pump while the mode word 1012 includes DHW, else off. It is read-only: on/off and mode stay on the climate presets because 1012 combines heating/cooling with DHW
+- feat(sg): `switch.<prefix>_pv_surplus` (firmware 3.3+) for EVCC (Home Assistant switch charger) and HA automations without SG contacts: on writes SG mode 4 High PV, off writes mode 2 normal to the virtual SG input 8801. Requires SG01 (1334) = 3. The unit applies a new SG mode at most every 10 minutes (FoxAir_Control docs/sg_ready.md); `sensor.<prefix>_sgstatus` shows the accepted mode
+- feat(counters): compressor runtime (2032, h) is now polled and shown as a total counter (duration, total_increasing). It is read with its own single-register request and batches never span it: 2029-2032 inside one batch broke the EW11 response in v0.4.24. 2029-2031 stay blocked. FoxAir_Control documents 2032 as runtime in hours, the same raw value as DIAG 6048
+- feat(counters): compressor starts (2023, firmware 3.3+) shown without expert mode on the Live device as a total counter
+- fix(poll): new `isolated_addrs` in foxair_config.json: listed registers are read alone, never inside a batch, and a failed single read loses only that register
+- docs: README lists the new entities and the PV surplus setup; ROADMAP brought up to date
 ## 0.7.12 - 2026-09-25
 - feat(firmware): heating/summer cut-off from firmware V3.5 (FoxAir_Control #138). New expert-only read-only entities in Protection/Limits: outdoor-temperature threshold (1464, °C), delay (1465, raw value until the unit is confirmed) and "Heating/summer cut-off active" (2146 bit 4). Only created on firmware V3.5 and later; older units are unchanged
 - feat(firmware): "Low-pressure frequency limiter active (A38)" status (2139 bit 4, FoxAir_Control #139), expert-only, firmware V3.5 and later

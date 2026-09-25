@@ -11,7 +11,7 @@ import re
 
 _LOGGER = logging.getLogger(__name__)
 
-PLATFORMS = ["sensor", "climate", "number", "select", "switch", "time", "image", "button", "binary_sensor"]
+PLATFORMS = ["sensor", "climate", "water_heater", "number", "select", "switch", "time", "image", "button", "binary_sensor"]
 
 # Retired unique_id suffixes: entities removed/renamed by design (not
 # hidden/expert), whose registry entries must be cleaned so they don't

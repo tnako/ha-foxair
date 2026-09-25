@@ -42,6 +42,7 @@ _CONFIG_PATH = pathlib.Path(__file__).parent / "data/foxair_config.json"
 _CFG: dict = {}
 _TYPES: dict = {}
 _DEAD_RANGES: list[tuple[int, int]] = []
+_ISOLATED: set[int] = set()
 _MARKERS: dict = {}
 
 
@@ -54,10 +55,11 @@ def _read_config_file() -> dict:
 
 
 def _apply_config(cfg: dict) -> None:
-    global _CFG, _TYPES, _DEAD_RANGES, _MARKERS
+    global _CFG, _TYPES, _DEAD_RANGES, _ISOLATED, _MARKERS
     _CFG = cfg or {}
     _TYPES = _CFG.get("types", {})
     _DEAD_RANGES = [(lo, hi) for lo, hi in _CFG.get("dead_ranges", [])]
+    _ISOLATED = set(_CFG.get("isolated_addrs", []))
     _MARKERS = _CFG.get("markers", {})
 
 
@@ -583,7 +585,10 @@ class FoxAirCoordinator(DataUpdateCoordinator):
         max_gap = _const.MODBUS_MAX_GAP if max_gap is None else max_gap
         if not addrs:
             return []
-        sorted_addrs = sorted(addrs)
+        single = sorted(a for a in addrs if a in _ISOLATED)
+        sorted_addrs = sorted(a for a in addrs if a not in _ISOLATED)
+        if not sorted_addrs:
+            return [(a, 1) for a in single]
         batches: list[tuple[int, int]] = []
         cur_start = sorted_addrs[0]
         cur_end = sorted_addrs[0]
@@ -596,7 +601,7 @@ class FoxAirCoordinator(DataUpdateCoordinator):
                 would_span_dead = any(
                     cur_start <= d_end and a >= d_start
                     for d_start, d_end in _DEAD_RANGES
-                )
+                ) or any(cur_start < i < a for i in _ISOLATED)
                 if would_span_dead:
                     batches.append((cur_start, cur_end - cur_start + 1))
                     cur_start = a
@@ -608,7 +613,7 @@ class FoxAirCoordinator(DataUpdateCoordinator):
                 cur_start = a
                 cur_end = a
         batches.append((cur_start, cur_end - cur_start + 1))
-        return batches
+        return batches + [(a, 1) for a in single]
 
     async def _async_update_data(self):
         if self._regmap is None:

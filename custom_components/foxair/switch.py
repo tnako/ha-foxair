@@ -255,8 +255,9 @@ class FoxAliasSwitch(CoordinatorEntity, SwitchEntity):
         port = coord.entry.data.get("port")
         self._attr_device_info = bind_device_info(getattr(coord, "hass", None), entry_id, device_for_addr(addr, meta.get("block") or "", entry_id, meta.get("tab") or meta.get("block") or "", prefix, slave_id, host, port))
         self._attr_icon = alias.get("icon") or "mdi:toggle-switch"
-        self._attr_entity_category = EntityCategory.CONFIG
-        self._attr_entity_registry_enabled_default = addr in POPULAR_ADDRS
+        primary = alias.get("category") == "primary"
+        self._attr_entity_category = None if primary else EntityCategory.CONFIG
+        self._attr_entity_registry_enabled_default = primary or addr in POPULAR_ADDRS
 
     def _raw(self):
         rec = self.coordinator.data.get(self._addr) or {}
