@@ -21,6 +21,10 @@ sys.path.insert(0, str(BASE.parent.parent / "tools"))
 
 # (addr, bit): (en, ru)
 BIT_TEXT = {
+    # 2139 frequency limiter status (FW V3.5)
+    (2139, 4): ("Low-pressure frequency limiter active (A38)", "Ограничитель частоты по низкому давлению активен (A38)"),
+    # 2146 heating/summer cut-off status (FW V3.5)
+    (2146, 4): ("Heating/summer cut-off active", "Летнее отключение отопления активно"),
     # 2019 load outputs
     (2019, 0): ("Compressor actually running", "Компрессор работает"),
     (2019, 2): ("At least one fan actually running", "Вентилятор работает (хотя бы один)"),

@@ -107,10 +107,6 @@
       1458
     ],
     [
-      1464,
-      1464
-    ],
-    [
       1466,
       1466
     ],
@@ -215,7 +211,11 @@
       2136
     ],
     [
-      2139,
+      2140,
+      2145
+    ],
+    [
+      2147,
       2149
     ],
     [
@@ -235,7 +235,7 @@
       50999
     ]
   ],
-  "hidden_note": "Ranges above are hidden from UI + polling even in expert mode. Block-header (BLOCK-type) registers and per-block 'Reserve' words are auto-detected by build_metadata; these ranges cover named reserved/system/service addrs. 2022 (EVI EEV-Schritte) and 2063-2064 (T10/T11 EVI Ein-/Auslasstemperatur) hidden because the unit has no EVI hardware.",
+  "hidden_note": "Ranges above are hidden from UI + polling even in expert mode. Block-header (BLOCK-type) registers and per-block 'Reserve' words are auto-detected by build_metadata; these ranges cover named reserved/system/service addrs. 2022 (EVI EEV-Schritte) and 2063-2064 (T10/T11 EVI Ein-/Auslasstemperatur) hidden because the unit has no EVI hardware. 1464/1465 (Heiz-/Sommerabschaltung) and 2139/2146 (limiter status words, bit 4 only) are not hidden: firmware-gated to V3.5+ via min_firmware overrides, read-only.",
   "blocks": {
     "order": [
       "H",
@@ -1470,6 +1470,34 @@
         "block": "T",
         "tab": "T_Live",
         "icon": "mdi:valve"
+      },
+      "1464": {
+        "block": "A",
+        "tab": "A",
+        "requires_expert": true,
+        "min_firmware": 35,
+        "icon": "mdi:weather-sunny-off"
+      },
+      "1465": {
+        "block": "A",
+        "tab": "A",
+        "requires_expert": true,
+        "min_firmware": 35,
+        "icon": "mdi:timer-sand"
+      },
+      "2139": {
+        "block": "A",
+        "tab": "A",
+        "requires_expert": true,
+        "min_firmware": 35,
+        "poll_tier": "medium"
+      },
+      "2146": {
+        "block": "A",
+        "tab": "A",
+        "requires_expert": true,
+        "min_firmware": 35,
+        "poll_tier": "medium"
       }
     }
   },

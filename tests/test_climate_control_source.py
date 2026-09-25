@@ -159,7 +159,7 @@ def test_target_matrix(raw, h36, mode):
         assert ent.extra_state_attributes["target_addr"] == SP["cooling_target"]
     elif h36 == 1:
         assert ent.target_temperature == 33.3
-        assert ent.min_temp == ent.max_temp == 33.3
+        assert (ent.min_temp, ent.max_temp) == (LIMITS["heating_min"], LIMITS["heating_max"])
     else:
         assert ent.target_temperature == 40.0
         assert ent.extra_state_attributes["target_addr"] == SP["heating_target"]
@@ -179,10 +179,65 @@ def test_set_temperature_cooling_ignores_hvac_mode_kwarg():
     assert ent.coordinator.writes == [(SP["cooling_target"], 17.0)]
 
 
-def test_curve_heating_water_source_blocks_write():
-    ent = _ent(h25=next(int(k) for k, v in CS["by_value"].items() if not v.get("target")), h36=1)
+WATER_SRC = next(int(k) for k, v in CS["by_value"].items() if not v.get("target"))
+
+
+def _curve_ent(offset=5.0):
+    ent = _ent(h25=WATER_SRC, h36=1)
+    ent.coordinator.data[HC["offset"]] = {"value": offset}
+    return ent
+
+
+def test_curve_set_temperature_shifts_offset():
+    ent = _curve_ent()
+    asyncio.run(ent.async_set_temperature(temperature=33.8))
+    assert ent.coordinator.writes == [(HC["offset"], 5.5)]
+    assert ent.target_temperature == 33.8
+
+
+def test_curve_repeated_steps_accumulate_before_device_update():
+    ent = _curve_ent()
+    asyncio.run(ent.async_set_temperature(temperature=33.8))
+    ent.coordinator.data[HC["offset"]] = {"value": 5.5}
+    asyncio.run(ent.async_set_temperature(temperature=34.3))
+    asyncio.run(ent.async_set_temperature(temperature=33.8))
+    assert ent.coordinator.writes == [(HC["offset"], 5.5), (HC["offset"], 6.0), (HC["offset"], 5.5)]
+
+
+def test_curve_pending_clears_when_device_reports_target():
+    ent = _curve_ent()
+    asyncio.run(ent.async_set_temperature(temperature=32.8))
+    ent.coordinator.data[HC["live_target"]] = {"value": 32.8}
+    ent.coordinator.data[HC["offset"]] = {"value": 4.5}
+    assert ent.target_temperature == 32.8
+    assert ent._opt_curve is None
+    asyncio.run(ent.async_set_temperature(temperature=33.3))
+    assert ent.coordinator.writes[-1] == (HC["offset"], 5.0)
+
+
+def test_curve_pending_expires_back_to_live():
+    ent = _curve_ent()
+    asyncio.run(ent.async_set_temperature(temperature=40.0))
+    ent._opt_curve = (*ent._opt_curve[:2], 0)
+    assert ent.target_temperature == 33.3
+
+
+def test_curve_rejected_write_restores_target():
+    ent = _curve_ent()
+
+    async def reject(addr, value):
+        return False
+
+    ent.coordinator.async_write_register = reject
     with pytest.raises(ValueError):
-        asyncio.run(ent.async_set_temperature(temperature=22.0))
+        asyncio.run(ent.async_set_temperature(temperature=34.3))
+    assert ent.target_temperature == 33.3
+
+
+def test_curve_without_offset_value_refuses_write():
+    ent = _ent(h25=WATER_SRC, h36=1)
+    with pytest.raises(ValueError):
+        asyncio.run(ent.async_set_temperature(temperature=34.3))
     assert ent.coordinator.writes == []
 
 

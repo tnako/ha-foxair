@@ -1,3 +1,10 @@
+## 0.7.12 - 2026-09-25
+- feat(firmware): heating/summer cut-off from firmware V3.5 (FoxAir_Control #138). New expert-only read-only entities in Protection/Limits: outdoor-temperature threshold (1464, °C), delay (1465, raw value until the unit is confirmed) and "Heating/summer cut-off active" (2146 bit 4). Only created on firmware V3.5 and later; older units are unchanged
+- feat(firmware): "Low-pressure frequency limiter active (A38)" status (2139 bit 4, FoxAir_Control #139), expert-only, firmware V3.5 and later
+- docs(registers): A38 (1342) description now explains that below 0.2 bar the limiter is off (firmware default 0), the two limiter stages, the link to 2139 bit 4 and the forced 100 % pump (2115)
+- feat(climate): with AT compensation (H36) active, the thermostat target is no longer rejected. The +/- buttons now shift the heating curve offset (1235) by the same delta, so the whole curve moves and the slope stays unchanged. The requested target shows immediately until the unit reports the new curve target (2014), at most 90 s. The target range is the heating setpoint limits R10/R11 instead of being pinned to the current curve value
+- The other bits of 2139/2146 and registers 2140-2145/2147-2149 stay hidden. Writing 1464/1465 stays disabled until the behaviour is confirmed on a real V3.5 unit
+
 ## 0.7.11 - 2026-09-25
 - fix(names): 22 expert entities (silent-mode timer start/stop, power timer 1-6 on/off times) showed only "FoxAir Heat pump" as their name. They now have proper names in English, German and Russian, and validate fails when an entity has no name for its own platform
 - fix(devices): silent-mode timer (1244-1249), power timers (1281-1325) and circulation-pump timers (1326-1331) moved from the main device to the Timer device. They stay expert-only, entity ids are unchanged

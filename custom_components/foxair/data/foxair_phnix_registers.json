@@ -4380,9 +4380,17 @@
   "1464": {
     "function": "03",
     "mode": "read",
+    "type": "TEMP1",
+    "unit": "°C",
+    "name": "AT-Grenzwert Heiz-/Sommerabschaltung",
+    "note": "FW V3.5 Reverse Engineering (FoxAir_Control #138): globale AT-abhängige Heiz-/Sommerabschaltung, nicht Multi-Zone. Quelle effektiver AT (MAIN:1463=1 externer AT solange gültig, sonst T04). Feste Rückschalthysterese 3,0 K. Nur aktiv bei Sollmodus Heizen (1012=1/3). Status in 2146 Bit 4."
+  },
+  "1465": {
+    "function": "03",
+    "mode": "read",
     "type": "RAW",
-    "name": "Funktion unbekannt",
-    "note": "Funktion unbekannt; keine spekulative Bezeichnung vergeben."
+    "name": "Verzögerungszeit Heiz-/Sommerabschaltung",
+    "note": "FW V3.5 Reverse Engineering (FoxAir_Control #138): Verweilzeit intern 1465 × 120 Scheduler-Ticks, Einheit sehr wahrscheinlich Minuten (unbestätigt). 0 = deaktiviert / Runtime-Zustand zurückgesetzt."
   },
   "1466": {
     "function": "03",
@@ -5723,9 +5731,12 @@
   "2139": {
     "function": "03",
     "mode": "read",
-    "type": "RAW",
-    "name": "Funktion unbekannt",
-    "note": "Funktion unbekannt; keine spekulative Bezeichnung vergeben."
+    "type": "BITFIELD",
+    "name": "Statuswort Frequenzlimitierungen",
+    "bit_map": {
+      "4": "Niederdruck-Frequenzlimiter aktiv (A38)"
+    },
+    "note": "FW V3.5 Reverse Engineering (FoxAir_Control #139): Bit 4 = Niederdruck-Frequenzlimiter A38 aktiv. Übrige Bits hier nicht dokumentiert."
   },
   "2140": {
     "function": "03",
@@ -5772,9 +5783,12 @@
   "2146": {
     "function": "03",
     "mode": "read",
-    "type": "RAW",
-    "name": "Funktion unbekannt",
-    "note": "Funktion unbekannt; keine spekulative Bezeichnung vergeben."
+    "type": "BITFIELD",
+    "name": "Statuswort Heiz-/Sommerabschaltung",
+    "bit_map": {
+      "4": "Heiz-/Sommerabschaltung aktiv"
+    },
+    "note": "FW V3.5 Reverse Engineering (FoxAir_Control #138): Bit 4 (Maske 0x0010) = Heiz-/Sommerabschaltung aktiv (1464/1465). Originaler PHNIX-Name unbekannt. Übrige Bits hier nicht dokumentiert."
   },
   "2147": {
     "function": "03",

@@ -1238,7 +1238,10 @@
         "default": "mdi:heat-pump"
       },
       "foxair_1464": {
-        "default": "mdi:heat-pump"
+        "default": "mdi:weather-sunny-off"
+      },
+      "foxair_1465": {
+        "default": "mdi:timer-sand"
       },
       "foxair_1466": {
         "default": "mdi:heat-pump"
@@ -3186,6 +3189,12 @@
         "default": "mdi:toggle-switch"
       },
       "foxair_2018_bit9": {
+        "default": "mdi:toggle-switch"
+      },
+      "foxair_2139_bit4": {
+        "default": "mdi:toggle-switch"
+      },
+      "foxair_2146_bit4": {
         "default": "mdi:toggle-switch"
       }
     }

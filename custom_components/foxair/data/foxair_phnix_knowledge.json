@@ -1504,8 +1504,8 @@
     "source": "User confirmed 2026-06-19 + Display-FW ASM SG01-SG08"
   },
   "1342": {
-    "description": "App: Low Pressure of Limiting Frequency; Anzeige in bar, vermutlich raw/10",
-    "source": "ASM DEMONS.ASM",
+    "description": "App: Low Pressure of Limiting Frequency; raw/10 = bar. Firmware-Default 0 = aus: unter 0,2 bar (raw < 2) ist der Niederdruck-Frequenzlimiter deaktiviert. Nach ca. 15 s Verdichterlauf und ca. 10 s Qualifizierung: P_low knapp unter A38 (Band 0,2 bar) = State 1, keine weitere Frequenzsteigerung; P_low mehr als 0,2 bar unter A38 = State 2, Sollfrequenz sinkt in 2-Hz-Schritten bis C02. Aktiver Limiter = 2139 Bit 4, erzwingt 2115 = 100 % Pumpe.",
+    "source": "ASM DEMONS.ASM; FW V3.5 Reverse Engineering (FoxAir_Control #139)",
     "source_app_video": "App-Video A-Block ScreenRecording_06-13-2026 10-50-12; v38"
   },
   "1343": {
