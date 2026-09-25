@@ -154,6 +154,22 @@ def test_circulation_timers_read_only():
         assert (m["platform"], m["editable"], m["block"]) == ("sensor", False, "KG"), addr
 
 
+def test_v35_cutoff_and_limiter_read_only():
+    """1464/1465/2139/2146 semantics come from V3.5 disassembly only: gated, expert, never written."""
+    meta = json.loads((DATA / "foxair_metadata.json").read_text())
+    regs = json.loads((DATA / "foxair_phnix_registers.json").read_text(encoding="utf-8"))
+    for addr in (1464, 1465, 2139, 2146):
+        m = meta[str(addr)]
+        assert m["min_firmware"] == 35, addr
+        assert (m["platform"], m["editable"], m["hidden"], m["requires_expert"]) == ("sensor", False, False, True), addr
+    assert meta["1464"]["type"] == "TEMP1"
+    for addr in (2139, 2146):
+        assert meta[str(addr)]["type"] == "BITFIELD"
+        assert list(regs[str(addr)]["bit_map"]) == ["4"], addr
+    for addr in (2140, 2145, 2147, 2149):
+        assert meta[str(addr)]["hidden"], addr
+
+
 def test_timer_registers_off_main_device():
     meta = json.loads((DATA / "foxair_metadata.json").read_text())
     for addr in list(range(1244, 1250)) + list(range(1281, 1332)):

@@ -130,9 +130,11 @@ def test_expansion_counts_and_expert_gating():
     assert sum(1 for e in plain if e._addr == 2019) == 12
     assert sum(1 for e in plain if e._addr == 2018) == 4
     expert = _setup(expert=True)
-    assert len(expert) == 96
+    assert len(expert) == 98
     assert sum(1 for e in expert if e._addr == 2019) == 12
     assert sum(1 for e in expert if e._addr == 2018) == 4
+    assert {(e._addr, e._bit) for e in expert if e._addr in (2139, 2146)} == {(2139, 4), (2146, 4)}
+    assert not any(e._addr in (2139, 2146) for e in plain)
 
 def test_identity_and_problem_class():
     ents = _setup(expert=True)
@@ -171,7 +173,7 @@ def test_every_bit_translated_with_icons():
                 assert re_cyr(name), f"ru: {k} not translated: {name}"
         assert k in icons, f"icons: missing {k}"
         n += 1
-    assert n == 96
+    assert n == 98
 
 def re_cyr(s):
     import re

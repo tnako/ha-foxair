@@ -1270,7 +1270,10 @@
         "name": "Block Header Packet 6 First Header Register"
       },
       "foxair_1464": {
-        "name": "1464: Unknown Function"
+        "name": "Heating/summer cut-off outdoor temperature threshold"
+      },
+      "foxair_1465": {
+        "name": "Heating/summer cut-off delay"
       },
       "foxair_1466": {
         "name": "1466: Unknown Function"
@@ -5418,6 +5421,12 @@
       },
       "foxair_2018_bit9": {
         "name": "Zone 2 pump output"
+      },
+      "foxair_2139_bit4": {
+        "name": "Low-pressure frequency limiter active (A38)"
+      },
+      "foxair_2146_bit4": {
+        "name": "Heating/summer cut-off active"
       }
     }
   },
