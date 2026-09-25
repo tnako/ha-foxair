@@ -100,9 +100,17 @@ class FakeCoord:
     def _fw_gte(self, v):
         return True
 
+async def _in_executor(fn, *args):
+    return fn(*args)
+
+
+def _bits(expert=False, data=None):
+    return [e for e in _setup(expert, data) if isinstance(e, bs.FoxBitSensor)]
+
+
 def _setup(expert=False, data=None):
     coord = FakeCoord(expert, data)
-    hass = types.SimpleNamespace(data={"foxair": {"eid": coord}})
+    hass = types.SimpleNamespace(data={"foxair": {"eid": coord}}, async_add_executor_job=_in_executor)
     added = []
     asyncio.new_event_loop().run_until_complete(
         bs.async_setup_entry(hass, coord.entry, added.extend))
@@ -125,12 +133,13 @@ def test_reserved_bits_skipped():
     assert [b for b, _ in bits_2018] == [0, 8, 9, 10]
 
 def test_expansion_counts_and_expert_gating():
-    plain = _setup(expert=False)
+    plain = _bits(expert=False)
     assert len(plain) == 96  # O bits (2019+2018) are non-expert on the Outputs device
     assert sum(1 for e in plain if e._addr == 2019) == 12
     assert sum(1 for e in plain if e._addr == 2018) == 4
-    expert = _setup(expert=True)
+    expert = _bits(expert=True)
     assert len(expert) == 98
+    assert sum(isinstance(e, bs.FoxFaultSummarySensor) for e in _setup(expert=True)) == 1
     assert sum(1 for e in expert if e._addr == 2019) == 12
     assert sum(1 for e in expert if e._addr == 2018) == 4
     assert {(e._addr, e._bit) for e in expert if e._addr in (2139, 2146)} == {(2139, 4), (2146, 4)}
@@ -173,7 +182,7 @@ def test_every_bit_translated_with_icons():
                 assert re_cyr(name), f"ru: {k} not translated: {name}"
         assert k in icons, f"icons: missing {k}"
         n += 1
-    assert n == 98
+    assert n == 99
 
 def re_cyr(s):
     import re
@@ -198,3 +207,33 @@ def test_bits_routed_to_sub_devices_and_polled():
         assert META[addr]["poll_tier"] in ("rare", "medium")  # in the poll loop
         assert META[addr]["poll_tier"] == "rare"
     assert META["2034"]["requires_expert"] is False  # S contacts without expert
+
+
+def _fault(data):
+    return next(e for e in _setup(data=data) if isinstance(e, bs.FoxFaultSummarySensor))
+
+
+def test_fault_summary_off_when_no_bits_set():
+    ent = _fault({2081: {"raw": 0}, 2085: {"raw": 0}})
+    assert ent._attr_unique_id == "foxair_fault"
+    assert ent._attr_device_class == "problem"
+    assert ("foxair", "eid_ERR") in ent._attr_device_info["identifiers"]
+    assert ent.is_on is False
+    assert ent.extra_state_attributes == {"active_faults": [], "fault_keys": []}
+
+
+def test_fault_summary_lists_active_bits_in_english():
+    ent = _fault({2081: {"raw": 1}, 2085: {"raw": 1 << 8}})
+    assert ent.is_on is True
+    attrs = ent.extra_state_attributes
+    assert attrs["fault_keys"] == ["err07_bit0", "err01_bit8"]
+    assert attrs["active_faults"] == ["ERR07 IPM overheating", "ERR01 Water flow protection"]
+
+
+def test_fault_summary_ignores_undocumented_bits():
+    ent = _fault({2085: {"raw": 1 << 0}})
+    assert ent.is_on is False
+
+
+def test_fault_summary_unavailable_until_polled():
+    assert _fault({}).available is False

@@ -1390,7 +1390,7 @@
         "name": "Шаги EVI EEV"
       },
       "foxair_2023": {
-        "name": "Число запусков компрессора"
+        "name": "Запуски компрессора"
       },
       "foxair_2024": {
         "name": "Система 2 Клапан / Знач. EEV (ASM)"
@@ -2833,6 +2833,9 @@
       },
       "foxair_power": {
         "name": "Power"
+      },
+      "foxair_pv_surplus": {
+        "name": "Избыток PV (SG Ready High PV)"
       }
     },
     "number": {
@@ -5481,6 +5484,14 @@
       },
       "foxair_2146_bit4": {
         "name": "Летнее отключение отопления активно"
+      },
+      "foxair_fault": {
+        "name": "Неисправность"
+      }
+    },
+    "water_heater": {
+      "foxair_dhw": {
+        "name": "Горячая вода"
       }
     }
   },

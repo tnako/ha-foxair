@@ -1346,7 +1346,7 @@
         "default": "mdi:numeric-1-box-outline"
       },
       "foxair_2023": {
-        "default": "mdi:heat-pump"
+        "default": "mdi:counter"
       },
       "foxair_2024": {
         "default": "mdi:heat-pump"
@@ -1373,7 +1373,7 @@
         "default": "mdi:numeric-5-box-outline"
       },
       "foxair_t_diag8": {
-        "default": "mdi:air-conditioner"
+        "default": "mdi:timer-cog-outline"
       },
       "foxair_2033": {
         "default": "mdi:heat-pump"
@@ -3196,6 +3196,22 @@
       },
       "foxair_2146_bit4": {
         "default": "mdi:toggle-switch"
+      },
+      "foxair_fault": {
+        "default": "mdi:check-circle-outline",
+        "state": {
+          "on": "mdi:alert"
+        }
+      }
+    },
+    "switch": {
+      "foxair_pv_surplus": {
+        "default": "mdi:solar-power-variant"
+      }
+    },
+    "water_heater": {
+      "foxair_dhw": {
+        "default": "mdi:water-boiler"
       }
     }
   }

@@ -1390,7 +1390,7 @@
         "name": "017 / EVI EEV-Schritte"
       },
       "foxair_2023": {
-        "name": "Anzahl Verdichter-Starts"
+        "name": "Verdichter-Starts"
       },
       "foxair_2024": {
         "name": "System 2 Ventil-/EEV-Anzeige Wert (ASM)"
@@ -2833,6 +2833,9 @@
       },
       "foxair_power": {
         "name": "Strom"
+      },
+      "foxair_pv_surplus": {
+        "name": "PV-Überschuss (SG Ready High PV)"
       }
     },
     "number": {
@@ -5481,6 +5484,14 @@
       },
       "foxair_2146_bit4": {
         "name": "Heiz-/Sommerabschaltung aktiv"
+      },
+      "foxair_fault": {
+        "name": "Störung"
+      }
+    },
+    "water_heater": {
+      "foxair_dhw": {
+        "name": "Warmwasser"
       }
     }
   },

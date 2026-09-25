@@ -20,10 +20,12 @@
     ],
     [
       2029,
-      2032
+      2031
     ]
   ],
-  "_dead_ranges_comment": "Address ranges excluded from contiguous read batches. 200-215 = PHNIX/Aliyun ProductKey ASCII (FC10, no FC03 answer, EW11 corruption). 2029-2032 = T-Diag5-8 write-only FC16 registers that return no data.",
+  "_dead_ranges_comment": "Address ranges excluded from contiguous read batches. 200-215 = PHNIX/Aliyun ProductKey ASCII (FC10, no FC03 answer, EW11 corruption). 2029-2031 = T-Diag5-7 FC16 words that broke batch responses (v0.4.24); 2032 is read alone via isolated_addrs.",
+  "isolated_addrs": [2032],
+  "_isolated_addrs_comment": "Addrs read with their own single-register request, never inside a batch. 2032 compressor runtime (h): FoxAir_Control reads it inside its 2001+90 live block, but here 2029-2032 inside a batch broke the whole EW11 response (v0.4.24), so it is read alone and batches never span it. A failed single read only loses that addr. 2029-2031 (input current L1-L3, untested) stay blocked and dead.",
   "hidden_comment": "Address ranges permanently hidden from the UI (not even in expert mode) and excluded from polling/editing: protocol block headers, reserved/factory test, cloud/wifi/serial identifiers, system clock, board/service info. 'keep' addresses inside these ranges stay visible (used by climate/curve/main device). Note: 1015 (language selection, unknown value map), 1017 (logo selection, unknown value map), 1025-1026 (H38/H39 display-firmware language/logo codes, value map unknown), 1078-1079 (ASM Zone2 compensation params) and 1348-1352 (C13-E21 display-firmware parameters not visible in app) are excluded. 1016 (Silent Status bitfield) is excluded from hidden ranges — it is firmware-gated (>=3.3) via min_firmware in foxair_config.json overrides, since the manual defrost/silent/manual-heat bits only exist on Firmware 3.3+.",
   "hidden": [
     [
@@ -620,6 +622,18 @@
       "state_class": "measurement",
       "platform": "number"
     },
+    "HOURS_TOTAL": {
+      "scale": 1.0,
+      "unit": "h",
+      "device_class": "duration",
+      "state_class": "total_increasing"
+    },
+    "COUNT_TOTAL": {
+      "scale": 1.0,
+      "unit": null,
+      "device_class": null,
+      "state_class": "total_increasing"
+    },
     "KWH": {
       "scale": 1.0,
       "unit": "kWh",
@@ -736,6 +750,16 @@
         "cooling_stop": 1175
       }
     },
+    "dhw": {
+      "addr_single": {
+        "target": 1157,
+        "current": 2047,
+        "min": 1176,
+        "max": 1177,
+        "enabled": 1028
+      }
+    },
+    "_dhw_comment": "water_heater entity: target R01, tank T08, limits R36/R37. enabled = H28 (0 = no DHW function, entity unavailable). State (heat_pump/off) follows the DHW part of 1012, read-only: on/off and mode stay on the climate presets because 1012 combines heating/cooling with DHW.",
     "_control_source_comment": "H25 control source selector, resolved by heating_curve.active_control(). by_value maps every H25 raw value (key = H25 select option slug) to the sensor the unit regulates on (current) and, when that source has its own setpoint, its target plus heating/cooling start/stop registers. Without target the setpoints marker applies (R02/R03, limits, start/stop, or the H36 curve while heating). default is used while H25 is unknown. validate.py checks coverage of the H25 value_map, translations and quick polling.",
     "control_source": {
       "addr_single": {
@@ -1128,7 +1152,18 @@
         "risk": "blocked"
       },
       "2032": {
-        "risk": "blocked"
+        "requires_expert": false,
+        "icon": "mdi:timer-cog-outline"
+      },
+      "8801": {
+        "min_firmware": 33
+      },
+      "2023": {
+        "block": "T",
+        "tab": "T_Live",
+        "requires_expert": false,
+        "min_firmware": 33,
+        "icon": "mdi:counter"
       },
       "1019": {
         "risk": "dangerous"
@@ -1513,13 +1548,15 @@
   },
   "_alias_switch_comment": "Normal-mode switches backed by a plain register (not a bit word): key -> entity foxair_<key>, uid <prefix>_<key>. Purpose-built to expose an expert-block control (e.g. H22 silent enable) without ungating the whole block. Switch reads addr (on = raw == on_value) and writes on/off values.",
   "alias_switch": {
+    "8801": {"key": "pv_surplus", "on": 4, "off": 2, "icon": "mdi:solar-power-variant", "category": "primary"}
   },
+  "_pv_surplus_comment": "pv_surplus: HEMS-facing switch (EVCC Home Assistant switch, HA automations) on the virtual SG input 8801. on = SG mode 4 High PV, off = SG mode 2 normal. Only acts while SG01 (1334) = 3 Modbus. The unit applies a new SG mode at most every 10 min (FoxAir_Control docs/sg_ready.md), 8801 reads back at once, SG status 2133 shows the accepted mode.",
   "_non_expert_comment": "Expert-block addrs exposed in normal mode (merged into CORE_NON_EXPERT_ADDRS at build). H user settings; H30 excluded (installer-only, expert).",
   "core_non_expert_addrs": [1011, 1012, 1013, 1014, 1015, 1016, 1017, 1212, 1213, 1214, 1234, 1235, 1236, 2012, 2014, 2048, 2104, 2133, 8801],
   "block_t_live_addrs": [2125, 2126, 2127, 2128, 2136, 2137, 2138, 2178, 2179, 2180],
   "non_expert_addrs": [1011, 1012, 1013, 1014, 1015, 1016, 1017, 1021, 1023, 1028, 1029, 1030, 1032, 1033, 1035, 1045, 1046, 1345, 1031, 1038, 1043, 1047, 1049, 1050, 1056, 1057, 1063, 1064, 1069, 1071, 1073, 1077, 1080, 1082, 1084, 1107, 1122, 1124, 1129, 1134, 1135, 1136, 1152, 1153, 1154, 1155, 1156, 1197, 1201, 1202, 1203, 1357, 1358, 1198, 1199, 1205, 1432, 1212, 1213, 1214, 1234, 1235, 1236, 2012, 2014, 2048, 2104, 2133],
   "_popular_comment": "Addrs enabled by default (merged into POPULAR_ADDRS at const load). Ungated H user settings: controller/mode/value selects, force-switch time, tank source, pump select.",
-  "popular_addrs": [1011, 1012, 1016, 1018, 1021, 1023, 1028, 1029, 1030, 1031, 1032, 1033, 1035, 1038, 1043, 1045, 1046, 1047, 1049, 1050, 1056, 1057, 1063, 1064, 1069, 1071, 1073, 1077, 1080, 1082, 1084, 1107, 1122, 1124, 1129, 1134, 1135, 1136, 1152, 1153, 1154, 1155, 1156, 1157, 1158, 1159, 1160, 1161, 1162, 1163, 1164, 1165, 1166, 1167, 1168, 1169, 1170, 1171, 1172, 1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182, 1183, 1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1201, 1202, 1203, 1205, 1234, 1235, 1236, 1334, 1345, 1357, 1358, 1432, 2018, 2019, 2034, 2044, 2045, 2046, 2048, 2049, 2051, 2053, 2062, 2065, 2066, 2067, 2069, 2071, 2072, 2074, 2077, 2104, 2133],
+  "popular_addrs": [1011, 1012, 1016, 1018, 1021, 1023, 1028, 1029, 1030, 1031, 1032, 1033, 1035, 1038, 1043, 1045, 1046, 1047, 1049, 1050, 1056, 1057, 1063, 1064, 1069, 1071, 1073, 1077, 1080, 1082, 1084, 1107, 1122, 1124, 1129, 1134, 1135, 1136, 1152, 1153, 1154, 1155, 1156, 1157, 1158, 1159, 1160, 1161, 1162, 1163, 1164, 1165, 1166, 1167, 1168, 1169, 1170, 1171, 1172, 1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182, 1183, 1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1201, 1202, 1203, 1205, 1234, 1235, 1236, 1334, 1345, 1357, 1358, 1432, 2018, 2019, 2023, 2032, 2034, 2044, 2045, 2046, 2048, 2049, 2051, 2053, 2062, 2065, 2066, 2067, 2069, 2071, 2072, 2074, 2077, 2104, 2133],
   "_sensor_hidden_comment": "Sensor addrs with no standalone entity (shown via computed sensors instead). Empty: T35 AC Input Current is a live current reading (A), not a duplicate of the computed power sensor (W from T54).",
   "sensor_hidden_addrs": []
 }
