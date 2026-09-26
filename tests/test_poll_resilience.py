@@ -80,7 +80,7 @@ def _stub_modules():
     const.CORE_MAIN_ADDRS = set()
     const.MEDIUM_INTERVAL = 4
     const.RARE_INTERVAL = 10
-    const.MODBUS_MAX_SPAN = 100
+    const.MODBUS_MAX_SPAN = 90
     const.MODBUS_MAX_GAP = 30
     sys.modules["foxair_poll_const"] = const
     return const
@@ -261,6 +261,51 @@ def test_per_tier_error_counters():
     assert coord.stats["quick_errors"] == 1
     assert coord.stats.get("medium_errors", 0) == 0
     assert coord.stats["rare_errors"] == 1
+
+
+def test_batch_errors_name_the_failing_batch():
+    FlakyClient.instances.clear()
+    tiers = {"quick": {1011, 1012}, "medium": {2019}, "rare": {1041}}
+    coord = _make_coord(tiers)
+    FlakyClient.fail_start = 2019
+    _run(coord)
+    assert coord.stats["batch_errors"] == {"2019x1": 1}
+    assert coord.stats["max_ms"] >= coord.stats["last_ms"]
+
+
+def test_short_read_recorded_and_kept():
+    FlakyClient.instances.clear()
+    tiers = {"quick": set(range(1011, 1101)), "medium": set(), "rare": set()}
+    coord = _make_coord(tiers)
+    FlakyClient.fail_start = -1
+    orig = FlakyClient.read_holding_registers
+
+    async def truncate(self, address=None, count=0, **kw):
+        return FakeResp(regs=[7] * min(count, 80))
+
+    FlakyClient.read_holding_registers = truncate
+    try:
+        _run(coord)
+    finally:
+        FlakyClient.read_holding_registers = orig
+    assert coord.stats["short_reads"] == {"1011x90": 80}
+    assert 1090 in coord.data and 1091 not in coord.data
+
+
+def test_batch_span_within_device_read_limit():
+    import json
+    cfg = json.loads((CC / "data/foxair_config.json").read_text(encoding="utf-8"))
+    assert cfg["modbus"]["max_span"] <= 90
+    coord = _make_coord({"quick": set(), "medium": set(), "rare": set()})
+    batches = mod.FoxAirCoordinator._batches_for_addrs(coord, set(range(1000, 1300, 3)))
+    assert batches and max(q for _, q in batches) <= 90
+
+
+def test_all_poll_clients_bound_retries():
+    src = (CC / "coordinator.py").read_text()
+    assert src.count("AsyncModbusTcpClient(") == 0
+    assert src.count("cls(host=") == 1
+    assert mod._CLIENT_TIMEOUT * (mod._CLIENT_RETRIES + 1) <= 10
 
 
 def test_read_pacing_is_035():

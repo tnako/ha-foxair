@@ -1,3 +1,11 @@
+## 0.7.14 - 2026-09-26
+- fix(poll): registers past the 90th word of a batch were never read. The unit answers a read of more than 90 registers with only the first 90 and no error, so with `modbus.max_span` 100 D02-D07 (1106-1112) and Timer 2/3 (1287-1296) stayed empty and F25/F26/D01 (1103-1105) were read only at startup. Batches are now capped at 90 registers, and a read that returns fewer registers than requested is listed in diagnostics `stats.short_reads`
+- fix(poll): a batch that does not answer now costs at most ~10 s of the 30 s poll instead of ~22-32 s: every Modbus client uses timeout 5 s with 1 retry (was 8 s with the pymodbus default of 3). The "No response received" log filter matches any retry count
+- feat(diagnostics): `stats.batch_errors` counts failures per batch (`<start>x<count>`) and `stats.max_ms` keeps the slowest poll, to pin down which batch fails
+- fix(climate): the thermostat showed Heating while the unit idled between cycles, because the run status 2012 keeps reporting the selected mode. `hvac_action` is now Idle when the compressor is proven off and neither electric heater output (2019 bits 7/8, 2018 bit 0) is on; defrost stays Defrosting
+- fix(poll): load outputs (2018/2019, including "compressor running"), contacts/SG Ready (2034) and pump PWM feedback (2116) moved from the rare tier (5-10 min) to the quick tier (30 s); still 6 reads per quick poll
+- fix(sensor): compressor target/actual/max frequency (2071-2073) now in Hz and fan speed/target (2074-2076) in rpm. Home Assistant asks once to accept the new unit for the long-term statistics of these sensors
+
 ## 0.7.13 - 2026-09-25
 - feat(faults): `binary_sensor.<prefix>_fault` (problem, Fault device) is on while any documented fault bit of ERR01-ERR09 is set. Attributes `active_faults` (English names) and `fault_keys` (e.g. `err01_bit8`) list the active ones, so one automation covers every fault
 - feat(dhw): `water_heater.<prefix>_dhw` for the DHW tank: tank temperature T08 (2047), target R01 (1157) limited to R36/R37 (1176/1177), unavailable when H28 = no DHW function. State is heat_pump while the mode word 1012 includes DHW, else off. It is read-only: on/off and mode stay on the climate presets because 1012 combines heating/cooling with DHW

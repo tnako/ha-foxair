@@ -9,7 +9,8 @@
     "rare": 10
   },
   "modbus": {
-    "max_span": 100,
+    "_comment": "max_span 90: the unit answers a read of more than 90 registers with only the first 90 and no error, so words past +90 were never read (1106-1112, 1287-1296 in the 0.7.13 diagnostics).",
+    "max_span": 90,
     "max_gap": 30,
     "default_port": 502
   },
@@ -1490,11 +1491,19 @@
       },
       "2018": {
         "block": "O",
-        "tab": "O"
+        "tab": "O",
+        "poll_tier": "quick"
       },
       "2019": {
         "block": "O",
-        "tab": "O"
+        "tab": "O",
+        "poll_tier": "quick"
+      },
+      "2034": {
+        "poll_tier": "quick"
+      },
+      "2116": {
+        "poll_tier": "quick"
       },
       "2020": {
         "block": "T",

@@ -5098,7 +5098,7 @@
     "function": "16",
     "mode": "read",
     "name": "Kompressor-Sollfrequenz",
-    "type": "DIGI1"
+    "type": "HZ"
   },
   "2072": {
     "block": "T",
@@ -5106,7 +5106,7 @@
     "function": "16",
     "mode": "read",
     "name": "Betriebsfrequenz des Kompressors",
-    "type": "DIGI1"
+    "type": "HZ"
   },
   "2073": {
     "block": "T",
@@ -5114,7 +5114,7 @@
     "function": "16",
     "mode": "read",
     "name": "Max. Frequenz vom Kompressortreiber",
-    "type": "DIGI1"
+    "type": "HZ"
   },
   "2074": {
     "block": "T",
@@ -5122,7 +5122,7 @@
     "function": "16",
     "mode": "read",
     "name": "Drehzahl des Lüftermotors 1",
-    "type": "DIGI1"
+    "type": "RPM"
   },
   "2075": {
     "block": "T",
@@ -5130,7 +5130,7 @@
     "function": "16",
     "mode": "read",
     "name": "Drehzahl des Lüftermotors 2",
-    "type": "DIGI1"
+    "type": "RPM"
   },
   "2076": {
     "block": "T",
@@ -5138,7 +5138,7 @@
     "function": "16",
     "mode": "read",
     "name": "Zieldrehzahl des Lüftermotors",
-    "type": "DIGI1"
+    "type": "RPM"
   },
   "2077": {
     "block": "T",
