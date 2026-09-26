@@ -31,7 +31,7 @@ BLOCK_ORDER_INDEX: dict = {b: i for i, b in enumerate(BLOCK_ORDER)}
 BLOCK_SHORT: dict = {}
 DTYPE_SPEC: dict = {}
 QUICK_INTERVAL, MEDIUM_INTERVAL, RARE_INTERVAL = 1, 4, 10
-MODBUS_MAX_SPAN, MODBUS_MAX_GAP = 100, 30
+MODBUS_MAX_SPAN, MODBUS_MAX_GAP = 90, 30
 # Address sets: EMPTY fallbacks, populated from foxair_config.json by
 # _apply_dict() (eager off-loop via _ensure_cfg, inside HA via apply_config
 # from the coordinator before entity setup). Never hardcode addr lists here —
@@ -78,7 +78,7 @@ def _apply_dict(cfg: dict) -> dict:
     QUICK_INTERVAL = _poll_cfg.get("quick", 1)
     MEDIUM_INTERVAL = _poll_cfg.get("medium", 4)
     RARE_INTERVAL = _poll_cfg.get("rare", 10)
-    MODBUS_MAX_SPAN = _modbus_cfg.get("max_span", 100)
+    MODBUS_MAX_SPAN = _modbus_cfg.get("max_span", 90)
     MODBUS_MAX_GAP = _modbus_cfg.get("max_gap", 30)
     _core_marker = _markers_cfg.get("core_main_addrs", {})
     CORE_MAIN_ADDRS.clear()

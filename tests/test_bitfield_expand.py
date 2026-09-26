@@ -204,8 +204,10 @@ def test_bits_routed_to_sub_devices_and_polled():
     o = ents["foxair_2019_bit0"]
     assert ("foxair", "eid_O") in o._attr_device_info["identifiers"]  # Outputs device
     for addr in ("2034", "2081", "2019", "2018"):
-        assert META[addr]["poll_tier"] in ("rare", "medium")  # in the poll loop
-        assert META[addr]["poll_tier"] == "rare"
+        assert META[addr]["poll_tier"] in ("quick", "rare", "medium")  # in the poll loop
+    for addr in ("2034", "2019", "2018"):
+        assert META[addr]["poll_tier"] == "quick"  # live outputs/contacts, not 10 min late
+    assert META["2081"]["poll_tier"] == "rare"
     assert META["2034"]["requires_expert"] is False  # S contacts without expert
 
 

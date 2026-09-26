@@ -252,6 +252,7 @@ def _mk_coord_cls(comp_mod):
     sys.modules["foxair_coord_modes_test"] = mod
     mod.__dict__["__file__"] = str(CC / "coordinator.py")
     exec(compile(src, str(CC / "coordinator.py"), "exec"), mod.__dict__)
+    mod.time = types.SimpleNamespace(monotonic=lambda: 1000.0)
     return mod
 
 

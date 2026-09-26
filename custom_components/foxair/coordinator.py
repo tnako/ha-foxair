@@ -29,9 +29,9 @@ _LOGGER = logging.getLogger(__name__)
 # so only unexpected errors surface.
 try:
     _pm_logger = logging.getLogger("pymodbus")
-    _pm_logger.addFilter(lambda rec: "No response received after 3 retries" not in rec.getMessage())
+    _pm_logger.addFilter(lambda rec: "No response received after" not in rec.getMessage())
     _pm2 = logging.getLogger("pymodbus.logging")
-    _pm2.addFilter(lambda rec: "No response received after 3 retries" not in rec.getMessage())
+    _pm2.addFilter(lambda rec: "No response received after" not in rec.getMessage())
 except Exception:
     pass
 
@@ -44,6 +44,16 @@ _TYPES: dict = {}
 _DEAD_RANGES: list[tuple[int, int]] = []
 _ISOLATED: set[int] = set()
 _MARKERS: dict = {}
+
+# A dead batch costs timeout * (retries + 1) of bus time; pymodbus defaults
+# (retries=3) with timeout 8 blocked a 30 s poll for ~22-32 s per failure.
+_CLIENT_TIMEOUT = 5
+_CLIENT_RETRIES = 1
+
+
+def _new_client(cfg, client_cls=None):
+    cls = client_cls or AsyncModbusTcpClient
+    return cls(host=cfg["host"], port=cfg["port"], timeout=_CLIENT_TIMEOUT, retries=_CLIENT_RETRIES)
 
 
 def _read_config_file() -> dict:
@@ -370,7 +380,7 @@ class FoxAirCoordinator(DataUpdateCoordinator):
                         self.client.close()
                 except Exception:
                     pass
-                self.client = AsyncModbusTcpClient(host=cfg["host"], port=cfg["port"], timeout=8)
+                self.client = _new_client(cfg)
                 okc = await self.client.connect()
             else:
                 okc = True
@@ -454,12 +464,16 @@ class FoxAirCoordinator(DataUpdateCoordinator):
         _LOGGER.debug("Write many queued %s pending=%s", raws, sorted(self._write_pending.keys()))
         return await fut
 
-    def _count_error(self, tier_label: str | None, exc: Exception | None = None) -> None:
+    def _count_error(self, tier_label: str | None, exc: Exception | None = None,
+                     batch: str | None = None) -> None:
         """Single place for poll error accounting."""
         self.stats["errors"] += 1
         if tier_label:
             key = f"{tier_label}_errors"
             self.stats[key] = self.stats.get(key, 0) + 1
+        if batch:
+            per_batch = self.stats.setdefault("batch_errors", {})
+            per_batch[batch] = per_batch.get(batch, 0) + 1
         if exc is not None:
             self.stats["last_error"] = str(exc)
 
@@ -473,7 +487,7 @@ class FoxAirCoordinator(DataUpdateCoordinator):
             except Exception:
                 pass
             self.client = None
-        self.client = AsyncModbusTcpClient(host=cfg["host"], port=cfg["port"], timeout=8)
+        self.client = _new_client(cfg)
         ok = await self.client.connect()
         if not ok:
             self.client = None
@@ -495,6 +509,7 @@ class FoxAirCoordinator(DataUpdateCoordinator):
         if not hasattr(self, "_last_seen"):
             self._last_seen = {}
         for tier_label, addr, qty in batches:
+            batch = f"{addr}x{qty}"
             try:
                 await asyncio.sleep(0.35)  # EW11 half-duplex pacing (writes use 0.25-0.35)
                 try:
@@ -502,10 +517,14 @@ class FoxAirCoordinator(DataUpdateCoordinator):
                 except TypeError:
                     rr = await self.client.read_holding_registers(address=addr, count=qty, device_id=sid)
                 if rr.isError():
-                    self._count_error(tier_label)
+                    self._count_error(tier_label, batch=batch)
                     _LOGGER.debug("read %s/%s error %s", addr, qty, rr)
                     continue
                 consec_conn_fail = 0
+                if len(rr.registers) < qty:
+                    short = self.stats.setdefault("short_reads", {})
+                    short[batch] = len(rr.registers)
+                    _LOGGER.debug("read %s/%s returned only %s registers", addr, qty, len(rr.registers))
                 now = time.monotonic()
                 for i, raw in enumerate(rr.registers):
                     a = addr + i
@@ -518,7 +537,7 @@ class FoxAirCoordinator(DataUpdateCoordinator):
                     out[a] = {"raw": raw, "value": scaled(info.get("type", "RAW"), raw), "info": info}
                     self._last_seen[a] = now
             except Exception as e:
-                self._count_error(tier_label, e)
+                self._count_error(tier_label, e, batch=batch)
                 _LOGGER.debug("poll %s/%s exception %s", addr, qty, e)
                 # Connection-level failure (EW11 idle-drop, no response):
                 # reconnect and continue instead of aborting the cycle.
@@ -534,8 +553,7 @@ class FoxAirCoordinator(DataUpdateCoordinator):
                     if consec_conn_fail >= max_conn_failures:
                         break
                     try:
-                        self.client = client_cls(
-                            host=cfg["host"], port=cfg["port"], timeout=8)
+                        self.client = _new_client(cfg, client_cls)
                         ok = await self.client.connect()
                         if not ok:
                             self.client = None
@@ -697,6 +715,7 @@ class FoxAirCoordinator(DataUpdateCoordinator):
             if do_rare:
                 self.stats["rare_polls"] += 1
             self.stats["last_ms"] = int((time.monotonic() - t0) * 1000)
+            self.stats["max_ms"] = max(self.stats.get("max_ms", 0), self.stats["last_ms"])
             self.stats["last_tiers"] = f"quick={do_quick} medium={do_medium} rare={do_rare} batches={len(batches)} addrs={len(addrs)}"
             _LOGGER.debug("Poll #%s tiers quick=%s medium=%s rare=%s batches=%s addrs=%s ms=%s", self._poll_counter, do_quick, do_medium, do_rare, len(batches), len(addrs), self.stats["last_ms"])
             if not out and self.data:

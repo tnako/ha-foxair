@@ -38,6 +38,9 @@ _FW_AC_VA = 33
 # there.
 _COMPRESSOR_FREQ = 2072     # T31 DIGI1 Kompressor-Betriebsfrequenz
 _OUTPUTS_WORD = 2019        # BITFIELD: bit 0 = compressor actually running
+_HEATER_MASK = 0x180        # 2019 bits 7/8: electric heater stage 1/2
+_LOAD_OUTPUTS_WORD = 2018   # BITFIELD: bit 0 = DHW tank electric heater
+_TANK_HEATER_MASK = 0x1
 
 # COP calculation constants
 _ELEC_MIN_FOR_COP = 100     # Minimum electrical power (W) for valid COP
@@ -131,6 +134,22 @@ def _compressor_running(coord) -> Optional[bool]:
     if rec and rec.get("raw") is not None:
         return bool(int(rec["raw"]) & 0x1)
     return None
+
+
+def heat_output_active(coord) -> Optional[bool]:
+    """False only when the compressor is proven off and no electric heater output is on.
+
+    2012 keeps reporting the selected mode (e.g. 1 = heating) while the unit
+    idles between cycles, so it cannot tell heating from standby on its own.
+    """
+    comp = _compressor_running(coord)
+    if comp is not False:
+        return comp
+    for addr, mask in ((_OUTPUTS_WORD, _HEATER_MASK), (_LOAD_OUTPUTS_WORD, _TANK_HEATER_MASK)):
+        rec = coord.data.get(addr)
+        if rec and rec.get("raw") is not None and int(rec["raw"]) & mask:
+            return True
+    return False
 
 
 def run_status_raw(coord) -> Optional[int]:

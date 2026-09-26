@@ -12,7 +12,7 @@ from homeassistant.components.climate import ClimateEntity, HVACMode, ClimateEnt
 from homeassistant.const import UnitOfTemperature
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from .const import main_device, get_device_prefix, get_slave_id, bind_device_info
-from .computed import active_mode
+from .computed import active_mode, heat_output_active
 from .heating_curve import active_control, curve_target_for_at, mode_values
 
 
@@ -154,8 +154,11 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
     def hvac_action(self):
         if self._raw("status", "power") == 0:
             return HVACAction.OFF
-        action = self.ACTIVE_ACTION.get(active_mode(self.coordinator))
+        mode = active_mode(self.coordinator)
+        action = self.ACTIVE_ACTION.get(mode)
         if action is not None:
+            if mode != "defrost" and heat_output_active(self.coordinator) is False:
+                return HVACAction.IDLE
             return action
         freq = self._value(self._addr("status", "compressor_freq"))
         if freq and freq > 0:

@@ -292,6 +292,29 @@ def test_hvac_action_from_run_status(run, expected):
     assert climate.FoxAirClimate(FakeCoord(d)).hvac_action == expected
 
 
+@pytest.mark.parametrize("extra,expected", [
+    ({2072: 0, 2019: 0}, "idle"),
+    ({2072: 41, 2019: 0}, "heating"),
+    ({2072: 0, 2019: 0x80}, "heating"),
+    ({2072: 0, 2019: 0, 2018: 0x1}, "heating"),
+    ({}, "heating"),
+])
+def test_hvac_action_idle_between_cycles(extra, expected):
+    d = _data(h25=0)
+    d[STATUS["run_status"]] = {"raw": 1, "value": 1}
+    for addr, raw in extra.items():
+        d[addr] = {"raw": raw, "value": float(raw)}
+    assert climate.FoxAirClimate(FakeCoord(d)).hvac_action == expected
+
+
+def test_hvac_action_defrost_kept_without_compressor():
+    d = _data(h25=0)
+    d[STATUS["run_status"]] = {"raw": 2, "value": 2}
+    d[2072] = {"raw": 0, "value": 0.0}
+    d[2019] = {"raw": 0, "value": 0.0}
+    assert climate.FoxAirClimate(FakeCoord(d)).hvac_action == "defrosting"
+
+
 def test_hvac_action_off_when_powered_off():
     d = _data(h25=0)
     d[STATUS["power"]] = {"raw": 0, "value": 0}
