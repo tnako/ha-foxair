@@ -42,6 +42,14 @@ new platform key; keep the sensor one.
 device (validate.py fails on that). Keep the main device for the few controls a
 user needs every day.
 
+Registry `depends_on` makes an entity available only while that register is
+non-zero; `depends_on_values` narrows it to specific raw values (H36: slope in
+1, points in 2, offset in 1 and 2). One helper, `const.dependency_met`, serves
+every platform.
+
+Names on the main and Heating curve devices stay <= 30 characters in every
+language (validate.py `name-length`).
+
 `requires_expert` comes from `blocks.expert_blocks` unless the override pins it;
 `T`/`T_Live` and `core_non_expert_addrs` are always visible.
 
@@ -55,7 +63,7 @@ register numbers (validate.py enforces it for climate/image). They read:
 | `status` | power, mode (1012), run status, compressor frequency, mode_values |
 | `control_source` | H25 selector and the current/target sensor per value |
 | `setpoints` | heating/cooling/DHW targets, limits, start/stop hysteresis |
-| `heat_curve` | slope/offset/H36, live target 2014, effective AT 2048, `points` (V3.5 7-point curve), `mode_values` |
+| `heat_curve` | slope/offset/H36, live target 2014, effective AT 2048, `points` (V3.5 7-point curve; 0 °C is the offset 1235), `mode_values` |
 | `outdoor_sensor` | 1463 selector, external 2033, internal 2136, fault word/bit (2088 bit 7) |
 | `summer_cutoff` | 1464 threshold, 1465 delay (min), 2146 status bit, hysteresis |
 

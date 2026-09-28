@@ -35,7 +35,8 @@ def _load_select():
     mods["homeassistant.helpers.entity"].EntityCategory = types.SimpleNamespace(CONFIG="config", DIAGNOSTIC="diagnostic")
     mods["homeassistant.helpers.update_coordinator"].CoordinatorEntity = type("CoordinatorEntity", (), {})
     fconst = mods["foxair_select_pkg.const"]
-    for name in ("device_for_addr", "entity_sort_key", "get_device_prefix", "get_slave_id", "bind_device_info", "entity_suffix"):
+    for name in ("device_for_addr", "entity_sort_key", "get_device_prefix", "get_slave_id", "bind_device_info", "entity_suffix",
+                 "dependency_met"):
         setattr(fconst, name, lambda *a, **k: None)
     fconst.POPULAR_ADDRS = set()
     sys.modules.update(mods)

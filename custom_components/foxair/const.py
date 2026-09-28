@@ -210,6 +210,42 @@ def entity_suffix(coord, addr: int) -> str:
     return str(addr)
 
 
+def dependency_met(coord, meta: dict, missing: bool = False) -> bool:
+    """Registry ``depends_on`` gate shared by every platform's ``available``.
+
+    The dependency register must read non-zero; with ``depends_on_values`` it
+    must read one of those raw values instead (e.g. H36 slope only in mode 1,
+    curve points only in mode 2). ``missing`` is returned while the dependency
+    has not been polled (sensors keep showing, controls stay unavailable).
+    """
+    dep = (meta or {}).get("depends_on")
+    if dep is None:
+        return True
+    try:
+        rec = coord.data.get(int(dep))
+        if not rec:
+            return missing
+        raw = rec.get("raw")
+        if raw is None:
+            raw = rec.get("value")
+        if raw is None:
+            return False
+        allowed = meta.get("depends_on_values")
+        if allowed:
+            try:
+                return int(float(raw)) in {int(v) for v in allowed}
+            except (TypeError, ValueError):
+                return False
+        if str(raw).strip().lower() in ("0", "0.0", "off", "no", "false", ""):
+            return False
+        try:
+            return float(raw) != 0
+        except (TypeError, ValueError):
+            return True
+    except Exception:
+        return True
+
+
 DEVICE = main_device()
 
 

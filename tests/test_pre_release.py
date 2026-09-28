@@ -196,9 +196,19 @@ def test_v35_curve_points_and_outdoor_sensor():
         addr = os_[key]
         assert meta[str(addr)]["min_firmware"] == 35 and not meta[str(addr)]["hidden"], addr
     assert "7" in regs[str(os_["fault_word"])]["bit_map"]
-    for addr in [os_["selector"]] + [a for k, a in hc["points"].items() if k != "0"]:
+    # every curve parameter lives on the Heating curve device, only H36 on the main device
+    curve_addrs = [os_["selector"], hc["addr_single"]["slope"]] + list(hc["points"].values())
+    for addr in curve_addrs:
         assert (meta[str(addr)]["tab"], meta[str(addr)]["group"]) == ("HC", "Heating curve"), addr
-    assert not set(hc["points"].values()) - {hc["addr_single"]["offset"]} & set(cfg["markers"]["core_main_addrs"]["addr_list"])
+    core = set(cfg["markers"]["core_main_addrs"]["addr_list"])
+    assert not set(curve_addrs) & core
+    assert hc["addr_single"]["at_comp_en"] in core
+    # shown only in the H36 mode that uses them (0 degC point/offset in both)
+    assert meta[str(hc["addr_single"]["slope"])]["depends_on_values"] == [hc["mode_values"]["linear"]]
+    assert meta[str(hc["addr_single"]["offset"])]["depends_on_values"] == [hc["mode_values"]["linear"], hc["mode_values"]["points"]]
+    for k, addr in hc["points"].items():
+        if k != "0":
+            assert meta[str(addr)]["depends_on_values"] == [hc["mode_values"]["points"]], addr
     assert (meta[str(os_["selector"])]["platform"], meta[str(os_["selector"])]["editable"]) == ("select", True)
     assert (meta[str(os_["external"])]["platform"], meta[str(os_["external"])]["type"]) == ("sensor", "TEMP1")
 

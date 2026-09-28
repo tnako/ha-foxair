@@ -235,6 +235,14 @@ def main():
             "min_firmware": ov.get("min_firmware"),
             "format": ov.get("format"),
         }
+        # depends_on_values: dependency must read one of these raw values
+        # (H36 slope only linear, curve points only 7-point); key only when set.
+        if rec.get("depends_on_values"):
+            out[addr_str]["depends_on_values"] = list(rec["depends_on_values"])
+        # name_by_dep_value (config override): translation-key suffix per raw
+        # value of depends_on, so one entity is renamed with the mode (1235).
+        if ov.get("name_by_dep_value"):
+            out[addr_str]["name_by_dep_value"] = {str(k): v for k, v in ov["name_by_dep_value"].items()}
         # bit_split spec (foxair_config.json) compiles into metadata so the
         # runtime stays data-driven: switch.py/button.py build per-bit
         # entities, select.py skips the raw addr, coordinator gates 0..mask.

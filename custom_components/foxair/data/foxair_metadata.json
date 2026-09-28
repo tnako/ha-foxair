@@ -5992,9 +5992,9 @@
   },
   "1234": {
     "code": "",
-    "block": "",
-    "tab": "",
-    "group": "Header/Reserved",
+    "block": "H",
+    "tab": "HC",
+    "group": "Heating curve",
     "hidden": false,
     "editable": true,
     "platform": "number",
@@ -6006,19 +6006,22 @@
     "max": 3.5,
     "step": 0.1,
     "default": null,
-    "icon": "mdi:heat-pump",
+    "icon": "mdi:slope-downhill",
     "has_value_map": false,
     "depends_on": 1236,
     "name": "AT-Kompensation Slope / Steigung",
     "poll_tier": "quick",
     "min_firmware": null,
-    "format": null
+    "format": null,
+    "depends_on_values": [
+      1
+    ]
   },
   "1235": {
     "code": "",
-    "block": "",
-    "tab": "",
-    "group": "Header/Reserved",
+    "block": "H",
+    "tab": "HC",
+    "group": "Heating curve",
     "hidden": false,
     "editable": true,
     "platform": "number",
@@ -6030,13 +6033,21 @@
     "max": 60,
     "step": 0.1,
     "default": null,
-    "icon": "mdi:heat-pump",
+    "icon": "mdi:thermometer-chevron-up",
     "has_value_map": false,
     "depends_on": 1236,
     "name": "AT-Kompensation Offset / Versatz",
     "poll_tier": "quick",
     "min_firmware": null,
-    "format": null
+    "format": null,
+    "depends_on_values": [
+      1,
+      2
+    ],
+    "name_by_dep_value": {
+      "1": "linear",
+      "2": "points"
+    }
   },
   "1236": {
     "code": "H36",
@@ -6400,7 +6411,10 @@
     "name": "7-Punkt-Kennlinie Sollwert bei -20 °C AT",
     "poll_tier": "quick",
     "min_firmware": 35,
-    "format": null
+    "format": null,
+    "depends_on_values": [
+      2
+    ]
   },
   "1251": {
     "code": "",
@@ -6424,7 +6438,10 @@
     "name": "7-Punkt-Kennlinie Sollwert bei -10 °C AT",
     "poll_tier": "quick",
     "min_firmware": 35,
-    "format": null
+    "format": null,
+    "depends_on_values": [
+      2
+    ]
   },
   "1252": {
     "code": "",
@@ -6448,7 +6465,10 @@
     "name": "7-Punkt-Kennlinie Sollwert bei -5 °C AT",
     "poll_tier": "quick",
     "min_firmware": 35,
-    "format": null
+    "format": null,
+    "depends_on_values": [
+      2
+    ]
   },
   "1253": {
     "code": "",
@@ -6472,7 +6492,10 @@
     "name": "7-Punkt-Kennlinie Sollwert bei +5 °C AT",
     "poll_tier": "quick",
     "min_firmware": 35,
-    "format": null
+    "format": null,
+    "depends_on_values": [
+      2
+    ]
   },
   "1254": {
     "code": "",
@@ -6496,7 +6519,10 @@
     "name": "7-Punkt-Kennlinie Sollwert bei +10 °C AT",
     "poll_tier": "quick",
     "min_firmware": 35,
-    "format": null
+    "format": null,
+    "depends_on_values": [
+      2
+    ]
   },
   "1255": {
     "code": "",
@@ -6520,7 +6546,10 @@
     "name": "7-Punkt-Kennlinie Sollwert bei +20 °C AT",
     "poll_tier": "quick",
     "min_firmware": 35,
-    "format": null
+    "format": null,
+    "depends_on_values": [
+      2
+    ]
   },
   "1256": {
     "code": "KG1",

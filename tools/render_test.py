@@ -487,6 +487,27 @@ for _lang, _tl in _IMG_TL.items():
         else:
             print(f"  OK [{_lang} {name}]")
 
+    # User case: six points all 45, offset (0 degC point, 1235) 32. The curve
+    # dips to 32 at AT = 0 by design; the footer must name the 0 degC point.
+    d = _v35_data(0.0, 0.0, False)
+    for at, addr in _HC["points"].items():
+        d[addr] = {"value": 32.0 if at == "0" else 45.0}
+    obj = img.FoxAirHeatingCurveImage(FakeCoord(d), "test")
+    obj.hass = FHass()
+    obj._tl = {**img._TL_FALLBACK, **_tl}
+    obj._last_inputs = obj._read_inputs()
+    obj._render()
+    svg = obj._image_bytes.decode("utf-8")
+    problems = []
+    if _tl["cap_point0"].upper() not in svg or ">32C<" not in svg:
+        problems.append("0C point cell missing")
+    if abs(hc_mod.curve_target_for_at(obj.coordinator, 0.0) - 32.0) > 0.01:
+        problems.append("target at AT=0 != 1235")
+    if abs(hc_mod.curve_target_for_at(obj.coordinator, -10.0) - 45.0) > 0.01:
+        problems.append("target at AT=-10 != 1251")
+    print(f"  {'FAIL' if problems else 'OK'} [{_lang} points 45 + offset 32]{': ' + str(problems) if problems else ''}")
+    all_ok = all_ok and not problems
+
 print(f"\n{'='*60}")
 print("  ALL TESTS PASSED" if all_ok else "  SOME TESTS FAILED")
 print(f"{'='*60}")
