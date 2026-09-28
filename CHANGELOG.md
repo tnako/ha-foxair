@@ -1,3 +1,7 @@
+## 0.7.17 - 2026-09-28
+- fix(curve): the seven curve points on the Heating curve device now list from -20 °C to +20 °C. HA sorts a device's entities by name, so the names carry an index: "Point 1: -20 °C" to "Point 7: +20 °C" (1235 is "Point 4: 0 °C" in 7-point mode), in English, German and Russian
+- fix(curve image): in 7-point mode the x axis gets a tick and value at every point, including -5 °C and +5 °C
+
 ## 0.7.16 - 2026-09-28
 - fix(curve): slope and offset no longer sit on the main device regardless of the curve mode. They moved to the "Heating curve" device, next to the six points, and each control is available only in the H36 mode that uses it: slope in linear mode (H36 = 1), the six points in 7-point mode (H36 = 2), offset 1235 in both. 1235 is renamed with the mode: "Offset (flow at 0 °C)" with H36 = 1 and "Point 0 °C" with H36 = 2, where it is the 0 °C point of the 7-point curve (metadata `name_by_dep_value`; the name updates on the next poll after H36 changes). Checked live on V3.5: with H36 = 2, changing the slope leaves the curve target (2014) unchanged. Registry `depends_on_values` drives this; all platforms share one availability check
 - fix(curve image): in 7-point mode the footer shows the 0 °C point ("0C point"). That point is the offset register 1235, not one of the six extra points, so six points at 45 °C with offset 32 give a curve that dips to 32 at 0 °C, as the unit itself does

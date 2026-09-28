@@ -3320,7 +3320,7 @@
         "name": "Offset (flow at 0 °C)"
       },
       "foxair_1235_points": {
-        "name": "Point 0 °C"
+        "name": "Point 4: 0 °C"
       },
       "foxair_1237": {
         "name": "R61: Ambient Temp to Stop Frequency Limiting in Cooling"
@@ -3344,7 +3344,7 @@
         "name": "R74: Room Temp Differential for Standby in Cooling"
       },
       "foxair_1255": {
-        "name": "Point +20 °C"
+        "name": "Point 7: +20 °C"
       },
       "foxair_1283": {
         "name": "Timer 1 DHW Target Temperature (ASM)"
@@ -4064,19 +4064,19 @@
         "name": "Z19: Diff. of No Pump On at Low Water Temp."
       },
       "foxair_1250": {
-        "name": "Point -20 °C"
+        "name": "Point 1: -20 °C"
       },
       "foxair_1251": {
-        "name": "Point -10 °C"
+        "name": "Point 2: -10 °C"
       },
       "foxair_1252": {
-        "name": "Point -5 °C"
+        "name": "Point 3: -5 °C"
       },
       "foxair_1253": {
-        "name": "Point +5 °C"
+        "name": "Point 5: +5 °C"
       },
       "foxair_1254": {
-        "name": "Point +10 °C"
+        "name": "Point 6: +10 °C"
       },
       "foxair_1464": {
         "name": "Summer cut-off from"

@@ -73,7 +73,7 @@ def test_1235_name_follows_h36():
     ent._handle_coordinator_update()
     assert ent._attr_translation_key == "foxair_1235_points"
     assert "name" not in ent.__dict__
-    assert EN["entity"]["number"][ent._attr_translation_key]["name"] == "Point 0 °C"
+    assert EN["entity"]["number"][ent._attr_translation_key]["name"] == "Point 4: 0 °C"
     coord.data[1236] = {"raw": 0, "value": 0}
     ent._handle_coordinator_update()
     assert ent._attr_translation_key == "foxair_1235"
