@@ -241,6 +241,80 @@ def test_curve_without_offset_value_refuses_write():
     assert ent.coordinator.writes == []
 
 
+PTS = MARKERS["heat_curve"]["points"]
+PT_VALUES = {"-20": 55.0, "-10": 48.0, "-5": 44.0, "0": 40.0, "5": 36.0, "10": 31.0, "20": 25.0}
+POINTS_MODE = MARKERS["heat_curve"]["mode_values"]["points"]
+
+
+def _points_ent(at=None, live=True):
+    ent = _ent(h25=WATER_SRC, h36=POINTS_MODE)
+    for at_k, addr in PTS.items():
+        ent.coordinator.data[addr] = {"value": PT_VALUES[at_k]}
+    if at is not None:
+        ent.coordinator.data[HC["at_sensor"]] = {"value": at}
+    if not live:
+        ent.coordinator.data.pop(HC["live_target"])
+    return ent
+
+
+def test_points_mode_is_curve_and_reports_control_mode():
+    ent = _points_ent()
+    assert ent._control()["curve"] and ent._control()["curve_mode"] == "points"
+    assert ent.control_mode == "weather_points"
+    assert ent.target_temperature == 33.3
+
+
+@pytest.mark.parametrize("at,expected", [(-25.0, 55.0), (-20.0, 55.0), (-7.5, 46.0), (0.0, 40.0), (2.5, 38.0), (15.0, 28.0), (30.0, 25.0)])
+def test_points_interpolation_fallback(at, expected):
+    ent = _points_ent(at=at, live=False)
+    assert ent.target_temperature == min(max(expected, LIMITS["heating_min"]), LIMITS["heating_max"])
+
+
+def test_points_shift_moves_every_point_by_delta():
+    ent = _points_ent()
+    asyncio.run(ent.async_set_temperature(temperature=34.3))
+    assert ent.coordinator.writes == [{addr: round(PT_VALUES[k] + 1.0, 1) for k, addr in PTS.items()}]
+    assert ent.target_temperature == 34.3
+    asyncio.run(ent.async_set_temperature(temperature=33.8))
+    assert ent.coordinator.writes[-1] == {addr: round(PT_VALUES[k] + 0.5, 1) for k, addr in PTS.items()}
+
+
+def test_points_shift_refuses_until_all_points_read():
+    ent = _points_ent()
+    ent.coordinator.data.pop(PTS["20"])
+    with pytest.raises(ValueError):
+        asyncio.run(ent.async_set_temperature(temperature=34.3))
+    assert ent.coordinator.writes == []
+
+
+OS = MARKERS["outdoor_sensor"]["addr_single"]
+SC = MARKERS["summer_cutoff"]["addr_single"]
+
+
+@pytest.mark.parametrize("sel,ext,fault,expected", [(None, None, None, None), (0, 5.0, 0, "internal"), (1, 5.0, 0, "external"),
+                                                    (1, 3276.7, 0x80, "fallback"), (1, 5.0, 0x80, "fallback"),
+                                                    (1, 409.1, None, "fallback"), (1, None, None, "fallback")])
+def test_outdoor_source(sel, ext, fault, expected):
+    ent = _ent(h25=0)
+    if sel is not None:
+        ent.coordinator.data[OS["selector"]] = {"raw": sel, "value": sel}
+    if ext is not None:
+        ent.coordinator.data[OS["external"]] = {"value": ext}
+    if fault is not None:
+        ent.coordinator.data[OS["fault_word"]] = {"raw": fault, "value": fault}
+    assert ent.extra_state_attributes["at_source"] == expected
+
+
+def test_summer_cutoff_status_bit_and_release():
+    from foxair_climate_pkg.heating_curve import summer_cutoff
+    coord = FakeCoord({SC["threshold"]: {"value": 18.0}, SC["delay"]: {"value": 30}, SC["status"]: {"raw": 0x10}})
+    assert summer_cutoff(coord) == {"active": True, "threshold": 18.0, "release": 15.0, "delay": 30, "enabled": True}
+    coord.data[SC["status"]] = {"raw": 0xEF}
+    coord.data[SC["delay"]] = {"value": 0}
+    assert summer_cutoff(coord)["active"] is False and summer_cutoff(coord)["enabled"] is False
+    assert summer_cutoff(FakeCoord({})) is None
+
+
 def test_marker_addrs_are_polled_non_expert():
     meta = json.loads((CC / "data/foxair_metadata.json").read_text(encoding="utf-8"))
     addrs = {SELECTOR}

@@ -387,3 +387,17 @@ def test_isolated_addr_failure_keeps_rest_of_tier():
         assert 2032 not in coord.data
     finally:
         mod._ISOLATED.clear()
+
+
+def test_v35_select_value_write_gated_by_firmware():
+    """H36 = 2 / SG01 = 4 exist only on V3.5: older firmware rejects the write, 0/1 stay writable."""
+    coord = _make_coord({"quick": set(), "medium": set(), "rare": set()})
+    coord._regmap = {"1236": {"value_min_firmware": {"2": 35}}}
+    coord._metadata = {"1236": {"editable": True, "platform": "select", "type": "DIGI1", "has_value_map": True,
+                                "risk": "safe", "min": 0, "max": 1}}
+    coord._fw_version = 34
+    ok, _, reason = coord._validate_write(1236, 2.0)
+    assert not ok and "requires firmware >= 35" in reason
+    assert coord._validate_write(1236, 1.0)[0]
+    coord._fw_version = 35
+    assert coord._validate_write(1236, 2.0)[0]

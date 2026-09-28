@@ -3,7 +3,8 @@
 Sensor, setpoint, curve and limits come from heating_curve.active_control(),
 which follows H25 (control source), 1012 (mode) and H36 (curve) via
 foxair_config.json markers. With the curve active a new target shifts the
-curve offset by the same delta (target = offset - slope * AT is linear). Never hardcode a register here: validate.py fails
+curve offset by the same delta (target = offset - slope * AT is linear), or
+every 7-point curve point in V3.5 H36 = 2 mode. Never hardcode a register here: validate.py fails
 on marker register literals, check_regs.py verifies the wiring live.
 """
 import time
@@ -13,7 +14,7 @@ from homeassistant.const import UnitOfTemperature
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from .const import main_device, get_device_prefix, get_slave_id, bind_device_info
 from .computed import active_mode, heat_output_active
-from .heating_curve import active_control, curve_target_for_at, mode_values
+from .heating_curve import active_control, curve_mode, curve_target_for_at, mode_values, outdoor_source, summer_cutoff
 
 
 class FoxAirClimate(CoordinatorEntity, ClimateEntity):
@@ -81,8 +82,8 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
 
     @property
     def control_mode(self):
-        """'weather_curve' when H36 AT-compensation is enabled, else 'fixed'."""
-        return "weather_curve" if self._raw("heat_curve", "at_comp_en") == 1 else "fixed"
+        """'weather_curve' (linear), 'weather_points' (V3.5 7-point) or 'fixed' from H36."""
+        return {"linear": "weather_curve", "points": "weather_points"}.get(curve_mode(self.coordinator), "fixed")
 
     def _curve_target(self):
         """Live curve target: device register 2014, formula only as fallback."""
@@ -178,6 +179,8 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
             "current_addr": ctl.get("current"),
             "target_addr": ctl.get("target"),
             "at": self._value(self._addr("heat_curve", "at_sensor")),
+            "at_source": outdoor_source(self.coordinator),
+            "summer_cutoff_active": (summer_cutoff(self.coordinator) or {}).get("active"),
         }
 
     async def async_set_temperature(self, **kwargs):
@@ -193,21 +196,34 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
             raise ValueError(f"Set temp {temp} rejected (addr {addr})")
 
     async def _shift_curve(self, temp):
-        """Move the whole heating curve so the current curve target becomes temp."""
+        """Move the whole heating curve so the current curve target becomes temp.
+
+        Linear mode shifts the offset; 7-point mode shifts every point by the same delta.
+        """
         live = self._curve_target()
         pending = self._pending_curve(live)
-        off_addr = self._addr("heat_curve", "offset")
-        base, offset = pending if pending else (live, self._value(off_addr))
-        if base is None or offset is None:
+        addrs = self._curve_shift_addrs()
+        base, values = pending if pending else (live, {a: self._value(a) for a in addrs})
+        if base is None or not values or any(v is None for v in values.values()):
             raise ValueError("Heating curve target or offset not read yet, try again after the next poll")
-        new_offset = round(float(offset) + temp - base, 1)
+        new_values = {a: round(float(v) + temp - base, 1) for a, v in values.items()}
         prev = self._opt_curve
-        self._opt_curve = (round(temp, 1), new_offset, time.monotonic() + self.CURVE_HOLD_S)
+        self._opt_curve = (round(temp, 1), new_values, time.monotonic() + self.CURVE_HOLD_S)
         self.async_write_ha_state()
-        if not await self.coordinator.async_write_register(off_addr, new_offset):
+        if len(new_values) == 1:
+            (addr, value), = new_values.items()
+            ok = await self.coordinator.async_write_register(addr, value)
+        else:
+            ok = await self.coordinator.async_write_many(new_values)
+        if not ok:
             self._opt_curve = prev
             self.async_write_ha_state()
-            raise ValueError(f"Heating curve offset {new_offset} rejected (addr {off_addr})")
+            raise ValueError(f"Heating curve shift {new_values} rejected")
+
+    def _curve_shift_addrs(self):
+        if self._control().get("curve_mode") == "points":
+            return sorted(set((self.coordinator.marker("heat_curve").get("points") or {}).values()))
+        return [self._addr("heat_curve", "offset")]
 
     async def _optimistic_write(self, attr, value, mapping, error):
         setattr(self, attr, value)

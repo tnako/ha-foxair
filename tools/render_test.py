@@ -425,6 +425,68 @@ for h25, src in sorted(_cs["by_value"].items()):
         else:
             print(f"  OK [{name}]")
 
+# V3.5: 7-point curve (H36 = 2), external outdoor sensor / fallback, summer cut-off
+_HC = MARKERS["heat_curve"]
+_OS = MARKERS["outdoor_sensor"]["addr_single"]
+_SC = MARKERS["summer_cutoff"]["addr_single"]
+_PTS = {-20: 55.0, -10: 48.0, -5: 44.0, 0: 40.0, 5: 36.0, 10: 31.0, 20: 25.0}
+_IMG_TL = {}
+for _lang, _file in (("en", "strings.json"), ("de", "translations/de.json"), ("ru", "translations/ru.json")):
+    _IMG_TL[_lang] = json.load(open(os.path.join(ROOT, "custom_components", "foxair", _file), encoding="utf-8"))[
+        "entity"]["image"]["foxair_heating_curve"]["state"]
+
+
+def _v35_data(at_live, ext, active, h36=2):
+    d = make_data(at_live, None, 1)
+    d[_HC["addr_single"]["at_comp_en"]] = {"raw": h36, "value": h36}
+    for at, addr in _HC["points"].items():
+        d[addr] = {"value": _PTS[int(at)]}
+    d[_OS["selector"]] = {"raw": 1, "value": 1}
+    d[_OS["external"]] = {"value": ext}
+    d[_SC["threshold"]] = {"value": 18.0}
+    d[_SC["delay"]] = {"value": 30}
+    d[_SC["status"]] = {"raw": 16 if active else 0}
+    return d
+
+
+for _lang, _tl in _IMG_TL.items():
+    for name, at_live, ext, active in (("points AT=-7", -7.0, -7.0, False),
+                                       ("points cut-off active AT=19", 19.0, 19.0, True),
+                                       ("points external invalid", 4.0, 409.1, False)):
+        obj = img.FoxAirHeatingCurveImage(FakeCoord(_v35_data(at_live, ext, active)), "test")
+        obj.hass = FHass()
+        obj._tl = {**img._TL_FALLBACK, **_tl}
+        obj._last_inputs = obj._read_inputs()
+        obj._render()
+        svg = obj._image_bytes.decode("utf-8")
+        want = [_tl["mode_points"], _tl["cap_cutoff"].upper(), _tl["cap_at_source"].upper(),
+                _tl["at_fallback" if ext > 150 else "at_external"]]
+        if active:
+            want.append(_tl["cutoff_active"])
+        problems = [w for w in want if w not in svg]
+        markers = len(re.findall(r'<rect[^>]*width="12" height="12"', svg))
+        if markers != len(_PTS):
+            problems.append(f"{markers} point markers")
+        expected = hc_mod.calc_points_target(at_live, sorted((float(k), v) for k, v in _PTS.items()))
+        dot_ok = abs(hc_mod.curve_target_for_at(obj.coordinator, at_live) - max(20.0, min(60.0, expected))) < 0.01
+        if not dot_ok:
+            problems.append("interpolated target")
+        texts = re.findall(r'(<text[^>]*x="([\d.]+)"[^>]*y="([\d.]+)"[^>]*font-size="(\d+)"[^>]*>([^<]*)</text>)', svg)
+        vb_h = float(re.search(r'viewBox="0 0 \d+ (\d+)"', svg).group(1))
+        for tag, x, y, fs, t in texts:
+            if "rotate" in tag:
+                continue
+            fac = 0.72 if any("Ѐ" <= c <= "џ" for c in t) else 0.62
+            w = len(t) * int(fs) * fac
+            left = float(x) - (w if 'text-anchor="end"' in tag else w / 2 if 'text-anchor="middle"' in tag else 0)
+            if left < -5 or left + w > W + 5 or float(y) > vb_h:
+                problems.append(f"overflow '{t}'")
+        if problems:
+            print(f"  FAIL [{_lang} {name}]: {problems}")
+            all_ok = False
+        else:
+            print(f"  OK [{_lang} {name}]")
+
 print(f"\n{'='*60}")
 print("  ALL TESTS PASSED" if all_ok else "  SOME TESTS FAILED")
 print(f"{'='*60}")

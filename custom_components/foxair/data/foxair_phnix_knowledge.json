@@ -1191,23 +1191,28 @@
     "description": "0-59min"
   },
   "1250": {
-    "description": "0-nein/1-ja",
-    "source": "v36 Beschreibung/App-Review"
+    "description": "7-Punkt-Kennlinie (H36 = 2): Vorlauf-Sollwert bei -20 °C AT, lineare Interpolation zwischen den Punkten",
+    "source": "Firmware V3.5, Außentemperaturkompensation Modus 2 (7-Punkt-Kennlinie, FoxAir_Control externer_at_fuehler.md + Praxistest)"
   },
   "1251": {
-    "description": "0-59"
+    "description": "7-Punkt-Kennlinie (H36 = 2): Vorlauf-Sollwert bei -10 °C AT, lineare Interpolation zwischen den Punkten",
+    "source": "Firmware V3.5, Außentemperaturkompensation Modus 2 (7-Punkt-Kennlinie, FoxAir_Control externer_at_fuehler.md + Praxistest)"
   },
   "1252": {
-    "description": "0-23"
+    "description": "7-Punkt-Kennlinie (H36 = 2): Vorlauf-Sollwert bei -5 °C AT, lineare Interpolation zwischen den Punkten",
+    "source": "Firmware V3.5, Außentemperaturkompensation Modus 2 (7-Punkt-Kennlinie, FoxAir_Control externer_at_fuehler.md + Praxistest)"
   },
   "1253": {
-    "description": "0-31"
+    "description": "7-Punkt-Kennlinie (H36 = 2): Vorlauf-Sollwert bei +5 °C AT, lineare Interpolation zwischen den Punkten",
+    "source": "Firmware V3.5, Außentemperaturkompensation Modus 2 (7-Punkt-Kennlinie, FoxAir_Control externer_at_fuehler.md + Praxistest)"
   },
   "1254": {
-    "description": "0-12"
+    "description": "7-Punkt-Kennlinie (H36 = 2): Vorlauf-Sollwert bei +10 °C AT, lineare Interpolation zwischen den Punkten",
+    "source": "Firmware V3.5, Außentemperaturkompensation Modus 2 (7-Punkt-Kennlinie, FoxAir_Control externer_at_fuehler.md + Praxistest)"
   },
   "1255": {
-    "description": "0-99, Beispiel: 2022 ist 22"
+    "description": "7-Punkt-Kennlinie (H36 = 2): Vorlauf-Sollwert bei +20 °C AT, lineare Interpolation zwischen den Punkten",
+    "source": "Firmware V3.5, Außentemperaturkompensation Modus 2 (7-Punkt-Kennlinie, FoxAir_Control externer_at_fuehler.md + Praxistest)"
   },
   "1256": {
     "description": "Ältere 6-Segment-Timerlogik aus DEMONS_V1.3; nicht identisch mit neuem Timerblock 1281–1325.",
@@ -1742,6 +1747,10 @@
     "description": "Paketkopf-Wort zeigt auf den Anfang dieses Blockkopfs: 1451 / 0x05AB.",
     "source": "Live beobachtet + Display-Firmware Paketlogik"
   },
+  "1463": {
+    "description": "0 = interner Außentemperaturfühler T04, 1 = externer Fühler (Klemme 3/4)",
+    "source": "FoxAir_Control docs/FAQ/externer_at_fuehler.md + Praxistest"
+  },
   "1541": {
     "description": "Paketkennung: WF2403150123 (Wort 1-6), beobachtet in 90er-Paketblöcken. Optionaler Extra-Block; nicht auf jeder Anlage vollständig vorhanden.",
     "source": "Live beobachtet + Display-Firmware Paketlogik"
@@ -1908,7 +1917,8 @@
     "description": "Registergruppe h (Stunden). Laufzeitwert in Stunden."
   },
   "2033": {
-    "description": "0"
+    "description": "Externer Außentemperaturfühler (aktiv mit 1463 = 1); ungültig/fehlend: ca. 409,1 °C",
+    "source": "FoxAir_Control docs/FAQ/externer_at_fuehler.md"
   },
   "2034": {
     "description": "Read-only Status-/Eingangsbitfeld. DWIN-Seiten 237/238 zeigen SG-Kontaktstatus direkt aus 07F2H: Maske 0x1000 und 0x2000. 0/1 je Bit als LOW/HIGH bzw. AUS/EIN interpretieren; Polarität real prüfen.",

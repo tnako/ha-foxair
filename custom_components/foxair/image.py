@@ -18,9 +18,14 @@ Mode (driven by H36 / register 1236):
   * H36 = 1  -> AT-compensation (curve) mode:
                 target(AT) = offset - slope * AT, clamped to [R10, R11]
                 drawn as the main cyan curve line.
+  * H36 = 2  -> V3.5 7-point curve: setpoints at -20/-10/-5/0/5/10/20 C,
+                linearly interpolated, drawn as the cyan line with point markers.
   * H36 = 0  -> constant (fixed) mode:
                 target = R02 (register 1158), drawn as amber line.
                 Weather-compensation curve shown faintly as a preview.
+
+Footer adds the V3.5 outdoor sensor source (1463/2033) and the
+heating/summer cut-off (1464/1465/2146) when the unit reports them.
 """
 
 from __future__ import annotations
@@ -33,7 +38,8 @@ from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.helpers.translation import async_get_translations
 
 from .const import main_device, get_device_prefix, get_slave_id, bind_device_info
-from .heating_curve import active_control, calc_curve_target, curve_target_for_at
+from .heating_curve import (active_control, calc_curve_target, calc_points_target, curve_points,
+                            curve_target_for_at, outdoor_source, summer_cutoff)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -58,6 +64,16 @@ _TL_FALLBACK = {
     "legend_stop": "Stop heating",
     "mode_curve": "AT compensation (curve)",
     "mode_fixed": "Constant (fixed)",
+    "mode_points": "7-point curve",
+    "legend_points": "Curve points",
+    "cap_points": "Points (H36=2)",
+    "cap_at_source": "Outdoor sensor",
+    "at_external": "External",
+    "at_internal": "Internal T04",
+    "at_fallback": "T04 (external invalid)",
+    "cap_cutoff": "Summer cut-off",
+    "cutoff_active": "Active",
+    "cutoff_armed": "from",
     "wait": "Waiting for data",
     "wait_sub": "First poll in progress (quick 30 s)",
     "axis_x": "Outdoor temperature (AT)",
@@ -230,6 +246,7 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
         offset = val(hca.get("offset"), None)
         fixed = val(sp.get("heating_target"), None)
         h36 = 1 if ctl.get("curve") else 0
+        points = curve_points(coord) if ctl.get("curve_mode") == "points" else None
         at_live = val(hca.get("at_sensor"), None)
         live_target = val(hca.get("live_target"), None)
         r10 = val(sp.get("heating_min"), None)
@@ -251,6 +268,7 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
             "h36": h36, "source": None if ctl.get("own_target") else ctl.get("source"), "at_live": at_live, "live_target": live_target,
             "r10": r10, "r11": r11, "r04": r04, "r05": r05, "ready": ready,
             "compressor_on": compressor_on,
+            "points": points, "at_source": outdoor_source(coord), "cutoff": summer_cutoff(coord),
         }
 
     def _handle_coordinator_update(self) -> None:
@@ -320,6 +338,12 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
         at_live = inp.get("at_live")
         h36_raw = inp.get("h36")
         is_curve_mode = h36_raw != 0
+        points = inp.get("points") if is_curve_mode else None
+
+        def curve_at(at_v):
+            if points:
+                return calc_points_target(at_v, points)
+            return calc_curve_target(at_v, slope, offset, base=0.0)
 
         BG = "#0f172a"
         GRID = "#1e293b"
@@ -335,6 +359,9 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
         STOP_COL = "#cbd5e1"
         BAND_LO_FILL = "rgba(34,197,94,0.10)"
         BAND_HI_FILL = "rgba(148,163,184,0.10)"
+        CUTOFF_COL = "#f97316"
+        CUTOFF_FILL = "rgba(249,115,22,0.14)"
+        CUTOFF_FILL_IDLE = "rgba(249,115,22,0.05)"
         # Floating value labels get a vector halo (paint-order stroke) instead
         # of the old feDropShadow raster filter: crisp at any scale, and much
         # cheaper for phone GPUs (filters force rasterization → blur).
@@ -446,6 +473,17 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
         )
 
         # ---- reference cross at design point (AT=0 -> flow=offset) ----
+        cutoff = inp.get("cutoff") or {}
+        if cutoff.get("enabled") and AT_MIN < cutoff.get("threshold", AT_MAX) < AT_MAX:
+            xc = round(x_at(cutoff["threshold"]), 1)
+            svg.append(
+                f'<rect x="{xc}" y="{pad_t}" width="{round(plot_right - xc, 1)}" '
+                f'height="{plot_bottom - pad_t}" fill="{CUTOFF_FILL if cutoff.get("active") else CUTOFF_FILL_IDLE}"/>'
+            )
+            svg.append(
+                f'<line x1="{xc}" y1="{pad_t}" x2="{xc}" y2="{plot_bottom}" '
+                f'stroke="{CUTOFF_COL}" stroke-width="1.5" stroke-dasharray="6 4" opacity="0.7"/>'
+            )
         try:
             x0 = round(x_at(0.0), 1)
             y0 = round(y_flow(offset), 1)
@@ -502,7 +540,7 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
         if is_curve_mode:
             for at_g in (-30, -20, -10, 0, 10, 20):
                 x = round(x_at(at_g), 1)
-                cv = clamp(calc_curve_target(at_g, slope, offset, base=0.0), r10, r11)
+                cv = clamp(curve_at(at_g), r10, r11)
                 yv = round(y_flow(cv), 1)
                 if (_dx_e is not None and _dy_e is not None
                         and abs(x - _dx_e) < 240 and abs(yv - 8 - _dy_e) < 85):
@@ -558,7 +596,7 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
         for i in range(int(AT_MIN * 2), int(AT_MAX * 2) + 1):
             at_step = i / 2.0
             if is_curve_mode:
-                raw_val = calc_curve_target(at_step, slope, offset, base=0.0)
+                raw_val = curve_at(at_step)
             else:
                 raw_val = fixed
             c = clamp(raw_val, r10, r11)
@@ -600,6 +638,12 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
                 f'<polyline fill="none" stroke="{CURVE}" stroke-width="4" '
                 f'stroke-linejoin="round" points="{poly_pts}"/>'
             )
+            for at_p, v_p in points or ():
+                if AT_MIN <= at_p <= AT_MAX:
+                    svg.append(
+                        f'<rect x="{round(x_at(at_p) - 6, 1)}" y="{round(y_flow(clamp(v_p, r10, r11)) - 6, 1)}" '
+                        f'width="12" height="12" rx="2" fill="{BG}" stroke="{CURVE}" stroke-width="3"/>'
+                    )
         else:
             svg.append(
                 f'<line x1="{pad_l}" y1="{fixed_y}" x2="{plot_right}" y2="{fixed_y}" '
@@ -795,11 +839,13 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
 
         # ---- stat footer (caption-over-value cells) ----
         cap_y = plot_bottom + 62
-        val_y = cap_y + 24
-        mode_label = self._t("mode_curve" if is_curve_mode else "mode_fixed")
+        mode_key = "mode_points" if points else "mode_curve" if is_curve_mode else "mode_fixed"
+        mode_label = self._t(mode_key)
         mode_col = CURVE if is_curve_mode else FIXED_COL
         cells = [(self._t("cap_mode"), mode_label, mode_col)]
-        if is_curve_mode:
+        if points:
+            cells.append((self._t("cap_points"), f"{points[0][1]:.0f}\u2192{points[-1][1]:.0f}C", TEXT_DARK))
+        elif is_curve_mode:
             cells.append((self._t("cap_design"), f"{offset:.0f}C", TEXT_DARK))
             cells.append((self._t("cap_slope"), f"{slope:.2f}", TEXT_DARK))
         else:
@@ -807,26 +853,47 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
         cells.append((self._t("cap_limits"), f"{r10:.0f}\u2013{r11:.0f}C", TEXT_DARK))
         cells.append((self._t("cap_start"), f"\u2212{r04:.1f}C", START_COL))
         cells.append((self._t("cap_stop"), f"+{r05:.1f}C", STOP_COL))
+        at_source = inp.get("at_source")
+        if at_source:
+            cells.append((self._t("cap_at_source"), self._t(f"at_{at_source}"),
+                          CUTOFF_COL if at_source == "fallback" else TEXT_DARK))
+        if cutoff.get("enabled"):
+            cut_val = (self._t("cutoff_active") if cutoff.get("active")
+                       else f"{self._t('cutoff_armed')} {cutoff['threshold']:.0f}C")
+            cells.append((self._t("cap_cutoff"), cut_val, CUTOFF_COL))
 
+        row_h = 56
+        rows = [[]]
         cx = pad_l
         for cap, val, vcol in cells:
             cell_w = max(_text_w(cap, font_size=13) + 8,
                          _text_w(val, font_size=18) + 8, 70)
-            svg.append(
-                f'<text x="{cx:.1f}" y="{cap_y}" fill="{TEXT}" font-size="13" '
-                f'letter-spacing="0.5">{cap.upper()}</text>'
-            )
-            svg.append(
-                f'<text x="{cx:.1f}" y="{val_y}" fill="{vcol}" font-size="18" '
-                f'font-weight="bold">{val}</text>'
-            )
+            if cx + cell_w > plot_right and rows[-1]:
+                rows.append([])
+                cx = pad_l
+            rows[-1].append((cx, cell_w, cap, val, vcol))
             cx += cell_w + 34
-            svg.append(
-                f'<line x1="{cx - 17:.1f}" y1="{cap_y - 12}" x2="{cx - 17:.1f}" '
-                f'y2="{val_y + 4}" stroke="{GRID}" stroke-width="1"/>'
-            )
-        svg.pop()
-
+        for r_i, row in enumerate(rows):
+            ry = cap_y + r_i * row_h
+            for c_i, (cx, cell_w, cap, val, vcol) in enumerate(row):
+                svg.append(
+                    f'<text x="{cx:.1f}" y="{ry}" fill="{TEXT}" font-size="13" '
+                    f'letter-spacing="0.5">{cap.upper()}</text>'
+                )
+                svg.append(
+                    f'<text x="{cx:.1f}" y="{ry + 24}" fill="{vcol}" font-size="18" '
+                    f'font-weight="bold">{val}</text>'
+                )
+                if c_i < len(row) - 1:
+                    xd = cx + cell_w + 17
+                    svg.append(
+                        f'<line x1="{xd:.1f}" y1="{ry - 12}" x2="{xd:.1f}" '
+                        f'y2="{ry + 28}" stroke="{GRID}" stroke-width="1"/>'
+                    )
+        if len(rows) > 1:
+            extra = (len(rows) - 1) * row_h
+            svg[0] = svg[0].replace(f'height="{H}"', f'height="{H + extra}"').replace(
+                f'viewBox="0 0 {W} {H}"', f'viewBox="0 0 {W} {H + extra}"')
 
         svg.append("</svg>")
         self._image_bytes = "".join(svg).encode("utf-8")

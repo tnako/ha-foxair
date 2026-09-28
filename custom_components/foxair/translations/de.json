@@ -832,22 +832,22 @@
         "name": "Silentmodus Timer Stop Minute"
       },
       "foxair_1250": {
-        "name": "Systemzeit aktivieren"
+        "name": "Kurvenpunkt bei -20 °C AT"
       },
       "foxair_1251": {
-        "name": "Aktuelle Systemminute"
+        "name": "Kurvenpunkt bei -10 °C AT"
       },
       "foxair_1252": {
-        "name": "Aktuelle Systemstunde"
+        "name": "Kurvenpunkt bei -5 °C AT"
       },
       "foxair_1253": {
-        "name": "Aktueller Systemtag"
+        "name": "Kurvenpunkt bei +5 °C AT"
       },
       "foxair_1254": {
-        "name": "Aktueller Systemmonat"
+        "name": "Kurvenpunkt bei +10 °C AT"
       },
       "foxair_1255": {
-        "name": "Aktuelles Systemjahr"
+        "name": "Kurvenpunkt bei +20 °C AT"
       },
       "foxair_1256": {
         "name": "KG1: WP Ein/Aus Timer 1 Startzeit"
@@ -1273,7 +1273,7 @@
         "name": "AT-Grenzwert Heiz-/Sommerabschaltung"
       },
       "foxair_1465": {
-        "name": "Verzögerungszeit Heiz-/Sommerabschaltung"
+        "name": "Verzögerung Heiz-/Sommerabschaltung"
       },
       "foxair_1466": {
         "name": "Funktion unbekannt"
@@ -1420,7 +1420,7 @@
         "name": "T-Diag8: Kompressor-Laufzeit"
       },
       "foxair_2033": {
-        "name": "Reserviert"
+        "name": "Externe Außentemperatur"
       },
       "foxair_2034": {
         "name": "S01: Schalterzustände / Kontakte / SG Ready"
@@ -1741,7 +1741,7 @@
         "name": "Funktion unbekannt"
       },
       "foxair_2136": {
-        "name": "T04 Außentemperatur - zweiter Veröffentlichungsweg"
+        "name": "Interne Außentemperatur (T04)"
       },
       "foxair_2137": {
         "name": "Elektrische WP-/Inverterleistung ohne Zusatzanteil"
@@ -2813,6 +2813,9 @@
       },
       "foxair_z20": {
         "name": "Z20: Zone 1 Wasserpumpe im Kühlbetrieb aktivieren"
+      },
+      "foxair_1463": {
+        "name": "Außentemperaturfühler"
       }
     },
     "climate": {
@@ -3341,7 +3344,7 @@
         "name": "R74: Raumtemperaturdifferenz für Standby im Kühlbetrieb"
       },
       "foxair_1255": {
-        "name": "Aktuelles Systemjahr"
+        "name": "Kurvenpunkt bei +20 °C AT"
       },
       "foxair_1283": {
         "name": "Timer 1 WW-Zieltemperatur (ASM)"
@@ -4059,6 +4062,27 @@
       },
       "foxair_z19": {
         "name": "Z19: Differenz: Keine Pumpe Ein bei niedriger Wassertemperatur"
+      },
+      "foxair_1250": {
+        "name": "Kurvenpunkt bei -20 °C AT"
+      },
+      "foxair_1251": {
+        "name": "Kurvenpunkt bei -10 °C AT"
+      },
+      "foxair_1252": {
+        "name": "Kurvenpunkt bei -5 °C AT"
+      },
+      "foxair_1253": {
+        "name": "Kurvenpunkt bei +5 °C AT"
+      },
+      "foxair_1254": {
+        "name": "Kurvenpunkt bei +10 °C AT"
+      },
+      "foxair_1464": {
+        "name": "AT-Grenzwert Heiz-/Sommerabschaltung"
+      },
+      "foxair_1465": {
+        "name": "Verzögerung Heiz-/Sommerabschaltung"
       }
     },
     "select": {
@@ -4491,7 +4515,7 @@
           "legacy_high_speed_fan": "Legacy: Hochgeschwindigkeits-Lüfter",
           "legacy_2_stage_fan": "Legacy: zweistufiger Lüfter",
           "dc_fan_motor": "DC Fan Motor",
-          "dc_fan_external": "DC Fan Motor External Drive"
+          "dc_fan_motor_external_drive": "DC-Lüftermotor externe Ansteuerung"
         }
       },
       "foxair_f10": {
@@ -4655,7 +4679,8 @@
         "name": "H36: AT-Kompensationskurve Zone 1 aktivieren",
         "state": {
           "fixed": "Festtemperatur",
-          "curve": "Witterungsgeführt (Kurve)"
+          "curve": "Witterungsgeführt (Kurve)",
+          "points": "7-Punkt-Kennlinie"
         }
       },
       "foxair_h37": {
@@ -4767,7 +4792,8 @@
           "off": "Aus",
           "single_contact": "Einfach / 1 Kontakt",
           "dual_contacts": "2 Kontakte",
-          "modbus_virtueller_sg_eingang": "Modbus / virtueller SG-Eingang"
+          "modbus_virtueller_sg_eingang": "Modbus / virtueller SG-Eingang",
+          "ai_saving": "AI Saving / dynamischer Tarif"
         }
       },
       "foxair_sg01a": {
@@ -4834,6 +4860,13 @@
           "no": "Nein",
           "yes": "Ja"
         }
+      },
+      "foxair_1463": {
+        "name": "Außentemperaturfühler",
+        "state": {
+          "internal": "Intern (T04)",
+          "external": "Extern"
+        }
       }
     },
     "image": {
@@ -4858,7 +4891,17 @@
           "cap_design": "Vorlauf bei 0C",
           "cap_limits": "Grenzen (R10–R11)",
           "cap_start": "Start (R04)",
-          "cap_stop": "Stopp (R05)"
+          "cap_stop": "Stopp (R05)",
+          "mode_points": "7-Punkt-Kennlinie",
+          "legend_points": "Kurvenpunkte",
+          "cap_points": "Punkte (H36=2)",
+          "cap_at_source": "AT-Fühler",
+          "at_external": "Extern",
+          "at_internal": "Intern T04",
+          "at_fallback": "T04 (extern ungültig)",
+          "cap_cutoff": "Sommerabschaltung",
+          "cutoff_active": "Aktiv",
+          "cutoff_armed": "ab"
         }
       }
     },
@@ -5061,6 +5104,9 @@
       },
       "foxair_err04_bit4": {
         "name": "Auslasswasser Übertemperaturschutz (3x)"
+      },
+      "foxair_err04_bit7": {
+        "name": "Externer Außentemperaturfühler fehlt/ungültig"
       },
       "foxair_err05_bit0": {
         "name": "Einlasswassertemperaturfehler"
@@ -5487,6 +5533,9 @@
       },
       "foxair_fault": {
         "name": "Störung"
+      },
+      "foxair_2088_bit7": {
+        "name": "Externer Außentemperaturfühler fehlt/ungültig"
       }
     },
     "water_heater": {

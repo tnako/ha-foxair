@@ -2,7 +2,9 @@
 """Generate per-bit binary_sensor translations for BITFIELD registers.
 
 Reads bit_map (German) from foxair_phnix_registers.json, writes
-foxair_<addr>_bit<N> keys into strings.json + en/de/ru.json (+ icons).
+foxair_<addr>_bit<N> keys and, for registers with a code, the
+foxair_<code>_bit<N> keys the entities actually use (e.g. foxair_err04_bit7)
+into strings.json + en/de/ru.json (+ icons).
 de = bit_map label minus state annotations; en/ru from BIT_TEXT below.
 
 Re-run after any bit_map change. Fails loudly on bits missing en/ru so
@@ -25,6 +27,8 @@ BIT_TEXT = {
     (2139, 4): ("Low-pressure frequency limiter active (A38)", "Ограничитель частоты по низкому давлению активен (A38)"),
     # 2146 heating/summer cut-off status (FW V3.5)
     (2146, 4): ("Heating/summer cut-off active", "Летнее отключение отопления активно"),
+    # 2088 bit 7: external outdoor sensor missing/invalid (1463 = 1, live V3.5)
+    (2088, 7): ("External outdoor sensor missing or invalid", "Внешний датчик наружной температуры отсутствует или неисправен"),
     # 2019 load outputs
     (2019, 0): ("Compressor actually running", "Компрессор работает"),
     (2019, 2): ("At least one fan actually running", "Вентилятор работает (хотя бы один)"),
@@ -158,7 +162,11 @@ def main():
             key = (int(addr_str), int(bit))
             if key not in BIT_TEXT:
                 sys.exit(f"FAIL: no en/ru text for addr {addr_str} bit {bit} ({label[:80]}) — add to BIT_TEXT")
-            expected[f"foxair_{addr_str}_bit{bit}"] = (de_name(str(label)),) + BIT_TEXT[key]
+            names = (de_name(str(label)),) + BIT_TEXT[key]
+            expected[f"foxair_{addr_str}_bit{bit}"] = names
+            code_slug = re.sub(r"[^a-z0-9]+", "_", (m.get("code") or "").lower()).strip("_")
+            if code_slug:
+                expected[f"foxair_{code_slug}_bit{bit}"] = names
     missing_table = sorted(set(BIT_TEXT) - {(int(a), int(b)) for a in regs for b in ((regs[a].get("bit_map") or {}) if a.isdigit() else {})})
     if missing_table:
         sys.exit(f"FAIL: stale BIT_TEXT entries with no register bit: {missing_table}")
@@ -175,7 +183,8 @@ def main():
     isec = icons.setdefault("entity", collections.OrderedDict()).setdefault("binary_sensor", collections.OrderedDict())
     for k in sorted(expected):
         addr = k.split("_")[1]
-        m = meta.get(addr, {})
+        m = meta.get(addr) or next((v for v in meta.values()
+                                    if re.sub(r"[^a-z0-9]+", "_", (v.get("code") or "").lower()).strip("_") == addr), {})
         tab = m.get("tab") or ""
         icon = {"ERR": "mdi:alert", "S": "mdi:electric-switch"}.get(tab, "mdi:toggle-switch")
         isec[k] = {"default": icon}

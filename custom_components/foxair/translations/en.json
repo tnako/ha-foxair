@@ -832,22 +832,22 @@
         "name": "Silent Mode Timer Stop Minute"
       },
       "foxair_1250": {
-        "name": "System Time Enable"
+        "name": "Curve point at -20 °C outdoor"
       },
       "foxair_1251": {
-        "name": "Current System Minute"
+        "name": "Curve point at -10 °C outdoor"
       },
       "foxair_1252": {
-        "name": "Current System Hour"
+        "name": "Curve point at -5 °C outdoor"
       },
       "foxair_1253": {
-        "name": "Current System Day"
+        "name": "Curve point at +5 °C outdoor"
       },
       "foxair_1254": {
-        "name": "Current System Month"
+        "name": "Curve point at +10 °C outdoor"
       },
       "foxair_1255": {
-        "name": "Current System Year"
+        "name": "Curve point at +20 °C outdoor"
       },
       "foxair_1256": {
         "name": "KG1: WP Ein/Aus Timer 1 Startzeit"
@@ -1420,7 +1420,7 @@
         "name": "T-Diag8: Kompressor-Laufzeit"
       },
       "foxair_2033": {
-        "name": "2033: Reserved"
+        "name": "External outdoor temperature"
       },
       "foxair_2034": {
         "name": "S01: Schalterzustände / Kontakte / SG Ready"
@@ -1741,7 +1741,7 @@
         "name": "2135: Unknown Function"
       },
       "foxair_2136": {
-        "name": "T04 Outdoor Temperature - Secondary Path"
+        "name": "Internal outdoor temperature (T04)"
       },
       "foxair_2137": {
         "name": "Heat Pump Electrical Power (without booster)"
@@ -2813,6 +2813,9 @@
       },
       "foxair_z20": {
         "name": "Z20: Enable Zone 1 Water Pump in Cooling"
+      },
+      "foxair_1463": {
+        "name": "Outdoor temperature sensor"
       }
     },
     "climate": {
@@ -3341,7 +3344,7 @@
         "name": "R74: Room Temp Differential for Standby in Cooling"
       },
       "foxair_1255": {
-        "name": "Current System Year"
+        "name": "Curve point at +20 °C outdoor"
       },
       "foxair_1283": {
         "name": "Timer 1 DHW Target Temperature (ASM)"
@@ -4059,6 +4062,27 @@
       },
       "foxair_z19": {
         "name": "Z19: Diff. of No Pump On at Low Water Temp."
+      },
+      "foxair_1250": {
+        "name": "Curve point at -20 °C outdoor"
+      },
+      "foxair_1251": {
+        "name": "Curve point at -10 °C outdoor"
+      },
+      "foxair_1252": {
+        "name": "Curve point at -5 °C outdoor"
+      },
+      "foxair_1253": {
+        "name": "Curve point at +5 °C outdoor"
+      },
+      "foxair_1254": {
+        "name": "Curve point at +10 °C outdoor"
+      },
+      "foxair_1464": {
+        "name": "Heating/summer cut-off outdoor temperature threshold"
+      },
+      "foxair_1465": {
+        "name": "Heating/summer cut-off delay"
       }
     },
     "select": {
@@ -4491,7 +4515,7 @@
           "legacy_high_speed_fan": "Legacy: High-Speed Fan",
           "legacy_2_stage_fan": "Legacy: 2-Stage Fan",
           "dc_fan_motor": "DC Fan Motor",
-          "dc_fan_external": "DC Fan External"
+          "dc_fan_motor_external_drive": "DC Fan Motor External Drive"
         }
       },
       "foxair_f10": {
@@ -4655,7 +4679,8 @@
         "name": "H36: Enable AT Compensation Curve Zone 1",
         "state": {
           "fixed": "Fixed temperature",
-          "curve": "Weather compensation (curve)"
+          "curve": "Weather compensation (curve)",
+          "points": "7-point curve"
         }
       },
       "foxair_h37": {
@@ -4767,7 +4792,8 @@
           "off": "Off",
           "single_contact": "Single Contact",
           "dual_contacts": "Dual Contacts",
-          "modbus_virtueller_sg_eingang": "Modbus / virtual SG input"
+          "modbus_virtueller_sg_eingang": "Modbus / virtual SG input",
+          "ai_saving": "AI Saving / dynamic tariff"
         }
       },
       "foxair_sg01a": {
@@ -4834,6 +4860,13 @@
           "no": "No",
           "yes": "Yes"
         }
+      },
+      "foxair_1463": {
+        "name": "Outdoor temperature sensor",
+        "state": {
+          "internal": "Internal (T04)",
+          "external": "External"
+        }
       }
     },
     "image": {
@@ -4858,7 +4891,17 @@
           "cap_design": "Flow at 0C",
           "cap_limits": "Limits (R10–R11)",
           "cap_start": "Start (R04)",
-          "cap_stop": "Stop (R05)"
+          "cap_stop": "Stop (R05)",
+          "mode_points": "7-point curve",
+          "legend_points": "Curve points",
+          "cap_points": "Points (H36=2)",
+          "cap_at_source": "Outdoor sensor",
+          "at_external": "External",
+          "at_internal": "Internal T04",
+          "at_fallback": "T04 (external invalid)",
+          "cap_cutoff": "Summer cut-off",
+          "cutoff_active": "Active",
+          "cutoff_armed": "from"
         }
       }
     },
@@ -5061,6 +5104,9 @@
       },
       "foxair_err04_bit4": {
         "name": "ERR04 Outlet water overtemp protection (3x latched)"
+      },
+      "foxair_err04_bit7": {
+        "name": "External outdoor sensor missing or invalid"
       },
       "foxair_err05_bit0": {
         "name": "ERR05 Inlet water temp fault"
@@ -5487,6 +5533,9 @@
       },
       "foxair_fault": {
         "name": "Fault"
+      },
+      "foxair_2088_bit7": {
+        "name": "External outdoor sensor missing or invalid"
       }
     },
     "water_heater": {
