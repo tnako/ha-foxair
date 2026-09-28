@@ -121,16 +121,16 @@
         "name": "Modus setzen"
       },
       "foxair_1013": {
-        "name": "Wassertanktemperatur (vom Zentralregler bei H37-1)"
+        "name": "WW-Speicher (H37=1)"
       },
       "foxair_1014": {
-        "name": "Zentralregler zum Abtauen zulassen bei D26-1"
+        "name": "Zentrales Abtauen (D26=1)"
       },
       "foxair_1015": {
         "name": "Sprachauswahl"
       },
       "foxair_1016": {
-        "name": "Manuelle Steuerung / Silent Status"
+        "name": "Silent / manuelle Steuerung"
       },
       "foxair_1017": {
         "name": "Logo-Auswahl"
@@ -784,10 +784,10 @@
         "name": "R60: AT zum Start der Frequenzbegrenzung im Kühlbetrieb"
       },
       "foxair_1234": {
-        "name": "AT-Kompensation Slope / Steigung"
+        "name": "Steigung"
       },
       "foxair_1235": {
-        "name": "AT-Kompensation Offset / Versatz"
+        "name": "Punkt 0 °C / Offset"
       },
       "foxair_1236": {
         "name": "H36: AT-Kompensationskurve Zone 1 aktivieren"
@@ -832,22 +832,22 @@
         "name": "Silentmodus Timer Stop Minute"
       },
       "foxair_1250": {
-        "name": "Kurvenpunkt bei -20 °C AT"
+        "name": "Punkt -20 °C"
       },
       "foxair_1251": {
-        "name": "Kurvenpunkt bei -10 °C AT"
+        "name": "Punkt -10 °C"
       },
       "foxair_1252": {
-        "name": "Kurvenpunkt bei -5 °C AT"
+        "name": "Punkt -5 °C"
       },
       "foxair_1253": {
-        "name": "Kurvenpunkt bei +5 °C AT"
+        "name": "Punkt +5 °C"
       },
       "foxair_1254": {
-        "name": "Kurvenpunkt bei +10 °C AT"
+        "name": "Punkt +10 °C"
       },
       "foxair_1255": {
-        "name": "Kurvenpunkt bei +20 °C AT"
+        "name": "Punkt +20 °C"
       },
       "foxair_1256": {
         "name": "KG1: WP Ein/Aus Timer 1 Startzeit"
@@ -1270,10 +1270,10 @@
         "name": "Blockkopf Paket 6 / erstes Blockkopf-Register"
       },
       "foxair_1464": {
-        "name": "AT-Grenzwert Heiz-/Sommerabschaltung"
+        "name": "Sommerabschaltung ab"
       },
       "foxair_1465": {
-        "name": "Verzögerung Heiz-/Sommerabschaltung"
+        "name": "Sommerabschaltung Verzög."
       },
       "foxair_1466": {
         "name": "Funktion unbekannt"
@@ -1362,7 +1362,7 @@
         "name": "Temperaturwert nach Begrenzung"
       },
       "foxair_2014": {
-        "name": "Temperaturwert nach Wetterkompensation während des Heizens"
+        "name": "Kurven-Sollwert"
       },
       "foxair_2015": {
         "name": "Zentrale Abtauautomatik anwenden",
@@ -1420,7 +1420,7 @@
         "name": "T-Diag8: Kompressor-Laufzeit"
       },
       "foxair_2033": {
-        "name": "Externe Außentemperatur"
+        "name": "Externe AT"
       },
       "foxair_2034": {
         "name": "S01: Schalterzustände / Kontakte / SG Ready"
@@ -2291,7 +2291,7 @@
         "name": "H34: ERP Testmodus"
       },
       "foxair_h36": {
-        "name": "H36: AT-Kompensationskurve Zone 1 aktivieren"
+        "name": "H36: AT-Kompensation"
       },
       "foxair_h37": {
         "name": "H37: Wassertank-Temperaturquelle"
@@ -2815,7 +2815,7 @@
         "name": "Z20: Zone 1 Wasserpumpe im Kühlbetrieb aktivieren"
       },
       "foxair_1463": {
-        "name": "Außentemperaturfühler"
+        "name": "AT-Fühler"
       }
     },
     "climate": {
@@ -2843,7 +2843,7 @@
     },
     "number": {
       "foxair_1013": {
-        "name": "Wassertanktemperatur (vom Zentralregler bei H37-1)"
+        "name": "WW-Speicher (H37=1)"
       },
       "foxair_1015": {
         "name": "Sprachauswahl"
@@ -3317,10 +3317,16 @@
         "name": "R60: AT zum Start der Frequenzbegrenzung im Kühlbetrieb"
       },
       "foxair_1234": {
-        "name": "AT-Kompensation Slope / Steigung"
+        "name": "Steigung"
       },
       "foxair_1235": {
-        "name": "AT-Kompensation Offset / Versatz"
+        "name": "Punkt 0 °C / Offset"
+      },
+      "foxair_1235_linear": {
+        "name": "Offset (Vorlauf bei 0 °C)"
+      },
+      "foxair_1235_points": {
+        "name": "Punkt 0 °C"
       },
       "foxair_1237": {
         "name": "R61: AT zum Stoppen der Frequenzbegrenzung im Kühlbetrieb"
@@ -3344,7 +3350,7 @@
         "name": "R74: Raumtemperaturdifferenz für Standby im Kühlbetrieb"
       },
       "foxair_1255": {
-        "name": "Kurvenpunkt bei +20 °C AT"
+        "name": "Punkt +20 °C"
       },
       "foxair_1283": {
         "name": "Timer 1 WW-Zieltemperatur (ASM)"
@@ -4064,25 +4070,25 @@
         "name": "Z19: Differenz: Keine Pumpe Ein bei niedriger Wassertemperatur"
       },
       "foxair_1250": {
-        "name": "Kurvenpunkt bei -20 °C AT"
+        "name": "Punkt -20 °C"
       },
       "foxair_1251": {
-        "name": "Kurvenpunkt bei -10 °C AT"
+        "name": "Punkt -10 °C"
       },
       "foxair_1252": {
-        "name": "Kurvenpunkt bei -5 °C AT"
+        "name": "Punkt -5 °C"
       },
       "foxair_1253": {
-        "name": "Kurvenpunkt bei +5 °C AT"
+        "name": "Punkt +5 °C"
       },
       "foxair_1254": {
-        "name": "Kurvenpunkt bei +10 °C AT"
+        "name": "Punkt +10 °C"
       },
       "foxair_1464": {
-        "name": "AT-Grenzwert Heiz-/Sommerabschaltung"
+        "name": "Sommerabschaltung ab"
       },
       "foxair_1465": {
-        "name": "Verzögerung Heiz-/Sommerabschaltung"
+        "name": "Sommerabschaltung Verzög."
       }
     },
     "select": {
@@ -4104,14 +4110,14 @@
         }
       },
       "foxair_1014": {
-        "name": "Zentralregler zum Abtauen zulassen bei D26-1",
+        "name": "Zentrales Abtauen (D26=1)",
         "state": {
           "disabled": "nicht zulassen",
           "enabled": "zulassen"
         }
       },
       "foxair_1016": {
-        "name": "Manuelle Steuerung / Silent Status"
+        "name": "Silent / manuelle Steuerung"
       },
       "foxair_1018": {
         "name": "H01: Power Off Memory aktivieren (Autostart)"
@@ -4267,16 +4273,16 @@
         }
       },
       "foxair_1251": {
-        "name": "Aktuelle Systemminute"
+        "name": "Punkt -10 °C"
       },
       "foxair_1252": {
-        "name": "Aktuelle Systemstunde"
+        "name": "Punkt -5 °C"
       },
       "foxair_1253": {
-        "name": "Aktueller Systemtag"
+        "name": "Punkt +5 °C"
       },
       "foxair_1254": {
-        "name": "Aktueller Systemmonat"
+        "name": "Punkt +10 °C"
       },
       "foxair_1268": {
         "name": "KG13-KG28: WP Ein/Aus Timer 1+2 Aktiv/Tage Bitmaske"
@@ -4676,7 +4682,7 @@
         }
       },
       "foxair_h36": {
-        "name": "H36: AT-Kompensationskurve Zone 1 aktivieren",
+        "name": "H36: AT-Kompensation",
         "state": {
           "fixed": "Festtemperatur",
           "curve": "Witterungsgeführt (Kurve)",
@@ -4862,7 +4868,7 @@
         }
       },
       "foxair_1463": {
-        "name": "Außentemperaturfühler",
+        "name": "AT-Fühler",
         "state": {
           "internal": "Intern (T04)",
           "external": "Extern"
@@ -4895,6 +4901,7 @@
           "mode_points": "7-Punkt-Kennlinie",
           "legend_points": "Kurvenpunkte",
           "cap_points": "Punkte (H36=2)",
+          "cap_point0": "0C-Punkt",
           "cap_at_source": "AT-Fühler",
           "at_external": "Extern",
           "at_internal": "Intern T04",
@@ -5106,7 +5113,7 @@
         "name": "Auslasswasser Übertemperaturschutz (3x)"
       },
       "foxair_err04_bit7": {
-        "name": "Externer Außentemperaturfühler fehlt/ungültig"
+        "name": "Externer AT-Fühler Fehler"
       },
       "foxair_err05_bit0": {
         "name": "Einlasswassertemperaturfehler"
@@ -5529,13 +5536,13 @@
         "name": "Niederdruck-Frequenzlimiter aktiv (A38)"
       },
       "foxair_2146_bit4": {
-        "name": "Heiz-/Sommerabschaltung aktiv"
+        "name": "Sommerabschaltung aktiv"
       },
       "foxair_fault": {
         "name": "Störung"
       },
       "foxair_2088_bit7": {
-        "name": "Externer Außentemperaturfühler fehlt/ungültig"
+        "name": "Externer AT-Fühler Fehler"
       }
     },
     "water_heater": {

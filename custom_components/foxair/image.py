@@ -67,6 +67,7 @@ _TL_FALLBACK = {
     "mode_points": "7-point curve",
     "legend_points": "Curve points",
     "cap_points": "Points (H36=2)",
+    "cap_point0": "0C point",
     "cap_at_source": "Outdoor sensor",
     "at_external": "External",
     "at_internal": "Internal T04",
@@ -845,6 +846,11 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
         cells = [(self._t("cap_mode"), mode_label, mode_col)]
         if points:
             cells.append((self._t("cap_points"), f"{points[0][1]:.0f}\u2192{points[-1][1]:.0f}C", TEXT_DARK))
+            # 0 degC point is register 1235 (the linear offset), not one of the
+            # six extra points: show it so "45 everywhere, 32 at 0" is explained.
+            p0 = next((v for a, v in points if a == 0), None)
+            if p0 is not None:
+                cells.append((self._t("cap_point0"), f"{p0:.0f}C", TEXT_DARK))
         elif is_curve_mode:
             cells.append((self._t("cap_design"), f"{offset:.0f}C", TEXT_DARK))
             cells.append((self._t("cap_slope"), f"{slope:.2f}", TEXT_DARK))

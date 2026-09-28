@@ -656,6 +656,35 @@ try:
 except (OSError, SyntaxError, ValueError) as _e9:
     errs.append(f"select-states: cannot check: {_e9}")
 
+# 10. Short names on the everyday devices: HA prefixes the device name and
+#     truncates in cards/tiles, so main-device and Heating curve (HC) entities
+#     visible without expert mode must stay <= 30 chars in every language.
+_NAME_MAX = 30
+try:
+    _core10 = set((_cfg8.get("markers", {}).get("core_main_addrs") or {}).get("addr_list") or [])
+    _ents10 = {l: json.loads((CC / f"{l}.json").read_text(encoding="utf-8")).get("entity", {})
+               for l in ("strings", "translations/en", "translations/de", "translations/ru")}
+    for _a10, _m10 in (_meta8 or {}).items():
+        if not _a10.isdigit() or _m10.get("hidden") or _m10.get("requires_expert"):
+            continue
+        if not (int(_a10) in _core10 or _m10.get("tab") == "HC"):
+            continue
+        _key10 = "foxair_" + (_sel_slug(_m10["code"]) if _m10.get("code") else _a10)
+        for _l10, _ent10 in _ents10.items():
+            _n10 = ((_ent10.get(_m10.get("platform") or "sensor") or {}).get(_key10) or {}).get("name") or ""
+            if len(_n10) > _NAME_MAX:
+                errs.append(f"name-length: {_l10}.json {_key10} (addr {_a10}) '{_n10}' is {len(_n10)} > {_NAME_MAX} chars")
+        # mode-dependent name variants (name_by_dep_value -> <key>_<suffix>)
+        for _suf10 in (_m10.get("name_by_dep_value") or {}).values():
+            for _l10, _ent10 in _ents10.items():
+                _nv10 = ((_ent10.get(_m10.get("platform") or "sensor") or {}).get(f"{_key10}_{_suf10}") or {}).get("name") or ""
+                if not _nv10:
+                    errs.append(f"name-variant: {_l10}.json has no {_key10}_{_suf10} name (addr {_a10} name_by_dep_value)")
+                elif len(_nv10) > _NAME_MAX:
+                    errs.append(f"name-length: {_l10}.json {_key10}_{_suf10} '{_nv10}' is {len(_nv10)} > {_NAME_MAX} chars")
+except (OSError, ValueError, NameError) as _e10:
+    errs.append(f"name-length: cannot check: {_e10}")
+
 if warns:
     print("WARN:")
 

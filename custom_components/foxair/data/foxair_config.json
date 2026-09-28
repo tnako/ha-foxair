@@ -809,8 +809,6 @@
         1212,
         1213,
         1214,
-        1234,
-        1235,
         1236,
         2012,
         2014,
@@ -1153,14 +1151,27 @@
         "risk": "safe"
       },
       "1234": {
+        "block": "H",
+        "tab": "HC",
+        "requires_expert": false,
         "poll_tier": "quick",
         "min": 0.0,
         "max": 3.5,
-        "risk": "safe"
+        "risk": "safe",
+        "icon": "mdi:slope-downhill"
       },
       "1235": {
+        "block": "H",
+        "tab": "HC",
+        "requires_expert": false,
         "poll_tier": "quick",
-        "risk": "safe"
+        "risk": "safe",
+        "icon": "mdi:thermometer-chevron-up",
+        "_name_by_dep_value_comment": "Name follows H36 (depends_on): linear = offset, 7-point = the 0 degC point. Values are translation-key suffixes: foxair_1235_<suffix>.",
+        "name_by_dep_value": {
+          "1": "linear",
+          "2": "points"
+        }
       },
       "1236": {
         "poll_tier": "quick",

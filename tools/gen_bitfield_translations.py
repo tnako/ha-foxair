@@ -26,9 +26,9 @@ BIT_TEXT = {
     # 2139 frequency limiter status (FW V3.5)
     (2139, 4): ("Low-pressure frequency limiter active (A38)", "Ограничитель частоты по низкому давлению активен (A38)"),
     # 2146 heating/summer cut-off status (FW V3.5)
-    (2146, 4): ("Heating/summer cut-off active", "Летнее отключение отопления активно"),
+    (2146, 4): ("Summer cut-off active", "Летнее откл. активно"),
     # 2088 bit 7: external outdoor sensor missing/invalid (1463 = 1, live V3.5)
-    (2088, 7): ("External outdoor sensor missing or invalid", "Внешний датчик наружной температуры отсутствует или неисправен"),
+    (2088, 7): ("External AT sensor fault", "Ошибка внешнего датчика"),
     # 2019 load outputs
     (2019, 0): ("Compressor actually running", "Компрессор работает"),
     (2019, 2): ("At least one fan actually running", "Вентилятор работает (хотя бы один)"),

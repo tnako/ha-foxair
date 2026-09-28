@@ -137,6 +137,18 @@ def cmd_read(p: Probe, sc: Scaler, args) -> int:
     return 0
 
 
+def stable_read(p: Probe, addr: int, tries: int = 4) -> int:
+    """Value seen by two consecutive reads. The bridge occasionally returns a
+    single 0 word (seen live on 2014), which must not count as an effect."""
+    prev = p.read(addr)[0]
+    for _ in range(tries):
+        cur = p.read(addr)[0]
+        if cur == prev:
+            return cur
+        prev = cur
+    return prev
+
+
 def cmd_write(p: Probe, sc: Scaler, args) -> int:
     targets = []
     for t in args.assignments:
@@ -144,7 +156,7 @@ def cmd_write(p: Probe, sc: Scaler, args) -> int:
         targets.append((int(a), float(v)))
     watch = args.watch
     original = {a: p.read(a)[0] for a, _ in targets}
-    before = p.read(watch)[0] if watch is not None else None
+    before = stable_read(p, watch) if watch is not None else None
     print(f"snapshot: {original}" + (f", watch {watch}={before}" if watch is not None else ""))
     rc = 0
     try:
@@ -159,7 +171,7 @@ def cmd_write(p: Probe, sc: Scaler, args) -> int:
             t0 = time.monotonic()
             last = None
             while time.monotonic() - t0 < args.timeout:
-                cur = p.read(watch)[0]
+                cur = stable_read(p, watch)
                 if cur != last:
                     print(f"  t+{time.monotonic() - t0:5.1f}s {watch}: raw={cur} value={sc.to_value(watch, cur)}"
                           + (f" bit{args.until_bit}={cur >> args.until_bit & 1}" if args.until_bit is not None else ""))

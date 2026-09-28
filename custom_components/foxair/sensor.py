@@ -3,7 +3,7 @@ from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.event import async_track_state_change_event
 from homeassistant.helpers.restore_state import RestoreEntity
-from .const import POPULAR_ADDRS, SENSOR_HIDDEN_ADDRS, device_for_addr, main_device, entity_sort_key, get_device_prefix, get_slave_id, bind_device_info, entity_suffix
+from .const import POPULAR_ADDRS, SENSOR_HIDDEN_ADDRS, device_for_addr, main_device, entity_sort_key, get_device_prefix, get_slave_id, bind_device_info, entity_suffix, dependency_met
 from .computed import (compute_heating_power, compute_electrical_power, compute_cop,
                        compute_cop_mode, active_mode, _cval)
 
@@ -178,29 +178,10 @@ class FoxSensor(CoordinatorEntity, SensorEntity):
             m2 = self.coordinator.get_metadata(self._addr) if hasattr(self.coordinator, "get_metadata") else {}
         except Exception:
             m2 = {}
-        dep = m2.get("depends_on")
-        if dep is not None:
-            try:
-                rec = self.coordinator.data.get(int(dep))
-                if not rec:
-                    # dep not polled (e.g. expert-gated H27 for a non-expert
-                    # user) — can't prove disabled, so keep showing.
-                    return super().available
-                raw = rec.get("raw")
-                if raw is None:
-                    raw = rec.get("value")
-                if raw is None:
-                    return False
-                s = str(raw).strip().lower()
-                if s in ("0", "0.0", "off", "no", "false", ""):
-                    return False
-                try:
-                    if float(raw) == 0:
-                        return False
-                except Exception:
-                    pass
-            except Exception:
-                pass
+        # dep not polled (e.g. expert-gated H27 for a non-expert user):
+        # can't prove disabled, so keep showing (missing=True).
+        if not dependency_met(self.coordinator, m2, missing=True):
+            return False
         try:
             if hasattr(self.coordinator, "is_stale") and self.coordinator.is_stale(self._addr):
                 return False

@@ -2,7 +2,7 @@
 
 Control and monitor your **FoxAir / PHNIX air-to-water heat pump** directly from Home Assistant over Modbus TCP — no cloud, no YAML.
 
-![Version](https://img.shields.io/badge/version-0.7.15-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2026.9-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
+![Version](https://img.shields.io/badge/version-0.7.16-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2026.9-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
 ![FoxAir Demo](docs/screenshots/foxair_demo.gif)
 
@@ -17,7 +17,7 @@ Register maps and scaling based on the reverse-engineering in [dosordie/FoxAir_C
 - **PV surplus** — `switch.foxair_pv_surplus` for EVCC or HA automations, see below
 - **Runtime counters** — compressor runtime (2032, h) and compressor starts (2023, firmware 3.3+) as total counters, read from the unit
 - **Heating curve** — slope / offset / mode with an SVG graph image entity — no Lovelace YAML
-- **Firmware V3.5** — 7-point heating curve (H36 = 2, points 1250-1255 + 1235), external outdoor sensor (1463 select, 2033 external / 2136 internal T04, 2048 effective), heating/summer cut-off (1464 threshold, 1465 delay in min, 2146 bit 4 active) and SG01 = AI Saving (1334 = 4); all created only when 2104 reports V3.5
+- **Firmware V3.5** — 7-point heating curve (H36 = 2, points 1250-1255 + 1235 as the 0 °C point, on the "Heating curve" device together with slope/offset; each shown only in the H36 mode that uses it), external outdoor sensor (1463 select, 2033 external / 2136 internal T04, 2048 effective), heating/summer cut-off (1464 threshold, 1465 delay in min, 2146 bit 4 active) and SG01 = AI Saving (1334 = 4); all created only when 2104 reports V3.5
 - **Computed sensors** — heating power, electrical power, COP from `flow·ΔT`
 - **Multiple pumps** — configurable entity prefix so each unit gets its own IDs
 - **Safety** — expert mode gates installer controls; writes are validated

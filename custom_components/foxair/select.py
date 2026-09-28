@@ -7,7 +7,7 @@ from homeassistant.components.select import SelectEntity
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from .const import POPULAR_ADDRS, device_for_addr, entity_sort_key, get_device_prefix, get_slave_id, bind_device_info, entity_suffix
+from .const import POPULAR_ADDRS, device_for_addr, entity_sort_key, get_device_prefix, get_slave_id, bind_device_info, entity_suffix, dependency_met
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -262,28 +262,8 @@ class FoxSelect(CoordinatorEntity, SelectEntity):
         """Dynamic availability: expert gating + registry depends_on."""
         if self._meta.get("requires_expert") and not self.coordinator.entry.options.get("enable_expert"):
             return False
-        dep = self._meta.get("depends_on")
-        if dep is not None:
-            try:
-                rec = self.coordinator.data.get(int(dep))
-                if not rec:
-                    return False
-                raw = rec.get("raw")
-                if raw is None:
-                    raw = rec.get("value")
-                if raw is None:
-                    return False
-                # truthy when non-zero / not Off/No
-                s = str(raw).strip().lower()
-                if s in ("0", "0.0", "off", "no", "false", ""):
-                    return False
-                try:
-                    if float(raw) == 0:
-                        return False
-                except Exception:
-                    pass
-            except Exception:
-                pass
+        if not dependency_met(self.coordinator, self._meta):
+            return False
         return super().available
 
     @property

@@ -121,16 +121,16 @@
         "name": "Set Mode"
       },
       "foxair_1013": {
-        "name": "DHW Tank Temperature (from central controller H37=1)"
+        "name": "DHW tank temp (H37=1)"
       },
       "foxair_1014": {
-        "name": "Allow Central Controller Defrost at D26=1"
+        "name": "Central defrost (D26=1)"
       },
       "foxair_1015": {
         "name": "Language Selection"
       },
       "foxair_1016": {
-        "name": "Manual Control / Silent Status"
+        "name": "Silent / manual control"
       },
       "foxair_1017": {
         "name": "Logo Selection"
@@ -784,10 +784,10 @@
         "name": "R60: Ambient Temp to Start Frequency Limiting in Cooling"
       },
       "foxair_1234": {
-        "name": "AT Compensation Slope"
+        "name": "Slope"
       },
       "foxair_1235": {
-        "name": "AT Compensation Offset"
+        "name": "Point 0 °C / offset"
       },
       "foxair_1236": {
         "name": "H36: AT-Kompensationskurve Zone 1 aktivieren"
@@ -832,22 +832,22 @@
         "name": "Silent Mode Timer Stop Minute"
       },
       "foxair_1250": {
-        "name": "Curve point at -20 °C outdoor"
+        "name": "Point -20 °C"
       },
       "foxair_1251": {
-        "name": "Curve point at -10 °C outdoor"
+        "name": "Point -10 °C"
       },
       "foxair_1252": {
-        "name": "Curve point at -5 °C outdoor"
+        "name": "Point -5 °C"
       },
       "foxair_1253": {
-        "name": "Curve point at +5 °C outdoor"
+        "name": "Point +5 °C"
       },
       "foxair_1254": {
-        "name": "Curve point at +10 °C outdoor"
+        "name": "Point +10 °C"
       },
       "foxair_1255": {
-        "name": "Curve point at +20 °C outdoor"
+        "name": "Point +20 °C"
       },
       "foxair_1256": {
         "name": "KG1: WP Ein/Aus Timer 1 Startzeit"
@@ -1270,10 +1270,10 @@
         "name": "Block Header Packet 6 First Header Register"
       },
       "foxair_1464": {
-        "name": "Heating/summer cut-off outdoor temperature threshold"
+        "name": "Summer cut-off from"
       },
       "foxair_1465": {
-        "name": "Heating/summer cut-off delay"
+        "name": "Summer cut-off delay"
       },
       "foxair_1466": {
         "name": "1466: Unknown Function"
@@ -1362,7 +1362,7 @@
         "name": "Temperature Value After Limiting"
       },
       "foxair_2014": {
-        "name": "Temperature Value After Weather Compensation (Heating)"
+        "name": "Curve target"
       },
       "foxair_2015": {
         "name": "Apply Central Defrost Automation",
@@ -1420,7 +1420,7 @@
         "name": "T-Diag8: Kompressor-Laufzeit"
       },
       "foxair_2033": {
-        "name": "External outdoor temperature"
+        "name": "External outdoor temp"
       },
       "foxair_2034": {
         "name": "S01: Schalterzustände / Kontakte / SG Ready"
@@ -2291,7 +2291,7 @@
         "name": "H34: Parameter Code"
       },
       "foxair_h36": {
-        "name": "H36: Enable AT Compensation Curve Zone 1"
+        "name": "H36: AT compensation"
       },
       "foxair_h37": {
         "name": "H37: DHW Temp. Sourcing"
@@ -2815,7 +2815,7 @@
         "name": "Z20: Enable Zone 1 Water Pump in Cooling"
       },
       "foxair_1463": {
-        "name": "Outdoor temperature sensor"
+        "name": "Outdoor sensor"
       }
     },
     "climate": {
@@ -2837,7 +2837,7 @@
     },
     "number": {
       "foxair_1013": {
-        "name": "DHW Tank Temperature (from central controller H37=1)"
+        "name": "DHW tank temp (H37=1)"
       },
       "foxair_1015": {
         "name": "Language Selection"
@@ -3311,10 +3311,16 @@
         "name": "R60: Ambient Temp to Start Frequency Limiting in Cooling"
       },
       "foxair_1234": {
-        "name": "AT Compensation Slope"
+        "name": "Slope"
       },
       "foxair_1235": {
-        "name": "AT Compensation Offset"
+        "name": "Point 0 °C / offset"
+      },
+      "foxair_1235_linear": {
+        "name": "Offset (flow at 0 °C)"
+      },
+      "foxair_1235_points": {
+        "name": "Point 0 °C"
       },
       "foxair_1237": {
         "name": "R61: Ambient Temp to Stop Frequency Limiting in Cooling"
@@ -3338,7 +3344,7 @@
         "name": "R74: Room Temp Differential for Standby in Cooling"
       },
       "foxair_1255": {
-        "name": "Curve point at +20 °C outdoor"
+        "name": "Point +20 °C"
       },
       "foxair_1283": {
         "name": "Timer 1 DHW Target Temperature (ASM)"
@@ -4058,25 +4064,25 @@
         "name": "Z19: Diff. of No Pump On at Low Water Temp."
       },
       "foxair_1250": {
-        "name": "Curve point at -20 °C outdoor"
+        "name": "Point -20 °C"
       },
       "foxair_1251": {
-        "name": "Curve point at -10 °C outdoor"
+        "name": "Point -10 °C"
       },
       "foxair_1252": {
-        "name": "Curve point at -5 °C outdoor"
+        "name": "Point -5 °C"
       },
       "foxair_1253": {
-        "name": "Curve point at +5 °C outdoor"
+        "name": "Point +5 °C"
       },
       "foxair_1254": {
-        "name": "Curve point at +10 °C outdoor"
+        "name": "Point +10 °C"
       },
       "foxair_1464": {
-        "name": "Heating/summer cut-off outdoor temperature threshold"
+        "name": "Summer cut-off from"
       },
       "foxair_1465": {
-        "name": "Heating/summer cut-off delay"
+        "name": "Summer cut-off delay"
       }
     },
     "select": {
@@ -4098,14 +4104,14 @@
         }
       },
       "foxair_1014": {
-        "name": "Allow Central Controller Defrost at D26=1",
+        "name": "Central defrost (D26=1)",
         "state": {
           "disabled": "Disabled",
           "enabled": "Enabled"
         }
       },
       "foxair_1016": {
-        "name": "Manual Control / Silent Status"
+        "name": "Silent / manual control"
       },
       "foxair_1018": {
         "name": "H01: Power Off Memory aktivieren (Autostart)"
@@ -4261,16 +4267,16 @@
         }
       },
       "foxair_1251": {
-        "name": "Current System Minute"
+        "name": "Point -10 °C"
       },
       "foxair_1252": {
-        "name": "Current System Hour"
+        "name": "Point -5 °C"
       },
       "foxair_1253": {
-        "name": "Current System Day"
+        "name": "Point +5 °C"
       },
       "foxair_1254": {
-        "name": "Current System Month"
+        "name": "Point +10 °C"
       },
       "foxair_1268": {
         "name": "KG13-KG28: WP Ein/Aus Timer 1+2 Aktiv/Tage Bitmaske"
@@ -4670,7 +4676,7 @@
         }
       },
       "foxair_h36": {
-        "name": "H36: Enable AT Compensation Curve Zone 1",
+        "name": "H36: AT compensation",
         "state": {
           "fixed": "Fixed temperature",
           "curve": "Weather compensation (curve)",
@@ -4856,7 +4862,7 @@
         }
       },
       "foxair_1463": {
-        "name": "Outdoor temperature sensor",
+        "name": "Outdoor sensor",
         "state": {
           "internal": "Internal (T04)",
           "external": "External"
@@ -4883,6 +4889,7 @@
           "mode_points": "7-point curve",
           "legend_points": "Curve points",
           "cap_points": "Points (H36=2)",
+          "cap_point0": "0C point",
           "cap_at_source": "Outdoor sensor",
           "at_external": "External",
           "at_internal": "Internal T04",
@@ -5052,7 +5059,7 @@
         "name": "ERR04 Outlet water overtemp protection (3x latched)"
       },
       "foxair_err04_bit7": {
-        "name": "External outdoor sensor missing or invalid"
+        "name": "External AT sensor fault"
       },
       "foxair_err05_bit0": {
         "name": "ERR05 Inlet water temp fault"
@@ -5475,13 +5482,13 @@
         "name": "Low-pressure frequency limiter active (A38)"
       },
       "foxair_2146_bit4": {
-        "name": "Heating/summer cut-off active"
+        "name": "Summer cut-off active"
       },
       "foxair_fault": {
         "name": "Fault"
       },
       "foxair_2088_bit7": {
-        "name": "External outdoor sensor missing or invalid"
+        "name": "External AT sensor fault"
       }
     },
     "water_heater": {

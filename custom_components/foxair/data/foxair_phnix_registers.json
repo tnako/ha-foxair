@@ -2941,7 +2941,10 @@
     "type": "DIGI5",
     "unit": "",
     "description": "Slope der AT-Kompensationskurve Zone 1. Vermutete Formel: Ziel = Offset - Slope × AT.",
-    "depends_on": 1236
+    "depends_on": 1236,
+    "depends_on_values": [
+      1
+    ]
   },
   "1235": {
     "function": "03/16",
@@ -2950,7 +2953,12 @@
     "type": "TEMP1",
     "unit": "°C",
     "description": "Offset der AT-Kompensationskurve Zone 1. Vermutete Formel: Ziel = Offset - Slope × AT.",
-    "depends_on": 1236
+    "depends_on": 1236,
+    "depends_on_values": [
+      1,
+      2
+    ],
+    "note": "Linear (H36 = 1): Vorlauf bei 0 °C AT. 7-Punkt (H36 = 2): Sollwert des 0-°C-Punkts, live V3.5 bestätigt (2014 folgt)."
   },
   "1236": {
     "app_label": "Enable AT Compensation Curve Zone 1",
@@ -3129,7 +3137,10 @@
     "type": "TEMP1",
     "unit": "°C",
     "depends_on": 1236,
-    "note": "V3.5: Sollwert der 7-Punkt-Kennlinie (H36 = 2) bei -20 °C wirksamer Außentemperatur; die Firmware interpoliert linear zwischen den Punkten. Der 0-°C-Punkt ist 1235. Vor V3.5 als Systemzeit dokumentiert, nicht verwendet."
+    "note": "V3.5: Sollwert der 7-Punkt-Kennlinie (H36 = 2) bei -20 °C wirksamer Außentemperatur; die Firmware interpoliert linear zwischen den Punkten. Der 0-°C-Punkt ist 1235. Vor V3.5 als Systemzeit dokumentiert, nicht verwendet.",
+    "depends_on_values": [
+      2
+    ]
   },
   "1251": {
     "function": "03/16",
@@ -3138,7 +3149,10 @@
     "type": "TEMP1",
     "unit": "°C",
     "depends_on": 1236,
-    "note": "V3.5: Sollwert der 7-Punkt-Kennlinie (H36 = 2) bei -10 °C wirksamer Außentemperatur; die Firmware interpoliert linear zwischen den Punkten. Der 0-°C-Punkt ist 1235. Vor V3.5 als Systemzeit dokumentiert, nicht verwendet."
+    "note": "V3.5: Sollwert der 7-Punkt-Kennlinie (H36 = 2) bei -10 °C wirksamer Außentemperatur; die Firmware interpoliert linear zwischen den Punkten. Der 0-°C-Punkt ist 1235. Vor V3.5 als Systemzeit dokumentiert, nicht verwendet.",
+    "depends_on_values": [
+      2
+    ]
   },
   "1252": {
     "function": "03/16",
@@ -3147,7 +3161,10 @@
     "type": "TEMP1",
     "unit": "°C",
     "depends_on": 1236,
-    "note": "V3.5: Sollwert der 7-Punkt-Kennlinie (H36 = 2) bei -5 °C wirksamer Außentemperatur; die Firmware interpoliert linear zwischen den Punkten. Der 0-°C-Punkt ist 1235. Vor V3.5 als Systemzeit dokumentiert, nicht verwendet."
+    "note": "V3.5: Sollwert der 7-Punkt-Kennlinie (H36 = 2) bei -5 °C wirksamer Außentemperatur; die Firmware interpoliert linear zwischen den Punkten. Der 0-°C-Punkt ist 1235. Vor V3.5 als Systemzeit dokumentiert, nicht verwendet.",
+    "depends_on_values": [
+      2
+    ]
   },
   "1253": {
     "function": "03/16",
@@ -3156,7 +3173,10 @@
     "type": "TEMP1",
     "unit": "°C",
     "depends_on": 1236,
-    "note": "V3.5: Sollwert der 7-Punkt-Kennlinie (H36 = 2) bei +5 °C wirksamer Außentemperatur; die Firmware interpoliert linear zwischen den Punkten. Der 0-°C-Punkt ist 1235. Vor V3.5 als Systemzeit dokumentiert, nicht verwendet."
+    "note": "V3.5: Sollwert der 7-Punkt-Kennlinie (H36 = 2) bei +5 °C wirksamer Außentemperatur; die Firmware interpoliert linear zwischen den Punkten. Der 0-°C-Punkt ist 1235. Vor V3.5 als Systemzeit dokumentiert, nicht verwendet.",
+    "depends_on_values": [
+      2
+    ]
   },
   "1254": {
     "function": "03/16",
@@ -3165,7 +3185,10 @@
     "type": "TEMP1",
     "unit": "°C",
     "depends_on": 1236,
-    "note": "V3.5: Sollwert der 7-Punkt-Kennlinie (H36 = 2) bei +10 °C wirksamer Außentemperatur; die Firmware interpoliert linear zwischen den Punkten. Der 0-°C-Punkt ist 1235. Vor V3.5 als Systemzeit dokumentiert, nicht verwendet."
+    "note": "V3.5: Sollwert der 7-Punkt-Kennlinie (H36 = 2) bei +10 °C wirksamer Außentemperatur; die Firmware interpoliert linear zwischen den Punkten. Der 0-°C-Punkt ist 1235. Vor V3.5 als Systemzeit dokumentiert, nicht verwendet.",
+    "depends_on_values": [
+      2
+    ]
   },
   "1255": {
     "function": "03/16",
@@ -3174,7 +3197,10 @@
     "type": "TEMP1",
     "unit": "°C",
     "depends_on": 1236,
-    "note": "V3.5: Sollwert der 7-Punkt-Kennlinie (H36 = 2) bei +20 °C wirksamer Außentemperatur; die Firmware interpoliert linear zwischen den Punkten. Der 0-°C-Punkt ist 1235. Vor V3.5 als Systemzeit dokumentiert, nicht verwendet."
+    "note": "V3.5: Sollwert der 7-Punkt-Kennlinie (H36 = 2) bei +20 °C wirksamer Außentemperatur; die Firmware interpoliert linear zwischen den Punkten. Der 0-°C-Punkt ist 1235. Vor V3.5 als Systemzeit dokumentiert, nicht verwendet.",
+    "depends_on_values": [
+      2
+    ]
   },
   "1256": {
     "block": "KG",
@@ -5340,7 +5366,7 @@
       "2": "Temp.diff. Ein-/Auslasswasser zu groß (3x)",
       "3": "Auslasswassertemperatur zu niedrig (3x)",
       "4": "Auslasswasser Übertemperaturschutz (3x)",
-      "7": "Externer Außentemperaturfühler fehlt/ungültig"
+      "7": "Externer AT-Fühler Fehler"
     },
     "function": "16",
     "mode": "read",
@@ -5829,7 +5855,7 @@
     "type": "BITFIELD",
     "name": "Statuswort Heiz-/Sommerabschaltung",
     "bit_map": {
-      "4": "Heiz-/Sommerabschaltung aktiv"
+      "4": "Sommerabschaltung aktiv"
     },
     "note": "FW V3.5 Reverse Engineering (FoxAir_Control #138): Bit 4 (Maske 0x0010) = Heiz-/Sommerabschaltung aktiv (1464/1465). Originaler PHNIX-Name unbekannt. Übrige Bits hier nicht dokumentiert."
   },

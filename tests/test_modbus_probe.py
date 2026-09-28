@@ -105,6 +105,28 @@ def test_watch_until_bit_times_out_with_rc2_and_still_restores():
         p.close()
 
 
+def test_single_glitched_zero_is_not_an_effect():
+    b = FakeBridge({1234: 0, 2014: 200})
+    reads = iter([200, 200, 0, 200, 200, 200] + [200] * 200)
+    real = probe.Probe.read
+
+    def fake_read(self, addr, count=1, unit=None):
+        if addr == 2014:
+            return [next(reads)]
+        return real(self, addr, count, unit)
+
+    p = _probe(b)
+    args = types.SimpleNamespace(assignments=["1234=1.5"], watch=2014, until_bit=None,
+                                 timeout=0.4, interval=0.05, restore=True)
+    try:
+        probe.Probe.read = fake_read
+        assert probe.cmd_write(p, probe.Scaler(raw=False), args) == 2
+        assert b.regs[1234] == 0
+    finally:
+        probe.Probe.read = real
+        p.close()
+
+
 def test_no_host_or_ip_in_tool():
     src = (ROOT / "tools/modbus_probe.py").read_text()
     assert not re.search(r"\b(?:192\.168|10|172\.(?:1[6-9]|2\d|3[01]))\.\d{1,3}\.\d{1,3}\b", src)
