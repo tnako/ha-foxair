@@ -265,6 +265,9 @@ class FoxAirCoordinator(DataUpdateCoordinator):
         platform = meta.get("platform")
         dtype = (meta.get("type") or "RAW").upper()
         if platform in ("select", "time") or meta.get("has_value_map"):
+            gate = (((self._regmap or {}).get(str(addr)) or {}).get("value_min_firmware") or {}).get(str(int(value)))
+            if gate and not self._fw_gte(gate):
+                return False, meta, f"addr {addr} value {int(value)} requires firmware >= {gate} (detected {self.fw_version()})"
             if dtype in ("SG_MODE", "TIMER_MODE", "MODE_0_4"):
                 if not (0 <= value <= 10):
                     return False, meta, f"{dtype} out of range [0,10] got {value}"

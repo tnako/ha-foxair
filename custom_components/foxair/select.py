@@ -16,8 +16,19 @@ _LOGGER = logging.getLogger(__name__)
 VIRTUAL_SG_MAP = {
     2133: {"0": "off_disabled", "1": "sg1_sleep", "2": "sg2_low_pv", "3": "sg3_medium_pv", "4": "sg4_high_pv", "5": "normal"},
     8801: {"0": "off_disabled", "1": "sg1_sleep", "2": "sg2_low_pv", "3": "sg3_medium_pv", "4": "sg4_high_pv", "5": "normal"},
-    1236: {"0": "fixed", "1": "curve"},
+    1236: {"0": "fixed", "1": "curve", "2": "points"},
 }
+
+
+def _firmware_filtered(coord, addr, options, raw_to_slug, slug_to_raw):
+    """Drop options whose raw value needs newer firmware (registry value_min_firmware)."""
+    gates = ((getattr(coord, "_regmap", None) or {}).get(str(addr)) or {}).get("value_min_firmware") or {}
+    blocked = {raw_to_slug[r] for r, fw in gates.items() if r in raw_to_slug and not coord._fw_gte(fw)}
+    if not blocked:
+        return options, raw_to_slug, slug_to_raw
+    return ([o for o in options if o not in blocked],
+            {r: s for r, s in raw_to_slug.items() if s not in blocked},
+            {s: r for s, r in slug_to_raw.items() if s not in blocked})
 
 
 def _slugify(s: str) -> str:
@@ -222,7 +233,7 @@ class FoxSelect(CoordinatorEntity, SelectEntity):
 
         vm, app_vals = load_value_map(coord, addr)
         if vm:
-            opts, r2s, s2r = _build_option_maps(vm, app_vals, addr)
+            opts, r2s, s2r = _firmware_filtered(coord, addr, *_build_option_maps(vm, app_vals, addr))
             self._attr_options = opts
             self._raw_to_slug = r2s
             self._slug_to_raw = s2r

@@ -611,6 +611,51 @@ if _mk8.get("control_source"):
         if _hits:
             errs.append(f"switch-wiring: {_f} uses marker register literal(s) {_hits} — read them via coordinator.marker()/active_control()")
 
+# 9. Select option states: every option select.py offers (value_map slugged
+#    like select._build_option_maps, or a fixed VIRTUAL_SG_MAP) needs a
+#    translated state in strings/en/de/ru, otherwise HA shows the raw slug
+#    (2026-09: F01 raw 4 "dc_fan_motor_external_drive" had no state).
+def _sel_slug(_s):
+    _s = re.sub(r"_+", "_", re.sub(r"[^a-z0-9]+", "_", _s.lower())).strip("_") or "option"
+    return "opt_" + _s if _s[0].isdigit() else _s
+
+
+try:
+    _sel_src = (CC / "select.py").read_text(encoding="utf-8")
+    _fixed9 = {}
+    for _node in ast.walk(ast.parse(_sel_src)):
+        if isinstance(_node, ast.Assign) and any(getattr(t, "id", "") == "VIRTUAL_SG_MAP" for t in _node.targets):
+            _fixed9 = {str(k): list(v.values()) for k, v in ast.literal_eval(_node.value).items()}
+    _lang9 = {l: json.loads((CC / f"{l}.json").read_text(encoding="utf-8")).get("entity", {}).get("select", {})
+              for l in ("strings", "translations/en", "translations/de", "translations/ru")}
+    for _a9, _m9 in (_meta8 or {}).items():
+        if (not _a9.isdigit() or _m9.get("platform") != "select" or not _m9.get("editable")
+                or _m9.get("hidden") or _m9.get("format") == "bit_split"):
+            continue
+        _r9 = _regs8.get(_a9) or {}
+        if _a9 in _fixed9:
+            _opts9 = _fixed9[_a9]
+        elif _r9.get("value_map"):
+            _opts9, _used9 = [], set()
+            for _raw9 in sorted(_r9["value_map"], key=lambda x: int(x) if x.lstrip("-").isdigit() else x):
+                _lab9 = (_r9.get("app_values") or {}).get(_raw9) or _r9["value_map"][_raw9]
+                _lab9 = {"NO": "No", "YES": "Yes", "no EVI": "No EVI"}.get(_lab9, _lab9)
+                _s9 = _b9 = _sel_slug(_lab9)
+                _i9 = 2
+                while _s9 in _used9:
+                    _s9, _i9 = f"{_b9}_{_i9}", _i9 + 1
+                _used9.add(_s9)
+                _opts9.append(_s9)
+        else:
+            continue
+        _key9 = "foxair_" + (_sel_slug(_m9["code"]) if _m9.get("code") else _a9)
+        for _l9, _sec9 in _lang9.items():
+            _miss9 = [o for o in _opts9 if o not in ((_sec9.get(_key9) or {}).get("state") or {})]
+            if _miss9:
+                errs.append(f"select-states: {_l9}.json {_key9} (addr {_a9}) has no state for option(s) {_miss9}")
+except (OSError, SyntaxError, ValueError) as _e9:
+    errs.append(f"select-states: cannot check: {_e9}")
+
 if warns:
     print("WARN:")
 

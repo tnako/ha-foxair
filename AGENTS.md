@@ -57,6 +57,15 @@ def tier(t, expert=False):
 - Use the `patch` TOOL, never heredoc patches in terminal. For mechanical multi-spot JSON edits a small python rewrite is fine — then `git diff --stat` must stay minimal (full-file reindent = clobbered formatting → `git checkout` + redo with string replace).
 - Batch independent reads into one turn; one terminal call per read-only recon.
 - `task validate` after EVERY edit. It also blocks absolute paths / hardcoded hosts — use `HA_HOST` from `.env` (`.env.example` committed, `.env` ignored).
+- Where a register lands (platform, device, markers, translations): `docs/ARCHITECTURE.md`. Read it instead of re-reading platform code.
+
+## Live unit first — verify before designing
+
+- New register semantics (firmware RE notes, forum posts) are hypotheses until read on a unit: the invalid external-sensor value and the 1465 unit differed from the notes in V3.5.
+- `tools/modbus_probe.py` (host/port/unit from `.env` `MODBUS_*` or the environment, never from the repo): `read 2104 1250:6`, `write 1236=2 --watch 2014 --restore`, `write 1464=18 1465=1 --watch 2146 --until-bit 4 --timeout 120 --restore`, `scan`. It snapshots, verifies the read-back, watches the effect register and restores in `finally`.
+- The bridge drops the first request after a connect; the probe retries. A single timeout is not a dead unit, and deactivating the HA integration is not needed.
+- Put the observed evidence in the CHANGELOG and the register notes. Never commit a host, IP or credential: pass them via `.env` or the environment only.
+- Placement (which device, expert or not) is a user decision: propose it in one line before building.
 
 ## Live HA — one batched pull, know the traps
 

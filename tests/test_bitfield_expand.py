@@ -104,6 +104,19 @@ async def _in_executor(fn, *args):
     return fn(*args)
 
 
+def _expected_bits(expert):
+    """(addr, bit) pairs derived from metadata + bit_map, independent of binary_sensor.py."""
+    out = set()
+    for a, m in META.items():
+        if not a.isdigit() or (m.get("type") or "").upper() != "BITFIELD" or m.get("hidden") or m.get("editable"):
+            continue
+        if m.get("requires_expert") and not expert:
+            continue
+        for b, _label in const.bitfield_expanded_bits((REGS.get(a) or {}).get("bit_map")):
+            out.add((int(a), b))
+    return out
+
+
 def _bits(expert=False, data=None):
     return [e for e in _setup(expert, data) if isinstance(e, bs.FoxBitSensor)]
 
@@ -134,16 +147,18 @@ def test_reserved_bits_skipped():
 
 def test_expansion_counts_and_expert_gating():
     plain = _bits(expert=False)
-    assert len(plain) == 96  # O bits (2019+2018) are non-expert on the Outputs device
-    assert sum(1 for e in plain if e._addr == 2019) == 12
+    assert {(e._addr, e._bit) for e in plain} == _expected_bits(expert=False)
+    assert sum(1 for e in plain if e._addr == 2019) == 12  # O bits (2019+2018) are non-expert on the Outputs device
     assert sum(1 for e in plain if e._addr == 2018) == 4
     expert = _bits(expert=True)
-    assert len(expert) == 98
+    assert {(e._addr, e._bit) for e in expert} == _expected_bits(expert=True)
+    assert len(expert) == len({(e._addr, e._bit) for e in expert})
+    assert (2088, 7) in _expected_bits(expert=False)
     assert sum(isinstance(e, bs.FoxFaultSummarySensor) for e in _setup(expert=True)) == 1
     assert sum(1 for e in expert if e._addr == 2019) == 12
     assert sum(1 for e in expert if e._addr == 2018) == 4
     assert {(e._addr, e._bit) for e in expert if e._addr in (2139, 2146)} == {(2139, 4), (2146, 4)}
-    assert not any(e._addr in (2139, 2146) for e in plain)
+    assert {(e._addr, e._bit) for e in plain if e._addr in (2139, 2146)} == {(2146, 4)}
 
 def test_identity_and_problem_class():
     ents = _setup(expert=True)
@@ -182,7 +197,7 @@ def test_every_bit_translated_with_icons():
                 assert re_cyr(name), f"ru: {k} not translated: {name}"
         assert k in icons, f"icons: missing {k}"
         n += 1
-    assert n == 99
+    assert n == len(_expected_bits(expert=True)) + len([e for e in _setup(expert=True) if not isinstance(e, bs.FoxBitSensor)])
 
 def re_cyr(s):
     import re

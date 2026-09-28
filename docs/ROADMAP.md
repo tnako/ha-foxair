@@ -4,7 +4,7 @@
 
 **Next (needs data from a live unit):**
 - Energy counters 2118/2120/2122/2124 and DHW 2125-2128 (32-bit pairs) as Energy dashboard sources. They exist from firmware V3.4; blocked on knowing how defrost energy is booked into them.
-- Writable heating/summer cut-off 1464/1465 (V3.5) once the threshold and the 1465 unit are confirmed live.
+- V3.5 Warmlink remote caps 8021-8028/8055 and the 1430/1492/1540/1557 correction path (FoxAir_Control #146): slave 0x63 service area, read-only diagnostics first.
 - Input current L1-L3 (2029-2031): untested, stay blocked until one unit confirms they read back without breaking a batch.
 
 **Not planned:** heat/cool as thermostat modes. The mode word 1012 combines heating/cooling with DHW (0 DHW only, 1 heat, 2 cool, 3 heat + DHW, 4 cool + DHW), so HVAC modes and presets would write the same register; see climate history in CHANGELOG 0.3.x.

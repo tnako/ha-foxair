@@ -797,22 +797,22 @@
         "default": "mdi:timer-cog-outline"
       },
       "foxair_1250": {
-        "default": "mdi:numeric-1-box-outline"
+        "default": "mdi:chart-line"
       },
       "foxair_1251": {
-        "default": "mdi:numeric-1-box-outline"
+        "default": "mdi:chart-line"
       },
       "foxair_1252": {
-        "default": "mdi:numeric-1-box-outline"
+        "default": "mdi:chart-line"
       },
       "foxair_1253": {
-        "default": "mdi:numeric-1-box-outline"
+        "default": "mdi:chart-line"
       },
       "foxair_1254": {
-        "default": "mdi:numeric-1-box-outline"
+        "default": "mdi:chart-line"
       },
       "foxair_1255": {
-        "default": "mdi:heat-pump"
+        "default": "mdi:chart-line"
       },
       "foxair_kg1": {
         "default": "mdi:timer-cog-outline"
@@ -1376,7 +1376,7 @@
         "default": "mdi:timer-cog-outline"
       },
       "foxair_2033": {
-        "default": "mdi:heat-pump"
+        "default": "mdi:thermometer-lines"
       },
       "foxair_s01": {
         "default": "mdi:power-socket-eu"
@@ -1725,6 +1725,9 @@
       },
       "foxair_2149": {
         "default": "mdi:heat-pump"
+      },
+      "foxair_1463": {
+        "default": "mdi:thermometer-lines"
       }
     },
     "climate": {
@@ -2223,7 +2226,7 @@
         "default": "mdi:thermometer"
       },
       "foxair_1255": {
-        "default": "mdi:heat-pump"
+        "default": "mdi:chart-line"
       },
       "foxair_1283": {
         "default": "mdi:heat-pump"
@@ -2425,6 +2428,27 @@
       },
       "foxair_p16": {
         "default": "mdi:water-pump"
+      },
+      "foxair_1250": {
+        "default": "mdi:chart-line"
+      },
+      "foxair_1251": {
+        "default": "mdi:chart-line"
+      },
+      "foxair_1252": {
+        "default": "mdi:chart-line"
+      },
+      "foxair_1253": {
+        "default": "mdi:chart-line"
+      },
+      "foxair_1254": {
+        "default": "mdi:chart-line"
+      },
+      "foxair_1464": {
+        "default": "mdi:weather-sunny-off"
+      },
+      "foxair_1465": {
+        "default": "mdi:timer-sand"
       }
     },
     "select": {
@@ -2652,6 +2676,9 @@
       },
       "foxair_z20": {
         "default": "mdi:home-thermometer"
+      },
+      "foxair_1463": {
+        "default": "mdi:thermometer-lines"
       }
     },
     "button": {
@@ -2883,6 +2910,9 @@
         "default": "mdi:alert"
       },
       "foxair_err04_bit4": {
+        "default": "mdi:alert"
+      },
+      "foxair_err04_bit7": {
         "default": "mdi:alert"
       },
       "foxair_err05_bit0": {
@@ -3202,6 +3232,9 @@
         "state": {
           "on": "mdi:alert"
         }
+      },
+      "foxair_2088_bit7": {
+        "default": "mdi:alert"
       }
     },
     "switch": {

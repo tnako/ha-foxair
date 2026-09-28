@@ -154,20 +154,53 @@ def test_circulation_timers_read_only():
         assert (m["platform"], m["editable"], m["block"]) == ("sensor", False, "KG"), addr
 
 
-def test_v35_cutoff_and_limiter_read_only():
-    """1464/1465/2139/2146 semantics come from V3.5 disassembly only: gated, expert, never written."""
+def test_v35_cutoff_writable_and_limiter_read_only():
+    """1464/1465 writable (confirmed on a V3.5 unit), 2146 bit 4 visible; 2139 stays expert read-only."""
     meta = json.loads((DATA / "foxair_metadata.json").read_text())
     regs = json.loads((DATA / "foxair_phnix_registers.json").read_text(encoding="utf-8"))
     for addr in (1464, 1465, 2139, 2146):
+        assert meta[str(addr)]["min_firmware"] == 35, addr
+    for addr in (1464, 1465):
         m = meta[str(addr)]
-        assert m["min_firmware"] == 35, addr
-        assert (m["platform"], m["editable"], m["hidden"], m["requires_expert"]) == ("sensor", False, False, True), addr
-    assert meta["1464"]["type"] == "TEMP1"
+        assert (m["platform"], m["editable"], m["hidden"], m["requires_expert"]) == ("number", True, False, False), addr
+    assert (meta["1464"]["type"], meta["1464"]["min"], meta["1464"]["max"]) == ("TEMP1", 10, 30)
+    assert (meta["1465"]["type"], meta["1465"]["unit"], meta["1465"]["min"]) == ("MINUTES", "min", 0)
+    assert (meta["2139"]["platform"], meta["2139"]["editable"], meta["2139"]["requires_expert"]) == ("sensor", False, True)
+    assert (meta["2146"]["platform"], meta["2146"]["editable"], meta["2146"]["requires_expert"]) == ("sensor", False, False)
     for addr in (2139, 2146):
         assert meta[str(addr)]["type"] == "BITFIELD"
         assert list(regs[str(addr)]["bit_map"]) == ["4"], addr
     for addr in (2140, 2145, 2147, 2149):
         assert meta[str(addr)]["hidden"], addr
+
+
+def test_v35_curve_points_and_outdoor_sensor():
+    """7-point curve 1250-1255 + external AT 1463/2033/2136 exist only on V3.5 (1250-1255 were system time before)."""
+    cfg = json.loads((DATA / "foxair_config.json").read_text(encoding="utf-8"))
+    meta = json.loads((DATA / "foxair_metadata.json").read_text())
+    regs = json.loads((DATA / "foxair_phnix_registers.json").read_text(encoding="utf-8"))
+    hc = cfg["markers"]["heat_curve"]
+    assert sorted(int(k) for k in hc["points"]) == [-20, -10, -5, 0, 5, 10, 20]
+    assert hc["points"]["0"] == hc["addr_single"]["offset"]
+    assert hc["mode_values"] == {"off": 0, "linear": 1, "points": 2}
+    for at, addr in hc["points"].items():
+        m = meta[str(addr)]
+        assert (m["platform"], m["editable"], m["hidden"], m["requires_expert"]) == ("number", True, False, False), addr
+        assert m["poll_tier"] == "quick", addr
+        if at != "0":
+            assert (m["min_firmware"], m["type"], m["depends_on"]) == (35, "TEMP1", 1236), addr
+    assert regs["1236"]["value_min_firmware"] == {"2": 35}
+    assert regs["1334"]["value_min_firmware"] == {"4": 35}
+    os_ = cfg["markers"]["outdoor_sensor"]["addr_single"]
+    for key in ("selector", "external", "internal"):
+        addr = os_[key]
+        assert meta[str(addr)]["min_firmware"] == 35 and not meta[str(addr)]["hidden"], addr
+    assert "7" in regs[str(os_["fault_word"])]["bit_map"]
+    for addr in [os_["selector"]] + [a for k, a in hc["points"].items() if k != "0"]:
+        assert (meta[str(addr)]["tab"], meta[str(addr)]["group"]) == ("HC", "Heating curve"), addr
+    assert not set(hc["points"].values()) - {hc["addr_single"]["offset"]} & set(cfg["markers"]["core_main_addrs"]["addr_list"])
+    assert (meta[str(os_["selector"])]["platform"], meta[str(os_["selector"])]["editable"]) == ("select", True)
+    assert (meta[str(os_["external"])]["platform"], meta[str(os_["external"])]["type"]) == ("sensor", "TEMP1")
 
 
 def test_timer_registers_off_main_device():

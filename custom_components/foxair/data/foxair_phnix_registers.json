@@ -2957,7 +2957,8 @@
     "app_mapping_mode": "app_label_only; technical name/value_map preserved; user-tested H36 register 1236",
     "app_values": {
       "0": "NO",
-      "1": "YES"
+      "1": "YES",
+      "2": "7-point curve"
     },
     "block": "H",
     "code": "H36",
@@ -2971,9 +2972,13 @@
     "type": "DIGI1",
     "value_map": {
       "0": "Nein",
-      "1": "Ja"
+      "1": "Ja",
+      "2": "7-Punkt-Kennlinie"
     },
-    "description": "H36: AT-Kompensationskurve Zone 1 aktivieren. 0=Aus, 1=Ein. Selbst getestet: 1236 ist H36."
+    "description": "H36: AT-Kompensation Zone 1. 0=Aus, 1=lineare Kennlinie (1234/1235), 2=7-Punkt-Kennlinie (1250-1255 + 1235, ab V3.5). Selbst getestet: 1236 ist H36. Modus 2 live bestätigt (V3.5): 2014 folgt dem Punkt der aktuellen AT.",
+    "value_min_firmware": {
+      "2": 35
+    }
   },
   "1237": {
     "app_current_video_value": "43.0 °C",
@@ -3118,48 +3123,58 @@
     "type": "DIGI1"
   },
   "1250": {
-    "app_values": {
-      "0": "No",
-      "1": "Yes"
-    },
     "function": "03/16",
     "mode": "r/w",
-    "name": "Systemzeit aktivieren",
-    "type": "DIGI1",
-    "value_map": {
-      "0": "Nein",
-      "1": "Ja"
-    }
+    "name": "7-Punkt-Kennlinie Sollwert bei -20 °C AT",
+    "type": "TEMP1",
+    "unit": "°C",
+    "depends_on": 1236,
+    "note": "V3.5: Sollwert der 7-Punkt-Kennlinie (H36 = 2) bei -20 °C wirksamer Außentemperatur; die Firmware interpoliert linear zwischen den Punkten. Der 0-°C-Punkt ist 1235. Vor V3.5 als Systemzeit dokumentiert, nicht verwendet."
   },
   "1251": {
     "function": "03/16",
     "mode": "r/w",
-    "name": "Aktuelle Systemminute",
-    "type": "DIGI1"
+    "name": "7-Punkt-Kennlinie Sollwert bei -10 °C AT",
+    "type": "TEMP1",
+    "unit": "°C",
+    "depends_on": 1236,
+    "note": "V3.5: Sollwert der 7-Punkt-Kennlinie (H36 = 2) bei -10 °C wirksamer Außentemperatur; die Firmware interpoliert linear zwischen den Punkten. Der 0-°C-Punkt ist 1235. Vor V3.5 als Systemzeit dokumentiert, nicht verwendet."
   },
   "1252": {
     "function": "03/16",
     "mode": "r/w",
-    "name": "Aktuelle Systemstunde",
-    "type": "DIGI1"
+    "name": "7-Punkt-Kennlinie Sollwert bei -5 °C AT",
+    "type": "TEMP1",
+    "unit": "°C",
+    "depends_on": 1236,
+    "note": "V3.5: Sollwert der 7-Punkt-Kennlinie (H36 = 2) bei -5 °C wirksamer Außentemperatur; die Firmware interpoliert linear zwischen den Punkten. Der 0-°C-Punkt ist 1235. Vor V3.5 als Systemzeit dokumentiert, nicht verwendet."
   },
   "1253": {
     "function": "03/16",
     "mode": "r/w",
-    "name": "Aktueller Systemtag",
-    "type": "DIGI1"
+    "name": "7-Punkt-Kennlinie Sollwert bei +5 °C AT",
+    "type": "TEMP1",
+    "unit": "°C",
+    "depends_on": 1236,
+    "note": "V3.5: Sollwert der 7-Punkt-Kennlinie (H36 = 2) bei +5 °C wirksamer Außentemperatur; die Firmware interpoliert linear zwischen den Punkten. Der 0-°C-Punkt ist 1235. Vor V3.5 als Systemzeit dokumentiert, nicht verwendet."
   },
   "1254": {
     "function": "03/16",
     "mode": "r/w",
-    "name": "Aktueller Systemmonat",
-    "type": "DIGI1"
+    "name": "7-Punkt-Kennlinie Sollwert bei +10 °C AT",
+    "type": "TEMP1",
+    "unit": "°C",
+    "depends_on": 1236,
+    "note": "V3.5: Sollwert der 7-Punkt-Kennlinie (H36 = 2) bei +10 °C wirksamer Außentemperatur; die Firmware interpoliert linear zwischen den Punkten. Der 0-°C-Punkt ist 1235. Vor V3.5 als Systemzeit dokumentiert, nicht verwendet."
   },
   "1255": {
     "function": "03/16",
     "mode": "r/w",
-    "name": "Aktuelles Systemjahr",
-    "type": "RAW"
+    "name": "7-Punkt-Kennlinie Sollwert bei +20 °C AT",
+    "type": "TEMP1",
+    "unit": "°C",
+    "depends_on": 1236,
+    "note": "V3.5: Sollwert der 7-Punkt-Kennlinie (H36 = 2) bei +20 °C wirksamer Außentemperatur; die Firmware interpoliert linear zwischen den Punkten. Der 0-°C-Punkt ist 1235. Vor V3.5 als Systemzeit dokumentiert, nicht verwendet."
   },
   "1256": {
     "block": "KG",
@@ -3794,7 +3809,8 @@
     "app_values": {
       "0": "Off",
       "1": "Single Contact",
-      "2": "Dual Contacts"
+      "2": "Dual Contacts",
+      "4": "AI Saving"
     },
     "function": "03/16",
     "mode": "r/w",
@@ -3804,9 +3820,13 @@
       "0": "Aus",
       "1": "Einfach / 1 Kontakt",
       "2": "2 Kontakte",
-      "3": "Modbus / virtueller SG-Eingang"
+      "3": "Modbus / virtueller SG-Eingang",
+      "4": "Remote-Energy-Control / AI Saving"
     },
-    "description": "Aktivierung/Auswahl SG Ready: Aus / 1 Kontakt / 2 Kontakte / virtueller SG-Eingang über direktes User-/Mainboard-Modbus-Register 8801"
+    "description": "Aktivierung/Auswahl SG Ready: Aus / 1 Kontakt / 2 Kontakte / virtueller SG-Eingang über direktes User-/Mainboard-Modbus-Register 8801",
+    "value_min_firmware": {
+      "4": 35
+    }
   },
   "1335": {
     "block": "SG",
@@ -4377,20 +4397,36 @@
     "name": "Blockkopf Paket 6 / erstes Blockkopf-Register",
     "type": "BLOCK"
   },
+  "1463": {
+    "function": "03/16",
+    "mode": "r/w",
+    "name": "Außentemperaturfühler Auswahl",
+    "type": "DIGI1",
+    "value_map": {
+      "0": "Intern (T04)",
+      "1": "Extern"
+    },
+    "app_values": {
+      "0": "Internal",
+      "1": "External"
+    },
+    "note": "V3.4/V3.5 (FoxAir_Control externer_at_fuehler.md, praktisch getestet): 1 = externer NTC 2,2 kOhm an Klemme 3/4 (GND/Signal). Nur Heizkennlinie, A31/R45, Heiz-/Sommerabschaltung und Smart-EEV folgen dem wirksamen AT (2048); Abtauung, Kurbelgehäuseheizung, Lüfter und R29-R34 nutzen weiter T04. Ungültiger externer Wert: Rückfall auf T04."
+  },
   "1464": {
-    "function": "03",
-    "mode": "read",
+    "function": "03/16",
+    "mode": "r/w",
     "type": "TEMP1",
     "unit": "°C",
     "name": "AT-Grenzwert Heiz-/Sommerabschaltung",
-    "note": "FW V3.5 Reverse Engineering (FoxAir_Control #138): globale AT-abhängige Heiz-/Sommerabschaltung, nicht Multi-Zone. Quelle effektiver AT (MAIN:1463=1 externer AT solange gültig, sonst T04). Feste Rückschalthysterese 3,0 K. Nur aktiv bei Sollmodus Heizen (1012=1/3). Status in 2146 Bit 4."
+    "note": "FW V3.5 (FoxAir_Control #138, Praxistest): globale AT-abhängige Heiz-/Sommerabschaltung. Wirksamer AT (1463 = 1: externer Fühler solange gültig, sonst T04) >= 1464 für 1465 Minuten sperrt Heizen; Freigabe erst bei <= 1464 - 3,0 K für 1465 Minuten. Nur Sollmodus Heizen (1012 = 1/3). Status 2146 Bit 4."
   },
   "1465": {
-    "function": "03",
-    "mode": "read",
-    "type": "RAW",
+    "function": "03/16",
+    "mode": "r/w",
+    "type": "MINUTES",
     "name": "Verzögerungszeit Heiz-/Sommerabschaltung",
-    "note": "FW V3.5 Reverse Engineering (FoxAir_Control #138): Verweilzeit intern 1465 × 120 Scheduler-Ticks, Einheit sehr wahrscheinlich Minuten (unbestätigt). 0 = deaktiviert / Runtime-Zustand zurückgesetzt."
+    "note": "FW V3.5, live bestätigt: Verweilzeit der Heiz-/Sommerabschaltung in Minuten (1465 = 1: 2146 Bit 4 nach ca. 64 s). 0 = Abschaltung deaktiviert.",
+    "unit": "min"
   },
   "1466": {
     "function": "03",
@@ -4753,8 +4789,11 @@
   "2033": {
     "function": "16",
     "mode": "read",
-    "name": "Reserviert",
-    "type": "RAW"
+    "name": "Externer Außentemperaturfühler",
+    "type": "TEMP1",
+    "unit": "°C",
+    "depends_on": 1463,
+    "note": "V3.4/V3.5 (FoxAir_Control externer_at_fuehler.md): Temperatur des externen AT-Fühlers (1463 = 1). Fehlt oder ist der Fühler defekt, meldet das Register einen ungültigen Wert (ohne Fühler live 32767 = 3276,7 °C, FoxAir_Control nennt 409,1 °C), 2088 Bit 7 wird gesetzt und die Firmware nutzt T04."
   },
   "2034": {
     "bit_map": {
@@ -5300,7 +5339,8 @@
     "bit_map": {
       "2": "Temp.diff. Ein-/Auslasswasser zu groß (3x)",
       "3": "Auslasswassertemperatur zu niedrig (3x)",
-      "4": "Auslasswasser Übertemperaturschutz (3x)"
+      "4": "Auslasswasser Übertemperaturschutz (3x)",
+      "7": "Externer Außentemperaturfühler fehlt/ungültig"
     },
     "function": "16",
     "mode": "read",
@@ -5308,7 +5348,8 @@
     "type": "BITFIELD",
     "block": "ERR",
     "code": "ERR04",
-    "description": "Störmelde-/Fehlerregister. Klartexte aus Node-RED/Forumsliste übernommen."
+    "description": "Störmelde-/Fehlerregister. Klartexte aus Node-RED/Forumsliste übernommen.",
+    "note": "Bit 7: externer AT-Fühler (1463 = 1) fehlt oder ungültig, live V3.5 bestätigt (2033 = 32767 ohne Fühler)."
   },
   "2089": {
     "bit_map": {
@@ -5710,8 +5751,9 @@
     "mode": "read",
     "type": "TEMP1",
     "unit": "°C",
-    "name": "T04 Außentemperatur – zweiter Veröffentlichungsweg",
-    "note": "Firmware V3.3: zweiter Veröffentlichungsweg der T04-Außentemperatur; TEMP1-Skalierung 0,1 °C."
+    "name": "Interner Außentemperaturfühler (T04)",
+    "note": "Firmware V3.3: zweiter Veröffentlichungsweg der T04-Außentemperatur; TEMP1-Skalierung 0,1 °C. Ab V3.5 mit 1463 = 1 der interne T04, während 2048 den wirksamen (externen) AT zeigt.",
+    "depends_on": 1463
   },
   "2137": {
     "function": "03",

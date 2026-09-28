@@ -84,7 +84,7 @@ async def async_get_config_entry_diagnostics(hass: HomeAssistant, entry: ConfigE
         computed = {"error": str(e)}
     curve = {}
     try:
-        from .heating_curve import control_source, curve_target_for_at
+        from .heating_curve import control_source, curve_mode, curve_points, curve_target_for_at, outdoor_source, summer_cutoff
         hc_a = coord.marker("heat_curve").get("addr_single") or {}
 
         def _v(key, field="value"):
@@ -92,7 +92,9 @@ async def async_get_config_entry_diagnostics(hass: HomeAssistant, entry: ConfigE
 
         at = _v("at_sensor")
         curve = {"at": at, "slope": _v("slope"), "offset": _v("offset"), "h36": _v("at_comp_en", "raw"),
-                 "live_target": _v("live_target"), "control_source": control_source(coord).get("key")}
+                 "live_target": _v("live_target"), "control_source": control_source(coord).get("key"),
+                 "mode": curve_mode(coord), "points": curve_points(coord),
+                 "at_source": outdoor_source(coord), "summer_cutoff": summer_cutoff(coord)}
         if at is not None:
             curve["curve_target"] = curve_target_for_at(coord, float(at))
     except Exception as e:

@@ -86,10 +86,6 @@
       1191
     ],
     [
-      1250,
-      1255
-    ],
-    [
       1271,
       1278
     ],
@@ -136,10 +132,6 @@
     [
       2024,
       2028
-    ],
-    [
-      2033,
-      2033
     ],
     [
       2040,
@@ -210,10 +202,6 @@
       2129
     ],
     [
-      2136,
-      2136
-    ],
-    [
       2140,
       2145
     ],
@@ -238,7 +226,7 @@
       50999
     ]
   ],
-  "hidden_note": "Ranges above are hidden from UI + polling even in expert mode. Block-header (BLOCK-type) registers and per-block 'Reserve' words are auto-detected by build_metadata; these ranges cover named reserved/system/service addrs. 2022 (EVI EEV-Schritte) and 2063-2064 (T10/T11 EVI Ein-/Auslasstemperatur) hidden because the unit has no EVI hardware. 1464/1465 (Heiz-/Sommerabschaltung) and 2139/2146 (limiter status words, bit 4 only) are not hidden: firmware-gated to V3.5+ via min_firmware overrides, read-only.",
+  "hidden_note": "Ranges above are hidden from UI + polling even in expert mode. Block-header (BLOCK-type) registers and per-block 'Reserve' words are auto-detected by build_metadata; these ranges cover named reserved/system/service addrs. 2022 (EVI EEV-Schritte) and 2063-2064 (T10/T11 EVI Ein-/Auslasstemperatur) hidden because the unit has no EVI hardware. 1464/1465 (Heiz-/Sommerabschaltung, writable), 1463 (AT sensor select), 1250-1255 (7-point curve points, system time before V3.5), 2033 (external AT) and 2136 (internal T04) plus 2139/2146 (limiter status words, bit 4 only) are not hidden: firmware-gated to V3.5+ via min_firmware overrides.",
   "blocks": {
     "order": [
       "H",
@@ -287,7 +275,8 @@
       "SG": "SG Ready",
       "KG": "Timer",
       "ERR": "Fault",
-      "S": "Switches"
+      "S": "Switches",
+      "HC": "Heating curve"
     },
     "icons": {
       "H": "mdi:chip",
@@ -306,7 +295,8 @@
       "SG": "mdi:power-socket-eu",
       "KG": "mdi:timer-outline",
       "ERR": "mdi:alert-circle",
-      "S": "mdi:electric-switch"
+      "S": "mdi:electric-switch",
+      "HC": "mdi:chart-line"
     },
     "risk_by_block": {
       "R": "safe",
@@ -734,7 +724,43 @@
         "r11_max": 1165,
         "r31_at_lo": 1169,
         "r34_at_hi": 1172
+      },
+      "_points_comment": "V3.5 H36 = 2 (7-point curve): AT (degC) -> setpoint register, linear interpolation between points; 0 degC reuses the offset register. H36 values in mode_values; points are firmware-gated via their min_firmware override.",
+      "points": {
+        "-20": 1250,
+        "-10": 1251,
+        "-5": 1252,
+        "0": 1235,
+        "5": 1253,
+        "10": 1254,
+        "20": 1255
+      },
+      "mode_values": {
+        "off": 0,
+        "linear": 1,
+        "points": 2
       }
+    },
+    "outdoor_sensor": {
+      "_comment": "V3.4+/V3.5 external outdoor sensor (FoxAir_Control externer_at_fuehler.md): selector 1463 (0 internal T04, 1 external), external value 2033, internal T04 2136, effective AT = heat_curve.at_sensor (2048). Missing/invalid external sensor: fault_word bit fault_bit set (live: 2033 = 32767); readings >= invalid_above degC are treated the same. Firmware then uses T04.",
+      "addr_single": {
+        "selector": 1463,
+        "external": 2033,
+        "internal": 2136,
+        "fault_word": 2088
+      },
+      "fault_bit": 7,
+      "invalid_above": 150.0
+    },
+    "summer_cutoff": {
+      "_comment": "V3.5 heating/summer cut-off (FoxAir_Control #138): heating blocked after effective AT >= threshold for delay minutes, released at <= threshold - hysteresis for delay minutes; delay 0 = off. Active state = status bit.",
+      "addr_single": {
+        "threshold": 1464,
+        "delay": 1465,
+        "status": 2146
+      },
+      "status_bit": 4,
+      "hysteresis": 3.0
     },
     "setpoints": {
       "addr_single": {
@@ -1371,6 +1397,9 @@
         "poll_tier": "quick"
       },
       "2136": {
+        "block": "T",
+        "tab": "T_Live",
+        "min_firmware": 35,
         "poll_tier": "quick"
       },
       "2137": {
@@ -1515,19 +1544,105 @@
         "tab": "T_Live",
         "icon": "mdi:valve"
       },
+      "1250": {
+        "block": "H",
+        "tab": "HC",
+        "requires_expert": false,
+        "risk": "safe",
+        "min_firmware": 35,
+        "min": 15,
+        "max": 65,
+        "poll_tier": "quick",
+        "icon": "mdi:chart-line"
+      },
+      "1251": {
+        "block": "H",
+        "tab": "HC",
+        "requires_expert": false,
+        "risk": "safe",
+        "min_firmware": 35,
+        "min": 15,
+        "max": 65,
+        "poll_tier": "quick",
+        "icon": "mdi:chart-line"
+      },
+      "1252": {
+        "block": "H",
+        "tab": "HC",
+        "requires_expert": false,
+        "risk": "safe",
+        "min_firmware": 35,
+        "min": 15,
+        "max": 65,
+        "poll_tier": "quick",
+        "icon": "mdi:chart-line"
+      },
+      "1253": {
+        "block": "H",
+        "tab": "HC",
+        "requires_expert": false,
+        "risk": "safe",
+        "min_firmware": 35,
+        "min": 15,
+        "max": 65,
+        "poll_tier": "quick",
+        "icon": "mdi:chart-line"
+      },
+      "1254": {
+        "block": "H",
+        "tab": "HC",
+        "requires_expert": false,
+        "risk": "safe",
+        "min_firmware": 35,
+        "min": 15,
+        "max": 65,
+        "poll_tier": "quick",
+        "icon": "mdi:chart-line"
+      },
+      "1255": {
+        "block": "H",
+        "tab": "HC",
+        "requires_expert": false,
+        "risk": "safe",
+        "min_firmware": 35,
+        "min": 15,
+        "max": 65,
+        "poll_tier": "quick",
+        "icon": "mdi:chart-line"
+      },
+      "1463": {
+        "block": "H",
+        "tab": "HC",
+        "requires_expert": false,
+        "min_firmware": 35,
+        "poll_tier": "medium",
+        "icon": "mdi:thermometer-lines"
+      },
       "1464": {
         "block": "A",
         "tab": "A",
-        "requires_expert": true,
+        "requires_expert": false,
         "min_firmware": 35,
+        "min": 10,
+        "max": 30,
         "icon": "mdi:weather-sunny-off"
       },
       "1465": {
         "block": "A",
         "tab": "A",
-        "requires_expert": true,
+        "requires_expert": false,
         "min_firmware": 35,
+        "min": 0,
+        "max": 720,
         "icon": "mdi:timer-sand"
+      },
+      "2033": {
+        "block": "T",
+        "tab": "T_Live",
+        "requires_expert": false,
+        "min_firmware": 35,
+        "poll_tier": "quick",
+        "icon": "mdi:thermometer-lines"
       },
       "2139": {
         "block": "A",
@@ -1539,7 +1654,7 @@
       "2146": {
         "block": "A",
         "tab": "A",
-        "requires_expert": true,
+        "requires_expert": false,
         "min_firmware": 35,
         "poll_tier": "medium"
       }
@@ -1565,7 +1680,7 @@
   "block_t_live_addrs": [2125, 2126, 2127, 2128, 2136, 2137, 2138, 2178, 2179, 2180],
   "non_expert_addrs": [1011, 1012, 1013, 1014, 1015, 1016, 1017, 1021, 1023, 1028, 1029, 1030, 1032, 1033, 1035, 1045, 1046, 1345, 1031, 1038, 1043, 1047, 1049, 1050, 1056, 1057, 1063, 1064, 1069, 1071, 1073, 1077, 1080, 1082, 1084, 1107, 1122, 1124, 1129, 1134, 1135, 1136, 1152, 1153, 1154, 1155, 1156, 1197, 1201, 1202, 1203, 1357, 1358, 1198, 1199, 1205, 1432, 1212, 1213, 1214, 1234, 1235, 1236, 2012, 2014, 2048, 2104, 2133],
   "_popular_comment": "Addrs enabled by default (merged into POPULAR_ADDRS at const load). Ungated H user settings: controller/mode/value selects, force-switch time, tank source, pump select.",
-  "popular_addrs": [1011, 1012, 1016, 1018, 1021, 1023, 1028, 1029, 1030, 1031, 1032, 1033, 1035, 1038, 1043, 1045, 1046, 1047, 1049, 1050, 1056, 1057, 1063, 1064, 1069, 1071, 1073, 1077, 1080, 1082, 1084, 1107, 1122, 1124, 1129, 1134, 1135, 1136, 1152, 1153, 1154, 1155, 1156, 1157, 1158, 1159, 1160, 1161, 1162, 1163, 1164, 1165, 1166, 1167, 1168, 1169, 1170, 1171, 1172, 1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182, 1183, 1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1201, 1202, 1203, 1205, 1234, 1235, 1236, 1334, 1345, 1357, 1358, 1432, 2018, 2019, 2023, 2032, 2034, 2044, 2045, 2046, 2048, 2049, 2051, 2053, 2062, 2065, 2066, 2067, 2069, 2071, 2072, 2074, 2077, 2104, 2133],
+  "popular_addrs": [1011, 1012, 1016, 1018, 1021, 1023, 1028, 1029, 1030, 1031, 1032, 1033, 1035, 1038, 1043, 1045, 1046, 1047, 1049, 1050, 1056, 1057, 1063, 1064, 1069, 1071, 1073, 1077, 1080, 1082, 1084, 1107, 1122, 1124, 1129, 1134, 1135, 1136, 1152, 1153, 1154, 1155, 1156, 1157, 1158, 1159, 1160, 1161, 1162, 1163, 1164, 1165, 1166, 1167, 1168, 1169, 1170, 1171, 1172, 1173, 1174, 1175, 1176, 1177, 1178, 1179, 1180, 1181, 1182, 1183, 1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1201, 1202, 1203, 1205, 1234, 1235, 1236, 1250, 1251, 1252, 1253, 1254, 1255, 1334, 1345, 1357, 1358, 1432, 1463, 2018, 2019, 2023, 2032, 2033, 2034, 2044, 2045, 2046, 2048, 2049, 2051, 2053, 2062, 2065, 2066, 2067, 2069, 2071, 2072, 2074, 2077, 2104, 2133],
   "_sensor_hidden_comment": "Sensor addrs with no standalone entity (shown via computed sensors instead). Empty: T35 AC Input Current is a live current reading (A), not a duplicate of the computed power sensor (W from T54).",
   "sensor_hidden_addrs": []
 }

@@ -2,7 +2,7 @@
 
 Control and monitor your **FoxAir / PHNIX air-to-water heat pump** directly from Home Assistant over Modbus TCP — no cloud, no YAML.
 
-![Version](https://img.shields.io/badge/version-0.7.14-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2026.9-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
+![Version](https://img.shields.io/badge/version-0.7.15-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2026.9-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
 ![FoxAir Demo](docs/screenshots/foxair_demo.gif)
 
@@ -17,6 +17,7 @@ Register maps and scaling based on the reverse-engineering in [dosordie/FoxAir_C
 - **PV surplus** — `switch.foxair_pv_surplus` for EVCC or HA automations, see below
 - **Runtime counters** — compressor runtime (2032, h) and compressor starts (2023, firmware 3.3+) as total counters, read from the unit
 - **Heating curve** — slope / offset / mode with an SVG graph image entity — no Lovelace YAML
+- **Firmware V3.5** — 7-point heating curve (H36 = 2, points 1250-1255 + 1235), external outdoor sensor (1463 select, 2033 external / 2136 internal T04, 2048 effective), heating/summer cut-off (1464 threshold, 1465 delay in min, 2146 bit 4 active) and SG01 = AI Saving (1334 = 4); all created only when 2104 reports V3.5
 - **Computed sensors** — heating power, electrical power, COP from `flow·ΔT`
 - **Multiple pumps** — configurable entity prefix so each unit gets its own IDs
 - **Safety** — expert mode gates installer controls; writes are validated
@@ -33,10 +34,10 @@ The climate entity follows the unit's own control settings, it never assumes out
 
 | Setting | Climate current temperature | Climate target |
 | --- | --- | --- |
-| H25 = Outlet / Inlet / Buffer water | T02 / T01 / T07 | R02 heating, R03 cooling; the live curve target (2014) while heating with H36 = on |
+| H25 = Outlet / Inlet / Buffer water | T02 / T01 / T07 | R02 heating, R03 cooling; the live curve target (2014) while heating with H36 = linear or 7-point curve |
 | H25 = Room | T09 | R70 target room temperature |
 
-With H36 = on the heating curve drives the target, so changing the thermostat target (for example with the +/- buttons) shifts the curve offset (1235) by the same amount. The slope stays unchanged, so the whole curve moves up or down. The new target shows at once and is replaced by the device value (2014) once the unit has recalculated.
+With H36 = on the heating curve drives the target, so changing the thermostat target (for example with the +/- buttons) shifts the curve offset (1235) by the same amount. The slope stays unchanged, so the whole curve moves up or down. With the V3.5 7-point curve (H36 = 2) the same +/- moves all seven points by the same amount. The new target shows at once and is replaced by the device value (2014) once the unit has recalculated.
 
 The climate attributes `control_source`, `current_addr` and `target_addr` show which registers are in use. If they disagree with H25, run `tools/check_regs.py` (the `CLIMATE:*` rows) and include its output plus a diagnostics download in the issue. The heating-curve image always plots the heating water side; its y-axis names the H25 sensor.
 
