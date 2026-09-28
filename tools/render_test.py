@@ -501,6 +501,10 @@ for _lang, _tl in _IMG_TL.items():
     problems = []
     if _tl["cap_point0"].upper() not in svg or ">32C<" not in svg:
         problems.append("0C point cell missing")
+    # every 7-point setpoint gets an x tick, incl. -5 / +5
+    for tick in ("-5C", "5C"):
+        if f">{tick}</text>" not in svg:
+            problems.append(f"x tick {tick} missing")
     if abs(hc_mod.curve_target_for_at(obj.coordinator, 0.0) - 32.0) > 0.01:
         problems.append("target at AT=0 != 1235")
     if abs(hc_mod.curve_target_for_at(obj.coordinator, -10.0) - 45.0) > 0.01:

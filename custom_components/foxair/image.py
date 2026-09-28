@@ -504,7 +504,11 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
             pass
 
         # ---- X axis ticks (tick marks + dots + labels) ----
-        for at_g in (-30, -20, -10, 0, 10, 20):
+        # 7-point mode adds the -5 / +5 points so every setpoint has a tick + value.
+        at_ticks = [-30, -20, -10, 0, 10, 20]
+        if points:
+            at_ticks = sorted(set(at_ticks) | {int(a) for a, _ in points if AT_MIN <= a <= AT_MAX})
+        for at_g in at_ticks:
             x = round(x_at(at_g), 1)
             svg.append(
                 f'<circle cx="{x}" cy="{plot_bottom}" r="3" fill="{AXIS}"/>'
@@ -539,7 +543,7 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
                 except (TypeError, ValueError):
                     _dx_e = _dy_e = None
         if is_curve_mode:
-            for at_g in (-30, -20, -10, 0, 10, 20):
+            for at_g in at_ticks:
                 x = round(x_at(at_g), 1)
                 cv = clamp(curve_at(at_g), r10, r11)
                 yv = round(y_flow(cv), 1)

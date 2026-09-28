@@ -3326,7 +3326,7 @@
         "name": "Offset (Vorlauf bei 0 °C)"
       },
       "foxair_1235_points": {
-        "name": "Punkt 0 °C"
+        "name": "Punkt 4: 0 °C"
       },
       "foxair_1237": {
         "name": "R61: AT zum Stoppen der Frequenzbegrenzung im Kühlbetrieb"
@@ -3350,7 +3350,7 @@
         "name": "R74: Raumtemperaturdifferenz für Standby im Kühlbetrieb"
       },
       "foxair_1255": {
-        "name": "Punkt +20 °C"
+        "name": "Punkt 7: +20 °C"
       },
       "foxair_1283": {
         "name": "Timer 1 WW-Zieltemperatur (ASM)"
@@ -4070,19 +4070,19 @@
         "name": "Z19: Differenz: Keine Pumpe Ein bei niedriger Wassertemperatur"
       },
       "foxair_1250": {
-        "name": "Punkt -20 °C"
+        "name": "Punkt 1: -20 °C"
       },
       "foxair_1251": {
-        "name": "Punkt -10 °C"
+        "name": "Punkt 2: -10 °C"
       },
       "foxair_1252": {
-        "name": "Punkt -5 °C"
+        "name": "Punkt 3: -5 °C"
       },
       "foxair_1253": {
-        "name": "Punkt +5 °C"
+        "name": "Punkt 5: +5 °C"
       },
       "foxair_1254": {
-        "name": "Punkt +10 °C"
+        "name": "Punkt 6: +10 °C"
       },
       "foxair_1464": {
         "name": "Sommerabschaltung ab"
