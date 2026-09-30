@@ -1,3 +1,7 @@
+## 0.7.18 - 2026-09-30
+- fix(devices): sub-device entities no longer fail to load on HA 2026.9. HA raises instead of warning when a DeviceInfo still carries the deprecated `via_device` during entity setup (home-assistant/core#180469), so `bind_device_info` now always strips it and adds `via_device_id` only when the main device resolves; a failed lookup leaves the sub-device unlinked instead of dropping its entities. The HA < 2025 `async_get_device` fallback is removed (deprecated with an error in 2026.9), and a failed main-device pre-create is logged as a warning
+- fix(modbus): requires `pymodbus>=3.10.0` (HA 2026.9 ships 3.13.1). Reads and writes pass `device_id=` directly instead of retrying with `slave=` on any TypeError, which hid real errors
+
 ## 0.7.17 - 2026-09-28
 - fix(curve): the seven curve points on the Heating curve device now list from -20 °C to +20 °C. HA sorts a device's entities by name, so the names carry an index: "Point 1: -20 °C" to "Point 7: +20 °C" (1235 is "Point 4: 0 °C" in 7-point mode), in English, German and Russian
 - fix(curve image): in 7-point mode the x axis gets a tick and value at every point, including -5 °C and +5 °C

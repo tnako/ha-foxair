@@ -178,7 +178,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
             model=dev_info["model"],
         )
     except Exception as e:  # pragma: no cover
-        _LOGGER.debug("main device pre-create failed: %s", e)
+        _LOGGER.warning("main device pre-create failed, sub-devices will be unlinked: %s", e)
     from .coordinator import FoxAirCoordinator
 
     coord = FoxAirCoordinator(hass, entry)
