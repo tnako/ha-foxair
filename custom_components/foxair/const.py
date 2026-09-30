@@ -7,9 +7,12 @@ from modbus/tabs.txt — each menu and entity in required order.
 """
 from __future__ import annotations
 import json
+import logging
 import re
 import pathlib
 from homeassistant.helpers.entity import DeviceInfo
+
+_LOGGER = logging.getLogger(__name__)
 
 DOMAIN = "foxair"
 
@@ -283,35 +286,28 @@ def device_for_addr(addr: int, block: str | None, entry_id: str | None = None, t
 def bind_device_info(hass, entry_id, info):
     """Resolve DeviceInfo via_device identifiers to via_device_id.
 
-    HA deprecated the via_device parameter (warns since 2026, removal
-    2027.8): sub-devices must link by registry id. The main device is
-    pre-created in async_setup_entry, so the lookup always hits at entity
-    setup. Falls back to the unmodified info when hass/lookup is missing
-    (offline tools, tests) rather than breaking setup.
+    HA 2026.9 raises on the deprecated via_device parameter during entity
+    setup, dropping the entity, so it is always stripped. via_device_id is
+    added only when the main device resolves; otherwise the sub-device is
+    left unlinked.
     """
     try:
-        via = (info or {}).get("via_device")
+        if not info or "via_device" not in info:
+            return info
+        d = dict(info)
     except Exception:
         return info
+    via = d.pop("via_device", None)
     if not via or hass is None or not entry_id:
-        return info
+        return d
     try:
         from homeassistant.helpers import device_registry as _dr
-        reg = _dr.async_get(hass)
-        get_by_id = getattr(reg, "async_get_device_by_identifier", None)
-        if get_by_id is not None:
-            dev = get_by_id(tuple(via), entry_id)
-        else:
-            # HA < 2025.x fallback (no deprecation warning there)
-            dev = reg.async_get_device(identifiers={tuple(via)})
+        dev = _dr.async_get(hass).async_get_device_by_identifier(tuple(via), entry_id)
         if dev is not None:
-            d = dict(info)
-            d.pop("via_device", None)
             d["via_device_id"] = dev.id
-            return d
     except Exception:
-        pass
-    return info
+        _LOGGER.debug("via_device lookup failed for %s", via, exc_info=True)
+    return d
 
 
 # Generic word bit-twiddling for bit_split registers (spec in

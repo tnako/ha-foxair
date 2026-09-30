@@ -394,10 +394,7 @@ class FoxAirCoordinator(DataUpdateCoordinator):
                 for addr, vals in blocks:
                     try:
                         await asyncio.sleep(0.25)  # EW11 half-duplex pacing
-                        try:
-                            rr = await self.client.write_registers(address=addr, values=vals, slave=sid)
-                        except TypeError:
-                            rr = await self.client.write_registers(address=addr, values=vals, device_id=sid)
+                        rr = await self.client.write_registers(address=addr, values=vals, device_id=sid)
                         if rr.isError():
                             _LOGGER.error("Write batch %s %s error %s", addr, vals, rr)
                             overall_ok = False
@@ -411,10 +408,7 @@ class FoxAirCoordinator(DataUpdateCoordinator):
                     await asyncio.sleep(0.35)
                     for addr in pending:
                         try:
-                            try:
-                                rr2 = await self.client.read_holding_registers(address=addr, count=1, slave=sid)
-                            except TypeError:
-                                rr2 = await self.client.read_holding_registers(address=addr, count=1, device_id=sid)
+                            rr2 = await self.client.read_holding_registers(address=addr, count=1, device_id=sid)
                             if not rr2.isError() and getattr(rr2, "registers", None):
                                 raw2 = rr2.registers[0]
                                 info = (self._regmap or {}).get(str(addr)) or {"type": metas[addr].get("type", "RAW")}
@@ -515,10 +509,7 @@ class FoxAirCoordinator(DataUpdateCoordinator):
             batch = f"{addr}x{qty}"
             try:
                 await asyncio.sleep(0.35)  # EW11 half-duplex pacing (writes use 0.25-0.35)
-                try:
-                    rr = await self.client.read_holding_registers(address=addr, count=qty, slave=sid)
-                except TypeError:
-                    rr = await self.client.read_holding_registers(address=addr, count=qty, device_id=sid)
+                rr = await self.client.read_holding_registers(address=addr, count=qty, device_id=sid)
                 if rr.isError():
                     self._count_error(tier_label, batch=batch)
                     _LOGGER.debug("read %s/%s error %s", addr, qty, rr)

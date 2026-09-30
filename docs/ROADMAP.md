@@ -1,6 +1,6 @@
 # Roadmap
 
-**Current:** `0.7.x` - HA **>=2026.9**, `pymodbus>=3.6.0` (single `AsyncModbusTcpClient`, `coordinator._lock`, tiered polling quick 30 s / medium 120 s / rare 300 s, batched `max_span=100`/`max_gap=30`, config-driven). Firmware-gated entities (2104): 3.3, 3.4, 3.5.
+**Current:** `0.7.x` - HA **>=2026.9**, `pymodbus>=3.10.0` (single `AsyncModbusTcpClient`, `coordinator._lock`, tiered polling quick 30 s / medium 120 s / rare 300 s, batched `max_span=100`/`max_gap=30`, config-driven). Firmware-gated entities (2104): 3.3, 3.4, 3.5.
 
 **Next (needs data from a live unit):**
 - Energy counters 2118/2120/2122/2124 and DHW 2125-2128 (32-bit pairs) as Energy dashboard sources. They exist from firmware V3.4; blocked on knowing how defrost energy is booked into them.

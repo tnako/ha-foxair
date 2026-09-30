@@ -3,7 +3,8 @@
 
 HA deprecated DeviceInfo via_device (removal 2027.8): sub-devices must
 link by registry id. bind_device_info resolves identifiers -> id and
-falls back to the unmodified info when hass/lookup is unavailable.
+always strips via_device, leaving the sub-device unlinked when the
+lookup is unavailable.
 
 Run: pytest tests/test_device_bind.py -v
 """
@@ -81,15 +82,27 @@ def test_sub_device_binds_to_registry_id():
 
 def test_main_device_untouched():
     info = const.main_device("eid", "foxair", 1, "h", 502)
-    assert const.bind_device_info(object(), "eid", info) == info
+    bound = const.bind_device_info(object(), "eid", info)
+    assert "via_device" not in bound and "via_device_id" not in bound
+    assert {k: v for k, v in info.items() if k != "via_device"} == bound
 
 
-def test_fallbacks_keep_unmodified_info():
+def _unlinked(info):
+    expected = dict(info)
+    expected.pop("via_device")
+    return expected
+
+
+def test_fallbacks_strip_via_device():
     info = const.device_for_block("T", "eid", "T_Live", "foxair", 1, "h", 502)
-    assert const.bind_device_info(None, "eid", info) == info  # no hass (tests/tools)
-    assert const.bind_device_info(object(), None, info) == info  # no entry
-    _stub_modules(with_registry=False)  # device_registry unimportable
-    assert const.bind_device_info(object(), "eid", info) == info
+    assert const.bind_device_info(None, "eid", info) == _unlinked(info)
+    assert const.bind_device_info(object(), None, info) == _unlinked(info)
+    reg = _stub_modules(with_registry=True)
+    reg.async_get_device_by_identifier = lambda identifier, config_entry_id: None
+    assert const.bind_device_info(object(), "eid", info) == _unlinked(info)
+    _stub_modules(with_registry=False)
+    assert const.bind_device_info(object(), "eid", info) == _unlinked(info)
+    _stub_modules(with_registry=True)
 
 
 def test_apply_config_restores_routing_after_lazy_fallback():
