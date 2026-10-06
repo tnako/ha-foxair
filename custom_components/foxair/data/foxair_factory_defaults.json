@@ -1,18 +1,20 @@
 {
-  "_comment": "Candidate factory values per model, for comparison only; the integration never writes them. There is no official FoxAir list. Each value says how well it is supported (confidence) and by which source. See docs/FACTORY_DEFAULTS.md before relying on any of them.",
+  "_comment": "Candidate factory values per model, for comparison only; the integration never writes them. There is no official FoxAir list. Each value says how well it is supported (confidence) and by which sources; 'candidates' lists every other source value that differs. See docs/FACTORY_DEFAULTS.md.",
   "models": {
     "GL-9": {
-      "description": "FoxAir GreenLine GL-9 / GL-9-1, R290, mainboard 82400644 V3.4/V3.5. No GL-9 factory dump exists in public sources yet; values come from a factory-reset GL-15-1 with the same controller family and from a GL9 app recording of unknown tuning state.",
+      "description": "FoxAir GreenLine GL-9 / GL-9-1, R290, mainboard 82400644 V3.4/V3.5. No GL-9 dump in a confirmed factory state exists in public sources; see the sources and confidence levels.",
       "match": {
         "A26": "R290",
         "C04": 13
       },
       "confidence_levels": {
-        "two_units": "GL-15-1 after factory reset and the GL9 app recording show the same value",
-        "display_fw_confirmed": "Display firmware default and at least one unit screenshot agree",
-        "gl15_reset_and_protocol": "GL-15-1 after factory reset and the PHNIX protocol default agree; not seen on a GL-9",
-        "gl15_reset_only": "Only the factory-reset GL-15-1; may differ on a GL-9",
-        "gl9_video_only": "Only the GL9 app recording, whose owner may have tuned it (it shows E02 = 3.0)",
+        "foxair_reset_and_manual": "Factory-reset FoxAir GL-15-1 and the printed PHNIX manual default agree",
+        "foxair_two_units": "Factory-reset FoxAir GL-15-1 and the FoxAir GL9 recording agree (the generic manual may differ)",
+        "firmware_and_unit": "Display firmware default and one FoxAir unit agree",
+        "foxair_reset_only": "Only the factory-reset FoxAir GL-15-1; a differing manual value is listed as candidate",
+        "gl9_video_and_manual": "FoxAir GL9 recording and the PHNIX manual agree; not on the reset unit",
+        "manual_only": "Only the generic PHNIX manual; FoxAir may configure it differently",
+        "gl9_video_only": "Only the FoxAir GL9 recording, whose tuning state is unknown",
         "conflict": "Sources disagree; value is null, see candidates"
       },
       "sources": {
@@ -21,78 +23,82 @@
           "post": 4892658,
           "author": "creambox",
           "date": "2026-10-01",
-          "unit": "GL-15-1",
-          "note": "Owner states he reset all settings to factory (p120 #4888117 'auf Werkseinstellungen zurückgesetzt', p126 'auf den ursprünglichen Zustand zurückgesetzt'). WarmLink PW66 screenshots."
+          "unit": "FoxAir GL-15-1, firmware V3.4",
+          "note": "Owner states he reset all settings to factory (p120 #4888117 'auf Werkseinstellungen zurückgesetzt'). WarmLink PW66 screenshots."
         },
         "gl9_video": {
           "url": "https://github.com/dosordie/FoxAir_Control",
-          "unit": "GL9",
-          "note": "data/foxair_phnix_registers.json app_current_video_value, WarmLink screen recording 2026-06-14. Current values of one unit, not labelled as factory."
+          "unit": "FoxAir GL9",
+          "note": "data/foxair_phnix_registers.json app_current_video_value, WarmLink screen recording 2026-06-14. One unit's current values; E02 = 3.0 shows it was tuned."
         },
-        "phnix_protocol": {
-          "url": "https://www.photovoltaikforum.com/thread/242531-foxair-w%C3%A4rmepumpen-erfahrungen-meinungen-tipps/?pageNo=7",
-          "post": 4289405,
-          "author": "diymacher",
-          "note": "PHNIX 'MODBUS RTU PROTOCOL' V1.2 (2022-03-18), Default column. Generic for the controller family (e.g. C04 = 0, F26 = 700 rpm), so only used as a tie-breaker."
+        "phnix_manual": {
+          "url": "https://www.m-klima.com/files/uploads/product_file/269-Technical-Manual-KHX---Heat-Pump-KAISAI-%EF%BC%88English%EF%BC%89.pdf.pdf",
+          "also": "https://cooperandhunter.de/wp-content/uploads/OM-Ecopower-EN.pdf",
+          "unit": "PHNIX-built R290 monoblock (Kaisai KHX, Cooper&Hunter Ecopower), 2022",
+          "note": "Section 13 'Electrical Parameter', Default value column. Both manuals print the same table. Older firmware: no E03-x/E07-x/P11 etc. Where two FoxAir units agree, FoxAir differs from it on 8 codes (E03, E07, E08, E10, E14, C10, C11, A06), so FoxAir ships its own profile."
         },
         "display_fw": {
           "url": "https://github.com/dosordie/FoxAir_Control",
-          "note": "Defaults read from the display firmware disassembly (DEMONS.ASM), as recorded in data/foxair_phnix_knowledge.json (source 'ASM DEMONS.ASM'). Compiled into the firmware, so not tuned by an owner; covers only a few codes."
+          "note": "Defaults from the display firmware disassembly (source 'ASM DEMONS.ASM' in data/foxair_phnix_knowledge.json). Compiled into the firmware; covers few codes."
         }
       },
       "values": {
         "E01": {
           "value": 1.0,
-          "confidence": "gl15_reset_and_protocol",
+          "confidence": "foxair_reset_and_manual",
           "sources": [
             "gl15_reset",
-            "phnix_protocol"
+            "phnix_manual"
           ],
-          "label": "Auto"
+          "candidates": {
+            "gl9_video": 2.0
+          }
         },
         "E02": {
-          "value": null,
-          "confidence": "conflict",
-          "sources": [],
+          "value": 5.0,
+          "confidence": "foxair_reset_and_manual",
+          "sources": [
+            "gl15_reset",
+            "phnix_manual"
+          ],
           "candidates": {
-            "gl15_reset": 5.0,
-            "gl9_video": 3.0,
-            "phnix_protocol": 5.0
+            "gl9_video": 3.0
           },
           "unit": "°C"
         },
         "E03": {
           "value": 0.0,
-          "confidence": "two_units",
+          "confidence": "foxair_two_units",
+          "sources": [
+            "gl15_reset",
+            "gl9_video"
+          ],
+          "candidates": {
+            "phnix_manual": 350.0
+          },
+          "unit": "N"
+        },
+        "E03-1": {
+          "value": 250.0,
+          "confidence": "foxair_two_units",
           "sources": [
             "gl15_reset",
             "gl9_video"
           ],
           "unit": "N"
         },
-        "E03-1": {
-          "value": 250.0,
-          "confidence": "display_fw_confirmed",
-          "sources": [
-            "gl15_reset",
-            "gl9_video",
-            "display_fw"
-          ],
-          "unit": "N"
-        },
         "E03-2": {
           "value": 185.0,
-          "confidence": "display_fw_confirmed",
+          "confidence": "foxair_two_units",
           "sources": [
             "gl15_reset",
-            "gl9_video",
-            "display_fw"
+            "gl9_video"
           ],
           "unit": "N"
         },
         "E03-3": {
           "value": 140.0,
-          "confidence": "two_units",
+          "confidence": "foxair_two_units",
           "sources": [
             "gl15_reset",
             "gl9_video"
@@ -101,7 +107,7 @@
         },
         "E03-4": {
           "value": 125.0,
-          "confidence": "two_units",
+          "confidence": "foxair_two_units",
           "sources": [
             "gl15_reset",
             "gl9_video"
@@ -110,7 +116,7 @@
         },
         "E03-5": {
           "value": 110.0,
-          "confidence": "two_units",
+          "confidence": "foxair_two_units",
           "sources": [
             "gl15_reset",
             "gl9_video"
@@ -119,11 +125,14 @@
         },
         "E07": {
           "value": 60.0,
-          "confidence": "two_units",
+          "confidence": "foxair_two_units",
           "sources": [
             "gl15_reset",
             "gl9_video"
           ],
+          "candidates": {
+            "phnix_manual": 100.0
+          },
           "unit": "N"
         },
         "E07-1": {
@@ -158,17 +167,16 @@
         },
         "E07-4": {
           "value": 90.0,
-          "confidence": "display_fw_confirmed",
+          "confidence": "foxair_two_units",
           "sources": [
             "gl15_reset",
-            "gl9_video",
-            "display_fw"
+            "gl9_video"
           ],
           "unit": "N"
         },
         "E07-5": {
           "value": 85.0,
-          "confidence": "display_fw_confirmed",
+          "confidence": "firmware_and_unit",
           "sources": [
             "display_fw",
             "gl9_video"
@@ -178,135 +186,290 @@
           },
           "unit": "N"
         },
-        "E17": {
-          "value": null,
-          "confidence": "conflict",
-          "sources": [],
-          "candidates": {
-            "gl15_reset": 480.0,
-            "gl9_video": 470.0,
-            "phnix_protocol": 480.0
-          },
-          "unit": "N"
-        },
-        "E19": {
-          "value": 20.0,
-          "confidence": "two_units",
+        "E08": {
+          "value": 350.0,
+          "confidence": "foxair_two_units",
           "sources": [
             "gl15_reset",
             "gl9_video"
           ],
+          "candidates": {
+            "phnix_manual": 200.0
+          },
+          "unit": "N"
+        },
+        "E09": {
+          "value": 1.0,
+          "confidence": "foxair_reset_and_manual",
+          "sources": [
+            "gl15_reset",
+            "phnix_manual"
+          ]
+        },
+        "E10": {
+          "value": 200.0,
+          "confidence": "foxair_two_units",
+          "sources": [
+            "gl15_reset",
+            "gl9_video"
+          ],
+          "candidates": {
+            "phnix_manual": 350.0
+          },
+          "unit": "N"
+        },
+        "E13": {
+          "value": 3.0,
+          "confidence": "foxair_reset_and_manual",
+          "sources": [
+            "gl15_reset",
+            "phnix_manual"
+          ],
+          "unit": "°C"
+        },
+        "E14": {
+          "value": 50.0,
+          "confidence": "foxair_two_units",
+          "sources": [
+            "gl15_reset",
+            "gl9_video"
+          ],
+          "candidates": {
+            "phnix_manual": 100.0
+          },
+          "unit": "N"
+        },
+        "E17": {
+          "value": 480.0,
+          "confidence": "foxair_reset_and_manual",
+          "sources": [
+            "gl15_reset",
+            "phnix_manual"
+          ],
+          "candidates": {
+            "gl9_video": 470.0
+          },
+          "unit": "N"
+        },
+        "E18": {
+          "value": 3.0,
+          "confidence": "foxair_reset_and_manual",
+          "sources": [
+            "gl15_reset",
+            "phnix_manual"
+          ],
+          "unit": "°C"
+        },
+        "E19": {
+          "value": 20.0,
+          "confidence": "foxair_reset_and_manual",
+          "sources": [
+            "gl15_reset",
+            "phnix_manual"
+          ],
           "unit": "%"
         },
-        "F05": {
-          "value": 2.0,
-          "confidence": "gl15_reset_only",
+        "F02": {
+          "value": 35.0,
+          "confidence": "foxair_reset_only",
           "sources": [
             "gl15_reset"
           ],
           "candidates": {
-            "phnix_protocol": 10.0
+            "phnix_manual": 50.0
+          },
+          "unit": "°C"
+        },
+        "F03": {
+          "value": 10.0,
+          "confidence": "foxair_reset_and_manual",
+          "sources": [
+            "gl15_reset",
+            "phnix_manual"
+          ],
+          "unit": "°C"
+        },
+        "F05": {
+          "value": 2.0,
+          "confidence": "foxair_reset_only",
+          "sources": [
+            "gl15_reset"
+          ],
+          "candidates": {
+            "phnix_manual": 10.0
           },
           "unit": "°C"
         },
         "F06": {
           "value": 20.0,
-          "confidence": "gl15_reset_and_protocol",
+          "confidence": "foxair_reset_and_manual",
           "sources": [
             "gl15_reset",
-            "phnix_protocol"
+            "phnix_manual"
           ],
           "unit": "°C"
         },
-        "F19": {
-          "value": 300.0,
-          "confidence": "gl15_reset_and_protocol",
-          "sources": [
-            "gl15_reset",
-            "phnix_protocol"
-          ],
-          "unit": "rpm"
-        },
-        "F23": {
-          "value": 600.0,
-          "confidence": "gl15_reset_and_protocol",
-          "sources": [
-            "gl15_reset",
-            "phnix_protocol"
-          ],
-          "unit": "rpm"
-        },
-        "F26": {
-          "value": 600.0,
-          "confidence": "gl15_reset_only",
+        "F18": {
+          "value": 220.0,
+          "confidence": "foxair_reset_only",
           "sources": [
             "gl15_reset"
           ],
           "candidates": {
-            "phnix_protocol": 700.0
+            "phnix_manual": 300.0
           },
           "unit": "rpm"
         },
-        "C02": {
-          "value": null,
-          "confidence": "conflict",
-          "sources": [],
+        "F19": {
+          "value": 300.0,
+          "confidence": "foxair_reset_and_manual",
+          "sources": [
+            "gl15_reset",
+            "phnix_manual"
+          ],
+          "unit": "rpm"
+        },
+        "F21": {
+          "value": 0.0,
+          "confidence": "manual_only",
+          "sources": [
+            "phnix_manual"
+          ]
+        },
+        "F23": {
+          "value": 600.0,
+          "confidence": "foxair_reset_and_manual",
+          "sources": [
+            "gl15_reset",
+            "phnix_manual"
+          ],
+          "unit": "rpm"
+        },
+        "F25": {
+          "value": 600.0,
+          "confidence": "foxair_reset_only",
+          "sources": [
+            "gl15_reset"
+          ],
           "candidates": {
-            "gl15_reset": 30.0,
-            "gl9_video": 29.0,
-            "phnix_protocol": 30.0
+            "phnix_manual": 700.0
+          },
+          "unit": "rpm"
+        },
+        "F26": {
+          "value": 600.0,
+          "confidence": "foxair_reset_only",
+          "sources": [
+            "gl15_reset"
+          ],
+          "candidates": {
+            "phnix_manual": 700.0
+          },
+          "unit": "rpm"
+        },
+        "F28": {
+          "value": 8.0,
+          "confidence": "foxair_reset_only",
+          "sources": [
+            "gl15_reset"
+          ],
+          "unit": "°C"
+        },
+        "F29": {
+          "value": 6.0,
+          "confidence": "foxair_reset_only",
+          "sources": [
+            "gl15_reset"
+          ],
+          "unit": "°C"
+        },
+        "C02": {
+          "value": 30.0,
+          "confidence": "foxair_reset_and_manual",
+          "sources": [
+            "gl15_reset",
+            "phnix_manual"
+          ],
+          "candidates": {
+            "gl9_video": 29.0
           },
           "unit": "Hz"
         },
         "C03": {
           "value": 90.0,
-          "confidence": "two_units",
+          "confidence": "foxair_reset_and_manual",
           "sources": [
             "gl15_reset",
-            "gl9_video"
+            "phnix_manual"
+          ],
+          "unit": "Hz"
+        },
+        "C05": {
+          "value": 50.0,
+          "confidence": "foxair_reset_and_manual",
+          "sources": [
+            "gl15_reset",
+            "phnix_manual"
           ],
           "unit": "Hz"
         },
         "C07": {
-          "value": null,
-          "confidence": "conflict",
-          "sources": [],
+          "value": 0.0,
+          "confidence": "foxair_reset_and_manual",
+          "sources": [
+            "gl15_reset",
+            "phnix_manual"
+          ],
           "candidates": {
-            "gl15_reset": 0.0,
             "gl9_video": 27.0
           },
           "unit": "Hz"
         },
         "C08": {
           "value": 0.0,
-          "confidence": "two_units",
+          "confidence": "foxair_reset_and_manual",
           "sources": [
             "gl15_reset",
-            "gl9_video"
+            "phnix_manual"
           ],
           "unit": "Hz"
         },
         "C09": {
           "value": 0.0,
-          "confidence": "two_units",
+          "confidence": "foxair_reset_and_manual",
           "sources": [
             "gl15_reset",
-            "gl9_video"
+            "phnix_manual"
           ],
           "unit": "Hz"
         },
         "C10": {
           "value": 40.0,
-          "confidence": "two_units",
+          "confidence": "foxair_two_units",
           "sources": [
             "gl15_reset",
             "gl9_video"
           ],
+          "candidates": {
+            "phnix_manual": 60.0
+          },
+          "unit": "Hz"
+        },
+        "C11": {
+          "value": 72.0,
+          "confidence": "foxair_two_units",
+          "sources": [
+            "gl15_reset",
+            "gl9_video"
+          ],
+          "candidates": {
+            "phnix_manual": 66.0
+          },
           "unit": "Hz"
         },
         "C12": {
           "value": 90.0,
-          "confidence": "two_units",
+          "confidence": "foxair_two_units",
           "sources": [
             "gl15_reset",
             "gl9_video"
@@ -315,215 +478,234 @@
         },
         "D01": {
           "value": 12.5,
-          "confidence": "gl15_reset_and_protocol",
+          "confidence": "foxair_reset_and_manual",
           "sources": [
             "gl15_reset",
-            "phnix_protocol"
+            "phnix_manual"
           ],
           "unit": "°C"
         },
         "D02": {
           "value": 26.0,
-          "confidence": "gl15_reset_and_protocol",
+          "confidence": "foxair_reset_and_manual",
           "sources": [
             "gl15_reset",
-            "phnix_protocol"
+            "phnix_manual"
           ],
           "unit": "min"
         },
         "D03": {
           "value": 45.0,
-          "confidence": "gl15_reset_and_protocol",
+          "confidence": "foxair_reset_and_manual",
           "sources": [
             "gl15_reset",
-            "phnix_protocol"
+            "phnix_manual"
           ],
           "unit": "min"
         },
         "D04": {
           "value": 105.0,
-          "confidence": "gl15_reset_only",
+          "confidence": "foxair_reset_only",
           "sources": [
             "gl15_reset"
           ],
           "candidates": {
-            "phnix_protocol": 110.0
+            "phnix_manual": 110.0
           },
           "unit": "°C"
         },
         "D05-1": {
           "value": 1.3,
-          "confidence": "gl15_reset_only",
-          "sources": [
-            "gl15_reset"
-          ],
-          "unit": "bar"
-        },
-        "D05-2": {
-          "value": 0.5,
-          "confidence": "gl15_reset_only",
-          "sources": [
-            "gl15_reset"
-          ],
-          "unit": "bar"
-        },
-        "D06": {
-          "value": 5.0,
-          "confidence": "gl15_reset_only",
+          "confidence": "foxair_reset_only",
           "sources": [
             "gl15_reset"
           ],
           "candidates": {
-            "phnix_protocol": 15.0
+            "phnix_manual": 2.6
+          },
+          "unit": "bar"
+        },
+        "D05-2": {
+          "value": 0.5,
+          "confidence": "foxair_reset_only",
+          "sources": [
+            "gl15_reset"
+          ],
+          "candidates": {
+            "phnix_manual": 1.7
+          },
+          "unit": "bar"
+        },
+        "D06": {
+          "value": 5.0,
+          "confidence": "foxair_reset_only",
+          "sources": [
+            "gl15_reset"
+          ],
+          "candidates": {
+            "phnix_manual": 15.0
           }
         },
         "D07": {
           "value": 6.1,
-          "confidence": "gl15_reset_and_protocol",
+          "confidence": "foxair_reset_and_manual",
           "sources": [
             "gl15_reset",
-            "phnix_protocol"
+            "phnix_manual"
           ],
           "unit": "°C"
         },
         "D08": {
           "value": -4.1,
-          "confidence": "gl15_reset_and_protocol",
+          "confidence": "foxair_reset_and_manual",
           "sources": [
             "gl15_reset",
-            "phnix_protocol"
+            "phnix_manual"
           ],
           "unit": "°C"
         },
         "D09": {
           "value": -26.1,
-          "confidence": "gl15_reset_and_protocol",
+          "confidence": "foxair_reset_and_manual",
           "sources": [
             "gl15_reset",
-            "phnix_protocol"
+            "phnix_manual"
           ],
           "unit": "°C"
         },
         "D10": {
           "value": -28.1,
-          "confidence": "gl15_reset_and_protocol",
+          "confidence": "foxair_reset_and_manual",
           "sources": [
             "gl15_reset",
-            "phnix_protocol"
+            "phnix_manual"
           ],
           "unit": "°C"
         },
         "D11": {
           "value": 23.0,
-          "confidence": "gl15_reset_and_protocol",
+          "confidence": "foxair_reset_and_manual",
           "sources": [
             "gl15_reset",
-            "phnix_protocol"
+            "phnix_manual"
           ],
           "unit": "°C"
         },
         "D12": {
           "value": 1.0,
-          "confidence": "gl15_reset_only",
+          "confidence": "foxair_reset_only",
           "sources": [
             "gl15_reset"
           ],
           "candidates": {
-            "phnix_protocol": 2.0
+            "phnix_manual": 2.0
           },
           "unit": "bar"
         },
         "D13": {
           "value": 120.0,
-          "confidence": "gl15_reset_and_protocol",
+          "confidence": "foxair_reset_and_manual",
           "sources": [
             "gl15_reset",
-            "phnix_protocol"
+            "phnix_manual"
           ],
           "unit": "min"
         },
+        "D14": {
+          "value": 1.3,
+          "confidence": "manual_only",
+          "sources": [
+            "phnix_manual"
+          ]
+        },
+        "D15": {
+          "value": 1.5,
+          "confidence": "manual_only",
+          "sources": [
+            "phnix_manual"
+          ]
+        },
         "D16": {
           "value": 200.0,
-          "confidence": "gl15_reset_and_protocol",
+          "confidence": "foxair_reset_and_manual",
           "sources": [
             "gl15_reset",
-            "phnix_protocol"
+            "phnix_manual"
           ],
           "unit": "W"
         },
         "D17": {
           "value": 13.0,
-          "confidence": "gl15_reset_and_protocol",
+          "confidence": "foxair_reset_and_manual",
           "sources": [
             "gl15_reset",
-            "phnix_protocol"
+            "phnix_manual"
           ],
           "unit": "°C"
         },
         "D18": {
           "value": 33.0,
-          "confidence": "gl15_reset_and_protocol",
+          "confidence": "foxair_reset_and_manual",
           "sources": [
             "gl15_reset",
-            "phnix_protocol"
+            "phnix_manual"
           ],
           "unit": "°C"
         },
         "D19": {
           "value": 8.0,
-          "confidence": "gl15_reset_and_protocol",
+          "confidence": "foxair_reset_and_manual",
           "sources": [
             "gl15_reset",
-            "phnix_protocol"
+            "phnix_manual"
           ],
           "unit": "min"
         },
         "D20": {
           "value": 70.0,
-          "confidence": "gl15_reset_and_protocol",
+          "confidence": "foxair_reset_and_manual",
           "sources": [
             "gl15_reset",
-            "phnix_protocol"
+            "phnix_manual"
           ],
           "unit": "Hz"
         },
         "D21": {
           "value": 1.0,
-          "confidence": "gl15_reset_and_protocol",
+          "confidence": "foxair_reset_and_manual",
           "sources": [
             "gl15_reset",
-            "phnix_protocol"
+            "phnix_manual"
           ]
         },
         "D22": {
           "value": 0.0,
-          "confidence": "gl15_reset_and_protocol",
+          "confidence": "foxair_reset_and_manual",
           "sources": [
             "gl15_reset",
-            "phnix_protocol"
+            "phnix_manual"
           ]
         },
         "D23": {
           "value": 120.0,
-          "confidence": "gl15_reset_and_protocol",
+          "confidence": "foxair_reset_and_manual",
           "sources": [
             "gl15_reset",
-            "phnix_protocol"
+            "phnix_manual"
           ],
           "unit": "min"
         },
         "D25": {
           "value": 7.0,
-          "confidence": "gl15_reset_and_protocol",
+          "confidence": "foxair_reset_only",
           "sources": [
-            "gl15_reset",
-            "phnix_protocol"
+            "gl15_reset"
           ],
           "unit": "°C"
         },
         "D30": {
           "value": 0.0,
-          "confidence": "gl15_reset_only",
+          "confidence": "foxair_reset_only",
           "sources": [
             "gl15_reset"
           ],
@@ -531,59 +713,64 @@
         },
         "A03": {
           "value": -25.0,
-          "confidence": "two_units",
+          "confidence": "foxair_reset_and_manual",
           "sources": [
             "gl15_reset",
-            "gl9_video"
+            "phnix_manual"
           ],
           "unit": "°C"
         },
         "A04": {
           "value": 4.0,
-          "confidence": "two_units",
+          "confidence": "foxair_reset_and_manual",
           "sources": [
             "gl15_reset",
-            "gl9_video"
+            "phnix_manual"
           ],
           "unit": "°C"
         },
         "A05": {
           "value": 3.0,
-          "confidence": "two_units",
+          "confidence": "foxair_reset_and_manual",
           "sources": [
             "gl15_reset",
-            "gl9_video"
+            "phnix_manual"
           ],
           "unit": "°C"
         },
         "A06": {
           "value": 110.0,
-          "confidence": "two_units",
+          "confidence": "foxair_two_units",
           "sources": [
             "gl15_reset",
             "gl9_video"
           ],
+          "candidates": {
+            "phnix_manual": 115.0
+          },
           "unit": "°C"
         },
         "A22": {
-          "value": null,
-          "confidence": "conflict",
-          "sources": [],
+          "value": 4.0,
+          "confidence": "foxair_reset_and_manual",
+          "sources": [
+            "gl15_reset",
+            "phnix_manual"
+          ],
           "candidates": {
-            "gl15_reset": 4.0,
-            "gl9_video": 5.0,
-            "phnix_protocol": 4.0
+            "gl9_video": 5.0
           },
           "unit": "°C"
         },
         "A23": {
-          "value": null,
-          "confidence": "conflict",
-          "sources": [],
+          "value": 5.0,
+          "confidence": "foxair_reset_and_manual",
+          "sources": [
+            "gl15_reset",
+            "phnix_manual"
+          ],
           "candidates": {
-            "gl15_reset": 5.0,
-            "gl9_video": 3.0,
-            "phnix_protocol": 5.0
+            "gl9_video": 3.0
           },
           "unit": "°C"
         },
@@ -594,31 +781,42 @@
           "candidates": {
             "gl15_reset": 15.0,
             "gl9_video": 10.0,
-            "phnix_protocol": 10.0
+            "phnix_manual": 9.5
+          },
+          "unit": "°C"
+        },
+        "A25": {
+          "value": null,
+          "confidence": "conflict",
+          "sources": [],
+          "candidates": {
+            "gl15_reset": -5.5,
+            "gl9_video": -4.5,
+            "phnix_manual": -10.0
           },
           "unit": "°C"
         },
         "A27": {
           "value": 7.0,
-          "confidence": "two_units",
+          "confidence": "foxair_reset_and_manual",
           "sources": [
             "gl15_reset",
-            "gl9_video"
+            "phnix_manual"
           ],
           "unit": "°C"
         },
         "A28": {
           "value": 7.0,
-          "confidence": "two_units",
+          "confidence": "foxair_reset_and_manual",
           "sources": [
             "gl15_reset",
-            "gl9_video"
+            "phnix_manual"
           ],
           "unit": "°C"
         },
         "A31": {
           "value": -8.0,
-          "confidence": "display_fw_confirmed",
+          "confidence": "firmware_and_unit",
           "sources": [
             "display_fw",
             "gl9_video"
@@ -658,27 +856,44 @@
             "gl9_video"
           ]
         },
+        "P01": {
+          "value": 2.0,
+          "confidence": "gl9_video_and_manual",
+          "sources": [
+            "gl9_video",
+            "phnix_manual"
+          ]
+        },
         "P02": {
-          "value": null,
-          "confidence": "conflict",
-          "sources": [],
+          "value": 30.0,
+          "confidence": "foxair_reset_and_manual",
+          "sources": [
+            "gl15_reset",
+            "phnix_manual"
+          ],
           "candidates": {
-            "gl15_reset": 30.0,
-            "gl9_video": 35.0,
-            "phnix_protocol": 30.0
+            "gl9_video": 35.0
           },
           "unit": "min"
         },
         "P03": {
-          "value": null,
-          "confidence": "conflict",
-          "sources": [],
+          "value": 3.0,
+          "confidence": "foxair_reset_and_manual",
+          "sources": [
+            "gl15_reset",
+            "phnix_manual"
+          ],
           "candidates": {
-            "gl15_reset": 3.0,
-            "gl9_video": 1.0,
-            "phnix_protocol": 3.0
+            "gl9_video": 1.0
           },
           "unit": "min"
+        },
+        "P05": {
+          "value": 2.0,
+          "confidence": "gl9_video_only",
+          "sources": [
+            "gl9_video"
+          ]
         },
         "P10": {
           "value": 0.0,
