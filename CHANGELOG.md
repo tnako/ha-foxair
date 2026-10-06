@@ -1,3 +1,6 @@
+## 0.7.23 - 2026-10-06
+- fix(defaults): GL-9 candidates re-derived against the printed PHNIX parameter table (Kaisai KHX and Cooper&Hunter Ecopower technical manuals, identical Default column), which replaces the Modbus protocol PDF as the generic source. A value is accepted when the factory-reset FoxAir GL-15-1 agrees with the manual or with the FoxAir GL9 recording; the manual alone never overrides FoxAir, which differs from it on 8 codes where both FoxAir units agree. E02 = 5.0 is now supported (reset unit + manual); E07-1/2/3 stay `null`. Conflicts drop from 15 to 8. `docs/FACTORY_DEFAULTS.md` regenerated with the new sources, levels and deviation tables
+
 ## 0.7.22 - 2026-10-06
 - fix(defaults): the GL-9 values are candidates with a confidence level each, not confirmed factory values. No public GL-9 factory dump exists; sources are a factory-reset GL-15-1, the display firmware defaults, a GL9 app recording of unknown tuning state, and the generic PHNIX protocol. Values where the sources disagree (16, incl. E02 and E07-1/2/3) are now `null` with their candidates. The earlier GL-15-1 dump (owner had already changed settings) is no longer used. `docs/FACTORY_DEFAULTS.md` explains each source and level
 
