@@ -1,3 +1,6 @@
+## 0.7.22 - 2026-10-06
+- fix(defaults): the GL-9 values are candidates with a confidence level each, not confirmed factory values. No public GL-9 factory dump exists; sources are a factory-reset GL-15-1, the display firmware defaults, a GL9 app recording of unknown tuning state, and the generic PHNIX protocol. Values where the sources disagree (16, incl. E02 and E07-1/2/3) are now `null` with their candidates. The earlier GL-15-1 dump (owner had already changed settings) is no longer used. `docs/FACTORY_DEFAULTS.md` explains each source and level
+
 ## 0.7.21 - 2026-10-06
 - docs(defaults): `data/foxair_factory_defaults.json` with GL-9 factory values (EEV, fan, compressor, defrost, protection, pump), taken from WarmLink PW66 screenshots in the photovoltaikforum thread and cross-checked against FoxAir_Control. `docs/FACTORY_DEFAULTS.md` lists the sources, where they disagree, and how to compare a unit. Comparison only: the integration never writes these values
 - test(defaults): every code in the defaults file exists in the metadata, fits the register range and names a known source
