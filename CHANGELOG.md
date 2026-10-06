@@ -1,3 +1,7 @@
+## 0.7.21 - 2026-10-06
+- docs(defaults): `data/foxair_factory_defaults.json` with GL-9 factory values (EEV, fan, compressor, defrost, protection, pump), taken from WarmLink PW66 screenshots in the photovoltaikforum thread and cross-checked against FoxAir_Control. `docs/FACTORY_DEFAULTS.md` lists the sources, where they disagree, and how to compare a unit. Comparison only: the integration never writes these values
+- test(defaults): every code in the defaults file exists in the metadata, fits the register range and names a known source
+
 ## 0.7.20 - 2026-10-06
 - feat(efficiency): tracks fan, water pump, compressor, defrost and heater settings (37 in total) next to the EEV ones. A change to any of them is logged and gets its own comparison group, so it no longer lands in the EEV result. Existing history is kept and re-keyed when the new settings are first read
 - feat(efficiency): "Daily COP" sensor with a whole-day score (heat / electricity incl. defrost, cycling, hot water and standby) against a day model. Settings that act outside steady running (D, P, C, A, H) are judged on it with a 5-day minimum
