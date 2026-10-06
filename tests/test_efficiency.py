@@ -236,3 +236,179 @@ def test_settings_change_is_logged_once():
     a.set_baseline(400)
     assert [c["kind"] for c in a.changes] == ["change", "baseline"] and a.last_change()["t"] == 200
     assert eff.EfficiencyAnalyser(a.to_dict(500)).changes == a.changes
+
+
+def day_row(day, fp, factor=1.0, rng=None):
+    rng = rng or random.Random(day)
+    t_out = rng.uniform(-8, 10)
+    t_flow = 42 - 0.5 * t_out
+    run = 6 + (10 - t_out) * 0.8
+    cop = factor * (0.42 - 0.03 * t_out / 10 - 0.05 * run / 24) * eff.carnot_cop(t_flow, t_out) * (1 + rng.gauss(0, 0.015))
+    elec = 1.2 * run
+    return [day, round(cop * elec, 3), round(elec, 3), t_out, t_flow, run, 20, 5, fp, 1.0, False]
+
+
+def test_daily_comparison_judges_whole_day_settings():
+    base = [day_row(d, "b", rng=random.Random(d)) for d in range(10)]
+    test = [day_row(d, "t", 0.92, random.Random(100 + d)) for d in range(10, 16)]
+    model, groups = eff.compare_daily(base + test, "b")
+    assert model and model["mape_pct"] < 4
+    assert groups["t"]["verdict"] == "worse" and -10 < groups["t"]["delta_pct"] < -5
+    short = [day_row(d, "s", 1.0, random.Random(200 + d)) for d in range(10, 13)]
+    assert eff.compare_daily(base + short, "b")[1]["s"]["verdict"] == "collecting"
+
+
+def test_daily_rows_skip_thin_mixed_and_cooling_days():
+    good = day_row(1, "b")
+    assert eff.day_ok(good)
+    for idx, val in ((eff.R_COVER, 0.5), (eff.R_HEAT, 2.0), (eff.R_FP, "mixed"), (eff.R_COOL, True), (eff.R_RUN, 0.5)):
+        bad = list(good)
+        bad[idx] = val
+        assert not eff.day_ok(bad)
+
+
+def test_daily_accumulator_integrates_energy_and_rolls_over():
+    acc = eff.DailyAccumulator()
+    t0 = 10 * DAY
+    for i in range(0, DAY, 30):
+        on = (i // 3600) % 2 == 0
+        assert acc.add(t0 + i, {"fp": "b", "running": on, "p_day": 1000.0 if on else 10.0,
+                                "q_day": 3000.0 if on else None, "t_out": 2.0, "t_flow": 35.0}, False, False) is None
+    row = acc.add(t0 + DAY, {"fp": "b", "running": False, "p_day": 10.0}, False, False)
+    assert row[eff.R_DAY] == 10 and row[eff.R_FP] == "b"
+    assert abs(row[eff.R_ELEC] - 12.12) < 0.05 and abs(row[eff.R_HEAT] - 36.0) < 0.1
+    assert abs(row[eff.R_RUN] - 12.0) < 0.05 and row[eff.R_TOUT] == 2.0 and row[eff.R_COVER] > 0.99
+
+
+def test_defrost_tracker_records_duration_interval_and_heating_before():
+    tr = eff.DefrostTracker()
+    t = 0.0
+    events = []
+
+    def run(seconds, rs, running=True):
+        nonlocal t
+        for _ in range(int(seconds // 30)):
+            t += 30
+            ev, _ = tr.add(t, {"rs": rs, "running": running, "p_day": 800.0, "t_out": -3.0, "coil": -9.0, "fp": "b"})
+            if ev:
+                events.append(ev)
+
+    run(3000, 1)
+    run(180, 2, running=False)
+    run(2700, 1)
+    run(240, 2, running=False)
+    run(60, 1)
+    assert len(events) == 2
+    a, b = events
+    assert a["dur_s"] == 180 and a["interval_s"] is None and a["coil"] == -9.0 and a["t_out"] == -3.0
+    assert b["dur_s"] == 240 and b["interval_s"] == 2880 and abs(b["run_s"] - 2700) <= 30
+    assert abs(b["elec_wh"] - 800 * 240 / 3600) < 5
+    restored = eff.DefrostTracker(tr.state())
+    assert restored.last_start == tr.last_start
+
+
+def _defrosts(n, now, run_min=46, dur_s=200):
+    return [{"t": now - i * 3600, "dur_s": dur_s, "run_s": run_min * 60, "interval_s": 3600, "elec_wh": 40,
+             "t_out": -2, "coil": -8, "fp": "b"} for i in range(n)]
+
+
+def test_defrost_on_timer_finding():
+    now = 30 * DAY
+    assert eff.defrost_on_timer(eff.defrost_summary(_defrosts(10, now), now, 45))
+    assert not eff.defrost_on_timer(eff.defrost_summary(_defrosts(10, now, run_min=90), now, 45))
+    assert not eff.defrost_on_timer(eff.defrost_summary(_defrosts(10, now, dur_s=600), now, 45))
+    assert not eff.defrost_on_timer(eff.defrost_summary(_defrosts(3, now), now, 45))
+    assert "defrost_on_timer" in eff.hints(None, [], 0, 0, None, now, {"D03": 45}, _defrosts(10, now))
+
+
+def _with_fan(buckets, rpm):
+    for b in buckets:
+        b.append(rpm)
+    return buckets
+
+
+FULL = {"E02": 3.5, "F26": 600.0, "D03": 45.0}
+FFP = eff.fingerprint(FULL)
+
+
+def test_fan_step_only_when_fan_hits_max_and_never_above_660():
+    b = _with_fan(days_of(FFP, 0, 6), 600.0)
+    for x in b:
+        x[eff.F_SH] = 3.5
+    tried_e02 = {}
+    settings = {FFP: FULL}
+    for v in (3.0, 4.0):
+        s = {**FULL, "E02": v}
+        settings[eff.fingerprint(s)] = s
+        b += _with_fan(days_of(eff.fingerprint(s), 6 + len(tried_e02) * 5, 5, factor=1.0, seed=int(v * 10)), 600.0)
+        tried_e02[v] = True
+    a = _adv(b, FULL, settings, FFP)
+    assert (a["action"], a["param"], a["from"], a["to"]) == ("change", "F26", 600.0, 630.0)
+    assert "fan_at_max" in eff.hints(eff.fit(b), b, 0, 0, 3.5, max(x[0] for x in b), FULL)
+    top = {**FULL, "F26": 660.0}
+    assert eff._step("F26", 660.0, 1) is None and eff._step("F26", 700.0, 1) is None
+    assert eff._step("F26", 630.0, 1) == 660.0
+    low = _with_fan(days_of(FFP, 0, 6), 400.0)
+    assert eff.fan_cap_share(low, 600.0, max(x[0] for x in low)) == 0.0
+
+
+def test_defrost_step_uses_daily_metric_and_waits_five_days():
+    b = days_of(FFP, 0, 8)
+    now = max(x[0] for x in b) + 600
+    rows = [day_row(d, FFP, rng=random.Random(d)) for d in range(8)]
+    dm, dg = eff.compare_daily(rows, FFP)
+    model, groups = eff.compare(b, FFP)
+    e02 = {}
+    settings = {FFP: FULL}
+    for v in (3.0, 4.0):
+        s = {**FULL, "E02": v}
+        fp = eff.fingerprint(s)
+        settings[fp] = s
+        groups[fp] = {"days": 5, "verdict": "inconclusive", "delta_pct": 0.1, "ci95_pct": 2.0}
+    a = eff.advise(buckets=b, groups=groups, settings=settings, current=FULL, baseline_fp=FFP, changes=[],
+                   model=model, hint_list=["ok"], sh_target=3.5, now=now, day_rows=rows, day_groups=dg,
+                   day_model=dm, defrosts=_defrosts(10, now))
+    assert (a["action"], a["param"], a["to"], a["metric"], a["days_left"]) == ("change", "D03", 60.0, "daily", 5)
+    longer = {**FULL, "D03": 60.0}
+    lfp = eff.fingerprint(longer)
+    settings[lfp] = longer
+    rows2 = rows + [day_row(d, lfp, rng=random.Random(50 + d)) for d in range(8, 10)]
+    dm2, dg2 = eff.compare_daily(rows2, FFP)
+    a = eff.advise(buckets=b, groups=groups, settings=settings, current=longer, baseline_fp=FFP, changes=[],
+                   model=model, hint_list=["ok"], sh_target=3.5, now=now, day_rows=rows2, day_groups=dg2,
+                   day_model=dm2, defrosts=_defrosts(10, now))
+    assert a["action"] == "keep" and a["metric"] == "daily" and a["days_left"] == 3
+
+
+def test_new_tracked_parameters_keep_existing_history():
+    a = eff.EfficiencyAnalyser()
+    a.update_settings({"E02": 3.5}, 1)
+    old = a.current_fp()
+    a.buckets.append([0, 30, 5, 35, 3000, 700, 5, 100, old, None])
+    a.changes.append({"t": 2, "kind": "change", "diff": {}, "from": old, "to": old})
+    assert a.update_settings({"E02": 3.5, "F26": 600.0, "D03": 45.0}, 3) is None
+    new = a.current_fp()
+    assert new != old and a.baseline_fp == new and a.buckets[0][eff.F_FP] == new
+    assert a.settings[new] == {"E02": 3.5, "F26": 600.0, "D03": 45.0} and old not in a.settings
+    assert a.changes[-1]["to"] == new
+    assert a.describe(new) == "baseline"
+
+
+def test_analyser_end_to_end_day_and_defrost_bookkeeping():
+    a = eff.EfficiencyAnalyser()
+    a.update_settings(FULL, 0)
+    t0 = 20 * DAY
+    for i in range(0, DAY + 600, 30):
+        t = t0 + i
+        rs = 2 if (i % 3600) < 180 else 1
+        a.observe(t, {"running": rs == 1, "steady_ok": rs != 2, "hz": 40.0, "t_out": 0.0, "t_flow": 35.0,
+                      "q": 3000.0 if rs == 1 else None, "p": 900.0 if rs == 1 else None, "sh": 4.0, "eev": 150.0,
+                      "fan": 450.0, "coil": -6.0, "rs": rs, "p_day": 900.0, "q_day": 3000.0 if rs == 1 else -2000.0,
+                      "cooling": False})
+    assert len(a.days) == 1 and eff.day_ok(a.days[0])
+    assert 23 <= len(a.defrosts) <= 25 and a.days[0][eff.R_DEFROSTS] == 24
+    a.refresh(t0 + DAY + 600)
+    d = a.last_day()
+    assert d and 2.5 < d["cop"] < 3.3
+    restored = eff.EfficiencyAnalyser(a.to_dict(0))
+    assert restored.days == a.days and len(restored.defrosts) == len(a.defrosts)

@@ -2833,7 +2833,9 @@
           "ok": "No issue found",
           "short_cycling": "Short cycling",
           "superheat_off_target": "Superheat off target",
-          "superheat_costs": "High superheat costs COP"
+          "superheat_costs": "High superheat costs COP",
+          "fan_at_max": "Fan at its maximum",
+          "defrost_on_timer": "Short defrosts on timer"
         }
       },
       "foxair_efficiency_next_step": {
@@ -2852,6 +2854,12 @@
       },
       "foxair_efficiency_next_change": {
         "name": "Next change allowed"
+      },
+      "foxair_efficiency_daily_cop": {
+        "name": "Daily COP"
+      },
+      "foxair_efficiency_defrosts": {
+        "name": "Defrosts (24 h)"
       }
     },
     "climate": {

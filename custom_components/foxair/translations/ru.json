@@ -2833,7 +2833,9 @@
           "ok": "Проблем не найдено",
           "short_cycling": "Частые пуски",
           "superheat_off_target": "Перегрев не по уставке",
-          "superheat_costs": "Высокий перегрев снижает COP"
+          "superheat_costs": "Высокий перегрев снижает COP",
+          "fan_at_max": "Вентилятор на максимуме",
+          "defrost_on_timer": "Короткие оттайки по таймеру"
         }
       },
       "foxair_efficiency_next_step": {
@@ -2852,6 +2854,12 @@
       },
       "foxair_efficiency_next_change": {
         "name": "Следующее изменение с"
+      },
+      "foxair_efficiency_daily_cop": {
+        "name": "Суточный COP"
+      },
+      "foxair_efficiency_defrosts": {
+        "name": "Оттайки (24 ч)"
       }
     },
     "climate": {

@@ -2,7 +2,7 @@
 
 Control and monitor your **FoxAir / PHNIX air-to-water heat pump** directly from Home Assistant over Modbus TCP — no cloud, no YAML.
 
-![Version](https://img.shields.io/badge/version-0.7.19-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2026.9-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
+![Version](https://img.shields.io/badge/version-0.7.20-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2026.9-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
 ![FoxAir Demo](docs/screenshots/foxair_demo.gif)
 
@@ -73,11 +73,14 @@ Copy `custom_components/foxair` to `/config/custom_components/foxair` (HAOS: `sc
 - **Heating curve** → Slope / Offset / Mode → live `sensor.foxair_heating_curve_target` + graph
 - **PV surplus** → `switch.foxair_pv_surplus` (firmware 3.3+): on = SG Ready mode 4 High PV, off = mode 2 normal, written to the virtual SG input 8801. Needs **SG01 = Modbus / virtual SG input** (1334 = 3), no SG contacts wired. In EVCC use the *Home Assistant switch* charger with this entity. The unit applies a new SG mode at most every 10 minutes: the switch shows the request at once, `sensor.foxair_sgstatus` shows the mode the unit accepted. Mode 4 behaviour (setpoint raise, power) is set in the SG block (SG03-SG08)
 
-## Efficiency analyser (EEV tuning, testing)
+## Efficiency analyser (settings tuning, testing)
 
-The "Efficiency" sub-device compares heating efficiency between EEV settings
-(E01-E19, E03-1 to E07-5), so a change can be judged even though the weather
-never repeats.
+The "Efficiency" sub-device compares heating efficiency between settings, so a
+change can be judged even though the weather never repeats. Tracked settings:
+EEV (E01-E19, E03-1 to E07-5), fan (F05, F06, F19, F26), water pump (P01-P03,
+P11, P12, A40), compressor (C02, C03, C10), defrost (D01-D03, D17, D19) and
+heaters (A31, A33, A34, H18). Any change to one of them, from the unit, the app
+or HA, starts a new comparison group and is logged.
 
 - Every 30 s poll feeds a 10-minute bucket: heating only, compressor running
   for at least 15 minutes, no defrost, no electric heater, and no settings
@@ -94,19 +97,32 @@ never repeats.
   Attributes list the full settings and that group's result.
 - `Finding`: short cycling, superheat off its E02 target, or COP falling as
   superheat rises.
+- `Daily COP`: heat out / electricity in for the last full day, including
+  defrost, cycling, hot water and standby. Days need 80 % data coverage, 5 kWh
+  of heat and 1 h of running. Settings that act outside steady running
+  (defrost, pump, compressor limits, heaters) are judged on this daily score
+  against a day model (outdoor temperature, run hours), with a 5-day minimum.
+- `Defrosts (24 h)`: count, plus duration, heating time before, interval,
+  electricity, outdoor and coil temperature of each recent defrost.
 - `Set EEV baseline` button: makes the current settings the reference.
 - `Next step`: what to do now, with a `message` attribute such as "Change E02
   from 3.5 to 4.0, then keep it for at least 3 heating days":
   - `collecting`: the baseline needs N more heating days;
-  - `change`: one step on one parameter (E02 in 0.5 K steps, 2-6 K). The
-    direction comes from how COP vs the model moves with measured superheat, or
-    from superheat vs its target when that link is too weak;
+  - `change`: one step on one parameter, in this order:
+    - E02 in 0.5 K steps (2-6 K), direction from how COP vs the model moves
+      with measured superheat, or superheat vs its target;
+    - F26 600 -> 630 -> 660 rpm, only when the fan sits at its maximum in at
+      least 20 % of steady running (660 is a hard cap);
+    - D03 +15 min (30-90), only when most recent defrosts are short (under
+      4 min) and start right after the D03 minimum, judged on the daily score.
+    P11 and A40 are never suggested: P11 at 5 K trips the low-flow error, and
+    A40 is the flow protection.
   - `keep`: wait, either 24 h after any change or until the test group has 3 days;
   - `revert` / `accept`: the test is worse, better, or showed no clear gain
     after 10 days;
   - `wait_heating`: under about 1 h of steady heating in the last 2 days;
   - `check_curve`: short cycling, so fix the curve or hysteresis first;
-  - `done`: both directions tested.
+  - `done`: no parameter has a test worth running right now.
   A step that tested worse or inconclusive isn't suggested again; the other
   direction is tried instead.
 - `Next change allowed`: timestamp of the earliest next change (last change + 24 h).

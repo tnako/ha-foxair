@@ -2833,7 +2833,9 @@
           "ok": "Kein Problem gefunden",
           "short_cycling": "Taktet zu oft",
           "superheat_off_target": "Überhitzung abseits Sollwert",
-          "superheat_costs": "Hohe Überhitzung kostet COP"
+          "superheat_costs": "Hohe Überhitzung kostet COP",
+          "fan_at_max": "Lüfter am Maximum",
+          "defrost_on_timer": "Kurze Abtauungen nach Timer"
         }
       },
       "foxair_efficiency_next_step": {
@@ -2852,6 +2854,12 @@
       },
       "foxair_efficiency_next_change": {
         "name": "Nächste Änderung ab"
+      },
+      "foxair_efficiency_daily_cop": {
+        "name": "Tages-COP"
+      },
+      "foxair_efficiency_defrosts": {
+        "name": "Abtauungen (24 h)"
       }
     },
     "climate": {
