@@ -2,7 +2,7 @@
 
 Control and monitor your **FoxAir / PHNIX air-to-water heat pump** directly from Home Assistant over Modbus TCP — no cloud, no YAML.
 
-![Version](https://img.shields.io/badge/version-0.7.18-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2026.9-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
+![Version](https://img.shields.io/badge/version-0.7.19-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2026.9-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
 ![FoxAir Demo](docs/screenshots/foxair_demo.gif)
 
@@ -72,6 +72,61 @@ Copy `custom_components/foxair` to `/config/custom_components/foxair` (HAOS: `sc
 - **Climate** → `Off` / `Heat` + presets `Heating`, `Cooling`, `Heating+Hot Water`, `Cooling+Hot Water`
 - **Heating curve** → Slope / Offset / Mode → live `sensor.foxair_heating_curve_target` + graph
 - **PV surplus** → `switch.foxair_pv_surplus` (firmware 3.3+): on = SG Ready mode 4 High PV, off = mode 2 normal, written to the virtual SG input 8801. Needs **SG01 = Modbus / virtual SG input** (1334 = 3), no SG contacts wired. In EVCC use the *Home Assistant switch* charger with this entity. The unit applies a new SG mode at most every 10 minutes: the switch shows the request at once, `sensor.foxair_sgstatus` shows the mode the unit accepted. Mode 4 behaviour (setpoint raise, power) is set in the SG block (SG03-SG08)
+
+## Efficiency analyser (EEV tuning, testing)
+
+The "Efficiency" sub-device compares heating efficiency between EEV settings
+(E01-E19, E03-1 to E07-5), so a change can be judged even though the weather
+never repeats.
+
+- Every 30 s poll feeds a 10-minute bucket: heating only, compressor running
+  for at least 15 minutes, no defrost, no electric heater, and no settings
+  change inside the bucket. Each bucket stores compressor Hz, outdoor and flow
+  temperature, heat and electrical power, suction superheat and EEV steps.
+- The model is COP = eta x Carnot COP(flow, outdoor), with eta fitted on Hz and
+  outdoor temperature from the baseline settings' buckets only. It needs about
+  6 hours of steady running over 2 days before it predicts. On real data it
+  predicted a held-out day with about 6 % average error.
+- `Efficiency index`: COP of the last 24 h as % of what the baseline would have
+  done in the same weather and load. 100 % = same as the baseline.
+- `Expected COP`: what the baseline would give right now, next to the measured COP.
+- `EEV settings group`: `baseline`, or the parameters that differ from it.
+  Attributes list the full settings and that group's result.
+- `Finding`: short cycling, superheat off its E02 target, or COP falling as
+  superheat rises.
+- `Set EEV baseline` button: makes the current settings the reference.
+- `Next step`: what to do now, with a `message` attribute such as "Change E02
+  from 3.5 to 4.0, then keep it for at least 3 heating days":
+  - `collecting`: the baseline needs N more heating days;
+  - `change`: one step on one parameter (E02 in 0.5 K steps, 2-6 K). The
+    direction comes from how COP vs the model moves with measured superheat, or
+    from superheat vs its target when that link is too weak;
+  - `keep`: wait, either 24 h after any change or until the test group has 3 days;
+  - `revert` / `accept`: the test is worse, better, or showed no clear gain
+    after 10 days;
+  - `wait_heating`: under about 1 h of steady heating in the last 2 days;
+  - `check_curve`: short cycling, so fix the curve or hysteresis first;
+  - `done`: both directions tested.
+  A step that tested worse or inconclusive isn't suggested again; the other
+  direction is tried instead.
+- `Next change allowed`: timestamp of the earliest next change (last change + 24 h).
+- Every EEV change, whoever made it, is logged with time and old/new values
+  (last 10 in the `changes` attribute of `Next step`). A "Set EEV baseline"
+  press is logged as a baseline event.
+
+The suggestion is a test to run, not a promise: superheat follows load and
+weather, so only the A/B result proves a gain.
+
+How to test a change:
+1. Run the current settings until `Next step` says `change` (3+ heating days).
+2. Make exactly that change on the unit, in the app or in HA (expert mode). The
+   analyser picks it up within 10 minutes. Reading the settings needs no expert mode.
+3. Leave it while `Next step` says `keep`. Then follow `revert` or `accept`
+   (accept = keep the value and press "Set EEV baseline").
+
+COP needs a heat value: T59 (firmware 3.3+) or flow x delta T. For the electrical
+side, set Options -> Electrical power source = external meter if you have one.
+History is stored in `.storage/foxair.efficiency.<entry id>` and survives restarts.
 
 ## Help & diagnostics
 

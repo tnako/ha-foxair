@@ -3,9 +3,10 @@ from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.event import async_track_state_change_event
 from homeassistant.helpers.restore_state import RestoreEntity
-from .const import POPULAR_ADDRS, SENSOR_HIDDEN_ADDRS, device_for_addr, main_device, entity_sort_key, get_device_prefix, get_slave_id, bind_device_info, entity_suffix, dependency_met
+from .const import POPULAR_ADDRS, SENSOR_HIDDEN_ADDRS, device_for_addr, device_for_block, main_device, entity_sort_key, get_device_prefix, get_slave_id, bind_device_info, entity_suffix, dependency_met
 from .computed import (compute_heating_power, compute_electrical_power, compute_cop,
                        compute_cop_mode, active_mode, _cval)
+from .efficiency_runtime import marker_addrs
 
 # Build DTYPE_MAP lazily from DTYPE_SPEC: const globals are populated by
 # apply_config() at coordinator load (in-place), so resolve at entity-setup
@@ -73,6 +74,10 @@ async def async_setup_entry(hass, entry, add_entities):
     ents.append(FoxElectricalEnergySensor(coord))
     for _mode in ("cooling", "dhw"):
         ents.append(FoxModeCopSensor(coord, _mode))
+    if getattr(coord, "efficiency", None) is not None:
+        ents.extend([FoxEfficiencyIndexSensor(coord), FoxExpectedCopSensor(coord),
+                     FoxEfficiencySettingsSensor(coord), FoxEfficiencyFindingSensor(coord),
+                     FoxEfficiencyNextStepSensor(coord), FoxEfficiencyNextChangeSensor(coord)])
     add_entities(ents)
 
 class FoxSensor(CoordinatorEntity, SensorEntity):
@@ -453,3 +458,167 @@ class FoxElectricalEnergySensor(FoxEnergySensor):
     def native_value(self):
         val = getattr(self.coordinator, "energy_kwh", {}).get("electrical", 0.0)
         return round(val, 3)
+
+
+class FoxEfficiencySensor(FoxComputedSensor):
+    """Efficiency analyser output, on the Efficiency sub-device."""
+    _key = ""
+
+    def __init__(self, coord):
+        super().__init__(coord)
+        entry_id = coord.entry.entry_id
+        self._attr_unique_id = f"{self._prefix}_efficiency_{self._key}"
+        self.entity_id = f"sensor.{self._prefix}_efficiency_{self._key}"
+        self._attr_translation_key = f"foxair_efficiency_{self._key}"
+        self._attr_device_info = bind_device_info(
+            getattr(coord, "hass", None), entry_id,
+            device_for_block("EFF", entry_id, None, self._prefix, get_slave_id(coord.entry)))
+
+    @property
+    def _an(self):
+        return self.coordinator.efficiency.analyser
+
+
+class FoxEfficiencyIndexSensor(FoxEfficiencySensor):
+    """Last 24 h actual COP as % of the baseline model's prediction for the same weather and load."""
+    _key = "index"
+    _attr_native_unit_of_measurement = "%"
+    _attr_state_class = SensorStateClass.MEASUREMENT
+    _attr_suggested_display_precision = 1
+
+    @property
+    def native_value(self):
+        r = self._an.recent
+        return None if not r else r["index_pct"]
+
+    @property
+    def extra_state_attributes(self):
+        an = self._an
+        groups = {an.describe(fp): g for fp, g in an.groups.items()}
+        attrs = {"baseline": an.baseline_fp, "buckets": len(an.buckets),
+                 "recent_buckets": (an.recent or {}).get("buckets", 0), "groups": groups}
+        if an.model:
+            attrs["model_fit_error_pct"] = an.model["mape_pct"]
+            attrs["model_days"] = an.model["days"]
+        return attrs
+
+
+class FoxExpectedCopSensor(FoxEfficiencySensor):
+    """COP the baseline model expects right now (same compressor Hz, outdoor and flow temperature)."""
+    _key = "expected_cop"
+    _attr_state_class = SensorStateClass.MEASUREMENT
+    _attr_suggested_display_precision = 2
+
+    @property
+    def native_value(self):
+        c = self.coordinator
+        if compute_cop(c, self._opts) is None:
+            return None
+        a = marker_addrs(c)
+        v = self._an.expected_cop(*(_cval(c, a[k]) if a[k] else None for k in ("hz", "t_out", "t_flow")))
+        return None if v is None else round(v, 2)
+
+
+class FoxEfficiencySettingsSensor(FoxEfficiencySensor):
+    """Current EEV settings group: 'baseline' or the parameters that differ from it."""
+    _key = "settings"
+
+    @property
+    def native_value(self):
+        an = self._an
+        if not an.current:
+            return None
+        return an.describe(an.current_fp())[:255]
+
+    @property
+    def extra_state_attributes(self):
+        an = self._an
+        fp = an.current_fp() if an.current else None
+        return {"fingerprint": fp, "settings": dict(an.current),
+                "baseline_settings": an.settings.get(an.baseline_fp or "", {}),
+                "result": an.groups.get(fp or "", {})}
+
+
+class FoxEfficiencyFindingSensor(FoxEfficiencySensor):
+    """Headline finding of the analyser (enum, translated)."""
+    _key = "finding"
+    _attr_device_class = SensorDeviceClass.ENUM
+    _attr_options = ["collecting", "ok", "short_cycling", "superheat_off_target", "superheat_costs"]
+
+    @property
+    def native_value(self):
+        return self._an.hint_list[0]
+
+    @property
+    def extra_state_attributes(self):
+        return {"all": list(self._an.hint_list), "superheat_target": self._an.sh_target}
+
+
+def _advice_message(adv: dict) -> str:
+    """One-line English summary of the advice for dashboards and notifications."""
+    a, p, f, t = adv.get("action"), adv.get("param"), adv.get("from"), adv.get("to")
+    days = adv.get("days_left")
+    when = adv.get("not_before")
+    if a == "change":
+        return f"Change {p} from {f} to {t}, then keep it for at least {days} heating days"
+    if a == "revert":
+        return f"Set {p} back from {f} to {t} ({adv.get('reason')})" if p else "Restore the baseline settings"
+    if a == "accept":
+        return f"Keep {p}={t} and press Set EEV baseline ({adv.get('delta_pct')} % vs baseline)"
+    if a == "keep" and adv.get("reason") == "settling_after_change" and when:
+        from datetime import datetime
+        return f"Wait: no change before {datetime.fromtimestamp(when).strftime('%Y-%m-%d %H:%M')}"
+    if a == "keep":
+        return f"Keep the current settings for {days} more heating day(s)"
+    if a == "collecting":
+        return f"Collecting the baseline: {days} more heating day(s) needed"
+    if a == "wait_heating":
+        nxt = f", then change {p} from {f} to {t}" if p and t is not None else ""
+        return f"Wait for heating demand (about 1 h of steady heating a day){nxt}"
+    if a == "check_curve":
+        return "Short cycling: fix the heating curve or hysteresis before EEV tests"
+    if a == "done":
+        return "All planned EEV steps are tested"
+    return "Waiting for EEV settings"
+
+
+class FoxEfficiencyNextStepSensor(FoxEfficiencySensor):
+    """What to do next: change, keep, revert, accept, wait (enum, translated)."""
+    _key = "next_step"
+    _attr_device_class = SensorDeviceClass.ENUM
+    _attr_options = ["collecting", "keep", "change", "revert", "accept", "wait_heating", "check_curve", "done", "none"]
+
+    @property
+    def native_value(self):
+        return self._an.advice.get("action", "none")
+
+    @property
+    def extra_state_attributes(self):
+        from datetime import datetime, timezone
+        adv = dict(self._an.advice)
+        if adv.get("not_before"):
+            adv["not_before"] = datetime.fromtimestamp(adv["not_before"], timezone.utc).isoformat()
+        log = []
+        for c in self._an.changes[-10:]:
+            log.append({"time": datetime.fromtimestamp(c["t"], timezone.utc).isoformat(), "kind": c.get("kind"),
+                        "diff": c.get("diff"), "verdict": (self._an.groups.get(c.get("to") or "") or {}).get("verdict")})
+        return {**adv, "message": _advice_message(self._an.advice), "changes": log}
+
+
+class FoxEfficiencyNextChangeSensor(FoxEfficiencySensor):
+    """Earliest time the next EEV change is allowed (last change + 24 h); unknown when no change is pending."""
+    _key = "next_change"
+    _attr_device_class = SensorDeviceClass.TIMESTAMP
+
+    @property
+    def native_value(self):
+        from datetime import datetime, timezone
+        t = self._an.advice.get("not_before")
+        return None if not t else datetime.fromtimestamp(t, timezone.utc)
+
+    @property
+    def extra_state_attributes(self):
+        from datetime import datetime, timezone
+        last = self._an.last_change()
+        return {"last_change": None if not last else datetime.fromtimestamp(last["t"], timezone.utc).isoformat(),
+                "last_diff": None if not last else last.get("diff")}

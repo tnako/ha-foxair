@@ -2816,6 +2816,42 @@
       },
       "foxair_1463": {
         "name": "AT-Fühler"
+      },
+      "foxair_efficiency_index": {
+        "name": "Effizienzindex"
+      },
+      "foxair_efficiency_expected_cop": {
+        "name": "Erwarteter COP"
+      },
+      "foxair_efficiency_settings": {
+        "name": "EEV-Einstellungsgruppe"
+      },
+      "foxair_efficiency_finding": {
+        "name": "Befund",
+        "state": {
+          "collecting": "Sammle Daten",
+          "ok": "Kein Problem gefunden",
+          "short_cycling": "Taktet zu oft",
+          "superheat_off_target": "Überhitzung abseits Sollwert",
+          "superheat_costs": "Hohe Überhitzung kostet COP"
+        }
+      },
+      "foxair_efficiency_next_step": {
+        "name": "Nächster Schritt",
+        "state": {
+          "collecting": "Basis wird erfasst",
+          "keep": "Beibehalten, warten",
+          "change": "Jetzt ändern",
+          "revert": "Zurücksetzen",
+          "accept": "Neuen Wert übernehmen",
+          "wait_heating": "Auf Heizbetrieb warten",
+          "check_curve": "Heizkurve prüfen",
+          "done": "Alle Schritte getestet",
+          "none": "Noch keine Einstellungen"
+        }
+      },
+      "foxair_efficiency_next_change": {
+        "name": "Nächste Änderung ab"
       }
     },
     "climate": {
@@ -4998,6 +5034,9 @@
       },
       "foxair_manual_heating_boost": {
         "name": "Ein-Tasten-Heizen"
+      },
+      "foxair_efficiency_set_baseline": {
+        "name": "EEV-Basis festlegen"
       }
     },
     "binary_sensor": {

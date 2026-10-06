@@ -2816,6 +2816,42 @@
       },
       "foxair_1463": {
         "name": "Наружный датчик"
+      },
+      "foxair_efficiency_index": {
+        "name": "Индекс эффективности"
+      },
+      "foxair_efficiency_expected_cop": {
+        "name": "Ожидаемый COP"
+      },
+      "foxair_efficiency_settings": {
+        "name": "Группа настроек EEV"
+      },
+      "foxair_efficiency_finding": {
+        "name": "Вывод",
+        "state": {
+          "collecting": "Сбор данных",
+          "ok": "Проблем не найдено",
+          "short_cycling": "Частые пуски",
+          "superheat_off_target": "Перегрев не по уставке",
+          "superheat_costs": "Высокий перегрев снижает COP"
+        }
+      },
+      "foxair_efficiency_next_step": {
+        "name": "Следующий шаг",
+        "state": {
+          "collecting": "Сбор базы",
+          "keep": "Оставить, ждать",
+          "change": "Изменить сейчас",
+          "revert": "Вернуть",
+          "accept": "Принять новое значение",
+          "wait_heating": "Ждать отопления",
+          "check_curve": "Проверить кривую",
+          "done": "Все шаги проверены",
+          "none": "Настроек пока нет"
+        }
+      },
+      "foxair_efficiency_next_change": {
+        "name": "Следующее изменение с"
       }
     },
     "climate": {
@@ -4998,6 +5034,9 @@
       },
       "foxair_manual_heating_boost": {
         "name": "Разовый ручной нагрев"
+      },
+      "foxair_efficiency_set_baseline": {
+        "name": "Сделать EEV базой"
       }
     },
     "binary_sensor": {

@@ -2816,6 +2816,42 @@
       },
       "foxair_1463": {
         "name": "Outdoor sensor"
+      },
+      "foxair_efficiency_index": {
+        "name": "Efficiency index"
+      },
+      "foxair_efficiency_expected_cop": {
+        "name": "Expected COP"
+      },
+      "foxair_efficiency_settings": {
+        "name": "EEV settings group"
+      },
+      "foxair_efficiency_finding": {
+        "name": "Finding",
+        "state": {
+          "collecting": "Collecting data",
+          "ok": "No issue found",
+          "short_cycling": "Short cycling",
+          "superheat_off_target": "Superheat off target",
+          "superheat_costs": "High superheat costs COP"
+        }
+      },
+      "foxair_efficiency_next_step": {
+        "name": "Next step",
+        "state": {
+          "collecting": "Collecting baseline",
+          "keep": "Keep, wait",
+          "change": "Change now",
+          "revert": "Revert",
+          "accept": "Accept new value",
+          "wait_heating": "Wait for heating",
+          "check_curve": "Check heating curve",
+          "done": "All steps tested",
+          "none": "No settings yet"
+        }
+      },
+      "foxair_efficiency_next_change": {
+        "name": "Next change allowed"
       }
     },
     "climate": {
@@ -4998,6 +5034,9 @@
       },
       "foxair_manual_heating_boost": {
         "name": "One-Touch Manual Heating"
+      },
+      "foxair_efficiency_set_baseline": {
+        "name": "Set EEV baseline"
       }
     },
     "binary_sensor": {

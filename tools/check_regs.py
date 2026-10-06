@@ -142,12 +142,17 @@ def modbus_read(host: str, port: int, slave: int, addr: int, count: int = 1,
             s.settimeout(timeout)
             tid = attempt + 1
             s.sendall(struct.pack(">HHHB", tid, 0, len(pdu) + 1, slave) + pdu)
-            data = s.recv(1024)
-            if len(data) >= 9 and data[7] == 3:
-                bc = data[8]
-                vals = struct.unpack(f">{bc // 2}H", data[9:9 + bc])
+            data = b""
+            while len(data) < 9 or len(data) < 6 + struct.unpack(">H", data[4:6])[0]:
+                chunk = s.recv(1024)
+                if not chunk:
+                    break
+                data += chunk
+            if (len(data) >= 9 + 2 * count and struct.unpack(">H", data[:2])[0] == tid
+                    and data[6] == slave and data[7] == 3 and data[8] == 2 * count):
+                vals = struct.unpack(f">{count}H", data[9:9 + 2 * count])
                 return vals[0]  # first register (scalar reads)
-            # exception response or short frame — retry
+            # exception response, short or foreign frame — retry
         except Exception:
             pass
         finally:

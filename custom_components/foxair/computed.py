@@ -145,6 +145,16 @@ def heat_output_active(coord) -> Optional[bool]:
     comp = _compressor_running(coord)
     if comp is not False:
         return comp
+    return electric_heater_on(coord)
+
+
+def compressor_running(coord) -> Optional[bool]:
+    """Public, memoized compressor-running evidence (see _compressor_running)."""
+    return _cached(coord, "compressor_running", lambda: _compressor_running(coord))
+
+
+def electric_heater_on(coord) -> bool:
+    """True when a backup or DHW tank electric heater output is switched on."""
     for addr, mask in ((_OUTPUTS_WORD, _HEATER_MASK), (_LOAD_OUTPUTS_WORD, _TANK_HEATER_MASK)):
         rec = coord.data.get(addr)
         if rec and rec.get("raw") is not None and int(rec["raw"]) & mask:

@@ -105,6 +105,8 @@ def scaled(dtype, raw):
 
 
 class FoxAirCoordinator(DataUpdateCoordinator):
+    efficiency = None
+
     def __init__(self, hass, entry):
         cfg = entry.data or {}
         _prefix = str(cfg.get("name_prefix", "foxair") or "foxair")
@@ -732,6 +734,8 @@ class FoxAirCoordinator(DataUpdateCoordinator):
             if is_first and not self._burst_task:
                 self._burst_task = self.hass.async_create_task(self._startup_burst())
             self._accumulate_energy()
+            if self.efficiency is not None:
+                self.efficiency.on_poll()
             return self.data
 
     def _accumulate_energy(self):
