@@ -2602,20 +2602,12 @@
     "app_label": "EEV Initial Steps for Heating3",
     "block": "E",
     "code": "E03-3",
-    "app_values": {
-      "0": "No",
-      "1": "Yes"
-    },
     "function": "03/16",
     "last_review": "v0.2.32 video 2026-06-14",
     "mode": "r/w",
     "name": "EEV Anfangsschritte Heizen 3",
     "type": "STEPS_N",
-    "unit": "N",
-    "value_map": {
-      "0": "Nein",
-      "1": "Ja"
-    }
+    "unit": "N"
   },
   "1207": {
     "app_current_video_value": "125 N",
@@ -2634,20 +2626,12 @@
     "app_label": "EEV Initial Steps for Heating5",
     "block": "E",
     "code": "E03-5",
-    "app_values": {
-      "0": "No",
-      "1": "Yes"
-    },
     "function": "03/16",
     "last_review": "v0.2.32 video 2026-06-14",
     "mode": "r/w",
     "name": "EEV Anfangsschritte Heizen 5",
     "type": "STEPS_N",
-    "unit": "N",
-    "value_map": {
-      "0": "Nein",
-      "1": "Ja"
-    }
+    "unit": "N"
   },
   "1209": {
     "app_current_video_value": "130 N",

@@ -186,6 +186,10 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     await coord._load_map()     # load regmap + metadata off the event loop
     await coord.async_config_entry_first_refresh()
     entry.runtime_data = coord
+    from homeassistant.helpers.storage import Store
+    from .efficiency_runtime import STORE_VERSION, EfficiencyRuntime
+    coord.efficiency = EfficiencyRuntime(hass, coord, Store(hass, STORE_VERSION, f"{DOMAIN}.efficiency.{entry.entry_id}"))
+    await coord.efficiency.async_load()
     entry.async_on_unload(entry.add_update_listener(async_reload_entry))
 
     enable_expert = bool(entry.options.get("enable_expert"))
@@ -227,6 +231,8 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry):
         except Exception:
             pass
     ok = await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
+    if coord and getattr(coord, "efficiency", None):
+        await coord.efficiency.async_shutdown()
     if coord and getattr(coord, "client", None):
         try:
             coord.client.close()

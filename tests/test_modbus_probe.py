@@ -23,18 +23,35 @@ probe.PACE_S = 0
 
 
 class FakeBridge:
-    def __init__(self, regs, on_write=None):
+    def __init__(self, regs, on_write=None, late_first=False):
         self.regs = dict(regs)
         self.on_write = on_write
+        self.late_first = late_first
         self.srv = socket.socket()
         self.srv.bind(("127.0.0.1", 0))
         self.srv.listen(1)
         self.port = self.srv.getsockname()[1]
         threading.Thread(target=self._serve, daemon=True).start()
 
+    def _reply(self, tid, unit, pdu):
+        fc = pdu[0]
+        if fc == 3:
+            addr, count = struct.unpack(">HH", pdu[1:5])
+            words = [self.regs.get(addr + i, 0) for i in range(count)]
+            body = struct.pack(">BB", 3, 2 * count) + b"".join(struct.pack(">H", w) for w in words)
+        else:
+            addr, count, _n = struct.unpack(">HHB", pdu[1:6])
+            for i in range(count):
+                self.regs[addr + i] = struct.unpack(">H", pdu[6 + 2 * i:8 + 2 * i])[0]
+            if self.on_write:
+                self.on_write(self.regs, addr)
+            body = struct.pack(">BHH", 16, addr, count)
+        return struct.pack(">HHHB", tid, 0, len(body) + 1, unit) + body
+
     def _serve(self):
         conn, _ = self.srv.accept()
-        first = True
+        first = None
+        answered = 0
         with conn:
             while True:
                 hdr = conn.recv(7)
@@ -42,22 +59,14 @@ class FakeBridge:
                     return
                 tid, _, length, unit = struct.unpack(">HHHB", hdr)
                 pdu = conn.recv(length - 1)
-                if first:
-                    first = False
+                if first is None:
+                    first = (tid, unit, pdu)
                     continue
-                fc = pdu[0]
-                if fc == 3:
-                    addr, count = struct.unpack(">HH", pdu[1:5])
-                    words = [self.regs.get(addr + i, 0) for i in range(count)]
-                    body = struct.pack(">BB", 3, 2 * count) + b"".join(struct.pack(">H", w) for w in words)
-                else:
-                    addr, count, _n = struct.unpack(">HHB", pdu[1:6])
-                    for i in range(count):
-                        self.regs[addr + i] = struct.unpack(">H", pdu[6 + 2 * i:8 + 2 * i])[0]
-                    if self.on_write:
-                        self.on_write(self.regs, addr)
-                    body = struct.pack(">BHH", 16, addr, count)
-                conn.sendall(struct.pack(">HHHB", tid, 0, len(body) + 1, unit) + body)
+                out = self._reply(tid, unit, pdu)
+                answered += 1
+                if self.late_first and answered == 2:
+                    out = self._reply(*first) + out
+                conn.sendall(out)
 
 
 def _probe(bridge):
@@ -124,6 +133,17 @@ def test_single_glitched_zero_is_not_an_effect():
         assert b.regs[1234] == 0
     finally:
         probe.Probe.read = real
+        p.close()
+
+
+def test_late_reply_to_a_timed_out_request_is_not_taken_as_the_next_answer():
+    b = FakeBridge({1027: 0, 1035: 3, 2000: 2425}, late_first=True)
+    p = _probe(b)
+    try:
+        assert p.read(2000, 26)[0] == 2425
+        assert p.read(1027) == [0]
+        assert p.read(1035) == [3]
+    finally:
         p.close()
 
 

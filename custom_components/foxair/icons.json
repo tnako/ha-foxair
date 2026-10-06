@@ -1728,6 +1728,24 @@
       },
       "foxair_1463": {
         "default": "mdi:thermometer-lines"
+      },
+      "foxair_efficiency_index": {
+        "default": "mdi:gauge"
+      },
+      "foxair_efficiency_expected_cop": {
+        "default": "mdi:target"
+      },
+      "foxair_efficiency_settings": {
+        "default": "mdi:valve"
+      },
+      "foxair_efficiency_finding": {
+        "default": "mdi:stethoscope"
+      },
+      "foxair_efficiency_next_step": {
+        "default": "mdi:arrow-right-bold-circle-outline"
+      },
+      "foxair_efficiency_next_change": {
+        "default": "mdi:calendar-clock"
       }
     },
     "climate": {
@@ -2687,6 +2705,9 @@
       },
       "foxair_manual_heating_boost": {
         "default": "mdi:fire"
+      },
+      "foxair_efficiency_set_baseline": {
+        "default": "mdi:flag-checkered"
       }
     },
     "binary_sensor": {

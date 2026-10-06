@@ -65,7 +65,24 @@ class Probe:
     def close(self) -> None:
         self.sock.close()
 
-    def _request(self, pdu: bytes, fc: int, unit: int | None = None) -> bytes:
+    def _frames(self, buf: bytes):
+        """Split complete MBAP frames off the buffer; returns (frames, rest)."""
+        frames = []
+        while len(buf) >= 7:
+            length = struct.unpack(">H", buf[4:6])[0]
+            if len(buf) < 6 + length:
+                break
+            frames.append(buf[:6 + length])
+            buf = buf[6 + length:]
+        return frames, buf
+
+    def _request(self, pdu: bytes, fc: int, unit: int | None = None, byte_count: int | None = None) -> bytes:
+        """Send one request; accept only the reply with our transaction id, unit and fc.
+
+        A reply that arrives after its retry timed out carries an older
+        transaction id and is dropped, so it can't be taken as the answer to
+        a later request (seen live as shifted register values).
+        """
         unit = self.unit if unit is None else unit
         for _ in range(self.tries):
             self.tid = (self.tid + 1) & 0xFFFF
@@ -76,22 +93,26 @@ class Probe:
                     chunk = self.sock.recv(512)
                     if not chunk:
                         raise ConnectionError("bridge closed the connection")
-                    buf += chunk
-                    if len(buf) >= 9 and buf[7] == fc | 0x80:
-                        raise RuntimeError(f"Modbus exception {buf[8]} (fc {fc})")
-                    if fc == 3 and len(buf) >= 9 and buf[7] == 3 and len(buf) >= 9 + buf[8]:
+                    frames, buf = self._frames(buf + chunk)
+                    for fr in frames:
+                        tid, _, _, f_unit = struct.unpack(">HHHB", fr[:7])
+                        if tid != self.tid or f_unit != unit or len(fr) < 9:
+                            continue
+                        if fr[7] == fc | 0x80:
+                            raise RuntimeError(f"Modbus exception {fr[8]} (fc {fc})")
+                        if fr[7] != fc:
+                            continue
+                        if fc == 3 and (fr[8] != byte_count or len(fr) < 9 + fr[8]):
+                            continue
                         time.sleep(PACE_S)
-                        return buf
-                    if fc == 16 and len(buf) >= 12 and buf[7] == 16:
-                        time.sleep(PACE_S)
-                        return buf
+                        return fr
             except socket.timeout:
                 time.sleep(0.5)
         raise TimeoutError(f"no answer after {self.tries} tries (fc {fc})")
 
     def read(self, addr: int, count: int = 1, unit: int | None = None) -> list[int]:
-        buf = self._request(struct.pack(">BHH", 3, addr, count), 3, unit)
-        return list(struct.unpack(f">{buf[8] // 2}H", buf[9:9 + buf[8]]))
+        buf = self._request(struct.pack(">BHH", 3, addr, count), 3, unit, byte_count=2 * count)
+        return list(struct.unpack(f">{count}H", buf[9:9 + 2 * count]))
 
     def write(self, addr: int, words: list[int]) -> None:
         words = [w & 0xFFFF for w in words]

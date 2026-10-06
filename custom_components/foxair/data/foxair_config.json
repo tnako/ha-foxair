@@ -276,7 +276,8 @@
       "KG": "Timer",
       "ERR": "Fault",
       "S": "Switches",
-      "HC": "Heating curve"
+      "HC": "Heating curve",
+      "EFF": "Efficiency"
     },
     "icons": {
       "H": "mdi:chip",
@@ -296,7 +297,8 @@
       "KG": "mdi:timer-outline",
       "ERR": "mdi:alert-circle",
       "S": "mdi:electric-switch",
-      "HC": "mdi:chart-line"
+      "HC": "mdi:chart-line",
+      "EFF": "mdi:chart-bell-curve"
     },
     "risk_by_block": {
       "R": "safe",
@@ -823,6 +825,46 @@
       "1248": 1249
     },
     "overrides": {
+      "1142": {
+        "min": 0,
+        "max": 500
+      },
+      "1200": {
+        "min": 0,
+        "max": 500
+      },
+      "1206": {
+        "min": 0,
+        "max": 500
+      },
+      "1207": {
+        "min": 0,
+        "max": 500
+      },
+      "1208": {
+        "min": 0,
+        "max": 500
+      },
+      "1209": {
+        "min": 0,
+        "max": 500
+      },
+      "1210": {
+        "min": 0,
+        "max": 500
+      },
+      "1211": {
+        "min": 0,
+        "max": 500
+      },
+      "1215": {
+        "min": 0,
+        "max": 500
+      },
+      "1216": {
+        "min": 0,
+        "max": 500
+      },
       "1244": {
         "block": "KG",
         "tab": "KG",
