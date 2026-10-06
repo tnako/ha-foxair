@@ -77,7 +77,8 @@ async def async_setup_entry(hass, entry, add_entities):
     if getattr(coord, "efficiency", None) is not None:
         ents.extend([FoxEfficiencyIndexSensor(coord), FoxExpectedCopSensor(coord),
                      FoxEfficiencySettingsSensor(coord), FoxEfficiencyFindingSensor(coord),
-                     FoxEfficiencyNextStepSensor(coord), FoxEfficiencyNextChangeSensor(coord)])
+                     FoxEfficiencyNextStepSensor(coord), FoxEfficiencyNextChangeSensor(coord),
+                     FoxEfficiencyDailySensor(coord), FoxDefrostSensor(coord)])
     add_entities(ents)
 
 class FoxSensor(CoordinatorEntity, SensorEntity):
@@ -496,7 +497,8 @@ class FoxEfficiencyIndexSensor(FoxEfficiencySensor):
         an = self._an
         groups = {an.describe(fp): g for fp, g in an.groups.items()}
         attrs = {"baseline": an.baseline_fp, "buckets": len(an.buckets),
-                 "recent_buckets": (an.recent or {}).get("buckets", 0), "groups": groups}
+                 "recent_buckets": (an.recent or {}).get("buckets", 0), "groups": groups,
+                 "daily_groups": {an.describe(fp): g for fp, g in an.day_groups.items()}}
         if an.model:
             attrs["model_fit_error_pct"] = an.model["mape_pct"]
             attrs["model_days"] = an.model["days"]
@@ -536,14 +538,15 @@ class FoxEfficiencySettingsSensor(FoxEfficiencySensor):
         fp = an.current_fp() if an.current else None
         return {"fingerprint": fp, "settings": dict(an.current),
                 "baseline_settings": an.settings.get(an.baseline_fp or "", {}),
-                "result": an.groups.get(fp or "", {})}
+                "result": an.groups.get(fp or "", {}), "daily_result": an.day_groups.get(fp or "", {})}
 
 
 class FoxEfficiencyFindingSensor(FoxEfficiencySensor):
     """Headline finding of the analyser (enum, translated)."""
     _key = "finding"
     _attr_device_class = SensorDeviceClass.ENUM
-    _attr_options = ["collecting", "ok", "short_cycling", "superheat_off_target", "superheat_costs"]
+    _attr_options = ["collecting", "ok", "short_cycling", "superheat_off_target", "superheat_costs",
+                     "fan_at_max", "defrost_on_timer"]
 
     @property
     def native_value(self):
@@ -554,13 +557,17 @@ class FoxEfficiencyFindingSensor(FoxEfficiencySensor):
         return {"all": list(self._an.hint_list), "superheat_target": self._an.sh_target}
 
 
+def _fmt(v):
+    return int(v) if isinstance(v, float) and v.is_integer() else v
+
+
 def _advice_message(adv: dict) -> str:
     """One-line English summary of the advice for dashboards and notifications."""
     a, p, f, t = adv.get("action"), adv.get("param"), adv.get("from"), adv.get("to")
     days = adv.get("days_left")
     when = adv.get("not_before")
     if a == "change":
-        return f"Change {p} from {f} to {t}, then keep it for at least {days} heating days"
+        return f"Change {p} from {_fmt(f)} to {_fmt(t)}, then keep it for at least {days} heating days"
     if a == "revert":
         return f"Set {p} back from {f} to {t} ({adv.get('reason')})" if p else "Restore the baseline settings"
     if a == "accept":
@@ -622,3 +629,46 @@ class FoxEfficiencyNextChangeSensor(FoxEfficiencySensor):
         last = self._an.last_change()
         return {"last_change": None if not last else datetime.fromtimestamp(last["t"], timezone.utc).isoformat(),
                 "last_diff": None if not last else last.get("diff")}
+
+
+class FoxEfficiencyDailySensor(FoxEfficiencySensor):
+    """Whole-day COP (heat out / electricity in, defrost, cycling and standby included) of the last full day."""
+    _key = "daily_cop"
+    _attr_state_class = SensorStateClass.MEASUREMENT
+    _attr_suggested_display_precision = 2
+
+    @property
+    def native_value(self):
+        d = self._an.last_day()
+        return None if not d else d["cop"]
+
+    @property
+    def extra_state_attributes(self):
+        from datetime import datetime, timezone
+        d = self._an.last_day() or {}
+        if d:
+            d = {**d, "day": datetime.fromtimestamp(d["day"] * 86400, timezone.utc).date().isoformat()}
+        m = self._an.day_model
+        return {**d, "days_recorded": len(self._an.days),
+                "model_fit_error_pct": None if not m else m["mape_pct"]}
+
+
+class FoxDefrostSensor(FoxEfficiencySensor):
+    """Defrost cycles in the last 24 h, with duration, interval and energy of the recent ones."""
+    _key = "defrosts"
+    _attr_state_class = SensorStateClass.MEASUREMENT
+
+    @property
+    def native_value(self):
+        import time as _t
+        return sum(1 for e in self._an.defrosts if _t.time() - e["t"] <= 86400)
+
+    @property
+    def extra_state_attributes(self):
+        import time as _t
+        from datetime import datetime, timezone
+        from .efficiency import defrost_summary
+        an = self._an
+        summ = defrost_summary(an.defrosts, _t.time(), an.current.get("D03"))
+        last = [{**e, "t": datetime.fromtimestamp(e["t"], timezone.utc).isoformat()} for e in an.defrosts[-5:]]
+        return {**summ, "recent": last, "recorded": len(an.defrosts)}

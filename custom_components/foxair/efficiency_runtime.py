@@ -16,12 +16,22 @@ REFRESH_EVERY_S = 3600
 
 ADDR_SH_SUCTION = 2067
 ADDR_EEV_STEPS = 2020
+ADDR_COIL = 2049
+ADDR_FAN_TARGET = 2076
+ADDR_FLOW = 2077
+ADDR_INLET = 2045
 RUN_STATUS_DEFROST = 2
+WATER_W_PER_M3H_K = 1000.0 * 4186.0 / 3600.0
 
 SETTING_ADDRS = {
     "E01": 1131, "E02": 1132, "E03": 1133, "E07": 1137, "E19": 1149,
     "E03-1": 1200, "E03-2": 1142, "E03-3": 1206, "E03-4": 1207, "E03-5": 1208,
     "E07-1": 1209, "E07-2": 1210, "E07-3": 1211, "E07-4": 1215, "E07-5": 1216,
+    "F05": 1066, "F06": 1068, "F19": 1083, "F26": 1104,
+    "P01": 1197, "P02": 1198, "P03": 1199, "P11": 1432, "P12": 1433, "A40": 1344,
+    "C02": 1219, "C03": 1220, "C10": 1227,
+    "D01": 1105, "D02": 1106, "D03": 1107, "D17": 1122, "D19": 1124,
+    "A31": 1049, "A33": 1063, "A34": 1064, "H18": 1032,
 }
 
 
@@ -44,7 +54,7 @@ def marker_addrs(coord) -> dict:
 
 
 def settings_snapshot(coord) -> dict:
-    """EEV settings present in coord.data (expert mode polls them)."""
+    """Tracked settings present in coord.data (expert mode polls most of them)."""
     out = {}
     for code, addr in SETTING_ADDRS.items():
         v = _val(coord, addr)
@@ -53,21 +63,40 @@ def settings_snapshot(coord) -> dict:
     return out
 
 
+def _water_power(coord, t_flow):
+    """Signed water-side power flow x cp x (outlet - inlet); negative while defrost pulls heat back."""
+    flow, inlet = _val(coord, ADDR_FLOW), _val(coord, ADDR_INLET)
+    if flow is None or inlet is None or t_flow is None or flow <= 0:
+        return None
+    return flow * WATER_W_PER_M3H_K * (t_flow - inlet)
+
+
 def sample(coord, opts: dict) -> dict:
-    """One poll's worth of analyser inputs; heating-only, defrost and heater polls are not steady."""
+    """One poll's worth of analyser inputs: steady heating, daily totals and defrost tracking."""
     a = marker_addrs(coord)
     rs = _computed.run_status_raw(coord)
-    running = _computed.compressor_running(coord) is True and _computed.active_mode(coord) == "heating"
+    mode = _computed.active_mode(coord)
+    comp = _computed.compressor_running(coord) is True
+    running = comp and mode == "heating"
+    t_flow = _val(coord, a["t_flow"]) if a["t_flow"] else None
     q = _computed.compute_thermal_power(coord, "heating") if running else None
-    p = _computed.compute_electrical_power(coord, opts) if running else None
+    p_all = _computed.compute_electrical_power(coord, opts)
+    if mode in ("heating", "dhw") and comp:
+        q_day = _computed.compute_thermal_power(coord, mode)
+    elif mode == "defrost":
+        q_day = _water_power(coord, t_flow)
+    else:
+        q_day = None
     return {
         "running": running,
         "steady_ok": rs != RUN_STATUS_DEFROST and not _computed.electric_heater_on(coord),
         "hz": _val(coord, a["hz"]) if a["hz"] else None,
         "t_out": _val(coord, a["t_out"]) if a["t_out"] else None,
-        "t_flow": _val(coord, a["t_flow"]) if a["t_flow"] else None,
-        "q": q, "p": p,
+        "t_flow": t_flow,
+        "q": q, "p": p_all if running else None,
         "sh": _val(coord, ADDR_SH_SUCTION), "eev": _val(coord, ADDR_EEV_STEPS),
+        "fan": _val(coord, ADDR_FAN_TARGET), "coil": _val(coord, ADDR_COIL),
+        "rs": rs, "p_day": p_all, "q_day": q_day, "cooling": mode == "cooling" and comp,
     }
 
 
@@ -131,7 +160,6 @@ class EfficiencyRuntime:
     def _task_running(task) -> bool:
         return task is not None and not task.done()
 
-
     def request_refresh(self) -> None:
         if not self._task_running(self._refresh_task):
             self._refresh_task = self.hass.async_create_task(self._refresh())
@@ -142,7 +170,7 @@ class EfficiencyRuntime:
         self.coord.async_update_listeners()
 
     async def _fetch_settings(self, addrs: set[int]) -> None:
-        """Read EEV settings that the tiered poll skips (expert mode off); never written to coord.data."""
+        """Read tracked settings the tiered poll skips; never written to coord.data."""
         try:
             out = await self.coord._fetch_addrs(addrs)
         except Exception as e:
@@ -162,7 +190,7 @@ class EfficiencyRuntime:
         if polled or self._fetched_once:
             rec = self.analyser.update_settings(snap, time.time())
             if rec:
-                _LOGGER.info("EEV settings changed: %s", rec["diff"])
+                _LOGGER.info("Heat pump settings changed: %s", rec["diff"])
                 self.schedule_save()
                 self.request_refresh()
 

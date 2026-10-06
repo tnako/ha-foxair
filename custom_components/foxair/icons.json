@@ -1746,6 +1746,12 @@
       },
       "foxair_efficiency_next_change": {
         "default": "mdi:calendar-clock"
+      },
+      "foxair_efficiency_daily_cop": {
+        "default": "mdi:calendar-today"
+      },
+      "foxair_efficiency_defrosts": {
+        "default": "mdi:snowflake-melt"
       }
     },
     "climate": {
