@@ -613,21 +613,35 @@ class FoxEfficiencyNextStepSensor(FoxEfficiencySensor):
 
 
 class FoxEfficiencyNextChangeSensor(FoxEfficiencySensor):
-    """Earliest time the next EEV change is allowed (last change + 24 h); unknown when no change is pending."""
+    """When the next change is due: the hold time after a change, or an estimate while data is collected."""
     _key = "next_change"
     _attr_device_class = SensorDeviceClass.TIMESTAMP
+
+    def _when(self):
+        """(timestamp, estimated): hold end when known, else the day the missing heating days would be complete."""
+        adv = self._an.advice
+        if adv.get("not_before"):
+            return adv["not_before"], False
+        days = adv.get("days_left")
+        if days and adv.get("action") in ("collecting", "keep", "wait_heating"):
+            import time
+            return (int(time.time() // 86400) + int(days)) * 86400, True
+        return None, False
 
     @property
     def native_value(self):
         from datetime import datetime, timezone
-        t = self._an.advice.get("not_before")
+        t, _ = self._when()
         return None if not t else datetime.fromtimestamp(t, timezone.utc)
 
     @property
     def extra_state_attributes(self):
         from datetime import datetime, timezone
         last = self._an.last_change()
-        return {"last_change": None if not last else datetime.fromtimestamp(last["t"], timezone.utc).isoformat(),
+        _, est = self._when()
+        return {"estimated": est, "days_left": self._an.advice.get("days_left"),
+                "reason": self._an.advice.get("reason"),
+                "last_change": None if not last else datetime.fromtimestamp(last["t"], timezone.utc).isoformat(),
                 "last_diff": None if not last else last.get("diff")}
 
 

@@ -2,7 +2,7 @@
 
 Control and monitor your **FoxAir / PHNIX air-to-water heat pump** directly from Home Assistant over Modbus TCP — no cloud, no YAML.
 
-![Version](https://img.shields.io/badge/version-0.7.23-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2026.9-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
+![Version](https://img.shields.io/badge/version-0.7.24-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2026.9-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
 ![FoxAir Demo](docs/screenshots/foxair_demo.gif)
 
@@ -83,8 +83,10 @@ heaters (A31, A33, A34, H18). Any change to one of them, from the unit, the app
 or HA, starts a new comparison group and is logged.
 
 - Every 30 s poll feeds a 10-minute bucket: heating only, compressor running
-  for at least 15 minutes, no defrost, no electric heater, and no settings
-  change inside the bucket. Each bucket stores compressor Hz, outdoor and flow
+  for at least 10 minutes, no defrost, no electric heater, and no settings
+  change inside the bucket. A bucket needs 6 minutes of such steady polls, so
+  a compressor stop or start inside it does not drop it (short mild-weather
+  runs still count). Each bucket stores compressor Hz, outdoor and flow
   temperature, heat and electrical power, suction superheat and EEV steps.
 - The model is COP = eta x Carnot COP(flow, outdoor), with eta fitted on Hz and
   outdoor temperature from the baseline settings' buckets only. It needs about
@@ -126,6 +128,9 @@ or HA, starts a new comparison group and is logged.
   A step that tested worse or inconclusive isn't suggested again; the other
   direction is tried instead.
 - `Next change allowed`: timestamp of the earliest next change (last change + 24 h).
+  While the baseline or a test group is still collecting, it shows an estimate
+  (today + the missing heating days, attribute `estimated: true`) instead of
+  unknown. Mild days with little heating push it back.
 - Every EEV change, whoever made it, is logged with time and old/new values
   (last 10 in the `changes` attribute of `Next step`). A "Set EEV baseline"
   press is logged as a baseline event.
