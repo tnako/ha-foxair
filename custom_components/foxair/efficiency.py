@@ -9,7 +9,7 @@ import time
 
 BUCKET_S = 600
 MIN_SAMPLES = 12
-WARMUP_S = 900
+WARMUP_S = 600
 MIN_ELEC_W = 150.0
 DT_HX = 7.0
 FIT_MIN_BUCKETS = 36
@@ -509,14 +509,14 @@ class BucketBuilder:
             closed = self._close()
         if self.key != key:
             self.key, self.acc, self.tainted = key, [], False
-        ok = (running and steady and self.run_start is not None
-              and now - self.run_start >= WARMUP_S
-              and all(s.get(k) is not None for k in SAMPLE_KEYS)
-              and s["q"] > 0 and s["p"] >= MIN_ELEC_W)
-        if ok:
-            self.acc.append(s)
-        else:
-            self.tainted = True
+        if running and (not steady or (self.acc and s.get("fp") != self.acc[0]["fp"])):
+            self.tainted = True  # defrost, heater or settings change inside the window: drop it
+        elif running and self.run_start is not None and now - self.run_start >= WARMUP_S:
+            if all(s.get(k) is not None for k in SAMPLE_KEYS) and s["q"] > 0 and s["p"] >= MIN_ELEC_W:
+                self.acc.append(s)
+            else:
+                self.tainted = True
+        # stopped or still warming up: skip the poll, the window keeps its steady samples
         return closed, started
 
     def _close(self) -> list | None:

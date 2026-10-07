@@ -97,7 +97,7 @@ def test_bucket_builder_skips_warmup_defrost_and_settings_changes():
     bb = eff.BucketBuilder()
     t0 = 6000 * 100
     got = feed(bb, t0, 2430)
-    assert len(got) == 2 and got[0][0] == t0 + 1200 and got[0][0] >= t0 + eff.WARMUP_S
+    assert len(got) == 3 and got[0][0] == t0 + 600 and got[0][0] >= t0 + eff.WARMUP_S
     assert got[0][eff.F_HZ] == 40.0 and got[0][eff.F_FP] == "x"
     bb = eff.BucketBuilder()
     feed(bb, t0, 1500)
@@ -114,6 +114,19 @@ def test_bucket_builder_rejects_low_power_and_missing_values():
     assert feed(bb, 600000, 2400, p=100.0) == []
     bb = eff.BucketBuilder()
     assert feed(bb, 600000, 2400, hz=None) == []
+
+
+def test_bucket_builder_keeps_window_when_compressor_stops_or_warms_up_inside():
+    # 20-40 min runs (mild weather): the stop or the warm-up in the same window must not drop its steady part
+    bb = eff.BucketBuilder()
+    t0 = 6000 * 100
+    got = feed(bb, t0 + 120, 1560)          # start at 2 min, steady from 12 min, stop at 28 min
+    got += feed(bb, t0 + 1680, 1200, running=False)
+    assert [b[0] for b in got] == [t0 + 600, t0 + 1200]
+    bb = eff.BucketBuilder()
+    feed(bb, t0, 900)
+    feed(bb, t0 + 900, 60, steady=False)     # defrost inside a window still drops it
+    assert all(b[0] != t0 + 600 for b in feed(bb, t0 + 960, 1200))
 
 
 def test_analyser_tracks_baseline_and_persists():

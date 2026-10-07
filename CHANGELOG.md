@@ -1,3 +1,7 @@
+## 0.7.24 - 2026-10-07
+- fix(efficiency): steady windows are no longer dropped when the compressor starts, warms up or stops inside them. Those polls are skipped instead; a window still needs 6 steady minutes and is still dropped on defrost, electric heater or a settings change. Warm-up is 10 min (was 15). With mild-weather runs of 20-40 min the old rule kept 3 windows from 3.5 h of running in a day; a replay of that day now keeps 9, so the baseline fills and suggestions start
+- feat(efficiency): `Next change allowed` shows an estimated date (today + missing heating days, attributes `estimated`, `days_left`, `reason`) while the baseline or a test group is collecting, instead of unknown
+
 ## 0.7.23 - 2026-10-06
 - fix(defaults): GL-9 candidates re-derived against the printed PHNIX parameter table (Kaisai KHX and Cooper&Hunter Ecopower technical manuals, identical Default column), which replaces the Modbus protocol PDF as the generic source. A value is accepted when the factory-reset FoxAir GL-15-1 agrees with the manual or with the FoxAir GL9 recording; the manual alone never overrides FoxAir, which differs from it on 8 codes where both FoxAir units agree. E02 = 5.0 is now supported (reset unit + manual); E07-1/2/3 stay `null`. Conflicts drop from 15 to 8. `docs/FACTORY_DEFAULTS.md` regenerated with the new sources, levels and deviation tables
 
