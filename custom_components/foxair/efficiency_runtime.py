@@ -110,6 +110,7 @@ class EfficiencyRuntime:
         self.analyser = EfficiencyAnalyser()
         self._settings_ts = 0.0
         self._refresh_ts = 0.0
+        self._save_ts = time.time()
         self._fetched: dict = {}
         self._fetched_once = False
         self._settings_task = None
@@ -149,7 +150,8 @@ class EfficiencyRuntime:
                 if missing:
                     self._settings_task = self.hass.async_create_task(self._fetch_settings(missing))
             closed = self.analyser.observe(now, sample(self.coord, self.coord.entry.options))
-            if closed:
+            if closed or now - self._save_ts >= SAVE_DELAY_S:
+                self._save_ts = now
                 self.schedule_save()
             if closed or now - self._refresh_ts >= REFRESH_EVERY_S:
                 self.request_refresh()

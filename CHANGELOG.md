@@ -1,3 +1,9 @@
+## 0.7.25 - 2026-10-08
+- fix(efficiency): state is saved every 5 min, not only when a window closes. An HA restart (no unload) lost the daily totals since the last save, so a day could be dropped for low coverage
+- feat(efficiency): `Daily COP` has `last_day_skipped` (day, reasons, coverage) when the last day did not count
+- feat(efficiency): fan curve F05 is tested both ways in 2 K steps (-10 to 2 °C), slower fan first, only when the fan is below its maximum and the 7-day median outdoor temperature is at least 3 °C
+- change(efficiency): F26 (fan maximum) is no longer suggested; it stays at the factory 600 rpm
+
 ## 0.7.24 - 2026-10-07
 - fix(efficiency): steady windows are no longer dropped when the compressor starts, warms up or stops inside them. Those polls are skipped instead; a window still needs 6 steady minutes and is still dropped on defrost, electric heater or a settings change. Warm-up is 10 min (was 15). With mild-weather runs of 20-40 min the old rule kept 3 windows from 3.5 h of running in a day; a replay of that day now keeps 9, so the baseline fills and suggestions start
 - feat(efficiency): `Next change allowed` shows an estimated date (today + missing heating days, attributes `estimated`, `days_left`, `reason`) while the baseline or a test group is collecting, instead of unknown

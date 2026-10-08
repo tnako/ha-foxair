@@ -344,7 +344,7 @@ FULL = {"E02": 3.5, "F26": 600.0, "D03": 45.0}
 FFP = eff.fingerprint(FULL)
 
 
-def test_fan_step_only_when_fan_hits_max_and_never_above_660():
+def test_fan_max_is_never_raised():
     b = _with_fan(days_of(FFP, 0, 6), 600.0)
     for x in b:
         x[eff.F_SH] = 3.5
@@ -356,13 +356,36 @@ def test_fan_step_only_when_fan_hits_max_and_never_above_660():
         b += _with_fan(days_of(eff.fingerprint(s), 6 + len(tried_e02) * 5, 5, factor=1.0, seed=int(v * 10)), 600.0)
         tried_e02[v] = True
     a = _adv(b, FULL, settings, FFP)
-    assert (a["action"], a["param"], a["from"], a["to"]) == ("change", "F26", 600.0, 630.0)
+    assert a["param"] != "F26" and "F26" not in eff.LADDER
     assert "fan_at_max" in eff.hints(eff.fit(b), b, 0, 0, 3.5, max(x[0] for x in b), FULL)
-    top = {**FULL, "F26": 660.0}
-    assert eff._step("F26", 660.0, 1) is None and eff._step("F26", 700.0, 1) is None
-    assert eff._step("F26", 630.0, 1) == 660.0
     low = _with_fan(days_of(FFP, 0, 6), 400.0)
     assert eff.fan_cap_share(low, 600.0, max(x[0] for x in low)) == 0.0
+
+
+def test_fan_curve_tested_both_ways_slower_first_only_in_mild_weather():
+    full = {**FULL, "F05": -4.0}
+    ffp = eff.fingerprint(full)
+    b = _with_fan(days_of(ffp, 0, 6), 350.0)
+    settings = {ffp: full}
+    model, groups = eff.compare(b, ffp)
+    for v in (3.0, 4.0):
+        s = {**full, "E02": v}
+        settings[eff.fingerprint(s)] = s
+        groups[eff.fingerprint(s)] = {"days": 5, "verdict": "inconclusive"}
+    now = max(x[0] for x in b) + 600
+    kw = dict(buckets=b, settings=settings, current=full, baseline_fp=ffp, changes=[], model=model,
+              hint_list=["ok"], sh_target=3.5, now=now)
+    a = eff.advise(groups=groups, **kw)
+    assert (a["action"], a["param"], a["from"], a["to"], a["reason"]) == ("change", "F05", -4.0, -6.0,
+                                                                         "fan_slower_first")
+    slower = {**full, "F05": -6.0}
+    settings[eff.fingerprint(slower)] = slower
+    a = eff.advise(groups={**groups, eff.fingerprint(slower): {"days": 5, "verdict": "worse"}}, **kw)
+    assert (a["param"], a["to"], a["reason"]) == ("F05", -2.0, "other_direction_tried")
+    cold = [x[:eff.F_TOUT] + [0.0] + x[eff.F_TOUT + 1:] for x in b]
+    a = eff.advise(groups=groups, **{**kw, "buckets": cold})
+    assert a["param"] != "F05"
+    assert eff._step("F05", -10.0, -1) is None and eff._step("F05", 2.0, 1) is None
 
 
 def test_defrost_step_uses_daily_metric_and_waits_five_days():
