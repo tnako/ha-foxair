@@ -49,7 +49,16 @@ class ToolInput:
 EXPOSED = {"climate.foxair_climate"}
 
 
+def _load(name, path):
+    spec = importlib.util.spec_from_file_location(name, path)
+    mod = importlib.util.module_from_spec(spec)
+    sys.modules[name] = mod
+    spec.loader.exec_module(mod)
+    return mod
+
+
 def _stub():
+    _mod("probatio", Schema=lambda d: d, Optional=lambda k, description=None: k)
     _mod("homeassistant")
     _mod("homeassistant.core", HomeAssistant=object, callback=lambda f: f)
     _mod("homeassistant.components")
@@ -60,18 +69,15 @@ def _stub():
          ToolAnnotations=ToolAnnotations, ToolInput=ToolInput, ToolResult=ToolResult)
     pkg = _mod("foxair_llm_pkg")
     pkg.__path__ = [str(CC)]
-    _mod("foxair_llm_pkg.const", DOMAIN="foxair")
-
-    def _advice_message(adv):
-        return f"msg:{adv.get('action')}"
-    _mod("foxair_llm_pkg.sensor", _advice_message=_advice_message)
+    _mod("foxair_llm_pkg.const", DOMAIN="foxair", get_slave_id=lambda e: e.data.get("slave"))
+    _load("foxair_llm_pkg.efficiency", CC / "efficiency.py")
+    _mod("foxair_llm_pkg.efficiency_runtime", SETTING_ADDRS={"E02": 1132, "F05": 1066, "F26": 1104, "P11": 1432})
+    _mod("foxair_llm_pkg.sensor", _advice_message=lambda adv: f"msg:{adv.get('action')}")
 
 
 _stub()
-spec = importlib.util.spec_from_file_location("foxair_llm_pkg.llm", CC / "llm.py")
-llm = importlib.util.module_from_spec(spec)
-sys.modules["foxair_llm_pkg.llm"] = llm
-spec.loader.exec_module(llm)
+eff = sys.modules["foxair_llm_pkg.efficiency"]
+llm = _load("foxair_llm_pkg.llm", CC / "llm.py")
 
 
 class FakeAnalyser:
@@ -105,17 +111,21 @@ def _hass(entries, states=None):
         config_entries=types.SimpleNamespace(async_loaded_entries=lambda d: entries if d == "foxair" else []))
 
 
-def _entry(prefix="foxair", efficiency=True):
+def _entry(prefix="foxair", slave=1, efficiency=True):
     coord = types.SimpleNamespace(efficiency=types.SimpleNamespace(analyser=FakeAnalyser()) if efficiency else None)
-    e = types.SimpleNamespace(data={"name_prefix": prefix}, runtime_data=coord)
-    coord.entry = e
-    return e
+    return types.SimpleNamespace(data={"name_prefix": prefix, "slave": slave}, runtime_data=coord,
+                                 title=f"{prefix.title()} Heat Pump", entry_id=f"id_{prefix}")
 
 
 CTX = types.SimpleNamespace(assistant="conversation")
 
 
-def test_tool_offered_only_for_assist_with_exposed_climate():
+def _call(hass, **args):
+    tool = llm.GetEfficiencyReportTool()
+    return asyncio.run(tool.async_call(hass, ToolInput(tool.name, args), CTX))
+
+
+def test_tool_offered_only_for_assist_with_an_exposed_foxair_climate():
     hass = _hass([_entry()])
     tools = llm.async_get_tools(hass, CTX, "assist")
     assert [t.name for t in tools.tools] == ["foxair__GetEfficiencyReport"]
@@ -124,29 +134,41 @@ def test_tool_offered_only_for_assist_with_exposed_climate():
     assert llm.async_get_tools(hass, CTX, "other_api") is None
     assert llm.async_get_tools(hass, types.SimpleNamespace(assistant=None), "assist") is None
     assert llm.async_get_tools(_hass([_entry("other")]), CTX, "assist") is None
+    assert llm.async_get_tools(_hass([_entry("other"), _entry()]), CTX, "assist") is not None
 
 
-def test_report_content_is_readable():
-    hass = _hass([_entry()], {"sensor.foxair_t30": "32.0", "sensor.foxair_cop": "unknown"})
-    tool = llm.async_get_tools(hass, CTX, "assist").tools[0]
-    res = asyncio.run(tool.async_call(hass, ToolInput(tool.name), CTX))
-    r = res.data
+def test_report_content():
+    res = _call(_hass([_entry()], {"sensor.foxair_t30": "32.0", "sensor.foxair_cop": "unknown"}))
     assert not res.error
+    r = res.data["units"][0]
+    assert r["unit"] == {"name": "Foxair Heat Pump", "prefix": "foxair", "slave": 1}
     assert r["live"]["compressor_hz"] == 32.0 and r["live"]["cop"] is None and r["live"]["outdoor_c"] is None
     assert r["next_step"]["message"] == "msg:keep" and r["next_step"]["not_before"] == "1970-01-02T00:00+00:00"
     assert r["is_baseline"] and r["settings_group"] == "baseline" and r["current_settings"]["F05"] == -4.0
     assert r["last_day"]["day"] == "2025-10-09" and r["last_day"]["fp"] == "baseline"
     assert r["recent_changes"][0]["from"] == "Gfp0" and r["recent_changes"][0]["t"].startswith("1970-01-01")
-    assert r["groups"] == {"baseline": {"days": 4, "verdict": "baseline"}}
-    assert "F26 stays at 600" in r["rules"]
 
 
-def test_report_error_when_analyser_missing_and_multi_unit():
-    tool = llm.GetEfficiencyReportTool()
-    res = asyncio.run(tool.async_call(_hass([_entry(efficiency=False)]), ToolInput(tool.name), CTX))
-    assert res.error
-    res = asyncio.run(tool.async_call(_hass([_entry(), _entry("pump2")]), ToolInput(tool.name), CTX))
-    assert len(res.data["units"]) == 2
+def test_policy_is_derived_from_the_ladder_not_hardcoded():
+    pol = _call(_hass([_entry()])).data["units"][0]["suggestion_policy"]
+    assert set(pol["may_suggest"]) == set(eff.LADDER)
+    for p, lad in eff.LADDER.items():
+        s = pol["may_suggest"][p]
+        assert (s["step"], s["min"], s["max"], s["metric"]) == (lad["step"], lad["min"], lad["max"], lad["metric"])
+        assert len(s["directions"]) == len(lad["dirs"])
+    assert pol["watch_only"] == sorted(p for p in ("E02", "F05", "F26", "P11") if p not in eff.LADDER)
+    assert pol["writes_to_device"] is False
+    assert eff.suggestion_policy([])["watch_only"] == []
+
+
+def test_multiple_units_and_selection():
+    hass = _hass([_entry("foxair", 1), _entry("pump2", 2), _entry("off", 3, efficiency=False)])
+    assert [u["unit"]["prefix"] for u in _call(hass).data["units"]] == ["foxair", "pump2"]
+    for sel in ("pump2", "Pump2 Heat Pump", "2", "id_pump2"):
+        assert [u["unit"]["prefix"] for u in _call(hass, unit=sel).data["units"]] == ["pump2"], sel
+    res = _call(hass, unit="nope")
+    assert res.error and res.data["units"] == ["foxair", "pump2"]
+    assert _call(_hass([_entry(efficiency=False)])).error
 
 
 if __name__ == "__main__":

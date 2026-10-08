@@ -2,7 +2,7 @@
 
 Control and monitor your **FoxAir / PHNIX air-to-water heat pump** directly from Home Assistant over Modbus TCP — no cloud, no YAML.
 
-![Version](https://img.shields.io/badge/version-0.7.26-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2026.9-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
+![Version](https://img.shields.io/badge/version-0.7.27-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2026.10-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
 ![FoxAir Demo](docs/screenshots/foxair_demo.gif)
 
@@ -43,7 +43,7 @@ The climate attributes `control_source`, `current_addr` and `target_addr` show w
 
 ## Requirements
 
-- Home Assistant **>= 2026.9**
+- Home Assistant **>= 2026.10**
 - Python `pymodbus>=3.10.0`
 - FoxAir/PHNIX on Modbus TCP (tested with an Elfins EW11 at the default `host:8899 slave 1`)
 
@@ -119,9 +119,9 @@ or HA, starts a new comparison group and is logged.
       of the last 7 days is at least 3 °C;
     - D03 +15 min (30-90), only when most recent defrosts are short (under
       4 min) and start right after the D03 minimum, judged on the daily score.
-    P11, A40 and F26 are never suggested: P11 at 5 K trips the low-flow error,
-    A40 is the flow protection, and F26 (fan maximum) stays at the factory
-    600 rpm. `fan_at_max` is only reported as a finding.
+    Only the settings listed above are ever suggested. Every other tracked
+    setting is watch-only: changes to it are recorded and compared, never
+    proposed. Findings such as `fan_at_max` are reported only.
   - `keep`: wait, either 24 h after any change or until the test group has 3 days;
   - `revert` / `accept`: the test is worse, better, or showed no clear gain
     after 10 days;
@@ -152,13 +152,16 @@ COP needs a heat value: T59 (firmware 3.3+) or flow x delta T. For the electrica
 side, set Options -> Electrical power source = external meter if you have one.
 History is stored in `.storage/foxair.efficiency.<entry id>` and survives restarts.
 
-### Assist / MCP (HA 2026.10+)
+### Assist / MCP
 
 The integration adds a read-only LLM tool, `foxair__GetEfficiencyReport`, to the
-Assist API. It returns live readings, the next step, findings, COP per settings
-group, the last qualifying day and recent setting changes. It is offered only
-when the Foxair climate entity is exposed to Assist, and it never writes to the
-pump. With the Model Context Protocol Server integration, MCP clients get it at
+Assist API. It returns one report per heat pump (optional `unit` argument: name
+prefix, title or Modbus slave id): live readings, the next step, findings, COP
+per settings group, the last qualifying day, recent setting changes and the
+suggestion policy (which settings the advisor may propose, with step and range,
+and which it only watches). It is offered only when a Foxair climate entity is
+exposed to Assist, and it never writes to the pump. With the Model Context
+Protocol Server integration, MCP clients get it at
 `http://<ha>:8123/api/mcp/assist`. A non-admin user marked "local network only"
 is enough.
 
