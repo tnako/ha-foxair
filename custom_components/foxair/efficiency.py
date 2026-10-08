@@ -52,10 +52,11 @@ RUN_STATUS_DEFROST = 2
 
 FAN_CAP_MARGIN = 5.0
 FAN_CAP_SHARE = 0.2
+FAN_CURVE_MIN_TOUT = 3.0
 
 LADDER = {
     "E02": {"step": 0.5, "min": 2.0, "max": 6.0, "metric": "steady", "dirs": (-1, 1)},
-    "F26": {"step": 30.0, "min": 600.0, "max": 660.0, "metric": "steady", "dirs": (1,)},
+    "F05": {"step": 2.0, "min": -10.0, "max": 2.0, "metric": "steady", "dirs": (-1, 1)},
     "D03": {"step": 15.0, "min": 30.0, "max": 90.0, "metric": "daily", "dirs": (1,)},
 }
 DAILY_PREFIXES = ("D", "P", "C", "A", "H")
@@ -218,10 +219,28 @@ def compare(buckets: list[list], baseline_fp: str) -> tuple[dict | None, dict]:
     return model, groups
 
 
+def day_problems(row: list) -> list[str]:
+    """Why a day row is not usable for the daily score (empty = usable)."""
+    out = []
+    if row[R_COVER] < DAY_MIN_COVERAGE:
+        out.append("coverage")
+    if row[R_HEAT] < DAY_MIN_HEAT_KWH:
+        out.append("little_heat")
+    if row[R_ELEC] <= 0:
+        out.append("no_power")
+    if row[R_RUN] < DAY_MIN_RUN_H:
+        out.append("little_running")
+    if row[R_COOL]:
+        out.append("cooling")
+    if row[R_FP] in ("mixed", "none"):
+        out.append("settings_changed" if row[R_FP] == "mixed" else "settings_unknown")
+    if row[R_TFLOW] is None or row[R_TOUT] is None:
+        out.append("no_temperatures")
+    return out
+
+
 def day_ok(row: list) -> bool:
-    return (row[R_COVER] >= DAY_MIN_COVERAGE and row[R_HEAT] >= DAY_MIN_HEAT_KWH and row[R_ELEC] > 0
-            and row[R_RUN] >= DAY_MIN_RUN_H and not row[R_COOL] and row[R_FP] not in ("mixed", "none")
-            and row[R_TFLOW] is not None and row[R_TOUT] is not None)
+    return not day_problems(row)
 
 
 def day_cop(row: list) -> float:
@@ -390,11 +409,13 @@ def _candidate_dirs(param: str, *, model, buckets, base_buckets, current, sh_tar
             return None
         d, why = _direction_from_data(model, base_buckets, sh_target)
         return [d, -d], why
-    if param == "F26":
+    if param == "F05":
         share = fan_cap_share(buckets, current.get("F26"), now)
-        if model is None or share is None or share < FAN_CAP_SHARE:
+        win = [b[F_TOUT] for b in buckets if now - b[F_T] <= HINT_WINDOW_S]
+        if model is None or share is None or share >= FAN_CAP_SHARE or not win \
+                or statistics.median(win) < FAN_CURVE_MIN_TOUT:
             return None
-        return [1], "fan_at_max"
+        return [-1, 1], "fan_slower_first"
     if param == "D03":
         if day_model is None or not defrost_on_timer(defrost_summary(defrosts, now, current.get("D03"))):
             return None

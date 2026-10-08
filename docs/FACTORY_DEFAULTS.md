@@ -161,7 +161,7 @@ efficiency tuning.
 | P05 | DHW Pump Operation Mode | 1 | 2 | GL9 video only |
 | P11 | Target Temp. Diff. for Pump Speed Control | 3.5 °C | 5 °C (reset) / 4.4 °C (gl9) | conflict |
 
-F26 stays at 600 rpm; on this unit it can't go above 660 rpm. P11 stays at
+F26 stays at the factory 600 rpm; the analyser never suggests raising it. P11 stays at
 3.5 °C on purpose: 5.0 °C trips the low-flow error on this installation (with
 A40 = 1.1 m³/h the pump must hold more than 1.32 m³/h for 10 minutes before
 speed control starts, then never drops below 0.88 m³/h). P10 = 0 % because the

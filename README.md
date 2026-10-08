@@ -2,7 +2,7 @@
 
 Control and monitor your **FoxAir / PHNIX air-to-water heat pump** directly from Home Assistant over Modbus TCP — no cloud, no YAML.
 
-![Version](https://img.shields.io/badge/version-0.7.24-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2026.9-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
+![Version](https://img.shields.io/badge/version-0.7.25-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2026.9-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
 ![FoxAir Demo](docs/screenshots/foxair_demo.gif)
 
@@ -113,12 +113,15 @@ or HA, starts a new comparison group and is logged.
   - `change`: one step on one parameter, in this order:
     - E02 in 0.5 K steps (2-6 K), direction from how COP vs the model moves
       with measured superheat, or superheat vs its target;
-    - F26 600 -> 630 -> 660 rpm, only when the fan sits at its maximum in at
-      least 20 % of steady running (660 is a hard cap);
+    - F05 in 2 K steps (-10 to 2 °C), slower fan first (lower F05 = less fan
+      speed at the same coil temperature), then the other direction; only
+      when the fan is not at its maximum and the median outdoor temperature
+      of the last 7 days is at least 3 °C;
     - D03 +15 min (30-90), only when most recent defrosts are short (under
       4 min) and start right after the D03 minimum, judged on the daily score.
-    P11 and A40 are never suggested: P11 at 5 K trips the low-flow error, and
-    A40 is the flow protection.
+    P11, A40 and F26 are never suggested: P11 at 5 K trips the low-flow error,
+    A40 is the flow protection, and F26 (fan maximum) stays at the factory
+    600 rpm. `fan_at_max` is only reported as a finding.
   - `keep`: wait, either 24 h after any change or until the test group has 3 days;
   - `revert` / `accept`: the test is worse, better, or showed no clear gain
     after 10 days;

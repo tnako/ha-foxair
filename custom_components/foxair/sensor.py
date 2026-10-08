@@ -662,9 +662,16 @@ class FoxEfficiencyDailySensor(FoxEfficiencySensor):
         d = self._an.last_day() or {}
         if d:
             d = {**d, "day": datetime.fromtimestamp(d["day"] * 86400, timezone.utc).date().isoformat()}
+        from .efficiency import R_COVER, R_DAY, day_problems
         m = self._an.day_model
-        return {**d, "days_recorded": len(self._an.days),
-                "model_fit_error_pct": None if not m else m["mape_pct"]}
+        out = {**d, "days_recorded": len(self._an.days),
+               "model_fit_error_pct": None if not m else m["mape_pct"]}
+        last = self._an.days[-1] if self._an.days else None
+        if last and day_problems(last):
+            out["last_day_skipped"] = {
+                "day": datetime.fromtimestamp(last[R_DAY] * 86400, timezone.utc).date().isoformat(),
+                "why": day_problems(last), "coverage": last[R_COVER]}
+        return out
 
 
 class FoxDefrostSensor(FoxEfficiencySensor):
