@@ -1,3 +1,8 @@
+## 0.7.27 - 2026-10-08
+- change(llm): the report has no device-specific rules text any more. It returns `suggestion_policy`, built from the advisor ladder: which settings may be suggested (step, range, metric, directions) and which tracked settings are watch-only
+- feat(llm): one report per configured heat pump under `units`, each with `unit` (title, prefix, Modbus slave); optional `unit` argument selects one pump by prefix, title, slave id or entry id
+- change: requires Home Assistant 2026.10 (integration LLM tool platform); hacs.json, README and roadmap updated
+
 ## 0.7.26 - 2026-10-08
 - feat(llm): read-only Assist/MCP tool `foxair__GetEfficiencyReport` (HA 2026.10+): live readings, next step with message, findings, per-group COP comparison, daily COP, current settings and the last 10 setting changes. Offered only when the Foxair climate entity is exposed to Assist; it never writes to the pump. Reachable by a non-admin, local-only user through the Model Context Protocol Server at `/api/mcp/assist`
 

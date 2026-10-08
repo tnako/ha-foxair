@@ -1,24 +1,22 @@
-"""Read-only LLM tool (Assist API / MCP) with the efficiency analyser report. Needs HA 2026.10+."""
+"""Read-only LLM tool (Assist API / MCP) with the efficiency analyser report."""
 
 from __future__ import annotations
 
 from datetime import datetime, timezone
 
+import probatio
+
+from homeassistant.components.homeassistant import async_should_expose
+from homeassistant.components.llm import LLMTools
 from homeassistant.core import HomeAssistant, callback
+from homeassistant.helpers.llm import LLM_API_ASSIST, LLMContext, Tool, ToolAnnotations, ToolInput, ToolResult
 
-from .const import DOMAIN
-
-try:
-    from homeassistant.components.homeassistant import async_should_expose
-    from homeassistant.components.llm import LLMTools
-    from homeassistant.helpers.llm import LLM_API_ASSIST, LLMContext, Tool, ToolAnnotations, ToolInput, ToolResult
-    HAS_LLM = True
-except ImportError:
-    HAS_LLM = False
+from .const import DOMAIN, get_slave_id
+from .efficiency import suggestion_policy
+from .efficiency_runtime import SETTING_ADDRS
 
 LIVE_KEYS = {"t30": "compressor_hz", "t04": "outdoor_c", "t02": "flow_c", "t01": "return_c", "t03": "evaporator_c",
              "heating_power": "heat_w", "electrical_power": "electrical_w", "cop": "cop"}
-RULES = "Suggestions only; the analyser never writes to the pump. F26 stays at 600 rpm. P11 and A40 are never suggested."
 
 
 def _iso(ts):
@@ -36,11 +34,16 @@ def _prefix(entry) -> str:
     return str((entry.data or {}).get("name_prefix", "foxair") or "foxair")
 
 
-def build_report(hass: HomeAssistant, coord) -> dict:
+def _units(hass: HomeAssistant) -> list:
+    return [e for e in hass.config_entries.async_loaded_entries(DOMAIN)
+            if getattr(e.runtime_data, "efficiency", None) is not None]
+
+
+def build_report(hass: HomeAssistant, entry) -> dict:
     from .sensor import _advice_message
 
-    an = coord.efficiency.analyser
-    prefix = _prefix(coord.entry)
+    an = entry.runtime_data.efficiency.analyser
+    prefix = _prefix(entry)
     live = {}
     for key, name in LIVE_KEYS.items():
         st = hass.states.get(f"sensor.{prefix}_{key}")
@@ -52,6 +55,7 @@ def build_report(hass: HomeAssistant, coord) -> dict:
     if day:
         day = {**day, "day": str(_iso(day["day"] * 86400))[:10], "fp": an.describe(day["fp"])}
     return {
+        "unit": {"name": entry.title, "prefix": prefix, "slave": get_slave_id(entry)},
         "live": live,
         "next_step": {**adv, "message": _advice_message(an.advice)},
         "findings": list(an.hint_list),
@@ -70,36 +74,43 @@ def build_report(hass: HomeAssistant, coord) -> dict:
                             "from": an.describe(c["from"]) if c.get("from") else None,
                             "to": an.describe(c["to"]) if c.get("to") else None}
                            for c in an.changes[-10:]],
-        "rules": RULES,
+        "suggestion_policy": suggestion_policy(SETTING_ADDRS),
     }
 
 
-def _reports(hass: HomeAssistant) -> list[dict]:
-    return [build_report(hass, e.runtime_data) for e in hass.config_entries.async_loaded_entries(DOMAIN)
-            if getattr(e.runtime_data, "efficiency", None) is not None]
+def _matches(entry, unit: str) -> bool:
+    u = unit.strip().lower()
+    return u in (_prefix(entry).lower(), (entry.title or "").lower(), str(get_slave_id(entry)), entry.entry_id.lower())
 
 
-if HAS_LLM:
+class GetEfficiencyReportTool(Tool):
+    name = f"{DOMAIN}__GetEfficiencyReport"
+    title = "Foxair efficiency report"
+    description = ("Foxair heat pump efficiency analyser: live readings, next suggested settings step, findings, "
+                   "COP per settings group, daily COP, recent setting changes and which settings the advisor may "
+                   "suggest. Read-only. Without 'unit' all configured heat pumps are returned.")
+    parameters = probatio.Schema({probatio.Optional("unit", description="Name prefix, title, Modbus slave id or "
+                                                                        "config entry id of one heat pump"): str})
+    annotations = ToolAnnotations(read_only=True, destructive=False, idempotent=True, open_world=False)
+    integration = DOMAIN
 
-    class GetEfficiencyReportTool(Tool):
-        name = f"{DOMAIN}__GetEfficiencyReport"
-        title = "Foxair efficiency report"
-        description = ("Foxair heat pump efficiency analyser: live readings, next suggested settings step, findings, "
-                       "COP comparison per settings group, daily COP and recent setting changes. Read-only.")
-        annotations = ToolAnnotations(read_only=True, destructive=False, idempotent=True, open_world=False)
-        integration = DOMAIN
+    async def async_call(self, hass: HomeAssistant, tool_input: ToolInput, llm_context: LLMContext) -> ToolResult:
+        units = _units(hass)
+        unit = tool_input.tool_args.get("unit")
+        if unit:
+            units = [e for e in units if _matches(e, unit)]
+        if not units:
+            known = [_prefix(e) for e in _units(hass)]
+            return ToolResult(data={"error": "No matching Foxair unit with a running analyser", "units": known},
+                              error=True)
+        return ToolResult(data={"units": [build_report(hass, e) for e in units]})
 
-        async def async_call(self, hass: HomeAssistant, tool_input: ToolInput, llm_context: LLMContext) -> ToolResult:
-            reports = _reports(hass)
-            if not reports:
-                return ToolResult(data={"error": "Foxair efficiency analyser is not running"}, error=True)
-            return ToolResult(data=reports[0] if len(reports) == 1 else {"units": reports})
 
-    @callback
-    def async_get_tools(hass: HomeAssistant, llm_context: LLMContext, api_id: str) -> LLMTools | None:
-        if api_id != LLM_API_ASSIST or not llm_context.assistant:
-            return None
-        if not any(async_should_expose(hass, llm_context.assistant, f"climate.{_prefix(e)}_climate")
-                   for e in hass.config_entries.async_loaded_entries(DOMAIN)):
-            return None
-        return LLMTools(tools=[GetEfficiencyReportTool()])
+@callback
+def async_get_tools(hass: HomeAssistant, llm_context: LLMContext, api_id: str) -> LLMTools | None:
+    if api_id != LLM_API_ASSIST or not llm_context.assistant:
+        return None
+    if not any(async_should_expose(hass, llm_context.assistant, f"climate.{_prefix(e)}_climate")
+               for e in hass.config_entries.async_loaded_entries(DOMAIN)):
+        return None
+    return LLMTools(tools=[GetEfficiencyReportTool()])

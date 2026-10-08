@@ -388,6 +388,15 @@ def _step(param: str, value: float, direction: int) -> float | None:
     return None if new == round(value, 1) else new
 
 
+def suggestion_policy(tracked) -> dict:
+    """What the advisor may propose (from LADDER) and which tracked settings it only watches."""
+    return {"may_suggest": {p: {"step": l["step"], "min": l["min"], "max": l["max"], "metric": l["metric"],
+                                "directions": ["down" if d < 0 else "up" for d in l["dirs"]]}
+                            for p, l in LADDER.items()},
+            "watch_only": sorted(p for p in tracked if p not in LADDER),
+            "writes_to_device": False}
+
+
 def _direction_from_data(model: dict | None, buckets: list[list], sh_target: float | None) -> tuple[int, str]:
     """-1 = lower the superheat target, +1 = raise it; with the evidence used."""
     win = [b for b in buckets if b[F_SH] is not None]
