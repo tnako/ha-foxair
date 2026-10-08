@@ -2,7 +2,7 @@
 
 Control and monitor your **FoxAir / PHNIX air-to-water heat pump** directly from Home Assistant over Modbus TCP — no cloud, no YAML.
 
-![Version](https://img.shields.io/badge/version-0.7.25-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2026.9-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
+![Version](https://img.shields.io/badge/version-0.7.26-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2026.9-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
 ![FoxAir Demo](docs/screenshots/foxair_demo.gif)
 
@@ -151,6 +151,16 @@ How to test a change:
 COP needs a heat value: T59 (firmware 3.3+) or flow x delta T. For the electrical
 side, set Options -> Electrical power source = external meter if you have one.
 History is stored in `.storage/foxair.efficiency.<entry id>` and survives restarts.
+
+### Assist / MCP (HA 2026.10+)
+
+The integration adds a read-only LLM tool, `foxair__GetEfficiencyReport`, to the
+Assist API. It returns live readings, the next step, findings, COP per settings
+group, the last qualifying day and recent setting changes. It is offered only
+when the Foxair climate entity is exposed to Assist, and it never writes to the
+pump. With the Model Context Protocol Server integration, MCP clients get it at
+`http://<ha>:8123/api/mcp/assist`. A non-admin user marked "local network only"
+is enough.
 
 ## Help & diagnostics
 

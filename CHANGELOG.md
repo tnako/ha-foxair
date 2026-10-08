@@ -1,3 +1,6 @@
+## 0.7.26 - 2026-10-08
+- feat(llm): read-only Assist/MCP tool `foxair__GetEfficiencyReport` (HA 2026.10+): live readings, next step with message, findings, per-group COP comparison, daily COP, current settings and the last 10 setting changes. Offered only when the Foxair climate entity is exposed to Assist; it never writes to the pump. Reachable by a non-admin, local-only user through the Model Context Protocol Server at `/api/mcp/assist`
+
 ## 0.7.25 - 2026-10-08
 - fix(efficiency): state is saved every 5 min, not only when a window closes. An HA restart (no unload) lost the daily totals since the last save, so a day could be dropped for low coverage
 - feat(efficiency): `Daily COP` has `last_day_skipped` (day, reasons, coverage) when the last day did not count
