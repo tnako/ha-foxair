@@ -12,7 +12,7 @@ from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.llm import LLM_API_ASSIST, LLMContext, Tool, ToolAnnotations, ToolInput, ToolResult
 
 from .const import DOMAIN, get_slave_id
-from .efficiency import suggestion_policy
+from .efficiency import headline, suggestion_policy
 from .efficiency_runtime import SETTING_ADDRS
 
 LIVE_KEYS = {"t30": "compressor_hz", "t04": "outdoor_c", "t02": "flow_c", "t01": "return_c", "t03": "evaporator_c",
@@ -49,8 +49,9 @@ def build_report(hass: HomeAssistant, entry) -> dict:
         st = hass.states.get(f"sensor.{prefix}_{key}")
         live[name] = _num(st.state) if st else None
     adv = dict(an.advice)
-    if "not_before" in adv:
-        adv["not_before"] = _iso(adv["not_before"])
+    for k in ("not_before", "since"):
+        if adv.get(k):
+            adv[k] = _iso(adv[k])
     day = an.last_day()
     if day:
         day = {**day, "day": str(_iso(day["day"] * 86400))[:10], "fp": an.describe(day["fp"])}
@@ -59,6 +60,7 @@ def build_report(hass: HomeAssistant, entry) -> dict:
         "live": live,
         "next_step": {**adv, "message": _advice_message(an.advice)},
         "findings": list(an.hint_list),
+        "headline": headline(an.hint_list, an.advice),
         "superheat_target": an.sh_target,
         "settings_group": an.describe(an.current_fp()) if an.current else None,
         "is_baseline": bool(an.current) and an.current_fp() == an.baseline_fp,

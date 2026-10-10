@@ -1,3 +1,7 @@
+## 0.7.29 - 2026-10-10
+- fix(efficiency): the sensors no longer contradict each other. `Finding` shows `action_suggested` while a change/revert/accept waits for you (a real issue still wins), and `Next change allowed` is renamed `Next decision`: it is never in the past, and unknown while a suggestion is pending. Both come from one rule each in `efficiency.py` (`headline`, `due_at`), also used by the LLM report (`headline`)
+- change: a pending suggestion carries `since` (when it first appeared) instead of overloading `not_before`
+
 ## 0.7.28 - 2026-10-10
 - fix(efficiency): a due `change` suggestion kept moving its `not_before` (Next change) to the latest hourly refresh, so the timestamp always looked a little in the past. It now keeps the time it first became due, also across restarts (advice is stored)
 

@@ -2831,6 +2831,7 @@
         "state": {
           "collecting": "Sammle Daten",
           "ok": "Kein Problem gefunden",
+          "action_suggested": "Aktion empfohlen, siehe Nächster Schritt",
           "short_cycling": "Taktet zu oft",
           "superheat_off_target": "Überhitzung abseits Sollwert",
           "superheat_costs": "Hohe Überhitzung kostet COP",
@@ -2853,7 +2854,7 @@
         }
       },
       "foxair_efficiency_next_change": {
-        "name": "Nächste Änderung ab"
+        "name": "Nächste Entscheidung"
       },
       "foxair_efficiency_daily_cop": {
         "name": "Tages-COP"

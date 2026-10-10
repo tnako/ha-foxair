@@ -380,6 +380,31 @@ def _only_diff(a: dict, b: dict) -> dict:
     return {k: v for k, v in a.items() if b.get(k) != v}
 
 
+ACTIONABLE = ("change", "revert", "accept")
+
+
+def headline(hint_list: list[str], advice: dict) -> str:
+    """Finding headline: a real issue first, else a pending suggestion, else the hint."""
+    first = hint_list[0] if hint_list else "collecting"
+    if first in ("ok", "collecting") and advice.get("action") in ACTIONABLE:
+        return "action_suggested"
+    return first
+
+
+def due_at(advice: dict, now: float) -> tuple[float | None, bool]:
+    """(timestamp, estimated) of the next decision; always in the future or None."""
+    a = advice.get("action")
+    if a in ACTIONABLE:
+        return None, False
+    t = advice.get("not_before")
+    if t and t > now:
+        return t, False
+    days = advice.get("days_left")
+    if days and a in ("collecting", "keep", "wait_heating"):
+        return (int(now // DAY_S) + int(days)) * DAY_S, True
+    return None, False
+
+
 def _step(param: str, value: float, direction: int) -> float | None:
     lad = LADDER[param]
     if not lad["min"] <= value <= lad["max"]:
@@ -506,7 +531,7 @@ def advise(*, buckets: list[list], groups: dict, settings: dict, current: dict, 
                 return {**out, "action": "wait_heating", "param": param, "from": current[param], "to": new,
                         "reason": "no_heating", "metric": lad["metric"]}
             return {**out, "action": "change", "param": param, "from": current[param], "to": new,
-                    "not_before": now, "days_left": days, "metric": lad["metric"],
+                    "since": now, "days_left": days, "metric": lad["metric"],
                     "reason": why if dirn == dirs[0] else "other_direction_tried"}
     return {**out, "action": "done", "reason": "no_candidate"}
 
@@ -824,9 +849,9 @@ class EfficiencyAnalyser:
                         hint_list=hint_list, sh_target=self.sh_target, now=now, day_rows=days,
                         day_groups=day_groups, day_model=day_model, defrosts=defrosts)
         prev = self.advice
-        if (advice.get("action") == "change" and prev.get("not_before")
+        if (advice.get("action") == "change" and prev.get("since")
                 and all(prev.get(k) == advice.get(k) for k in ("action", "param", "from", "to"))):
-            advice["not_before"] = prev["not_before"]
+            advice["since"] = prev["since"]
         self.model, self.groups, self.recent, self.hint_list, self.advice = model, groups, recent, hint_list, advice
         self.day_model, self.day_groups = day_model, day_groups
 
