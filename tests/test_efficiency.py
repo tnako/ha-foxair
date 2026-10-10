@@ -524,9 +524,11 @@ def test_flow_problem_overrides_the_status_and_keeps_the_pending_step():
     st = _st({"action": "change", "param": "E02", "from": 5.0, "to": 5.5, "days_left": 3},
              hints=["flow_higher", "ok"], flow=flow)
     assert st["state"] == "problem" and st["apply"]["kind"] == "write"
-    assert "12.4 K warmer" in st["message"] and "Press Apply" in st["message"]
-    st = _st({"action": "done"}, hints=["flow_higher"], flow=flow)
-    assert st["state"] == "problem" and st["apply"] is None and "Next:" not in st["message"]
+    assert "12.4 K warmer" in st["message"] and "Also: Press Apply" in st["message"]
+    st = _st({"action": "keep", "reason": "settling_after_change", "not_before": NOW + 60},
+             hints=["flow_higher"], flow=flow, group="E02=5.5")
+    assert st["state"] == "problem" and st["apply"] is None
+    assert "Also: Testing E02=5.5: measuring starts after a 24 h settling time." in st["message"]
 
 
 def test_flow_shift_compares_same_outdoor_temperature_only():

@@ -55,14 +55,28 @@ class FoxEfficiencyApplyButton(CoordinatorEntity, ButtonEntity):
         self._attr_device_info = bind_device_info(
             getattr(coord, "hass", None), entry_id,
             device_for_block("EFF", entry_id, None, prefix, get_slave_id(coord.entry)))
+        self._busy = False
+
+    @property
+    def available(self) -> bool:
+        import time
+        if self._busy or not super().available:
+            return False
+        return self.coordinator.efficiency.analyser.status(time.time())["apply"] is not None
 
     async def async_press(self) -> None:
         from homeassistant.exceptions import HomeAssistantError
+        if self._busy:
+            return
+        self._busy = True
+        self.async_write_ha_state()
         try:
             await self.coordinator.efficiency.async_apply()
         except ValueError as e:
             raise HomeAssistantError(str(e)) from e
-        self.coordinator.async_update_listeners()
+        finally:
+            self._busy = False
+            self.coordinator.async_update_listeners()
 
 
 class FoxBitButton(CoordinatorEntity, ButtonEntity):

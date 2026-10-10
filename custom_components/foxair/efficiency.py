@@ -451,7 +451,8 @@ def summary(advice: dict, hint_list: list[str], flow: dict | None, group: str | 
         state, msg = "waiting_for_heating", f"Waiting for heating (about 1 h of steady heating a day).{nxt}"
     elif a == "keep" and reason == "settling_after_change":
         state = "testing" if testing else "learning"
-        msg = "Settings changed. Measuring starts after a 24 h settling time."
+        what = f"Testing {group}" if testing else "Settings changed"
+        msg = f"{what}: measuring starts after a 24 h settling time."
     elif a == "keep" and own_test:
         state, msg = "testing", f"Testing {group}: {days} more heating day(s) needed."
     elif a == "keep":
@@ -466,7 +467,7 @@ def summary(advice: dict, hint_list: list[str], flow: dict | None, group: str | 
     if "flow_higher" in hint_list and flow:
         prob = (f"Flow is {flow['delta_k']:g} K warmer than on earlier days at the same outdoor temperature "
                 f"(COP {flow['cop_pct']:+g} %). Check the heating curve and setpoint.")
-        msg = f"{prob} Next: {msg}" if apply else prob
+        msg = f"{prob} Also: {msg}"
         state = "problem"
     when, est = due_at(advice, now)
     return {"state": state, "message": msg, "apply": apply, "next_check": when, "estimated": est,

@@ -1,3 +1,7 @@
+## 0.7.31 - 2026-10-11
+- fix(efficiency): the Apply button is unavailable (greyed out) when there is nothing to apply and while a write runs, so a press always does something visible
+- fix(efficiency): a `problem` status no longer hides what else is going on: the message always adds "Also: ..." with the running test or pending step (e.g. "Testing E02=5.5: measuring starts after a 24 h settling time")
+
 ## 0.7.30 - 2026-10-11
 - change(efficiency): one status, one button. `Efficiency status` (learning / waiting_for_heating / suggestion / testing / no_change / problem) with one `message` replaces Finding, Next step, Next decision, EEV settings group, Expected COP and Defrosts (their data moved to status attributes). `Apply suggestion` replaces Set EEV baseline and does exactly what the status says: writes the suggested value with read-back (only if the pump still holds the expected old value), or makes an accepted result or a manual change the new reference. A worse manual change is never locked in. Old entities are removed from the registry on restart
 - feat(efficiency): flow temperature check: the last 24 h against earlier days at the same outdoor temperature. 3 K or more above shows `problem` with the COP cost; a pending step stays listed
