@@ -2,7 +2,7 @@
 
 Control and monitor your **FoxAir / PHNIX air-to-water heat pump** directly from Home Assistant over Modbus TCP — no cloud, no YAML.
 
-![Version](https://img.shields.io/badge/version-0.7.30-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2026.10-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
+![Version](https://img.shields.io/badge/version-0.7.31-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2026.10-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
 ![FoxAir Demo](docs/screenshots/foxair_demo.gif)
 
@@ -102,7 +102,7 @@ Three entities and one button, so there is one place to look:
   - `no_change`: nothing worth testing right now; checks continue;
   - `problem`: something to fix first (short cycling, flow temperature well
     above earlier days at the same outdoor temperature, a test that came out
-    worse). A pending step is still listed after `Next:`.
+    worse). A running test or pending step is still listed after `Also:`.
   Attributes: `apply` (exactly what the button does, or null), `next_check`
   (next automatic decision, always in the future or null when it waits for
   you), `findings`, `flow_vs_history`, `expected_cop`, `settings_group`,
@@ -110,7 +110,7 @@ Three entities and one button, so there is one place to look:
 - `Apply suggestion` button: does what the status says. A suggested change is
   written to the pump with read-back, only if the pump still holds the
   expected old value; an accepted result or a manual change becomes the new
-  reference. With nothing to apply it fails with the status message. No other
+  reference. With nothing to apply it is unavailable (greyed out). No other
   path writes to the pump.
 - `Efficiency index`: COP of the last 24 h as % of what the reference settings
   would have done in the same weather and load. 100 % = same.
