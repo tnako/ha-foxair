@@ -2,7 +2,7 @@
 
 Control and monitor your **FoxAir / PHNIX air-to-water heat pump** directly from Home Assistant over Modbus TCP — no cloud, no YAML.
 
-![Version](https://img.shields.io/badge/version-0.7.28-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2026.10-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
+![Version](https://img.shields.io/badge/version-0.7.29-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2026.10-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
 ![FoxAir Demo](docs/screenshots/foxair_demo.gif)
 
@@ -130,10 +130,10 @@ or HA, starts a new comparison group and is logged.
   - `done`: no parameter has a test worth running right now.
   A step that tested worse or inconclusive isn't suggested again; the other
   direction is tried instead.
-- `Next change allowed`: timestamp of the earliest next change (last change + 24 h).
-  While the baseline or a test group is still collecting, it shows an estimate
-  (today + the missing heating days, attribute `estimated: true`) instead of
-  unknown. Mild days with little heating push it back.
+- `Next decision`: when the analyser decides next (end of the 24 h hold after a
+  change, or today + the missing heating days with attribute `estimated: true`).
+  It is never in the past: while a suggestion waits for you it is unknown, and
+  `Finding` shows `action_suggested` unless there is a real issue.
 - Every EEV change, whoever made it, is logged with time and old/new values
   (last 10 in the `changes` attribute of `Next step`). A "Set EEV baseline"
   press is logged as a baseline event.

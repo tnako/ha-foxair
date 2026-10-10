@@ -450,17 +450,38 @@ def test_analyser_end_to_end_day_and_defrost_bookkeeping():
     assert restored.days == a.days and len(restored.defrosts) == len(a.defrosts)
 
 
-def test_due_change_keeps_its_first_due_time(monkeypatch):
+def test_due_change_keeps_its_first_since(monkeypatch):
     step = {"action": "change", "param": "E02", "from": 5.0, "to": 5.5, "days_left": 3, "reason": "x"}
-    monkeypatch.setattr(eff, "advise", lambda **kw: {**step, "not_before": kw["now"]})
+    monkeypatch.setattr(eff, "advise", lambda **kw: {**step, "since": kw["now"]})
     a = eff.EfficiencyAnalyser()
     a.update_settings(FULL, 0)
     a.refresh(1000)
     a.refresh(5000)
-    assert a.advice["not_before"] == 1000
+    assert a.advice["since"] == 1000
     b = eff.EfficiencyAnalyser(a.to_dict(5000))
     b.refresh(9000)
-    assert b.advice["not_before"] == 1000
-    monkeypatch.setattr(eff, "advise", lambda **kw: {**step, "to": 4.5, "not_before": kw["now"]})
+    assert b.advice["since"] == 1000
+    monkeypatch.setattr(eff, "advise", lambda **kw: {**step, "to": 4.5, "since": kw["now"]})
     b.refresh(9500)
-    assert b.advice["not_before"] == 9500
+    assert b.advice["since"] == 9500
+
+
+def test_next_decision_is_never_in_the_past():
+    now = 100 * DAY + 3600
+    for action in ("change", "revert", "accept"):
+        assert eff.due_at({"action": action, "since": now - 10 * DAY, "days_left": 3}, now) == (None, False)
+    assert eff.due_at({"action": "keep", "not_before": now + 60, "days_left": 3}, now) == (now + 60, False)
+    t, est = eff.due_at({"action": "keep", "not_before": now - 60, "days_left": 2}, now)
+    assert est and t > now
+    t, est = eff.due_at({"action": "collecting", "days_left": 1}, now)
+    assert est and t > now
+    for action in ("done", "none", "check_curve"):
+        assert eff.due_at({"action": action}, now) == (None, False)
+
+
+def test_headline_never_says_ok_while_a_step_is_pending():
+    assert eff.headline(["ok"], {"action": "change"}) == "action_suggested"
+    assert eff.headline(["collecting"], {"action": "revert"}) == "action_suggested"
+    assert eff.headline(["short_cycling", "ok"], {"action": "change"}) == "short_cycling"
+    assert eff.headline(["ok"], {"action": "keep"}) == "ok"
+    assert eff.headline([], {"action": "collecting"}) == "collecting"

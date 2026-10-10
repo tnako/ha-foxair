@@ -2831,6 +2831,7 @@
         "state": {
           "collecting": "Collecting data",
           "ok": "No issue found",
+          "action_suggested": "Action suggested, see Next step",
           "short_cycling": "Short cycling",
           "superheat_off_target": "Superheat off target",
           "superheat_costs": "High superheat costs COP",
@@ -2853,7 +2854,7 @@
         }
       },
       "foxair_efficiency_next_change": {
-        "name": "Next change allowed"
+        "name": "Next decision"
       },
       "foxair_efficiency_daily_cop": {
         "name": "Daily COP"

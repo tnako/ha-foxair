@@ -545,12 +545,13 @@ class FoxEfficiencyFindingSensor(FoxEfficiencySensor):
     """Headline finding of the analyser (enum, translated)."""
     _key = "finding"
     _attr_device_class = SensorDeviceClass.ENUM
-    _attr_options = ["collecting", "ok", "short_cycling", "superheat_off_target", "superheat_costs",
-                     "fan_at_max", "defrost_on_timer"]
+    _attr_options = ["collecting", "ok", "action_suggested", "short_cycling", "superheat_off_target",
+                     "superheat_costs", "fan_at_max", "defrost_on_timer"]
 
     @property
     def native_value(self):
-        return self._an.hint_list[0]
+        from .efficiency import headline
+        return headline(self._an.hint_list, self._an.advice)
 
     @property
     def extra_state_attributes(self):
@@ -603,8 +604,9 @@ class FoxEfficiencyNextStepSensor(FoxEfficiencySensor):
     def extra_state_attributes(self):
         from datetime import datetime, timezone
         adv = dict(self._an.advice)
-        if adv.get("not_before"):
-            adv["not_before"] = datetime.fromtimestamp(adv["not_before"], timezone.utc).isoformat()
+        for k in ("not_before", "since"):
+            if adv.get(k):
+                adv[k] = datetime.fromtimestamp(adv[k], timezone.utc).isoformat()
         log = []
         for c in self._an.changes[-10:]:
             log.append({"time": datetime.fromtimestamp(c["t"], timezone.utc).isoformat(), "kind": c.get("kind"),
@@ -613,20 +615,14 @@ class FoxEfficiencyNextStepSensor(FoxEfficiencySensor):
 
 
 class FoxEfficiencyNextChangeSensor(FoxEfficiencySensor):
-    """When the next change is due: the hold time after a change, or an estimate while data is collected."""
+    """When the next decision is due; unknown while a suggestion waits for the user."""
     _key = "next_change"
     _attr_device_class = SensorDeviceClass.TIMESTAMP
 
     def _when(self):
-        """(timestamp, estimated): hold end when known, else the day the missing heating days would be complete."""
-        adv = self._an.advice
-        if adv.get("not_before"):
-            return adv["not_before"], False
-        days = adv.get("days_left")
-        if days and adv.get("action") in ("collecting", "keep", "wait_heating"):
-            import time
-            return (int(time.time() // 86400) + int(days)) * 86400, True
-        return None, False
+        import time
+        from .efficiency import due_at
+        return due_at(self._an.advice, time.time())
 
     @property
     def native_value(self):
