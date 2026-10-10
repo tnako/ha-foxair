@@ -695,7 +695,7 @@ class EfficiencyAnalyser:
         self.day_groups: dict = {}
         self.hint_list: list[str] = ["collecting"]
         self.recent: dict | None = None
-        self.advice: dict = {"action": "none", "reason": "settings_unknown"}
+        self.advice: dict = dict(data.get("advice") or {"action": "none", "reason": "settings_unknown"})
         self.sh_target: float | None = None
         self._last_t: float | None = None
 
@@ -703,7 +703,8 @@ class EfficiencyAnalyser:
         return {"buckets": self.buckets, "settings": self.settings, "current": self.current,
                 "baseline_fp": self.baseline_fp, "starts": self.starts, "run_hours": self.run_hours,
                 "changes": self.changes, "days": self.days, "defrosts": self.defrosts,
-                "defrost_state": self.defrost_tracker.state(), "day_acc": self.daily.s, "saved_at": now}
+                "defrost_state": self.defrost_tracker.state(), "day_acc": self.daily.s, "saved_at": now,
+                "advice": self.advice}
 
     def current_fp(self) -> str:
         fp = fingerprint(self.current)
@@ -822,6 +823,10 @@ class EfficiencyAnalyser:
                         baseline_fp=self.baseline_fp, changes=[last] if last else [], model=model,
                         hint_list=hint_list, sh_target=self.sh_target, now=now, day_rows=days,
                         day_groups=day_groups, day_model=day_model, defrosts=defrosts)
+        prev = self.advice
+        if (advice.get("action") == "change" and prev.get("not_before")
+                and all(prev.get(k) == advice.get(k) for k in ("action", "param", "from", "to"))):
+            advice["not_before"] = prev["not_before"]
         self.model, self.groups, self.recent, self.hint_list, self.advice = model, groups, recent, hint_list, advice
         self.day_model, self.day_groups = day_model, day_groups
 

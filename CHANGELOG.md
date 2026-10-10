@@ -1,3 +1,6 @@
+## 0.7.28 - 2026-10-10
+- fix(efficiency): a due `change` suggestion kept moving its `not_before` (Next change) to the latest hourly refresh, so the timestamp always looked a little in the past. It now keeps the time it first became due, also across restarts (advice is stored)
+
 ## 0.7.27 - 2026-10-08
 - change(llm): the report has no device-specific rules text any more. It returns `suggestion_policy`, built from the advisor ladder: which settings may be suggested (step, range, metric, directions) and which tracked settings are watch-only
 - feat(llm): one report per configured heat pump under `units`, each with `unit` (title, prefix, Modbus slave); optional `unit` argument selects one pump by prefix, title, slave id or entry id
