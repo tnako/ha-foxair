@@ -448,3 +448,19 @@ def test_analyser_end_to_end_day_and_defrost_bookkeeping():
     assert d and 2.5 < d["cop"] < 3.3
     restored = eff.EfficiencyAnalyser(a.to_dict(0))
     assert restored.days == a.days and len(restored.defrosts) == len(a.defrosts)
+
+
+def test_due_change_keeps_its_first_due_time(monkeypatch):
+    step = {"action": "change", "param": "E02", "from": 5.0, "to": 5.5, "days_left": 3, "reason": "x"}
+    monkeypatch.setattr(eff, "advise", lambda **kw: {**step, "not_before": kw["now"]})
+    a = eff.EfficiencyAnalyser()
+    a.update_settings(FULL, 0)
+    a.refresh(1000)
+    a.refresh(5000)
+    assert a.advice["not_before"] == 1000
+    b = eff.EfficiencyAnalyser(a.to_dict(5000))
+    b.refresh(9000)
+    assert b.advice["not_before"] == 1000
+    monkeypatch.setattr(eff, "advise", lambda **kw: {**step, "to": 4.5, "not_before": kw["now"]})
+    b.refresh(9500)
+    assert b.advice["not_before"] == 9500
