@@ -21,6 +21,8 @@ PLATFORMS = ["sensor", "climate", "water_heater", "number", "select", "switch", 
 RETIRED_UID_SUFFIXES = (
     "_sel_1016", "_switch_1016", "_switch_1016_silent",
     "_btn_1016_defrost", "_btn_1016_boost", "_silent_status", "_silent_mode",
+    "_efficiency_expected_cop", "_efficiency_settings", "_efficiency_finding", "_efficiency_next_step",
+    "_efficiency_next_change", "_efficiency_defrosts", "_efficiency_set_baseline",
     # addr-based patterns being replaced by code-based naming
     "_num_", "_switch_", "_sel_", "_time_", "_bin_",
 )

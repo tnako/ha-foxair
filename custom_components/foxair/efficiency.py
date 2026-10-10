@@ -54,15 +54,18 @@ FAN_CAP_MARGIN = 5.0
 FAN_CAP_SHARE = 0.2
 FAN_CURVE_MIN_TOUT = 3.0
 
+FLOW_HIGHER_K = 3.0
+FLOW_MATCH_K = 2.0
+FLOW_MIN_N = 6
+FLOW_REF_DAYS = 14
+
 LADDER = {
     "E02": {"step": 0.5, "min": 2.0, "max": 6.0, "metric": "steady", "dirs": (-1, 1)},
     "F05": {"step": 2.0, "min": -10.0, "max": 2.0, "metric": "steady", "dirs": (-1, 1)},
     "D03": {"step": 15.0, "min": 30.0, "max": 90.0, "metric": "daily", "dirs": (1,)},
 }
 DAILY_PREFIXES = ("D", "P", "C", "A", "H")
-ACTIONS = ["collecting", "keep", "change", "revert", "accept", "wait_heating", "check_curve", "done", "none"]
-FINDINGS = ["collecting", "ok", "short_cycling", "superheat_off_target", "superheat_costs", "fan_at_max",
-            "defrost_on_timer"]
+STATES = ["learning", "waiting_for_heating", "suggestion", "testing", "no_change", "problem"]
 
 F_T, F_HZ, F_TOUT, F_TFLOW, F_Q, F_P, F_SH, F_EEV, F_FP, F_FAN = range(10)
 SAMPLE_KEYS = ("hz", "t_out", "t_flow", "q", "p")
@@ -338,12 +341,14 @@ def defrost_on_timer(summary: dict) -> bool:
 
 def hints(model: dict | None, buckets: list[list], starts_24h: int, run_s_24h: float,
           sh_target: float | None, now: float, current: dict | None = None,
-          defrosts: list[dict] | None = None) -> list[str]:
+          defrosts: list[dict] | None = None, flow: dict | None = None) -> list[str]:
     """Ordered findings for the recent window; the first one is the headline."""
     current = current or {}
     out = []
     if starts_24h >= SHORT_CYCLE_STARTS and run_s_24h / starts_24h < SHORT_CYCLE_AVG_RUN_S:
         out.append("short_cycling")
+    if flow and flow["delta_k"] >= FLOW_HIGHER_K:
+        out.append("flow_higher")
     if defrosts and defrost_on_timer(defrost_summary(defrosts, now, current.get("D03"))):
         out.append("defrost_on_timer")
     share = fan_cap_share(buckets, current.get("F26"), now)
@@ -380,21 +385,26 @@ def _only_diff(a: dict, b: dict) -> dict:
     return {k: v for k, v in a.items() if b.get(k) != v}
 
 
-ACTIONABLE = ("change", "revert", "accept")
-
-
-def headline(hint_list: list[str], advice: dict) -> str:
-    """Finding headline: a real issue first, else a pending suggestion, else the hint."""
-    first = hint_list[0] if hint_list else "collecting"
-    if first in ("ok", "collecting") and advice.get("action") in ACTIONABLE:
-        return "action_suggested"
-    return first
+def flow_shift(buckets: list[list], now: float) -> dict | None:
+    """Last 24 h flow temperature and COP against earlier buckets at the same outdoor temperature."""
+    recent = [b for b in buckets if now - b[F_T] <= DAY_S]
+    ref = [b for b in buckets if DAY_S < now - b[F_T] <= FLOW_REF_DAYS * DAY_S]
+    pairs = []
+    for b in recent:
+        m = [r for r in ref if abs(r[F_TOUT] - b[F_TOUT]) <= FLOW_MATCH_K]
+        if len(m) >= 3:
+            pairs.append((b[F_TFLOW] - statistics.median(r[F_TFLOW] for r in m),
+                          bucket_cop(b) / statistics.median(bucket_cop(r) for r in m)))
+    if len(pairs) < FLOW_MIN_N:
+        return None
+    return {"delta_k": round(statistics.median(p[0] for p in pairs), 1),
+            "cop_pct": round(100 * (statistics.median(p[1] for p in pairs) - 1), 1), "buckets": len(pairs)}
 
 
 def due_at(advice: dict, now: float) -> tuple[float | None, bool]:
-    """(timestamp, estimated) of the next decision; always in the future or None."""
+    """(timestamp, estimated) of the next automatic check; always in the future or None."""
     a = advice.get("action")
-    if a in ACTIONABLE:
+    if a in ("change", "revert", "accept"):
         return None, False
     t = advice.get("not_before")
     if t and t > now:
@@ -403,6 +413,64 @@ def due_at(advice: dict, now: float) -> tuple[float | None, bool]:
     if days and a in ("collecting", "keep", "wait_heating"):
         return (int(now // DAY_S) + int(days)) * DAY_S, True
     return None, False
+
+
+def _fmt(v) -> str:
+    return "?" if v is None else f"{v:g}" if isinstance(v, (int, float)) else str(v)
+
+
+def summary(advice: dict, hint_list: list[str], flow: dict | None, group: str | None, now: float) -> dict:
+    """One state, one message and the one thing the Apply button does; shared by sensor, button and LLM."""
+    a, p, f, t = advice.get("action"), advice.get("param"), advice.get("from"), advice.get("to")
+    days, reason = advice.get("days_left"), advice.get("reason")
+    testing = group not in (None, "baseline")
+    own_test = p in LADDER
+    apply = None
+    if a == "change" or (a == "revert" and own_test):
+        apply = {"kind": "write", "param": p, "from": f, "to": t}
+    elif a == "accept" or (a == "keep" and reason == "need_more_days" and not own_test):
+        apply = {"kind": "baseline"}
+    if a == "change":
+        state, msg = "suggestion", (f"Press Apply to set {p} from {_fmt(f)} to {_fmt(t)}. Keep it {days} heating "
+                                    f"days, the result is judged automatically.")
+    elif a == "revert" and own_test:
+        state, msg = "suggestion", (f"{p}={_fmt(f)} showed no gain ({reason}). "
+                                    f"Press Apply to set it back to {_fmt(t)}.")
+    elif a == "revert":
+        state, msg = "problem", f"Settings {group} are not better ({reason}). Restore the previous values by hand."
+    elif a == "accept":
+        what = f"{p}={_fmt(t)}" if p else f"Settings {group}"
+        state, msg = "suggestion", (f"{what} is better ({_fmt(advice.get('delta_pct'))} %). Press Apply to keep "
+                                    f"it as the new reference.")
+    elif a == "check_curve":
+        state, msg = "problem", "Short cycling: fix the heating curve or hysteresis first."
+    elif a == "wait_heating" and testing:
+        state, msg = "waiting_for_heating", f"Testing {group}: waiting for heating, {days} more heating day(s) needed."
+    elif a == "wait_heating":
+        nxt = f" Then {p} {_fmt(f)} -> {_fmt(t)} is tested." if p and t is not None else ""
+        state, msg = "waiting_for_heating", f"Waiting for heating (about 1 h of steady heating a day).{nxt}"
+    elif a == "keep" and reason == "settling_after_change":
+        state = "testing" if testing else "learning"
+        msg = "Settings changed. Measuring starts after a 24 h settling time."
+    elif a == "keep" and own_test:
+        state, msg = "testing", f"Testing {group}: {days} more heating day(s) needed."
+    elif a == "keep":
+        state, msg = "testing", (f"Settings {group} differ from the reference: {days} more heating day(s) to "
+                                 f"compare. Press Apply to make them the reference now.")
+    elif a == "collecting":
+        state, msg = "learning", f"Learning how the pump performs: {days} more heating day(s) needed."
+    elif a == "done":
+        state, msg = "no_change", "No setting change to suggest. Checks continue automatically."
+    else:
+        state, msg = "learning", "Reading the settings from the pump."
+    if "flow_higher" in hint_list and flow:
+        prob = (f"Flow is {flow['delta_k']:g} K warmer than on earlier days at the same outdoor temperature "
+                f"(COP {flow['cop_pct']:+g} %). Check the heating curve and setpoint.")
+        msg = f"{prob} Next: {msg}" if apply else prob
+        state = "problem"
+    when, est = due_at(advice, now)
+    return {"state": state, "message": msg, "apply": apply, "next_check": when, "estimated": est,
+            "days_left": days, "reason": reason, "findings": list(hint_list)}
 
 
 def _step(param: str, value: float, direction: int) -> float | None:
@@ -419,7 +487,7 @@ def suggestion_policy(tracked) -> dict:
                                 "directions": ["down" if d < 0 else "up" for d in l["dirs"]]}
                             for p, l in LADDER.items()},
             "watch_only": sorted(p for p in tracked if p not in LADDER),
-            "writes_to_device": False}
+            "writes_to_device": "only_when_apply_is_pressed"}
 
 
 def _direction_from_data(model: dict | None, buckets: list[list], sh_target: float | None) -> tuple[int, str]:
@@ -498,7 +566,7 @@ def advise(*, buckets: list[list], groups: dict, settings: dict, current: dict, 
         if days >= max_days:
             return {**out, **res, **info, "action": "revert", "reason": "no_clear_gain"}
         need = max(min_days - days, 1)
-        return {**out, **res, "action": "keep" if heating else "wait_heating", "days_left": need,
+        return {**out, **res, **info, "action": "keep" if heating else "wait_heating", "days_left": need,
                 "reason": "need_more_days" if heating else "no_heating"}
 
     base_buckets = [b for b in buckets if b[F_FP] == baseline_fp]
@@ -722,6 +790,7 @@ class EfficiencyAnalyser:
         self.recent: dict | None = None
         self.advice: dict = dict(data.get("advice") or {"action": "none", "reason": "settings_unknown"})
         self.sh_target: float | None = None
+        self.flow: dict | None = None
         self._last_t: float | None = None
 
     def to_dict(self, now: float) -> dict:
@@ -841,8 +910,9 @@ class EfficiencyAnalyser:
             r = [x for _, x in ratios(model, [b for b in buckets if now - b[F_T] <= DAY_S])]
             if r:
                 recent = {"index_pct": round(100 * sum(r) / len(r), 1), "buckets": len(r)}
+        flow = flow_shift(buckets, now)
         hint_list = hints(model, buckets, len(self.starts), sum(self.run_hours.values()), self.sh_target, now,
-                          current, defrosts)
+                          current, defrosts, flow)
         last = self.last_change()
         advice = advise(buckets=buckets, groups=groups, settings=settings, current=current,
                         baseline_fp=self.baseline_fp, changes=[last] if last else [], model=model,
@@ -853,7 +923,11 @@ class EfficiencyAnalyser:
                 and all(prev.get(k) == advice.get(k) for k in ("action", "param", "from", "to"))):
             advice["since"] = prev["since"]
         self.model, self.groups, self.recent, self.hint_list, self.advice = model, groups, recent, hint_list, advice
-        self.day_model, self.day_groups = day_model, day_groups
+        self.day_model, self.day_groups, self.flow = day_model, day_groups, flow
+
+    def status(self, now: float) -> dict:
+        group = self.describe(self.current_fp()) if self.current and self.baseline_fp else None
+        return summary(self.advice, self.hint_list, self.flow, group, now)
 
     def expected_cop(self, hz, t_out, t_flow) -> float | None:
         if self.model is None or hz is None or t_out is None or t_flow is None or hz <= 0:

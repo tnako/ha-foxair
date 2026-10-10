@@ -12,7 +12,7 @@ from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.llm import LLM_API_ASSIST, LLMContext, Tool, ToolAnnotations, ToolInput, ToolResult
 
 from .const import DOMAIN, get_slave_id
-from .efficiency import headline, suggestion_policy
+from .efficiency import suggestion_policy
 from .efficiency_runtime import SETTING_ADDRS
 
 LIVE_KEYS = {"t30": "compressor_hz", "t04": "outdoor_c", "t02": "flow_c", "t01": "return_c", "t03": "evaporator_c",
@@ -40,7 +40,7 @@ def _units(hass: HomeAssistant) -> list:
 
 
 def build_report(hass: HomeAssistant, entry) -> dict:
-    from .sensor import _advice_message
+    import time
 
     an = entry.runtime_data.efficiency.analyser
     prefix = _prefix(entry)
@@ -48,19 +48,16 @@ def build_report(hass: HomeAssistant, entry) -> dict:
     for key, name in LIVE_KEYS.items():
         st = hass.states.get(f"sensor.{prefix}_{key}")
         live[name] = _num(st.state) if st else None
-    adv = dict(an.advice)
-    for k in ("not_before", "since"):
-        if adv.get(k):
-            adv[k] = _iso(adv[k])
+    st = an.status(time.time())
+    st["next_check"] = _iso(st["next_check"])
     day = an.last_day()
     if day:
         day = {**day, "day": str(_iso(day["day"] * 86400))[:10], "fp": an.describe(day["fp"])}
     return {
         "unit": {"name": entry.title, "prefix": prefix, "slave": get_slave_id(entry)},
         "live": live,
-        "next_step": {**adv, "message": _advice_message(an.advice)},
-        "findings": list(an.hint_list),
-        "headline": headline(an.hint_list, an.advice),
+        "status": st,
+        "flow_vs_history": an.flow,
         "superheat_target": an.sh_target,
         "settings_group": an.describe(an.current_fp()) if an.current else None,
         "is_baseline": bool(an.current) and an.current_fp() == an.baseline_fp,
@@ -88,9 +85,10 @@ def _matches(entry, unit: str) -> bool:
 class GetEfficiencyReportTool(Tool):
     name = f"{DOMAIN}__GetEfficiencyReport"
     title = "Foxair efficiency report"
-    description = ("Foxair heat pump efficiency analyser: live readings, next suggested settings step, findings, "
-                   "COP per settings group, daily COP, recent setting changes and which settings the advisor may "
-                   "suggest. Read-only. Without 'unit' all configured heat pumps are returned.")
+    description = ("Foxair heat pump efficiency analyser: live readings, status (state, message, what the Apply "
+                   "button would do), flow temperature against history, COP per settings group, daily COP, recent "
+                   "setting changes and which settings the advisor may suggest. Read-only. Without 'unit' all "
+                   "configured heat pumps are returned.")
     parameters = probatio.Schema({probatio.Optional("unit", description="Name prefix, title, Modbus slave id or "
                                                                         "config entry id of one heat pump"): str})
     annotations = ToolAnnotations(read_only=True, destructive=False, idempotent=True, open_world=False)

@@ -1,3 +1,8 @@
+## 0.7.30 - 2026-10-11
+- change(efficiency): one status, one button. `Efficiency status` (learning / waiting_for_heating / suggestion / testing / no_change / problem) with one `message` replaces Finding, Next step, Next decision, EEV settings group, Expected COP and Defrosts (their data moved to status attributes). `Apply suggestion` replaces Set EEV baseline and does exactly what the status says: writes the suggested value with read-back (only if the pump still holds the expected old value), or makes an accepted result or a manual change the new reference. A worse manual change is never locked in. Old entities are removed from the registry on restart
+- feat(efficiency): flow temperature check: the last 24 h against earlier days at the same outdoor temperature. 3 K or more above shows `problem` with the COP cost; a pending step stays listed
+- change(llm): the report returns the same `status` (state, message, apply action, next check) and `flow_vs_history`
+
 ## 0.7.29 - 2026-10-10
 - fix(efficiency): the sensors no longer contradict each other. `Finding` shows `action_suggested` while a change/revert/accept waits for you (a real issue still wins), and `Next change allowed` is renamed `Next decision`: it is never in the past, and unknown while a suggestion is pending. Both come from one rule each in `efficiency.py` (`headline`, `due_at`), also used by the LLM report (`headline`)
 - change: a pending suggestion carries `since` (when it first appeared) instead of overloading `not_before`

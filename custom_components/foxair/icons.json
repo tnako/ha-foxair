@@ -1729,29 +1729,21 @@
       "foxair_1463": {
         "default": "mdi:thermometer-lines"
       },
+      "foxair_efficiency_status": {
+        "default": "mdi:lightbulb-on-outline",
+        "state": {
+          "problem": "mdi:alert-circle-outline",
+          "suggestion": "mdi:gesture-tap-button",
+          "no_change": "mdi:check-circle-outline",
+          "waiting_for_heating": "mdi:sleep",
+          "testing": "mdi:flask-outline"
+        }
+      },
       "foxair_efficiency_index": {
         "default": "mdi:gauge"
       },
-      "foxair_efficiency_expected_cop": {
-        "default": "mdi:target"
-      },
-      "foxair_efficiency_settings": {
-        "default": "mdi:valve"
-      },
-      "foxair_efficiency_finding": {
-        "default": "mdi:stethoscope"
-      },
-      "foxair_efficiency_next_step": {
-        "default": "mdi:arrow-right-bold-circle-outline"
-      },
-      "foxair_efficiency_next_change": {
-        "default": "mdi:calendar-clock"
-      },
       "foxair_efficiency_daily_cop": {
         "default": "mdi:calendar-today"
-      },
-      "foxair_efficiency_defrosts": {
-        "default": "mdi:snowflake-melt"
       }
     },
     "climate": {
@@ -2712,8 +2704,8 @@
       "foxair_manual_heating_boost": {
         "default": "mdi:fire"
       },
-      "foxair_efficiency_set_baseline": {
-        "default": "mdi:flag-checkered"
+      "foxair_efficiency_apply": {
+        "default": "mdi:gesture-tap-button"
       }
     },
     "binary_sensor": {

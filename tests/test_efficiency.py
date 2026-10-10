@@ -466,22 +466,88 @@ def test_due_change_keeps_its_first_since(monkeypatch):
     assert b.advice["since"] == 9500
 
 
-def test_next_decision_is_never_in_the_past():
-    now = 100 * DAY + 3600
-    for action in ("change", "revert", "accept"):
-        assert eff.due_at({"action": action, "since": now - 10 * DAY, "days_left": 3}, now) == (None, False)
-    assert eff.due_at({"action": "keep", "not_before": now + 60, "days_left": 3}, now) == (now + 60, False)
-    t, est = eff.due_at({"action": "keep", "not_before": now - 60, "days_left": 2}, now)
-    assert est and t > now
-    t, est = eff.due_at({"action": "collecting", "days_left": 1}, now)
-    assert est and t > now
-    for action in ("done", "none", "check_curve"):
-        assert eff.due_at({"action": action}, now) == (None, False)
+NOW = 100 * DAY + 3600
 
 
-def test_headline_never_says_ok_while_a_step_is_pending():
-    assert eff.headline(["ok"], {"action": "change"}) == "action_suggested"
-    assert eff.headline(["collecting"], {"action": "revert"}) == "action_suggested"
-    assert eff.headline(["short_cycling", "ok"], {"action": "change"}) == "short_cycling"
-    assert eff.headline(["ok"], {"action": "keep"}) == "ok"
-    assert eff.headline([], {"action": "collecting"}) == "collecting"
+def _st(advice, hints=("ok",), flow=None, group="baseline"):
+    return eff.summary(advice, list(hints), flow, group, NOW)
+
+
+def test_every_state_has_one_message_and_a_consistent_apply():
+    cases = [
+        ({"action": "none", "reason": "settings_unknown"}, "learning", None),
+        ({"action": "collecting", "days_left": 2, "reason": "baseline_needs_days"}, "learning", None),
+        ({"action": "wait_heating", "reason": "no_heating", "param": "E02", "from": 5.0, "to": 5.5},
+         "waiting_for_heating", None),
+        ({"action": "change", "param": "E02", "from": 5.0, "to": 5.5, "days_left": 3}, "suggestion", "write"),
+        ({"action": "revert", "param": "E02", "from": 5.5, "to": 5.0, "reason": "worse"}, "suggestion", "write"),
+        ({"action": "accept", "param": "E02", "from": 5.0, "to": 5.5, "delta_pct": 2.1}, "suggestion", "baseline"),
+        ({"action": "keep", "param": "E02", "days_left": 2, "reason": "need_more_days"}, "testing", None),
+        ({"action": "done", "reason": "no_candidate"}, "no_change", None),
+        ({"action": "check_curve", "reason": "short_cycling"}, "problem", None),
+    ]
+    for adv, state, kind in cases:
+        st = _st(adv, group="E02=5.5" if adv["action"] in ("keep", "revert") else "baseline")
+        assert st["state"] == state and st["state"] in eff.STATES, adv
+        assert (st["apply"] or {}).get("kind") == kind, adv
+        assert st["message"] and ("Apply" in st["message"]) == (kind is not None), adv
+
+
+def test_suggestion_message_names_the_button_and_values():
+    st = _st({"action": "change", "param": "E02", "from": 5.0, "to": 5.5, "days_left": 3})
+    assert st["message"].startswith("Press Apply to set E02 from 5 to 5.5")
+    assert st["apply"] == {"kind": "write", "param": "E02", "from": 5.0, "to": 5.5}
+    assert st["next_check"] is None
+
+
+def test_manual_change_can_become_the_reference_but_a_worse_one_is_never_locked_in():
+    keep = _st({"action": "keep", "param": None, "days_left": 2, "reason": "need_more_days"}, group="R02=47")
+    assert keep["state"] == "testing" and keep["apply"] == {"kind": "baseline"}
+    bad = _st({"action": "revert", "param": None, "reason": "worse"}, group="E03-1=200 E07=70")
+    assert bad["state"] == "problem" and bad["apply"] is None
+
+
+def test_next_check_is_never_in_the_past():
+    for adv in ({"action": "keep", "not_before": NOW - 60, "days_left": 2},
+                {"action": "collecting", "days_left": 1},
+                {"action": "wait_heating", "days_left": 3},
+                {"action": "keep", "reason": "settling_after_change", "not_before": NOW + 60}):
+        t = _st(adv)["next_check"]
+        assert t is None or t > NOW, adv
+    for adv in ({"action": "change", "since": NOW - 10 * DAY, "days_left": 3}, {"action": "done"},
+                {"action": "check_curve"}, {"action": "none"}):
+        assert _st(adv)["next_check"] is None, adv
+
+
+def test_flow_problem_overrides_the_status_and_keeps_the_pending_step():
+    flow = {"delta_k": 12.4, "cop_pct": -11.0, "buckets": 30}
+    st = _st({"action": "change", "param": "E02", "from": 5.0, "to": 5.5, "days_left": 3},
+             hints=["flow_higher", "ok"], flow=flow)
+    assert st["state"] == "problem" and st["apply"]["kind"] == "write"
+    assert "12.4 K warmer" in st["message"] and "Press Apply" in st["message"]
+    st = _st({"action": "done"}, hints=["flow_higher"], flow=flow)
+    assert st["state"] == "problem" and st["apply"] is None and "Next:" not in st["message"]
+
+
+def test_flow_shift_compares_same_outdoor_temperature_only():
+    def b(t, tout, tflow, cop):
+        return [t, 30, tout, tflow, 3000.0 * cop / 3, 1000.0, 5, 100, "x", None]
+    old = [b(NOW - 3 * DAY + i * 600, 11 + (i % 3), 30.0, 4.2) for i in range(30)]
+    new = [b(NOW - 3600 * 5 + i * 600, 11 + (i % 3), 42.0, 3.5) for i in range(12)]
+    f = eff.flow_shift(old + new, NOW)
+    assert f["delta_k"] == 12.0 and f["cop_pct"] < -10 and f["buckets"] == 12
+    assert "flow_higher" in eff.hints(None, old + new, 0, 0, None, NOW, flow=f)
+    cold = [b(NOW - 3600 + i * 60, -5, 42.0, 3.0) for i in range(10)]
+    assert eff.flow_shift(old + cold, NOW) is None
+    same = [b(NOW - 3600 * 5 + i * 600, 11 + (i % 3), 30.5, 4.2) for i in range(12)]
+    assert "flow_higher" not in eff.hints(None, old + same, 0, 0, None, NOW, flow=eff.flow_shift(old + same, NOW))
+
+
+def test_status_is_the_single_source_for_the_analyser():
+    a = eff.EfficiencyAnalyser()
+    a.update_settings(FULL, 0)
+    a.set_baseline(0)
+    a.refresh(1000)
+    st = a.status(1000)
+    assert st["state"] in eff.STATES and st["message"]
+    assert a.flow is None
