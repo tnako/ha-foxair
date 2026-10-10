@@ -75,10 +75,8 @@ async def async_setup_entry(hass, entry, add_entities):
     for _mode in ("cooling", "dhw"):
         ents.append(FoxModeCopSensor(coord, _mode))
     if getattr(coord, "efficiency", None) is not None:
-        ents.extend([FoxEfficiencyIndexSensor(coord), FoxExpectedCopSensor(coord),
-                     FoxEfficiencySettingsSensor(coord), FoxEfficiencyFindingSensor(coord),
-                     FoxEfficiencyNextStepSensor(coord), FoxEfficiencyNextChangeSensor(coord),
-                     FoxEfficiencyDailySensor(coord), FoxDefrostSensor(coord)])
+        ents.extend([FoxEfficiencyStatusSensor(coord), FoxEfficiencyIndexSensor(coord),
+                     FoxEfficiencyDailySensor(coord)])
     add_entities(ents)
 
 class FoxSensor(CoordinatorEntity, SensorEntity):
@@ -505,140 +503,49 @@ class FoxEfficiencyIndexSensor(FoxEfficiencySensor):
         return attrs
 
 
-class FoxExpectedCopSensor(FoxEfficiencySensor):
-    """COP the baseline model expects right now (same compressor Hz, outdoor and flow temperature)."""
-    _key = "expected_cop"
-    _attr_state_class = SensorStateClass.MEASUREMENT
-    _attr_suggested_display_precision = 2
-
-    @property
-    def native_value(self):
-        c = self.coordinator
-        if compute_cop(c, self._opts) is None:
-            return None
-        a = marker_addrs(c)
-        v = self._an.expected_cop(*(_cval(c, a[k]) if a[k] else None for k in ("hz", "t_out", "t_flow")))
-        return None if v is None else round(v, 2)
-
-
-class FoxEfficiencySettingsSensor(FoxEfficiencySensor):
-    """Current EEV settings group: 'baseline' or the parameters that differ from it."""
-    _key = "settings"
-
-    @property
-    def native_value(self):
-        an = self._an
-        if not an.current:
-            return None
-        return an.describe(an.current_fp())[:255]
-
-    @property
-    def extra_state_attributes(self):
-        an = self._an
-        fp = an.current_fp() if an.current else None
-        return {"fingerprint": fp, "settings": dict(an.current),
-                "baseline_settings": an.settings.get(an.baseline_fp or "", {}),
-                "result": an.groups.get(fp or "", {}), "daily_result": an.day_groups.get(fp or "", {})}
-
-
-class FoxEfficiencyFindingSensor(FoxEfficiencySensor):
-    """Headline finding of the analyser (enum, translated)."""
-    _key = "finding"
+class FoxEfficiencyStatusSensor(FoxEfficiencySensor):
+    """The analyser in one state: learning, waiting, suggestion, testing, no change or problem."""
+    _key = "status"
     _attr_device_class = SensorDeviceClass.ENUM
-    _attr_options = ["collecting", "ok", "action_suggested", "short_cycling", "superheat_off_target",
-                     "superheat_costs", "fan_at_max", "defrost_on_timer"]
 
     @property
-    def native_value(self):
-        from .efficiency import headline
-        return headline(self._an.hint_list, self._an.advice)
+    def options(self):
+        from .efficiency import STATES
+        return STATES
 
-    @property
-    def extra_state_attributes(self):
-        return {"all": list(self._an.hint_list), "superheat_target": self._an.sh_target}
-
-
-def _fmt(v):
-    return int(v) if isinstance(v, float) and v.is_integer() else v
-
-
-def _advice_message(adv: dict) -> str:
-    """One-line English summary of the advice for dashboards and notifications."""
-    a, p, f, t = adv.get("action"), adv.get("param"), adv.get("from"), adv.get("to")
-    days = adv.get("days_left")
-    when = adv.get("not_before")
-    if a == "change":
-        return f"Change {p} from {_fmt(f)} to {_fmt(t)}, then keep it for at least {days} heating days"
-    if a == "revert":
-        return f"Set {p} back from {f} to {t} ({adv.get('reason')})" if p else "Restore the baseline settings"
-    if a == "accept":
-        return f"Keep {p}={t} and press Set EEV baseline ({adv.get('delta_pct')} % vs baseline)"
-    if a == "keep" and adv.get("reason") == "settling_after_change" and when:
-        from datetime import datetime
-        return f"Wait: no change before {datetime.fromtimestamp(when).strftime('%Y-%m-%d %H:%M')}"
-    if a == "keep":
-        return f"Keep the current settings for {days} more heating day(s)"
-    if a == "collecting":
-        return f"Collecting the baseline: {days} more heating day(s) needed"
-    if a == "wait_heating":
-        nxt = f", then change {p} from {f} to {t}" if p and t is not None else ""
-        return f"Wait for heating demand (about 1 h of steady heating a day){nxt}"
-    if a == "check_curve":
-        return "Short cycling: fix the heating curve or hysteresis before EEV tests"
-    if a == "done":
-        return "All planned EEV steps are tested"
-    return "Waiting for EEV settings"
-
-
-class FoxEfficiencyNextStepSensor(FoxEfficiencySensor):
-    """What to do next: change, keep, revert, accept, wait (enum, translated)."""
-    _key = "next_step"
-    _attr_device_class = SensorDeviceClass.ENUM
-    _attr_options = ["collecting", "keep", "change", "revert", "accept", "wait_heating", "check_curve", "done", "none"]
-
-    @property
-    def native_value(self):
-        return self._an.advice.get("action", "none")
-
-    @property
-    def extra_state_attributes(self):
-        from datetime import datetime, timezone
-        adv = dict(self._an.advice)
-        for k in ("not_before", "since"):
-            if adv.get(k):
-                adv[k] = datetime.fromtimestamp(adv[k], timezone.utc).isoformat()
-        log = []
-        for c in self._an.changes[-10:]:
-            log.append({"time": datetime.fromtimestamp(c["t"], timezone.utc).isoformat(), "kind": c.get("kind"),
-                        "diff": c.get("diff"), "verdict": (self._an.groups.get(c.get("to") or "") or {}).get("verdict")})
-        return {**adv, "message": _advice_message(self._an.advice), "changes": log}
-
-
-class FoxEfficiencyNextChangeSensor(FoxEfficiencySensor):
-    """When the next decision is due; unknown while a suggestion waits for the user."""
-    _key = "next_change"
-    _attr_device_class = SensorDeviceClass.TIMESTAMP
-
-    def _when(self):
+    def _status(self):
         import time
-        from .efficiency import due_at
-        return due_at(self._an.advice, time.time())
+        return self._an.status(time.time())
 
     @property
     def native_value(self):
-        from datetime import datetime, timezone
-        t, _ = self._when()
-        return None if not t else datetime.fromtimestamp(t, timezone.utc)
+        return self._status()["state"]
 
     @property
     def extra_state_attributes(self):
+        import time
         from datetime import datetime, timezone
-        last = self._an.last_change()
-        _, est = self._when()
-        return {"estimated": est, "days_left": self._an.advice.get("days_left"),
-                "reason": self._an.advice.get("reason"),
-                "last_change": None if not last else datetime.fromtimestamp(last["t"], timezone.utc).isoformat(),
-                "last_diff": None if not last else last.get("diff")}
+        from .efficiency import defrost_summary
+
+        def iso(t):
+            return None if t is None else datetime.fromtimestamp(t, timezone.utc).isoformat()
+
+        an, st = self._an, self._status()
+        c = self.coordinator
+        a = marker_addrs(c)
+        exp = None
+        if compute_cop(c, self._opts) is not None:
+            exp = an.expected_cop(*(_cval(c, a[k]) if a[k] else None for k in ("hz", "t_out", "t_flow")))
+        fp = an.current_fp() if an.current else None
+        return {"message": st["message"], "apply": st["apply"], "next_check": iso(st["next_check"]),
+                "next_check_estimated": st["estimated"], "days_left": st["days_left"], "reason": st["reason"],
+                "findings": st["findings"], "flow_vs_history": an.flow,
+                "expected_cop": None if exp is None else round(exp, 2),
+                "settings_group": an.describe(fp) if fp and an.baseline_fp else None,
+                "suggested_since": iso(an.advice.get("since")),
+                "defrosts": defrost_summary(an.defrosts, time.time(), an.current.get("D03")),
+                "changes": [{"time": iso(ch["t"]), "kind": ch.get("kind"), "diff": ch.get("diff")}
+                            for ch in an.changes[-10:]]}
 
 
 class FoxEfficiencyDailySensor(FoxEfficiencySensor):
@@ -668,24 +575,3 @@ class FoxEfficiencyDailySensor(FoxEfficiencySensor):
                 "day": datetime.fromtimestamp(last[R_DAY] * 86400, timezone.utc).date().isoformat(),
                 "why": day_problems(last), "coverage": last[R_COVER]}
         return out
-
-
-class FoxDefrostSensor(FoxEfficiencySensor):
-    """Defrost cycles in the last 24 h, with duration, interval and energy of the recent ones."""
-    _key = "defrosts"
-    _attr_state_class = SensorStateClass.MEASUREMENT
-
-    @property
-    def native_value(self):
-        import time as _t
-        return sum(1 for e in self._an.defrosts if _t.time() - e["t"] <= 86400)
-
-    @property
-    def extra_state_attributes(self):
-        import time as _t
-        from datetime import datetime, timezone
-        from .efficiency import defrost_summary
-        an = self._an
-        summ = defrost_summary(an.defrosts, _t.time(), an.current.get("D03"))
-        last = [{**e, "t": datetime.fromtimestamp(e["t"], timezone.utc).isoformat()} for e in an.defrosts[-5:]]
-        return {**summ, "recent": last, "recorded": len(an.defrosts)}

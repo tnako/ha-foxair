@@ -2817,50 +2817,22 @@
       "foxair_1463": {
         "name": "Outdoor sensor"
       },
+      "foxair_efficiency_status": {
+        "name": "Efficiency status",
+        "state": {
+          "learning": "Learning",
+          "waiting_for_heating": "Waiting for heating",
+          "suggestion": "Suggestion ready, press Apply",
+          "testing": "Testing a change",
+          "no_change": "Nothing to change",
+          "problem": "Check needed"
+        }
+      },
       "foxair_efficiency_index": {
         "name": "Efficiency index"
       },
-      "foxair_efficiency_expected_cop": {
-        "name": "Expected COP"
-      },
-      "foxair_efficiency_settings": {
-        "name": "EEV settings group"
-      },
-      "foxair_efficiency_finding": {
-        "name": "Finding",
-        "state": {
-          "collecting": "Collecting data",
-          "ok": "No issue found",
-          "action_suggested": "Action suggested, see Next step",
-          "short_cycling": "Short cycling",
-          "superheat_off_target": "Superheat off target",
-          "superheat_costs": "High superheat costs COP",
-          "fan_at_max": "Fan at its maximum",
-          "defrost_on_timer": "Short defrosts on timer"
-        }
-      },
-      "foxair_efficiency_next_step": {
-        "name": "Next step",
-        "state": {
-          "collecting": "Collecting baseline",
-          "keep": "Keep, wait",
-          "change": "Change now",
-          "revert": "Revert",
-          "accept": "Accept new value",
-          "wait_heating": "Wait for heating",
-          "check_curve": "Check heating curve",
-          "done": "All steps tested",
-          "none": "No settings yet"
-        }
-      },
-      "foxair_efficiency_next_change": {
-        "name": "Next decision"
-      },
       "foxair_efficiency_daily_cop": {
         "name": "Daily COP"
-      },
-      "foxair_efficiency_defrosts": {
-        "name": "Defrosts (24 h)"
       }
     },
     "climate": {
@@ -5044,8 +5016,8 @@
       "foxair_manual_heating_boost": {
         "name": "One-Touch Manual Heating"
       },
-      "foxair_efficiency_set_baseline": {
-        "name": "Set EEV baseline"
+      "foxair_efficiency_apply": {
+        "name": "Apply suggestion"
       }
     },
     "binary_sensor": {

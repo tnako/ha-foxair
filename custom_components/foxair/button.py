@@ -6,7 +6,6 @@ read-modify-write so sibling bits survive.
 """
 
 from homeassistant.components.button import ButtonEntity
-from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from .const import (
@@ -38,28 +37,32 @@ async def async_setup_entry(hass, entry, add_entities):
             if spec.get("kind") == "button":
                 ents.append(FoxBitButton(coord, addr, meta, int(bit), spec.get("slug", f"bit{bit}"), spec.get("key", f"{addr}_{bit}"), spec.get("icon")))
     if getattr(coord, "efficiency", None) is not None:
-        ents.append(FoxEfficiencyBaselineButton(coord))
+        ents.append(FoxEfficiencyApplyButton(coord))
     add_entities(ents)
 
 
-class FoxEfficiencyBaselineButton(CoordinatorEntity, ButtonEntity):
-    """Make the current EEV settings the baseline the analyser compares against."""
+class FoxEfficiencyApplyButton(CoordinatorEntity, ButtonEntity):
+    """Do what the efficiency status suggests: write the one setting, or keep the current settings."""
     _attr_has_entity_name = True
-    _attr_entity_category = EntityCategory.CONFIG
 
     def __init__(self, coord):
         super().__init__(coord)
         prefix = get_device_prefix(coord.entry)
         entry_id = coord.entry.entry_id
-        self._attr_unique_id = f"{prefix}_efficiency_set_baseline"
-        self.entity_id = f"button.{prefix}_efficiency_set_baseline"
-        self._attr_translation_key = "foxair_efficiency_set_baseline"
+        self._attr_unique_id = f"{prefix}_efficiency_apply"
+        self.entity_id = f"button.{prefix}_efficiency_apply"
+        self._attr_translation_key = "foxair_efficiency_apply"
         self._attr_device_info = bind_device_info(
             getattr(coord, "hass", None), entry_id,
             device_for_block("EFF", entry_id, None, prefix, get_slave_id(coord.entry)))
 
     async def async_press(self) -> None:
-        await self.coordinator.efficiency.async_set_baseline()
+        from homeassistant.exceptions import HomeAssistantError
+        try:
+            await self.coordinator.efficiency.async_apply()
+        except ValueError as e:
+            raise HomeAssistantError(str(e)) from e
+        self.coordinator.async_update_listeners()
 
 
 class FoxBitButton(CoordinatorEntity, ButtonEntity):

@@ -2817,50 +2817,22 @@
       "foxair_1463": {
         "name": "Наружный датчик"
       },
+      "foxair_efficiency_status": {
+        "name": "Статус эффективности",
+        "state": {
+          "learning": "Обучение",
+          "waiting_for_heating": "Ждёт отопления",
+          "suggestion": "Есть предложение, нажмите Применить",
+          "testing": "Идёт тест изменения",
+          "no_change": "Менять нечего",
+          "problem": "Нужна проверка"
+        }
+      },
       "foxair_efficiency_index": {
         "name": "Индекс эффективности"
       },
-      "foxair_efficiency_expected_cop": {
-        "name": "Ожидаемый COP"
-      },
-      "foxair_efficiency_settings": {
-        "name": "Группа настроек EEV"
-      },
-      "foxair_efficiency_finding": {
-        "name": "Вывод",
-        "state": {
-          "collecting": "Сбор данных",
-          "ok": "Проблем не найдено",
-          "action_suggested": "Есть рекомендация, см. Следующий шаг",
-          "short_cycling": "Частые пуски",
-          "superheat_off_target": "Перегрев не по уставке",
-          "superheat_costs": "Высокий перегрев снижает COP",
-          "fan_at_max": "Вентилятор на максимуме",
-          "defrost_on_timer": "Короткие оттайки по таймеру"
-        }
-      },
-      "foxair_efficiency_next_step": {
-        "name": "Следующий шаг",
-        "state": {
-          "collecting": "Сбор базы",
-          "keep": "Оставить, ждать",
-          "change": "Изменить сейчас",
-          "revert": "Вернуть",
-          "accept": "Принять новое значение",
-          "wait_heating": "Ждать отопления",
-          "check_curve": "Проверить кривую",
-          "done": "Все шаги проверены",
-          "none": "Настроек пока нет"
-        }
-      },
-      "foxair_efficiency_next_change": {
-        "name": "Следующее решение"
-      },
       "foxair_efficiency_daily_cop": {
         "name": "Суточный COP"
-      },
-      "foxair_efficiency_defrosts": {
-        "name": "Оттайки (24 ч)"
       }
     },
     "climate": {
@@ -5044,8 +5016,8 @@
       "foxair_manual_heating_boost": {
         "name": "Разовый ручной нагрев"
       },
-      "foxair_efficiency_set_baseline": {
-        "name": "Сделать EEV базой"
+      "foxair_efficiency_apply": {
+        "name": "Применить предложение"
       }
     },
     "binary_sensor": {

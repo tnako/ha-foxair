@@ -201,6 +201,31 @@ class EfficiencyRuntime:
         await self.async_save()
         await self._refresh()
 
+    async def async_apply(self) -> str:
+        """Do what the current suggestion says; returns 'written', 'baseline' or raises ValueError."""
+        st = self.analyser.status(time.time())
+        act = st["apply"]
+        if not act:
+            raise ValueError(st["message"])
+        if act["kind"] == "baseline":
+            await self.async_set_baseline()
+            return "baseline"
+        addr = SETTING_ADDRS[act["param"]]
+        now_val = _val(self.coord, addr)
+        if now_val is None:
+            now_val = self._fetched.get(act["param"])
+        if now_val is None or round(now_val, 1) != round(act["from"], 1):
+            raise ValueError(f"{act['param']} is {now_val} on the pump, expected {act['from']}; nothing written")
+        if not await self.coord.async_write_register(addr, act["to"]):
+            raise ValueError(f"writing {act['param']}={act['to']} failed or was blocked")
+        got = _val(self.coord, addr)
+        if got is None or round(got, 1) != round(act["to"], 1):
+            raise ValueError(f"{act['param']} read back {got}, expected {act['to']}")
+        _LOGGER.info("Efficiency apply: %s %s -> %s", act["param"], act["from"], act["to"])
+        self._fetched[act["param"]] = round(got, 1)
+        self._publish_settings()
+        return "written"
+
     async def async_shutdown(self) -> None:
         for task in (self._settings_task, self._refresh_task):
             if task is not None and not task.done():

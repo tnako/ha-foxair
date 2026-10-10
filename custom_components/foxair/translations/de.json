@@ -2817,50 +2817,22 @@
       "foxair_1463": {
         "name": "AT-Fühler"
       },
+      "foxair_efficiency_status": {
+        "name": "Effizienzstatus",
+        "state": {
+          "learning": "Lernt",
+          "waiting_for_heating": "Wartet auf Heizbetrieb",
+          "suggestion": "Vorschlag bereit, Übernehmen drücken",
+          "testing": "Änderung wird getestet",
+          "no_change": "Nichts zu ändern",
+          "problem": "Prüfung nötig"
+        }
+      },
       "foxair_efficiency_index": {
         "name": "Effizienzindex"
       },
-      "foxair_efficiency_expected_cop": {
-        "name": "Erwarteter COP"
-      },
-      "foxair_efficiency_settings": {
-        "name": "EEV-Einstellungsgruppe"
-      },
-      "foxair_efficiency_finding": {
-        "name": "Befund",
-        "state": {
-          "collecting": "Sammle Daten",
-          "ok": "Kein Problem gefunden",
-          "action_suggested": "Aktion empfohlen, siehe Nächster Schritt",
-          "short_cycling": "Taktet zu oft",
-          "superheat_off_target": "Überhitzung abseits Sollwert",
-          "superheat_costs": "Hohe Überhitzung kostet COP",
-          "fan_at_max": "Lüfter am Maximum",
-          "defrost_on_timer": "Kurze Abtauungen nach Timer"
-        }
-      },
-      "foxair_efficiency_next_step": {
-        "name": "Nächster Schritt",
-        "state": {
-          "collecting": "Basis wird erfasst",
-          "keep": "Beibehalten, warten",
-          "change": "Jetzt ändern",
-          "revert": "Zurücksetzen",
-          "accept": "Neuen Wert übernehmen",
-          "wait_heating": "Auf Heizbetrieb warten",
-          "check_curve": "Heizkurve prüfen",
-          "done": "Alle Schritte getestet",
-          "none": "Noch keine Einstellungen"
-        }
-      },
-      "foxair_efficiency_next_change": {
-        "name": "Nächste Entscheidung"
-      },
       "foxair_efficiency_daily_cop": {
         "name": "Tages-COP"
-      },
-      "foxair_efficiency_defrosts": {
-        "name": "Abtauungen (24 h)"
       }
     },
     "climate": {
@@ -5044,8 +5016,8 @@
       "foxair_manual_heating_boost": {
         "name": "Ein-Tasten-Heizen"
       },
-      "foxair_efficiency_set_baseline": {
-        "name": "EEV-Basis festlegen"
+      "foxair_efficiency_apply": {
+        "name": "Vorschlag übernehmen"
       }
     },
     "binary_sensor": {

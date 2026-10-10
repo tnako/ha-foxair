@@ -72,7 +72,6 @@ def _stub():
     _mod("foxair_llm_pkg.const", DOMAIN="foxair", get_slave_id=lambda e: e.data.get("slave"))
     _load("foxair_llm_pkg.efficiency", CC / "efficiency.py")
     _mod("foxair_llm_pkg.efficiency_runtime", SETTING_ADDRS={"E02": 1132, "F05": 1066, "F26": 1104, "P11": 1432})
-    _mod("foxair_llm_pkg.sensor", _advice_message=lambda adv: f"msg:{adv.get('action')}")
 
 
 _stub()
@@ -92,6 +91,7 @@ class FakeAnalyser:
     groups = {"fp1": {"days": 4, "verdict": "baseline"}}
     day_groups = {}
     model = {"mape_pct": 3.1}
+    flow = None
     changes = [{"t": 0.0, "kind": "change", "from": "fp0", "to": "fp1", "diff": {"E02": [4.5, 5.0]}}]
 
     def current_fp(self):
@@ -99,6 +99,9 @@ class FakeAnalyser:
 
     def describe(self, fp):
         return "baseline" if fp == "fp1" else f"G{fp}"
+
+    def status(self, now):
+        return eff.summary(self.advice, self.hint_list, self.flow, "baseline", 0.0)
 
     def last_day(self):
         return {"day": 20370, "cop": 4.6, "fp": "fp1"}
@@ -143,7 +146,8 @@ def test_report_content():
     r = res.data["units"][0]
     assert r["unit"] == {"name": "Foxair Heat Pump", "prefix": "foxair", "slave": 1}
     assert r["live"]["compressor_hz"] == 32.0 and r["live"]["cop"] is None and r["live"]["outdoor_c"] is None
-    assert r["next_step"]["message"] == "msg:keep" and r["next_step"]["not_before"] == "1970-01-02T00:00+00:00"
+    assert r["status"]["state"] == "learning" and r["status"]["next_check"] == "1970-01-02T00:00+00:00"
+    assert r["status"]["apply"] is None and r["flow_vs_history"] is None
     assert r["is_baseline"] and r["settings_group"] == "baseline" and r["current_settings"]["F05"] == -4.0
     assert r["last_day"]["day"] == "2025-10-09" and r["last_day"]["fp"] == "baseline"
     assert r["recent_changes"][0]["from"] == "Gfp0" and r["recent_changes"][0]["t"].startswith("1970-01-01")
@@ -157,7 +161,7 @@ def test_policy_is_derived_from_the_ladder_not_hardcoded():
         assert (s["step"], s["min"], s["max"], s["metric"]) == (lad["step"], lad["min"], lad["max"], lad["metric"])
         assert len(s["directions"]) == len(lad["dirs"])
     assert pol["watch_only"] == sorted(p for p in ("E02", "F05", "F26", "P11") if p not in eff.LADDER)
-    assert pol["writes_to_device"] is False
+    assert pol["writes_to_device"] == "only_when_apply_is_pressed"
     assert eff.suggestion_policy([])["watch_only"] == []
 
 

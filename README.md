@@ -2,7 +2,7 @@
 
 Control and monitor your **FoxAir / PHNIX air-to-water heat pump** directly from Home Assistant over Modbus TCP — no cloud, no YAML.
 
-![Version](https://img.shields.io/badge/version-0.7.29-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2026.10-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
+![Version](https://img.shields.io/badge/version-0.7.30-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2026.10-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
 ![FoxAir Demo](docs/screenshots/foxair_demo.gif)
 
@@ -92,61 +92,54 @@ or HA, starts a new comparison group and is logged.
   outdoor temperature from the baseline settings' buckets only. It needs about
   6 hours of steady running over 2 days before it predicts. On real data it
   predicted a held-out day with about 6 % average error.
-- `Efficiency index`: COP of the last 24 h as % of what the baseline would have
-  done in the same weather and load. 100 % = same as the baseline.
-- `Expected COP`: what the baseline would give right now, next to the measured COP.
-- `EEV settings group`: `baseline`, or the parameters that differ from it.
-  Attributes list the full settings and that group's result.
-- `Finding`: short cycling, superheat off its E02 target, or COP falling as
-  superheat rises.
+Three entities and one button, so there is one place to look:
+
+- `Efficiency status`: one state with one `message`, never contradicting itself:
+  - `learning`: building the model of how the pump performs (N more heating days);
+  - `waiting_for_heating`: too little steady heating to measure;
+  - `suggestion`: a step is ready, the message says what pressing Apply does;
+  - `testing`: a changed setting is measured against the reference;
+  - `no_change`: nothing worth testing right now; checks continue;
+  - `problem`: something to fix first (short cycling, flow temperature well
+    above earlier days at the same outdoor temperature, a test that came out
+    worse). A pending step is still listed after `Next:`.
+  Attributes: `apply` (exactly what the button does, or null), `next_check`
+  (next automatic decision, always in the future or null when it waits for
+  you), `findings`, `flow_vs_history`, `expected_cop`, `settings_group`,
+  `defrosts` summary and the last 10 `changes`.
+- `Apply suggestion` button: does what the status says. A suggested change is
+  written to the pump with read-back, only if the pump still holds the
+  expected old value; an accepted result or a manual change becomes the new
+  reference. With nothing to apply it fails with the status message. No other
+  path writes to the pump.
+- `Efficiency index`: COP of the last 24 h as % of what the reference settings
+  would have done in the same weather and load. 100 % = same.
 - `Daily COP`: heat out / electricity in for the last full day, including
   defrost, cycling, hot water and standby. Days need 80 % data coverage, 5 kWh
   of heat and 1 h of running. Settings that act outside steady running
   (defrost, pump, compressor limits, heaters) are judged on this daily score
   against a day model (outdoor temperature, run hours), with a 5-day minimum.
-- `Defrosts (24 h)`: count, plus duration, heating time before, interval,
-  electricity, outdoor and coil temperature of each recent defrost.
-- `Set EEV baseline` button: makes the current settings the reference.
-- `Next step`: what to do now, with a `message` attribute such as "Change E02
-  from 3.5 to 4.0, then keep it for at least 3 heating days":
-  - `collecting`: the baseline needs N more heating days;
-  - `change`: one step on one parameter, in this order:
-    - E02 in 0.5 K steps (2-6 K), direction from how COP vs the model moves
-      with measured superheat, or superheat vs its target;
-    - F05 in 2 K steps (-10 to 2 °C), slower fan first (lower F05 = less fan
-      speed at the same coil temperature), then the other direction; only
-      when the fan is not at its maximum and the median outdoor temperature
-      of the last 7 days is at least 3 °C;
-    - D03 +15 min (30-90), only when most recent defrosts are short (under
-      4 min) and start right after the D03 minimum, judged on the daily score.
-    Only the settings listed above are ever suggested. Every other tracked
-    setting is watch-only: changes to it are recorded and compared, never
-    proposed. Findings such as `fan_at_max` are reported only.
-  - `keep`: wait, either 24 h after any change or until the test group has 3 days;
-  - `revert` / `accept`: the test is worse, better, or showed no clear gain
-    after 10 days;
-  - `wait_heating`: under about 1 h of steady heating in the last 2 days;
-  - `check_curve`: short cycling, so fix the curve or hysteresis first;
-  - `done`: no parameter has a test worth running right now.
-  A step that tested worse or inconclusive isn't suggested again; the other
-  direction is tried instead.
-- `Next decision`: when the analyser decides next (end of the 24 h hold after a
-  change, or today + the missing heating days with attribute `estimated: true`).
-  It is never in the past: while a suggestion waits for you it is unknown, and
-  `Finding` shows `action_suggested` unless there is a real issue.
-- Every EEV change, whoever made it, is logged with time and old/new values
-  (last 10 in the `changes` attribute of `Next step`). A "Set EEV baseline"
-  press is logged as a baseline event.
+
+Suggestions, one step on one parameter, in this order:
+- E02 in 0.5 K steps (2-6 K), direction from how COP vs the model moves with
+  measured superheat, or superheat vs its target;
+- F05 in 2 K steps (-10 to 2 °C), slower fan first, only when the fan is not at
+  its maximum and the median outdoor temperature of the last 7 days is at least
+  3 °C;
+- D03 +15 min (30-90), only when most recent defrosts are short and start right
+  after the D03 minimum, judged on the daily score.
+Only these settings are ever suggested. Every other tracked setting is
+watch-only. A step that tested worse or inconclusive isn't suggested again;
+the other direction is tried instead. Every tracked change, whoever made it,
+is logged with time and old/new values.
 
 The suggestion is a test to run, not a promise: superheat follows load and
 weather, so only the A/B result proves a gain.
 
-How to test a change:
-1. Run the current settings until `Next step` says `change` (3+ heating days).
-2. Make exactly that change on the unit, in the app or in HA (expert mode). The
-   analyser picks it up within 10 minutes. Reading the settings needs no expert mode.
-3. Leave it while `Next step` says `keep`. Then follow `revert` or `accept`
-   (accept = keep the value and press "Set EEV baseline").
+How it runs: wait until `Efficiency status` is `suggestion`, press Apply, then
+leave it alone while it says `testing`. When the result is in it becomes
+`suggestion` again (keep or revert, one press). Writing needs expert mode;
+reading the settings does not. A change made by hand works the same way.
 
 COP needs a heat value: T59 (firmware 3.3+) or flow x delta T. For the electrical
 side, set Options -> Electrical power source = external meter if you have one.
@@ -156,8 +149,9 @@ History is stored in `.storage/foxair.efficiency.<entry id>` and survives restar
 
 The integration adds a read-only LLM tool, `foxair__GetEfficiencyReport`, to the
 Assist API. It returns one report per heat pump (optional `unit` argument: name
-prefix, title or Modbus slave id): live readings, the next step, findings, COP
-per settings group, the last qualifying day, recent setting changes and the
+prefix, title or Modbus slave id): live readings, the status (same state,
+message and Apply action as the dashboard), flow temperature against history,
+COP per settings group, the last qualifying day, recent setting changes and the
 suggestion policy (which settings the advisor may propose, with step and range,
 and which it only watches). It is offered only when a Foxair climate entity is
 exposed to Assist, and it never writes to the pump. With the Model Context
