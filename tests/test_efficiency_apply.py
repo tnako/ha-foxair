@@ -122,3 +122,20 @@ def test_apply_accept_makes_the_current_settings_the_reference():
     r.analyser.advice = {"action": "accept", "param": "E02", "from": 5.0, "to": 5.5, "delta_pct": 2.0}
     assert asyncio.run(r.async_apply()) == "baseline"
     assert r.analyser.baseline_fp == r.analyser.current_fp() and c.writes == []
+
+
+def test_sample_marks_frequency_limited_polls_not_steady(monkeypatch):
+    """A 2139 limiter bit caps the compressor: such polls must not feed the COP buckets."""
+    comp = rt._computed
+    for name, val in {"run_status_raw": 1, "active_mode": "heating", "compressor_running": True,
+                      "electric_heater_on": False, "compute_thermal_power": 5000.0,
+                      "compute_electrical_power": 1200.0}.items():
+        monkeypatch.setattr(comp, name, lambda *a, _v=val: _v)
+    c = Coord()
+    c.marker = lambda name: {}
+    c.entry = types.SimpleNamespace(options={})
+    assert rt.sample(c, {})["steady_ok"] is True
+    c.data[rt.ADDR_LIMITER] = {"value": 16.0}
+    assert rt.sample(c, {})["steady_ok"] is False
+    c.data[rt.ADDR_LIMITER] = {"value": 0.0}
+    assert rt.sample(c, {})["steady_ok"] is True

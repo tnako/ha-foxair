@@ -155,7 +155,7 @@ def test_circulation_timers_read_only():
 
 
 def test_v35_cutoff_writable_and_limiter_read_only():
-    """1464/1465 writable (confirmed on a V3.5 unit), 2146 bit 4 visible; 2139 stays expert read-only."""
+    """1464/1465 writable (confirmed on a V3.5 unit); 2139 limiter and 2146 status visible read-only."""
     meta = json.loads((DATA / "foxair_metadata.json").read_text())
     regs = json.loads((DATA / "foxair_phnix_registers.json").read_text(encoding="utf-8"))
     for addr in (1464, 1465, 2139, 2146):
@@ -165,11 +165,11 @@ def test_v35_cutoff_writable_and_limiter_read_only():
         assert (m["platform"], m["editable"], m["hidden"], m["requires_expert"]) == ("number", True, False, False), addr
     assert (meta["1464"]["type"], meta["1464"]["min"], meta["1464"]["max"]) == ("TEMP1", 10, 30)
     assert (meta["1465"]["type"], meta["1465"]["unit"], meta["1465"]["min"]) == ("MINUTES", "min", 0)
-    assert (meta["2139"]["platform"], meta["2139"]["editable"], meta["2139"]["requires_expert"]) == ("sensor", False, True)
-    assert (meta["2146"]["platform"], meta["2146"]["editable"], meta["2146"]["requires_expert"]) == ("sensor", False, False)
     for addr in (2139, 2146):
-        assert meta[str(addr)]["type"] == "BITFIELD"
-        assert list(regs[str(addr)]["bit_map"]) == ["4"], addr
+        m = meta[str(addr)]
+        assert (m["platform"], m["editable"], m["requires_expert"], m["type"]) == ("sensor", False, False, "BITFIELD"), addr
+    assert list(regs["2139"]["bit_map"]) == ["1", "3", "4", "5", "6"]
+    assert list(regs["2146"]["bit_map"]) == ["4"]
     for addr in (2140, 2145, 2147, 2149):
         assert meta[str(addr)]["hidden"], addr
 

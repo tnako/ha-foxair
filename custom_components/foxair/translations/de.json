@@ -148,7 +148,7 @@
         "name": "H05: Kühlfunktion aktivieren"
       },
       "foxair_1022": {
-        "name": "Reserviert"
+        "name": "Durchfluss-Offset Umwälzpumpe"
       },
       "foxair_1023": {
         "name": "H07: Reglerwahl"
@@ -1141,13 +1141,13 @@
         "name": "E21: Display-Firmware Parameter E21"
       },
       "foxair_1353": {
-        "name": "Reserviert"
+        "name": "Offset Zone-1-Raumtemperatur"
       },
       "foxair_1354": {
-        "name": "Reserviert"
+        "name": "Offset Zone-2-Raumtemperatur"
       },
       "foxair_1355": {
-        "name": "Reserviert"
+        "name": "Offset interner Außentemperaturfühler T04"
       },
       "foxair_1356": {
         "name": "H42: Einschalt-AT Gehäusewannenheizung (D30/1437 erst wirksam, wenn AT kleiner H42 ist)"
@@ -1217,6 +1217,15 @@
       },
       "foxair_1380": {
         "name": "Automatischer Werkstest Wasserpumpe Drehzahl (ASM)"
+      },
+      "foxair_1388": {
+        "name": "Kühl-Mindestabstand über Taupunkt"
+      },
+      "foxair_1389": {
+        "name": "Raum-/T04-ΔT-Schaltschwelle"
+      },
+      "foxair_1402": {
+        "name": "Mindest-Abtauzeit"
       },
       "foxair_1432": {
         "name": "P11: Ziel-Temperaturdifferenz für Pumpendrehzahlregelung"
@@ -1558,7 +1567,7 @@
         "name": "Energiezähler elektrisch high bits"
       },
       "foxair_2079": {
-        "name": "Energiezähler elektrisch low bits / total"
+        "name": "Energiezähler elektrisch gesamt"
       },
       "foxair_2080": {
         "name": "Status-/Datenwort (wie Displaybus 91099)"
@@ -1573,7 +1582,7 @@
         "name": "ERR09: Fehler 9 / Störmeldebits"
       },
       "foxair_2084": {
-        "name": "9"
+        "name": "ERR10: Fehler 10 / Störmeldebits"
       },
       "foxair_2085": {
         "name": "ERR01: Fehler 1 / Störmeldebits"
@@ -1699,13 +1708,13 @@
         "name": "Energiezähler elektrisch Warmwasser - High Word"
       },
       "foxair_2126": {
-        "name": "Energiezähler elektrisch Warmwasser - Low Word"
+        "name": "Energiezähler elektrisch Warmwasser"
       },
       "foxair_2127": {
         "name": "Energiezähler thermisch Warmwasser - High Word"
       },
       "foxair_2128": {
-        "name": "Energiezähler thermisch Warmwasser - Low Word"
+        "name": "Energiezähler thermisch Warmwasser"
       },
       "foxair_2129": {
         "name": "Reserviert"
@@ -2817,6 +2826,9 @@
       "foxair_1463": {
         "name": "AT-Fühler"
       },
+      "foxair_2018": {
+        "name": "025 / Lastausgänge Bitfeld 2 (WW-Heizstab, Zonenpumpen, Kühl-3-Wege-Ventil)"
+      },
       "foxair_efficiency_status": {
         "name": "Effizienzstatus",
         "state": {
@@ -2833,6 +2845,9 @@
       },
       "foxair_efficiency_daily_cop": {
         "name": "Tages-COP"
+      },
+      "foxair_err10": {
+        "name": "ERR10: Fehler 10 / Störmeldebits"
       }
     },
     "climate": {
@@ -2867,9 +2882,6 @@
       },
       "foxair_1017": {
         "name": "Logo-Auswahl"
-      },
-      "foxair_1022": {
-        "name": "Reserviert"
       },
       "foxair_1025": {
         "name": "H38: Spracheinstellung"
@@ -3503,15 +3515,6 @@
       },
       "foxair_1352": {
         "name": "E21: Display-Firmware Parameter E21"
-      },
-      "foxair_1353": {
-        "name": "Reserviert"
-      },
-      "foxair_1354": {
-        "name": "Reserviert"
-      },
-      "foxair_1355": {
-        "name": "Reserviert"
       },
       "foxair_1356": {
         "name": "H42: Einschalt-AT Gehäusewannenheizung (D30/1437 erst wirksam, wenn AT kleiner H42 ist)"
@@ -5058,16 +5061,16 @@
         "name": "010 3-Wege-Ventil"
       },
       "foxair_err01_bit10": {
-        "name": "Winter-Frostschutz Stufe 1"
+        "name": "E19 – Primärer Frostschutzfehler"
       },
       "foxair_err01_bit11": {
-        "name": "Winter-Frostschutz Stufe 2"
+        "name": "E29 – Sekundärer Frostschutzfehler"
       },
       "foxair_err01_bit12": {
         "name": "Frostschutz"
       },
       "foxair_err01_bit14": {
-        "name": "Raumtemperaturfehler"
+        "name": "P42 – Raumtemperatursensorfehler"
       },
       "foxair_err01_bit2": {
         "name": "Heizungsrücklauftemperatur-Sensorfehler"
@@ -5082,22 +5085,22 @@
         "name": "Niederdruckschutz"
       },
       "foxair_err01_bit8": {
-        "name": "Wasserflussschutz"
+        "name": "E032 – Durchflussschalterfehler"
       },
       "foxair_err01_bit9": {
-        "name": "Überlastschutz der Elektroheizung"
+        "name": "E04 – Elektroheizung Überhitzungsfehler"
       },
       "foxair_err02_bit3": {
-        "name": "Lüfter 1 Überlastungs-Drehzahlbegrenzung"
+        "name": "E103 – Lüftermotor 1 Überlastfehler"
       },
       "foxair_err02_bit4": {
-        "name": "Lüfter 2 Überlastungs-Drehzahlbegrenzung"
+        "name": "E203 – Lüftermotor 2 Überlastfehler"
       },
       "foxair_err02_bit5": {
         "name": "Temp.diff. Ein-/Auslasswasser zu groß"
       },
       "foxair_err02_bit6": {
-        "name": "Auslasswasser überhitzt"
+        "name": "E065 – Auslasswassertemperatur zu hoch"
       },
       "foxair_err02_bit7": {
         "name": "Mischwasser-Auslasswassertemperatur-Sensorfehler"
@@ -5118,10 +5121,10 @@
         "name": "Niederdruckschutz (3x)"
       },
       "foxair_err03_bit8": {
-        "name": "Wasserflussschutz (3x)"
+        "name": "E032 – Durchflussschalterfehler (3+)"
       },
       "foxair_err03_bit9": {
-        "name": "Elektroheizungsschutz (3x)"
+        "name": "E04 – Elektroheizung Überhitzungsfehler (3+)"
       },
       "foxair_err04_bit2": {
         "name": "Temp.diff. Ein-/Auslasswasser zu groß (3x)"
@@ -5169,7 +5172,7 @@
         "name": "Frostschutztemperaturfehler"
       },
       "foxair_err05_bit6": {
-        "name": "Spulenauslasswassertemperatur-Sensorfehler"
+        "name": "P152 – Verteilerrohr-Temperatursensorfehler"
       },
       "foxair_err05_bit9": {
         "name": "EVI Einlasstemperaturfehler"
@@ -5187,13 +5190,13 @@
         "name": "Kommunikationsfehler Hauptplatine ↔ Lüfter 2"
       },
       "foxair_err06_bit8": {
-        "name": "Warmwassertemperaturfehler"
+        "name": "P03 – WW-Speicher-Temperatursensorfehler"
       },
       "foxair_err07_bit0": {
-        "name": "IPM Überhitzung"
+        "name": "F00 – IPM-Überstromfehler"
       },
       "foxair_err07_bit1": {
-        "name": "Kompressor Startfehler"
+        "name": "F01 – Kompressortreiberfehler"
       },
       "foxair_err07_bit10": {
         "name": "AC-Eingangs-Überstromabschaltung"
@@ -5205,13 +5208,13 @@
         "name": "DSP ↔ PFC Kommunikationsfehler"
       },
       "foxair_err07_bit13": {
-        "name": "Antriebsplatinen-Temperaturfehler"
+        "name": "F17 – Temperatursensorfehler Kompressortreiber"
       },
       "foxair_err07_bit14": {
-        "name": "DSP ↔ Kommunikationsplatine Fehler"
+        "name": "F11 – Kommunikation DSP ↔ Kompressortreiber gestört"
       },
       "foxair_err07_bit15": {
-        "name": "Hauptplatinen-Kommunikationsfehler"
+        "name": "F151 – Kommunikation Kompressortreiber ↔ Hauptplatine gestört"
       },
       "foxair_err07_bit2": {
         "name": "Kompressor Überstrom"
@@ -5223,7 +5226,7 @@
         "name": "IPM Stromabtastfehler"
       },
       "foxair_err07_bit5": {
-        "name": "Überhitzungsschutz Antriebsplatine"
+        "name": "F26 – IGBT-Überhitzungsfehler"
       },
       "foxair_err07_bit6": {
         "name": "Vorladefehler"
@@ -5241,7 +5244,7 @@
         "name": "IPM Überhitzungsstopp"
       },
       "foxair_err08_bit1": {
-        "name": "Kompressor Standardphase"
+        "name": "F14 – Kompressor-Phasenausfall"
       },
       "foxair_err08_bit15": {
         "name": "Kompressor-Übergeschwindigkeitsschutz"
@@ -5253,19 +5256,19 @@
         "name": "EEPROM-Fehler"
       },
       "foxair_err08_bit7": {
-        "name": "Eingangsspannung Überbegrenzungsschutz"
+        "name": "F10 – AC-Eingangsüberspannungsfehler"
       },
       "foxair_err09_bit0": {
-        "name": "Stromregelungsfrequenz-Alarm"
+        "name": "F33 – Frequenzreduzierung wegen Kompressorstrom"
       },
       "foxair_err09_bit1": {
-        "name": "Kompressor Magnetschutz-Alarm"
+        "name": "F16 – Kompressor-Schwachmagnetisierungsalarm"
       },
       "foxair_err09_bit2": {
         "name": "Leistungseinheit Überhitzung"
       },
       "foxair_err09_bit4": {
-        "name": "AC-Eingangsstrom Regelungsalarm"
+        "name": "F22 – Frequenzreduzierung wegen AC-Eingangsstrom"
       },
       "foxair_err09_bit5": {
         "name": "EEPROM-Fehlerwarnung"
@@ -5331,10 +5334,10 @@
         "name": "S10 Heizen/Kühlen AN/AUS"
       },
       "foxair_2081_bit0": {
-        "name": "IPM Überhitzung"
+        "name": "F00 – IPM-Überstromfehler"
       },
       "foxair_2081_bit1": {
-        "name": "Kompressor Startfehler"
+        "name": "F01 – Kompressortreiberfehler"
       },
       "foxair_2081_bit10": {
         "name": "AC-Eingangs-Überstromabschaltung"
@@ -5346,13 +5349,13 @@
         "name": "DSP ↔ PFC Kommunikationsfehler"
       },
       "foxair_2081_bit13": {
-        "name": "Antriebsplatinen-Temperaturfehler"
+        "name": "F17 – Temperatursensorfehler Kompressortreiber"
       },
       "foxair_2081_bit14": {
-        "name": "DSP ↔ Kommunikationsplatine Fehler"
+        "name": "F11 – Kommunikation DSP ↔ Kompressortreiber gestört"
       },
       "foxair_2081_bit15": {
-        "name": "Hauptplatinen-Kommunikationsfehler"
+        "name": "F151 – Kommunikation Kompressortreiber ↔ Hauptplatine gestört"
       },
       "foxair_2081_bit2": {
         "name": "Kompressor Überstrom"
@@ -5364,7 +5367,7 @@
         "name": "IPM Stromabtastfehler"
       },
       "foxair_2081_bit5": {
-        "name": "Überhitzungsschutz Antriebsplatine"
+        "name": "F26 – IGBT-Überhitzungsfehler"
       },
       "foxair_2081_bit6": {
         "name": "Vorladefehler"
@@ -5382,7 +5385,7 @@
         "name": "IPM Überhitzungsstopp"
       },
       "foxair_2082_bit1": {
-        "name": "Kompressor Standardphase"
+        "name": "F14 – Kompressor-Phasenausfall"
       },
       "foxair_2082_bit15": {
         "name": "Kompressor-Übergeschwindigkeitsschutz"
@@ -5394,34 +5397,34 @@
         "name": "EEPROM-Fehler"
       },
       "foxair_2082_bit7": {
-        "name": "Eingangsspannung Überbegrenzungsschutz"
+        "name": "F10 – AC-Eingangsüberspannungsfehler"
       },
       "foxair_2083_bit0": {
-        "name": "Stromregelungsfrequenz-Alarm"
+        "name": "F33 – Frequenzreduzierung wegen Kompressorstrom"
       },
       "foxair_2083_bit1": {
-        "name": "Kompressor Magnetschutz-Alarm"
+        "name": "F16 – Kompressor-Schwachmagnetisierungsalarm"
       },
       "foxair_2083_bit2": {
         "name": "Leistungseinheit Überhitzung"
       },
       "foxair_2083_bit4": {
-        "name": "AC-Eingangsstrom Regelungsalarm"
+        "name": "F22 – Frequenzreduzierung wegen AC-Eingangsstrom"
       },
       "foxair_2083_bit5": {
         "name": "EEPROM-Fehlerwarnung"
       },
       "foxair_2085_bit10": {
-        "name": "Winter-Frostschutz Stufe 1"
+        "name": "E19 – Primärer Frostschutzfehler"
       },
       "foxair_2085_bit11": {
-        "name": "Winter-Frostschutz Stufe 2"
+        "name": "E29 – Sekundärer Frostschutzfehler"
       },
       "foxair_2085_bit12": {
         "name": "Frostschutz"
       },
       "foxair_2085_bit14": {
-        "name": "Raumtemperaturfehler"
+        "name": "P42 – Raumtemperatursensorfehler"
       },
       "foxair_2085_bit2": {
         "name": "Heizungsrücklauftemperatur-Sensorfehler"
@@ -5436,22 +5439,22 @@
         "name": "Niederdruckschutz"
       },
       "foxair_2085_bit8": {
-        "name": "Wasserflussschutz"
+        "name": "E032 – Durchflussschalterfehler"
       },
       "foxair_2085_bit9": {
-        "name": "Überlastschutz der Elektroheizung"
+        "name": "E04 – Elektroheizung Überhitzungsfehler"
       },
       "foxair_2086_bit3": {
-        "name": "Lüfter 1 Überlastungs-Drehzahlbegrenzung"
+        "name": "E103 – Lüftermotor 1 Überlastfehler"
       },
       "foxair_2086_bit4": {
-        "name": "Lüfter 2 Überlastungs-Drehzahlbegrenzung"
+        "name": "E203 – Lüftermotor 2 Überlastfehler"
       },
       "foxair_2086_bit5": {
         "name": "Temp.diff. Ein-/Auslasswasser zu groß"
       },
       "foxair_2086_bit6": {
-        "name": "Auslasswasser überhitzt"
+        "name": "E065 – Auslasswassertemperatur zu hoch"
       },
       "foxair_2086_bit7": {
         "name": "Mischwasser-Auslasswassertemperatur-Sensorfehler"
@@ -5472,10 +5475,10 @@
         "name": "Niederdruckschutz (3x)"
       },
       "foxair_2087_bit8": {
-        "name": "Wasserflussschutz (3x)"
+        "name": "E032 – Durchflussschalterfehler (3+)"
       },
       "foxair_2087_bit9": {
-        "name": "Elektroheizungsschutz (3x)"
+        "name": "E04 – Elektroheizung Überhitzungsfehler (3+)"
       },
       "foxair_2088_bit2": {
         "name": "Temp.diff. Ein-/Auslasswasser zu groß (3x)"
@@ -5520,7 +5523,7 @@
         "name": "Frostschutztemperaturfehler"
       },
       "foxair_2089_bit6": {
-        "name": "Spulenauslasswassertemperatur-Sensorfehler"
+        "name": "P152 – Verteilerrohr-Temperatursensorfehler"
       },
       "foxair_2089_bit9": {
         "name": "EVI Einlasstemperaturfehler"
@@ -5538,7 +5541,7 @@
         "name": "Kommunikationsfehler Hauptplatine ↔ Lüfter 2"
       },
       "foxair_2090_bit8": {
-        "name": "Warmwassertemperaturfehler"
+        "name": "P03 – WW-Speicher-Temperatursensorfehler"
       },
       "foxair_2018_bit0": {
         "name": "025 Elektroheizer Warmwasserspeicher"
@@ -5552,6 +5555,69 @@
       "foxair_2018_bit9": {
         "name": "Pumpe Zone 2"
       },
+      "foxair_2083_bit7": {
+        "name": "F24 – EEPROM beschädigt / ungültige Fehlerdaten"
+      },
+      "foxair_2084_bit8": {
+        "name": "F120 – Lüftertreiber-Temperatursensorfehler"
+      },
+      "foxair_2084_bit9": {
+        "name": "F108 – Lüftertreiber-IPM Überhitzungsfehler"
+      },
+      "foxair_2084_bit10": {
+        "name": "F105 – Lüftertreiber externer Überstromfehler"
+      },
+      "foxair_2084_bit11": {
+        "name": "F101 – Lüftertreiber Phasenausfall Versorgung"
+      },
+      "foxair_2084_bit12": {
+        "name": "F112 – Lüftertreiber Strommess-/Abtastfehler"
+      },
+      "foxair_2084_bit13": {
+        "name": "F102 – Lüftertreiber Startfehler"
+      },
+      "foxair_2084_bit14": {
+        "name": "F113 – Lüftertreiber interner Überstromfehler"
+      },
+      "foxair_2084_bit15": {
+        "name": "F109 – Lüftertreiber Überdrehzahlschutz"
+      },
+      "foxair_2085_bit5": {
+        "name": "TC – Kein Kühlbetrieb bei niedriger Außentemperatur / Schutz"
+      },
+      "foxair_2085_bit7": {
+        "name": "E030 – Unzureichender Wasserdurchfluss beim Abtauen"
+      },
+      "foxair_2085_bit13": {
+        "name": "E035 – Niedriger Wasserdurchfluss – Schutz"
+      },
+      "foxair_2086_bit0": {
+        "name": "P182 – Zu hohe Heißgastemperatur"
+      },
+      "foxair_2086_bit10": {
+        "name": "P105 – Zone 1 Raumtemperatursensorfehler"
+      },
+      "foxair_2086_bit11": {
+        "name": "P106 – Zone 2 Raumtemperatursensorfehler"
+      },
+      "foxair_2086_bit12": {
+        "name": "P107 – Zone 2 Mischtemperatursensorfehler"
+      },
+      "foxair_2086_bit13": {
+        "name": "E08g – Kommunikationsfehler Thermostat Zone 1"
+      },
+      "foxair_2086_bit14": {
+        "name": "E08h – Kommunikationsfehler Thermostat Zone 2"
+      },
+      "foxair_2086_bit15": {
+        "name": "E122 – Fehlerhafte Regelung des Mischventils"
+      },
+      "foxair_2087_bit10": {
+        "name": "E035 – Niedriger Wasserdurchfluss – Schutz (3+)"
+      },
+      "foxair_2088_bit0": {
+        "name": "P182 – Zu hohe Heißgastemperatur (3+)"
+      },
       "foxair_2139_bit4": {
         "name": "Niederdruck-Frequenzlimiter aktiv (A38)"
       },
@@ -5563,6 +5629,99 @@
       },
       "foxair_2088_bit7": {
         "name": "Externer AT-Fühler Fehler"
+      },
+      "foxair_2089_bit7": {
+        "name": "P03a – Pufferspeicher-Temperatursensorfehler"
+      },
+      "foxair_2089_bit12": {
+        "name": "PP12 – Hochdrucksensorfehler"
+      },
+      "foxair_2090_bit14": {
+        "name": "E08c – Kommunikationsfehler Hydraulikmodul"
+      },
+      "foxair_2139_bit1": {
+        "name": "A24 – Wasserspreizung / Temperaturdifferenz T01-T02 zu groß"
+      },
+      "foxair_2139_bit3": {
+        "name": "A27 – Temperaturdifferenz-/Temperaturbegrenzung"
+      },
+      "foxair_2139_bit5": {
+        "name": "AC-Eingangsstrom-Begrenzung / T35"
+      },
+      "foxair_2139_bit6": {
+        "name": "T12 Heißgas-/Abgastemperatur-Frequenzbegrenzung"
+      },
+      "foxair_err01_bit13": {
+        "name": "E035 – Niedriger Wasserdurchfluss – Schutz"
+      },
+      "foxair_err01_bit5": {
+        "name": "TC – Kein Kühlbetrieb bei niedriger Außentemperatur / Schutz"
+      },
+      "foxair_err01_bit7": {
+        "name": "E030 – Unzureichender Wasserdurchfluss beim Abtauen"
+      },
+      "foxair_err02_bit0": {
+        "name": "P182 – Zu hohe Heißgastemperatur"
+      },
+      "foxair_err02_bit10": {
+        "name": "P105 – Zone 1 Raumtemperatursensorfehler"
+      },
+      "foxair_err02_bit11": {
+        "name": "P106 – Zone 2 Raumtemperatursensorfehler"
+      },
+      "foxair_err02_bit12": {
+        "name": "P107 – Zone 2 Mischtemperatursensorfehler"
+      },
+      "foxair_err02_bit13": {
+        "name": "E08g – Kommunikationsfehler Thermostat Zone 1"
+      },
+      "foxair_err02_bit14": {
+        "name": "E08h – Kommunikationsfehler Thermostat Zone 2"
+      },
+      "foxair_err02_bit15": {
+        "name": "E122 – Fehlerhafte Regelung des Mischventils"
+      },
+      "foxair_err03_bit10": {
+        "name": "E035 – Niedriger Wasserdurchfluss – Schutz (3+)"
+      },
+      "foxair_err04_bit0": {
+        "name": "P182 – Zu hohe Heißgastemperatur (3+)"
+      },
+      "foxair_err05_bit12": {
+        "name": "PP12 – Hochdrucksensorfehler"
+      },
+      "foxair_err05_bit7": {
+        "name": "P03a – Pufferspeicher-Temperatursensorfehler"
+      },
+      "foxair_err06_bit14": {
+        "name": "E08c – Kommunikationsfehler Hydraulikmodul"
+      },
+      "foxair_err09_bit7": {
+        "name": "F24 – EEPROM beschädigt / ungültige Fehlerdaten"
+      },
+      "foxair_err10_bit10": {
+        "name": "F105 – Lüftertreiber externer Überstromfehler"
+      },
+      "foxair_err10_bit11": {
+        "name": "F101 – Lüftertreiber Phasenausfall Versorgung"
+      },
+      "foxair_err10_bit12": {
+        "name": "F112 – Lüftertreiber Strommess-/Abtastfehler"
+      },
+      "foxair_err10_bit13": {
+        "name": "F102 – Lüftertreiber Startfehler"
+      },
+      "foxair_err10_bit14": {
+        "name": "F113 – Lüftertreiber interner Überstromfehler"
+      },
+      "foxair_err10_bit15": {
+        "name": "F109 – Lüftertreiber Überdrehzahlschutz"
+      },
+      "foxair_err10_bit8": {
+        "name": "F120 – Lüftertreiber-Temperatursensorfehler"
+      },
+      "foxair_err10_bit9": {
+        "name": "F108 – Lüftertreiber-IPM Überhitzungsfehler"
       }
     },
     "water_heater": {

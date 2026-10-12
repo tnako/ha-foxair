@@ -20,6 +20,7 @@ ADDR_COIL = 2049
 ADDR_FAN_TARGET = 2076
 ADDR_FLOW = 2077
 ADDR_INLET = 2045
+ADDR_LIMITER = 2139
 RUN_STATUS_DEFROST = 2
 WATER_W_PER_M3H_K = 1000.0 * 4186.0 / 3600.0
 
@@ -90,7 +91,8 @@ def sample(coord, opts: dict) -> dict:
         q_day = None
     return {
         "running": running,
-        "steady_ok": rs != RUN_STATUS_DEFROST and not _computed.electric_heater_on(coord),
+        "steady_ok": rs != RUN_STATUS_DEFROST and not _computed.electric_heater_on(coord)
+                     and not _val(coord, ADDR_LIMITER),
         "hz": _val(coord, a["hz"]) if a["hz"] else None,
         "t_out": _val(coord, a["t_out"]) if a["t_out"] else None,
         "t_flow": t_flow,

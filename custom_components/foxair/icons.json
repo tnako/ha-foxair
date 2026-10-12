@@ -3240,6 +3240,69 @@
       "foxair_2018_bit9": {
         "default": "mdi:toggle-switch"
       },
+      "foxair_2083_bit7": {
+        "default": "mdi:alert"
+      },
+      "foxair_2084_bit8": {
+        "default": "mdi:alert"
+      },
+      "foxair_2084_bit9": {
+        "default": "mdi:alert"
+      },
+      "foxair_2084_bit10": {
+        "default": "mdi:alert"
+      },
+      "foxair_2084_bit11": {
+        "default": "mdi:alert"
+      },
+      "foxair_2084_bit12": {
+        "default": "mdi:alert"
+      },
+      "foxair_2084_bit13": {
+        "default": "mdi:alert"
+      },
+      "foxair_2084_bit14": {
+        "default": "mdi:alert"
+      },
+      "foxair_2084_bit15": {
+        "default": "mdi:alert"
+      },
+      "foxair_2085_bit5": {
+        "default": "mdi:alert"
+      },
+      "foxair_2085_bit7": {
+        "default": "mdi:alert"
+      },
+      "foxair_2085_bit13": {
+        "default": "mdi:alert"
+      },
+      "foxair_2086_bit0": {
+        "default": "mdi:alert"
+      },
+      "foxair_2086_bit10": {
+        "default": "mdi:alert"
+      },
+      "foxair_2086_bit11": {
+        "default": "mdi:alert"
+      },
+      "foxair_2086_bit12": {
+        "default": "mdi:alert"
+      },
+      "foxair_2086_bit13": {
+        "default": "mdi:alert"
+      },
+      "foxair_2086_bit14": {
+        "default": "mdi:alert"
+      },
+      "foxair_2086_bit15": {
+        "default": "mdi:alert"
+      },
+      "foxair_2087_bit10": {
+        "default": "mdi:alert"
+      },
+      "foxair_2088_bit0": {
+        "default": "mdi:alert"
+      },
       "foxair_2139_bit4": {
         "default": "mdi:toggle-switch"
       },
@@ -3253,6 +3316,99 @@
         }
       },
       "foxair_2088_bit7": {
+        "default": "mdi:alert"
+      },
+      "foxair_2089_bit7": {
+        "default": "mdi:alert"
+      },
+      "foxair_2089_bit12": {
+        "default": "mdi:alert"
+      },
+      "foxair_2090_bit14": {
+        "default": "mdi:alert"
+      },
+      "foxair_2139_bit1": {
+        "default": "mdi:toggle-switch"
+      },
+      "foxair_2139_bit3": {
+        "default": "mdi:toggle-switch"
+      },
+      "foxair_2139_bit5": {
+        "default": "mdi:toggle-switch"
+      },
+      "foxair_2139_bit6": {
+        "default": "mdi:toggle-switch"
+      },
+      "foxair_err01_bit13": {
+        "default": "mdi:alert"
+      },
+      "foxair_err01_bit5": {
+        "default": "mdi:alert"
+      },
+      "foxair_err01_bit7": {
+        "default": "mdi:alert"
+      },
+      "foxair_err02_bit0": {
+        "default": "mdi:alert"
+      },
+      "foxair_err02_bit10": {
+        "default": "mdi:alert"
+      },
+      "foxair_err02_bit11": {
+        "default": "mdi:alert"
+      },
+      "foxair_err02_bit12": {
+        "default": "mdi:alert"
+      },
+      "foxair_err02_bit13": {
+        "default": "mdi:alert"
+      },
+      "foxair_err02_bit14": {
+        "default": "mdi:alert"
+      },
+      "foxair_err02_bit15": {
+        "default": "mdi:alert"
+      },
+      "foxair_err03_bit10": {
+        "default": "mdi:alert"
+      },
+      "foxair_err04_bit0": {
+        "default": "mdi:alert"
+      },
+      "foxair_err05_bit12": {
+        "default": "mdi:alert"
+      },
+      "foxair_err05_bit7": {
+        "default": "mdi:alert"
+      },
+      "foxair_err06_bit14": {
+        "default": "mdi:alert"
+      },
+      "foxair_err09_bit7": {
+        "default": "mdi:alert"
+      },
+      "foxair_err10_bit10": {
+        "default": "mdi:alert"
+      },
+      "foxair_err10_bit11": {
+        "default": "mdi:alert"
+      },
+      "foxair_err10_bit12": {
+        "default": "mdi:alert"
+      },
+      "foxair_err10_bit13": {
+        "default": "mdi:alert"
+      },
+      "foxair_err10_bit14": {
+        "default": "mdi:alert"
+      },
+      "foxair_err10_bit15": {
+        "default": "mdi:alert"
+      },
+      "foxair_err10_bit8": {
+        "default": "mdi:alert"
+      },
+      "foxair_err10_bit9": {
         "default": "mdi:alert"
       }
     },

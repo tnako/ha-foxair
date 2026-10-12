@@ -148,7 +148,7 @@ if meta_path.exists():
                     errs.append(f"{lang}: missing translation for {code_key} ({code or 'no-code'} addr {addr} hidden={hidden})")
                     continue
                 _plat = rec.get("platform")
-                if not hidden and _plat and addr not in _bitmapped and rec.get("format") != "bit_split" and not rec.get("time_split_slave") and code_key not in translations[lang]["raw"].get("entity", {}).get(_plat, {}):
+                if not hidden and _plat and addr not in _bitmapped and rec.get("format") != "bit_split" and not rec.get("time_split_slave") and not rec.get("u32_slave") and code_key not in translations[lang]["raw"].get("entity", {}).get(_plat, {}):
                     errs.append(f"{lang}: {code_key} (addr {addr}) has no entity.{_plat} translation - HA shows only the device name")
                 if code:
                     if not name.startswith(f"{code}:"):

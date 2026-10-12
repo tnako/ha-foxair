@@ -349,8 +349,12 @@
   "1022": {
     "function": "03/16",
     "mode": "r/w",
-    "name": "Reserviert",
-    "type": "RAW"
+    "name": "Durchfluss-Offset Umwälzpumpe",
+    "type": "FLOW_M3H_X100",
+    "unit": "m³/h",
+    "description": "Signed 16-Bit-Durchfluss-Offset; signed RAW / 100 = m³/h. Firmwarebestätigter Rechenweg: Q_eff = Q_base + signed(MAIN:1022) / 100. Der korrigierte gemeinsame wirksame Runtime-Durchfluss wird unter anderem über MAIN:2077 / T39 ausgegeben und von nachgelagerten Regel-/Leistungsfunktionen verwendet; es handelt sich nicht nur um einen Anzeigeoffset.",
+    "note": "Binary bestätigt durch V3.3-Pumpen-/Durchfluss-Reverse-Engineering; signed Skalierung und Datenpfad zusätzlich durch Live-Tests bestätigt.",
+    "source": "FW3.3-PUMPEN-DURCHFLUSS-KALIBRIERUNG-UPM4L.md; Live-Tests"
   },
   "1023": {
     "app_label": "Dry Contact",
@@ -4043,20 +4047,23 @@
   "1353": {
     "function": "03/16",
     "mode": "r/w",
-    "name": "Reserviert",
-    "type": "RAW"
+    "name": "Offset Zone-1-Raumtemperatur",
+    "type": "TEMP1",
+    "unit": "°C"
   },
   "1354": {
     "function": "03/16",
     "mode": "r/w",
-    "name": "Reserviert",
-    "type": "RAW"
+    "name": "Offset Zone-2-Raumtemperatur",
+    "type": "TEMP1",
+    "unit": "°C"
   },
   "1355": {
     "function": "03/16",
     "mode": "r/w",
-    "name": "Reserviert",
-    "type": "RAW"
+    "name": "Offset lokaler T04-Außentemperaturfühler",
+    "type": "TEMP1",
+    "unit": "°C"
   },
   "1356": {
     "block": "H",
@@ -4238,6 +4245,34 @@
     "mode": "r/w",
     "name": "Automatischer Werkstest Wasserpumpe Drehzahl (ASM)",
     "type": "RAW"
+  },
+  "1388": {
+    "default": "2.0 K",
+    "function": "03/16",
+    "mode": "r/w",
+    "name": "Kühl-Mindesttemperatur über Taupunkt",
+    "type": "TEMP1",
+    "unit": "K",
+    "description": "Taupunkt-Sicherheitsabstand für den Kühl-Sollwert. Bei aktivem Raumtemperatur-/Feuchtesensor-Modus 1387=2 begrenzt die Firmware den Kühl-Sollwert auf mindestens berechneter Taupunkt plus 1388. RAW / 10 = K; Default RAW 20 = 2,0 K."
+  },
+  "1389": {
+    "default": "4.0 K",
+    "function": "03/16",
+    "mode": "r/w",
+    "name": "Raum-/T04-ΔT-Schaltschwelle",
+    "type": "TEMP1",
+    "unit": "K",
+    "description": "Schaltschwelle zwischen der Raumtemperatur des Temperatur-/Feuchtesensors und dem lokalen Außentemperaturfühler T04. EIN bei T_Raum − T04 ≥ 1389, AUS mit fester 1,0-K-Hysterese. RAW / 10 = K; Default RAW 40 = 4,0 K. Der offizielle Herstellername ist nicht bekannt.",
+    "temperature_source": "local_t04"
+  },
+  "1402": {
+    "default": "2 min",
+    "function": "03/16",
+    "mode": "r/w",
+    "name": "Mindest-Abtauzeit",
+    "type": "MINUTES",
+    "unit": "min",
+    "description": "Mindestlaufzeit des eigentlichen Abtauens, bevor die reguläre temperaturabhängige Abtaubeendigung zulässig ist. Default 2 min. Eine separate hohe Temperaturgrenze von etwa 33,0 °C kann die Mindestzeit übersteuern; D19 bleibt die maximale Abtaudauer."
   },
   "1432": {
     "app_current_video_value": "4.4 °C",
@@ -5204,17 +5239,16 @@
     "function": "16",
     "mode": "read",
     "name": "Energiezähler elektrisch high bits",
-    "type": "KWH",
-    "note": "Quelle: Forum / Endif; Status: selbst ungetestet.",
-    "unit": "kWh"
+    "type": "RAW",
+    "note": "Quelle: Forum / Endif; Status: selbst ungetestet."
   },
   "2079": {
     "function": "16",
     "mode": "read",
-    "name": "Energiezähler elektrisch low bits / total",
+    "name": "Energiezähler elektrisch gesamt",
     "type": "KWH",
     "unit": "kWh",
-    "note": "Quelle: Forum / Endif; Status: selbst ungetestet."
+    "note": "Live V3.5: 2079 = 2118 + 2122 (elektrisch Heizen + Kühlen)."
   },
   "2080": {
     "function": "16",
@@ -5226,12 +5260,12 @@
   },
   "2081": {
     "bit_map": {
-      "0": "IPM Überhitzung",
-      "1": "Kompressor Startfehler",
+      "0": "F00 – IPM-Überstromfehler",
+      "1": "F01 – Kompressortreiberfehler",
       "2": "Kompressor Überstrom",
       "3": "Phasenverlust Eingangsspannung",
       "4": "IPM Stromabtastfehler",
-      "5": "Überhitzungsschutz Antriebsplatine",
+      "5": "F26 – IGBT-Überhitzungsfehler",
       "6": "Vorladefehler",
       "7": "DC-Sammelschienen-Überspannung",
       "8": "DC-Sammelschienen-Unterspannung",
@@ -5239,9 +5273,9 @@
       "10": "AC-Eingangs-Überstromabschaltung",
       "11": "Eingangsspannungs-Abtastfehler",
       "12": "DSP ↔ PFC Kommunikationsfehler",
-      "13": "Antriebsplatinen-Temperaturfehler",
-      "14": "DSP ↔ Kommunikationsplatine Fehler",
-      "15": "Hauptplatinen-Kommunikationsfehler"
+      "13": "F17 – Temperatursensorfehler Kompressortreiber",
+      "14": "F11 – Kommunikation DSP ↔ Kompressortreiber gestört",
+      "15": "F151 – Kommunikation Kompressortreiber ↔ Hauptplatine gestört"
     },
     "function": "16",
     "mode": "read",
@@ -5254,10 +5288,10 @@
   "2082": {
     "bit_map": {
       "0": "IPM Überhitzungsstopp",
-      "1": "Kompressor Standardphase",
+      "1": "F14 – Kompressor-Phasenausfall",
       "3": "Eingangsstrom-Abtastfehler",
       "6": "EEPROM-Fehler",
-      "7": "Eingangsspannung Überbegrenzungsschutz",
+      "7": "F10 – AC-Eingangsüberspannungsfehler",
       "15": "Kompressor-Übergeschwindigkeitsschutz"
     },
     "function": "16",
@@ -5270,11 +5304,12 @@
   },
   "2083": {
     "bit_map": {
-      "0": "Stromregelungsfrequenz-Alarm",
-      "1": "Kompressor Magnetschutz-Alarm",
+      "0": "F33 – Frequenzreduzierung wegen Kompressorstrom",
+      "1": "F16 – Kompressor-Schwachmagnetisierungsalarm",
       "2": "Leistungseinheit Überhitzung",
-      "4": "AC-Eingangsstrom Regelungsalarm",
-      "5": "EEPROM-Fehlerwarnung"
+      "4": "F22 – Frequenzreduzierung wegen AC-Eingangsstrom",
+      "5": "EEPROM-Fehlerwarnung",
+      "7": "F24 – EEPROM beschädigt / ungültige Fehlerdaten"
     },
     "function": "16",
     "mode": "read",
@@ -5287,21 +5322,37 @@
   "2084": {
     "function": "16",
     "mode": "read",
-    "name": "9",
-    "type": "RAW"
+    "name": "Fehler 10 / Störmeldebits",
+    "type": "BITFIELD",
+    "bit_map": {
+      "8": "F120 – Lüftertreiber-Temperatursensorfehler",
+      "9": "F108 – Lüftertreiber-IPM Überhitzungsfehler",
+      "10": "F105 – Lüftertreiber externer Überstromfehler",
+      "11": "F101 – Lüftertreiber Phasenausfall Versorgung",
+      "12": "F112 – Lüftertreiber Strommess-/Abtastfehler",
+      "13": "F102 – Lüftertreiber Startfehler",
+      "14": "F113 – Lüftertreiber interner Überstromfehler",
+      "15": "F109 – Lüftertreiber Überdrehzahlschutz"
+    },
+    "block": "ERR",
+    "code": "ERR10",
+    "description": "Fehlerbits anhand der originalen DWIN Display-Icon-Library 108.ICO identifiziert."
   },
   "2085": {
     "bit_map": {
       "2": "Heizungsrücklauftemperatur-Sensorfehler",
       "3": "Heizungsauslasswassertemperatur-Sensorfehler",
       "4": "Hochdruckschutz",
+      "5": "TC – Kein Kühlbetrieb bei niedriger Außentemperatur / Schutz",
       "6": "Niederdruckschutz",
-      "8": "Wasserflussschutz",
-      "9": "Überlastschutz der Elektroheizung",
-      "10": "Winter-Frostschutz Stufe 1",
-      "11": "Winter-Frostschutz Stufe 2",
+      "7": "E030 – Unzureichender Wasserdurchfluss beim Abtauen",
+      "8": "E032 – Durchflussschalterfehler",
+      "9": "E04 – Elektroheizung Überhitzungsfehler",
+      "10": "E19 – Primärer Frostschutzfehler",
+      "11": "E29 – Sekundärer Frostschutzfehler",
       "12": "Frostschutz",
-      "14": "Raumtemperaturfehler"
+      "13": "E035 – Niedriger Wasserdurchfluss – Schutz",
+      "14": "P42 – Raumtemperatursensorfehler"
     },
     "function": "16",
     "mode": "read",
@@ -5313,13 +5364,20 @@
   },
   "2086": {
     "bit_map": {
-      "3": "Lüfter 1 Überlastungs-Drehzahlbegrenzung",
-      "4": "Lüfter 2 Überlastungs-Drehzahlbegrenzung",
+      "0": "P182 – Zu hohe Heißgastemperatur",
+      "3": "E103 – Lüftermotor 1 Überlastfehler",
+      "4": "E203 – Lüftermotor 2 Überlastfehler",
       "5": "Temp.diff. Ein-/Auslasswasser zu groß",
-      "6": "Auslasswasser überhitzt",
+      "6": "E065 – Auslasswassertemperatur zu hoch",
       "7": "Mischwasser-Auslasswassertemperatur-Sensorfehler",
       "8": "Warmwasserrücklauftemperatur-Sensorfehler",
-      "9": "Warmwasserauslasswassertemperatur-Sensorfehler"
+      "9": "Warmwasserauslasswassertemperatur-Sensorfehler",
+      "10": "P105 – Zone 1 Raumtemperatursensorfehler",
+      "11": "P106 – Zone 2 Raumtemperatursensorfehler",
+      "12": "P107 – Zone 2 Mischtemperatursensorfehler",
+      "13": "E08g – Kommunikationsfehler Thermostat Zone 1",
+      "14": "E08h – Kommunikationsfehler Thermostat Zone 2",
+      "15": "E122 – Fehlerhafte Regelung des Mischventils"
     },
     "function": "16",
     "mode": "read",
@@ -5333,8 +5391,9 @@
     "bit_map": {
       "4": "Hochdruckschutz (3x)",
       "6": "Niederdruckschutz (3x)",
-      "8": "Wasserflussschutz (3x)",
-      "9": "Elektroheizungsschutz (3x)",
+      "8": "E032 – Durchflussschalterfehler (3+)",
+      "9": "E04 – Elektroheizung Überhitzungsfehler (3+)",
+      "10": "E035 – Niedriger Wasserdurchfluss – Schutz (3+)",
       "12": "Frostschutz (3x)"
     },
     "function": "16",
@@ -5347,6 +5406,7 @@
   },
   "2088": {
     "bit_map": {
+      "0": "P182 – Zu hohe Heißgastemperatur (3+)",
       "2": "Temp.diff. Ein-/Auslasswasser zu groß (3x)",
       "3": "Auslasswassertemperatur zu niedrig (3x)",
       "4": "Auslasswasser Übertemperaturschutz (3x)",
@@ -5369,10 +5429,12 @@
       "3": "Umgebungstemperaturfehler",
       "4": "Sauggastemperaturfehler",
       "5": "Frostschutztemperaturfehler",
-      "6": "Spulenauslasswassertemperatur-Sensorfehler",
+      "6": "P152 – Verteilerrohr-Temperatursensorfehler",
+      "7": "P03a – Pufferspeicher-Temperatursensorfehler",
       "9": "EVI Einlasstemperaturfehler",
       "10": "EVI Auslasstemperaturfehler",
       "11": "Abgastemperaturfehler",
+      "12": "PP12 – Hochdrucksensorfehler",
       "13": "System 1 Drucksensorfehler",
       "14": "Niedrige Umgebungstemperaturfehler",
       "15": "Auslasstemperatur zu niedriger Schutz"
@@ -5387,10 +5449,11 @@
   },
   "2090": {
     "bit_map": {
-      "8": "Warmwassertemperaturfehler",
+      "8": "P03 – WW-Speicher-Temperatursensorfehler",
       "11": "Lüfter 1 Fehler",
       "12": "Lüfter 2 Fehler",
       "13": "Kommunikationsfehler Hauptplatine ↔ Lüfter 1",
+      "14": "E08c – Kommunikationsfehler Hydraulikmodul",
       "15": "Kommunikationsfehler Hauptplatine ↔ Lüfter 2"
     },
     "function": "16",
@@ -5586,8 +5649,9 @@
   "2117": {
     "function": "16",
     "mode": "read",
-    "name": "Reserviert",
-    "type": "RAW"
+    "name": "Energiezähler elektrisch Heizen - High",
+    "type": "RAW",
+    "note": "Quelle: Forum / Endif; Status: selbst getestet."
   },
   "2118": {
     "function": "16",
@@ -5600,8 +5664,9 @@
   "2119": {
     "function": "16",
     "mode": "read",
-    "name": "Reserviert",
-    "type": "RAW"
+    "name": "Energiezähler Wärmemenge Heizen - High",
+    "type": "RAW",
+    "note": "Quelle: Forum / Endif; Status: selbst getestet."
   },
   "2120": {
     "function": "16",
@@ -5614,8 +5679,9 @@
   "2121": {
     "function": "16",
     "mode": "read",
-    "name": "Reserviert",
-    "type": "RAW"
+    "name": "Energiezähler elektrisch Kühlen - High",
+    "type": "RAW",
+    "note": "Quelle: selbst getestet; "
   },
   "2122": {
     "function": "16",
@@ -5628,7 +5694,7 @@
   "2123": {
     "function": "16",
     "mode": "read",
-    "name": "Reserviert",
+    "name": "Energiezähler Wärmemenge Kühlen - High",
     "type": "RAW"
   },
   "2124": {
@@ -5649,9 +5715,10 @@
   "2126": {
     "function": "16",
     "mode": "read",
-    "name": "Energiezähler elektrisch Warmwasser – Low Word",
-    "type": "RAW",
-    "description": "Low Word des kumulativen 32-Bit-Energiezählers elektrisch Warmwasser. Zusammensetzung: (Register 2125 << 16) | Register 2126."
+    "name": "Energiezähler elektrisch Warmwasser",
+    "type": "KWH",
+    "description": "Low Word des kumulativen 32-Bit-Energiezählers elektrisch Warmwasser. Zusammensetzung: (Register 2125 << 16) | Register 2126.",
+    "unit": "kWh"
   },
   "2127": {
     "function": "16",
@@ -5663,9 +5730,10 @@
   "2128": {
     "function": "16",
     "mode": "read",
-    "name": "Energiezähler thermisch Warmwasser – Low Word",
-    "type": "RAW",
-    "description": "Low Word des kumulativen 32-Bit-Energiezählers thermisch Warmwasser. Zusammensetzung: (Register 2127 << 16) | Register 2128."
+    "name": "Energiezähler thermisch Warmwasser",
+    "type": "KWH",
+    "description": "Low Word des kumulativen 32-Bit-Energiezählers thermisch Warmwasser. Zusammensetzung: (Register 2127 << 16) | Register 2128.",
+    "unit": "kWh"
   },
   "2129": {
     "function": "16",
@@ -5787,7 +5855,11 @@
     "type": "BITFIELD",
     "name": "Statuswort Frequenzlimitierungen",
     "bit_map": {
-      "4": "Niederdruck-Frequenzlimiter aktiv (A38)"
+      "1": "A24 – Wasserspreizung / Temperaturdifferenz T01-T02 zu groß",
+      "3": "A27 – Temperaturdifferenz-/Temperaturbegrenzung",
+      "4": "Niederdruck-Frequenzlimiter aktiv (A38)",
+      "5": "AC-Eingangsstrom-Begrenzung / T35",
+      "6": "T12 Heißgas-/Abgastemperatur-Frequenzbegrenzung"
     },
     "note": "FW V3.5 Reverse Engineering (FoxAir_Control #139): Bit 4 = Niederdruck-Frequenzlimiter A38 aktiv. Übrige Bits hier nicht dokumentiert."
   },

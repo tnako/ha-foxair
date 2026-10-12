@@ -401,3 +401,41 @@ def test_v35_select_value_write_gated_by_firmware():
     assert coord._validate_write(1236, 1.0)[0]
     coord._fw_version = 35
     assert coord._validate_write(1236, 2.0)[0]
+
+
+def test_u32_counter_combines_high_and_low_word():
+    """2117/2118 style pairs: the low addr carries high << 16 | low; the high addr is polled with it."""
+    FlakyClient.instances.clear()
+    coord = _make_coord({"quick": set(), "medium": {2117, 2118}, "rare": set()})
+    coord._regmap = {"2117": {"type": "RAW"}, "2118": {"type": "KWH"}}
+    coord._metadata = {"2118": {"u32_high": 2117, "poll_tier": "medium"}, "2117": {"u32_slave": True, "poll_tier": "medium"}}
+    mod._TYPES["KWH"] = {"scale": 1.0}
+    orig = FlakyClient.read_holding_registers
+
+    async def words(self, address=None, count=0, **kw):
+        return FakeResp(regs=[{2117: 1, 2118: 4193}[address + i] for i in range(count)])
+
+    FlakyClient.read_holding_registers = words
+    try:
+        _run(coord)
+    finally:
+        FlakyClient.read_holding_registers = orig
+    assert coord.data[2118]["raw"] == 4193
+    assert coord.data[2118]["value"] == 65536 + 4193
+
+
+def test_u32_low_word_dropped_without_its_high_word():
+    """A low word read without its high word would publish a value 65536 kWh short: keep the old value instead."""
+    FlakyClient.instances.clear()
+    coord = _make_coord({"quick": set(), "medium": {2118}, "rare": set()})
+    coord._regmap = {"2118": {"type": "KWH"}}
+    coord._metadata = {"2118": {"u32_high": 2117}}
+    _run(coord)
+    assert 2118 not in coord.data
+
+
+def test_tier_addrs_add_u32_high_word():
+    coord = _make_coord({"quick": set(), "medium": set(), "rare": set()})
+    coord._metadata = {"2118": {"poll_tier": "medium", "u32_high": 2117},
+                       "2117": {"poll_tier": "medium", "requires_expert": True, "u32_slave": True}}
+    assert mod.FoxAirCoordinator._tier_addrs(coord, "medium", False) == {2117, 2118}

@@ -43,6 +43,10 @@ TIME_SPLIT = {int(k): int(v) for k, v in (MARKERS.get("time_split") or {}).items
 TIME_SPLIT_SLAVES = set(TIME_SPLIT.values())
 if len(TIME_SPLIT_SLAVES) != len(TIME_SPLIT):
     sys.exit("FAIL: markers.time_split: minute addrs must be unique")
+U32_PAIRS = {int(k): int(v) for k, v in (MARKERS.get("u32_pairs") or {}).items()}
+U32_SLAVES = set(U32_PAIRS.values())
+if len(U32_SLAVES) != len(U32_PAIRS) or U32_SLAVES & set(U32_PAIRS):
+    sys.exit("FAIL: markers.u32_pairs: high addrs must be unique and never a low addr")
 EXPERT_BLOCKS = set(BLOCKS["expert_blocks"])
 HIDDEN_CFG_RANGES = [(lo, hi) for lo, hi in CFG.get("hidden", [])]
 RISK_BY_BLOCK = BLOCKS["risk_by_block"]
@@ -274,6 +278,10 @@ def main():
         if addr in TIME_SPLIT_SLAVES:
             if dtype != "TIME_SPLIT":
                 out[addr_str]["time_split_slave"] = True
+        if addr in U32_PAIRS:
+            out[addr_str]["u32_high"] = U32_PAIRS[addr]
+        if addr in U32_SLAVES:
+            out[addr_str]["u32_slave"] = True
         # alias_switch spec (foxair_config.json) compiles into the target
         # addr's metadata: normal-mode switch backed by a plain register.
         if addr in ALIAS_SWITCH:
