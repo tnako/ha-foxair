@@ -224,6 +224,14 @@ def compare(buckets: list[list], baseline_fp: str) -> tuple[dict | None, dict]:
 
 def day_problems(row: list) -> list[str]:
     """Why a day row is not usable for the daily score (empty = usable)."""
+    out = day_data_problems(row)
+    if row[R_FP] in ("mixed", "none"):
+        out.append("settings_changed" if row[R_FP] == "mixed" else "settings_unknown")
+    return out
+
+
+def day_data_problems(row: list) -> list[str]:
+    """Why a day row has no trustworthy COP, whatever the settings were (empty = measured)."""
     out = []
     if row[R_COVER] < DAY_MIN_COVERAGE:
         out.append("coverage")
@@ -235,8 +243,6 @@ def day_problems(row: list) -> list[str]:
         out.append("little_running")
     if row[R_COOL]:
         out.append("cooling")
-    if row[R_FP] in ("mixed", "none"):
-        out.append("settings_changed" if row[R_FP] == "mixed" else "settings_unknown")
     if row[R_TFLOW] is None or row[R_TOUT] is None:
         out.append("no_temperatures")
     return out
@@ -428,7 +434,7 @@ def summary(advice: dict, hint_list: list[str], flow: dict | None, group: str | 
     apply = None
     if a == "change" or (a == "revert" and own_test):
         apply = {"kind": "write", "param": p, "from": f, "to": t}
-    elif a == "accept" or (a == "keep" and reason == "need_more_days" and not own_test):
+    elif a in ("accept", "revert"):
         apply = {"kind": "baseline"}
     if a == "change":
         state, msg = "suggestion", (f"Press Apply to set {p} from {_fmt(f)} to {_fmt(t)}. Keep it {days} heating "
@@ -437,7 +443,10 @@ def summary(advice: dict, hint_list: list[str], flow: dict | None, group: str | 
         state, msg = "suggestion", (f"{p}={_fmt(f)} showed no gain ({reason}). "
                                     f"Press Apply to set it back to {_fmt(t)}.")
     elif a == "revert":
-        state, msg = "problem", f"Settings {group} are not better ({reason}). Restore the previous values by hand."
+        word = "worse" if reason == "worse" else "no clear difference"
+        state, msg = "suggestion", (f"Result for {group}: COP {_fmt(advice.get('delta_pct'))} % against the "
+                                    f"reference ({word}). Press Apply to make the current settings the new "
+                                    f"reference; nothing is written to the pump.")
     elif a == "accept":
         what = f"{p}={_fmt(t)}" if p else f"Settings {group}"
         state, msg = "suggestion", (f"{what} is better ({_fmt(advice.get('delta_pct'))} %). Press Apply to keep "
@@ -456,8 +465,7 @@ def summary(advice: dict, hint_list: list[str], flow: dict | None, group: str | 
     elif a == "keep" and own_test:
         state, msg = "testing", f"Testing {group}: {days} more heating day(s) needed."
     elif a == "keep":
-        state, msg = "testing", (f"Settings {group} differ from the reference: {days} more heating day(s) to "
-                                 f"compare. Press Apply to make them the reference now.")
+        state, msg = "testing", f"Measuring {group} against the reference: {days} more heating day(s) needed."
     elif a == "collecting":
         state, msg = "learning", f"Learning how the pump performs: {days} more heating day(s) needed."
     elif a == "done":
@@ -936,12 +944,16 @@ class EfficiencyAnalyser:
         return predict(self.model, hz, t_out, t_flow)
 
     def last_day(self) -> dict | None:
-        """Most recent complete qualifying day with its ratio to the baseline day model."""
+        """Most recent measured day; `comparable` is False when settings changed or were unknown that day."""
         for r in reversed(self.days):
-            if day_ok(r):
+            if not day_data_problems(r):
+                why = day_problems(r)
                 out = {"day": r[R_DAY], "cop": round(day_cop(r), 2), "heat_kwh": r[R_HEAT], "elec_kwh": r[R_ELEC],
-                       "t_out": r[R_TOUT], "run_h": r[R_RUN], "defrosts": r[R_DEFROSTS], "fp": r[R_FP]}
-                if self.day_model:
+                       "t_out": r[R_TOUT], "run_h": r[R_RUN], "defrosts": r[R_DEFROSTS], "fp": r[R_FP],
+                       "comparable": not why}
+                if why:
+                    out["not_comparable_why"] = why
+                elif self.day_model:
                     out["expected_cop"] = round(predict_daily(self.day_model, r), 2)
                     out["index_pct"] = round(100 * daily_ratio(self.day_model, r), 1)
                 return out

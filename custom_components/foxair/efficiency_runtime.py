@@ -5,7 +5,7 @@ import logging
 import time
 
 from . import computed as _computed
-from .efficiency import EfficiencyAnalyser
+from .efficiency import LADDER, EfficiencyAnalyser
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -32,6 +32,7 @@ SETTING_ADDRS = {
     "C02": 1219, "C03": 1220, "C10": 1227,
     "D01": 1105, "D02": 1106, "D03": 1107, "D17": 1122, "D19": 1124,
     "A31": 1049, "A33": 1063, "A34": 1064, "H18": 1032,
+    "H22": 1030, "H25": 1035, "H36": 1236,
 }
 
 
@@ -210,6 +211,8 @@ class EfficiencyRuntime:
         if act["kind"] == "baseline":
             await self.async_set_baseline()
             return "baseline"
+        if act["param"] not in LADDER:
+            raise ValueError(f"{act['param']} is watch-only; nothing written")
         addr = SETTING_ADDRS[act["param"]]
         now_val = _val(self.coord, addr)
         if now_val is None:

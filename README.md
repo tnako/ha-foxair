@@ -2,7 +2,7 @@
 
 Control and monitor your **FoxAir / PHNIX air-to-water heat pump** directly from Home Assistant over Modbus TCP — no cloud, no YAML.
 
-![Version](https://img.shields.io/badge/version-0.7.31-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2026.10-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
+![Version](https://img.shields.io/badge/version-0.7.32-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2026.10-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
 ![FoxAir Demo](docs/screenshots/foxair_demo.gif)
 
@@ -101,22 +101,25 @@ Three entities and one button, so there is one place to look:
   - `testing`: a changed setting is measured against the reference;
   - `no_change`: nothing worth testing right now; checks continue;
   - `problem`: something to fix first (short cycling, flow temperature well
-    above earlier days at the same outdoor temperature, a test that came out
-    worse). A running test or pending step is still listed after `Also:`.
+    above earlier days at the same outdoor temperature). A running test or
+    pending step is still listed after `Also:`.
   Attributes: `apply` (exactly what the button does, or null), `next_check`
   (next automatic decision, always in the future or null when it waits for
   you), `findings`, `flow_vs_history`, `expected_cop`, `settings_group`,
   `defrosts` summary and the last 10 `changes`.
-- `Apply suggestion` button: does what the status says. A suggested change is
-  written to the pump with read-back, only if the pump still holds the
-  expected old value; an accepted result or a manual change becomes the new
-  reference. With nothing to apply it is unavailable (greyed out). No other
-  path writes to the pump.
+- `Apply suggestion` button: does what the status says. A suggested E02, F05 or
+  D03 step is written to the pump with read-back, only if the pump still holds
+  the expected old value. When a test of your own changes has a result, Apply
+  makes the current settings the new reference and writes nothing. While a
+  test runs, or with nothing to apply, it is unavailable (greyed out). No other
+  path writes to the pump, and settings you choose (silent mode, curve,
+  control sensor, pump mode) are never changed.
 - `Efficiency index`: COP of the last 24 h as % of what the reference settings
   would have done in the same weather and load. 100 % = same.
 - `Daily COP`: heat out / electricity in for the last full day, including
   defrost, cycling, hot water and standby. Days need 80 % data coverage, 5 kWh
-  of heat and 1 h of running. Settings that act outside steady running
+  of heat and 1 h of running. A day with a settings change is still shown,
+  with `comparable: false` and the reason; it is not used for comparisons. Settings that act outside steady running
   (defrost, pump, compressor limits, heaters) are judged on this daily score
   against a day model (outdoor temperature, run hours), with a 5-day minimum.
 
@@ -129,7 +132,9 @@ Suggestions, one step on one parameter, in this order:
 - D03 +15 min (30-90), only when most recent defrosts are short and start right
   after the D03 minimum, judged on the daily score.
 Only these settings are ever suggested. Every other tracked setting is
-watch-only. A step that tested worse or inconclusive isn't suggested again;
+watch-only, including silent mode (H22), control sensor (H25) and curve mode
+(H36): a change to one of them starts its own measurement instead of being
+mixed into a running test. A step that tested worse or inconclusive isn't suggested again;
 the other direction is tried instead. Every tracked change, whoever made it,
 is logged with time and old/new values.
 
@@ -139,7 +144,8 @@ weather, so only the A/B result proves a gain.
 How it runs: wait until `Efficiency status` is `suggestion`, press Apply, then
 leave it alone while it says `testing`. When the result is in it becomes
 `suggestion` again (keep or revert, one press). Writing needs expert mode;
-reading the settings does not. A change made by hand works the same way.
+reading the settings does not. A change made by hand is measured the same way;
+when the result is in, Apply makes it the reference (it is never undone).
 
 COP needs a heat value: T59 (firmware 3.3+) or flow x delta T. For the electrical
 side, set Options -> Electrical power source = external meter if you have one.

@@ -1,3 +1,9 @@
+## 0.7.32 - 2026-10-12
+- fix(efficiency): Apply stays unavailable while a test runs; it no longer offers "make them the reference now" mid-test
+- fix(efficiency): settings you choose are never undone. A tested manual change only ends in "make the current settings the new reference" (nothing written), and Apply refuses to write any watch-only setting
+- feat(efficiency): silent mode (H22), control sensor (H25) and curve mode (H36) are tracked as watch-only, so changing one starts its own measurement instead of mixing into a running test
+- fix(efficiency): Daily COP shows yesterday even when settings changed that day, with `comparable: false` and the reason, instead of an older day
+
 ## 0.7.31 - 2026-10-11
 - fix(efficiency): the Apply button is unavailable (greyed out) when there is nothing to apply and while a write runs, so a press always does something visible
 - fix(efficiency): a `problem` status no longer hides what else is going on: the message always adds "Also: ..." with the running test or pending step (e.g. "Testing E02=5.5: measuring starts after a 24 h settling time")
