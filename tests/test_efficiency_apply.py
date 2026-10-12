@@ -106,6 +106,14 @@ def test_apply_without_a_suggestion_explains_why():
     assert c.writes == []
 
 
+def test_apply_never_writes_a_watch_only_setting():
+    c = Coord()
+    r = _runtime(c, {"action": "change", "param": "H22", "from": 1.0, "to": 0.0, "days_left": 3})
+    with pytest.raises(ValueError, match="watch-only"):
+        asyncio.run(r.async_apply())
+    assert c.writes == []
+
+
 def test_apply_accept_makes_the_current_settings_the_reference():
     c = Coord()
     r = _runtime(c, {"action": "accept", "param": "E02", "from": 5.0, "to": 5.0, "delta_pct": 2.0})

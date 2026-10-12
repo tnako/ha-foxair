@@ -500,11 +500,35 @@ def test_suggestion_message_names_the_button_and_values():
     assert st["next_check"] is None
 
 
-def test_manual_change_can_become_the_reference_but_a_worse_one_is_never_locked_in():
-    keep = _st({"action": "keep", "param": None, "days_left": 2, "reason": "need_more_days"}, group="R02=47")
-    assert keep["state"] == "testing" and keep["apply"] == {"kind": "baseline"}
-    bad = _st({"action": "revert", "param": None, "reason": "worse"}, group="E03-1=200 E07=70")
-    assert bad["state"] == "problem" and bad["apply"] is None
+def test_manual_change_is_measured_first_and_never_written_back():
+    keep = _st({"action": "keep", "param": None, "days_left": 2, "reason": "need_more_days"}, group="E02=5.5 H22=1")
+    assert keep["state"] == "testing" and keep["apply"] is None and "Press Apply" not in keep["message"]
+    for reason in ("worse", "no_clear_gain"):
+        res = _st({"action": "revert", "param": "H22", "from": 1.0, "to": 0.0, "reason": reason, "delta_pct": -3.0},
+                  group="H22=1")
+        assert res["state"] == "suggestion" and res["apply"] == {"kind": "baseline"}
+        assert "nothing is written to the pump" in res["message"] and "H22=1" in res["message"]
+
+
+def test_user_settings_are_watch_only():
+    for p in ("H22", "H25", "H36", "P11", "F26", "A40"):
+        assert p not in eff.LADDER
+    pol = eff.suggestion_policy(["E02", "H22", "H25", "H36"])
+    assert pol["watch_only"] == ["H22", "H25", "H36"]
+
+
+def test_daily_cop_shows_yesterday_even_after_a_settings_change():
+    a = eff.EfficiencyAnalyser()
+    row = [0] * 11
+    for i, v in zip((eff.R_DAY, eff.R_RUN, eff.R_TOUT, eff.R_TFLOW, eff.R_COOL, eff.R_HEAT, eff.R_DEFROSTS,
+                     eff.R_ELEC, eff.R_FP, eff.R_COVER), (5, 3.0, 12.0, 30.0, 0, 10.0, 0, 2.5, "mixed", 1.0)):
+        row[i] = v
+    a.days = [row]
+    d = a.last_day()
+    assert d["cop"] == 4.0 and d["comparable"] is False and d["not_comparable_why"] == ["settings_changed"]
+    assert eff.day_data_problems(row) == [] and not eff.day_ok(row)
+    row[eff.R_COVER] = 0.3
+    assert a.last_day() is None
 
 
 def test_next_check_is_never_in_the_past():
