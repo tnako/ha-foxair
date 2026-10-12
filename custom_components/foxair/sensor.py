@@ -63,6 +63,8 @@ async def async_setup_entry(hass, entry, add_entities):
                 continue
         if meta.get("editable") and meta.get("platform") in ("number", "select", "time"):
             continue
+        if meta.get("u32_slave"):
+            continue
         ents.append(FoxSensor(coord, addr))
     # computed (derived) sensors: heating power, electrical power, COP,
     # per-mode energy meters (heating/cooling/dhw + electrical), per-mode COPs

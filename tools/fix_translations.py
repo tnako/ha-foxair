@@ -166,6 +166,7 @@ EN_OVERRIDES = {
     "215": "PHNIX/Aliyun ProductKey Word 16/16",
     "1019": "Integrated fan motor and compressor drive",
     "1021": "Enable Cooling",
+    "1022": "Circulation Pump Flow Offset",
     "1028": "Heating/Cooling and DHW Function Enabled",
     "1051": "Min. Ambient Temp in Cooling Mode",
     "1055": "Min. Cooling Evaporation Temperature",
@@ -223,23 +224,32 @@ EN_OVERRIDES = {
     "1242": "Room Temp Differential for Switch-on in Cooling",
     "1243": "Room Temp Differential for Standby in Cooling",
     "1340": "SG Mode 4 Cooling Target Temp Boost",
+    "1353": "Zone 1 Room Temperature Offset",
+    "1354": "Zone 2 Room Temperature Offset",
+    "1355": "Internal Outdoor Sensor T04 Offset",
     "1356": "Condensate Pan Heater Switch-on AT (D30/1437 effective only when AT < H42)",
     "1358": "Enable Zone 1 Water Pump in Cooling",
+    "1388": "Cooling Minimum Margin Above Dew Point",
+    "1389": "Room/T04 Delta-T Switching Threshold",
+    "1402": "Minimum Defrost Time",
     "1437": "Condensate Pan Heater Delays Off Time After Defrost",
+    "2018": "025 / Load Outputs Bitfield 2 (DHW heater, zone pumps, cooling 3-way valve)",
     "2035": "Heating Return Temp",
     "2036": "Heating Supply Temp",
     "2049": "Evaporator Temperature",
     "2074": "Fan Motor 1 Speed",
     "2075": "Fan Motor 2 Speed",
     "2076": "Fan Motor Target Speed",
+    "2079": "Energy Meter Electric Total",
+    "2084": "Error 10 / Fault Bits",
     "2125": "DHW Electric Energy High Word",
-    "2126": "DHW Electric Energy Low Word",
+    "2126": "DHW Electric Energy",
     "2127": "DHW Thermal Energy High Word",
-    "2128": "DHW Thermal Energy Low Word",
+    "2128": "DHW Thermal Energy",
     "2130": "External Fan Drive IPM Temperature",
     "2131": "External Fan Drive Power",
     "2132": "External Fan Drive Current",
-    "2136": "T04 Outdoor Temperature - Secondary Path",
+    "2136": "Internal outdoor temperature (T04)",
     "2137": "Heat Pump Electrical Power (without booster)",
     "2138": "Heat Pump Thermal Power (without booster)",
     "2178": "Temperature/Humidity Sensor Temperature",
@@ -280,6 +290,7 @@ DE_OVERRIDES = {
     "215": "PHNIX/Aliyun ProductKey Wort 16/16",
     "1019": "Lüftermotorantrieb und Kompressorantrieb integriert",
     "1021": "Kühlfunktion aktivieren",
+    "1022": "Durchfluss-Offset Umwälzpumpe",
     "1028": "Heiz-/Kühl- und Warmwasserfunktion aktiviert",
     "1051": "Min. Umgebungstemperatur im Kühlmodus",
     "1055": "Minimale Verdampfungstemperatur der Kühlung",
@@ -337,23 +348,32 @@ DE_OVERRIDES = {
     "1242": "Raumtemperaturdifferenz zum Einschalten im Kühlbetrieb",
     "1243": "Raumtemperaturdifferenz für Standby im Kühlbetrieb",
     "1340": "SG Mode 4 Kühlen-Zieltemperatur-Anhebung",
+    "1353": "Offset Zone-1-Raumtemperatur",
+    "1354": "Offset Zone-2-Raumtemperatur",
+    "1355": "Offset interner Außentemperaturfühler T04",
     "1356": "Einschalt-AT Gehäusewannenheizung (D30/1437 erst wirksam, wenn AT kleiner H42 ist)",
     "1358": "Zone 1 Wasserpumpe im Kühlbetrieb aktivieren",
+    "1388": "Kühl-Mindestabstand über Taupunkt",
+    "1389": "Raum-/T04-ΔT-Schaltschwelle",
+    "1402": "Mindest-Abtauzeit",
     "1437": "Gehäusewannenheizung Delays Off Time after Defrost",
+    "2018": "025 / Lastausgänge Bitfeld 2 (WW-Heizstab, Zonenpumpen, Kühl-3-Wege-Ventil)",
     "2035": "Heizungsrücklauftemperatur",
     "2036": "Heizungsvorlauftemperatur",
     "2049": "Verdampfertemperatur",
     "2074": "Drehzahl des Lüftermotors 1",
     "2075": "Drehzahl des Lüftermotors 2",
     "2076": "Zieldrehzahl des Lüftermotors",
+    "2079": "Energiezähler elektrisch gesamt",
+    "2084": "Fehler 10 / Störmeldebits",
     "2125": "Energiezähler elektrisch Warmwasser - High Word",
-    "2126": "Energiezähler elektrisch Warmwasser - Low Word",
+    "2126": "Energiezähler elektrisch Warmwasser",
     "2127": "Energiezähler thermisch Warmwasser - High Word",
-    "2128": "Energiezähler thermisch Warmwasser - Low Word",
+    "2128": "Energiezähler thermisch Warmwasser",
     "2130": "IPM-Temperatur des externen Lüftermotorantriebs",
     "2131": "Leistung des externen Lüftermotorantriebs",
     "2132": "Strom des externen Lüftermotorantriebs.",
-    "2136": "T04 Außentemperatur - zweiter Veröffentlichungsweg",
+    "2136": "Interne Außentemperatur (T04)",
     "2137": "Elektrische WP-/Inverterleistung ohne Zusatzanteil",
     "2138": "Thermische WP-Leistung ohne Zusatzanteil",
     "2178": "Temperatur des Temperatur-/Feuchtesensors",
@@ -394,6 +414,7 @@ RU_OVERRIDES = {
     "215": "PHNIX/Aliyun ProductKey Слово 16/16",
     "1019": "Интегрированный привод вентилятора и компрессора",
     "1021": "Включить функцию охлаждения",
+    "1022": "Смещение расхода циркуляционного насоса",
     "1028": "Включены функции отопления/охлаждения и ГВС",
     "1051": "Мин. температура окружающей среды в режиме охлаждения",
     "1055": "Мин. температура испарения при охлаждении",
@@ -451,23 +472,32 @@ RU_OVERRIDES = {
     "1242": "Дельта комнатной температуры для включения охлаждения",
     "1243": "Дельта комнатной температуры для standby в охлаждении",
     "1340": "SG режим 4 — повышение целевой температуры охлаждения",
+    "1353": "Смещение комнатной температуры зоны 1",
+    "1354": "Смещение комнатной температуры зоны 2",
+    "1355": "Смещение внутреннего датчика наружной температуры T04",
     "1356": "Температура включения обогрева поддона (D30/1437 действует, только если AT < H42)",
     "1358": "Включать насос зоны 1 в охлаждении",
+    "1388": "Мин. запас охлаждения над точкой росы",
+    "1389": "Порог переключения ΔT комната/T04",
+    "1402": "Минимальное время разморозки",
     "1437": "Обогрев поддона задерживает выключение после разморозки",
+    "2018": "025 / Битовое поле выходов 2 (ТЭН ГВС, насосы зон, 3-ход. клапан охлаждения)",
     "2035": "Температура обратки отопления",
     "2036": "Температура подачи отопления",
     "2049": "Температура испарителя",
     "2074": "Обороты двигателя вентилятора 1",
     "2075": "Обороты двигателя вентилятора 2",
     "2076": "Целевые обороты двигателя вентилятора",
+    "2079": "Счётчик эл. энергии общий",
+    "2084": "Ошибка 10 / Биты неисправностей",
     "2125": "Счётчик эл. энергии ГВС старший",
-    "2126": "Счётчик эл. энергии ГВС младший",
+    "2126": "Счётчик эл. энергии ГВС",
     "2127": "Счётчик тепл. энергии ГВС старший",
-    "2128": "Счётчик тепл. энергии ГВС младший",
+    "2128": "Счётчик тепл. энергии ГВС",
     "2130": "IPM-температура внешнего привода вентилятора",
     "2131": "Мощность внешнего привода вентилятора",
     "2132": "Ток внешнего привода вентилятора",
-    "2136": "T04 Температура наружного воздуха — второй путь",
+    "2136": "Внутренняя наружная температура (T04)",
     "2137": "Эл. мощность теплового насоса (без догрева)",
     "2138": "Тепл. мощность теплового насоса (без догрева)",
     "2178": "Температура датчика влажности",
@@ -573,10 +603,8 @@ for addr_str, rec in regs.items():
                     if addr in EN_OVERRIDES or "Blockkopf" in domain_dict[key].get("name","") or "Kennung" in domain_dict[key].get("name",""):
                         should_update=True
                 elif lang=="de":
-                    if addr in DE_OVERRIDES or "Blockkopf" not in name:
-                        # de should be German, if en was German leak then de was correct, no need? but ensure de is German
-                        if domain_dict[key].get("name") != name:
-                            should_update=True
+                    if addr in DE_OVERRIDES or "Blockkopf" in domain_dict[key].get("name",""):
+                        should_update=True
                 elif lang=="ru":
                     if addr in RU_OVERRIDES or "Blockkopf" in domain_dict[key].get("name",""):
                         should_update=True
@@ -603,13 +631,6 @@ for addr_str, meta_rec in meta.items():
                 # Copy from sensor with same name
                 d[key] = {"name": name}
                 fixed[domain]+=1
-            else:
-                # ensure name matches sensor
-                if d[key].get("name") != name:
-                    # Keep existing to avoid overwriting manually translated? But ensure sync
-                    # For number/select, names should match sensor
-                    d[key]["name"] = name
-                    fixed["updated"]+=1
             # Also ensure state for select copied? States are separate, keep existing states
 
 # Also fix block headers that were missing in strings sensor but present in regs but we already added sensor entries above

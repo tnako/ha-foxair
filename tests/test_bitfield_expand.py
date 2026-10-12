@@ -157,8 +157,10 @@ def test_expansion_counts_and_expert_gating():
     assert sum(isinstance(e, bs.FoxFaultSummarySensor) for e in _setup(expert=True)) == 1
     assert sum(1 for e in expert if e._addr == 2019) == 12
     assert sum(1 for e in expert if e._addr == 2018) == 4
-    assert {(e._addr, e._bit) for e in expert if e._addr in (2139, 2146)} == {(2139, 4), (2146, 4)}
-    assert {(e._addr, e._bit) for e in plain if e._addr in (2139, 2146)} == {(2146, 4)}
+    limiter = {(2139, b) for b in (1, 3, 4, 5, 6)} | {(2146, 4)}
+    assert {(e._addr, e._bit) for e in expert if e._addr in (2139, 2146)} == limiter
+    assert {(e._addr, e._bit) for e in plain if e._addr in (2139, 2146)} == limiter
+    assert {(e._addr, e._bit) for e in plain if e._addr == 2084} == {(2084, b) for b in range(8, 16)}
 
 def test_identity_and_problem_class():
     ents = _setup(expert=True)
@@ -244,7 +246,7 @@ def test_fault_summary_lists_active_bits_in_english():
     assert ent.is_on is True
     attrs = ent.extra_state_attributes
     assert attrs["fault_keys"] == ["err07_bit0", "err01_bit8"]
-    assert attrs["active_faults"] == ["ERR07 IPM overheating", "ERR01 Water flow protection"]
+    assert attrs["active_faults"] == ["ERR07 F00 IPM overcurrent fault", "ERR01 E032 Flow switch fault"]
 
 
 def test_fault_summary_ignores_undocumented_bits():

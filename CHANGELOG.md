@@ -1,3 +1,13 @@
+## 0.7.33 - 2026-10-12
+- fix(energy): the pump's own energy counters read both words. Heating/cooling electric and heat (2118/2120/2122/2124), electric total (2079) and DHW electric/heat (2126/2128) are now one kWh value each (high word × 65536 + low word) instead of only the low word, which would wrap at 65535 kWh. They show in Live in normal mode. The separate high-word sensors (2125, 2127) are removed. The low-word value is only updated when its high word was read in the same poll
+- fix(faults): new fault word ERR10 (2084, fan driver: F101, F102, F105, F108, F109, F112, F113, F120) is part of the Fault alarm; it was a raw sensor named "9". ERR01-ERR09 bit names now carry the display codes (F00, F14, E032, P182, ...) and 26 newly documented bits (fan motor overload, zone sensors, mixing valve, hydraulic module, high-pressure sensor) are added
+- feat(limits): frequency limiter status (2139, V3.5) shows all known causes: water spread (A24), temperature difference (A27), low pressure (A38), input current and discharge temperature. It is visible in normal mode now (read-only)
+- fix(efficiency): polls with an active frequency limiter (2139 ≠ 0) no longer count as steady heating, so a capped compressor does not show up as lower efficiency in the COP buckets
+- fix(registers): 1022 (circulation pump flow offset, m³/h), 1353/1354 (zone 1/2 room temperature offset) and 1355 (internal outdoor sensor T04 offset) were unnamed "Reserved" numbers. They are read-only expert sensors now; 1022 shifts the flow the heat/COP calculation uses, 1355 shifts the outdoor temperature the curve uses
+- feat(registers): expert read-only sensors for cooling minimum margin above dew point (1388), room/T04 ΔT switching threshold (1389) and minimum defrost time (1402)
+- fix(cleanup): number entities whose register is no longer writable are removed from the registry on restart
+- fix(i18n): names for the new and renamed registers in en/de/ru; Load outputs 2 (2018) gets a proper name. The translation generator no longer overwrites shortened curated names (curve points, summer cut-off, 2014, 2136) with long register names
+
 ## 0.7.32 - 2026-10-12
 - fix(efficiency): Apply stays unavailable while a test runs; it no longer offers "make them the reference now" mid-test
 - fix(efficiency): settings you choose are never undone. A tested manual change only ends in "make the current settings the new reference" (nothing written), and Apply refuses to write any watch-only setting

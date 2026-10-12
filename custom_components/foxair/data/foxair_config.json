@@ -46,10 +46,6 @@
       1017
     ],
     [
-      1022,
-      1022
-    ],
-    [
       1025,
       1026
     ],
@@ -92,10 +88,6 @@
     [
       1348,
       1352
-    ],
-    [
-      1353,
-      1355
     ],
     [
       1361,
@@ -180,22 +172,6 @@
     [
       2113,
       2114
-    ],
-    [
-      2117,
-      2117
-    ],
-    [
-      2119,
-      2119
-    ],
-    [
-      2121,
-      2121
-    ],
-    [
-      2123,
-      2123
     ],
     [
       2129,
@@ -824,6 +800,16 @@
       "1245": 1246,
       "1248": 1249
     },
+    "u32_pairs_comment": "32-bit counters (low addr -> high addr): value = high << 16 | low. The low addr carries the entity; the high addr is polled in the same tier and gets no entity of its own.",
+    "u32_pairs": {
+      "2079": 2078,
+      "2118": 2117,
+      "2120": 2119,
+      "2122": 2121,
+      "2124": 2123,
+      "2126": 2125,
+      "2128": 2127
+    },
     "overrides": {
       "1142": {
         "min": 0,
@@ -1345,31 +1331,52 @@
         "poll_tier": "medium"
       },
       "2079": {
-        "poll_tier": "medium"
+        "poll_tier": "medium",
+        "requires_expert": false,
+        "block": "T",
+        "tab": "T_Live"
       },
       "2118": {
-        "poll_tier": "medium"
+        "poll_tier": "medium",
+        "requires_expert": false,
+        "block": "T",
+        "tab": "T_Live"
       },
       "2120": {
-        "poll_tier": "medium"
+        "poll_tier": "medium",
+        "requires_expert": false,
+        "block": "T",
+        "tab": "T_Live"
       },
       "2122": {
-        "poll_tier": "medium"
+        "poll_tier": "medium",
+        "requires_expert": false,
+        "block": "T",
+        "tab": "T_Live"
       },
       "2124": {
-        "poll_tier": "medium"
+        "poll_tier": "medium",
+        "requires_expert": false,
+        "block": "T",
+        "tab": "T_Live"
       },
       "2125": {
         "poll_tier": "medium"
       },
       "2126": {
-        "poll_tier": "medium"
+        "poll_tier": "medium",
+        "requires_expert": false,
+        "block": "T",
+        "tab": "T_Live"
       },
       "2127": {
         "poll_tier": "medium"
       },
       "2128": {
-        "poll_tier": "medium"
+        "poll_tier": "medium",
+        "requires_expert": false,
+        "block": "T",
+        "tab": "T_Live"
       },
       "2130": {
         "poll_tier": "medium"
@@ -1700,7 +1707,7 @@
       "2139": {
         "block": "A",
         "tab": "A",
-        "requires_expert": true,
+        "requires_expert": false,
         "min_firmware": 35,
         "poll_tier": "medium"
       },
@@ -1710,6 +1717,65 @@
         "requires_expert": false,
         "min_firmware": 35,
         "poll_tier": "medium"
+      },
+      "1022": {
+        "editable": false,
+        "requires_expert": true,
+        "block": "P",
+        "tab": "P"
+      },
+      "1353": {
+        "editable": false,
+        "requires_expert": true,
+        "block": "Z",
+        "tab": "Z"
+      },
+      "1354": {
+        "editable": false,
+        "requires_expert": true,
+        "block": "Z",
+        "tab": "Z"
+      },
+      "1355": {
+        "editable": false,
+        "requires_expert": true,
+        "block": "H",
+        "tab": "HC"
+      },
+      "1388": {
+        "editable": false,
+        "requires_expert": true,
+        "block": "Z",
+        "tab": "Z"
+      },
+      "1389": {
+        "editable": false,
+        "requires_expert": true,
+        "block": "Z",
+        "tab": "Z"
+      },
+      "1402": {
+        "editable": false,
+        "requires_expert": true,
+        "block": "D",
+        "tab": "D"
+      },
+      "2117": {
+        "poll_tier": "medium"
+      },
+      "2119": {
+        "poll_tier": "medium"
+      },
+      "2121": {
+        "poll_tier": "medium"
+      },
+      "2123": {
+        "poll_tier": "medium"
+      },
+      "2084": {
+        "block": "ERR",
+        "tab": "ERR",
+        "requires_expert": false
       }
     }
   },

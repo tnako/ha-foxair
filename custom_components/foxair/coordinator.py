@@ -204,7 +204,7 @@ class FoxAirCoordinator(DataUpdateCoordinator):
         # Permanently hidden addrs (reserved/header/system/service) are NEVER polled.
         # Firmware-gated addrs (min_firmware) are skipped when the device firmware
         # hasn't been detected yet or is below the required version.
-        return {
+        addrs = {
             int(k)
             for k, v in self._metadata.items()
             if v.get("poll_tier") == tier and k.isdigit()
@@ -215,6 +215,8 @@ class FoxAirCoordinator(DataUpdateCoordinator):
             and (expert or not v.get("requires_expert"))
             and self._fw_gte(v.get("min_firmware"))
         }
+        return addrs | {int(self._metadata[str(a)]["u32_high"]) for a in addrs
+                        if self._metadata.get(str(a), {}).get("u32_high")}
 
     def _validate_write(self, addr: int, value: float) -> tuple[bool, dict, str]:
         meta = self.get_metadata(addr)
@@ -558,7 +560,21 @@ class FoxAirCoordinator(DataUpdateCoordinator):
                         self.client = None
                         break
                 continue
+        self._combine_u32(out)
         return out
+
+    def _combine_u32(self, out: dict[int, dict]) -> None:
+        for a in list(out):
+            high_addr = self.get_metadata(a).get("u32_high")
+            if not high_addr:
+                continue
+            high = out.get(int(high_addr)) or (self.data or {}).get(int(high_addr))
+            if not high or high.get("raw") is None:
+                del out[a]
+                continue
+            rec = out[a]
+            scale = (_TYPES.get((rec["info"].get("type") or "RAW").upper()) or {}).get("scale", 1.0)
+            rec["value"] = ((int(high["raw"]) << 16) | int(rec["raw"])) * scale
 
     def last_seen_age(self, addr: int) -> float | None:
         """Seconds since addr was last successfully read; None if never."""
