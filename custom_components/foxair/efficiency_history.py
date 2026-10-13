@@ -13,11 +13,13 @@ DAY_MAX_COOL_KWH = 0.1
 DAY_FIT_MIN = 5
 DAILY_MIN_DAYS = 5
 HISTORY_DAYS = 400
-WEEK_DAYS = 7
-PERIOD_MIN_DAYS = 3
-MATCH_TOUT_K = 1.0
-MATCH_TIN_K = 0.7
+WINDOW_DAYS = 30
+YEAR_DAYS = 365
+PERIOD_MIN_DAYS = 5
+MATCH_TOUT_K = 1.5
 MATCH_MIN = 3
+HEATING_DAY_KWH = 1.0
+KD_FLOOR = 2.0
 DEFAULT_T_IN = 20.0
 SETTLE_S = 1800
 
@@ -203,12 +205,16 @@ def _full(r: dict) -> bool:
     return r["hours"] >= DAY_MIN_HOURS and r.get("elec") is not None and r.get("t_out") is not None
 
 
+def _heating(r: dict) -> bool:
+    return _full(r) and r["elec"] >= HEATING_DAY_KWH
+
+
 def _heat_full(r: dict) -> bool:
     return r.get("heat_hours", 0) >= DAY_MIN_HOURS and r.get("heat_total") is not None
 
 
 def _kd(r: dict) -> float:
-    return max(0.0, (r["t_in"] if r.get("t_in") is not None else DEFAULT_T_IN) - r["t_out"])
+    return max(KD_FLOOR, (r["t_in"] if r.get("t_in") is not None else DEFAULT_T_IN) - r["t_out"])
 
 
 def _pct(a: float | None, b: float | None) -> float | None:
@@ -217,8 +223,8 @@ def _pct(a: float | None, b: float | None) -> float | None:
 
 def _period(rows: list[dict]) -> dict:
     full = [r for r in rows if _full(r)]
-    out = {"days": len(full), "elec_kwh": None, "heat_kwh": None, "cop": None, "t_out": None, "t_in": None,
-           "elec_kwh_per_kelvin_day": None}
+    out = {"days": len(full), "heating_days": sum(1 for r in full if _heating(r)), "elec_kwh": None,
+           "cop": None, "cop_days": 0, "t_out": None, "t_in": None}
     if not full:
         return out
     elec = sum(r["elec"] for r in full)
@@ -226,12 +232,11 @@ def _period(rows: list[dict]) -> dict:
     out["t_out"] = round(sum(r["t_out"] for r in full) / len(full), 1)
     tin = [r["t_in"] for r in full if r.get("t_in") is not None]
     out["t_in"] = round(sum(tin) / len(tin), 1) if tin else None
-    if all(_heat_full(r) for r in full) and elec > 0:
-        heat = sum(r["heat_total"] for r in full)
-        out["heat_kwh"] = round(heat, 1)
-        out["cop"] = round(heat / elec, 2)
-    kd = sum(_kd(r) for r in full)
-    out["elec_kwh_per_kelvin_day"] = round(elec / kd, 3) if kd > 0 else None
+    measured = [r for r in full if _heat_full(r) and _heating(r)]
+    used = sum(r["elec"] for r in measured)
+    if measured and used > 0:
+        out["cop"] = round(sum(r["heat_total"] for r in measured) / used, 2)
+        out["cop_days"] = len(measured)
     return out
 
 
@@ -241,32 +246,29 @@ def _median(v: list[float]) -> float:
     return v[n // 2] if n % 2 else (v[n // 2 - 1] + v[n // 2]) / 2
 
 
-def _same_weather(row: dict, pool: list[dict]) -> float | None:
-    """Median electricity of reference days with the same outdoor (and indoor, when known) temperature."""
-    m = [p["elec"] for p in pool
-         if abs(p["t_out"] - row["t_out"]) <= MATCH_TOUT_K
-         and (row.get("t_in") is None or p.get("t_in") is None or abs(p["t_in"] - row["t_in"]) <= MATCH_TIN_K)]
+def expected_elec(row: dict, pool: list[dict]) -> float | None:
+    """Electricity a pool of past heating days needed at this outdoor temperature, scaled to this indoor temperature."""
+    m = [p["elec"] * _kd(row) / _kd(p) for p in pool if abs(p["t_out"] - row["t_out"]) <= MATCH_TOUT_K]
     return _median(m) if len(m) >= MATCH_MIN else None
 
 
-def compare_periods(cur: list[dict], ref: list[dict], label: str, ref_label: str) -> dict:
-    """Two periods side by side; electricity also against same-weather days of the reference period."""
-    a, b = _period(cur), _period(ref)
-    pool = [r for r in ref if _full(r)]
-    pairs = [(r["elec"], m) for r in cur if _full(r) and (m := _same_weather(r, pool)) is not None]
-    out = {"period": label, "reference_period": ref_label, "current": a, "reference": b,
-           "elec_pct": _pct(a["elec_kwh"], b["elec_kwh"]),
-           "elec_per_kelvin_day_pct": _pct(a["elec_kwh_per_kelvin_day"], b["elec_kwh_per_kelvin_day"]),
-           "cop_pct": _pct(a["cop"], b["cop"]), "same_weather_days": len(pairs),
-           "elec_vs_same_weather_pct": _pct(sum(p[0] for p in pairs), sum(p[1] for p in pairs)) if pairs else None,
-           "comparable": a["days"] >= PERIOD_MIN_DAYS and b["days"] >= PERIOD_MIN_DAYS}
+def vs_past_year(cur: list[dict], pool: list[dict]) -> dict:
+    """Last 30 days against what heating days of the past year used at the same outdoor and indoor temperature."""
+    pool = [r for r in pool if _heating(r)]
+    days = [r for r in cur if _heating(r)]
+    pairs = [(r["elec"], e) for r in days if (e := expected_elec(r, pool)) is not None]
+    out = {"heating_days": len(days), "matched_days": len(pairs), "reference_days": len(pool),
+           "elec_kwh": round(sum(a for a, _ in pairs), 1) if pairs else None,
+           "expected_kwh": round(sum(e for _, e in pairs), 1) if pairs else None,
+           "elec_pct": _pct(sum(a for a, _ in pairs), sum(e for _, e in pairs)) if pairs else None,
+           "comparable": len(pairs) >= PERIOD_MIN_DAYS}
     if not out["comparable"]:
-        out["not_comparable_why"] = ["too_few_full_days"]
+        out["not_comparable_why"] = ["too_few_same_weather_days"]
     return out
 
 
-def comparisons(rows: list[dict], today: date) -> list[dict]:
-    """Last 7 full days vs the 7 before, and this month so far vs the same dates last year."""
+def comparisons(rows: list[dict], today: date) -> dict:
+    """Last 30 full days: totals, the same 30 days a year ago, and electricity vs same-weather days of the past year."""
     by_day = {r["day"]: r for r in rows}
 
     def span(first: date, last: date) -> list[dict]:
@@ -274,16 +276,16 @@ def comparisons(rows: list[dict], today: date) -> list[dict]:
         return [by_day[d] for d in ((first + timedelta(days=i)).isoformat() for i in range(max(n, 0))) if d in by_day]
 
     yday = today - timedelta(days=1)
-    week = timedelta(days=WEEK_DAYS)
-    out = [compare_periods(span(yday - week + timedelta(days=1), yday), span(yday - 2 * week + timedelta(days=1),
-                                                                            yday - week),
-                           "last_7_days", "previous_7_days")]
-    first = yday.replace(day=1)
-    last_ly = yday.replace(year=yday.year - 1, day=min(yday.day, 28)) if (yday.month, yday.day) == (2, 29) \
-        else yday.replace(year=yday.year - 1)
-    out.append(compare_periods(span(first, yday), span(first.replace(year=first.year - 1), last_ly),
-                               "month_to_date", "same_dates_last_year"))
-    return out
+    first = yday - timedelta(days=WINDOW_DAYS - 1)
+    cur = span(first, yday)
+    ly_last = yday - timedelta(days=YEAR_DAYS)
+    ly = span(ly_last - timedelta(days=WINDOW_DAYS - 1), ly_last)
+    pool = span(yday - timedelta(days=YEAR_DAYS - 1), first - timedelta(days=1))
+    a, b = _period(cur), _period(ly)
+    return {"period": f"{first.isoformat()}..{yday.isoformat()}", "last_30_days": a, "same_30_days_last_year": b,
+            "vs_last_year": {"elec_pct": _pct(a["elec_kwh"], b["elec_kwh"]), "cop_pct": _pct(a["cop"], b["cop"]),
+                             "comparable": a["days"] >= PERIOD_MIN_DAYS and b["days"] >= PERIOD_MIN_DAYS},
+            "vs_same_weather_past_year": vs_past_year(cur, pool)}
 
 
 def last_measured(rows: list[dict], today: date) -> tuple[dict | None, dict | None]:
