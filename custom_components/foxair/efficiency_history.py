@@ -221,23 +221,16 @@ def _pct(a: float | None, b: float | None) -> float | None:
     return None if a is None or not b else round(100 * (a / b - 1), 1)
 
 
-def _period(rows: list[dict]) -> dict:
-    full = [r for r in rows if _full(r)]
-    out = {"days": len(full), "heating_days": sum(1 for r in full if _heating(r)), "elec_kwh": None,
-           "cop": None, "cop_days": 0, "t_out": None, "t_in": None}
-    if not full:
-        return out
-    elec = sum(r["elec"] for r in full)
-    out["elec_kwh"] = round(elec, 1)
-    out["t_out"] = round(sum(r["t_out"] for r in full) / len(full), 1)
-    tin = [r["t_in"] for r in full if r.get("t_in") is not None]
-    out["t_in"] = round(sum(tin) / len(tin), 1) if tin else None
-    measured = [r for r in full if _heat_full(r) and _heating(r)]
+def _means(rows: list[dict]) -> dict:
+    tin = [r["t_in"] for r in rows if r.get("t_in") is not None]
+    return {"t_out": round(sum(r["t_out"] for r in rows) / len(rows), 1) if rows else None,
+            "t_in": round(sum(tin) / len(tin), 1) if tin else None}
+
+
+def _cop(rows: list[dict]) -> tuple[float | None, int]:
+    measured = [r for r in rows if _heat_full(r) and r["elec"] > 0]
     used = sum(r["elec"] for r in measured)
-    if measured and used > 0:
-        out["cop"] = round(sum(r["heat_total"] for r in measured) / used, 2)
-        out["cop_days"] = len(measured)
-    return out
+    return (round(sum(r["heat_total"] for r in measured) / used, 2), len(measured)) if used > 0 else (None, 0)
 
 
 def _median(v: list[float]) -> float:
@@ -246,21 +239,33 @@ def _median(v: list[float]) -> float:
     return v[n // 2] if n % 2 else (v[n // 2 - 1] + v[n // 2]) / 2
 
 
+def _matches(row: dict, pool: list[dict]) -> list[dict]:
+    return [p for p in pool if abs(p["t_out"] - row["t_out"]) <= MATCH_TOUT_K]
+
+
 def expected_elec(row: dict, pool: list[dict]) -> float | None:
     """Electricity a pool of past heating days needed at this outdoor temperature, scaled to this indoor temperature."""
-    m = [p["elec"] * _kd(row) / _kd(p) for p in pool if abs(p["t_out"] - row["t_out"]) <= MATCH_TOUT_K]
+    m = [p["elec"] * _kd(row) / _kd(p) for p in _matches(row, pool)]
     return _median(m) if len(m) >= MATCH_MIN else None
 
 
 def vs_past_year(cur: list[dict], pool: list[dict]) -> dict:
-    """Last 30 days against what heating days of the past year used at the same outdoor and indoor temperature."""
+    """Matched heating days of the last 30 against heating days of the past year at the same outdoor temperature."""
     pool = [r for r in pool if _heating(r)]
     days = [r for r in cur if _heating(r)]
-    pairs = [(r["elec"], e) for r in days if (e := expected_elec(r, pool)) is not None]
-    out = {"heating_days": len(days), "matched_days": len(pairs), "reference_days": len(pool),
-           "elec_kwh": round(sum(a for a, _ in pairs), 1) if pairs else None,
-           "expected_kwh": round(sum(e for _, e in pairs), 1) if pairs else None,
-           "elec_pct": _pct(sum(a for a, _ in pairs), sum(e for _, e in pairs)) if pairs else None,
+    pairs = [(r, e) for r in days if (e := expected_elec(r, pool)) is not None]
+    matched = [r for r, _ in pairs]
+    refs = list({p["day"]: p for r in matched for p in _matches(r, pool)}.values())
+    now_cop, now_cop_days = _cop(matched)
+    past_cop, past_cop_days = _cop(refs)
+    elec = sum(r["elec"] for r in matched)
+    expected = sum(e for _, e in pairs)
+    out = {"heating_days": len(days), "matched_days": len(pairs), "reference_days": len(refs),
+           "now": {"elec_kwh": round(elec, 1) if pairs else None, **_means(matched),
+                   "cop": now_cop, "cop_days": now_cop_days},
+           "past_year": {"elec_kwh": round(expected, 1) if pairs else None, **_means(refs),
+                         "cop": past_cop, "cop_days": past_cop_days},
+           "elec_pct": _pct(elec, expected) if pairs else None, "cop_pct": _pct(now_cop, past_cop),
            "comparable": len(pairs) >= PERIOD_MIN_DAYS}
     if not out["comparable"]:
         out["not_comparable_why"] = ["too_few_same_weather_days"]
@@ -268,7 +273,7 @@ def vs_past_year(cur: list[dict], pool: list[dict]) -> dict:
 
 
 def comparisons(rows: list[dict], today: date) -> dict:
-    """Last 30 full days: totals, the same 30 days a year ago, and electricity vs same-weather days of the past year."""
+    """Matched heating days of the last 30 full days against same-weather heating days of the past year."""
     by_day = {r["day"]: r for r in rows}
 
     def span(first: date, last: date) -> list[dict]:
@@ -277,15 +282,9 @@ def comparisons(rows: list[dict], today: date) -> dict:
 
     yday = today - timedelta(days=1)
     first = yday - timedelta(days=WINDOW_DAYS - 1)
-    cur = span(first, yday)
-    ly_last = yday - timedelta(days=YEAR_DAYS)
-    ly = span(ly_last - timedelta(days=WINDOW_DAYS - 1), ly_last)
-    pool = span(yday - timedelta(days=YEAR_DAYS - 1), first - timedelta(days=1))
-    a, b = _period(cur), _period(ly)
-    return {"period": f"{first.isoformat()}..{yday.isoformat()}", "last_30_days": a, "same_30_days_last_year": b,
-            "vs_last_year": {"elec_pct": _pct(a["elec_kwh"], b["elec_kwh"]), "cop_pct": _pct(a["cop"], b["cop"]),
-                             "comparable": a["days"] >= PERIOD_MIN_DAYS and b["days"] >= PERIOD_MIN_DAYS},
-            "vs_same_weather_past_year": vs_past_year(cur, pool)}
+    cur = [r for r in span(first, yday) if _full(r)]
+    pool = [r for r in span(yday - timedelta(days=YEAR_DAYS - 1), first - timedelta(days=1)) if _full(r)]
+    return {"period": f"{first.isoformat()}..{yday.isoformat()}", **vs_past_year(cur, pool)}
 
 
 def last_measured(rows: list[dict], today: date) -> tuple[dict | None, dict | None]:
