@@ -210,7 +210,8 @@ class FoxAirOptionsFlow(config_entries.OptionsFlow):
     async def async_step_init(self, user_input=None):
         errors = {}
         if user_input is not None:
-            if user_input.get("enable_expert") and not user_input.get("expert_ack"):
+            turning_on = user_input.get("enable_expert") and not self._entry.options.get("enable_expert")
+            if turning_on and not user_input.get("expert_ack"):
                 errors["base"] = "need_ack"
             else:
                 for k, default in (
