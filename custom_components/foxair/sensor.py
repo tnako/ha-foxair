@@ -551,29 +551,22 @@ class FoxEfficiencyStatusSensor(FoxEfficiencySensor):
 
 
 class FoxEfficiencyDailySensor(FoxEfficiencySensor):
-    """Whole-day COP (heat out / electricity in, defrost, cycling and standby included) of the last full day."""
+    """Whole-day COP (heat out / electricity in, defrost, cycling and standby included) of the last full local day."""
     _key = "daily_cop"
     _attr_state_class = SensorStateClass.MEASUREMENT
     _attr_suggested_display_precision = 2
+    _unrecorded_attributes = frozenset({"periods", "sources"})
 
     @property
     def native_value(self):
-        d = self._an.last_day()
-        return None if not d else d["cop"]
+        return self._an.last_day().get("cop")
 
     @property
     def extra_state_attributes(self):
-        from datetime import datetime, timezone
-        d = self._an.last_day() or {}
-        if d:
-            d = {**d, "day": datetime.fromtimestamp(d["day"] * 86400, timezone.utc).date().isoformat()}
-        from .efficiency import R_COVER, R_DAY, day_data_problems
-        m = self._an.day_model
-        out = {**d, "days_recorded": len(self._an.days),
-               "model_fit_error_pct": None if not m else m["mape_pct"]}
-        last = self._an.days[-1] if self._an.days else None
-        if last and day_data_problems(last):
-            out["last_day_skipped"] = {
-                "day": datetime.fromtimestamp(last[R_DAY] * 86400, timezone.utc).date().isoformat(),
-                "why": day_data_problems(last), "coverage": last[R_COVER]}
-        return out
+        an = self._an
+        d = an.last_day()
+        if d.get("fp"):
+            d["fp"] = an.describe(d["fp"])
+        m = an.day_model
+        return {**d, "model_fit_error_pct": None if not m else m["mape_pct"], "periods": an.periods,
+                "sources": an.history_sources, "history_error": self.coordinator.efficiency.history_error}

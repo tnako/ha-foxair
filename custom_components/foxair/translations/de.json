@@ -5743,7 +5743,10 @@
           "v_gain": "Spannungs-Gain",
           "v_offset": "Spannungs-Offset",
           "i_gain": "Strom-Gain (raw → A)",
-          "i_offset": "Strom-Offset"
+          "i_offset": "Strom-Offset",
+          "history_energy_entity": "Verlauf: Stromzähler (leer = der eigene der Wärmepumpe)",
+          "history_outdoor_entity": "Verlauf: Außentemperatursensor (leer = T04 der Wärmepumpe)",
+          "history_indoor_entity": "Verlauf: Innentemperatursensor (optional)"
         }
       }
     },

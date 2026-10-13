@@ -12,7 +12,7 @@ from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.llm import LLM_API_ASSIST, LLMContext, Tool, ToolAnnotations, ToolInput, ToolResult
 
 from .const import DOMAIN, get_slave_id
-from .efficiency import suggestion_policy
+from .efficiency_advisor import suggestion_policy
 from .efficiency_runtime import SETTING_ADDRS
 
 LIVE_KEYS = {"t30": "compressor_hz", "t04": "outdoor_c", "t02": "flow_c", "t01": "return_c", "t03": "evaporator_c",
@@ -51,8 +51,8 @@ def build_report(hass: HomeAssistant, entry) -> dict:
     st = an.status(time.time())
     st["next_check"] = _iso(st["next_check"])
     day = an.last_day()
-    if day:
-        day = {**day, "day": str(_iso(day["day"] * 86400))[:10], "fp": an.describe(day["fp"])}
+    if day.get("fp"):
+        day["fp"] = an.describe(day["fp"])
     return {
         "unit": {"name": entry.title, "prefix": prefix, "slave": get_slave_id(entry)},
         "live": live,
@@ -64,8 +64,9 @@ def build_report(hass: HomeAssistant, entry) -> dict:
         "current_settings": dict(an.current),
         "index_pct_24h": (an.recent or {}).get("index_pct"),
         "buckets": len(an.buckets),
-        "days_recorded": len(an.days),
         "last_day": day,
+        "periods": an.periods,
+        "history_sources": an.history_sources,
         "groups": {an.describe(fp): g for fp, g in an.groups.items()},
         "daily_groups": {an.describe(fp): g for fp, g in an.day_groups.items()},
         "model_fit_error_pct": (an.model or {}).get("mape_pct"),

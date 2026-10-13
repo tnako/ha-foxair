@@ -3,15 +3,31 @@
 
 Run: pytest tests/test_efficiency.py -v
 """
+import datetime
 import importlib.util
 import math
 import pathlib
 import random
+import sys
+import types
+import zoneinfo
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-spec = importlib.util.spec_from_file_location("foxair_efficiency_test", ROOT / "custom_components/foxair/efficiency.py")
-eff = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(eff)
+CC = ROOT / "custom_components/foxair"
+PKG = "foxair_efficiency_test"
+sys.modules.setdefault(PKG, types.ModuleType(PKG)).__path__ = [str(CC)]
+
+
+def _load(name):
+    spec = importlib.util.spec_from_file_location(f"{PKG}.{name}", CC / f"{name}.py")
+    mod = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = mod
+    spec.loader.exec_module(mod)
+    return mod
+
+
+model, hist, adv, an = (_load(n) for n in ("efficiency_model", "efficiency_history", "efficiency_advisor", "efficiency"))
+eff = types.SimpleNamespace(**{k: v for m in (model, hist, adv, an) for k, v in vars(m).items() if not k.startswith("__")})
 
 DAY = 86400
 
@@ -255,10 +271,12 @@ def day_row(day, fp, factor=1.0, rng=None):
     rng = rng or random.Random(day)
     t_out = rng.uniform(-8, 10)
     t_flow = 42 - 0.5 * t_out
-    run = 6 + (10 - t_out) * 0.8
-    cop = factor * (0.42 - 0.03 * t_out / 10 - 0.05 * run / 24) * eff.carnot_cop(t_flow, t_out) * (1 + rng.gauss(0, 0.015))
-    elec = 1.2 * run
-    return [day, round(cop * elec, 3), round(elec, 3), t_out, t_flow, run, 20, 5, fp, 1.0, False]
+    heat = 30 + (10 - t_out) * 3
+    cop = factor * (0.42 - 0.03 * t_out / 10 - 0.05 * heat / 120) * eff.carnot_cop(t_flow, t_out) * (1 + rng.gauss(0, 0.015))
+    return {"day": f"2026-01-{day + 1:02d}", "hours": 24, "heat_hours": 24, "elec": round(heat / cop, 3), "heat": heat,
+            "dhw": None,
+            "defrost": 0.0, "cool": 0.0, "heat_total": heat, "t_out": t_out, "t_in": 20.0, "t_flow": t_flow,
+            "fp": fp}
 
 
 def test_daily_comparison_judges_whole_day_settings():
@@ -274,23 +292,106 @@ def test_daily_comparison_judges_whole_day_settings():
 def test_daily_rows_skip_thin_mixed_and_cooling_days():
     good = day_row(1, "b")
     assert eff.day_ok(good)
-    for idx, val in ((eff.R_COVER, 0.5), (eff.R_HEAT, 2.0), (eff.R_FP, "mixed"), (eff.R_COOL, True), (eff.R_RUN, 0.5)):
-        bad = list(good)
-        bad[idx] = val
-        assert not eff.day_ok(bad)
+    for key, val in (("hours", 12), ("heat_hours", 12), ("heat_total", 2.0), ("fp", "mixed"), ("fp", None), ("cool", 1.5),
+                     ("elec", 0.1), ("t_flow", None)):
+        assert not eff.day_ok({**good, key: val})
 
 
-def test_daily_accumulator_integrates_energy_and_rolls_over():
-    acc = eff.DailyAccumulator()
-    t0 = 10 * DAY
-    for i in range(0, DAY, 30):
-        on = (i // 3600) % 2 == 0
-        assert acc.add(t0 + i, {"fp": "b", "running": on, "p_day": 1000.0 if on else 10.0,
-                                "q_day": 3000.0 if on else None, "t_out": 2.0, "t_flow": 35.0}, False, False) is None
-    row = acc.add(t0 + DAY, {"fp": "b", "running": False, "p_day": 10.0}, False, False)
-    assert row[eff.R_DAY] == 10 and row[eff.R_FP] == "b"
-    assert abs(row[eff.R_ELEC] - 12.12) < 0.05 and abs(row[eff.R_HEAT] - 36.0) < 0.1
-    assert abs(row[eff.R_RUN] - 12.0) < 0.05 and row[eff.R_TOUT] == 2.0 and row[eff.R_COVER] > 0.99
+UTC = datetime.timezone.utc
+BERLIN = zoneinfo.ZoneInfo("Europe/Berlin")
+IDS = {"elec": "sensor.meter", "heat": "sensor.heat", "dhw": "sensor.dhw", "defrost": "sensor.defrost",
+       "cool": None, "t_out": "sensor.out", "t_in": "sensor.in", "t_flow": "sensor.flow"}
+
+
+def hourly(start, hours, elec=0.5, heat=2.0, t_out=5.0, t_flow=35.0, defrost=0.0):
+    rows = {k: [] for k in IDS.values() if k}
+    for h in range(hours):
+        t = start + 3600 * h
+        on = h % 2 == 0
+        rows["sensor.meter"].append({"start": t, "change": elec})
+        rows["sensor.heat"].append({"start": t, "change": heat if on else 0.0})
+        rows["sensor.dhw"].append({"start": t, "change": 0.0})
+        rows["sensor.defrost"].append({"start": t, "change": defrost})
+        rows["sensor.out"].append({"start": t, "mean": t_out})
+        rows["sensor.in"].append({"start": t, "mean": 20.0})
+        rows["sensor.flow"].append({"start": t, "mean": t_flow if on else 22.0})
+    return rows
+
+
+def test_days_are_local_days_from_hourly_statistics():
+    midnight_berlin = 1791237600
+    rows = eff.build_days(hourly(midnight_berlin, 48), IDS, BERLIN)
+    assert [r["day"] for r in rows] == ["2026-10-06", "2026-10-07"]
+    r = rows[0]
+    assert r["hours"] == 24 and r["elec"] == 12.0 and r["heat_total"] == 24.0 and r["t_flow"] == 35.0
+    utc_days = [x["day"] for x in eff.build_days(hourly(midnight_berlin, 48), IDS, UTC)]
+    assert utc_days == ["2026-10-05", "2026-10-06", "2026-10-07"]
+    taken = eff.build_days(hourly(midnight_berlin, 24, defrost=0.1), IDS, BERLIN)[0]
+    assert abs(taken["heat_total"] - 21.6) < 1e-9 and taken["defrost"] == 2.4
+
+
+def test_own_entities_are_the_default_and_options_override_them():
+    own = {"elec": "sensor.p_energy_electrical", "t_out": "sensor.p_t04", "heat": "sensor.p_energy_heating"}
+    ids = eff.stat_ids(own, {})
+    assert ids["elec"] == "sensor.p_energy_electrical" and ids["t_in"] is None
+    ids = eff.stat_ids(own, {"history_energy_entity": "sensor.meter10_energy", "history_indoor_entity": "sensor.room"})
+    assert ids["elec"] == "sensor.meter10_energy" and ids["t_in"] == "sensor.room" and ids["t_out"] == "sensor.p_t04"
+
+
+def test_merge_days_replaces_recent_days_and_keeps_older_ones():
+    a = [{"day": "2026-10-01", "x": 1}, {"day": "2026-10-02", "x": 1}]
+    b = [{"day": "2026-10-02", "x": 2}, {"day": "2026-10-03", "x": 2}]
+    merged = [(r["day"], r["x"]) for r in eff.merge_days(a, b)]
+    assert merged == [("2026-10-01", 1), ("2026-10-02", 2), ("2026-10-03", 2)]
+
+
+def test_a_change_undone_within_30_minutes_is_no_change():
+    log = [{"t": 0, "kind": "change", "from": "a", "to": "b"}, {"t": 660, "kind": "change", "from": "b", "to": "a"},
+           {"t": 5000, "kind": "change", "from": "a", "to": "c"},
+           {"t": 5000 + 3600, "kind": "change", "from": "c", "to": "a"}]
+    assert [(c["from"], c["to"]) for c in eff.settled(log)] == [("a", "c"), ("c", "a")]
+    a = eff.EfficiencyAnalyser()
+    a.update_settings({"E07": 60.0, "P11": 3.0}, 100)
+    a.update_settings({"E07": 40.0, "P11": 3.0}, 200)
+    a.update_settings({"E07": 60.0, "P11": 3.0}, 860)
+    assert a.last_change() is None and len(a.changes) == 2
+    a.update_settings({"E07": 60.0, "P11": 3.5}, 5000)
+    assert a.last_change()["diff"] == {"P11": [3.0, 3.5]}
+
+
+def test_days_get_their_settings_group_and_quick_reverts_dont_mix_them():
+    start = 1791237600
+    rows = eff.build_days(hourly(start - 2 * DAY, 4 * 24), IDS, BERLIN)
+    log = [{"t": start + 20 * 3600, "kind": "change", "from": "a", "to": "b"},
+           {"t": start + 20 * 3600 + 600, "kind": "change", "from": "b", "to": "a"},
+           {"t": start + DAY + 3600, "kind": "change", "from": "a", "to": "c"}]
+    tagged = eff.tag_settings(rows, eff.settled(log), "c", start - DAY, BERLIN)
+    assert [(r["day"], r["fp"]) for r in tagged] == [("2026-10-04", None), ("2026-10-05", "a"),
+                                                       ("2026-10-06", "a"), ("2026-10-07", "mixed")]
+    assert "fp" not in rows[0]
+
+
+def test_periods_compare_week_and_month_with_last_year():
+    def row(day, elec, t_out, t_in=20.0, heat=None):
+        return {"day": day.isoformat(), "hours": 24, "heat_hours": 24 if heat else 0, "elec": elec, "heat_total": heat,
+                "t_out": t_out, "t_in": t_in}
+
+    today = datetime.date(2026, 10, 14)
+    rows = []
+    for i in range(1, 15):
+        d = today - datetime.timedelta(days=i)
+        rows.append(row(d, 8.0 if i <= 7 else 4.0, 10.0 if i <= 7 else 14.0, heat=32.0 if i <= 7 else 15.0))
+    for i in range(1, 14):
+        rows.append(row(datetime.date(2025, 10, i), 10.0, 10.0 + (i % 3) * 0.5, t_in=20.2))
+    rows.sort(key=lambda r: r["day"])
+    week, month = eff.comparisons(rows, today)
+    assert week["period"] == "last_7_days" and week["current"]["days"] == 7 and week["reference"]["days"] == 7
+    assert week["current"]["cop"] == 4.0 and week["elec_pct"] == 100.0 and week["comparable"]
+    assert month["reference_period"] == "same_dates_last_year" and month["current"]["days"] == 13
+    assert month["reference"]["days"] == 13 and month["same_weather_days"] == 7
+    assert month["elec_vs_same_weather_pct"] == -20.0 and month["reference"]["cop"] is None
+    lone = eff.comparisons(rows[-3:], today)[1]
+    assert lone["comparable"] is False and lone["not_comparable_why"] == ["too_few_full_days"]
 
 
 def test_defrost_tracker_records_duration_interval_and_heating_before():
@@ -430,7 +531,7 @@ def test_new_tracked_parameters_keep_existing_history():
     assert a.describe(new) == "baseline"
 
 
-def test_analyser_end_to_end_day_and_defrost_bookkeeping():
+def test_analyser_end_to_end_defrost_bookkeeping_and_recorder_days():
     a = eff.EfficiencyAnalyser()
     a.update_settings(FULL, 0)
     t0 = 20 * DAY
@@ -441,18 +542,19 @@ def test_analyser_end_to_end_day_and_defrost_bookkeeping():
                       "q": 3000.0 if rs == 1 else None, "p": 900.0 if rs == 1 else None, "sh": 4.0, "eev": 150.0,
                       "fan": 450.0, "coil": -6.0, "rs": rs, "p_day": 900.0, "q_day": 3000.0 if rs == 1 else -2000.0,
                       "cooling": False})
-    assert len(a.days) == 1 and eff.day_ok(a.days[0])
-    assert 23 <= len(a.defrosts) <= 25 and a.days[0][eff.R_DEFROSTS] == 24
+    assert 23 <= len(a.defrosts) <= 25
+    a.set_days(eff.build_days(hourly(t0, 24), IDS, UTC), UTC)
     a.refresh(t0 + DAY + 600)
-    d = a.last_day()
-    assert d and 2.5 < d["cop"] < 3.3
+    d = a.last_day(t0 + DAY + 600)
+    assert d["day"] == "1970-01-21" and d["cop"] == 2.0 and d["comparable"] and d["days_recorded"] == 1
     restored = eff.EfficiencyAnalyser(a.to_dict(0))
-    assert restored.days == a.days and len(restored.defrosts) == len(a.defrosts)
+    assert restored.days == [] and len(restored.defrosts) == len(a.defrosts) and "days" not in a.to_dict(0)
+    assert restored.tracked_since == 0
 
 
 def test_due_change_keeps_its_first_since(monkeypatch):
     step = {"action": "change", "param": "E02", "from": 5.0, "to": 5.5, "days_left": 3, "reason": "x"}
-    monkeypatch.setattr(eff, "advise", lambda **kw: {**step, "since": kw["now"]})
+    monkeypatch.setattr(an, "advise", lambda **kw: {**step, "since": kw["now"]})
     a = eff.EfficiencyAnalyser()
     a.update_settings(FULL, 0)
     a.refresh(1000)
@@ -461,7 +563,7 @@ def test_due_change_keeps_its_first_since(monkeypatch):
     b = eff.EfficiencyAnalyser(a.to_dict(5000))
     b.refresh(9000)
     assert b.advice["since"] == 1000
-    monkeypatch.setattr(eff, "advise", lambda **kw: {**step, "to": 4.5, "since": kw["now"]})
+    monkeypatch.setattr(an, "advise", lambda **kw: {**step, "to": 4.5, "since": kw["now"]})
     b.refresh(9500)
     assert b.advice["since"] == 9500
 
@@ -519,16 +621,17 @@ def test_user_settings_are_watch_only():
 
 def test_daily_cop_shows_yesterday_even_after_a_settings_change():
     a = eff.EfficiencyAnalyser()
-    row = [0] * 11
-    for i, v in zip((eff.R_DAY, eff.R_RUN, eff.R_TOUT, eff.R_TFLOW, eff.R_COOL, eff.R_HEAT, eff.R_DEFROSTS,
-                     eff.R_ELEC, eff.R_FP, eff.R_COVER), (5, 3.0, 12.0, 30.0, 0, 10.0, 0, 2.5, "mixed", 1.0)):
-        row[i] = v
-    a.days = [row]
-    d = a.last_day()
+    a.update_settings({"E02": 5.0}, 4 * DAY)
+    a.update_settings({"E02": 5.5}, 5 * DAY + 3600)
+    rows = eff.build_days(hourly(5 * DAY, 24, elec=0.25, heat=2.0), IDS, UTC)
+    a.set_days(rows, UTC)
+    d = a.last_day(6 * DAY + 60)
     assert d["cop"] == 4.0 and d["comparable"] is False and d["not_comparable_why"] == ["settings_changed"]
-    assert eff.day_data_problems(row) == [] and not eff.day_ok(row)
-    row[eff.R_COVER] = 0.3
-    assert a.last_day() is None
+    assert eff.day_data_problems(rows[0]) == []
+    a.set_days(eff.build_days(hourly(5 * DAY, 10), IDS, UTC), UTC)
+    d = a.last_day(6 * DAY + 60)
+    assert "cop" not in d and d["last_day_skipped"]["why"][0] == "coverage"
+    assert a.last_day(5 * DAY + 7200).get("cop") is None
 
 
 def test_next_check_is_never_in_the_past():

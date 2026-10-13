@@ -1,6 +1,9 @@
 {
   "domain": "foxair",
   "name": "FoxAir Modbus Heat Pump",
+  "after_dependencies": [
+    "recorder"
+  ],
   "codeowners": [
     "@tnako"
   ],
@@ -14,5 +17,5 @@
   "requirements": [
     "pymodbus>=3.10.0"
   ],
-  "version": "0.7.34"
+  "version": "0.7.35"
 }

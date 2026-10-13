@@ -70,12 +70,15 @@ def _stub():
     pkg = _mod("foxair_llm_pkg")
     pkg.__path__ = [str(CC)]
     _mod("foxair_llm_pkg.const", DOMAIN="foxair", get_slave_id=lambda e: e.data.get("slave"))
+    _load("foxair_llm_pkg.efficiency_model", CC / "efficiency_model.py")
+    _load("foxair_llm_pkg.efficiency_history", CC / "efficiency_history.py")
+    _load("foxair_llm_pkg.efficiency_advisor", CC / "efficiency_advisor.py")
     _load("foxair_llm_pkg.efficiency", CC / "efficiency.py")
     _mod("foxair_llm_pkg.efficiency_runtime", SETTING_ADDRS={"E02": 1132, "F05": 1066, "F26": 1104, "P11": 1432})
 
 
 _stub()
-eff = sys.modules["foxair_llm_pkg.efficiency"]
+eff = sys.modules["foxair_llm_pkg.efficiency_advisor"]
 llm = _load("foxair_llm_pkg.llm", CC / "llm.py")
 
 
@@ -87,7 +90,8 @@ class FakeAnalyser:
     baseline_fp = "fp1"
     recent = {"index_pct": 101.2}
     buckets = [1, 2, 3]
-    days = [1]
+    periods = [{"period": "last_7_days", "comparable": True}]
+    history_sources = {"elec": "sensor.meter10_energy"}
     groups = {"fp1": {"days": 4, "verdict": "baseline"}}
     day_groups = {}
     model = {"mape_pct": 3.1}
@@ -104,7 +108,7 @@ class FakeAnalyser:
         return eff.summary(self.advice, self.hint_list, self.flow, "baseline", 0.0)
 
     def last_day(self):
-        return {"day": 20370, "cop": 4.6, "fp": "fp1"}
+        return {"day": "2025-10-09", "cop": 4.6, "fp": "fp1", "days_recorded": 30}
 
 
 def _hass(entries, states=None):
@@ -150,6 +154,8 @@ def test_report_content():
     assert r["status"]["apply"] is None and r["flow_vs_history"] is None
     assert r["is_baseline"] and r["settings_group"] == "baseline" and r["current_settings"]["F05"] == -4.0
     assert r["last_day"]["day"] == "2025-10-09" and r["last_day"]["fp"] == "baseline"
+    assert r["last_day"]["days_recorded"] == 30 and r["periods"][0]["period"] == "last_7_days"
+    assert r["history_sources"] == {"elec": "sensor.meter10_energy"} and "days_recorded" not in r
     assert r["recent_changes"][0]["from"] == "Gfp0" and r["recent_changes"][0]["t"].startswith("1970-01-01")
 
 

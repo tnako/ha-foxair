@@ -1,11 +1,13 @@
-"""Glue between the coordinator and the efficiency analyser: samples, settings, persistence."""
+"""Glue between the coordinator and the efficiency analyser: samples, settings, recorder history, persistence."""
 from __future__ import annotations
 
 import logging
 import time
+from datetime import datetime, timedelta, timezone
 
 from . import computed as _computed
 from .efficiency import LADDER, EfficiencyAnalyser
+from .efficiency_history import HISTORY_DAYS, OWN_SUFFIXES, build_days, merge_days, stat_ids
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -13,6 +15,8 @@ STORE_VERSION = 1
 SAVE_DELAY_S = 300
 SETTINGS_EVERY_S = 600
 REFRESH_EVERY_S = 3600
+HISTORY_TOPUP_DAYS = 2
+OWN_MEANS = {"t_out": "t04", "t_flow": "t02"}
 
 ADDR_SH_SUCTION = 2067
 ADDR_EEV_STEPS = 2020
@@ -103,6 +107,22 @@ def sample(coord, opts: dict) -> dict:
     }
 
 
+def history_sources(prefix: str, opts: dict) -> dict:
+    own = {k: f"sensor.{prefix}_{s}" for k, s in OWN_SUFFIXES.items()}
+    own.update({k: f"sensor.{prefix}_{s}" for k, s in OWN_MEANS.items()})
+    return stat_ids(own, opts)
+
+
+def read_statistics(hass, ids: dict, start: datetime, end: datetime) -> dict:
+    """Hourly change/mean rows per statistic id, start as epoch seconds (runs in the recorder executor)."""
+    from homeassistant.components.recorder.statistics import statistics_during_period
+
+    wanted = {sid for sid in ids.values() if sid}
+    units = {"energy": "kWh", "temperature": "°C"}
+    rows = statistics_during_period(hass, start, end, wanted, "hour", units, {"change", "mean"})
+    return {sid: [dict(r) for r in v] for sid, v in rows.items()}
+
+
 class EfficiencyRuntime:
     """Owns the analyser for one config entry; all hass calls go through here."""
 
@@ -118,10 +138,13 @@ class EfficiencyRuntime:
         self._fetched_once = False
         self._settings_task = None
         self._refresh_task = None
+        self._history_full = False
+        self.history_error: str | None = None
 
     async def async_load(self) -> None:
         data = await self.store.async_load()
         self.analyser = EfficiencyAnalyser(data)
+        await self.async_load_history()
         await self.hass.async_add_executor_job(self.analyser.refresh, time.time())
         self._settings_ts = time.time()
         missing = {a for a in SETTING_ADDRS.values() if a not in (self.coord.data or {})}
@@ -129,6 +152,31 @@ class EfficiencyRuntime:
             self._settings_task = self.hass.async_create_task(self._fetch_settings(missing))
         else:
             self._publish_settings()
+
+    async def async_load_history(self) -> None:
+        """Daily rows from recorder long-term statistics: all 400 days once, then the last 2 days each refresh."""
+        try:
+            from homeassistant.components.recorder import get_instance
+            from homeassistant.util import dt as dt_util
+        except ImportError:
+            self.history_error = "recorder_unavailable"
+            return
+        tz = dt_util.get_default_time_zone()
+        ids = history_sources(str((self.coord.entry.data or {}).get("name_prefix") or "foxair"),
+                              self.coord.entry.options)
+        days = HISTORY_TOPUP_DAYS if self._history_full else HISTORY_DAYS
+        end = datetime.now(timezone.utc)
+        start = dt_util.start_of_local_day(end - timedelta(days=days)).astimezone(timezone.utc)
+        try:
+            hourly = await get_instance(self.hass).async_add_executor_job(read_statistics, self.hass, ids, start, end)
+        except Exception as e:
+            self.history_error = f"{type(e).__name__}: {e}"
+            _LOGGER.warning("efficiency: reading recorder statistics failed: %s", e)
+            return
+        rows = build_days(hourly, ids, tz)
+        self.analyser.set_days(merge_days(self.analyser.days if self._history_full else [], rows), tz)
+        self.analyser.history_sources = ids
+        self._history_full, self.history_error = True, None
 
     def _data(self) -> dict:
         return self.analyser.to_dict(time.time())
@@ -171,6 +219,7 @@ class EfficiencyRuntime:
 
     async def _refresh(self) -> None:
         self._refresh_ts = time.time()
+        await self.async_load_history()
         await self.hass.async_add_executor_job(self.analyser.refresh, self._refresh_ts)
         self.coord.async_update_listeners()
 
