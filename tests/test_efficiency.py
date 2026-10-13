@@ -407,6 +407,16 @@ def test_same_weather_scales_by_indoor_temperature_and_skips_non_heating_days():
     assert r["now"]["elec_kwh"] == 4.5 and r["past_year"]["t_in"] == 21.0
 
 
+def test_past_year_side_weights_every_matched_day_equally():
+    cold = [_hist_row(datetime.date(2026, 1, i), 8.0, 2.0, heat=24.0) for i in range(1, 11)]
+    mild = [_hist_row(datetime.date(2026, 3, i), 4.0, 12.0, heat=16.0) for i in range(1, 4)]
+    cur = [_hist_row(datetime.date(2026, 10, 1), 6.0, 2.0), _hist_row(datetime.date(2026, 10, 2), 3.0, 12.0)]
+    r = eff.vs_past_year(cur, cold + mild)
+    assert r["matched_days"] == 2 and r["reference_days"] == 13
+    assert r["now"]["t_out"] == r["past_year"]["t_out"] == 7.0
+    assert r["past_year"]["cop"] == 3.33 and r["past_year"]["cop_days"] == 2
+
+
 def test_defrost_tracker_records_duration_interval_and_heating_before():
     tr = eff.DefrostTracker()
     t = 0.0
