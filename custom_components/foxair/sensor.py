@@ -317,7 +317,7 @@ class FoxElectricalPowerSensor(FoxComputedSensor):
 
 
 class FoxCopSensor(FoxComputedSensor):
-    """Overall COP — counts while the unit produces heat (heating/defrost).
+    """Overall COP — counts while the unit produces heat (heating, not defrost).
 
     Historically the only COP entity; now the heating member of the
     heating/cooling/dhw COP trio (uid `foxair_cop` kept stable).
