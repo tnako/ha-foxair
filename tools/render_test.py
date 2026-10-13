@@ -11,7 +11,8 @@ AT values and both H36 modes (curve/fixed), and asserts:
 
 Usage:
     cd /path/to/ha-foxair
-    python3 tools/render_test.py
+    python3 tools/render_test.py              # assertions only
+    python3 tools/render_test.py --out DIR    # also write every rendered SVG to DIR
 """
 import sys
 import types
@@ -117,6 +118,20 @@ img_spec = importlib.util.spec_from_file_location(
 img = importlib.util.module_from_spec(img_spec)
 sys.modules["custom_components.foxair.image"] = img
 img_spec.loader.exec_module(img)
+
+if "--out" in sys.argv:
+    _out_dir = sys.argv[sys.argv.index("--out") + 1]
+    os.makedirs(_out_dir, exist_ok=True)
+    _orig_render = img.FoxAirHeatingCurveImage._render
+    _out_n = [0]
+
+    def _dump_render(self):
+        _orig_render(self)
+        _out_n[0] += 1
+        with open(os.path.join(_out_dir, f"curve_{_out_n[0]:04d}.svg"), "wb") as fh:
+            fh.write(self._image_bytes)
+
+    img.FoxAirHeatingCurveImage._render = _dump_render
 
 # ======================================================================
 # Fake coordinator + test harness
@@ -283,7 +298,7 @@ for lang_name, tl in LANGS:
             print(f"  FAIL [{test_name}]: no dashed hysteresis boundaries")
             all_ok = False
         # 3d. Threshold markers: dotted-outline circles + start/stop temps
-        thr_markers = re.findall(r'<circle[^>]*stroke-dasharray="3 3"[^>]*>', svg)
+        thr_markers = re.findall(r'<circle[^>]*r="6"[^>]*stroke-dasharray="3 3"[^>]*>', svg)
         if len(thr_markers) != 2:
             print(f"  FAIL [{test_name}]: expected 2 dotted threshold markers, got {len(thr_markers)}")
             all_ok = False
@@ -294,8 +309,9 @@ for lang_name, tl in LANGS:
 
         # 4. No text overlap anywhere (same y-level, overlapping x-ranges).
         rows = {}
+        rotated = re.findall(r'<text[^>]*rotate[^>]*>([^<]*)</text>', svg)
         for x, y, txt in texts:
-            if not txt.strip():
+            if not txt.strip() or txt in rotated:
                 continue
             yr = round(float(y) / 12)
             tw = len(txt) * 9.4
@@ -325,9 +341,9 @@ for lang_name, tl in LANGS:
                 print(f"  FAIL [{test_name}]: label past right edge: '{txt[:30]}'")
                 all_ok = False
 
-        # 5d. Dotted connector lines from live AT to chart (when H36 is enabled)
-        if h36 == 1 and at_live is not None and "stroke-dasharray=\"6 4\"" not in svg:
-            print(f"  FAIL [{test_name}]: no dotted connector lines for live labels")
+        # 5d. Leader line from the live dot to its target pill
+        if h36 == 1 and at_live is not None and not re.search(r'<line[^>]*stroke="#22c55e" stroke-width="1.5"', svg):
+            print(f"  FAIL [{test_name}]: no leader line for the live target pill")
             all_ok = False
         # vector-crisp: no raster filters (they blur on phone GPUs when the
         # image scales down); floating labels use a paint-order halo instead
@@ -467,6 +483,9 @@ for _lang, _tl in _IMG_TL.items():
         markers = len(re.findall(r'<rect[^>]*width="12" height="12"', svg))
         if markers != len(_PTS):
             problems.append(f"{markers} point markers")
+        missing = [at for at, v in _PTS.items() if f">{v:.0f}</text>" not in svg]
+        if missing:
+            problems.append(f"no value label at AT {missing}")
         expected = hc_mod.calc_points_target(at_live, sorted((float(k), v) for k, v in _PTS.items()))
         dot_ok = abs(hc_mod.curve_target_for_at(obj.coordinator, at_live) - max(20.0, min(60.0, expected))) < 0.01
         if not dot_ok:
@@ -511,6 +530,70 @@ for _lang, _tl in _IMG_TL.items():
         problems.append("target at AT=-10 != 1251")
     print(f"  {'FAIL' if problems else 'OK'} [{_lang} points 45 + offset 32]{': ' + str(problems) if problems else ''}")
     all_ok = all_ok and not problems
+
+# Label layout fuzz: random 7-point curves, live AT anywhere (incl. plot edges
+# and on a point), wide/narrow R04/R05, all languages. Every point keeps its
+# value label (the live card replaces the one under the dot), no two text
+# boxes intersect and no text covers a curve point, threshold marker or the
+# live dot.
+import random
+
+
+def _marker_boxes(svg):
+    out = [(float(x), float(y), float(x) + 12, float(y) + 12) for x, y in
+           re.findall(r'<rect x="([\d.]+)" y="([\d.]+)" width="12" height="12"', svg)]
+    for cx, cy, r in re.findall(r'<circle cx="([\d.]+)" cy="([\d.]+)" r="([67])"', svg):
+        cx, cy, r = float(cx), float(cy), float(r)
+        out.append((cx - r, cy - r, cx + r, cy + r))
+    return out
+
+
+def _text_boxes(svg):
+    out = []
+    for tag, body in re.findall(r'(<text[^>]*>)([^<]*)</text>', svg):
+        if "rotate" in tag:
+            continue
+        x = float(re.search(r' x="([\d.]+)"', tag).group(1))
+        y = float(re.search(r' y="([\d.]+)"', tag).group(1))
+        fs = int(re.search(r'font-size="(\d+)"', tag).group(1))
+        w = len(body) * fs * (0.72 if any("Ѐ" <= c <= "џ" for c in body) else 0.62)
+        left = x - (w / 2 if 'anchor="middle"' in tag else w if 'anchor="end"' in tag else 0)
+        out.append((left, y - fs * 0.8, left + w, y + fs * 0.2, body))
+    return out
+
+
+_rng = random.Random(7)
+_fuzz_bad = []
+for _i in range(400):
+    _base, _sl = _rng.uniform(28, 55), _rng.uniform(0.2, 1.5)
+    _pts = {a: float(round(min(60, max(15, _base - _sl * a + _rng.uniform(-3, 3)))))
+            for a in (-20, -10, -5, 0, 5, 10, 20)}
+    _at = _rng.choice([_rng.uniform(-30, 20), float(_rng.choice(list(_pts)))])
+    _lang = _rng.choice(list(_IMG_TL))
+    d = _v35_data(_at, _at, False)
+    for at, addr in _HC["points"].items():
+        d[addr] = {"value": _pts[int(at)]}
+    d[1160] = {"value": _rng.choice([0.5, 2.0, 3.0, 6.0, 10.0])}
+    d[1161] = {"value": _rng.choice([0.5, 2.0, 4.0, 6.0, 10.0])}
+    d[1164], d[1165] = {"value": 15.0}, {"value": 60.0}
+    d[_SC["status"]] = {"raw": 0}
+    d[_SC["threshold"]] = {"value": 25.0}
+    obj = img.FoxAirHeatingCurveImage(FakeCoord(d), "test")
+    obj.hass = FHass()
+    obj._tl = {**img._TL_FALLBACK, **_IMG_TL[_lang]}
+    obj._last_inputs = obj._read_inputs()
+    obj._render()
+    svg = obj._image_bytes.decode("utf-8")
+    b = _text_boxes(svg)
+    hit = [(p[4], q[4]) for k, p in enumerate(b) for q in b[k + 1:]
+           if p[0] < q[2] - 1 and q[0] < p[2] - 1 and p[1] < q[3] - 1 and q[1] < p[3] - 1]
+    hit += [(p[4], "marker") for p in b for m in _marker_boxes(svg)
+            if p[0] < m[2] - 1 and m[0] < p[2] - 1 and p[1] < m[3] - 1 and m[1] < p[3] - 1]
+    vals = sum(1 for p in b if re.fullmatch(r"\d+", p[4]))
+    if hit or vals < len(_pts) - 1:
+        _fuzz_bad.append((_i, _at, _lang, hit[:2], vals))
+print(f"  {'FAIL' if _fuzz_bad else 'OK'} [label layout fuzz x400]{': ' + str(_fuzz_bad[:3]) if _fuzz_bad else ''}")
+all_ok = all_ok and not _fuzz_bad
 
 print(f"\n{'='*60}")
 print("  ALL TESTS PASSED" if all_ok else "  SOME TESTS FAILED")
