@@ -1,3 +1,7 @@
+## 0.7.37 - 2026-10-13
+- feat(efficiency): the period comparison is now the last 30 full days. Daily COP's `periods` attribute is replaced by `comparison` (also in the LLM report): electricity, heating days, outdoor/indoor temperature and COP of the last 30 days next to the same 30 days a year ago, plus the headline `vs_same_weather_past_year`: each heating day (≥1 kWh) of the last 30 against the median of past-year heating days at the same outdoor temperature (±1.5 K), scaled to that day's indoor temperature, summed to actual vs expected kWh with the matched-day count. The week-vs-week view is gone: neighbouring weeks rarely have the same weather, so its numbers mostly measured the weather. A held-out-month check on last season's data puts the same-weather estimate at -1 to +0 % median error (p10..p90 about ±27 % per day).
+- fix(efficiency): the period COP uses only heating days with recorded heat (`cop_days`), so one missing day no longer blanks it.
+
 ## 0.7.36 - 2026-10-13
 - fix(options): with expert mode already on, every save of the options demanded the "I understand the risk" box again; it is never stored, so it always came back unticked, the save was refused with a short error and the new history entity choices were thrown away (the energy picker looked empty after Submit). The acknowledgement is now asked only when expert mode is being turned on.
 

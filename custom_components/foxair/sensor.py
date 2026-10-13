@@ -555,7 +555,7 @@ class FoxEfficiencyDailySensor(FoxEfficiencySensor):
     _key = "daily_cop"
     _attr_state_class = SensorStateClass.MEASUREMENT
     _attr_suggested_display_precision = 2
-    _unrecorded_attributes = frozenset({"periods", "sources"})
+    _unrecorded_attributes = frozenset({"comparison", "sources"})
 
     @property
     def native_value(self):
@@ -568,5 +568,5 @@ class FoxEfficiencyDailySensor(FoxEfficiencySensor):
         if d.get("fp"):
             d["fp"] = an.describe(d["fp"])
         m = an.day_model
-        return {**d, "model_fit_error_pct": None if not m else m["mape_pct"], "periods": an.periods,
+        return {**d, "model_fit_error_pct": None if not m else m["mape_pct"], "comparison": an.comparison,
                 "sources": an.history_sources, "history_error": self.coordinator.efficiency.history_error}

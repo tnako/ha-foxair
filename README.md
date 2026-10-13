@@ -2,7 +2,7 @@
 
 Control and monitor your **FoxAir / PHNIX air-to-water heat pump** directly from Home Assistant over Modbus TCP — no cloud, no YAML.
 
-![Version](https://img.shields.io/badge/version-0.7.36-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2026.10-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
+![Version](https://img.shields.io/badge/version-0.7.37-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2026.10-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
 ![FoxAir Demo](docs/screenshots/foxair_demo.gif)
 
@@ -127,12 +127,14 @@ Three entities and one button, so there is one place to look:
   quick try) counts as no change. Settings that act outside steady running
   (defrost, pump, compressor limits, heaters) are judged on this daily score
   against a day model (outdoor temperature, heat output), with a 5-day minimum.
-  The `periods` attribute compares the last 7 full days with the 7 before, and
-  this month so far with the same dates last year: electricity, heat and COP
-  (when heat is recorded for every day), electricity per kelvin-day (indoor
-  minus outdoor) and electricity against reference days with the same outdoor
-  and indoor temperature. `comparable: false` says why when a period has fewer
-  than 3 full days.
+  The `comparison` attribute covers the last 30 full days: electricity, heating
+  days, outdoor and indoor temperature and COP (from the days with recorded
+  heat), next to the same 30 days a year ago. Because two Octobers rarely have
+  the same weather, the headline number compares each heating day of the last
+  30 with heating days of the past year at the same outdoor temperature
+  (±1.5 K), scaled to that day's indoor temperature: actual vs expected
+  electricity, with the number of matched days. On last season's data this
+  estimate lands within ±1 % on average for a held-out month.
 
 Suggestions, one step on one parameter, in this order:
 - E02 in 0.5 K steps (2-6 K), direction from how COP vs the model moves with
@@ -175,7 +177,7 @@ The integration adds a read-only LLM tool, `foxair__GetEfficiencyReport`, to the
 Assist API. It returns one report per heat pump (optional `unit` argument: name
 prefix, title or Modbus slave id): live readings, the status (same state,
 message and Apply action as the dashboard), flow temperature against history,
-COP per settings group, the last qualifying day, the period comparisons and the
+COP per settings group, the last qualifying day, the 30-day comparison and the
 entities they read, recent setting changes and the
 suggestion policy (which settings the advisor may propose, with step and range,
 and which it only watches). It is offered only when a Foxair climate entity is

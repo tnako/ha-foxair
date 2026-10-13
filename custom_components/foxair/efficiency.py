@@ -152,7 +152,7 @@ class EfficiencyAnalyser:
         self.groups: dict = {}
         self.day_model: dict | None = None
         self.day_groups: dict = {}
-        self.periods: list[dict] = []
+        self.comparison: dict = {}
         self.hint_list: list[str] = ["collecting"]
         self.recent: dict | None = None
         self.advice: dict = dict(data.get("advice") or {"action": "none", "reason": "settings_unknown"})
@@ -295,7 +295,7 @@ class EfficiencyAnalyser:
             advice["since"] = prev["since"]
         self.model, self.groups, self.recent, self.hint_list, self.advice = model, groups, recent, hint_list, advice
         self.day_model, self.day_groups, self.flow = day_model, day_groups, flow
-        self.periods = comparisons(days, today)
+        self.comparison = comparisons(days, today)
 
     def status(self, now: float) -> dict:
         group = self.describe(self.current_fp()) if self.current and self.baseline_fp else None

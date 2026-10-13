@@ -65,7 +65,7 @@ def build_report(hass: HomeAssistant, entry) -> dict:
         "index_pct_24h": (an.recent or {}).get("index_pct"),
         "buckets": len(an.buckets),
         "last_day": day,
-        "periods": an.periods,
+        "comparison": an.comparison,
         "history_sources": an.history_sources,
         "groups": {an.describe(fp): g for fp, g in an.groups.items()},
         "daily_groups": {an.describe(fp): g for fp, g in an.day_groups.items()},

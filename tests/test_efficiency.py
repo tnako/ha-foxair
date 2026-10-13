@@ -371,27 +371,39 @@ def test_days_get_their_settings_group_and_quick_reverts_dont_mix_them():
     assert "fp" not in rows[0]
 
 
-def test_periods_compare_week_and_month_with_last_year():
-    def row(day, elec, t_out, t_in=20.0, heat=None):
-        return {"day": day.isoformat(), "hours": 24, "heat_hours": 24 if heat else 0, "elec": elec, "heat_total": heat,
-                "t_out": t_out, "t_in": t_in}
+def _hist_row(day, elec, t_out, t_in=20.0, heat=None):
+    return {"day": day.isoformat(), "hours": 24, "heat_hours": 24 if heat else 0, "elec": elec, "heat_total": heat,
+            "t_out": t_out, "t_in": t_in}
 
+
+def test_last_30_days_against_the_same_days_last_year_and_same_weather_days():
     today = datetime.date(2026, 10, 14)
     rows = []
-    for i in range(1, 15):
+    for i in range(1, 366):
         d = today - datetime.timedelta(days=i)
-        rows.append(row(d, 8.0 if i <= 7 else 4.0, 10.0 if i <= 7 else 14.0, heat=32.0 if i <= 7 else 15.0))
-    for i in range(1, 14):
-        rows.append(row(datetime.date(2025, 10, i), 10.0, 10.0 + (i % 3) * 0.5, t_in=20.2))
+        t_out = 10.0 + 8.0 * math.cos(2 * math.pi * (d.timetuple().tm_yday - 200) / 365)
+        need = max(0.0, 20.0 - t_out) * 0.6
+        recent = i <= 30
+        rows.append(_hist_row(d, round(need * (0.8 if recent else 1.0), 3), round(t_out, 2),
+                              heat=round(need * 4, 3) if recent else None))
     rows.sort(key=lambda r: r["day"])
-    week, month = eff.comparisons(rows, today)
-    assert week["period"] == "last_7_days" and week["current"]["days"] == 7 and week["reference"]["days"] == 7
-    assert week["current"]["cop"] == 4.0 and week["elec_pct"] == 100.0 and week["comparable"]
-    assert month["reference_period"] == "same_dates_last_year" and month["current"]["days"] == 13
-    assert month["reference"]["days"] == 13 and month["same_weather_days"] == 7
-    assert month["elec_vs_same_weather_pct"] == -20.0 and month["reference"]["cop"] is None
-    lone = eff.comparisons(rows[-3:], today)[1]
-    assert lone["comparable"] is False and lone["not_comparable_why"] == ["too_few_full_days"]
+    c = eff.comparisons(rows, today)
+    assert c["period"] == "2026-09-14..2026-10-13"
+    assert c["last_30_days"]["days"] == 30 and c["same_30_days_last_year"]["days"] == 0
+    assert c["vs_last_year"]["comparable"] is False
+    w = c["vs_same_weather_past_year"]
+    assert w["comparable"] and w["matched_days"] >= 20 and -22 < w["elec_pct"] < -18
+    assert c["last_30_days"]["cop"] == 5.0 and c["last_30_days"]["cop_days"] == 30 and c["same_30_days_last_year"]["cop"] is None
+
+
+def test_same_weather_scales_by_indoor_temperature_and_skips_non_heating_days():
+    pool = [_hist_row(datetime.date(2026, 1, i), 6.0, 10.0, t_in=21.0) for i in range(1, 6)]
+    pool.append(_hist_row(datetime.date(2026, 1, 9), 0.2, 10.0))
+    cooler = _hist_row(datetime.date(2026, 10, 1), 4.5, 10.0, t_in=19.0)
+    assert eff.expected_elec(cooler, pool) == 6.0 * 9.0 / 11.0
+    assert eff.expected_elec(_hist_row(datetime.date(2026, 10, 1), 4.5, 15.0), pool) is None
+    r = eff.vs_past_year([cooler, _hist_row(datetime.date(2026, 10, 2), 0.3, 10.0)], pool)
+    assert r["heating_days"] == 1 and r["matched_days"] == 1 and r["reference_days"] == 5 and not r["comparable"]
 
 
 def test_defrost_tracker_records_duration_interval_and_heating_before():

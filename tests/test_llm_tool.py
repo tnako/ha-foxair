@@ -90,7 +90,7 @@ class FakeAnalyser:
     baseline_fp = "fp1"
     recent = {"index_pct": 101.2}
     buckets = [1, 2, 3]
-    periods = [{"period": "last_7_days", "comparable": True}]
+    comparison = {"period": "2026-09-14..2026-10-13", "vs_same_weather_past_year": {"elec_pct": -42.0}}
     history_sources = {"elec": "sensor.meter10_energy"}
     groups = {"fp1": {"days": 4, "verdict": "baseline"}}
     day_groups = {}
@@ -154,7 +154,7 @@ def test_report_content():
     assert r["status"]["apply"] is None and r["flow_vs_history"] is None
     assert r["is_baseline"] and r["settings_group"] == "baseline" and r["current_settings"]["F05"] == -4.0
     assert r["last_day"]["day"] == "2025-10-09" and r["last_day"]["fp"] == "baseline"
-    assert r["last_day"]["days_recorded"] == 30 and r["periods"][0]["period"] == "last_7_days"
+    assert r["last_day"]["days_recorded"] == 30 and r["comparison"]["vs_same_weather_past_year"]["elec_pct"] == -42.0
     assert r["history_sources"] == {"elec": "sensor.meter10_energy"} and "days_recorded" not in r
     assert r["recent_changes"][0]["from"] == "Gfp0" and r["recent_changes"][0]["t"].startswith("1970-01-01")
 
