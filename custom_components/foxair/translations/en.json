@@ -5743,7 +5743,10 @@
           "v_gain": "Voltage gain",
           "v_offset": "Voltage offset",
           "i_gain": "Current gain (raw → A)",
-          "i_offset": "Current offset"
+          "i_offset": "Current offset",
+          "history_energy_entity": "History: electricity energy meter (empty = the pump's own)",
+          "history_outdoor_entity": "History: outdoor temperature sensor (empty = the pump's T04)",
+          "history_indoor_entity": "History: indoor temperature sensor (optional)"
         }
       }
     },

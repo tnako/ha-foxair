@@ -37,6 +37,7 @@ class Coord:
     def __init__(self, e02=5.0, readback=None, ok=True):
         self.data = {a: {"value": 0.0} for a in rt.SETTING_ADDRS.values()}
         self.data[E02] = {"value": e02}
+        self.entry = types.SimpleNamespace(data={}, options={})
         self.writes, self._readback, self._ok = [], readback, ok
 
     async def async_write_register(self, addr, value):

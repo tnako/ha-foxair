@@ -2,7 +2,7 @@
 
 Control and monitor your **FoxAir / PHNIX air-to-water heat pump** directly from Home Assistant over Modbus TCP — no cloud, no YAML.
 
-![Version](https://img.shields.io/badge/version-0.7.34-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2026.10-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
+![Version](https://img.shields.io/badge/version-0.7.35-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2026.10-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
 ![FoxAir Demo](docs/screenshots/foxair_demo.gif)
 
@@ -116,12 +116,23 @@ Three entities and one button, so there is one place to look:
   control sensor, pump mode) are never changed.
 - `Efficiency index`: COP of the last 24 h as % of what the reference settings
   would have done in the same weather and load. 100 % = same.
-- `Daily COP`: heat out / electricity in for the last full day, including
-  defrost, cycling, hot water and standby. Days need 80 % data coverage, 5 kWh
-  of heat and 1 h of running. A day with a settings change is still shown,
-  with `comparable: false` and the reason; it is not used for comparisons. Settings that act outside steady running
+- `Daily COP`: heat out / electricity in for the last full local day (midnight
+  to midnight in your HA time zone), including defrost (heat taken back from
+  the water), cycling, hot water and standby. The days come from Home
+  Assistant's long-term statistics, so they survive restarts, reinstalls and
+  storage resets, and up to 400 days are available right after setup. Days
+  need 20 hours of energy statistics and 5 kWh of heat. A day with a settings
+  change is still shown, with `comparable: false` and the reason; it is not
+  used for comparisons. A change undone within 30 minutes (a mis-click or a
+  quick try) counts as no change. Settings that act outside steady running
   (defrost, pump, compressor limits, heaters) are judged on this daily score
-  against a day model (outdoor temperature, run hours), with a 5-day minimum.
+  against a day model (outdoor temperature, heat output), with a 5-day minimum.
+  The `periods` attribute compares the last 7 full days with the 7 before, and
+  this month so far with the same dates last year: electricity, heat and COP
+  (when heat is recorded for every day), electricity per kelvin-day (indoor
+  minus outdoor) and electricity against reference days with the same outdoor
+  and indoor temperature. `comparable: false` says why when a period has fewer
+  than 3 full days.
 
 Suggestions, one step on one parameter, in this order:
 - E02 in 0.5 K steps (2-6 K), direction from how COP vs the model moves with
@@ -149,7 +160,14 @@ when the result is in, Apply makes it the reference (it is never undone).
 
 COP needs a heat value: T59 (firmware 3.3+) or flow x delta T. For the electrical
 side, set Options -> Electrical power source = external meter if you have one.
-History is stored in `.storage/foxair.efficiency.<entry id>` and survives restarts.
+Options -> History lets you pick the entities the daily rows and period
+comparisons read: an electricity energy meter, an outdoor and an indoor
+temperature sensor. Empty means the pump's own energy counter and T04 (no
+indoor). Pick sensors with a long history to compare with last year from day
+one; the heat side always comes from the pump's energy counters.
+Steady-running buckets, settings groups and the change log are stored in
+`.storage/foxair.efficiency.<entry id>` and survive restarts; daily rows are
+rebuilt from recorder statistics on start and topped up every hour.
 
 ### Assist / MCP
 
@@ -157,7 +175,8 @@ The integration adds a read-only LLM tool, `foxair__GetEfficiencyReport`, to the
 Assist API. It returns one report per heat pump (optional `unit` argument: name
 prefix, title or Modbus slave id): live readings, the status (same state,
 message and Apply action as the dashboard), flow temperature against history,
-COP per settings group, the last qualifying day, recent setting changes and the
+COP per settings group, the last qualifying day, the period comparisons and the
+entities they read, recent setting changes and the
 suggestion policy (which settings the advisor may propose, with step and range,
 and which it only watches). It is offered only when a Foxair climate entity is
 exposed to Assist, and it never writes to the pump. With the Model Context

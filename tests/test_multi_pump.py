@@ -50,7 +50,9 @@ def _stub_modules():
                              via_device=via_device)
 
     ha.helpers.entity.DeviceInfo = DeviceInfo
-    for m in (ha, ha.config_entries, ha.core, ha.helpers, ha.helpers.entity,
+    ha.helpers.selector = types.ModuleType("homeassistant.helpers.selector")
+    ha.helpers.selector.EntitySelector = ha.helpers.selector.EntitySelectorConfig = lambda *a, **k: (a, k)
+    for m in (ha, ha.config_entries, ha.core, ha.helpers, ha.helpers.entity, ha.helpers.selector,
               ha.components):
         sys.modules[m.__name__] = m
 
