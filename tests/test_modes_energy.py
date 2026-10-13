@@ -187,9 +187,9 @@ def test_overall_cop_suppressed_when_not_heating():
     assert comp.compute_cop(coord, _opts()) is None
     coord = FakeCoord(_heating_data(rs=4))  # DHW status
     assert comp.compute_cop(coord, _opts()) is None
-    # Defrost counts as heating.
+    # Defrost: T59 reports magnitude only while heat flows back, no COP.
     coord = FakeCoord(_heating_data(rs=2))
-    assert comp.compute_cop(coord, _opts()) == 4.0
+    assert comp.compute_cop(coord, _opts()) is None
     # 2012 missing -> old behaviour preserved.
     coord = FakeCoord({2059: {"value": 2.0}, 2054: {"value": 0.5}})
     assert comp.compute_cop(coord, _opts()) == 4.0
@@ -294,11 +294,28 @@ def test_accumulate_energy_defrost_separate_bucket(tmp_path):
                     "defrost": 0.0, "electrical": 0.0}
     c._energy_last_ts = None
     c._accumulate_energy()
-    # defrost status (2012=2): thermal power books to the defrost bucket,
-    # not heating; electrical still accumulates
-    c.data = _heating_data(rs=2)
+    # defrost status (2012=2): the heat pulled back out of the water books
+    # to the defrost bucket (live 06:26 UTC, 2026-10-13: T01 31.2, T02 26.0,
+    # 1.28 m3/h, T59 still +5.7 kW), never to heating; electrical still accumulates
+    c.data = {**_heating_data(rs=2, t59=5.7, t54=0.85),
+              2077: {"value": 1.28}, 2045: {"value": 31.2}, 2046: {"value": 26.0}}
     c._energy_last_ts = c._energy_last_ts - 30
     c._accumulate_energy()
-    assert c.energy_kwh["defrost"] == pytest.approx(2000 * 30 / 3600 / 1000)
+    taken_w = 1.28 * 1000 * 4186 * (31.2 - 26.0) / 3600
+    assert c.energy_kwh["defrost"] == pytest.approx(taken_w * 30 / 3600 / 1000)
     assert c.energy_kwh["heating"] == 0.0
-    assert c.energy_kwh["electrical"] == pytest.approx(500 * 30 / 3600 / 1000)
+    assert c.energy_kwh["electrical"] == pytest.approx(850 * 30 / 3600 / 1000)
+
+
+def test_defrost_heat_taken_from_water_not_t59():
+    base = {2012: {"raw": 2}, 2059: {"value": 7.4}, 2054: {"value": 0.9},
+            2072: {"value": 50.0}, 2077: {"value": 1.28}}
+    pulling = FakeCoord({**base, 2045: {"value": 31.2}, 2046: {"value": 26.0}})
+    assert comp.compute_thermal_power(pulling, "defrost") == pytest.approx(
+        1.28 * 1000 * 4186 * 5.2 / 3600)
+    assert comp.compute_heating_power(pulling) is None
+    assert comp.compute_thermal_power(pulling, "heating") is None
+    assert comp.compute_cop(pulling, _opts()) is None
+    warming = FakeCoord({**base, 2045: {"value": 35.4}, 2046: {"value": 37.6}})
+    assert comp.compute_thermal_power(warming, "defrost") == 0.0
+    assert comp.compute_thermal_power(FakeCoord(base), "defrost") is None

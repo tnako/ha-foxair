@@ -216,6 +216,8 @@ def _heating_power(coord) -> Optional[float]:
     comp_on = _compressor_running(coord)
     if comp_on is False:
         return None
+    if run_status_raw(coord) == 2:
+        return None
 
     # Try device-provided heating power first (0 = unit does not compute it).
     hp = _cval(coord, _ADDR_HEATING_POWER)
@@ -259,7 +261,8 @@ def compute_thermal_power(coord, mode: str) -> Optional[float]:
     Same register sources as compute_heating_power (device T59 first, then
     flow/dT fallback), but gated on the unit's own run status (2012):
     the value only counts for the mode the unit reports it is in.
-    Defrost is its own mode (2012=2, energy flow reverses); sterilization
+    Defrost is its own mode (2012=2, energy flow reverses): T59 reports the
+    magnitude only, so defrost is the heat taken from the water; sterilization
     counts as DHW (see active_mode). A different active mode -> None so
     per-mode energy meters never cross-count. 2012 missing -> only
     "heating" falls back to the ungated value, keeping pre-v3.3 behaviour;
@@ -277,8 +280,20 @@ def compute_thermal_power(coord, mode: str) -> Optional[float]:
             return _heating_power(coord)
         if current != mode:
             return None
+        if mode == "defrost":
+            return _defrost_heat_taken(coord)
         return _heating_power(coord)
     return _cached(coord, key, _calc)
+
+
+def _defrost_heat_taken(coord) -> Optional[float]:
+    """Heat (W) the reversed cycle pulls out of the heating water: flow x cp x (inlet - outlet), 0 while the outlet is warmer."""
+    flow = _cval(coord, _ADDR_FLOW)
+    outlet = _cval(coord, 2046)
+    inlet = _cval(coord, 2045)
+    if flow is None or flow <= 0 or outlet is None or inlet is None:
+        return None
+    return max(0.0, inlet - outlet) * flow * 1000.0 * 4186.0 / 3600.0
 
 
 def compute_cooling_power(coord) -> Optional[float]:
@@ -369,9 +384,8 @@ def compute_cop(coord, opts: dict) -> Optional[float]:
 
     Gated on run status: when 2012 is present and reports cooling/DHW/
     sterilization, T59 does not reflect heating production and the COP
-    must not count. Defrost (2012=2) still counts as heating COP: the
-    compressor runs the same condenser circuit and the electrical draw
-    is real heating-side consumption. 2012 missing -> old behaviour
+    must not count. Defrost (2012=2) has no heating power (heat flows back
+    out of the water), so the COP is empty there. 2012 missing -> old behaviour
     (pre-v3.3 units never expose 2012 reliably and their T54/T59 are 0
     whenever the compressor is off anyway).
     """
@@ -396,8 +410,7 @@ def compute_cop_mode(coord, opts: dict, mode: str) -> Optional[float]:
     mode: "heating" | "cooling" | "dhw". Only counts while the unit's run
     status (2012) reports that mode, so each COP reflects real operation.
     Electrical power is the total draw (T54 / external meter) — during DHW
-    and cooling that is exactly the mode's consumption; during defrost it
-    is charged to heating, matching the thermal side.
+    and cooling that is exactly the mode's consumption.
     """
     tp = compute_thermal_power(coord, mode)
     if mode == "cooling" and tp is None:
