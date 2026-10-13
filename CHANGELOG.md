@@ -1,3 +1,6 @@
+## 0.7.39 - 2026-10-13
+- fix(efficiency): the `past_year` side of `comparison` weights every matched day equally. It averaged each reference day once, so colder days of the last 30, which match many more past-year days, dominated its outdoor/indoor temperature and COP: on the live unit 11.2 °C past year against 13.6 °C now for the same matched days. Temperatures are now the mean of each matched day's reference mean, COP the sum of per-day mean heat over per-day mean electricity. `elec_kwh` was already per day and is unchanged.
+
 ## 0.7.38 - 2026-10-13
 - fix(efficiency): the 30-day comparison now compares only matched days. The calendar table (all 30 days against the same 30 days a year ago) sat next to the same-weather headline and contradicted it: on the live unit 106.1 vs 110.4 kWh (-4 %, last year 8 heating days, this year 28) under a -42 % headline that covered 15 days. `comparison` is now flat: `now` (the matched heating days) and `past_year` (the same-weather past-year days they were matched to), each with electricity, outdoor/indoor temperature and COP, plus `elec_pct`, `cop_pct`, `matched_days`, `heating_days`, `reference_days`. `last_30_days`, `same_30_days_last_year`, `vs_last_year` and `vs_same_weather_past_year` are gone.
 

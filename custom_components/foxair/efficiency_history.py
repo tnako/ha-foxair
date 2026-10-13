@@ -249,21 +249,40 @@ def expected_elec(row: dict, pool: list[dict]) -> float | None:
     return _median(m) if len(m) >= MATCH_MIN else None
 
 
+def _per_day(groups: list[list[dict]], key: str) -> float | None:
+    means = [sum(v) / len(v) for g in groups if (v := [r[key] for r in g if r.get(key) is not None])]
+    return round(sum(means) / len(means), 1) if means else None
+
+
+def _matched_cop(groups: list[list[dict]]) -> tuple[float | None, int]:
+    heat = elec = 0.0
+    n = 0
+    for g in groups:
+        m = [r for r in g if _heat_full(r) and r["elec"] > 0]
+        if m:
+            heat += sum(r["heat_total"] for r in m) / len(m)
+            elec += sum(r["elec"] for r in m) / len(m)
+            n += 1
+    return (round(heat / elec, 2), n) if elec > 0 else (None, 0)
+
+
 def vs_past_year(cur: list[dict], pool: list[dict]) -> dict:
     """Matched heating days of the last 30 against heating days of the past year at the same outdoor temperature."""
     pool = [r for r in pool if _heating(r)]
     days = [r for r in cur if _heating(r)]
     pairs = [(r, e) for r in days if (e := expected_elec(r, pool)) is not None]
     matched = [r for r, _ in pairs]
-    refs = list({p["day"]: p for r in matched for p in _matches(r, pool)}.values())
+    groups = [_matches(r, pool) for r in matched]
+    refs = {p["day"] for g in groups for p in g}
     now_cop, now_cop_days = _cop(matched)
-    past_cop, past_cop_days = _cop(refs)
+    past_cop, past_cop_days = _matched_cop(groups)
     elec = sum(r["elec"] for r in matched)
     expected = sum(e for _, e in pairs)
     out = {"heating_days": len(days), "matched_days": len(pairs), "reference_days": len(refs),
            "now": {"elec_kwh": round(elec, 1) if pairs else None, **_means(matched),
                    "cop": now_cop, "cop_days": now_cop_days},
-           "past_year": {"elec_kwh": round(expected, 1) if pairs else None, **_means(refs),
+           "past_year": {"elec_kwh": round(expected, 1) if pairs else None,
+                         "t_out": _per_day(groups, "t_out"), "t_in": _per_day(groups, "t_in"),
                          "cop": past_cop, "cop_days": past_cop_days},
            "elec_pct": _pct(elec, expected) if pairs else None, "cop_pct": _pct(now_cop, past_cop),
            "comparable": len(pairs) >= PERIOD_MIN_DAYS}
