@@ -1,3 +1,9 @@
+## 0.7.40 - 2026-10-13
+- fix(curve image): every curve point keeps its value. Labels near the live dot were hidden, so with the outdoor temperature at 13.5 °C the +5, +10 and +20 °C values were missing and the start/stop/target pills overlapped. Labels are now placed around the lines and markers instead of on top of them, each next to its own point; only the point under the live dot drops its label.
+- fix(curve image): the live target, start and stop values sit in one card with a single line to the dot, each row in the same style: "Curve target 27.1C" (or "Fixed setpoint"), "Stop heating", "Start heating", with the same marker as on the chart.
+- fix(curve image): more space between the x-axis title and the tick labels.
+- test: the render test checks that every curve point shows its value and runs 400 random curves (edge temperatures, points under the dot, narrow/wide hysteresis, EN/DE/RU) for overlapping text and text on markers. `tools/render_test.py --out DIR` writes the rendered SVGs.
+
 ## 0.7.39 - 2026-10-13
 - fix(efficiency): the `past_year` side of `comparison` weights every matched day equally. It averaged each reference day once, so colder days of the last 30, which match many more past-year days, dominated its outdoor/indoor temperature and COP: on the live unit 11.2 °C past year against 13.6 °C now for the same matched days. Temperatures are now the mean of each matched day's reference mean, COP the sum of per-day mean heat over per-day mean electricity. `elec_kwh` was already per day and is unchanged.
 

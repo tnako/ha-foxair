@@ -11,8 +11,12 @@ fallback. A single live dot sits exactly on the active target (no duplicate
 device/computed dots). Around the target a two-tone hysteresis band shows
 the R04 start-heating side (green tint, dashed lower boundary) and the R05
 idle/stop side (slate tint, dashed upper boundary); at the live outdoor
-temperature dotted-outline markers give both threshold temps. The bottom
-legend is a fixed 2x2 grid (no flowing layout, no overlaps).
+temperature dotted-outline markers give both threshold temps.
+
+Labels are placed by _Layout, a greedy candidate search over an obstacle map
+(curve, band lines, markers, placed labels): every curve point keeps its
+value, and the live target with its start/stop values is one card on a
+leader line. The bottom is a stat footer that wraps into rows.
 
 Mode (driven by H36 / register 1236):
   * H36 = 1  -> AT-compensation (curve) mode:
@@ -97,6 +101,127 @@ def _norm_slope(v):
     if s < 0:
         s = 0.0
     return min(s, 3.0)
+
+
+def _seg_hits_box(x1, y1, x2, y2, box) -> bool:
+    """Liang-Barsky clip: does the segment touch the box."""
+    bx0, by0, bx1, by1 = box
+    dx, dy = x2 - x1, y2 - y1
+    t0, t1 = 0.0, 1.0
+    for p, q in ((-dx, x1 - bx0), (dx, bx1 - x1), (-dy, y1 - by0), (dy, by1 - y1)):
+        if p == 0:
+            if q < 0:
+                return False
+            continue
+        t = q / p
+        if p < 0:
+            if t > t1:
+                return False
+            t0 = max(t0, t)
+        else:
+            if t < t0:
+                return False
+            t1 = min(t1, t)
+    return True
+
+
+def _nearest_on_box(ax, ay, box):
+    return min(max(ax, box[0]), box[2]), min(max(ay, box[1]), box[3])
+
+
+def _around(ax, ay, w, h, dirs, rings):
+    """Candidate (box, preference penalty) around an anchor, earlier dirs preferred."""
+    out = []
+    for d in rings:
+        for i, (ox, oy) in enumerate(dirs):
+            cx = ax + ox * (d + w / 2)
+            cy = ay + oy * (d + h / 2)
+            out.append(((cx - w / 2, cy - h / 2, cx + w / 2, cy + h / 2), 0.05 * i))
+    return out
+
+
+def _box_dist(px, py, box):
+    nx, ny = _nearest_on_box(px, py, box)
+    return ((nx - px) ** 2 + (ny - py) ** 2) ** 0.5
+
+
+class _Layout:
+    """Greedy label placement over an obstacle map.
+
+    Marks (curve, band lines, markers, dots) and every placed label are
+    obstacles. Each label takes the candidate with the lowest collision cost
+    plus distance from its anchor, so no value is ever dropped. A label that
+    sits closer to another marker than to its own is penalised, so it never
+    reads as that marker's value.
+    """
+
+    LABEL, MARK, CURVE, BAND, GUIDE, RIVAL = 100.0, 60.0, 20.0, 8.0, 0.1, 40.0
+    PER_PX = 0.05
+
+    def __init__(self, bounds):
+        self.bounds = bounds
+        self.boxes: list = []
+        self.segs: list = []
+        self.anchors: list = []
+
+    def block(self, box, weight):
+        self.boxes.append((box, weight))
+
+    def block_line(self, pts, weight):
+        for (x1, y1), (x2, y2) in zip(pts, pts[1:]):
+            self.segs.append((x1, y1, x2, y2, weight))
+
+    def anchor(self, x, y):
+        self.anchors.append((x, y))
+
+    def _cost(self, box, anchor, leader, strict):
+        gap = 10 if leader else 3
+        lx0, ly0, lx1, ly1 = self.bounds
+        if box[0] < lx0 or box[1] < ly0 or box[2] > lx1 or box[3] > ly1:
+            return None
+        g = (box[0] - gap, box[1] - gap, box[2] + gap, box[3] + gap)
+        hits = [w for o, w in self.boxes
+                if o[0] < g[2] and g[0] < o[2] and o[1] < g[3] and g[1] < o[3]]
+        if strict and any(w >= self.LABEL for w in hits):
+            return None
+        cost = sum(hits)
+        cost += sum(s[4] for s in self.segs if _seg_hits_box(s[0], s[1], s[2], s[3], g))
+        nx, ny = _nearest_on_box(anchor[0], anchor[1], box)
+        own = ((nx - anchor[0]) ** 2 + (ny - anchor[1]) ** 2) ** 0.5
+        cost += self.PER_PX * own
+        cost += sum(self.RIVAL for ax, ay in self.anchors
+                    if (abs(ax - anchor[0]) > 1 or abs(ay - anchor[1]) > 1)
+                    and _box_dist(ax, ay, box) < own + 4)
+        if leader:
+            cost += sum(w for o, w in self.boxes
+                        if w >= self.MARK and _seg_hits_box(anchor[0], anchor[1], nx, ny, o)
+                        and not (o[0] <= anchor[0] <= o[2] and o[1] <= anchor[1] <= o[3]))
+        return cost
+
+    def place(self, cands, anchor, leader=False):
+        best, best_cost = None, None
+        for strict in (True, False):
+            for box, pref in cands:
+                cost = self._cost(box, anchor, leader, strict)
+                if cost is not None and (best_cost is None or cost + pref < best_cost):
+                    best, best_cost = box, cost + pref
+            if best is not None:
+                break
+        if best is None:
+            box = cands[0][0]
+            w, h = box[2] - box[0], box[3] - box[1]
+            lx0, ly0, lx1, ly1 = self.bounds
+            x0 = min(max(box[0], lx0), lx1 - w)
+            y0 = min(max(box[1], ly0), ly1 - h)
+            best = (x0, y0, x0 + w, y0 + h)
+        self.block(best, self.LABEL)
+        return best
+
+
+_POINT_DIRS = ((0, -1), (0, 1), (1, -1), (-1, -1), (1, 1), (-1, 1), (1, 0), (-1, 0))
+_TARGET_DIRS = ((1, 0), (-1, 0), (1, -1), (1, 1), (-1, -1), (-1, 1), (0, -1), (0, 1))
+_UP_DIRS = ((1, -1), (-1, -1), (0, -1), (1, 0), (-1, 0), (1, 1), (-1, 1), (0, 1))
+_DOWN_DIRS = ((1, 1), (-1, 1), (0, 1), (1, 0), (-1, 0), (1, -1), (-1, -1), (0, -1))
 
 
 class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
@@ -283,7 +408,7 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
     # -- rendering ---------------------------------------------------
     def _render(self):
         W, H = 1200, 760
-        pad_l, pad_r, pad_t, pad_b = 90, 50, 64, 96
+        pad_l, pad_r, pad_t, pad_b = 90, 50, 64, 104
         legend_h = 46
         plot_w = W - pad_l - pad_r
         plot_h = H - pad_t - pad_b - legend_h
@@ -473,6 +598,8 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
             f'y2="{plot_bottom}" stroke="{AXIS}" stroke-width="2"/>'
         )
 
+        lay = _Layout((pad_l + 2, pad_t + 2, W - 6, plot_bottom - 2))
+
         # ---- reference cross at design point (AT=0 -> flow=offset) ----
         cutoff = inp.get("cutoff") or {}
         if cutoff.get("enabled") and AT_MIN < cutoff.get("threshold", AT_MAX) < AT_MAX:
@@ -485,6 +612,7 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
                 f'<line x1="{xc}" y1="{pad_t}" x2="{xc}" y2="{plot_bottom}" '
                 f'stroke="{CUTOFF_COL}" stroke-width="1.5" stroke-dasharray="6 4" opacity="0.7"/>'
             )
+            lay.block_line([(xc, pad_t), (xc, plot_bottom)], _Layout.GUIDE)
         try:
             x0 = round(x_at(0.0), 1)
             y0 = round(y_flow(offset), 1)
@@ -500,6 +628,9 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
                 f'<circle cx="{x0}" cy="{y0}" r="6" fill="#e2e8f0" '
                 f'stroke="{BG}" stroke-width="2"/>'
             )
+            lay.block((x0 - 8, y0 - 8, x0 + 8, y0 + 8), _Layout.MARK)
+            lay.block_line([(x0, pad_t), (x0, plot_bottom)], _Layout.GUIDE)
+            lay.block_line([(pad_l, y0), (plot_right, y0)], _Layout.GUIDE)
         except Exception:
             pass
 
@@ -524,38 +655,6 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
                 f'font-weight="bold">{label}</text>'
             )
 
-        # ---- curve value labels at each AT tick (bold, above the curve) ----
-        # Skip labels near the live dot: the live + threshold pills show exact
-        # temps there (central pill reaches ~240px/85px), a tick label under
-        # them collides.
-        try:
-            _at_skip = float(at_live) if at_live is not None else None
-        except (TypeError, ValueError):
-            _at_skip = None
-        _dx_e = _dy_e = None
-        if _at_skip is not None:
-            _raw_e = target_live if is_curve_mode else fixed
-            if _raw_e is not None:
-                try:
-                    _tgt_e = float(_raw_e)
-                    _dx_e = max(pad_l + 14, min(plot_right - 14, round(x_at(_at_skip), 1)))
-                    _dy_e = max(pad_t + 14, min(plot_bottom - 14, round(y_flow(_tgt_e), 1)))
-                except (TypeError, ValueError):
-                    _dx_e = _dy_e = None
-        if is_curve_mode:
-            for at_g in at_ticks:
-                x = round(x_at(at_g), 1)
-                cv = clamp(curve_at(at_g), r10, r11)
-                yv = round(y_flow(cv), 1)
-                if (_dx_e is not None and _dy_e is not None
-                        and abs(x - _dx_e) < 240 and abs(yv - 8 - _dy_e) < 85):
-                    continue
-                svg.append(
-                    f'<text x="{x}" y="{yv - 8}" text-anchor="middle" {HALO} '
-                    f'fill="{TEXT_DARK}" font-size="15" font-weight="bold">'
-                    f'{cv:.0f}</text>'
-                )
-
         # ---- Y axis ticks (tick marks + labels) ----
         for f in (10, 20, 30, 40, 50, 60, 70):
             y = round(y_flow(f), 1)
@@ -574,7 +673,7 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
         # ---- axis titles ----
         axis_y = self._tl.get(f"source.{inp.get('source')}") or self._t("axis_y")
         svg.append(
-            f'<text x="{pad_l + plot_w // 2}" y="{plot_bottom + 38}" text-anchor="middle" '
+            f'<text x="{pad_l + plot_w // 2}" y="{plot_bottom + 46}" text-anchor="middle" '
             f'fill="{TEXT}" font-size="16">{self._t("axis_x")}</text>'
         )
         svg.append(
@@ -623,6 +722,9 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
         lo_line = " ".join(f"{x},{y}" for x, y in lo_pts)
         hi_line = " ".join(f"{x},{y}" for x, y in hi_pts)
 
+        lay.block_line(lo_pts, _Layout.BAND)
+        lay.block_line(hi_pts, _Layout.BAND)
+
         # ---- hysteresis band fills + dashed boundaries (under the main line) ----
         svg.append(f'<polygon points="{lo_fill}" fill="{BAND_LO_FILL}"/>')
         svg.append(f'<polygon points="{hi_fill}" fill="{BAND_HI_FILL}"/>')
@@ -643,8 +745,12 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
                 f'<polyline fill="none" stroke="{CURVE}" stroke-width="4" '
                 f'stroke-linejoin="round" points="{poly_pts}"/>'
             )
+            lay.block_line(curve_pts, _Layout.CURVE)
             for at_p, v_p in points or ():
                 if AT_MIN <= at_p <= AT_MAX:
+                    xm, ym = round(x_at(at_p), 1), round(y_flow(clamp(v_p, r10, r11)), 1)
+                    lay.block((xm - 8, ym - 8, xm + 8, ym + 8), _Layout.MARK)
+                    lay.anchor(xm, ym)
                     svg.append(
                         f'<rect x="{round(x_at(at_p) - 6, 1)}" y="{round(y_flow(clamp(v_p, r10, r11)) - 6, 1)}" '
                         f'width="12" height="12" rx="2" fill="{BG}" stroke="{CURVE}" stroke-width="3"/>'
@@ -654,22 +760,52 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
                 f'<line x1="{pad_l}" y1="{fixed_y}" x2="{plot_right}" y2="{fixed_y}" '
                 f'stroke="{FIXED_COL}" stroke-width="4"/>'
             )
+            fixed_txt = f"{clamp(fixed, r10, r11):.0f}C"
             svg.append(
                 f'<text x="{pad_l + 10}" y="{fixed_y - 10}" {HALO} fill="{FIXED_COL}" '
-                f'font-size="16" font-weight="bold">{clamp(fixed, r10, r11):.0f}C</text>'
+                f'font-size="16" font-weight="bold">{fixed_txt}</text>'
             )
+            lay.block_line([(pad_l, fixed_y), (plot_right, fixed_y)], _Layout.CURVE)
+            lay.block((pad_l + 8, fixed_y - 24, pad_l + 12 + _text_w(fixed_txt, 16), fixed_y - 6),
+                      _Layout.LABEL)
 
         # ---- live dot (single) on the ACTIVE target ----
         # Curve mode = device register 2014 (live_target), fixed mode =
         # the R02 setpoint. The formula stays only as fallback in target_live.
         active_target = target_live if is_curve_mode else fixed
         compressor_on = bool(inp.get("compressor_on"))
+        dot_fill = DOT if compressor_on else "#64748b"
+        live = None
         if at_live is not None and active_target is not None:
-            dx = round(x_at(float(at_live)), 1)
-            dy = round(y_flow(float(active_target)), 1)
-            # keep the dot inside the plot
-            dx = max(pad_l + 14, min(plot_right - 14, dx))
-            dy = max(pad_t + 14, min(plot_bottom - 14, dy))
+            try:
+                live = (float(at_live), float(active_target))
+            except (TypeError, ValueError):
+                live = None
+        thresholds = []
+        dx = dy = 0.0
+        if live is not None:
+            dx = max(pad_l, min(plot_right, round(x_at(live[0]), 1)))
+            dy = max(pad_t, min(plot_bottom, round(y_flow(live[1]), 1)))
+            # Start (R04) below / stop (R05) above the target, at the live AT.
+            c_live = clamp(live[1], r10, r11)
+            for value, color, key in ((clamp(c_live + r05, r10, r11), STOP_COL, "legend_stop"),
+                                      (clamp(c_live - r04, r10, r11), START_COL, "legend_start")):
+                if abs(value - c_live) >= 0.3:
+                    thresholds.append((round(y_flow(value), 1), value, color, key))
+            if thresholds:
+                ys = [t[0] for t in thresholds] + [dy]
+                svg.append(
+                    f'<line x1="{dx}" y1="{min(ys)}" x2="{dx}" y2="{max(ys)}" '
+                    f'stroke="{DOT}" stroke-width="2" stroke-dasharray="2 4" opacity="0.55"/>'
+                )
+                lay.block_line([(dx, min(ys)), (dx, max(ys))], _Layout.BAND)
+            for ty, _v, color, _k in thresholds:
+                svg.append(
+                    f'<circle cx="{dx}" cy="{ty}" r="6" fill="{BG}" '
+                    f'stroke="{color}" stroke-width="2" stroke-dasharray="3 3"/>'
+                )
+                lay.block((dx - 8, ty - 8, dx + 8, ty + 8), _Layout.MARK)
+                lay.anchor(dx, ty)
             if compressor_on:
                 svg.append(
                     f'<circle cx="{dx}" cy="{dy}" r="9" fill="none" '
@@ -681,169 +817,90 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
             svg.append(
                 f'<circle cx="{dx}" cy="{dy}" r="9" fill="#fff" opacity="0.9"/>'
             )
-            dot_fill = DOT if compressor_on else "#64748b"
             svg.append(
                 f'<circle cx="{dx}" cy="{dy}" r="7" fill="{dot_fill}" stroke="#fff" '
                 f'stroke-width="2"/>'
             )
+            lay.block((dx - 11, dy - 11, dx + 11, dy + 11), _Layout.MARK)
+            lay.anchor(dx, dy)
 
-            # ---- live cluster: target number at the dot, start/stop apart ----
-            # The target may drive inlet, outlet or room temp (H25) — so the
-            # central pill shows ONLY the number, no words that could be wrong.
-            # Stop pill rides above its marker, start pill below; the central
-            # number sits at dot height in the middle. Threshold pills yield
-            # (move further out) if they would touch the central one.
-            try:
-                _tgt_f = float(active_target)
-            except (TypeError, ValueError):
-                _tgt_f = None
-            _thr = None
-            _box_hi = None
-            _box_lo = None
-            _hy = _ly = 0.0
-            _show_lo = _show_hi = False
-            _lo_label = _hi_label = ""
-            _lx_lo = _lx_hi = 0.0
-            _ly_hi_p = _ly_lo_p = 0.0
-            _lw_lo = _lw_hi = 0.0
-            if _tgt_f is not None:
-                _c_live = clamp(_tgt_f, r10, r11)
-                _lo_live = clamp(_c_live - r04, r10, r11)
-                _hi_live = clamp(_c_live + r05, r10, r11)
-                _ly = round(y_flow(_lo_live), 1)
-                _hy = round(y_flow(_hi_live), 1)
-                _show_lo = abs(_lo_live - _c_live) >= 0.3
-                _show_hi = abs(_hi_live - _c_live) >= 0.3
-                _lo_label = f"{self._t('legend_start')} {_lo_live:.1f}C"
-                _hi_label = f"{self._t('legend_stop')} {_hi_live:.1f}C"
-                _lw_lo = _text_w(_lo_label, font_size=15) + 16
-                _lw_hi = _text_w(_hi_label, font_size=15) + 16
-
-                def _pill_side(mx, lw, prefer_right):
-                    if prefer_right:
-                        lx = mx + 14
-                        if lx + lw > plot_right - 4:
-                            lx = mx - 14 - lw
-                    else:
-                        lx = mx - 14 - lw
-                        if lx < pad_l + 4:
-                            lx = mx + 14
-                    return lx
-
-                def _pill_top(my, anchor, lh=24):
-                    if anchor == "above":
-                        ly_p = my - lh - 8
-                    elif anchor == "below":
-                        ly_p = my + 8
-                    else:
-                        ly_p = my - lh / 2
-                    return max(pad_t + 4, min(plot_bottom - lh - 4, ly_p))
-
-                _lx_lo = _pill_side(dx, _lw_lo, False)
-                _lx_hi = _pill_side(dx, _lw_hi, True)
-                _ly_hi_p = _pill_top(_hy, "above")
-                _ly_lo_p = _pill_top(_ly, "below")
-                _thr = True
-
-            def _x_overlap(b1, b2, margin=2):
-                return (b1 is not None and b2 is not None
-                        and b1[0] < b2[2] + margin and b2[0] < b1[2] + margin)
-
-            # ---- central pill: just the target number, at dot height ----
-            txt = f"{float(active_target):.1f}C"
-            txt_w = _text_w(txt, font_size=16)
-            pill_pad = 8
-            pill_h = 26
-            pill_w = txt_w + pill_pad * 2
-            dot_r = 7  # match the circle r above
-            if dx + 14 + pill_w <= plot_right - 4:
-                pill_x = dx + 14
-            else:
-                pill_x = dx - 14 - pill_w
-            pill_y = round(dy - pill_h / 2, 1)
-            pill_y = max(pad_t + 4, min(plot_bottom - pill_h - 4, pill_y))
-            box_c = (pill_x, pill_y, pill_x + pill_w, pill_y + pill_h)
-
-            # thresholds yield to the central pill: move further out as needed
-            if _thr:
-                if _show_hi:
-                    _box_hi = (_lx_hi, _ly_hi_p, _lx_hi + _lw_hi, _ly_hi_p + 24)
-                    if _x_overlap(box_c, _box_hi) and _box_hi[3] > box_c[1] - 6:
-                        _ly_hi_p = max(pad_t + 4, box_c[1] - 6 - 24)
-                        _box_hi = (_lx_hi, _ly_hi_p, _lx_hi + _lw_hi, _ly_hi_p + 24)
-                if _show_lo:
-                    _box_lo = (_lx_lo, _ly_lo_p, _lx_lo + _lw_lo, _ly_lo_p + 24)
-                    if _x_overlap(box_c, _box_lo) and _box_lo[1] < box_c[3] + 6:
-                        _ly_lo_p = min(plot_bottom - 28, box_c[3] + 6)
-                        _box_lo = (_lx_lo, _ly_lo_p, _lx_lo + _lw_lo, _ly_lo_p + 24)
-
-            # short horizontal connector from dot edge to the number pill
-            if pill_x > dx:
-                svg.append(
-                    f'<line x1="{dx + dot_r}" y1="{dy}" x2="{pill_x}" y2="{dy}" '
-                    f'stroke="{DOT}" stroke-width="1.5" stroke-dasharray="6 4" opacity="0.7"/>'
-                )
-            else:
-                svg.append(
-                    f'<line x1="{dx - dot_r}" y1="{dy}" x2="{pill_x + pill_w}" y2="{dy}" '
-                    f'stroke="{DOT}" stroke-width="1.5" stroke-dasharray="6 4" opacity="0.7"/>'
-                )
+        # ---- labels: placed after every mark, drawn on top ----
+        # The live card goes first (it may move out on a leader line), then
+        # each curve value next to its own point.
+        def _leader(ax, ay, r, box, color):
+            nx, ny = _nearest_on_box(ax, ay, box)
+            dist = ((nx - ax) ** 2 + (ny - ay) ** 2) ** 0.5
+            if dist <= r + 2:
+                return
+            sx, sy = ax + (nx - ax) * r / dist, ay + (ny - ay) * r / dist
             svg.append(
-                f'<rect x="{pill_x}" y="{pill_y}" width="{pill_w}" '
-                f'height="{pill_h}" rx="4" fill="{BG}" stroke="{DOT}" '
-                f'stroke-width="1.5" opacity="0.9"/>'
-            )
-            svg.append(
-                f'<text x="{pill_x + pill_w / 2}" y="{pill_y + 17}" '
-                f'text-anchor="middle" fill="{DOT}" font-size="16" font-weight="bold">'
-                f'{txt}</text>'
+                f'<line x1="{sx:.1f}" y1="{sy:.1f}" x2="{nx:.1f}" y2="{ny:.1f}" '
+                f'stroke="{color}" stroke-width="1.5" opacity="0.9"/>'
             )
 
-            # ---- hysteresis thresholds at live AT (dotted-outline markers) ----
-            if _thr:
-                # thin dotted range line through the dot
+        live_card = None
+        if live is not None:
+            # One card for the live point: stop / target / start rows in the
+            # same vertical order as their markers, one leader to the dot.
+            target_key = "legend_curve" if is_curve_mode else "legend_fixed"
+            rows = [(f"{self._t(key)} {value:.1f}C", color, False)
+                    for ty, value, color, key in thresholds if ty < dy]
+            rows.append((f"{self._t(target_key)} {live[1]:.1f}C", DOT, True))
+            rows += [(f"{self._t(key)} {value:.1f}C", color, False)
+                     for ty, value, color, key in thresholds if ty > dy]
+            row_h = 22
+            card_w = max(_text_w(t, 15) for t, _c, _m in rows) + 38
+            card_h = row_h * len(rows) + 10
+            box = lay.place(_around(dx, dy, card_w, card_h, _TARGET_DIRS, (16, 30, 50, 80, 120, 170)),
+                            (dx, dy), leader=True)
+            live_card = (box, rows)
+
+        if is_curve_mode:
+            anchors = ([(a, v) for a, v in points if AT_MIN <= a <= AT_MAX] if points
+                       else [(a, curve_at(a)) for a in at_ticks])
+            if not points:
+                for at_p, v_p in anchors:
+                    lay.anchor(x_at(at_p), y_flow(clamp(v_p, r10, r11)))
+            for at_p, v_p in anchors:
+                cv = clamp(v_p, r10, r11)
+                txt = f"{cv:.0f}"
+                px, py = x_at(at_p), y_flow(cv)
+                if live is not None and abs(px - dx) < 12 and abs(py - dy) < 12:
+                    continue
+                box = lay.place(_around(px, py, _text_w(txt, 15) + 4, 17, _POINT_DIRS, (9, 16, 26)),
+                                (px, py))
                 svg.append(
-                    f'<line x1="{dx}" y1="{_hy}" x2="{dx}" y2="{_ly}" '
-                    f'stroke="{DOT}" stroke-width="2" stroke-dasharray="2 4" opacity="0.55"/>'
+                    f'<text x="{(box[0] + box[2]) / 2:.1f}" y="{(box[1] + box[3]) / 2 + 5.2:.1f}" '
+                    f'text-anchor="middle" {HALO} fill="{TEXT_DARK}" font-size="15" '
+                    f'font-weight="bold">{txt}</text>'
                 )
 
-                def _side_pill(mx, my, label, color, lx, ly_p, font_size=15):
-                    lw = _text_w(label, font_size=font_size) + 16
-                    lh = 24
-                    anchor = "start" if lx > mx else "end"
-                    ex = lx if anchor == "start" else lx + lw
-                    svg.append(
-                        f'<line x1="{mx}" y1="{my}" x2="{ex}" y2="{ly_p + lh / 2}" '
-                        f'stroke="{color}" stroke-width="1.5" stroke-dasharray="3 4" opacity="0.8"/>'
-                    )
-                    svg.append(
-                        f'<rect x="{lx}" y="{ly_p}" width="{lw}" '
-                        f'height="{lh}" rx="4" fill="{BG}" stroke="{color}" '
-                        f'stroke-width="1.5" opacity="0.95"/>'
-                    )
-                    tx = lx + 8 if anchor == "start" else lx + lw - 8
-                    svg.append(
-                        f'<text x="{tx}" y="{ly_p + 17}" text-anchor="{anchor}" '
-                        f'fill="{color}" font-size="{font_size}" font-weight="bold">'
-                        f'{label}</text>'
-                    )
-
-                if _show_lo:
-                    svg.append(
-                        f'<circle cx="{dx}" cy="{_ly}" r="6" fill="{BG}" '
-                        f'stroke="{START_COL}" stroke-width="2" stroke-dasharray="3 3"/>'
-                    )
-                    _side_pill(dx, _ly, _lo_label, START_COL, _lx_lo, _ly_lo_p)
-                if _show_hi:
-                    svg.append(
-                        f'<circle cx="{dx}" cy="{_hy}" r="6" fill="{BG}" '
-                        f'stroke="{STOP_COL}" stroke-width="2" stroke-dasharray="3 3"/>'
-                    )
-                    _side_pill(dx, _hy, _hi_label, STOP_COL, _lx_hi, _ly_hi_p)
-
+        if live_card is not None:
+            box, rows = live_card
+            _leader(dx, dy, 9, box, DOT)
+            svg.append(
+                f'<rect x="{box[0]:.1f}" y="{box[1]:.1f}" width="{box[2] - box[0]:.1f}" '
+                f'height="{box[3] - box[1]:.1f}" rx="6" fill="{BG}" stroke="{DOT}" '
+                f'stroke-width="1.5" opacity="0.95"/>'
+            )
+            ry = box[1] + 5
+            for label, color, main in rows:
+                cy = ry + row_h / 2
+                mx = box[0] + 15
+                if main:
+                    svg.append(f'<circle cx="{mx:.1f}" cy="{cy:.1f}" r="5" fill="{dot_fill}" '
+                               f'stroke="#fff" stroke-width="1.5"/>')
+                else:
+                    svg.append(f'<circle cx="{mx:.1f}" cy="{cy:.1f}" r="5" fill="{BG}" '
+                               f'stroke="{color}" stroke-width="2" stroke-dasharray="3 3"/>')
+                svg.append(
+                    f'<text x="{box[0] + 28:.1f}" y="{cy + 5.2:.1f}" fill="{color}" '
+                    f'font-size="15" font-weight="bold">{label}</text>'
+                )
+                ry += row_h
 
         # ---- stat footer (caption-over-value cells) ----
-        cap_y = plot_bottom + 62
+        cap_y = plot_bottom + 70
         mode_key = "mode_points" if points else "mode_curve" if is_curve_mode else "mode_fixed"
         mode_label = self._t(mode_key)
         mode_col = CURVE if is_curve_mode else FIXED_COL

@@ -82,6 +82,22 @@ literal.
 - Image texts: `entity.image.foxair_heating_curve.state.*` plus `_TL_FALLBACK`
   in image.py.
 
+## Heating-curve image layout
+
+- Draw every mark first and register it with `_Layout` (`block_line` for the
+  curve and band lines, `block` + `anchor` for point/threshold markers and the
+  live dot), then place labels with `lay.place(_around(...), anchor)`. Never
+  hide a label because something is "near": skip rules dropped the +5/+10
+  values. The only intended omission is the point the live dot sits on (the
+  live card names it).
+- Live values go in the one live card (stop / target / start rows, same
+  style, marker per row matching the chart), never in extra floating pills.
+- `tools/render_test.py` asserts every point value is shown and fuzzes 400
+  random curves for text/text and text/marker overlaps. A new label or mark
+  must keep that passing; extend `_marker_boxes` for a new marker shape.
+- Look at it before release: `python3 tools/render_test.py --out DIR` writes
+  every rendered SVG; open a few (live AT at the edges, on a point, RU).
+
 ## Adding a register from a firmware discovery
 
 1. Read it live first: `tools/modbus_probe.py read <addr>` and, for writables,
