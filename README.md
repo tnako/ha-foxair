@@ -2,7 +2,7 @@
 
 Control and monitor your **FoxAir / PHNIX air-to-water heat pump** directly from Home Assistant over Modbus TCP — no cloud, no YAML.
 
-![Version](https://img.shields.io/badge/version-0.7.37-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2026.10-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
+![Version](https://img.shields.io/badge/version-0.7.38-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2026.10-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
 ![FoxAir Demo](docs/screenshots/foxair_demo.gif)
 
@@ -127,13 +127,13 @@ Three entities and one button, so there is one place to look:
   quick try) counts as no change. Settings that act outside steady running
   (defrost, pump, compressor limits, heaters) are judged on this daily score
   against a day model (outdoor temperature, heat output), with a 5-day minimum.
-  The `comparison` attribute covers the last 30 full days: electricity, heating
-  days, outdoor and indoor temperature and COP (from the days with recorded
-  heat), next to the same 30 days a year ago. Because two Octobers rarely have
-  the same weather, the headline number compares each heating day of the last
-  30 with heating days of the past year at the same outdoor temperature
-  (±1.5 K), scaled to that day's indoor temperature: actual vs expected
-  electricity, with the number of matched days. On last season's data this
+  The `comparison` attribute compares only matched days: each heating day of
+  the last 30 full days that has past-year heating days at the same outdoor
+  temperature (±1.5 K). `now` holds those days, `past_year` the matching
+  past-year days: electricity (the past-year figure is the median per day,
+  scaled to that day's indoor temperature), outdoor and indoor temperature and
+  COP, plus `elec_pct`, `cop_pct` and the matched-day count. Days without a
+  match are left out of both sides. On last season's data the electricity
   estimate lands within ±1 % on average for a held-out month.
 
 Suggestions, one step on one parameter, in this order:

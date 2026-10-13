@@ -376,7 +376,7 @@ def _hist_row(day, elec, t_out, t_in=20.0, heat=None):
             "t_out": t_out, "t_in": t_in}
 
 
-def test_last_30_days_against_the_same_days_last_year_and_same_weather_days():
+def test_last_30_days_compares_only_matched_days_with_same_weather_days():
     today = datetime.date(2026, 10, 14)
     rows = []
     for i in range(1, 366):
@@ -389,11 +389,11 @@ def test_last_30_days_against_the_same_days_last_year_and_same_weather_days():
     rows.sort(key=lambda r: r["day"])
     c = eff.comparisons(rows, today)
     assert c["period"] == "2026-09-14..2026-10-13"
-    assert c["last_30_days"]["days"] == 30 and c["same_30_days_last_year"]["days"] == 0
-    assert c["vs_last_year"]["comparable"] is False
-    w = c["vs_same_weather_past_year"]
-    assert w["comparable"] and w["matched_days"] >= 20 and -22 < w["elec_pct"] < -18
-    assert c["last_30_days"]["cop"] == 5.0 and c["last_30_days"]["cop_days"] == 30 and c["same_30_days_last_year"]["cop"] is None
+    assert c["comparable"] and c["matched_days"] >= 20 and -22 < c["elec_pct"] < -18
+    assert c["now"]["elec_kwh"] < c["past_year"]["elec_kwh"]
+    assert abs(c["now"]["t_out"] - c["past_year"]["t_out"]) < 1.5
+    assert c["now"]["cop"] == 5.0 and c["now"]["cop_days"] == c["matched_days"]
+    assert c["past_year"]["cop"] is None and c["cop_pct"] is None
 
 
 def test_same_weather_scales_by_indoor_temperature_and_skips_non_heating_days():
@@ -404,6 +404,7 @@ def test_same_weather_scales_by_indoor_temperature_and_skips_non_heating_days():
     assert eff.expected_elec(_hist_row(datetime.date(2026, 10, 1), 4.5, 15.0), pool) is None
     r = eff.vs_past_year([cooler, _hist_row(datetime.date(2026, 10, 2), 0.3, 10.0)], pool)
     assert r["heating_days"] == 1 and r["matched_days"] == 1 and r["reference_days"] == 5 and not r["comparable"]
+    assert r["now"]["elec_kwh"] == 4.5 and r["past_year"]["t_in"] == 21.0
 
 
 def test_defrost_tracker_records_duration_interval_and_heating_before():
