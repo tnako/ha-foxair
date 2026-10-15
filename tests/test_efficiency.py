@@ -705,6 +705,27 @@ def test_flow_shift_compares_same_outdoor_temperature_only():
     assert "flow_higher" not in eff.hints(None, old + same, 0, 0, None, NOW, flow=eff.flow_shift(old + same, NOW))
 
 
+def test_flow_problem_holds_until_flow_is_clearly_back():
+    seen = []
+    was = False
+    for delta in (2.9, 3.0, 2.9, 3.1, 2.8, 3.0, 2.9, 2.6, 2.4, 2.9):
+        h = eff.hints(None, [], 0, 0, None, NOW, flow={"delta_k": delta, "cop_pct": -5.0, "buckets": 60}, flow_was_higher=was)
+        was = "flow_higher" in h
+        seen.append(was)
+    assert seen == [False, True, True, True, True, True, True, True, False, False]
+
+
+def test_analyser_feeds_the_last_flow_finding_back(monkeypatch):
+    a = eff.EfficiencyAnalyser()
+    a.update_settings(FULL, 0)
+    seen = []
+    for delta in (3.1, 2.8, 2.9, 2.4):
+        monkeypatch.setattr(an, "flow_shift", lambda buckets, now, d=delta: {"delta_k": d, "cop_pct": -5.0, "buckets": 60})
+        a.refresh(1000)
+        seen.append(a.status(1000)["state"])
+    assert seen == ["problem", "problem", "problem", seen[3]] and seen[3] != "problem"
+
+
 def test_status_is_the_single_source_for_the_analyser():
     a = eff.EfficiencyAnalyser()
     a.update_settings(FULL, 0)

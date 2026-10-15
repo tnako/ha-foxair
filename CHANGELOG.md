@@ -1,3 +1,7 @@
+## 0.7.44 - 2026-10-16
+- fix(efficiency): the "flow warmer than on earlier days" problem holds until the flow is clearly back. It was raised at 3.0 K and cleared at 2.9 K, and live the flow sat at 2.8-3.1 K for days, so the status flipped between problem and testing 11 times since 10-11. It now clears below 2.5 K; on the same live history that leaves 2 changes.
+- test: the flow finding latches between refreshes (fails on 0.7.43).
+
 ## 0.7.43 - 2026-10-16
 - fix(sensor): internal outdoor sensor T04 (`sensor.<prefix>_2136`) always shows its reading. It was tied to the outdoor sensor select and stayed unavailable with the internal sensor selected, the normal case (FoxAir_Control data, live 13.7 °C = 2048).
 - feat(sg): SG01 offers the extended SG/PV family of firmware V3.4+: 5 single contact (Neutral / High PV), 6 dual contacts (Low / Neutral / High PV), 7 Modbus 8801 (Low / Neutral / High PV), from FoxAir_Control docs/sg_ready.md. 7 is confirmed in practice upstream, 5 and 6 only from the firmware.

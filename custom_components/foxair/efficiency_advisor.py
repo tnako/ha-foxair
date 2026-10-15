@@ -27,6 +27,7 @@ FAN_CAP_MARGIN = 5.0
 FAN_CAP_SHARE = 0.2
 FAN_CURVE_MIN_TOUT = 3.0
 FLOW_HIGHER_K = 3.0
+FLOW_CLEAR_K = 2.5
 
 LADDER = {
     "E02": {"step": 0.5, "min": 2.0, "max": 6.0, "metric": "steady", "dirs": (-1, 1)},
@@ -78,13 +79,13 @@ def defrost_on_timer(summary: dict) -> bool:
 
 def hints(model: dict | None, buckets: list[list], starts_24h: int, run_s_24h: float,
           sh_target: float | None, now: float, current: dict | None = None,
-          defrosts: list[dict] | None = None, flow: dict | None = None) -> list[str]:
+          defrosts: list[dict] | None = None, flow: dict | None = None, flow_was_higher: bool = False) -> list[str]:
     """Ordered findings for the recent window; the first one is the headline."""
     current = current or {}
     out = []
     if starts_24h >= SHORT_CYCLE_STARTS and run_s_24h / starts_24h < SHORT_CYCLE_AVG_RUN_S:
         out.append("short_cycling")
-    if flow and flow["delta_k"] >= FLOW_HIGHER_K:
+    if flow and flow["delta_k"] >= (FLOW_CLEAR_K if flow_was_higher else FLOW_HIGHER_K):
         out.append("flow_higher")
     if defrosts and defrost_on_timer(defrost_summary(defrosts, now, current.get("D03"))):
         out.append("defrost_on_timer")

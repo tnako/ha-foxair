@@ -283,7 +283,7 @@ class EfficiencyAnalyser:
                 recent = {"index_pct": round(100 * sum(r) / len(r), 1), "buckets": len(r)}
         flow = flow_shift(buckets, now)
         hint_list = hints(model, buckets, len(self.starts), sum(self.run_hours.values()), self.sh_target, now,
-                          current, defrosts, flow)
+                          current, defrosts, flow, "flow_higher" in self.hint_list)
         last = self.last_change()
         advice = advise(buckets=buckets, groups=groups, settings=settings, current=current,
                         baseline_fp=self.baseline_fp, changes=[last] if last else [], model=model,
