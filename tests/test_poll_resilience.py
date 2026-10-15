@@ -389,6 +389,18 @@ def test_isolated_addr_failure_keeps_rest_of_tier():
         mod._ISOLATED.clear()
 
 
+def test_bit_split_press_keeps_foreign_bits_the_unit_set():
+    """Live 1016 = 512 (bit 9 set by the unit): the defrost press writes 513 and must pass; flipping bit 9 must not."""
+    coord = _make_coord({"quick": set(), "medium": set(), "rare": set()})
+    coord._metadata = {"1016": {"format": "bit_split", "mask": 5, "editable": True}}
+    coord.data = {1016: {"raw": 512, "value": 512.0}}
+    assert coord._validate_write(1016, 513.0)[0]
+    assert coord._validate_write(1016, 517.0)[0]
+    ok, _, reason = coord._validate_write(1016, 1.0)
+    assert not ok and "outside mask" in reason
+    assert not coord._validate_write(1016, 514.0)[0]
+
+
 def test_v35_select_value_write_gated_by_firmware():
     """H36 = 2 / SG01 = 4 exist only on V3.5: older firmware rejects the write, 0/1 stay writable."""
     coord = _make_coord({"quick": set(), "medium": set(), "rare": set()})

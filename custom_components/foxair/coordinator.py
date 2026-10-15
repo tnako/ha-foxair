@@ -228,8 +228,9 @@ class FoxAirCoordinator(DataUpdateCoordinator):
             mask = meta.get("mask")
             if mask is None:
                 mask = word_mask(meta.get("bits"))
-            if not math.isfinite(value) or not (0 <= value <= mask):
-                return False, meta, f"{addr} out of range [0,{mask}] got {value}"
+            current = int((self.data or {}).get(addr, {}).get("raw") or 0) & 0xFFFF
+            if not math.isfinite(value) or int(value) != value or (int(value) ^ current) & ~mask & 0xFFFF:
+                return False, meta, f"{addr} changes bits outside mask {mask:#06x}: {current} -> {value}"
             return True, meta, ""
         status = self.marker("status") or {}
         power_addr = status.get("addr_single", {}).get("power")

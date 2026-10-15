@@ -7,7 +7,7 @@ from homeassistant.components.select import SelectEntity
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from .const import POPULAR_ADDRS, device_for_addr, entity_sort_key, get_device_prefix, get_slave_id, bind_device_info, entity_suffix, dependency_met
+from .const import POPULAR_ADDRS, device_for_addr, entity_sort_key, get_device_prefix, get_slave_id, bind_device_info, entity_suffix, dependency_met, write_rejected
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -334,6 +334,6 @@ class FoxSelect(CoordinatorEntity, SelectEntity):
             self._optimistic = None
             self._attr_assumed_state = False
             self.async_write_ha_state()
-            raise ValueError(f"Write rejected {self._addr}")
+            write_rejected(self)
         self._optimistic = None
         self.async_write_ha_state()

@@ -46,6 +46,11 @@ def _load_number():
     fconst.entity_suffix = lambda coord, addr: str(addr)
     fconst.dependency_met = lambda coord, meta, missing=False: True
     fconst.POPULAR_ADDRS = set()
+
+    def write_rejected(entity, detail=""):
+        raise ValueError(detail or "rejected")
+
+    fconst.write_rejected = write_rejected
     sys.modules.update(mods)
     src = (CC / "number.py").read_text().replace("from .", "from foxair_number_pkg.")
     mod = types.ModuleType("foxair_number_pkg.number")

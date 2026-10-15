@@ -61,6 +61,11 @@ def _stub_ha():
     fconst.get_device_prefix = lambda e: "foxair"
     fconst.get_slave_id = lambda e: 1
     fconst.bind_device_info = lambda h, e, info: info
+
+    def write_rejected(entity, detail=""):
+        raise ValueError(detail or "rejected")
+
+    fconst.write_rejected = write_rejected
     mods = {
         "homeassistant": types.ModuleType("homeassistant"),
         "homeassistant.components": types.ModuleType("homeassistant.components"),
@@ -285,6 +290,15 @@ def test_points_shift_refuses_until_all_points_read():
     with pytest.raises(ValueError):
         asyncio.run(ent.async_set_temperature(temperature=34.3))
     assert ent.coordinator.writes == []
+
+
+def test_points_range_stops_where_a_curve_point_hits_its_register_limit():
+    ent = _points_ent()
+    ent.coordinator.get_metadata = lambda addr: META.get(str(addr), {})
+    room = max(float(META[str(a)]["min"]) - PT_VALUES[k] for k, a in PTS.items())
+    assert ent.min_temp == max(LIMITS["heating_min"], round(33.3 + room, 1)) == 23.3
+    asyncio.run(ent.async_set_temperature(temperature=ent.min_temp))
+    assert all(v >= float(META[str(a)]["min"]) for a, v in ent.coordinator.writes[-1].items())
 
 
 OS = MARKERS["outdoor_sensor"]["addr_single"]

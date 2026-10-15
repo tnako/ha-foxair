@@ -8,7 +8,7 @@ from homeassistant.components.water_heater import STATE_HEAT_PUMP, WaterHeaterEn
 from homeassistant.const import STATE_OFF, UnitOfTemperature
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from .const import bind_device_info, get_device_prefix, get_slave_id, main_device
+from .const import bind_device_info, get_device_prefix, get_slave_id, main_device, write_rejected
 from .heating_curve import mode_values
 
 DHW_MODES = ("dhw_only", "heating_dhw", "cooling_dhw")
@@ -94,7 +94,7 @@ class FoxAirWaterHeater(CoordinatorEntity, WaterHeaterEntity):
             return
         temp = float(temp)
         if not self.min_temp <= temp <= self.max_temp:
-            raise ValueError(f"DHW target {temp} outside {self.min_temp}-{self.max_temp}")
+            write_rejected(self, f"target {temp} outside {self.min_temp}-{self.max_temp}")
         addr = self._addr("target")
         if not await self.coordinator.async_write_register(addr, temp):
-            raise ValueError(f"DHW target {temp} rejected (addr {addr})")
+            write_rejected(self, f"target {temp}")

@@ -16,6 +16,7 @@ from .const import (
     get_slave_id,
     word_base,
     word_set,
+    write_rejected,
 )
 
 
@@ -105,4 +106,5 @@ class FoxBitButton(CoordinatorEntity, ButtonEntity):
         return word_base(raw)
 
     async def async_press(self) -> None:
-        await self.coordinator.async_write_register(self._addr, word_set(self._base(), self._bit))
+        if not await self.coordinator.async_write_register(self._addr, word_set(self._base(), self._bit)):
+            write_rejected(self)
