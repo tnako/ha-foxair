@@ -239,6 +239,16 @@ def test_advise_counts_test_days_then_reverts_or_accepts():
     assert (a["action"], a["param"], a["to"]) == ("accept", "E02", 3.0)
 
 
+def test_inconclusive_test_says_so_and_rechecks_daily():
+    new = {"E02": 3.0}
+    nfp = eff.fingerprint(new)
+    b = days_of(BFP, 0, 8, seed=1) + days_of(nfp, 8, 4, seed=2)
+    a = _adv(b, new, {BFP: BASE, nfp: new}, BFP)
+    assert (a["action"], a["reason"], a["days_left"]) == ("keep", "inconclusive", eff.COMPARE_MAX_DAYS - 4)
+    st = eff.summary(a, ["ok"], None, "E02=3", NOW)
+    assert "not clear yet" in st["message"] and "more heating day" not in st["message"]
+    assert st["next_check"] == (NOW // DAY + 1) * DAY
+
 def test_advise_tries_the_other_direction_after_a_worse_step():
     lower = {"E02": 3.0}
     lfp = eff.fingerprint(lower)

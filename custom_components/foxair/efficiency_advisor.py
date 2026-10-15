@@ -117,7 +117,7 @@ def due_at(advice: dict, now: float) -> tuple[float | None, bool]:
     t = advice.get("not_before")
     if t and t > now:
         return t, False
-    days = advice.get("days_left")
+    days = 1 if advice.get("reason") == "inconclusive" else advice.get("days_left")
     if days and a in ("collecting", "keep", "wait_heating"):
         return (int(now // DAY_S) + int(days)) * DAY_S, True
     return None, False
@@ -164,6 +164,11 @@ def summary(advice: dict, hint_list: list[str], flow: dict | None, group: str | 
         state = "testing" if testing else "learning"
         what = f"Testing {group}" if testing else "Settings changed"
         msg = f"{what}: measuring starts after a 24 h settling time."
+    elif a == "keep" and reason == "inconclusive":
+        state = "testing"
+        msg = (f"Testing {group}: COP {_fmt(advice.get('delta_pct'))} % ± {_fmt(advice.get('ci95_pct'))} % against "
+               f"the reference, not clear yet. Checked after every heating day, decided within {days} heating "
+               f"day(s) at the latest.")
     elif a == "keep" and own_test:
         state, msg = "testing", f"Testing {group}: {days} more heating day(s) needed."
     elif a == "keep":
@@ -276,8 +281,10 @@ def advise(*, buckets: list[list], groups: dict, settings: dict, current: dict, 
             return {**out, **res, **info, "action": "revert", "reason": "worse"}
         if days >= max_days:
             return {**out, **res, **info, "action": "revert", "reason": "no_clear_gain"}
-        need = max(min_days - days, 1)
-        return {**out, **res, **info, "action": "keep" if heating else "wait_heating", "days_left": need,
+        if days >= min_days:
+            return {**out, **res, **info, "action": "keep" if heating else "wait_heating",
+                    "days_left": max_days - days, "reason": "inconclusive" if heating else "no_heating"}
+        return {**out, **res, **info, "action": "keep" if heating else "wait_heating", "days_left": min_days - days,
                 "reason": "need_more_days" if heating else "no_heating"}
 
     base_buckets = [b for b in buckets if b[F_FP] == baseline_fp]

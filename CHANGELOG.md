@@ -1,3 +1,8 @@
+## 0.7.41 - 2026-10-15
+- fix(efficiency): an inconclusive test no longer reads "1 more heating day(s) needed" forever. Once a test group has its 3 heating days but the COP difference is inside the noise (|delta| <= ci95), the advice is `keep` with reason `inconclusive` and `days_left` counts down to the 10-day limit. Before, `max(3 - days, 1)` stayed at 1, so on the live unit E02=5.5 showed "1 more day" for days at +3.0 % ± 5.3 %.
+- fix(efficiency): the status for that case says so: "Testing E02=5.5: COP 3 % ± 5.3 % against the reference, not clear yet. Checked after every heating day, decided within N heating day(s) at the latest." `next_check` is the next day, since the verdict can change after any heating day.
+- test: inconclusive test group reports `inconclusive`, the real deadline and a next-day check.
+
 ## 0.7.40 - 2026-10-13
 - fix(curve image): every curve point keeps its value. Labels near the live dot were hidden, so with the outdoor temperature at 13.5 °C the +5, +10 and +20 °C values were missing and the start/stop/target pills overlapped. Labels are now placed around the lines and markers instead of on top of them, each next to its own point; only the point under the live dot drops its label.
 - fix(curve image): the live target, start and stop values sit in one card with a single line to the dot, each row in the same style: "Curve target 27.1C" (or "Fixed setpoint"), "Stop heating", "Start heating", with the same marker as on the chart.
