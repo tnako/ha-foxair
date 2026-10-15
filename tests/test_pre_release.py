@@ -190,11 +190,13 @@ def test_v35_curve_points_and_outdoor_sensor():
         if at != "0":
             assert (m["min_firmware"], m["type"], m["depends_on"]) == (35, "TEMP1", 1236), addr
     assert regs["1236"]["value_min_firmware"] == {"2": 35}
-    assert regs["1334"]["value_min_firmware"] == {"4": 35}
+    assert regs["1334"]["value_min_firmware"] == {"4": 35, "5": 34, "6": 34, "7": 34}
     os_ = cfg["markers"]["outdoor_sensor"]["addr_single"]
     for key in ("selector", "external", "internal"):
         addr = os_[key]
         assert meta[str(addr)]["min_firmware"] == 35 and not meta[str(addr)]["hidden"], addr
+    assert meta[str(os_["internal"])]["depends_on"] is None
+    assert meta[str(os_["external"])]["depends_on"] == os_["selector"]
     assert "7" in regs[str(os_["fault_word"])]["bit_map"]
     # every curve parameter lives on the Heating curve device, only H36 on the main device
     curve_addrs = [os_["selector"], hc["addr_single"]["slope"]] + list(hc["points"].values())

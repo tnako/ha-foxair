@@ -1,3 +1,9 @@
+## 0.7.43 - 2026-10-16
+- fix(sensor): internal outdoor sensor T04 (`sensor.<prefix>_2136`) always shows its reading. It was tied to the outdoor sensor select and stayed unavailable with the internal sensor selected, the normal case (FoxAir_Control data, live 13.7 °C = 2048).
+- feat(sg): SG01 offers the extended SG/PV family of firmware V3.4+: 5 single contact (Neutral / High PV), 6 dual contacts (Low / Neutral / High PV), 7 Modbus 8801 (Low / Neutral / High PV), from FoxAir_Control docs/sg_ready.md. 7 is confirmed in practice upstream, 5 and 6 only from the firmware.
+- fix(sg): with SG01 = 7 the PV surplus switch writes 3 High PV for on and 2 Neutral for off; it wrote 4, which the unit does not accept in that mode. SG status shows Low PV / Neutral / High PV and the virtual SG input select offers only those three. New marker `sg_ready` in foxair_config.json drives all three.
+- test: PV surplus values per SG01 family (fails on 0.7.42), SG01 options per firmware; end-to-end on HA 2026.10.1 (2136 shown, SG01 3 vs 7 writes, status labels and input options).
+
 ## 0.7.42 - 2026-10-15
 - fix(sensor): every polled register gets its sensor, also the slow-poll ones the first refresh skips with expert mode on. 23 sensors had no entity, among them `sensor.foxair_sgstatus` (stuck unavailable, the mode the PV surplus switch relies on), A40 nominal flow, device state and display version. They show unknown until their first read.
 - fix(button): manual defrost and heating boost work while the unit sets other bits in the same word. The unit reported 512 (bit 9), the press wrote 513 and was blocked as out of range without any message. The write check now only refuses changes to bits the integration does not own.

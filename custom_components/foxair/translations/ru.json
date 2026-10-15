@@ -2628,7 +2628,10 @@
           "2": "SG режим 2 / мало PV",
           "3": "SG режим 3 / средн. PV",
           "4": "SG режим 4 / макс. PV",
-          "5": "Норма"
+          "5": "Норма",
+          "low_pv": "Мало PV / ограничение",
+          "neutral": "Норма",
+          "high_pv": "Много PV"
         }
       },
       "foxair_t01": {
@@ -4819,7 +4822,10 @@
           "single_contact": "Один контакт",
           "dual_contacts": "Два контакта",
           "modbus_virtueller_sg_eingang": "Modbus / виртуальный вход SG",
-          "ai_saving": "AI Saving / динамический тариф"
+          "ai_saving": "AI Saving / динамический тариф",
+          "extended_single_contact": "Расширенный: 1 контакт (норма / много PV)",
+          "extended_dual_contacts": "Расширенный: 2 контакта (мало PV / норма / много PV)",
+          "extended_modbus": "Расширенный: Modbus 8801 (мало PV / норма / много PV)"
         }
       },
       "foxair_sg01a": {
@@ -4830,7 +4836,10 @@
           "sg2_low_pv": "SG 2 / мало PV",
           "sg3_medium_pv": "SG 3 / средне PV",
           "sg4_high_pv": "SG 4 / много PV",
-          "normal": "Обычный режим"
+          "normal": "Обычный режим",
+          "low_pv": "Мало PV / ограничение",
+          "neutral": "Норма",
+          "high_pv": "Много PV"
         }
       },
       "foxair_sg08": {

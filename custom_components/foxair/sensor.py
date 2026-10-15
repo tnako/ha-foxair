@@ -3,7 +3,7 @@ from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.event import async_track_state_change_event
 from homeassistant.helpers.restore_state import RestoreEntity
-from .const import POPULAR_ADDRS, SENSOR_HIDDEN_ADDRS, device_for_addr, device_for_block, main_device, entity_sort_key, get_device_prefix, get_slave_id, bind_device_info, entity_suffix, dependency_met
+from .const import POPULAR_ADDRS, SENSOR_HIDDEN_ADDRS, device_for_addr, device_for_block, main_device, entity_sort_key, get_device_prefix, get_slave_id, bind_device_info, entity_suffix, dependency_met, sg_three_level
 from .computed import (compute_heating_power, compute_electrical_power, compute_cop,
                        compute_cop_mode, active_mode, _cval)
 from .efficiency_runtime import marker_addrs
@@ -161,7 +161,7 @@ class FoxSensor(CoordinatorEntity, SensorEntity):
                 vm = None
             if vm:
                 self._attr_device_class = SensorDeviceClass.ENUM
-                self._attr_options = [str(k) for k in vm.keys()]
+                self._attr_options = [str(k) for k in vm.keys()] + list(self._sg_states().values())
                 if hasattr(self, "_attr_state_class"):
                     try:
                         delattr(self, "_attr_state_class")
@@ -208,10 +208,20 @@ class FoxSensor(CoordinatorEntity, SensorEntity):
         meta2 = self.coordinator.get_metadata(self._addr) if hasattr(self.coordinator, "get_metadata") else {}
         if meta2.get("has_value_map"):
             try:
-                return str(int(float(v)))
+                key = str(int(float(v)))
             except Exception:
                 return str(v)
+            sg = self._sg_states()
+            if key in sg and sg_three_level(self.coordinator):
+                return sg[key]
+            return key
         return v
+
+    def _sg_states(self):
+        m = self.coordinator.marker("sg_ready") if hasattr(self.coordinator, "marker") else {}
+        if ((m or {}).get("addr_single") or {}).get("status") != self._addr:
+            return {}
+        return m.get("three_level_states") or {}
     @property
     def extra_state_attributes(self):
         rec = self.coordinator.data.get(self._addr)

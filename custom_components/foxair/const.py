@@ -340,6 +340,14 @@ def word_mask(bits: dict) -> int:
     return mask
 
 
+def sg_three_level(coord) -> bool:
+    m = coord.marker("sg_ready") if hasattr(coord, "marker") else {}
+    sel = ((m or {}).get("addr_single") or {}).get("selector")
+    rec = (coord.data or {}).get(sel) if sel is not None else None
+    raw = (rec or {}).get("raw")
+    return raw is not None and int(raw) in ((m or {}).get("three_level_values") or [])
+
+
 def write_rejected(entity, detail: str = ""):
     """Raise the user-facing error for a write the coordinator blocked or the pump refused."""
     from homeassistant.exceptions import HomeAssistantError

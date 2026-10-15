@@ -730,6 +730,16 @@
       "fault_bit": 7,
       "invalid_above": 150.0
     },
+    "sg_ready": {
+      "_comment": "SG01 (1334) picks the SG family (FoxAir_Control docs/sg_ready.md): classic 3 reads 8801 as modes 1-4; extended 7 (V3.4+) reads 8801 and reports 2133 as 1 Low PV, 2 Neutral, 3 High PV, 8801 = 4 invalid there. 5/6 (extended contacts) leave 8801 unused and their 2133 meaning is not confirmed, so they keep the classic labels.",
+      "addr_single": {
+        "selector": 1334,
+        "input": 8801,
+        "status": 2133
+      },
+      "three_level_values": [7],
+      "three_level_states": {"1": "low_pv", "2": "neutral", "3": "high_pv"}
+    },
     "summer_cutoff": {
       "_comment": "V3.5 heating/summer cut-off (FoxAir_Control #138): heating blocked after effective AT >= threshold for delay minutes, released at <= threshold - hysteresis for delay minutes; delay 0 = off. Active state = status bit.",
       "addr_single": {
@@ -1791,9 +1801,9 @@
   },
   "_alias_switch_comment": "Normal-mode switches backed by a plain register (not a bit word): key -> entity foxair_<key>, uid <prefix>_<key>. Purpose-built to expose an expert-block control (e.g. H22 silent enable) without ungating the whole block. Switch reads addr (on = raw == on_value) and writes on/off values.",
   "alias_switch": {
-    "8801": {"key": "pv_surplus", "on": 4, "off": 2, "icon": "mdi:solar-power-variant", "category": "primary"}
+    "8801": {"key": "pv_surplus", "on": 4, "off": 2, "three_level": {"on": 3, "off": 2}, "icon": "mdi:solar-power-variant", "category": "primary"}
   },
-  "_pv_surplus_comment": "pv_surplus: HEMS-facing switch (EVCC Home Assistant switch, HA automations) on the virtual SG input 8801. on = SG mode 4 High PV, off = SG mode 2 normal. Only acts while SG01 (1334) = 3 Modbus. The unit applies a new SG mode at most every 10 min (FoxAir_Control docs/sg_ready.md), 8801 reads back at once, SG status 2133 shows the accepted mode.",
+  "_pv_surplus_comment": "pv_surplus: HEMS-facing switch (EVCC Home Assistant switch, HA automations) on the virtual SG input 8801. on = SG mode 4 High PV, off = SG mode 2 normal; with SG01 = 7 (markers.sg_ready three-level) on = 3 High PV, off = 2 Neutral. Only acts while SG01 (1334) = 3 or 7. The unit applies a new SG mode at most every 10 min (FoxAir_Control docs/sg_ready.md), 8801 reads back at once, SG status 2133 shows the accepted mode.",
   "_non_expert_comment": "Expert-block addrs exposed in normal mode (merged into CORE_NON_EXPERT_ADDRS at build). H user settings; H30 excluded (installer-only, expert).",
   "core_non_expert_addrs": [1011, 1012, 1013, 1014, 1015, 1016, 1017, 1212, 1213, 1214, 1234, 1235, 1236, 2012, 2014, 2048, 2104, 2133, 8801],
   "block_t_live_addrs": [2125, 2126, 2127, 2128, 2136, 2137, 2138, 2178, 2179, 2180],
