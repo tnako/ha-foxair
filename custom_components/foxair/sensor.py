@@ -36,15 +36,13 @@ async def async_setup_entry(hass, entry, add_entities):
         await coord._load_map()
     ents = []
     # sort by tabs.txt order: each menu and each entity in required order
-    def _sensor_key(item):
-        addr, rec = item
-        info = rec.get("info", {}) if isinstance(rec, dict) else {}
+    def _sensor_key(addr):
         meta = coord.get_metadata(addr) if hasattr(coord, "get_metadata") else {}
-        block = (meta.get("block") or info.get("block") or "")
-        code = (meta.get("code") or info.get("code") or "")
-        return entity_sort_key(addr, code, block)
-    for addr, rec in sorted(coord.data.items(), key=_sensor_key):
-        if rec.get("info", {}).get("type") == "BLOCK":
+        return entity_sort_key(addr, meta.get("code") or "", meta.get("block") or "")
+    expert = bool(entry.options.get("enable_expert"))
+    polled = set(coord.data) | {a for t in ("quick", "medium", "rare") for a in coord._tier_addrs(t, expert)}
+    for addr in sorted(polled, key=_sensor_key):
+        if (coord._regmap or {}).get(str(addr), {}).get("type") == "BLOCK":
             continue
         # honor metadata hidden/blocked
         meta = coord.get_metadata(addr) if hasattr(coord, "get_metadata") else {}
@@ -88,8 +86,7 @@ class FoxSensor(CoordinatorEntity, SensorEntity):
     def __init__(self, coord, addr):
         super().__init__(coord)
         self._addr = addr
-        rec = coord.data.get(addr, {})
-        info = rec.get("info", {}) if rec else {}
+        info = (getattr(coord, "_regmap", None) or {}).get(str(addr)) or (coord.data.get(addr) or {}).get("info") or {}
         prefix = get_device_prefix(coord.entry)
         suffix = entity_suffix(coord, addr)
         self._attr_unique_id = f"{prefix}_{suffix}"

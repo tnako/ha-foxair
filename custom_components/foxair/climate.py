@@ -12,7 +12,7 @@ import time
 from homeassistant.components.climate import ClimateEntity, HVACMode, ClimateEntityFeature, HVACAction
 from homeassistant.const import UnitOfTemperature
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
-from .const import main_device, get_device_prefix, get_slave_id, bind_device_info
+from .const import main_device, get_device_prefix, get_slave_id, bind_device_info, write_rejected
 from .computed import active_mode, heat_output_active
 from .heating_curve import active_control, curve_mode, curve_target_for_at, mode_values, outdoor_source, summer_cutoff
 
@@ -115,7 +115,25 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
         v = self._value(ctl.get(bound))
         if v is None and ctl.get("target"):
             v = self.coordinator.get_metadata(ctl["target"]).get(bound)
+        if ctl.get("curve"):
+            reach = self._curve_reach(bound)
+            if reach is not None:
+                v = reach if v is None else (max if bound == "min" else min)(float(v), reach)
         return float(v) if v is not None else None
+
+    def _curve_reach(self, bound):
+        base = self._display_curve_target()
+        if base is None:
+            return None
+        room = []
+        for addr in self._curve_shift_addrs():
+            value, edge = self._value(addr), self.coordinator.get_metadata(addr).get(bound)
+            if value is None or edge is None:
+                return None
+            room.append(float(edge) - float(value))
+        if not room:
+            return None
+        return round(base + (max(room) if bound == "min" else min(room)), 1)
 
     @property
     def target_temperature(self):
@@ -193,7 +211,7 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
             return
         addr = ctl.get("target")
         if not await self.coordinator.async_write_register(addr, float(temp)):
-            raise ValueError(f"Set temp {temp} rejected (addr {addr})")
+            write_rejected(self, f"target {temp}")
 
     async def _shift_curve(self, temp):
         """Move the whole heating curve so the current curve target becomes temp.
@@ -205,7 +223,7 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
         addrs = self._curve_shift_addrs()
         base, values = pending if pending else (live, {a: self._value(a) for a in addrs})
         if base is None or not values or any(v is None for v in values.values()):
-            raise ValueError("Heating curve target or offset not read yet, try again after the next poll")
+            write_rejected(self, "heating curve not read yet, try again in a minute")
         new_values = {a: round(float(v) + temp - base, 1) for a, v in values.items()}
         prev = self._opt_curve
         self._opt_curve = (round(temp, 1), new_values, time.monotonic() + self.CURVE_HOLD_S)
@@ -218,7 +236,7 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
         if not ok:
             self._opt_curve = prev
             self.async_write_ha_state()
-            raise ValueError(f"Heating curve shift {new_values} rejected")
+            write_rejected(self, f"heating curve target {temp}")
 
     def _curve_shift_addrs(self):
         if self._control().get("curve_mode") == "points":
@@ -231,7 +249,7 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
         self.async_write_ha_state()
         try:
             if not await self.coordinator.async_write_many(mapping):
-                raise ValueError(error)
+                write_rejected(self, error)
         finally:
             setattr(self, attr, None)
             self._attr_assumed_state = False

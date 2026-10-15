@@ -1,3 +1,11 @@
+## 0.7.42 - 2026-10-15
+- fix(sensor): every polled register gets its sensor, also the slow-poll ones the first refresh skips with expert mode on. 23 sensors had no entity, among them `sensor.foxair_sgstatus` (stuck unavailable, the mode the PV surplus switch relies on), A40 nominal flow, device state and display version. They show unknown until their first read.
+- fix(button): manual defrost and heating boost work while the unit sets other bits in the same word. The unit reported 512 (bit 9), the press wrote 513 and was blocked as out of range without any message. The write check now only refuses changes to bits the integration does not own.
+- fix(climate): in curve mode the thermostat offers only targets the curve can reach. Lowering the target pushed the +20 °C point of the 7-point curve below its 15 °C limit and failed with "Unknown error"; min/max now stop where the first curve point hits its register limit (live: 19.8 instead of 15).
+- fix: a write the heat pump or the range check refuses shows "<entity>: the heat pump did not accept the change (...)" in the UI for climate, hot water, number, select, time, switch and button. Switches and buttons used to snap back silently, the others showed "Unknown error".
+- fix(cleanup): binary sensors of bitfield bits that are no longer exposed (2019 bits 13-15, now marked reserved) are removed on startup instead of lingering as unavailable.
+- test: write check keeps foreign bits, curve-limited climate range; end-to-end on HA 2026.10.1 with a fake pump seeded from a live unit (rare sensors created, defrost press lands as 513, curve floor, refused writes raise).
+
 ## 0.7.41 - 2026-10-15
 - fix(efficiency): an inconclusive test no longer reads "1 more heating day(s) needed" forever. Once a test group has its 3 heating days but the COP difference is inside the noise (|delta| <= ci95), the advice is `keep` with reason `inconclusive` and `days_left` counts down to the 10-day limit. Before, `max(3 - days, 1)` stayed at 1, so on the live unit E02=5.5 showed "1 more day" for days at +3.0 % ± 5.3 %.
 - fix(efficiency): the status for that case says so: "Testing E02=5.5: COP 3 % ± 5.3 % against the reference, not clear yet. Checked after every heating day, decided within N heating day(s) at the latest." `next_check` is the next day, since the verdict can change after any heating day.

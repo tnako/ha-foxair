@@ -3,7 +3,7 @@ import logging
 from homeassistant.components.number import NumberEntity, NumberMode, NumberDeviceClass
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.helpers.entity import EntityCategory
-from .const import POPULAR_ADDRS, device_for_addr, entity_sort_key, get_device_prefix, get_slave_id, bind_device_info, entity_suffix, dependency_met
+from .const import POPULAR_ADDRS, device_for_addr, entity_sort_key, get_device_prefix, get_slave_id, bind_device_info, entity_suffix, dependency_met, write_rejected
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -183,7 +183,7 @@ class FoxNumber(CoordinatorEntity, NumberEntity):
             self._optimistic = None
             self._attr_assumed_state = False
             self.async_write_ha_state()
-            raise ValueError(f"Write rejected for {self._addr}")
+            write_rejected(self)
         # keep optimistic value until the read-back/poll confirms; clear on next
         # coordinator update so we always converge to the real device value
         self._optimistic = None

@@ -15,6 +15,7 @@ from .const import (
     word_clear,
     word_is_set,
     word_set,
+    write_rejected,
     entity_suffix,
     dependency_met,
 )
@@ -128,15 +129,17 @@ class FoxSwitch(CoordinatorEntity, SwitchEntity):
 
     async def async_turn_on(self, **kwargs):
         base = word_base((self.coordinator.data.get(self._addr) or {}).get("value"))
-        if await self.coordinator.async_write_register(self._addr, 1):
-            self._optimistic, self._optimistic_base = True, base
-            self.async_write_ha_state()
+        if not await self.coordinator.async_write_register(self._addr, 1):
+            write_rejected(self)
+        self._optimistic, self._optimistic_base = True, base
+        self.async_write_ha_state()
 
     async def async_turn_off(self, **kwargs):
         base = word_base((self.coordinator.data.get(self._addr) or {}).get("value"))
-        if await self.coordinator.async_write_register(self._addr, 0):
-            self._optimistic, self._optimistic_base = False, base
-            self.async_write_ha_state()
+        if not await self.coordinator.async_write_register(self._addr, 0):
+            write_rejected(self)
+        self._optimistic, self._optimistic_base = False, base
+        self.async_write_ha_state()
 
     @property
     def extra_state_attributes(self):
@@ -200,15 +203,17 @@ class FoxBitSwitch(CoordinatorEntity, SwitchEntity):
 
     async def async_turn_on(self, **kwargs):
         base = self._base()
-        if await self.coordinator.async_write_register(self._addr, word_set(base, self._bit)):
-            self._optimistic, self._optimistic_base = True, base
-            self.async_write_ha_state()
+        if not await self.coordinator.async_write_register(self._addr, word_set(base, self._bit)):
+            write_rejected(self)
+        self._optimistic, self._optimistic_base = True, base
+        self.async_write_ha_state()
 
     async def async_turn_off(self, **kwargs):
         base = self._base()
-        if await self.coordinator.async_write_register(self._addr, word_clear(base, self._bit)):
-            self._optimistic, self._optimistic_base = False, base
-            self.async_write_ha_state()
+        if not await self.coordinator.async_write_register(self._addr, word_clear(base, self._bit)):
+            write_rejected(self)
+        self._optimistic, self._optimistic_base = False, base
+        self.async_write_ha_state()
 
 
 class FoxAliasSwitch(CoordinatorEntity, SwitchEntity):
@@ -263,11 +268,13 @@ class FoxAliasSwitch(CoordinatorEntity, SwitchEntity):
         return None if raw is None else raw == self._on
 
     async def async_turn_on(self, **kwargs):
-        if await self.coordinator.async_write_register(self._addr, self._on):
-            self._optimistic = True
-            self.async_write_ha_state()
+        if not await self.coordinator.async_write_register(self._addr, self._on):
+            write_rejected(self)
+        self._optimistic = True
+        self.async_write_ha_state()
 
     async def async_turn_off(self, **kwargs):
-        if await self.coordinator.async_write_register(self._addr, self._off):
-            self._optimistic = False
-            self.async_write_ha_state()
+        if not await self.coordinator.async_write_register(self._addr, self._off):
+            write_rejected(self)
+        self._optimistic = False
+        self.async_write_ha_state()

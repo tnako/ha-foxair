@@ -49,6 +49,11 @@ def _load():
     fconst.get_device_prefix = lambda e: "foxair"
     fconst.get_slave_id = lambda e: 1
     fconst.bind_device_info = lambda h, e, info: info
+
+    def write_rejected(entity, detail=""):
+        raise ValueError(detail or "rejected")
+
+    fconst.write_rejected = write_rejected
     pkg = types.ModuleType("foxair_wh_pkg")
     pkg.__path__ = []
     for name, m in {

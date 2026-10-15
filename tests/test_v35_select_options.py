@@ -39,6 +39,11 @@ def _load_select():
                  "dependency_met"):
         setattr(fconst, name, lambda *a, **k: None)
     fconst.POPULAR_ADDRS = set()
+
+    def write_rejected(entity, detail=""):
+        raise ValueError(detail or "rejected")
+
+    fconst.write_rejected = write_rejected
     sys.modules.update(mods)
     src = (CC / "select.py").read_text().replace("from .", "from foxair_select_pkg.")
     mod = types.ModuleType("foxair_select_pkg.select")

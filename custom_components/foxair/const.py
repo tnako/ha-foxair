@@ -340,6 +340,13 @@ def word_mask(bits: dict) -> int:
     return mask
 
 
+def write_rejected(entity, detail: str = ""):
+    """Raise the user-facing error for a write the coordinator blocked or the pump refused."""
+    from homeassistant.exceptions import HomeAssistantError
+    name = getattr(entity, "name", None) or getattr(entity, "entity_id", "")
+    raise HomeAssistantError(f"{name}: the heat pump did not accept the change{f' ({detail})' if detail else ''}")
+
+
 # Generic BITFIELD expansion (binary_sensor platform): any R/O register with
 # a bit_map in foxair_phnix_registers.json is split into per-bit entities
 # instead of a meaningless raw decimal. Word is None until first poll.

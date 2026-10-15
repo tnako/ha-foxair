@@ -5,7 +5,7 @@ from homeassistant.helpers.device_registry import async_entries_for_config_entry
 from homeassistant.helpers.entity_registry import async_get as er_async_get
 from homeassistant.helpers.entity_registry import async_entries_for_config_entry as er_entries_for_entry
 from homeassistant.util import slugify
-from .const import DOMAIN, EXPERT_BLOCKS, POPULAR_ADDRS, slug_code
+from .const import DOMAIN, EXPERT_BLOCKS, POPULAR_ADDRS, bitfield_expanded_bits, slug_code
 import logging
 import re
 
@@ -113,6 +113,11 @@ async def _cleanup_orphaned_entities(hass: HomeAssistant, entry: ConfigEntry, en
             _rm = (getattr(coord, "_regmap", None) or {}).get(str(addr), {})
             if (meta.get("type") or "").upper() == "BITFIELD" and _rm.get("bit_map"):
                 if uid.endswith(f"_{addr}") and "_bin_" not in (uid or ""):
+                    registry.async_remove(ent.entity_id)
+                    removed += 1
+                    continue
+                bit = re.search(r"_bit(\d+)$", uid)
+                if bit and int(bit.group(1)) not in {b for b, _ in bitfield_expanded_bits(_rm["bit_map"])}:
                     registry.async_remove(ent.entity_id)
                     removed += 1
                     continue
