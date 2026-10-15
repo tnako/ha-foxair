@@ -44,6 +44,7 @@ def _load_select():
         raise ValueError(detail or "rejected")
 
     fconst.write_rejected = write_rejected
+    fconst.sg_three_level = lambda coord: False
     sys.modules.update(mods)
     src = (CC / "select.py").read_text().replace("from .", "from foxair_select_pkg.")
     mod = types.ModuleType("foxair_select_pkg.select")
@@ -82,6 +83,14 @@ def test_sg01_ai_saving_needs_v35(fw, has_ai):
     assert ("ai_saving" in opts) is has_ai
     assert (r2s.get("4") == "ai_saving") is has_ai
     assert "modbus_virtueller_sg_eingang" in opts
+
+
+@pytest.mark.parametrize("fw,has_extended", [(33, False), (34, True), (35, True)])
+def test_sg01_extended_family_needs_v34(fw, has_extended):
+    opts, r2s, _ = _options(1334, fw)
+    extended = {"5": "extended_single_contact", "6": "extended_dual_contacts", "7": "extended_modbus"}
+    assert all((r2s.get(raw) == slug) is has_extended for raw, slug in extended.items())
+    assert all((slug in opts) is has_extended for slug in extended.values())
 
 
 @pytest.mark.parametrize("addr", sorted(int(a) for a, r in REGS.items() if a.isdigit() and r.get("value_min_firmware")))

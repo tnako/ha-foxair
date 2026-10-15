@@ -16,6 +16,7 @@ from .const import (
     word_is_set,
     word_set,
     write_rejected,
+    sg_three_level,
     entity_suffix,
     dependency_met,
 )
@@ -229,8 +230,7 @@ class FoxAliasSwitch(CoordinatorEntity, SwitchEntity):
     def __init__(self, coord, addr, meta, alias):
         super().__init__(coord)
         self._addr = addr
-        self._on = alias["on"]
-        self._off = alias["off"]
+        self._alias = alias
         self._optimistic = None
         prefix = get_device_prefix(coord.entry)
         self._attr_unique_id = f"{prefix}_{alias['key']}"
@@ -245,6 +245,18 @@ class FoxAliasSwitch(CoordinatorEntity, SwitchEntity):
         primary = alias.get("category") == "primary"
         self._attr_entity_category = None if primary else EntityCategory.CONFIG
         self._attr_entity_registry_enabled_default = primary or addr in POPULAR_ADDRS
+
+    def _values(self):
+        three = self._alias.get("three_level")
+        return three if three and sg_three_level(self.coordinator) else self._alias
+
+    @property
+    def _on(self):
+        return self._values()["on"]
+
+    @property
+    def _off(self):
+        return self._values()["off"]
 
     def _raw(self):
         rec = self.coordinator.data.get(self._addr) or {}

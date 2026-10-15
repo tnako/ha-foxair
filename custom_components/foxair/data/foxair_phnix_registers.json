@@ -3824,7 +3824,10 @@
       "0": "Off",
       "1": "Single Contact",
       "2": "Dual Contacts",
-      "4": "AI Saving"
+      "4": "AI Saving",
+      "5": "Extended single contact",
+      "6": "Extended dual contacts",
+      "7": "Extended Modbus"
     },
     "function": "03/16",
     "mode": "r/w",
@@ -3835,11 +3838,17 @@
       "1": "Einfach / 1 Kontakt",
       "2": "2 Kontakte",
       "3": "Modbus / virtueller SG-Eingang",
-      "4": "Remote-Energy-Control / AI Saving"
+      "4": "Remote-Energy-Control / AI Saving",
+      "5": "SG/PV erweitert: 1 Kontakt (Neutral / High)",
+      "6": "SG/PV erweitert: 2 Kontakte (Low / Neutral / High)",
+      "7": "SG/PV erweitert: Modbus 8801 (Low / Neutral / High)"
     },
-    "description": "Aktivierung/Auswahl SG Ready: Aus / 1 Kontakt / 2 Kontakte / virtueller SG-Eingang über direktes User-/Mainboard-Modbus-Register 8801",
+    "description": "Aktivierung/Auswahl SG Ready: 0 Aus; klassisch 1 ein Kontakt, 2 zwei Kontakte, 3 virtueller 4-Zustands-Eingang über 8801; 4 AI Saving / Remote Energy Control; ab V3.4 erweitert 5 ein Kontakt (Neutral/High), 6 zwei Kontakte (Low/Neutral/High), 7 virtueller Low/Neutral/High-Eingang über 8801 (FoxAir_Control docs/sg_ready.md). 7 praktisch bestätigt, 5/6 nur statisch aus der Firmware.",
     "value_min_firmware": {
-      "4": 35
+      "4": 35,
+      "5": 34,
+      "6": 34,
+      "7": 34
     }
   },
   "1335": {
@@ -5787,7 +5796,7 @@
       "4": "SG Mode 4 / High PV",
       "5": "Normalbetrieb"
     },
-    "description": "Zeigt den aktiven SG-Ready-/Betriebsstatus. Reagiert zeitverzögert nach Kontaktänderung; der Klemmstatus ist sofort in Register 2034 sichtbar."
+    "description": "Aktiver SG-Ready-Modus. Klassisch (SG01 1-3) die Modi 1-5; bei SG01 = 7 meldet 1/2/3 Low PV / Neutral / High PV (FoxAir_Control docs/sg_ready.md). Reagiert zeitverzögert."
   },
   "8801": {
     "block": "SG",
@@ -5804,7 +5813,7 @@
       "4": "SG Mode 4 / High PV",
       "5": "Normal Operation"
     },
-    "description": "Direct Modbus register for SG Ready active mode (alternate path to 1334). Documentation-only on some firmware."
+    "description": "Virtueller SG-Ready-Eingang. Bei SG01 = 3 Werte 1-4 (klassische Modi), bei SG01 = 7 1 Low PV, 2 Neutral, 3 High PV; 4 dort ungültig (FoxAir_Control docs/sg_ready.md)."
   },
   "2134": {
     "function": "03",
@@ -5830,8 +5839,7 @@
     "type": "TEMP1",
     "unit": "°C",
     "name": "Interner Außentemperaturfühler (T04)",
-    "note": "Firmware V3.3: zweiter Veröffentlichungsweg der T04-Außentemperatur; TEMP1-Skalierung 0,1 °C. Ab V3.5 mit 1463 = 1 der interne T04, während 2048 den wirksamen (externen) AT zeigt.",
-    "depends_on": 1463
+    "note": "Firmware V3.3: zweiter Veröffentlichungsweg der T04-Außentemperatur; TEMP1-Skalierung 0,1 °C. Ab V3.5 mit 1463 = 1 der interne T04, während 2048 den wirksamen (externen) AT zeigt."
   },
   "2137": {
     "function": "03",

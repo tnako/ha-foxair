@@ -99,6 +99,7 @@ def _load_pkg():
 MODS = _load_pkg()
 const = MODS["const"]
 META = json.loads((CC / "data/foxair_metadata.json").read_text(encoding="utf-8-sig"))
+CFG = json.loads((CC / "data/foxair_config.json").read_text(encoding="utf-8-sig"))
 SPLIT = {int(a): m for a, m in META.items() if a.isdigit() and m.get("format") == "bit_split"}
 ALIAS = {int(a): (m, m["alias_switch"]) for a, m in META.items() if a.isdigit() and m.get("alias_switch")}
 assert SPLIT, "no bit_split entries in metadata"
@@ -124,6 +125,9 @@ class FakeCoord:
     async def async_write_register(self, addr, value):
         self.writes.append((addr, value))
         return True
+
+    def marker(self, name):
+        return CFG["markers"].get(name, {})
 
     def _fw_gte(self, v):
         return True
@@ -202,6 +206,23 @@ def test_pv_surplus_switch_drives_virtual_sg_input():
     assert sw._attr_entity_category is None
     assert sw._attr_entity_registry_enabled_default is True
     assert sw.is_on is True
+
+
+def test_pv_surplus_uses_three_level_values_under_extended_sg01():
+    meta, alias = ALIAS[8801]
+    sg = CFG["markers"]["sg_ready"]
+    sel = sg["addr_single"]["selector"]
+    cls = MODS["switch"].FoxAliasSwitch
+    for sg01, on, off in ((3, 4, 2), (7, 3, 2)):
+        c = FakeCoord({sel: {"raw": sg01}, 8801: {"raw": off}})
+        sw = cls(c, 8801, meta, alias)
+        assert sw.is_on is False
+        _run(sw.async_turn_on())
+        _run(sw.async_turn_off())
+        assert c.writes == [(8801, on), (8801, off)], sg01
+        c.data[8801] = {"raw": on}
+        assert cls(c, 8801, meta, alias).is_on is True
+    assert sg["three_level_values"] == [7]
 
 
 def test_status_bits_become_readonly_binaries():

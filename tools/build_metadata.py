@@ -289,6 +289,8 @@ def main():
             if not spec.get("key") or not isinstance(spec.get("on"), int) or not isinstance(spec.get("off"), int):
                 sys.exit(f"FAIL: alias_switch[{addr}]: need key + int on/off")
             out[addr_str]["alias_switch"] = {"key": spec["key"], "on": spec["on"], "off": spec["off"], "icon": spec.get("icon"), "category": spec.get("category", "config")}
+            if spec.get("three_level"):
+                out[addr_str]["alias_switch"]["three_level"] = {"on": spec["three_level"]["on"], "off": spec["three_level"]["off"]}
     # Warn about config-referenced addrs with no register definition —
     # these become orphan translation keys (8801 bug: in config +
     # translations + select.py but missing from foxair_phnix_registers.json).

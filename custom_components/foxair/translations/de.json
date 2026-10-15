@@ -2628,7 +2628,10 @@
           "2": "SG Mode 2 / wenig PV",
           "3": "SG Mode 3 / mittel PV",
           "4": "SG Mode 4 / High PV",
-          "5": "Normalbetrieb"
+          "5": "Normalbetrieb",
+          "low_pv": "Wenig PV / Leistungsbegrenzung",
+          "neutral": "Neutralbetrieb",
+          "high_pv": "High PV"
         }
       },
       "foxair_t01": {
@@ -4819,7 +4822,10 @@
           "single_contact": "Einfach / 1 Kontakt",
           "dual_contacts": "2 Kontakte",
           "modbus_virtueller_sg_eingang": "Modbus / virtueller SG-Eingang",
-          "ai_saving": "AI Saving / dynamischer Tarif"
+          "ai_saving": "AI Saving / dynamischer Tarif",
+          "extended_single_contact": "Erweitert: 1 Kontakt (Neutral / High PV)",
+          "extended_dual_contacts": "Erweitert: 2 Kontakte (wenig PV / Neutral / High PV)",
+          "extended_modbus": "Erweitert: Modbus 8801 (wenig PV / Neutral / High PV)"
         }
       },
       "foxair_sg01a": {
@@ -4830,7 +4836,10 @@
           "sg2_low_pv": "SG Mode 2 / wenig PV",
           "sg3_medium_pv": "SG Mode 3 / mittel PV",
           "sg4_high_pv": "SG Mode 4 / High PV",
-          "normal": "Normalbetrieb"
+          "normal": "Normalbetrieb",
+          "low_pv": "Wenig PV / Leistungsbegrenzung",
+          "neutral": "Neutralbetrieb",
+          "high_pv": "High PV"
         }
       },
       "foxair_sg08": {

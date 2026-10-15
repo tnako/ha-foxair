@@ -7,7 +7,7 @@ from homeassistant.components.select import SelectEntity
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from .const import POPULAR_ADDRS, device_for_addr, entity_sort_key, get_device_prefix, get_slave_id, bind_device_info, entity_suffix, dependency_met, write_rejected
+from .const import POPULAR_ADDRS, device_for_addr, entity_sort_key, get_device_prefix, get_slave_id, bind_device_info, entity_suffix, dependency_met, write_rejected, sg_three_level
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -266,6 +266,17 @@ class FoxSelect(CoordinatorEntity, SelectEntity):
             return False
         return super().available
 
+    def _sg_levels(self):
+        m = self.coordinator.marker("sg_ready") if hasattr(self.coordinator, "marker") else {}
+        if ((m or {}).get("addr_single") or {}).get("input") != self._addr or not sg_three_level(self.coordinator):
+            return {}
+        return m.get("three_level_states") or {}
+
+    @property
+    def options(self):
+        levels = self._sg_levels()
+        return list(levels.values()) if levels else self._attr_options
+
     @property
     def current_option(self):
         if self._optimistic is not None:
@@ -274,6 +285,9 @@ class FoxSelect(CoordinatorEntity, SelectEntity):
         if not rec:
             return None
         raw = str(rec.get("raw"))
+        levels = self._sg_levels()
+        if levels:
+            return levels.get(raw)
         # TIMER_BITPAIR: register is 16-bit, decode low byte (timer 1)
         if self._is_timer_bitpair:
             try:
@@ -305,7 +319,8 @@ class FoxSelect(CoordinatorEntity, SelectEntity):
         self._attr_assumed_state = True
         self.async_write_ha_state()
         # option is a slug like "single_contact" or numeric "1"
-        raw_str = self._slug_to_raw.get(option)
+        levels = {s: r for r, s in self._sg_levels().items()}
+        raw_str = levels.get(option) or self._slug_to_raw.get(option)
         if raw_str is None:
             # fallback: option may be legacy "0: Aus" or direct raw
             raw_str = option.split(":", 1)[0].strip()

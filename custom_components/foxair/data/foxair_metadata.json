@@ -13577,7 +13577,11 @@
       "on": 4,
       "off": 2,
       "icon": "mdi:solar-power-variant",
-      "category": "primary"
+      "category": "primary",
+      "three_level": {
+        "on": 3,
+        "off": 2
+      }
     }
   },
   "2134": {
@@ -13646,7 +13650,7 @@
     "default": null,
     "icon": "mdi:pulse",
     "has_value_map": false,
-    "depends_on": 1463,
+    "depends_on": null,
     "name": "Interner Außentemperaturfühler (T04)",
     "poll_tier": "quick",
     "min_firmware": 35,
