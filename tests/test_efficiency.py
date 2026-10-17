@@ -601,6 +601,22 @@ def test_due_change_keeps_its_first_since(monkeypatch):
     assert b.advice["since"] == 9500
 
 
+def test_running_test_is_a_group_from_the_moment_of_the_change():
+    a = eff.EfficiencyAnalyser()
+    a.update_settings(BASE, 0)
+    a.buckets = days_of(BFP, 0, 6)
+    t = 6 * DAY + 600
+    a.update_settings({"E02": 3.0}, t)
+    nfp = a.current_fp()
+    a.refresh(t + 60)
+    assert a.groups[nfp] == {"buckets": 0, "days": 0, "delta_pct": None, "ci95_pct": None, "verdict": "settling"}
+    a.refresh(t + eff.MIN_HOLD_S + 60)
+    assert a.groups[nfp]["verdict"] == "collecting" and a.groups[nfp]["days"] == 0
+    a.update_settings(BASE, t + 2 * DAY)
+    a.refresh(t + 2 * DAY + 60)
+    assert nfp not in a.groups and a.groups[BFP]["verdict"] == "baseline"
+
+
 NOW = 100 * DAY + 3600
 
 

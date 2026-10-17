@@ -4,7 +4,7 @@ from __future__ import annotations
 import time
 from datetime import datetime, timezone
 
-from .efficiency_advisor import LADDER, STATES, advise, defrost_summary, hints, summary
+from .efficiency_advisor import LADDER, MIN_HOLD_S, STATES, advise, defrost_summary, hints, summary
 from .efficiency_history import (comparisons, compare_daily, daily_ratio, day_cop, day_problems, full_days,
                                  last_measured, predict_daily, settled, tag_settings)
 from .efficiency_model import DAY_S, F_FP, F_T, compare, fingerprint, flow_shift, predict, ratios
@@ -293,6 +293,11 @@ class EfficiencyAnalyser:
         if (advice.get("action") == "change" and prev.get("since")
                 and all(prev.get(k) == advice.get(k) for k in ("action", "param", "from", "to"))):
             advice["since"] = prev["since"]
+        fp = fingerprint(current) if current else None
+        if model and fp and fp not in groups:
+            settling = last is not None and last.get("to") == fp and now - last["t"] < MIN_HOLD_S
+            groups[fp] = {"buckets": 0, "days": 0, "delta_pct": None, "ci95_pct": None,
+                          "verdict": "settling" if settling else "collecting"}
         self.model, self.groups, self.recent, self.hint_list, self.advice = model, groups, recent, hint_list, advice
         self.day_model, self.day_groups, self.flow = day_model, day_groups, flow
         self.comparison = comparisons(days, today)

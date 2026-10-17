@@ -1,3 +1,7 @@
+## 0.7.45 - 2026-10-17
+- fix(efficiency): the settings test that is running shows up in the efficiency index `groups` right after Apply, with verdict `settling` for the first 24 h and `collecting` until its first steady buckets. Before, it appeared only once it had measured data, so a dashboard table of `groups` listed old tests (one marked worse) but not the one in progress (live: E02=6.0 missing after Apply on 10-17).
+- test: the running test is a group from the moment of the change and leaves the list when reverted (fails on 0.7.44).
+
 ## 0.7.44 - 2026-10-16
 - fix(efficiency): the "flow warmer than on earlier days" problem holds until the flow is clearly back. It was raised at 3.0 K and cleared at 2.9 K, and live the flow sat at 2.8-3.1 K for days, so the status flipped between problem and testing 11 times since 10-11. It now clears below 2.5 K; on the same live history that leaves 2 changes.
 - test: the flow finding latches between refreshes (fails on 0.7.43).
