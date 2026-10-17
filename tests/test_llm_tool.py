@@ -104,7 +104,7 @@ class FakeAnalyser:
     def describe(self, fp):
         return "baseline" if fp == "fp1" else f"G{fp}"
 
-    def status(self, now):
+    def status(self, now, tz=None):
         return eff.summary(self.advice, self.hint_list, self.flow, "baseline", 0.0)
 
     def last_day(self):
@@ -119,7 +119,8 @@ def _hass(entries, states=None):
 
 
 def _entry(prefix="foxair", slave=1, efficiency=True):
-    coord = types.SimpleNamespace(efficiency=types.SimpleNamespace(analyser=FakeAnalyser()) if efficiency else None)
+    coord = types.SimpleNamespace(efficiency=types.SimpleNamespace(analyser=FakeAnalyser(), tz=lambda: None)
+                                  if efficiency else None)
     return types.SimpleNamespace(data={"name_prefix": prefix, "slave": slave}, runtime_data=coord,
                                  title=f"{prefix.title()} Heat Pump", entry_id=f"id_{prefix}")
 
@@ -167,7 +168,8 @@ def test_policy_is_derived_from_the_ladder_not_hardcoded():
         assert (s["step"], s["min"], s["max"], s["metric"]) == (lad["step"], lad["min"], lad["max"], lad["metric"])
         assert len(s["directions"]) == len(lad["dirs"])
     assert pol["watch_only"] == sorted(p for p in ("E02", "F05", "F26", "P11") if p not in eff.LADDER)
-    assert pol["writes_to_device"] == "only_when_apply_is_pressed"
+    assert pol["writes_to_device"] == "only_when_apply_is_pressed_or_autotest_is_on"
+    assert pol["autotest_writes"] == ["E02"]
     assert eff.suggestion_policy([])["watch_only"] == []
 
 

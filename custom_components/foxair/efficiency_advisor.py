@@ -4,7 +4,7 @@ from __future__ import annotations
 import statistics
 
 from .efficiency_history import DAILY_MIN_DAYS, qualifying_daily
-from .efficiency_model import (COMPARE_MIN_DAYS, DAY_S, F_FAN, F_FP, F_SH, F_T, F_TOUT, QUALIFY_DAY_BUCKETS, corr,
+from .efficiency_model import (COMPARE_MIN_DAYS, DAY_S, F_FAN, F_FP, F_SH, F_T, QUALIFY_DAY_BUCKETS, corr,
                                fingerprint, qualifying_days, ratios)
 
 HINT_WINDOW_S = 7 * DAY_S
@@ -25,14 +25,11 @@ DEFROST_SHORT_S = 240
 DEFROST_TIMER_SHARE = 0.5
 FAN_CAP_MARGIN = 5.0
 FAN_CAP_SHARE = 0.2
-FAN_CURVE_MIN_TOUT = 3.0
 FLOW_HIGHER_K = 3.0
 FLOW_CLEAR_K = 2.5
 
 LADDER = {
-    "E02": {"step": 0.5, "min": 2.0, "max": 6.0, "metric": "steady", "dirs": (-1, 1)},
-    "F05": {"step": 2.0, "min": -10.0, "max": 2.0, "metric": "steady", "dirs": (-1, 1)},
-    "D03": {"step": 15.0, "min": 30.0, "max": 90.0, "metric": "daily", "dirs": (1,)},
+    "E02": {"step": 0.5, "min": 3.0, "max": 6.0, "metric": "steady", "dirs": (-1, 1)},
 }
 DAILY_PREFIXES = ("D", "P", "C", "A", "H")
 STATES = ["learning", "waiting_for_heating", "suggestion", "testing", "no_change", "problem"]
@@ -128,7 +125,8 @@ def _fmt(v) -> str:
     return "?" if v is None else f"{v:g}" if isinstance(v, (int, float)) else str(v)
 
 
-def summary(advice: dict, hint_list: list[str], flow: dict | None, group: str | None, now: float) -> dict:
+def summary(advice: dict, hint_list: list[str], flow: dict | None, group: str | None, now: float,
+            autotest_msg: str | None = None) -> dict:
     """One state, one message and the one thing the Apply button does; shared by sensor, button and LLM."""
     a, p, f, t = advice.get("action"), advice.get("param"), advice.get("from"), advice.get("to")
     days, reason = advice.get("days_left"), advice.get("reason")
@@ -156,6 +154,8 @@ def summary(advice: dict, hint_list: list[str], flow: dict | None, group: str | 
                                     f"it as the new reference.")
     elif a == "check_curve":
         state, msg = "problem", "Short cycling: fix the heating curve or hysteresis first."
+    elif a == "autotest":
+        state, msg = "testing", autotest_msg or "Autotest running."
     elif a == "wait_heating" and testing:
         state, msg = "waiting_for_heating", f"Testing {group}: waiting for heating, {days} more heating day(s) needed."
     elif a == "wait_heating":
@@ -204,7 +204,8 @@ def suggestion_policy(tracked) -> dict:
                                 "directions": ["down" if d < 0 else "up" for d in l["dirs"]]}
                             for p, l in LADDER.items()},
             "watch_only": sorted(p for p in tracked if p not in LADDER),
-            "writes_to_device": "only_when_apply_is_pressed"}
+            "writes_to_device": "only_when_apply_is_pressed_or_autotest_is_on",
+            "autotest_writes": ["E02"]}
 
 
 def _direction_from_data(model: dict | None, buckets: list[list], sh_target: float | None) -> tuple[int, str]:
@@ -220,33 +221,19 @@ def _direction_from_data(model: dict | None, buckets: list[list], sh_target: flo
     return -1, "default"
 
 
-def _candidate_dirs(param: str, *, model, buckets, base_buckets, current, sh_target, defrosts, now,
-                    day_model) -> tuple[list[int], str] | None:
+def _candidate_dirs(param: str, *, model, base_buckets, sh_target) -> tuple[list[int], str] | None:
     """Directions worth testing for one ladder parameter now, or None when its precondition fails."""
-    if param == "E02":
-        if model is None:
-            return None
-        d, why = _direction_from_data(model, base_buckets, sh_target)
-        return [d, -d], why
-    if param == "F05":
-        share = fan_cap_share(buckets, current.get("F26"), now)
-        win = [b[F_TOUT] for b in buckets if now - b[F_T] <= HINT_WINDOW_S]
-        if model is None or share is None or share >= FAN_CAP_SHARE or not win \
-                or statistics.median(win) < FAN_CURVE_MIN_TOUT:
-            return None
-        return [-1, 1], "fan_slower_first"
-    if param == "D03":
-        if day_model is None or not defrost_on_timer(defrost_summary(defrosts, now, current.get("D03"))):
-            return None
-        return [1], "defrost_on_timer"
-    return None
+    if param != "E02" or model is None:
+        return None
+    d, why = _direction_from_data(model, base_buckets, sh_target)
+    return [d, -d], why
 
 
 def advise(*, buckets: list[list], groups: dict, settings: dict, current: dict, baseline_fp: str | None,
            changes: list[dict], model: dict | None, hint_list: list[str], sh_target: float | None,
            now: float, day_rows: list[dict] | None = None, day_groups: dict | None = None,
-           day_model: dict | None = None, defrosts: list[dict] | None = None) -> dict:
-    """Next step for the user: what to change, to which value, and not before when."""
+           day_model: dict | None = None, defrosts: list[dict] | None = None, skip=()) -> dict:
+    """Next step for the user: what to change, to which value, and not before when; `skip` = params owned elsewhere."""
     day_rows, day_groups, defrosts = day_rows or [], day_groups or {}, defrosts or []
     out = {"action": "none", "param": None, "from": None, "to": None, "not_before": None,
            "days_left": None, "reason": None, "metric": None}
@@ -294,10 +281,9 @@ def advise(*, buckets: list[list], groups: dict, settings: dict, current: dict, 
                 "days_left": max(COMPARE_MIN_DAYS - qualifying_days(buckets, baseline_fp), 1),
                 "reason": "baseline_needs_days" if heating else "no_heating"}
     for param, lad in LADDER.items():
-        if param not in current:
+        if param not in current or param in skip:
             continue
-        cand = _candidate_dirs(param, model=model, buckets=buckets, base_buckets=base_buckets, current=current,
-                               sh_target=sh_target, defrosts=defrosts, now=now, day_model=day_model)
+        cand = _candidate_dirs(param, model=model, base_buckets=base_buckets, sh_target=sh_target)
         if cand is None:
             continue
         dirs, why = cand

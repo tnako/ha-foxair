@@ -2874,6 +2874,9 @@
       },
       "foxair_pv_surplus": {
         "name": "PV-Überschuss (SG Ready High PV)"
+      },
+      "foxair_efficiency_autotest": {
+        "name": "E02-Autotest"
       }
     },
     "number": {
@@ -5030,6 +5033,9 @@
       },
       "foxair_efficiency_apply": {
         "name": "Vorschlag übernehmen"
+      },
+      "foxair_efficiency_undo": {
+        "name": "EEF-Änderungen zurücksetzen"
       }
     },
     "binary_sensor": {

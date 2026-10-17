@@ -2706,6 +2706,9 @@
       },
       "foxair_efficiency_apply": {
         "default": "mdi:gesture-tap-button"
+      },
+      "foxair_efficiency_undo": {
+        "default": "mdi:undo-variant"
       }
     },
     "binary_sensor": {
@@ -3415,6 +3418,9 @@
     "switch": {
       "foxair_pv_surplus": {
         "default": "mdi:solar-power-variant"
+      },
+      "foxair_efficiency_autotest": {
+        "default": "mdi:test-tube"
       }
     },
     "water_heater": {

@@ -48,8 +48,10 @@ def build_report(hass: HomeAssistant, entry) -> dict:
     for key, name in LIVE_KEYS.items():
         st = hass.states.get(f"sensor.{prefix}_{key}")
         live[name] = _num(st.state) if st else None
-    st = an.status(time.time())
+    st = an.status(time.time(), entry.runtime_data.efficiency.tz())
     st["next_check"] = _iso(st["next_check"])
+    if st.get("autotest"):
+        st["autotest"] = {**st["autotest"], "until": _iso(st["autotest"]["until"])}
     day = an.last_day()
     if day.get("fp"):
         day["fp"] = an.describe(day["fp"])

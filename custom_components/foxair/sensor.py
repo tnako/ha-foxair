@@ -524,7 +524,7 @@ class FoxEfficiencyStatusSensor(FoxEfficiencySensor):
 
     def _status(self):
         import time
-        return self._an.status(time.time())
+        return self._an.status(time.time(), self.coordinator.efficiency.tz())
 
     @property
     def native_value(self):
@@ -546,6 +546,9 @@ class FoxEfficiencyStatusSensor(FoxEfficiencySensor):
         if compute_cop(c, self._opts) is not None:
             exp = an.expected_cop(*(_cval(c, a[k]) if a[k] else None for k in ("hz", "t_out", "t_flow")))
         fp = an.current_fp() if an.current else None
+        auto = st.get("autotest")
+        if auto:
+            auto = {**auto, "until": iso(auto["until"])}
         return {"message": st["message"], "apply": st["apply"], "next_check": iso(st["next_check"]),
                 "next_check_estimated": st["estimated"], "days_left": st["days_left"], "reason": st["reason"],
                 "findings": st["findings"], "flow_vs_history": an.flow,
@@ -553,8 +556,10 @@ class FoxEfficiencyStatusSensor(FoxEfficiencySensor):
                 "settings_group": an.describe(fp) if fp and an.baseline_fp else None,
                 "suggested_since": iso(an.advice.get("since")),
                 "defrosts": defrost_summary(an.defrosts, time.time(), an.current.get("D03")),
-                "changes": [{"time": iso(ch["t"]), "kind": ch.get("kind"), "diff": ch.get("diff")}
-                            for ch in an.changes[-10:]]}
+                "autotest": auto,
+                "undo": {k: {"now": v[0], "before_eef": v[1]} for k, v in an.undo_targets().items()},
+                "changes": [{"time": iso(ch["t"]), "kind": ch.get("kind"), "diff": ch.get("diff"),
+                             "by": ch.get("by")} for ch in an.changes[-10:]]}
 
 
 class FoxEfficiencyDailySensor(FoxEfficiencySensor):

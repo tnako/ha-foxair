@@ -496,58 +496,26 @@ def test_fan_max_is_never_raised():
     assert eff.fan_cap_share(low, 600.0, max(x[0] for x in low)) == 0.0
 
 
-def test_fan_curve_tested_both_ways_slower_first_only_in_mild_weather():
+def test_only_e02_is_ever_suggested_even_when_fan_and_defrost_preconditions_hold():
+    assert set(eff.LADDER) == {"E02"} and (eff.LADDER["E02"]["min"], eff.LADDER["E02"]["max"]) == (3.0, 6.0)
     full = {**FULL, "F05": -4.0}
     ffp = eff.fingerprint(full)
-    b = _with_fan(days_of(ffp, 0, 6), 350.0)
-    settings = {ffp: full}
+    b = _with_fan(days_of(ffp, 0, 8), 350.0)
+    now = max(x[0] for x in b) + 600
+    rows = [day_row(d, ffp, rng=random.Random(d)) for d in range(8)]
+    dm, dg = eff.compare_daily(rows, ffp)
     model, groups = eff.compare(b, ffp)
+    settings = {ffp: full}
     for v in (3.0, 4.0):
         s = {**full, "E02": v}
         settings[eff.fingerprint(s)] = s
         groups[eff.fingerprint(s)] = {"days": 5, "verdict": "inconclusive"}
-    now = max(x[0] for x in b) + 600
-    kw = dict(buckets=b, settings=settings, current=full, baseline_fp=ffp, changes=[], model=model,
-              hint_list=["ok"], sh_target=3.5, now=now)
-    a = eff.advise(groups=groups, **kw)
-    assert (a["action"], a["param"], a["from"], a["to"], a["reason"]) == ("change", "F05", -4.0, -6.0,
-                                                                         "fan_slower_first")
-    slower = {**full, "F05": -6.0}
-    settings[eff.fingerprint(slower)] = slower
-    a = eff.advise(groups={**groups, eff.fingerprint(slower): {"days": 5, "verdict": "worse"}}, **kw)
-    assert (a["param"], a["to"], a["reason"]) == ("F05", -2.0, "other_direction_tried")
-    cold = [x[:eff.F_TOUT] + [0.0] + x[eff.F_TOUT + 1:] for x in b]
-    a = eff.advise(groups=groups, **{**kw, "buckets": cold})
-    assert a["param"] != "F05"
-    assert eff._step("F05", -10.0, -1) is None and eff._step("F05", 2.0, 1) is None
-
-
-def test_defrost_step_uses_daily_metric_and_waits_five_days():
-    b = days_of(FFP, 0, 8)
-    now = max(x[0] for x in b) + 600
-    rows = [day_row(d, FFP, rng=random.Random(d)) for d in range(8)]
-    dm, dg = eff.compare_daily(rows, FFP)
-    model, groups = eff.compare(b, FFP)
-    e02 = {}
-    settings = {FFP: FULL}
-    for v in (3.0, 4.0):
-        s = {**FULL, "E02": v}
-        fp = eff.fingerprint(s)
-        settings[fp] = s
-        groups[fp] = {"days": 5, "verdict": "inconclusive", "delta_pct": 0.1, "ci95_pct": 2.0}
-    a = eff.advise(buckets=b, groups=groups, settings=settings, current=FULL, baseline_fp=FFP, changes=[],
+    assert "defrost_on_timer" in eff.hints(model, b, 0, 0, 3.5, now, full, _defrosts(10, now))
+    a = eff.advise(buckets=b, groups=groups, settings=settings, current=full, baseline_fp=ffp, changes=[],
                    model=model, hint_list=["ok"], sh_target=3.5, now=now, day_rows=rows, day_groups=dg,
                    day_model=dm, defrosts=_defrosts(10, now))
-    assert (a["action"], a["param"], a["to"], a["metric"], a["days_left"]) == ("change", "D03", 60.0, "daily", 5)
-    longer = {**FULL, "D03": 60.0}
-    lfp = eff.fingerprint(longer)
-    settings[lfp] = longer
-    rows2 = rows + [day_row(d, lfp, rng=random.Random(50 + d)) for d in range(8, 10)]
-    dm2, dg2 = eff.compare_daily(rows2, FFP)
-    a = eff.advise(buckets=b, groups=groups, settings=settings, current=longer, baseline_fp=FFP, changes=[],
-                   model=model, hint_list=["ok"], sh_target=3.5, now=now, day_rows=rows2, day_groups=dg2,
-                   day_model=dm2, defrosts=_defrosts(10, now))
-    assert a["action"] == "keep" and a["metric"] == "daily" and a["days_left"] == 3
+    assert (a["action"], a["param"]) == ("done", None)
+    assert eff._step("E02", 3.0, -1) is None and eff._step("E02", 6.0, 1) is None
 
 
 def test_new_tracked_parameters_keep_existing_history():
