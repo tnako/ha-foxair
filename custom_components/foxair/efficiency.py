@@ -5,6 +5,7 @@ import time
 from datetime import datetime, timezone
 
 from .efficiency_advisor import LADDER, MIN_HOLD_S, STATES, advise, defrost_summary, hints, summary
+from .efficiency_autotest import Autotest, legacy_origin
 from .efficiency_history import (comparisons, compare_daily, daily_ratio, day_cop, day_problems, full_days,
                                  last_measured, predict_daily, settled, tag_settings)
 from .efficiency_model import DAY_S, F_FP, F_T, compare, fingerprint, flow_shift, predict, ratios
@@ -159,12 +160,15 @@ class EfficiencyAnalyser:
         self.sh_target: float | None = None
         self.flow: dict | None = None
         self._last_t: float | None = None
+        self.origin: dict = dict(data["origin"]) if "origin" in data else legacy_origin(self.changes)
+        self.autotest = Autotest(data.get("autotest"))
 
     def to_dict(self, now: float) -> dict:
         return {"buckets": self.buckets, "settings": self.settings, "current": self.current,
                 "baseline_fp": self.baseline_fp, "starts": self.starts, "run_hours": self.run_hours,
                 "changes": self.changes, "defrosts": self.defrosts, "tracked_since": self.tracked_since,
-                "defrost_state": self.defrost_tracker.state(), "saved_at": now, "advice": self.advice}
+                "defrost_state": self.defrost_tracker.state(), "saved_at": now, "advice": self.advice,
+                "origin": self.origin, "autotest": self.autotest.to_dict()}
 
     def set_days(self, rows: list[dict], tz) -> None:
         """Daily rows rebuilt from recorder statistics (local days); called by the runtime."""
@@ -201,7 +205,7 @@ class EfficiencyAnalyser:
             self.settings[new] = ext
             self._rename(old, new)
 
-    def update_settings(self, settings: dict, now: float | None = None) -> dict | None:
+    def update_settings(self, settings: dict, now: float | None = None, by: str | None = None) -> dict | None:
         """Merge a settings snapshot; returns the change record when a known value moved."""
         new = {k: v for k, v in settings.items() if v is not None}
         diff = {k: [self.current[k], v] for k, v in new.items() if k in self.current and self.current[k] != v}
@@ -219,9 +223,30 @@ class EfficiencyAnalyser:
         if not diff:
             return None
         rec = {"t": stamp, "kind": "change", "diff": diff, "from": old_fp, "to": self.current_fp()}
+        if by:
+            rec["by"] = by
+            for k, (old, _) in diff.items():
+                self.origin.setdefault(k, old)
         self.changes.append(rec)
         del self.changes[:-MAX_CHANGES]
         return rec
+
+    def undo_targets(self) -> dict:
+        """Settings EEF wrote that differ from their value before EEF's first write: {code: (now, before)}."""
+        return {k: (self.current.get(k), v) for k, v in self.origin.items()
+                if self.current.get(k) is not None and self.current.get(k) != v}
+
+    def reset_tests(self, now: float) -> None:
+        """Forget every test: steady buckets, settings groups, change log, autotest and the EEF origin; the current
+        settings become the reference. Defrost and start history stay (findings, not tests); recorder days before
+        now lose their settings tag, so the daily comparison restarts too."""
+        self.buckets, self.settings = [], {}
+        self.baseline_fp = self.current_fp() if self.current else None
+        self.changes = [{"t": now, "kind": "reset", "from": None, "to": self.baseline_fp}]
+        self.tracked_since = now
+        self.origin, self.autotest, self.builder = {}, Autotest(), BucketBuilder()
+        self.model, self.groups, self.day_model, self.day_groups, self.recent = None, {}, None, {}, None
+        self.advice = {"action": "none", "reason": "settings_unknown"}
 
     def observe(self, now: float, sample: dict) -> bool:
         """Feed one poll; True when a bucket or defrost closed (time to refresh and save)."""
@@ -285,10 +310,15 @@ class EfficiencyAnalyser:
         hint_list = hints(model, buckets, len(self.starts), sum(self.run_hours.values()), self.sh_target, now,
                           current, defrosts, flow, "flow_higher" in self.hint_list)
         last = self.last_change()
-        advice = advise(buckets=buckets, groups=groups, settings=settings, current=current,
-                        baseline_fp=self.baseline_fp, changes=[last] if last else [], model=model,
-                        hint_list=hint_list, sh_target=self.sh_target, now=now, day_rows=full_days(days, today),
-                        day_groups=day_groups, day_model=day_model, defrosts=defrosts)
+        at = self.autotest
+        if at.running:
+            advice = {"action": "autotest", "reason": "autotest"}
+        else:
+            advice = advise(buckets=buckets, groups=groups, settings=settings, current=current,
+                            baseline_fp=self.baseline_fp, changes=[last] if last else [], model=model,
+                            hint_list=hint_list, sh_target=self.sh_target, now=now,
+                            day_rows=full_days(days, today), day_groups=day_groups, day_model=day_model,
+                            defrosts=defrosts, skip=("E02",) if at.stage == "done" else ())
         prev = self.advice
         if (advice.get("action") == "change" and prev.get("since")
                 and all(prev.get(k) == advice.get(k) for k in ("action", "param", "from", "to"))):
@@ -302,9 +332,20 @@ class EfficiencyAnalyser:
         self.day_model, self.day_groups, self.flow = day_model, day_groups, flow
         self.comparison = comparisons(days, today)
 
-    def status(self, now: float) -> dict:
+    def status(self, now: float, tz=timezone.utc) -> dict:
         group = self.describe(self.current_fp()) if self.current and self.baseline_fp else None
-        return summary(self.advice, self.hint_list, self.flow, group, now)
+        at = self.autotest.status(now, tz)
+        st = summary(self.advice, self.hint_list, self.flow, group, now,
+                     at["message"] if at and self.autotest.running else None)
+        if at and self.autotest.running:
+            st.update(next_check=at["until"], estimated=False)
+        elif at and at["message"]:
+            if at["problem"]:
+                st.update(state="problem", message=f"{at['message']} Also: {st['message']}")
+            else:
+                st["message"] = f"{at['message']} {st['message']}"
+        st["autotest"] = at
+        return st
 
     def expected_cop(self, hz, t_out, t_flow) -> float | None:
         if self.model is None or hz is None or t_out is None or t_flow is None or hz <= 0:

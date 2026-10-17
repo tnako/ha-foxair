@@ -2,7 +2,7 @@
 
 Control and monitor your **FoxAir / PHNIX air-to-water heat pump** directly from Home Assistant over Modbus TCP — no cloud, no YAML.
 
-![Version](https://img.shields.io/badge/version-0.7.45-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2026.10-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
+![Version](https://img.shields.io/badge/version-0.7.46-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2026.10-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
 ![FoxAir Demo](docs/screenshots/foxair_demo.gif)
 
@@ -107,13 +107,34 @@ Three entities and one button, so there is one place to look:
   (next automatic decision, always in the future or null when it waits for
   you), `findings`, `flow_vs_history`, `expected_cop`, `settings_group`,
   `defrosts` summary and the last 10 `changes`.
-- `Apply suggestion` button: does what the status says. A suggested E02, F05 or
-  D03 step is written to the pump with read-back, only if the pump still holds
-  the expected old value. When a test of your own changes has a result, Apply
+- `Apply suggestion` button: does what the status says. A suggested E02 step
+  is written to the pump with read-back, only if the pump still holds the
+  expected old value. When a test of your own changes has a result, Apply
   makes the current settings the new reference and writes nothing. While a
-  test runs, or with nothing to apply, it is unavailable (greyed out). No other
+  test runs, or with nothing to apply, it is unavailable (greyed out).
+- `E02 autotest` switch (needs expert mode): the integration sets E02 by itself
+  so you don't have to press Apply several times a day. Stage 1 runs
+  E02 = 3 / 4 / 5 (factory) / 6, each value 6 h a day in a different order every
+  day, so every value gets night and day hours and the same weather. The first
+  hour after each change is not counted. A block counts with at least 2 h of
+  heating, judged on heat out / electricity in including defrost, against the
+  Carnot COP of its own flow and outdoor temperatures. After 10 days (up to 14
+  when heating was short) the best value is kept only if it beats factory E02
+  by more than its 95 % interval, otherwise factory stays. Stage 2 then runs
+  that value and ±0.5 (8 h each) the same way and keeps the winner, which
+  becomes the new reference. The status shows the value now and until when.
+  The autotest stops and sets E02 back to its value at the start when you
+  switch it off, when a write fails or on short cycling; if you change E02
+  yourself it stops and leaves your value. Days on which you changed another
+  setting are left out. About 4 writes a day.
+- `Undo EEF changes` button: writes back only what the integration itself
+  changed (Apply or autotest, today only E02) to its value before the first
+  such change, then forgets every test (steady buckets, settings groups,
+  change log, autotest) and makes the current settings the reference. Changes
+  you made yourself are never touched.
+- Only E02 is ever written by the efficiency features (range 3-6 °C); no other
   path writes to the pump, and settings you choose (silent mode, curve,
-  control sensor, pump mode) are never changed.
+  control sensor, pump mode, defrost, fan) are never changed.
 - `Efficiency index`: COP of the last 24 h as % of what the reference settings
   would have done in the same weather and load. 100 % = same.
 - `Daily COP`: heat out / electricity in for the last full local day (midnight
@@ -136,15 +157,12 @@ Three entities and one button, so there is one place to look:
   match are left out of both sides. On last season's data the electricity
   estimate lands within ±1 % on average for a held-out month.
 
-Suggestions, one step on one parameter, in this order:
-- E02 in 0.5 K steps (2-6 K), direction from how COP vs the model moves with
-  measured superheat, or superheat vs its target;
-- F05 in 2 K steps (-10 to 2 °C), slower fan first, only when the fan is not at
-  its maximum and the median outdoor temperature of the last 7 days is at least
-  3 °C;
-- D03 +15 min (30-90), only when most recent defrosts are short and start right
-  after the D03 minimum, judged on the daily score.
-Only these settings are ever suggested. Every other tracked setting is
+Suggestions, one step on one parameter:
+- E02 in 0.5 K steps (3-6 K), direction from how COP vs the model moves with
+  measured superheat, or superheat vs its target. After the autotest finished,
+  E02 is no longer suggested.
+Only E02 is ever suggested. Fan (F05) and defrost (D03) findings are shown but
+never turned into a change. Every other tracked setting is
 watch-only, including silent mode (H22), control sensor (H25) and curve mode
 (H36): a change to one of them starts its own measurement instead of being
 mixed into a running test. A step that tested worse or inconclusive isn't suggested again;

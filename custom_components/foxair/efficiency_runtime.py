@@ -7,6 +7,7 @@ from datetime import datetime, timedelta, timezone
 
 from . import computed as _computed
 from .efficiency import LADDER, EfficiencyAnalyser
+from .efficiency_autotest import PARAM
 from .efficiency_history import HISTORY_DAYS, OWN_SUFFIXES, build_days, merge_days, stat_ids
 
 _LOGGER = logging.getLogger(__name__)
@@ -15,6 +16,7 @@ STORE_VERSION = 1
 SAVE_DELAY_S = 300
 SETTINGS_EVERY_S = 600
 REFRESH_EVERY_S = 3600
+EXPECT_S = 900
 HISTORY_TOPUP_DAYS = 2
 OWN_MEANS = {"t_out": "t04", "t_flow": "t02"}
 
@@ -104,6 +106,7 @@ def sample(coord, opts: dict) -> dict:
         "sh": _val(coord, ADDR_SH_SUCTION), "eev": _val(coord, ADDR_EEV_STEPS),
         "fan": _val(coord, ADDR_FAN_TARGET), "coil": _val(coord, ADDR_COIL),
         "rs": rs, "p_day": p_all, "q_day": q_day, "cooling": mode == "cooling" and comp,
+        "heater": _computed.electric_heater_on(coord),
     }
 
 
@@ -138,6 +141,8 @@ class EfficiencyRuntime:
         self._fetched_once = False
         self._settings_task = None
         self._refresh_task = None
+        self._write_task = None
+        self._expect: dict[str, tuple[float, str, float]] = {}
         self._history_full = False
         self.history_error: str | None = None
 
@@ -187,6 +192,13 @@ class EfficiencyRuntime:
     async def async_save(self) -> None:
         await self.store.async_save(self._data())
 
+    def tz(self):
+        try:
+            from homeassistant.util import dt as dt_util
+            return dt_util.get_default_time_zone()
+        except ImportError:
+            return timezone.utc
+
     def on_poll(self) -> None:
         """Called by the coordinator after each successful poll (event loop)."""
         try:
@@ -200,7 +212,14 @@ class EfficiencyRuntime:
                 missing = {a for a in SETTING_ADDRS.values() if a not in (self.coord.data or {})}
                 if missing:
                     self._settings_task = self.hass.async_create_task(self._fetch_settings(missing))
-            closed = self.analyser.observe(now, sample(self.coord, self.coord.entry.options))
+            s = sample(self.coord, self.coord.entry.options)
+            closed = self.analyser.observe(now, s)
+            at = self.analyser.autotest
+            if at.running and "short_cycling" in self.analyser.hint_list:
+                at.stop("short_cycling", now)
+                closed = True
+            closed = at.observe(now, s, self.tz(), self._e02()) or closed
+            self._autotest_tick(now)
             if closed or now - self._save_ts >= SAVE_DELAY_S:
                 self._save_ts = now
                 self.schedule_save()
@@ -208,6 +227,72 @@ class EfficiencyRuntime:
                 self.request_refresh()
         except Exception:
             _LOGGER.exception("efficiency analyser poll failed")
+
+    def _e02(self) -> float | None:
+        v = _val(self.coord, SETTING_ADDRS[PARAM])
+        return round(v, 1) if v is not None else self._fetched.get(PARAM)
+
+    def _autotest_tick(self, now: float) -> None:
+        """Start the write the autotest wants (slot change, finish, stop restore); one at a time."""
+        at = self.analyser.autotest
+        want = at.want(now, self.tz())
+        if want is None or self._task_running(self._write_task):
+            return
+        if self._e02() == want:
+            if at.wrote(want, now, written=False):
+                self.analyser.set_baseline(now)
+            return
+        self._write_task = self.hass.async_create_task(self._autotest_write(want))
+
+    async def _autotest_write(self, value: float) -> None:
+        at = self.analyser.autotest
+        try:
+            await self.async_write_setting(PARAM, value, "autotest")
+        except ValueError as e:
+            _LOGGER.warning("Efficiency autotest: %s", e)
+            if at.running:
+                at.stop("write_failed", time.time())
+            else:
+                at.restore_failed()
+            await self.async_save()
+            self.coord.async_update_listeners()
+            return
+        if at.wrote(value, time.time()):
+            self.analyser.set_baseline(time.time())
+        await self.async_save()
+        self.request_refresh()
+
+    async def async_set_autotest(self, on: bool) -> None:
+        """Switch the E02 autotest on (from the current E02) or off (E02 back to its value at the start)."""
+        at, now = self.analyser.autotest, time.time()
+        if on and not at.running:
+            if not self.coord.entry.options.get("enable_expert"):
+                raise ValueError(f"{PARAM} is an expert setting: turn on expert mode in the integration options first")
+            e02 = self._e02()
+            if e02 is None:
+                raise ValueError(f"{PARAM} not read from the pump yet; try again in a minute")
+            at.start(now, self.tz(), e02)
+        elif not on and at.running:
+            at.stop("user", now)
+        await self.async_save()
+        self._autotest_tick(now)
+        self.coord.async_update_listeners()
+
+    async def async_undo(self) -> dict:
+        """Write back every setting EEF changed to its value before EEF, then forget all tests."""
+        at = self.analyser.autotest
+        if at.running:
+            at.stop("undo", time.time(), restore=False)
+        if self._task_running(self._write_task):
+            await self._write_task
+        targets = self.analyser.undo_targets()
+        for code, (now_val, before) in targets.items():
+            await self.async_write_setting(code, before, "undo", expect=now_val)
+        self.analyser.reset_tests(time.time())
+        await self.async_save()
+        self.request_refresh()
+        _LOGGER.info("Efficiency undo: %s; test history cleared", targets or "nothing to write back")
+        return targets
 
     @staticmethod
     def _task_running(task) -> bool:
@@ -242,9 +327,23 @@ class EfficiencyRuntime:
         snap = {**self._fetched, **settings_snapshot(self.coord)}
         polled = all(a in (self.coord.data or {}) for a in SETTING_ADDRS.values())
         if polled or self._fetched_once:
-            rec = self.analyser.update_settings(snap, time.time())
+            now = time.time()
+            exp = {k: v for k, v in self._expect.items() if now - v[2] <= EXPECT_S}
+            moved = {k: v for k, v in snap.items() if k in self.analyser.current and self.analyser.current[k] != v}
+            by = None
+            if moved and all(k in exp and round(exp[k][0], 1) == round(v, 1) for k, v in moved.items()):
+                by = exp[next(iter(moved))][1]
+            rec = self.analyser.update_settings(snap, now, by)
             if rec:
-                _LOGGER.info("Heat pump settings changed: %s", rec["diff"])
+                for k in moved:
+                    self._expect.pop(k, None)
+                _LOGGER.info("Heat pump settings changed%s: %s", f" by {by}" if by else "", rec["diff"])
+                at = self.analyser.autotest
+                if at.running and not by:
+                    if PARAM in moved:
+                        at.stop("manual_change", now, restore=False)
+                    else:
+                        at.mark_mixed(now, self.tz())
                 self.schedule_save()
                 self.request_refresh()
 
@@ -252,6 +351,30 @@ class EfficiencyRuntime:
         self.analyser.set_baseline(time.time())
         await self.async_save()
         await self._refresh()
+
+    async def async_write_setting(self, code: str, value: float, by: str, expect: float | None = None) -> None:
+        """The only EEF write path: ladder settings only (E02), in range, pump value checked before and after."""
+        if code not in LADDER:
+            raise ValueError(f"{code} is watch-only; nothing written")
+        lo, hi = LADDER[code]["min"], LADDER[code]["max"]
+        if by != "undo" and not lo <= value <= hi:
+            raise ValueError(f"{code}={value} is outside {lo:g}-{hi:g}; nothing written")
+        addr = SETTING_ADDRS[code]
+        now_val = _val(self.coord, addr)
+        if now_val is None:
+            now_val = self._fetched.get(code)
+        if expect is not None and (now_val is None or round(now_val, 1) != round(expect, 1)):
+            raise ValueError(f"{code} is {now_val} on the pump, expected {expect}; nothing written")
+        self._expect[code] = (value, by, time.time())
+        if not await self.coord.async_write_register(addr, value):
+            self._expect.pop(code, None)
+            raise ValueError(f"writing {code}={value} failed or was blocked")
+        got = _val(self.coord, addr)
+        if got is None or round(got, 1) != round(value, 1):
+            raise ValueError(f"{code} read back {got}, expected {value}")
+        _LOGGER.info("Efficiency %s: %s %s -> %s", by, code, now_val, value)
+        self._fetched[code] = round(got, 1)
+        self._publish_settings()
 
     async def async_apply(self) -> str:
         """Do what the current suggestion says; returns 'written', 'baseline' or raises ValueError."""
@@ -262,26 +385,11 @@ class EfficiencyRuntime:
         if act["kind"] == "baseline":
             await self.async_set_baseline()
             return "baseline"
-        if act["param"] not in LADDER:
-            raise ValueError(f"{act['param']} is watch-only; nothing written")
-        addr = SETTING_ADDRS[act["param"]]
-        now_val = _val(self.coord, addr)
-        if now_val is None:
-            now_val = self._fetched.get(act["param"])
-        if now_val is None or round(now_val, 1) != round(act["from"], 1):
-            raise ValueError(f"{act['param']} is {now_val} on the pump, expected {act['from']}; nothing written")
-        if not await self.coord.async_write_register(addr, act["to"]):
-            raise ValueError(f"writing {act['param']}={act['to']} failed or was blocked")
-        got = _val(self.coord, addr)
-        if got is None or round(got, 1) != round(act["to"], 1):
-            raise ValueError(f"{act['param']} read back {got}, expected {act['to']}")
-        _LOGGER.info("Efficiency apply: %s %s -> %s", act["param"], act["from"], act["to"])
-        self._fetched[act["param"]] = round(got, 1)
-        self._publish_settings()
+        await self.async_write_setting(act["param"], act["to"], "apply", expect=act["from"])
         return "written"
 
     async def async_shutdown(self) -> None:
-        for task in (self._settings_task, self._refresh_task):
+        for task in (self._settings_task, self._refresh_task, self._write_task):
             if task is not None and not task.done():
                 task.cancel()
         await self.async_save()

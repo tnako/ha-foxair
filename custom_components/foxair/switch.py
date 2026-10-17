@@ -8,6 +8,7 @@ from .const import (
     POPULAR_ADDRS,
     bind_device_info,
     device_for_addr,
+    device_for_block,
     entity_sort_key,
     get_device_prefix,
     get_slave_id,
@@ -63,7 +64,42 @@ async def async_setup_entry(hass, entry, add_entities):
         alias = meta.get("alias_switch")
         if alias and meta.get("editable"):
             ents.append(FoxAliasSwitch(coord, addr, meta, alias))
+    if getattr(coord, "efficiency", None) is not None:
+        ents.append(FoxEfficiencyAutotestSwitch(coord))
     add_entities(ents)
+
+
+class FoxEfficiencyAutotestSwitch(CoordinatorEntity, SwitchEntity):
+    """E02 autotest: on = the integration sets E02 by itself on a daily schedule; off = E02 back to the start."""
+    _attr_has_entity_name = True
+
+    def __init__(self, coord):
+        super().__init__(coord)
+        prefix = get_device_prefix(coord.entry)
+        entry_id = coord.entry.entry_id
+        self._attr_unique_id = f"{prefix}_efficiency_autotest"
+        self.entity_id = f"switch.{prefix}_efficiency_autotest"
+        self._attr_translation_key = "foxair_efficiency_autotest"
+        self._attr_device_info = bind_device_info(
+            getattr(coord, "hass", None), entry_id,
+            device_for_block("EFF", entry_id, None, prefix, get_slave_id(coord.entry)))
+
+    @property
+    def is_on(self):
+        return self.coordinator.efficiency.analyser.autotest.running
+
+    async def _set(self, on: bool) -> None:
+        from homeassistant.exceptions import HomeAssistantError
+        try:
+            await self.coordinator.efficiency.async_set_autotest(on)
+        except ValueError as e:
+            raise HomeAssistantError(str(e)) from e
+
+    async def async_turn_on(self, **kwargs):
+        await self._set(True)
+
+    async def async_turn_off(self, **kwargs):
+        await self._set(False)
 
 
 class FoxSwitch(CoordinatorEntity, SwitchEntity):

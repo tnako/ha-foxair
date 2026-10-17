@@ -2874,6 +2874,9 @@
       },
       "foxair_pv_surplus": {
         "name": "Избыток PV (SG Ready High PV)"
+      },
+      "foxair_efficiency_autotest": {
+        "name": "Автотест E02"
       }
     },
     "number": {
@@ -5030,6 +5033,9 @@
       },
       "foxair_efficiency_apply": {
         "name": "Применить предложение"
+      },
+      "foxair_efficiency_undo": {
+        "name": "Вернуть как было до EEF"
       }
     },
     "binary_sensor": {
