@@ -199,7 +199,7 @@ def _adv(buckets, current, settings, baseline_fp, changes=(), now=None, hint_lis
                       changes=list(changes), model=model, hint_list=list(hint_list), sh_target=sh_target, now=now)
 
 
-BASE = {"E02": 3.5}
+BASE = {"E02": 4.5}
 BFP = eff.fingerprint(BASE)
 
 
@@ -214,7 +214,7 @@ def test_advise_suggests_one_step_from_the_data():
     for x in b:
         x[eff.F_SH] = 6.0
     a = _adv(b, BASE, {BFP: BASE}, BFP)
-    assert (a["action"], a["param"], a["from"], a["to"]) == ("change", "E02", 3.5, 3.0)
+    assert (a["action"], a["param"], a["from"], a["to"]) == ("change", "E02", 4.5, 4.0)
     assert a["reason"] == "superheat_above_target"
 
 
@@ -234,7 +234,7 @@ def test_advise_counts_test_days_then_reverts_or_accepts():
     a = _adv(base + days_of(nfp, 8, 1, seed=2), new, st, BFP)
     assert a["action"] == "keep" and a["days_left"] == 2 and a["reason"] == "need_more_days"
     a = _adv(base + days_of(nfp, 8, 5, factor=0.92, seed=2), new, st, BFP)
-    assert (a["action"], a["param"], a["from"], a["to"]) == ("revert", "E02", 3.0, 3.5)
+    assert (a["action"], a["param"], a["from"], a["to"]) == ("revert", "E02", 3.0, 4.5)
     a = _adv(base + days_of(nfp, 8, 5, factor=1.08, seed=2), new, st, BFP)
     assert (a["action"], a["param"], a["to"]) == ("accept", "E02", 3.0)
 
@@ -250,13 +250,13 @@ def test_inconclusive_test_says_so_and_rechecks_daily():
     assert st["next_check"] == (NOW // DAY + 1) * DAY
 
 def test_advise_tries_the_other_direction_after_a_worse_step():
-    lower = {"E02": 3.0}
+    lower = {"E02": 4.0}
     lfp = eff.fingerprint(lower)
     b = days_of(BFP, 0, 8, seed=1) + days_of(lfp, 8, 5, factor=0.9, seed=2)
     for x in b:
         x[eff.F_SH] = 6.0
     a = _adv(b, BASE, {BFP: BASE, lfp: lower}, BFP)
-    assert (a["action"], a["to"], a["reason"]) == ("change", 4.0, "other_direction_tried")
+    assert (a["action"], a["to"], a["reason"]) == ("change", 5.0, "other_direction_tried")
 
 
 def test_advise_waits_for_heating_and_flags_short_cycling():
@@ -497,7 +497,7 @@ def test_fan_max_is_never_raised():
 
 
 def test_only_e02_is_ever_suggested_even_when_fan_and_defrost_preconditions_hold():
-    assert set(eff.LADDER) == {"E02"} and (eff.LADDER["E02"]["min"], eff.LADDER["E02"]["max"]) == (3.0, 6.0)
+    assert set(eff.LADDER) == {"E02"} and (eff.LADDER["E02"]["min"], eff.LADDER["E02"]["max"]) == (4.0, 7.0)
     full = {**FULL, "F05": -4.0}
     ffp = eff.fingerprint(full)
     b = _with_fan(days_of(ffp, 0, 8), 350.0)
@@ -515,7 +515,7 @@ def test_only_e02_is_ever_suggested_even_when_fan_and_defrost_preconditions_hold
                    model=model, hint_list=["ok"], sh_target=3.5, now=now, day_rows=rows, day_groups=dg,
                    day_model=dm, defrosts=_defrosts(10, now))
     assert (a["action"], a["param"]) == ("done", None)
-    assert eff._step("E02", 3.0, -1) is None and eff._step("E02", 6.0, 1) is None
+    assert eff._step("E02", 4.0, -1) is None and eff._step("E02", 7.0, 1) is None
 
 
 def test_new_tracked_parameters_keep_existing_history():

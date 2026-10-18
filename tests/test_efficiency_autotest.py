@@ -138,6 +138,20 @@ def test_stages_coarse_then_fine_then_finish_on_the_best_value():
     assert e02[0] == 5.0 and t_.want(t, TZ) is None
 
 
+def test_a_running_first_stage_on_the_old_values_moves_to_the_new_ones_and_keeps_its_blocks():
+    old = at.Autotest()
+    old.start(_ts(date(2026, 11, 2), 9.5), TZ, 5.0)
+    saved = {**old.to_dict(), "arms": [3.0, 4.0, 5.0, 6.0], "blocks": [_block(0, 0, 6.0, 0.4)]}
+    t2 = at.Autotest(saved)
+    assert t2.arms == list(at.COARSE) and t2.blocks == saved["blocks"] and t2.start_value == 5.0
+    assert at.COARSE == (4.0, 5.0, 6.0, 7.0)
+    for d in range(4):
+        for s in range(4):
+            assert t2.want(_ts(date(2026, 11, 2 + d), s * 6 + 1), TZ) in at.COARSE
+    fine = at.Autotest({**saved, "stage": "fine", "arms": [5.5, 6.0, 6.5]})
+    assert fine.arms == [5.5, 6.0, 6.5]
+
+
 def test_settling_hour_is_left_out_of_each_block():
     global t_
     t_ = at.Autotest()
@@ -224,7 +238,7 @@ def test_the_only_writable_setting_is_e02_in_its_range():
         if code != "E02":
             with pytest.raises(ValueError, match="watch-only"):
                 asyncio.run(r.async_write_setting(code, 1.0, "autotest"))
-    for bad in (2.5, 6.5):
+    for bad in (3.0, 3.5, 7.5):
         with pytest.raises(ValueError, match="outside"):
             asyncio.run(r.async_write_setting("E02", bad, "autotest"))
     assert r.coord.writes == []
