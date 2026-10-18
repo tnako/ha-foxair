@@ -29,7 +29,7 @@ FLOW_HIGHER_K = 3.0
 FLOW_CLEAR_K = 2.5
 
 LADDER = {
-    "E02": {"step": 0.5, "min": 3.0, "max": 6.0, "metric": "steady", "dirs": (-1, 1)},
+    "E02": {"step": 0.5, "min": 4.0, "max": 7.0, "metric": "steady", "dirs": (-1, 1)},
 }
 DAILY_PREFIXES = ("D", "P", "C", "A", "H")
 STATES = ["learning", "waiting_for_heating", "suggestion", "testing", "no_change", "problem"]

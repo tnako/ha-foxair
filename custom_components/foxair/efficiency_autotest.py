@@ -10,7 +10,8 @@ from .efficiency_model import _solve, carnot_cop
 
 PARAM = "E02"
 FACTORY = 5.0
-COARSE = (3.0, 4.0, 5.0, 6.0)
+COARSE = (4.0, 5.0, 6.0, 7.0)
+OLD_COARSE = ((3.0, 4.0, 5.0, 6.0),)
 LIMITS = (LADDER[PARAM]["min"], LADDER[PARAM]["max"])
 FINE_STEP = LADDER[PARAM]["step"]
 SETTLE_S = 3600
@@ -136,6 +137,8 @@ class Autotest:
         d = data or {}
         self.stage: str | None = d.get("stage")
         self.arms: list[float] = [float(a) for a in d.get("arms", [])]
+        if d.get("stage") == "coarse" and tuple(self.arms) in OLD_COARSE:
+            self.arms = list(COARSE)
         self.ref: float = float(d.get("ref") or FACTORY)
         self.seed: int = int(d.get("seed") or 0)
         self.start_day: str = d.get("start_day") or "1970-01-01"
