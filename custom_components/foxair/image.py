@@ -42,7 +42,7 @@ from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.helpers.translation import async_get_translations
 
 from .const import main_device, get_device_prefix, get_slave_id, bind_device_info
-from .heating_curve import (active_control, calc_curve_target, calc_points_target, curve_points,
+from .heating_curve import (active_control, at_on_curve, calc_curve_target, calc_points_target, curve_points,
                             curve_target_for_at, outdoor_source, summer_cutoff)
 
 _LOGGER = logging.getLogger(__name__)
@@ -781,6 +781,10 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
                 live = (float(at_live), float(active_target))
             except (TypeError, ValueError):
                 live = None
+        if live is not None and is_curve_mode:
+            pump_at = at_on_curve(live[1], lambda a: clamp(curve_at(a), r10, r11), live[0], AT_MIN, AT_MAX)
+            if pump_at is not None:
+                live = (pump_at, live[1])
         thresholds = []
         dx = dy = 0.0
         if live is not None:

@@ -490,6 +490,24 @@ for _lang, _tl in _IMG_TL.items():
         dot_ok = abs(hc_mod.curve_target_for_at(obj.coordinator, at_live) - max(20.0, min(60.0, expected))) < 0.01
         if not dot_ok:
             problems.append("interpolated target")
+        if _lang == "en" and not active and ext < 150:
+            pts = sorted((float(k), v) for k, v in _PTS.items())
+            d = _v35_data(at_live, ext, active)
+            d[2014] = {"value": round(hc_mod.calc_points_target(at_live + 1.0, pts), 1)}
+            o2 = img.FoxAirHeatingCurveImage(FakeCoord(d), "test")
+            o2.hass = FHass()
+            o2._tl = {**img._TL_FALLBACK, **_tl}
+            o2._last_inputs = o2._read_inputs()
+            o2._render()
+            s2 = o2._image_bytes.decode("utf-8")
+            cur = [tuple(map(float, p.split(","))) for p in
+                   re.search(r'<polyline[^>]*stroke="#38bdf8"[^>]*points="([^"]+)"', s2).group(1).split()]
+            dot = re.search(r'<circle cx="([\d.]+)" cy="([\d.]+)" r="\d+" fill="(?:#22c55e|#64748b)" stroke="#fff"', s2)
+            dx, dy = float(dot.group(1)), float(dot.group(2))
+            seg = next((a, b) for a, b in zip(cur, cur[1:]) if a[0] <= dx <= b[0])
+            line_y = seg[0][1] + (seg[1][1] - seg[0][1]) * (dx - seg[0][0]) / ((seg[1][0] - seg[0][0]) or 1)
+            if abs(line_y - dy) > 1.0:
+                problems.append(f"live dot {dy:.1f} off the curve {line_y:.1f} when 2014 runs ahead of T04")
         texts = re.findall(r'(<text[^>]*x="([\d.]+)"[^>]*y="([\d.]+)"[^>]*font-size="(\d+)"[^>]*>([^<]*)</text>)', svg)
         vb_h = float(re.search(r'viewBox="0 0 \d+ (\d+)"', svg).group(1))
         for tag, x, y, fs, t in texts:

@@ -47,6 +47,22 @@ def calc_points_target(at_c: float, points: list) -> float:
             return v0 + (v1 - v0) * (at_c - a0) / (a1 - a0)
     return points[-1][1]
 
+def at_on_curve(target: float, curve, at_hint: float, lo: float, hi: float) -> Optional[float]:
+    """AT in [lo, hi] where the non-increasing `curve` gives `target`; the hint when it already does, None off the curve."""
+    if abs(curve(at_hint) - target) < 0.05:
+        return at_hint
+    if not curve(hi) <= target <= curve(lo):
+        return None
+    a, b = lo, hi
+    for _ in range(40):
+        m = (a + b) / 2
+        if curve(m) > target:
+            a = m
+        else:
+            b = m
+    return (a + b) / 2
+
+
 def calc_curve_target(at_c: float, slope: float, offset: float, base: float = 0.0) -> float:
     """Linear weather compensation.
 

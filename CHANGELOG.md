@@ -1,3 +1,6 @@
+## 0.7.48 - 2026-10-18
+- fix(image): in curve mode the live dot sits on the curve. Its height stays the pump's target (2014), its AT is where the curve gives that target: the pump follows a smoothed AT (~30 min), so the instant T04 put the dot up to ~2 °C off the line.
+
 ## 0.7.47 - 2026-10-18
 - change(efficiency): autotest stage 1 tests E02 = 4 / 5 (factory) / 6 / 7 (was 3 / 4 / 5 / 6); E02 range 4-7 °C (was 3-6): nothing writes 3 or 3.5 any more (Apply, autotest, stage 2), stage 2 can test up to 7. A running stage 1 on the old values moves to the new ones on update and keeps its blocks (blocks on 3 are no longer shown or judged); the new rotation starts with the next block.
 
