@@ -35,6 +35,15 @@ def _validate_prefix(prefix: str) -> bool:
 
 
 async def _probe_modbus(host: str, port: int, slave: int) -> bool:
+    # A gateway already in use by another pump: probe through its connection,
+    # a second TCP client would interleave frames with the running polls.
+    try:
+        from .coordinator import gateway_probe
+    except ImportError:  # loaded standalone (tests)
+        gateway_probe = None
+    shared = await gateway_probe(host, port, slave) if gateway_probe else None
+    if shared is not None:
+        return shared
     client = AsyncModbusTcpClient(host=host, port=port, timeout=5)
     try:
         ok = await client.connect()

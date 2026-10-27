@@ -2,7 +2,7 @@
 
 Control and monitor your **FoxAir / PHNIX air-to-water heat pump** directly from Home Assistant over Modbus TCP — no cloud, no YAML.
 
-![Version](https://img.shields.io/badge/version-0.7.48-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2026.10-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
+![Version](https://img.shields.io/badge/version-0.7.49-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2026.10-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
 ![FoxAir Demo](docs/screenshots/foxair_demo.gif)
 
@@ -19,7 +19,7 @@ Register maps and scaling based on the reverse-engineering in [dosordie/FoxAir_C
 - **Heating curve** — slope / offset / mode with an SVG graph image entity — no Lovelace YAML
 - **Firmware V3.5** — 7-point heating curve (H36 = 2, points 1250-1255 + 1235 as the 0 °C point, on the "Heating curve" device together with slope/offset; each shown only in the H36 mode that uses it), external outdoor sensor (1463 select, 2033 external / 2136 internal T04, 2048 effective), heating/summer cut-off (1464 threshold, 1465 delay in min, 2146 bit 4 active) and SG01 = AI Saving (1334 = 4); all created only when 2104 reports V3.5
 - **Computed sensors** — heating power, electrical power, COP from `flow·ΔT`
-- **Multiple pumps** — configurable entity prefix so each unit gets its own IDs
+- **Multiple pumps** — configurable entity prefix so each unit gets its own IDs; pumps on one RS485 gateway (different slave IDs, same host:port) share one Modbus connection, so their requests never overlap
 - **Safety** — expert mode gates installer controls; writes are validated
 - **i18n** — English, German, Russian, all with `CODE:` prefix
 - **Firmware-gated** — SG Ready modes 1/2 (SG01 / 1334), manual defrost / silent flag / manual heat (1016), and power-off-memory autostart (1018) are automatically hidden on devices running Firmware < 3.3 (auto-detected from register 2104) and appear when the firmware meets the gate

@@ -328,7 +328,7 @@ def test_single_shared_read_loop():
     """The tiered poll and burst fetch must both delegate to _read_batches."""
     src = (CC / "coordinator.py").read_text()
     assert "_read_batches" in src
-    for caller in ("_async_update_data", "_fetch_addrs"):
+    for caller in ("_poll_locked", "_fetch_addrs"):
         body = src.split(f"async def {caller}", 1)[1].split("async def", 1)[0]
         assert "_read_batches(" in body, f"{caller} must delegate to _read_batches"
         assert "read_holding_registers" not in body, f"{caller} has its own read loop"

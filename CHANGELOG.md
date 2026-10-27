@@ -1,3 +1,7 @@
+## 0.7.49 - 2026-10-27
+- fix(modbus): two or more pumps on one RS485 gateway (same host:port, different slave IDs) now share ONE Modbus TCP connection and ONE lock. Before, every config entry opened its own client with its own lock, so their requests overlapped on the bus. A gateway without multi-host support sends each bus reply to every TCP client, so pymodbus logged "request ask for id=1 but got id=2". Reproduced with real pymodbus 3.16 against a simulated broadcast gateway: the 0.7.48 coordinator opened 2 clients and logged 60 id mismatches in 60 reads, the fixed coordinator opened 1 client and logged 0. Gateway multi-host settings are no longer needed for this.
+- fix(modbus): the poll's connect/reconnect now runs under the lock (a reconnect could otherwise replace the shared client while another pump on the same gateway was mid-read). Unloading or reconfiguring one pump keeps the connection for the others, the last one closes it, and a failed setup that HA retries releases its share. The config-flow connection test reuses an already open gateway connection instead of opening a second one.
+
 ## 0.7.48 - 2026-10-18
 - fix(image): in curve mode the live dot sits on the curve. Its height stays the pump's target (2014), its AT is where the curve gives that target: the pump follows a smoothed AT (~30 min), so the instant T04 put the dot up to ~2 °C off the line.
 

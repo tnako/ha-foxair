@@ -56,6 +56,77 @@ def _new_client(cfg, client_cls=None):
     return cls(host=cfg["host"], port=cfg["port"], timeout=_CLIENT_TIMEOUT, retries=_CLIENT_RETRIES)
 
 
+class _Gateway:
+    """One Modbus TCP connection + lock per gateway (host:port), shared by every
+    pump (config entry) behind it. Two entries with their own client on one
+    RS485 gateway interleave frames ("request ask for id=1 but got id=2")."""
+
+    def __init__(self):
+        self.client = None
+        self.lock = asyncio.Lock()
+        self.users = 0
+
+
+_GATEWAYS: dict[tuple[str, int], _Gateway] = {}
+
+
+def _gw_key(cfg) -> tuple[str, int]:
+    return (str(cfg.get("host", "")).strip().lower(), int(cfg.get("port", 0) or 0))
+
+
+def gateway_acquire(cfg) -> _Gateway:
+    """Must be called inside the running loop (creates the asyncio.Lock)."""
+    gw = _GATEWAYS.get(_gw_key(cfg))
+    if gw is None:
+        gw = _GATEWAYS[_gw_key(cfg)] = _Gateway()
+    gw.users += 1
+    return gw
+
+
+def gateway_release(cfg_or_key) -> None:
+    """Drop one user; the last one closes the shared connection.
+    Pass the key from acquire time: a reconfigure changes entry.data first."""
+    key = cfg_or_key if isinstance(cfg_or_key, tuple) else _gw_key(cfg_or_key)
+    gw = _GATEWAYS.get(key)
+    if gw is None:
+        return
+    gw.users -= 1
+    if gw.users > 0:
+        return
+    _GATEWAYS.pop(key, None)
+    if gw.client:
+        try:
+            gw.client.close()
+        except Exception as e:
+            _LOGGER.debug("client close failed: %s", e)
+        gw.client = None
+
+
+async def gateway_probe(host: str, port: int, slave: int):
+    """Probe a slave through an already open gateway connection.
+    Returns None when no entry uses host:port (caller opens its own client)."""
+    gw = _GATEWAYS.get(_gw_key({"host": host, "port": port}))
+    if gw is None:
+        return None
+    async with gw.lock:
+        try:
+            if not gw.client or not getattr(gw.client, "connected", False):
+                if gw.client:
+                    try:
+                        gw.client.close()
+                    except Exception:
+                        pass
+                gw.client = _new_client({"host": host, "port": port})
+                if not await gw.client.connect():
+                    return False
+            await asyncio.sleep(0.35)  # bus pacing, same as the poll reads
+            rr = await gw.client.read_holding_registers(address=1011, count=3, device_id=slave)
+            return bool(rr and not rr.isError() and getattr(rr, "registers", None))
+        except Exception as e:
+            _LOGGER.debug("shared probe failed %s:%s %s", host, port, e)
+            return False
+
+
 def _read_config_file() -> dict:
     """Synchronous file read — MUST be called inside async_add_executor_job."""
     try:
@@ -106,6 +177,37 @@ def scaled(dtype, raw):
 
 class FoxAirCoordinator(DataUpdateCoordinator):
     efficiency = None
+    _gw = None
+
+    # client and lock live on the shared per-gateway object; without one (tests
+    # building the coordinator via __new__) they fall back to the instance.
+    @property
+    def client(self):
+        gw = self._gw
+        return gw.client if gw is not None else self.__dict__.get("_own_client")
+
+    @client.setter
+    def client(self, value):
+        gw = self._gw
+        if gw is not None:
+            gw.client = value
+        else:
+            self.__dict__["_own_client"] = value
+
+    @property
+    def _lock(self):
+        gw = self._gw
+        return gw.lock if gw is not None else self.__dict__.get("_own_lock")
+
+    @_lock.setter
+    def _lock(self, value):
+        if self._gw is None:
+            self.__dict__["_own_lock"] = value
+
+    def release_gateway(self) -> None:
+        if self._gw is not None:
+            self._gw = None
+            gateway_release(self._gw_key)
 
     def __init__(self, hass, entry):
         cfg = entry.data or {}
@@ -114,13 +216,13 @@ class FoxAirCoordinator(DataUpdateCoordinator):
         super().__init__(hass, _LOGGER, name=f"FoxAir-{_prefix}-slave{_slave}", update_interval=timedelta(seconds=30))
         self.entry = entry
         self._entry_id = entry.entry_id
-        self.client = None
+        self._gw_key = _gw_key(cfg)
+        self._gw = gateway_acquire(cfg)
         self.data = {}
         self.stats = {"polls": 0, "errors": 0, "last_ms": 0, "quick_polls": 0, "medium_polls": 0, "rare_polls": 0,
                         "quick_errors": 0, "medium_errors": 0, "rare_errors": 0}
         self._regmap = None
         self._metadata = {}
-        self._lock = asyncio.Lock()
         self._poll_counter = 0
         self._flow_ema = 0.0
         self._fw_version = 0  # firmware version parsed from register 2104 (e.g. 33 = v3.3); 0 = unknown/undetected
@@ -650,110 +752,116 @@ class FoxAirCoordinator(DataUpdateCoordinator):
         if self._regmap is None:
             await self._load_map()
         cfg = self.entry.data
-        if not await self._ensure_connected(cfg):
-            msg = f"Modbus connect failed {cfg['host']}:{cfg['port']}"
-            if self.stats["polls"] == 0:
-                raise ConfigEntryNotReady(msg)
-            raise UpdateFailed(msg)
+        # Connect under the lock: the client is shared with every pump on this
+        # gateway, and a reconnect outside it could swap it mid-read of another.
         async with self._lock:
-            # Tier selection
-            self._poll_counter += 1
-            is_first = self.stats["polls"] == 0
-            enable_expert = bool(self.entry.options.get("enable_expert"))
-            # Startup catch-up: first refresh polls quick+medium (+rare when cheap,
-            # i.e. non-expert safe-rare only) so entities for late tiers exist at
-            # setup time — async_setup_entry creates entities from coord.data once,
-            # and data arriving on later polls would never get entities.
-            if is_first:
-                do_quick = True
+            if not await self._ensure_connected(cfg):
+                msg = f"Modbus connect failed {cfg['host']}:{cfg['port']}"
+                if self.stats["polls"] == 0:
+                    raise ConfigEntryNotReady(msg)
+                raise UpdateFailed(msg)
+            return await self._poll_locked(cfg)
+
+    async def _poll_locked(self, cfg):
+        """One tiered poll. Caller holds self._lock and has connected."""
+        # Tier selection
+        self._poll_counter += 1
+        is_first = self.stats["polls"] == 0
+        enable_expert = bool(self.entry.options.get("enable_expert"))
+        # Startup catch-up: first refresh polls quick+medium (+rare when cheap,
+        # i.e. non-expert safe-rare only) so entities for late tiers exist at
+        # setup time — async_setup_entry creates entities from coord.data once,
+        # and data arriving on later polls would never get entities.
+        if is_first:
+            do_quick = True
+            do_medium = True
+            do_rare = not enable_expert
+        else:
+            do_quick = True
+            do_medium = (self._poll_counter % _const.MEDIUM_INTERVAL == 0)
+            rare_interval = _const.RARE_INTERVAL * 2 if enable_expert else _const.RARE_INTERVAL  # 600s expert, 300s non-expert
+            do_rare = (self._poll_counter % rare_interval == 0)
+            # startup catch-up: poll 2 = +medium, poll 3 = +rare (spread, no burst)
+            if not self._medium_done and self._poll_counter >= 2:
                 do_medium = True
-                do_rare = not enable_expert
-            else:
-                do_quick = True
-                do_medium = (self._poll_counter % _const.MEDIUM_INTERVAL == 0)
-                rare_interval = _const.RARE_INTERVAL * 2 if enable_expert else _const.RARE_INTERVAL  # 600s expert, 300s non-expert
-                do_rare = (self._poll_counter % rare_interval == 0)
-                # startup catch-up: poll 2 = +medium, poll 3 = +rare (spread, no burst)
-                if not self._medium_done and self._poll_counter >= 2:
-                    do_medium = True
-                    self._medium_done = True
-                if not self._rare_done and self._poll_counter >= 3:
-                    do_rare = True
-                    self._rare_done = True
-            addrs: set[int] = set()
-            if do_quick:
-                addrs.update(self._tier_addrs("quick", enable_expert))
-            if do_medium:
-                addrs.update(self._tier_addrs("medium", enable_expert))
-            if do_rare:
-                addrs.update(self._tier_addrs("rare", enable_expert))
-            # Startup catch-up: always pull core main-device control registers
-            # (1011/1012/1014/1030 etc.) on the FIRST poll regardless of tier,
-            # so user-facing entities like "Allow defrost" (1014) and Silent Mode
-            # (1030) are populated immediately instead of waiting for the rare
-            # tier's first cycle (~90s) to render "unknown".
+                self._medium_done = True
+            if not self._rare_done and self._poll_counter >= 3:
+                do_rare = True
+                self._rare_done = True
+        addrs: set[int] = set()
+        if do_quick:
+            addrs.update(self._tier_addrs("quick", enable_expert))
+        if do_medium:
+            addrs.update(self._tier_addrs("medium", enable_expert))
+        if do_rare:
+            addrs.update(self._tier_addrs("rare", enable_expert))
+        # Startup catch-up: always pull core main-device control registers
+        # (1011/1012/1014/1030 etc.) on the FIRST poll regardless of tier,
+        # so user-facing entities like "Allow defrost" (1014) and Silent Mode
+        # (1030) are populated immediately instead of waiting for the rare
+        # tier's first cycle (~90s) to render "unknown".
+        if is_first:
+            addrs.update(_const.CORE_MAIN_ADDRS)
+        # Fallback to at least quick if empty
+        if not addrs:
+            addrs = self._tier_addrs("quick", enable_expert)
+        # Tier-ordered batches: quick first, then medium, then rare.
+        # A connection failure mid-cycle only kills the tiers after it,
+        # never the fresh quick data HA renders every poll.
+        # Batches carry their tier label so failures attribute to
+        # quick_errors/medium_errors/rare_errors in stats.
+        tier_groups: list[tuple[str, set[int]]] = []
+        if do_quick:
+            tier_groups.append(("quick", set(self._tier_addrs("quick", enable_expert))))
             if is_first:
-                addrs.update(_const.CORE_MAIN_ADDRS)
-            # Fallback to at least quick if empty
-            if not addrs:
-                addrs = self._tier_addrs("quick", enable_expert)
-            # Tier-ordered batches: quick first, then medium, then rare.
-            # A connection failure mid-cycle only kills the tiers after it,
-            # never the fresh quick data HA renders every poll.
-            # Batches carry their tier label so failures attribute to
-            # quick_errors/medium_errors/rare_errors in stats.
-            tier_groups: list[tuple[str, set[int]]] = []
-            if do_quick:
-                tier_groups.append(("quick", set(self._tier_addrs("quick", enable_expert))))
-                if is_first:
-                    tier_groups[-1][1].update(_const.CORE_MAIN_ADDRS)
-            if do_medium:
-                tier_groups.append(("medium", set(self._tier_addrs("medium", enable_expert))))
-            if do_rare:
-                tier_groups.append(("rare", set(self._tier_addrs("rare", enable_expert))))
-            if not tier_groups or not any(g for _, g in tier_groups):
-                tier_groups = [("quick", set(addrs))]
-            batches: list[tuple[str, int, int]] = []
-            for tier_label, group in tier_groups:
-                if group:
-                    batches.extend((tier_label, a, q)
-                                   for a, q in self._batches_for_addrs(group))
-            t0 = time.monotonic()
-            out = await self._read_batches(batches, addrs, cfg)
-            self.stats["polls"] += 1
-            if do_quick:
-                self.stats["quick_polls"] += 1
-            if do_medium:
-                self.stats["medium_polls"] += 1
-            if do_rare:
-                self.stats["rare_polls"] += 1
-            self.stats["last_ms"] = int((time.monotonic() - t0) * 1000)
-            self.stats["max_ms"] = max(self.stats.get("max_ms", 0), self.stats["last_ms"])
-            self.stats["last_tiers"] = f"quick={do_quick} medium={do_medium} rare={do_rare} batches={len(batches)} addrs={len(addrs)}"
-            _LOGGER.debug("Poll #%s tiers quick=%s medium=%s rare=%s batches=%s addrs=%s ms=%s", self._poll_counter, do_quick, do_medium, do_rare, len(batches), len(addrs), self.stats["last_ms"])
-            if not out and self.data:
-                _LOGGER.debug("Poll returned empty, keeping prior data")
-                return self.data
-            if self.data:
-                merged = dict(self.data)
-                merged.update(out)
-                self.data = merged
-            else:
-                self.data = out
-            # Detect firmware version from register 2104 (Main Software Version).
-            # Raw value is v*10+minor (e.g. 33 = 3.3, 17 = 1.7). Zero means unknown.
-            fw_rec = self.data.get(2104)
-            if fw_rec and fw_rec.get("raw") is not None:
-                try:
-                    self._fw_version = int(fw_rec["raw"])
-                except (ValueError, TypeError):
-                    pass
-            if is_first and not self._burst_task:
-                self._burst_task = self.hass.async_create_task(self._startup_burst())
-            self._accumulate_energy()
-            if self.efficiency is not None:
-                self.efficiency.on_poll()
+                tier_groups[-1][1].update(_const.CORE_MAIN_ADDRS)
+        if do_medium:
+            tier_groups.append(("medium", set(self._tier_addrs("medium", enable_expert))))
+        if do_rare:
+            tier_groups.append(("rare", set(self._tier_addrs("rare", enable_expert))))
+        if not tier_groups or not any(g for _, g in tier_groups):
+            tier_groups = [("quick", set(addrs))]
+        batches: list[tuple[str, int, int]] = []
+        for tier_label, group in tier_groups:
+            if group:
+                batches.extend((tier_label, a, q)
+                               for a, q in self._batches_for_addrs(group))
+        t0 = time.monotonic()
+        out = await self._read_batches(batches, addrs, cfg)
+        self.stats["polls"] += 1
+        if do_quick:
+            self.stats["quick_polls"] += 1
+        if do_medium:
+            self.stats["medium_polls"] += 1
+        if do_rare:
+            self.stats["rare_polls"] += 1
+        self.stats["last_ms"] = int((time.monotonic() - t0) * 1000)
+        self.stats["max_ms"] = max(self.stats.get("max_ms", 0), self.stats["last_ms"])
+        self.stats["last_tiers"] = f"quick={do_quick} medium={do_medium} rare={do_rare} batches={len(batches)} addrs={len(addrs)}"
+        _LOGGER.debug("Poll #%s tiers quick=%s medium=%s rare=%s batches=%s addrs=%s ms=%s", self._poll_counter, do_quick, do_medium, do_rare, len(batches), len(addrs), self.stats["last_ms"])
+        if not out and self.data:
+            _LOGGER.debug("Poll returned empty, keeping prior data")
             return self.data
+        if self.data:
+            merged = dict(self.data)
+            merged.update(out)
+            self.data = merged
+        else:
+            self.data = out
+        # Detect firmware version from register 2104 (Main Software Version).
+        # Raw value is v*10+minor (e.g. 33 = 3.3, 17 = 1.7). Zero means unknown.
+        fw_rec = self.data.get(2104)
+        if fw_rec and fw_rec.get("raw") is not None:
+            try:
+                self._fw_version = int(fw_rec["raw"])
+            except (ValueError, TypeError):
+                pass
+        if is_first and not self._burst_task:
+            self._burst_task = self.hass.async_create_task(self._startup_burst())
+        self._accumulate_energy()
+        if self.efficiency is not None:
+            self.efficiency.on_poll()
+        return self.data
 
     def _accumulate_energy(self):
         """Integrate per-mode power into energy_kwh each poll.

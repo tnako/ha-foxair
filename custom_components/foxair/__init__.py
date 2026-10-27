@@ -191,9 +191,14 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     from .coordinator import FoxAirCoordinator
 
     coord = FoxAirCoordinator(hass, entry)
-    await coord._load_config()  # load foxair_config.json off the event loop
-    await coord._load_map()     # load regmap + metadata off the event loop
-    await coord.async_config_entry_first_refresh()
+    try:
+        await coord._load_config()  # load foxair_config.json off the event loop
+        await coord._load_map()     # load regmap + metadata off the event loop
+        await coord.async_config_entry_first_refresh()
+    except BaseException:
+        # setup retries build a new coordinator: free this one's gateway share
+        coord.release_gateway()
+        raise
     entry.runtime_data = coord
     from homeassistant.helpers.storage import Store
     from .efficiency_runtime import STORE_VERSION, EfficiencyRuntime
@@ -242,11 +247,9 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry):
     ok = await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
     if coord and getattr(coord, "efficiency", None):
         await coord.efficiency.async_shutdown()
-    if coord and getattr(coord, "client", None):
-        try:
-            coord.client.close()
-        except Exception as e:
-            _LOGGER.debug("client close failed: %s", e)
+    if coord:
+        # shared per-gateway connection: closed only when the last pump unloads
+        coord.release_gateway()
     return ok
 
 
