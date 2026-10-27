@@ -174,15 +174,13 @@ def _options_step(options, user_input):
 def test_saving_options_with_expert_already_on_needs_no_new_acknowledgement():
     on = {"enable_expert": True, "elec_source": "external_meter", "external_meter_entity": "sensor.p"}
     r = _options_step(on, {"enable_expert": True, "expert_ack": False, "elec_source": "external_meter",
-                           "external_meter_entity": "sensor.p", "history_energy_entity": "sensor.meter10_energy"})
-    assert r["type"] == "create_entry" and r["data"]["history_energy_entity"] == "sensor.meter10_energy"
+                           "external_meter_entity": "sensor.p"})
+    assert r["type"] == "create_entry" and r["data"]["external_meter_entity"] == "sensor.p"
     assert "expert_ack" not in r["data"]
     r = _options_step({"enable_expert": False}, {"enable_expert": True, "expert_ack": False})
     assert r == {"type": "form", "errors": {"base": "need_ack"}}
     r = _options_step({"enable_expert": False}, {"enable_expert": True, "expert_ack": True})
     assert r["type"] == "create_entry" and r["data"]["enable_expert"] is True
-    r = _options_step(on, {"enable_expert": True, "history_energy_entity": ""})
-    assert "history_energy_entity" not in r["data"]
 
 
 if __name__ == "__main__":

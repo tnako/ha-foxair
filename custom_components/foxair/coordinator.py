@@ -176,7 +176,6 @@ def scaled(dtype, raw):
 
 
 class FoxAirCoordinator(DataUpdateCoordinator):
-    efficiency = None
     _gw = None
 
     # client and lock live on the shared per-gateway object; without one (tests
@@ -859,8 +858,6 @@ class FoxAirCoordinator(DataUpdateCoordinator):
         if is_first and not self._burst_task:
             self._burst_task = self.hass.async_create_task(self._startup_burst())
         self._accumulate_energy()
-        if self.efficiency is not None:
-            self.efficiency.on_poll()
         return self.data
 
     def _accumulate_energy(self):

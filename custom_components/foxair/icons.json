@@ -1728,22 +1728,6 @@
       },
       "foxair_1463": {
         "default": "mdi:thermometer-lines"
-      },
-      "foxair_efficiency_status": {
-        "default": "mdi:lightbulb-on-outline",
-        "state": {
-          "problem": "mdi:alert-circle-outline",
-          "suggestion": "mdi:gesture-tap-button",
-          "no_change": "mdi:check-circle-outline",
-          "waiting_for_heating": "mdi:sleep",
-          "testing": "mdi:flask-outline"
-        }
-      },
-      "foxair_efficiency_index": {
-        "default": "mdi:gauge"
-      },
-      "foxair_efficiency_daily_cop": {
-        "default": "mdi:calendar-today"
       }
     },
     "climate": {
@@ -2703,12 +2687,6 @@
       },
       "foxair_manual_heating_boost": {
         "default": "mdi:fire"
-      },
-      "foxair_efficiency_apply": {
-        "default": "mdi:gesture-tap-button"
-      },
-      "foxair_efficiency_undo": {
-        "default": "mdi:undo-variant"
       }
     },
     "binary_sensor": {
@@ -3418,9 +3396,6 @@
     "switch": {
       "foxair_pv_surplus": {
         "default": "mdi:solar-power-variant"
-      },
-      "foxair_efficiency_autotest": {
-        "default": "mdi:test-tube"
       }
     },
     "water_heater": {

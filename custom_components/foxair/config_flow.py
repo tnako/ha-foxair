@@ -1,20 +1,12 @@
 import voluptuous as vol
 from homeassistant import config_entries
 from homeassistant.core import callback
-from homeassistant.helpers import selector
 from pymodbus.client import AsyncModbusTcpClient
 from .const import DOMAIN
 import logging
 import re
 
 _LOGGER = logging.getLogger(__name__)
-
-HISTORY_OPTIONS = {"history_energy_entity": "energy", "history_outdoor_entity": "temperature",
-                   "history_indoor_entity": "temperature"}
-
-
-def _sensor_selector(device_class: str):
-    return selector.EntitySelector(selector.EntitySelectorConfig(domain="sensor", device_class=device_class))
 
 
 def _validate_host(host: str) -> bool:
@@ -233,9 +225,6 @@ class FoxAirOptionsFlow(config_entries.OptionsFlow):
                         else:
                             user_input[k] = default
                 opts = {**self._entry.options, **user_input}
-                for k in HISTORY_OPTIONS:
-                    if not user_input.get(k):
-                        opts.pop(k, None)
                 opts.pop("expert_ack", None)
                 return self.async_create_entry(title="", data=opts)
         cur = self._entry.options
@@ -253,8 +242,6 @@ class FoxAirOptionsFlow(config_entries.OptionsFlow):
                 default=cur.get("external_meter_entity", ""),
             ): str,
         }
-        for k, device_class in HISTORY_OPTIONS.items():
-            schema[vol.Optional(k, description={"suggested_value": cur.get(k)})] = _sensor_selector(device_class)
         return self.async_show_form(
             step_id="init",
             data_schema=vol.Schema(schema),

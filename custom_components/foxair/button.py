@@ -11,7 +11,6 @@ from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from .const import (
     bind_device_info,
     device_for_addr,
-    device_for_block,
     get_device_prefix,
     get_slave_id,
     word_base,
@@ -37,72 +36,7 @@ async def async_setup_entry(hass, entry, add_entities):
         for bit, spec in (meta.get("bits") or {}).items():
             if spec.get("kind") == "button":
                 ents.append(FoxBitButton(coord, addr, meta, int(bit), spec.get("slug", f"bit{bit}"), spec.get("key", f"{addr}_{bit}"), spec.get("icon")))
-    if getattr(coord, "efficiency", None) is not None:
-        ents += [FoxEfficiencyApplyButton(coord), FoxEfficiencyUndoButton(coord)]
     add_entities(ents)
-
-
-class FoxEfficiencyButton(CoordinatorEntity, ButtonEntity):
-    """Button on the Efficiency sub-device; unavailable while busy."""
-    _attr_has_entity_name = True
-    _key = ""
-
-    def __init__(self, coord):
-        super().__init__(coord)
-        prefix = get_device_prefix(coord.entry)
-        entry_id = coord.entry.entry_id
-        self._attr_unique_id = f"{prefix}_efficiency_{self._key}"
-        self.entity_id = f"button.{prefix}_efficiency_{self._key}"
-        self._attr_translation_key = f"foxair_efficiency_{self._key}"
-        self._attr_device_info = bind_device_info(
-            getattr(coord, "hass", None), entry_id,
-            device_for_block("EFF", entry_id, None, prefix, get_slave_id(coord.entry)))
-        self._busy = False
-
-    def _ready(self) -> bool:
-        return True
-
-    @property
-    def available(self) -> bool:
-        return not self._busy and super().available and self._ready()
-
-    async def _run(self) -> None:
-        raise NotImplementedError
-
-    async def async_press(self) -> None:
-        from homeassistant.exceptions import HomeAssistantError
-        if self._busy:
-            return
-        self._busy = True
-        self.async_write_ha_state()
-        try:
-            await self._run()
-        except ValueError as e:
-            raise HomeAssistantError(str(e)) from e
-        finally:
-            self._busy = False
-            self.coordinator.async_update_listeners()
-
-
-class FoxEfficiencyApplyButton(FoxEfficiencyButton):
-    """Do what the efficiency status suggests: write the one setting, or keep the current settings."""
-    _key = "apply"
-
-    def _ready(self) -> bool:
-        import time
-        eff = self.coordinator.efficiency
-        return eff.analyser.status(time.time(), eff.tz())["apply"] is not None
-
-    async def _run(self) -> None:
-        await self.coordinator.efficiency.async_apply()
-
-
-class FoxEfficiencyUndoButton(FoxEfficiencyButton):
-    """Write back what EEF changed (E02) to its value before EEF and forget every test result."""
-    _key = "undo"
-
-    async def _run(self) -> None:
-        await self.coordinator.efficiency.async_undo()
 
 
 class FoxBitButton(CoordinatorEntity, ButtonEntity):

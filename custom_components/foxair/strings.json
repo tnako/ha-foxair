@@ -2832,23 +2832,6 @@
       "foxair_2018": {
         "name": "025 / Load Outputs Bitfield 2 (DHW heater, zone pumps, cooling 3-way valve)"
       },
-      "foxair_efficiency_status": {
-        "name": "Efficiency status",
-        "state": {
-          "learning": "Learning",
-          "waiting_for_heating": "Waiting for heating",
-          "suggestion": "Suggestion ready, press Apply",
-          "testing": "Testing a change",
-          "no_change": "Nothing to change",
-          "problem": "Check needed"
-        }
-      },
-      "foxair_efficiency_index": {
-        "name": "Efficiency index"
-      },
-      "foxair_efficiency_daily_cop": {
-        "name": "Daily COP"
-      },
       "foxair_err10": {
         "name": "ERR10: Error 10 / Fault Bits"
       }
@@ -2868,9 +2851,6 @@
       },
       "foxair_pv_surplus": {
         "name": "PV surplus (SG Ready High PV)"
-      },
-      "foxair_efficiency_autotest": {
-        "name": "E02 autotest"
       }
     },
     "number": {
@@ -4976,12 +4956,6 @@
       },
       "foxair_manual_heating_boost": {
         "name": "One-Touch Manual Heating"
-      },
-      "foxair_efficiency_apply": {
-        "name": "Apply suggestion"
-      },
-      "foxair_efficiency_undo": {
-        "name": "Undo EEF changes"
       }
     },
     "binary_sensor": {
@@ -5704,10 +5678,7 @@
           "v_gain": "Voltage gain",
           "v_offset": "Voltage offset",
           "i_gain": "Current gain (raw → A)",
-          "i_offset": "Current offset",
-          "history_energy_entity": "History: electricity energy meter (empty = the pump's own)",
-          "history_outdoor_entity": "History: outdoor temperature sensor (empty = the pump's T04)",
-          "history_indoor_entity": "History: indoor temperature sensor (optional)"
+          "i_offset": "Current offset"
         }
       }
     },

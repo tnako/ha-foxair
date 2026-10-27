@@ -2832,23 +2832,6 @@
       "foxair_2018": {
         "name": "025 / Lastausgänge Bitfeld 2 (WW-Heizstab, Zonenpumpen, Kühl-3-Wege-Ventil)"
       },
-      "foxair_efficiency_status": {
-        "name": "Effizienzstatus",
-        "state": {
-          "learning": "Lernt",
-          "waiting_for_heating": "Wartet auf Heizbetrieb",
-          "suggestion": "Vorschlag bereit, Übernehmen drücken",
-          "testing": "Änderung wird getestet",
-          "no_change": "Nichts zu ändern",
-          "problem": "Prüfung nötig"
-        }
-      },
-      "foxair_efficiency_index": {
-        "name": "Effizienzindex"
-      },
-      "foxair_efficiency_daily_cop": {
-        "name": "Tages-COP"
-      },
       "foxair_err10": {
         "name": "ERR10: Fehler 10 / Störmeldebits"
       }
@@ -2874,9 +2857,6 @@
       },
       "foxair_pv_surplus": {
         "name": "PV-Überschuss (SG Ready High PV)"
-      },
-      "foxair_efficiency_autotest": {
-        "name": "E02-Autotest"
       }
     },
     "number": {
@@ -5030,12 +5010,6 @@
       },
       "foxair_manual_heating_boost": {
         "name": "Ein-Tasten-Heizen"
-      },
-      "foxair_efficiency_apply": {
-        "name": "Vorschlag übernehmen"
-      },
-      "foxair_efficiency_undo": {
-        "name": "EEF-Änderungen zurücksetzen"
       }
     },
     "binary_sensor": {
@@ -5758,10 +5732,7 @@
           "v_gain": "Spannungs-Gain",
           "v_offset": "Spannungs-Offset",
           "i_gain": "Strom-Gain (raw → A)",
-          "i_offset": "Strom-Offset",
-          "history_energy_entity": "Verlauf: Stromzähler (leer = der eigene der Wärmepumpe)",
-          "history_outdoor_entity": "Verlauf: Außentemperatursensor (leer = T04 der Wärmepumpe)",
-          "history_indoor_entity": "Verlauf: Innentemperatursensor (optional)"
+          "i_offset": "Strom-Offset"
         }
       }
     },

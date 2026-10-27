@@ -66,8 +66,8 @@ Read with `tools/modbus_probe.py` on 2026-10-06. Values are display values.
 ### EEV, before the 2026-10-06 change
 
 On 2026-10-06 the EEV settings were written to E02 5.0, E07 60, E03-1..5
-250/185/140/125/110 and E07-1..5 130/130/110/90/85, and made the efficiency
-analyser baseline. Supported: E02 (reset unit + manual), E03-1..5, E07 and
+250/185/140/125/110 and E07-1..5 130/130/110/90/85.
+Supported: E02 (reset unit + manual), E03-1..5, E07 and
 E07-4 (two FoxAir units), E07-5 (firmware + GL9). Not proven: E07-1/2/3
 (130/130/110 from the GL9 recording, 215/150/120 on the factory-reset GL-15;
 the manual predates these codes). 130/130/110 was kept because it comes from a
@@ -161,7 +161,7 @@ efficiency tuning.
 | P05 | DHW Pump Operation Mode | 1 | 2 | GL9 video only |
 | P11 | Target Temp. Diff. for Pump Speed Control | 3.5 °C | 5 °C (reset) / 4.4 °C (gl9) | conflict |
 
-F26 stays at the factory 600 rpm; the analyser never suggests raising it. P11 stays at
+F26 stays at the factory 600 rpm. P11 stays at
 3.5 °C on purpose: 5.0 °C trips the low-flow error on this installation (with
 A40 = 1.1 m³/h the pump must hold more than 1.32 m³/h for 10 minutes before
 speed control starts, then never drops below 0.88 m³/h). P10 = 0 % because the

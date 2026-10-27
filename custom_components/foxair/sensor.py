@@ -3,10 +3,9 @@ from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.event import async_track_state_change_event
 from homeassistant.helpers.restore_state import RestoreEntity
-from .const import POPULAR_ADDRS, SENSOR_HIDDEN_ADDRS, device_for_addr, device_for_block, main_device, entity_sort_key, get_device_prefix, get_slave_id, bind_device_info, entity_suffix, dependency_met, sg_three_level
+from .const import POPULAR_ADDRS, SENSOR_HIDDEN_ADDRS, device_for_addr, main_device, entity_sort_key, get_device_prefix, get_slave_id, bind_device_info, entity_suffix, dependency_met, sg_three_level
 from .computed import (compute_heating_power, compute_electrical_power, compute_cop,
                        compute_cop_mode, active_mode, _cval)
-from .efficiency_runtime import marker_addrs
 
 # Build DTYPE_MAP lazily from DTYPE_SPEC: const globals are populated by
 # apply_config() at coordinator load (in-place), so resolve at entity-setup
@@ -74,9 +73,6 @@ async def async_setup_entry(hass, entry, add_entities):
     ents.append(FoxElectricalEnergySensor(coord))
     for _mode in ("cooling", "dhw"):
         ents.append(FoxModeCopSensor(coord, _mode))
-    if getattr(coord, "efficiency", None) is not None:
-        ents.extend([FoxEfficiencyStatusSensor(coord), FoxEfficiencyIndexSensor(coord),
-                     FoxEfficiencyDailySensor(coord)])
     add_entities(ents)
 
 class FoxSensor(CoordinatorEntity, SensorEntity):
@@ -467,118 +463,3 @@ class FoxElectricalEnergySensor(FoxEnergySensor):
         val = getattr(self.coordinator, "energy_kwh", {}).get("electrical", 0.0)
         return round(val, 3)
 
-
-class FoxEfficiencySensor(FoxComputedSensor):
-    """Efficiency analyser output, on the Efficiency sub-device."""
-    _key = ""
-
-    def __init__(self, coord):
-        super().__init__(coord)
-        entry_id = coord.entry.entry_id
-        self._attr_unique_id = f"{self._prefix}_efficiency_{self._key}"
-        self.entity_id = f"sensor.{self._prefix}_efficiency_{self._key}"
-        self._attr_translation_key = f"foxair_efficiency_{self._key}"
-        self._attr_device_info = bind_device_info(
-            getattr(coord, "hass", None), entry_id,
-            device_for_block("EFF", entry_id, None, self._prefix, get_slave_id(coord.entry)))
-
-    @property
-    def _an(self):
-        return self.coordinator.efficiency.analyser
-
-
-class FoxEfficiencyIndexSensor(FoxEfficiencySensor):
-    """Last 24 h actual COP as % of the baseline model's prediction for the same weather and load."""
-    _key = "index"
-    _attr_native_unit_of_measurement = "%"
-    _attr_state_class = SensorStateClass.MEASUREMENT
-    _attr_suggested_display_precision = 1
-
-    @property
-    def native_value(self):
-        r = self._an.recent
-        return None if not r else r["index_pct"]
-
-    @property
-    def extra_state_attributes(self):
-        an = self._an
-        groups = {an.describe(fp): g for fp, g in an.groups.items()}
-        attrs = {"baseline": an.baseline_fp, "buckets": len(an.buckets),
-                 "recent_buckets": (an.recent or {}).get("buckets", 0), "groups": groups,
-                 "daily_groups": {an.describe(fp): g for fp, g in an.day_groups.items()}}
-        if an.model:
-            attrs["model_fit_error_pct"] = an.model["mape_pct"]
-            attrs["model_days"] = an.model["days"]
-        return attrs
-
-
-class FoxEfficiencyStatusSensor(FoxEfficiencySensor):
-    """The analyser in one state: learning, waiting, suggestion, testing, no change or problem."""
-    _key = "status"
-    _attr_device_class = SensorDeviceClass.ENUM
-
-    @property
-    def options(self):
-        from .efficiency import STATES
-        return STATES
-
-    def _status(self):
-        import time
-        return self._an.status(time.time(), self.coordinator.efficiency.tz())
-
-    @property
-    def native_value(self):
-        return self._status()["state"]
-
-    @property
-    def extra_state_attributes(self):
-        import time
-        from datetime import datetime, timezone
-        from .efficiency import defrost_summary
-
-        def iso(t):
-            return None if t is None else datetime.fromtimestamp(t, timezone.utc).isoformat()
-
-        an, st = self._an, self._status()
-        c = self.coordinator
-        a = marker_addrs(c)
-        exp = None
-        if compute_cop(c, self._opts) is not None:
-            exp = an.expected_cop(*(_cval(c, a[k]) if a[k] else None for k in ("hz", "t_out", "t_flow")))
-        fp = an.current_fp() if an.current else None
-        auto = st.get("autotest")
-        if auto:
-            auto = {**auto, "until": iso(auto["until"])}
-        return {"message": st["message"], "apply": st["apply"], "next_check": iso(st["next_check"]),
-                "next_check_estimated": st["estimated"], "days_left": st["days_left"], "reason": st["reason"],
-                "findings": st["findings"], "flow_vs_history": an.flow,
-                "expected_cop": None if exp is None else round(exp, 2),
-                "settings_group": an.describe(fp) if fp and an.baseline_fp else None,
-                "suggested_since": iso(an.advice.get("since")),
-                "defrosts": defrost_summary(an.defrosts, time.time(), an.current.get("D03")),
-                "autotest": auto,
-                "undo": {k: {"now": v[0], "before_eef": v[1]} for k, v in an.undo_targets().items()},
-                "changes": [{"time": iso(ch["t"]), "kind": ch.get("kind"), "diff": ch.get("diff"),
-                             "by": ch.get("by")} for ch in an.changes[-10:]]}
-
-
-class FoxEfficiencyDailySensor(FoxEfficiencySensor):
-    """Whole-day COP (heat out / electricity in, defrost, cycling and standby included) of the last full local day."""
-    _key = "daily_cop"
-    _attr_state_class = SensorStateClass.MEASUREMENT
-    _attr_suggested_display_precision = 2
-    _unrecorded_attributes = frozenset({"comparison", "sources"})
-
-    @property
-    def native_value(self):
-        return self._an.last_day().get("cop")
-
-    @property
-    def extra_state_attributes(self):
-        an = self._an
-        d = an.last_day()
-        if d.get("fp"):
-            d["fp"] = an.describe(d["fp"])
-        m = an.day_model
-        return {**d, "model_fit_error_pct": None if not m else m["mape_pct"], "comparison": an.comparison,
-                "sources": an.history_sources, "history_error": self.coordinator.efficiency.history_error}

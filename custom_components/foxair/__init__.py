@@ -23,9 +23,33 @@ RETIRED_UID_SUFFIXES = (
     "_btn_1016_defrost", "_btn_1016_boost", "_silent_status", "_silent_mode",
     "_efficiency_expected_cop", "_efficiency_settings", "_efficiency_finding", "_efficiency_next_step",
     "_efficiency_next_change", "_efficiency_defrosts", "_efficiency_set_baseline",
+    "_efficiency_status", "_efficiency_index", "_efficiency_daily_cop", "_efficiency_autotest",
+    "_efficiency_apply", "_efficiency_undo",
     # addr-based patterns being replaced by code-based naming
     "_num_", "_switch_", "_sel_", "_time_", "_bin_",
 )
+RETIRED_EFFICIENCY_OPTIONS = ("history_energy_entity", "history_outdoor_entity", "history_indoor_entity")
+RETIRED_EFFICIENCY_STATS = ("_efficiency_daily_cop", "_efficiency_index", "_efficiency_defrosts", "_efficiency_expected_cop")
+
+
+async def _cleanup_retired_efficiency(hass: HomeAssistant, entry: ConfigEntry):
+    """Remove what the retired efficiency analyser left: its store file, options and statistics."""
+    try:
+        from homeassistant.helpers.storage import Store
+        await Store(hass, 1, f"{DOMAIN}.efficiency.{entry.entry_id}").async_remove()
+        if any(k in entry.options for k in RETIRED_EFFICIENCY_OPTIONS):
+            hass.config_entries.async_update_entry(
+                entry, options={k: v for k, v in entry.options.items() if k not in RETIRED_EFFICIENCY_OPTIONS})
+        if "recorder" in hass.config.components:
+            from homeassistant.components.recorder import get_instance
+            from homeassistant.components.recorder.statistics import async_list_statistic_ids
+            prefix = entry.data.get("name_prefix", "foxair") or "foxair"
+            wanted = {f"sensor.{prefix}{suffix}" for suffix in RETIRED_EFFICIENCY_STATS}
+            found = [row["statistic_id"] for row in await async_list_statistic_ids(hass, wanted)]
+            if found:
+                get_instance(hass).async_clear_statistics(found)
+    except Exception:
+        _LOGGER.exception("cleanup of the retired efficiency analyser failed")
 
 
 async def _cleanup_orphaned_entities(hass: HomeAssistant, entry: ConfigEntry, enable_expert: bool):
@@ -200,10 +224,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
         coord.release_gateway()
         raise
     entry.runtime_data = coord
-    from homeassistant.helpers.storage import Store
-    from .efficiency_runtime import STORE_VERSION, EfficiencyRuntime
-    coord.efficiency = EfficiencyRuntime(hass, coord, Store(hass, STORE_VERSION, f"{DOMAIN}.efficiency.{entry.entry_id}"))
-    await coord.efficiency.async_load()
+    await _cleanup_retired_efficiency(hass, entry)
     entry.async_on_unload(entry.add_update_listener(async_reload_entry))
 
     enable_expert = bool(entry.options.get("enable_expert"))
@@ -245,8 +266,6 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry):
         except Exception:
             pass
     ok = await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
-    if coord and getattr(coord, "efficiency", None):
-        await coord.efficiency.async_shutdown()
     if coord:
         # shared per-gateway connection: closed only when the last pump unloads
         coord.release_gateway()
@@ -254,7 +273,7 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry):
 
 
 async def _cleanup_orphaned_devices(hass: HomeAssistant, entry: ConfigEntry):
-    """Remove legacy devices of this entry (pre multi-pump identifiers).
+    """Remove legacy devices of this entry (pre multi-pump identifiers, retired sub-devices).
 
     Scoped to the entry via async_entries_for_config_entry — no registry
     mapping access (deprecated, removal 2027.9).
@@ -267,6 +286,9 @@ async def _cleanup_orphaned_devices(hass: HomeAssistant, entry: ConfigEntry):
                     registry.async_remove_device(device.id)
                     break
                 if ident[0] == DOMAIN and ident[1].startswith("foxair_") and "_" not in ident[1][7:]:
+                    registry.async_remove_device(device.id)
+                    break
+                if ident == (DOMAIN, f"{entry.entry_id}_EFF"):
                     registry.async_remove_device(device.id)
                     break
     except Exception as e:

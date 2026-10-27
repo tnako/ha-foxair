@@ -252,8 +252,7 @@
       "KG": "Timer",
       "ERR": "Fault",
       "S": "Switches",
-      "HC": "Heating curve",
-      "EFF": "Efficiency"
+      "HC": "Heating curve"
     },
     "icons": {
       "H": "mdi:chip",
@@ -273,8 +272,7 @@
       "KG": "mdi:timer-outline",
       "ERR": "mdi:alert-circle",
       "S": "mdi:electric-switch",
-      "HC": "mdi:chart-line",
-      "EFF": "mdi:chart-bell-curve"
+      "HC": "mdi:chart-line"
     },
     "risk_by_block": {
       "R": "safe",

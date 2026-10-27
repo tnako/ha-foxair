@@ -2832,23 +2832,6 @@
       "foxair_2018": {
         "name": "025 / Битовое поле выходов 2 (ТЭН ГВС, насосы зон, 3-ход. клапан охлаждения)"
       },
-      "foxair_efficiency_status": {
-        "name": "Статус эффективности",
-        "state": {
-          "learning": "Обучение",
-          "waiting_for_heating": "Ждёт отопления",
-          "suggestion": "Есть предложение, нажмите Применить",
-          "testing": "Идёт тест изменения",
-          "no_change": "Менять нечего",
-          "problem": "Нужна проверка"
-        }
-      },
-      "foxair_efficiency_index": {
-        "name": "Индекс эффективности"
-      },
-      "foxair_efficiency_daily_cop": {
-        "name": "Суточный COP"
-      },
       "foxair_err10": {
         "name": "ERR10: Ошибка 10 / Биты неисправностей"
       }
@@ -2874,9 +2857,6 @@
       },
       "foxair_pv_surplus": {
         "name": "Избыток PV (SG Ready High PV)"
-      },
-      "foxair_efficiency_autotest": {
-        "name": "Автотест E02"
       }
     },
     "number": {
@@ -5030,12 +5010,6 @@
       },
       "foxair_manual_heating_boost": {
         "name": "Разовый ручной нагрев"
-      },
-      "foxair_efficiency_apply": {
-        "name": "Применить предложение"
-      },
-      "foxair_efficiency_undo": {
-        "name": "Вернуть как было до EEF"
       }
     },
     "binary_sensor": {
@@ -5758,10 +5732,7 @@
           "v_gain": "Коэфф. напряжения",
           "v_offset": "Смещение напряжения",
           "i_gain": "Коэфф. тока (raw → A)",
-          "i_offset": "Смещение тока",
-          "history_energy_entity": "История: счётчик электроэнергии (пусто = собственный насоса)",
-          "history_outdoor_entity": "История: датчик уличной температуры (пусто = T04 насоса)",
-          "history_indoor_entity": "История: датчик температуры в доме (необязательно)"
+          "i_offset": "Смещение тока"
         }
       }
     },
