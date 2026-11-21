@@ -2,7 +2,7 @@
 
 Control and monitor your **FoxAir / PHNIX air-to-water heat pump** directly from Home Assistant over Modbus TCP — no cloud, no YAML.
 
-![Version](https://img.shields.io/badge/version-0.7.50-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2026.10-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
+![Version](https://img.shields.io/badge/version-0.7.51-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2026.10-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
 ![FoxAir Demo](docs/screenshots/foxair_demo.gif)
 
@@ -47,18 +47,32 @@ The climate attributes `control_source`, `current_addr` and `target_addr` show w
 - Python `pymodbus>=3.10.0`
 - FoxAir/PHNIX on Modbus TCP (tested with an Elfins EW11 at the default `host:8899 slave 1`)
 
-## Installation via HACS (recommended)
+## Installation
+
+<!-- ha-marketplace:exclude-start -->
+### Home Assistant 2026.11+ — Marketplace (recommended)
+
+Since 2026.11, HACS is built into Home Assistant as the **Marketplace** (Settings → Marketplace). An existing HACS install migrates automatically on the first start after the update — nothing to do, your update entities keep their IDs.
+
+1. **Settings → Marketplace → Add from link** → `https://github.com/tnako/ha-foxair` → **Add**. Adding a custom repository needs a [GitHub connection](https://www.home-assistant.io/integrations/marketplace#connecting-github).
+2. Open **FoxAir Modbus Heat Pump** → **Install** — the setup flow opens right away, no restart needed.
+3. Enter host / port / slave (defaults fill in automatically).
+
+Updates arrive through the `update.foxair_modbus_heat_pump_update` entity; after an update a repair under Settings → System → Repairs offers the restart.
+
+### Home Assistant 2026.10 or older — HACS
 
 1. Make sure [HACS](https://hacs.xyz/docs/use/) is installed.
 2. **HACS → Integrations → ⋯ → Custom repositories** → add `https://github.com/tnako/ha-foxair` as `Integration`.
 3. Search **FoxAir** → **Install** → **Restart**.
 4. **Settings → Devices & Services → Add Integration → FoxAir Heat Pump** → host / port / slave (defaults fill in automatically).
 
-You get a **FoxAir Heat Pump** device with sub-devices per block (setpoints, diagnostics, pump, SG Ready, …). Safe controls are on by default; enable **Expert mode** in the options to reach installer controls.
-
-## Manual installation
+### Manual installation
 
 Copy `custom_components/foxair` to `/config/custom_components/foxair` (HAOS: `scp -r custom_components/foxair homeassistant@homeassistant.local:/usr/share/hassio/homeassistant/custom_components/`), then restart.
+<!-- ha-marketplace:exclude-end -->
+
+You get a **FoxAir Heat Pump** device with sub-devices per block (setpoints, diagnostics, pump, SG Ready, …). Safe controls are on by default; enable **Expert mode** in the options to reach installer controls.
 
 ## Configuration
 
