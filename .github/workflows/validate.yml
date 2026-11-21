@@ -16,7 +16,9 @@ jobs:
           # topics and brands require GitHub repo settings / brands PR - ignore until configured
           ignore: topics brands
   lint:
-    runs-on: ubuntu-latest
+    # Pinned: ubuntu-latest moved to 26.04, whose setup-python manifest has no
+    # Python 3.9 build (the oldest interpreter this project supports). 24.04 has it.
+    runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:

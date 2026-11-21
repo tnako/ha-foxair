@@ -1,6 +1,6 @@
 name: Release
-# Every push to main that bumps VERSION ships a GitHub release (HACS reads
-# releases). Tagging and releasing happen in THIS workflow run on purpose:
+# Every push to main that bumps VERSION ships a GitHub release (HACS/Marketplace
+# reads releases). Tagging and releasing happen in THIS workflow run on purpose:
 # a tag pushed with GITHUB_TOKEN never triggers another workflow, so a
 # separate "tag on push -> release on tag" chain silently stops at the tag.
 # Idempotent: an existing tag/release is reused, a missing one is created,
