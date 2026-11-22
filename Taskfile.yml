@@ -30,7 +30,7 @@ tasks:
       - task: test
       - '{{.PY}} tools/render_test.py'
       - |
-        if [ -f .env ]; then {{.PY}} tools/check_regs.py; else echo "check_regs skipped: no .env (HASS_URL/HASS_TOKEN)"; fi
+        if [ -f .env ]; then {{.PY}} tools/check_regs.py; else echo "check_regs skipped: no .env (HASS_URL + HA_ADMIN_USER/HA_ADMIN_PASSWORD)"; fi
 
   check_regs:
     desc: Check every register - HA state vs device

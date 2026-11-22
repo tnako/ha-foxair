@@ -106,7 +106,7 @@ More: [DEBUG.md](docs/DEBUG.md), [ROADMAP.md](docs/ROADMAP.md), [FACTORY_DEFAULT
 - Generate metadata: `python3 tools/build_metadata.py`
 - Sort / fix translations: `python3 tools/fix_translations.py`
 - Validate: `python tools/validate.py`
-- Audit registers: `python tools/check_regs.py` (set `HASS_URL`/`HASS_TOKEN` in `.env`; `--direct` for raw Modbus, `--codes H01,P02` to filter)
+- Audit registers: `python tools/check_regs.py` (set `HASS_URL` + `HA_ADMIN_USER`/`HA_ADMIN_PASSWORD` or `HASS_TOKEN` in `.env`; `--direct` for raw Modbus, `--codes H01,P02` to filter)
 - Deploy: `tools/deploy.sh` (reads `HA_HOST` from `.env`)
 
 ## License

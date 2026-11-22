@@ -2,7 +2,10 @@
 """Check every foxair register end-to-end: code -> Home Assistant -> Modbus bridge -> device.
 
 Sources (all from .env, nothing hardcoded — public repo):
-  HASS_URL, HASS_TOKEN   HA REST API (http://<host>:8123)
+  HASS_URL   HA REST API base (http://<host>:8123)
+  HA_ADMIN_USER, HA_ADMIN_PASSWORD   HA admin account — exchanged for a
+                                     short-lived access token via /auth login
+  HASS_TOKEN   long-lived access token (Bearer), if you use one instead
   MODBUS_HOST, MODBUS_PORT, MODBUS_SLAVE   direct device read (optional, --direct)
 
 Modes:
@@ -40,6 +43,7 @@ import socket
 import struct
 import sys
 import time
+import urllib.parse
 import urllib.request
 from pathlib import Path
 
@@ -75,7 +79,8 @@ def load_env(path: Path) -> dict:
                 k, v = line.split("=", 1)
                 env[k.strip()] = v.strip()
     # real environment wins
-    for k in ("HASS_URL", "HASS_TOKEN", "MODBUS_HOST", "MODBUS_PORT", "MODBUS_SLAVE"):
+    for k in ("HASS_URL", "HASS_TOKEN", "HA_ADMIN_USER", "HA_ADMIN_PASSWORD",
+              "MODBUS_HOST", "MODBUS_PORT", "MODBUS_SLAVE"):
         if os.environ.get(k):
             env[k] = os.environ[k]
     return env
@@ -101,10 +106,67 @@ def tabs_order() -> list[str]:
     return codes
 
 
+def ha_login(env: dict) -> str:
+    """Exchange the admin username/password for a short-lived access token.
+
+    HA's REST API only accepts Bearer access tokens (http/auth.py rejects
+    Basic). Account passwords go through the /auth login flow, the same
+    exchange hass-cli does with --password. The token lives ~30 min, plenty
+    for one audit run; nothing is written to disk.
+    """
+    base = env["HASS_URL"].rstrip("/")
+    client_id = base + "/"
+
+    def post(path: str, data: dict, form: bool = False) -> dict:
+        if form:
+            body = urllib.parse.urlencode(data).encode()
+            ctype = "application/x-www-form-urlencoded"
+        else:
+            body = json.dumps(data).encode()
+            ctype = "application/json"
+        req = urllib.request.Request(
+            base + path, data=body, headers={"Content-Type": ctype}
+        )
+        with urllib.request.urlopen(req, timeout=15) as r:
+            return json.loads(r.read())
+
+    flow = post("/auth/login_flow", {
+        "client_id": client_id,
+        "handler": ["homeassistant", None],
+        "redirect_uri": client_id,
+    })
+    if flow.get("type") == "form":
+        flow = post(f"/auth/login_flow/{flow['flow_id']}", {
+            "client_id": client_id,
+            "username": env["HA_ADMIN_USER"],
+            "password": env["HA_ADMIN_PASSWORD"],
+        })
+    if flow.get("type") != "create_entry":
+        raise RuntimeError(
+            f"HA login flow did not finish (type={flow.get('type')}, "
+            f"errors={flow.get('errors')}) — wrong credentials or MFA enabled?"
+        )
+    tok = post("/auth/token", {
+        "grant_type": "authorization_code",
+        "code": flow["result"],
+        "client_id": client_id,
+    }, form=True)
+    return tok["access_token"]
+
+
+def ha_auth_header(env: dict) -> str:
+    if "_ha_auth" not in env:
+        if env.get("HASS_TOKEN"):
+            env["_ha_auth"] = f"Bearer {env['HASS_TOKEN']}"
+        else:
+            env["_ha_auth"] = "Bearer " + ha_login(env)
+    return env["_ha_auth"]
+
+
 def ha_get(env: dict, path: str):
     url = env["HASS_URL"].rstrip("/")
     req = urllib.request.Request(
-        f"{url}{path}", headers={"Authorization": f"Bearer {env['HASS_TOKEN']}"}
+        f"{url}{path}", headers={"Authorization": ha_auth_header(env)}
     )
     with urllib.request.urlopen(req, timeout=15) as r:
         return json.loads(r.read())
@@ -271,8 +333,10 @@ def main() -> None:
     args = ap.parse_args()
 
     env = load_env(REPO / ".env")
-    if not env.get("HASS_URL") or not env.get("HASS_TOKEN"):
-        print("ERROR: HASS_URL / HASS_TOKEN missing (create .env from .env.example)", file=sys.stderr)
+    has_basic = env.get("HA_ADMIN_USER") and env.get("HA_ADMIN_PASSWORD")
+    if not env.get("HASS_URL") or not (has_basic or env.get("HASS_TOKEN")):
+        print("ERROR: HASS_URL and HA_ADMIN_USER/HA_ADMIN_PASSWORD (or HASS_TOKEN) "
+              "missing (create .env from .env.example)", file=sys.stderr)
         sys.exit(2)
 
     meta = json.loads(META_PATH.read_text(encoding="utf-8-sig"))
