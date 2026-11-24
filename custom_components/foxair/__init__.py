@@ -42,12 +42,9 @@ async def _cleanup_retired_efficiency(hass: HomeAssistant, entry: ConfigEntry):
                 entry, options={k: v for k, v in entry.options.items() if k not in RETIRED_EFFICIENCY_OPTIONS})
         if "recorder" in hass.config.components:
             from homeassistant.components.recorder import get_instance
-            from homeassistant.components.recorder.statistics import async_list_statistic_ids
             prefix = entry.data.get("name_prefix", "foxair") or "foxair"
-            wanted = {f"sensor.{prefix}{suffix}" for suffix in RETIRED_EFFICIENCY_STATS}
-            found = [row["statistic_id"] for row in await async_list_statistic_ids(hass, wanted)]
-            if found:
-                get_instance(hass).async_clear_statistics(found)
+            get_instance(hass).async_clear_statistics(
+                [f"sensor.{prefix}{suffix}" for suffix in RETIRED_EFFICIENCY_STATS])
     except Exception:
         _LOGGER.exception("cleanup of the retired efficiency analyser failed")
 
@@ -224,14 +221,15 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
         coord.release_gateway()
         raise
     entry.runtime_data = coord
-    await _cleanup_retired_efficiency(hass, entry)
+    entry.async_create_background_task(
+        hass, _cleanup_retired_efficiency(hass, entry), f"{DOMAIN}_cleanup_retired_efficiency")
     entry.async_on_unload(entry.add_update_listener(async_reload_entry))
 
     enable_expert = bool(entry.options.get("enable_expert"))
     await _cleanup_orphaned_entities(hass, entry, enable_expert)
 
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
-    hass.async_create_task(_cleanup_orphaned_devices(hass, entry))
+    entry.async_create_background_task(hass, _cleanup_orphaned_devices(hass, entry), f"{DOMAIN}_cleanup_devices")
     # Expert toggle (or any config change) can make a whole tier of entities
     # appear with Unknown until the next medium/rare cycle (60-90s). Trigger
     # the same force-fetch burst used on first install so they populate in
@@ -247,7 +245,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
                     burst.cancel()
                 except Exception:
                     pass
-            coord._burst_task = hass.async_create_task(coord.async_burst_missing(delay=0.5))
+            coord._burst_task = entry.async_create_background_task(
+                hass, coord.async_burst_missing(delay=0.5), f"{DOMAIN}_burst_missing")
         except Exception as e:
             _LOGGER.debug("post-setup burst schedule failed: %s", e)
     return True

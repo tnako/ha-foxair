@@ -525,7 +525,8 @@ class FoxAirCoordinator(DataUpdateCoordinator):
                     self.async_update_listeners()
         # Request a fresh poll outside the lock (it re-acquires it).
         if overall_ok:
-            self.hass.async_create_task(self.async_request_refresh())
+            self.entry.async_create_background_task(
+                self.hass, self.async_request_refresh(), "foxair_refresh_after_write")
         for f in futs:
             if not f.done():
                 f.set_result(overall_ok)
@@ -856,7 +857,8 @@ class FoxAirCoordinator(DataUpdateCoordinator):
             except (ValueError, TypeError):
                 pass
         if is_first and not self._burst_task:
-            self._burst_task = self.hass.async_create_task(self._startup_burst())
+            self._burst_task = self.entry.async_create_background_task(
+                self.hass, self._startup_burst(), "foxair_startup_burst")
         self._accumulate_energy()
         return self.data
 

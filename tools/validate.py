@@ -496,6 +496,19 @@ if _coord_src:
     if "await asyncio.sleep(0.22" in _coord_src:
         errs.append("poll-resilience: 0.22s read pacing in coordinator.py — EW11 half-duplex needs 0.35s (writes keep 0.25s, reads must be 0.35s)")
 
+try:
+    _init_src = (CC / "__init__.py").read_text()
+except OSError:
+    _init_src = ""
+for _name, _src in (("__init__.py", _init_src), ("coordinator.py", _coord_src)):
+    if "hass.async_create_task(" in _src:
+        errs.append(f"setup-blocking: {_name} uses hass.async_create_task, use entry.async_create_background_task so bootstrap never waits on it")
+_setup_body = _init_src.split("async def async_setup_entry", 1)[-1].split("\nasync def ", 1)[0]
+if re.search(r"await\s+_cleanup_retired_efficiency|await\s+[\w.]*statistic", _setup_body):
+    errs.append("setup-blocking: recorder/statistics work awaited in async_setup_entry, run it as a background task")
+if "async_list_statistic_ids" in _init_src:
+    errs.append("setup-blocking: async_list_statistic_ids in __init__.py misses the cache for absent ids and waits on the recorder DB, queue async_clear_statistics directly")
+
 # 7. Diagnostics live-fetch (2026-09-18: H31 missing from a user file because
 #    the rare cycle failed — diagnostics must fetch key addrs live instead of
 #    forcing another round-trip with the user, and must never cap the dump).

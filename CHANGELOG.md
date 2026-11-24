@@ -1,3 +1,8 @@
+## 0.7.52 - 2026-11-24
+- fix: Home Assistant could cancel FoxAir setup with "Bootstrap stage 2 timeout" (#5, thanks @X3NON-11). Setup awaited the retired efficiency statistics cleanup, and `async_list_statistic_ids` only answers from cache when every id exists, so on installs without those statistics it always queried the recorder DB, which is busy during bootstrap. The cleanup now just queues `async_clear_statistics` (no-op for absent ids) in a background task.
+- fix: post-setup work (device cleanup, register bursts, refresh after write) runs via `entry.async_create_background_task`, so bootstrap never waits on it and it is cancelled on unload.
+- change: validate.py fails on `hass.async_create_task` in `__init__.py`/`coordinator.py`, awaited recorder/statistics work in `async_setup_entry` and `async_list_statistic_ids` in `__init__.py`.
+
 ## 0.7.51 - 2026-11-21
 - change: Home Assistant 2026.11 ships HACS as the built-in Marketplace. The migration is automatic and needs no code change here: the integration never reads HACS storage, `hass.data["hacs"]` or `hacs_dispatch_*` signals, and `hacs.json` stays the catalog format. Verified on a live HAOS 2026.11.2: the FoxAir update entity carried over with its entity ID, installed v0.7.50 == latest.
 - change: README installation now covers the Marketplace flow (Settings → Marketplace → Add from link, GitHub connection needed for custom repositories, install lands straight in the setup flow) and keeps the HACS steps for 2026.10 and older. The install sections are wrapped in `ha-marketplace:exclude` markers so the Marketplace repository page does not repeat them next to its own Install button.
