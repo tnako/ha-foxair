@@ -110,7 +110,7 @@ def _ent(h28=1, mode=MODES["heating_dhw"], **over):
 
 def test_reads_target_tank_and_limits():
     ent = _ent()
-    assert (ent.target_temperature, ent.current_temperature) == (50.0, 47.5)
+    assert (ent.native_target_temperature, ent.native_current_temperature) == (50.0, 47.5)
     assert (ent.min_temp, ent.max_temp) == (15.0, 53.0)
     assert ent._attr_unique_id == "foxair_dhw"
     assert ent.available

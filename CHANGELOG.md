@@ -1,3 +1,9 @@
+## 0.7.53 - 2026-11-25
+- change: minimum Home Assistant is now 2026.11 (hacs.json, README, info.md, ROADMAP); the HACS install section for 2026.10 and older is gone.
+- fix: climate and water heater use `_attr_native_temperature_unit`, `native_current_temperature` and `native_target_temperature`. The old names logged deprecation warnings on HA 2026.11 and stop working in 2027.11.
+- fix: number entities R41, Z15, SG05, SG06 and SG07 had the temperature device class without a unit (HA warning, stops working in 2027.5). Numbers now fall back to the register type's unit from `foxair_config.json` `types`, like sensors already did.
+- change: validate.py fails on the deprecated climate/water heater temperature names.
+
 ## 0.7.52 - 2026-11-24
 - fix: Home Assistant could cancel FoxAir setup with "Bootstrap stage 2 timeout" (#5, thanks @X3NON-11). Setup awaited the retired efficiency statistics cleanup, and `async_list_statistic_ids` only answers from cache when every id exists, so on installs without those statistics it always queried the recorder DB, which is busy during bootstrap. The cleanup now just queues `async_clear_statistics` (no-op for absent ids) in a background task.
 - fix: post-setup work (device cleanup, register bursts, refresh after write) runs via `entry.async_create_background_task`, so bootstrap never waits on it and it is cancelled on unload.

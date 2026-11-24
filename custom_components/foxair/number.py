@@ -3,7 +3,7 @@ import logging
 from homeassistant.components.number import NumberEntity, NumberMode, NumberDeviceClass
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.helpers.entity import EntityCategory
-from .const import POPULAR_ADDRS, device_for_addr, entity_sort_key, get_device_prefix, get_slave_id, bind_device_info, entity_suffix, dependency_met, write_rejected
+from .const import DTYPE_SPEC, POPULAR_ADDRS, device_for_addr, entity_sort_key, get_device_prefix, get_slave_id, bind_device_info, entity_suffix, dependency_met, write_rejected
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -107,6 +107,7 @@ class FoxNumber(CoordinatorEntity, NumberEntity):
         unit = meta.get("unit")
         self._attr_mode = NumberMode.SLIDER
         # unit/device class
+        unit = unit or (DTYPE_SPEC.get(meta.get("type")) or {}).get("unit")
         if unit:
             self._attr_native_unit_of_measurement = unit
         dc = DTYPE_CLASS.get(meta.get("type"))

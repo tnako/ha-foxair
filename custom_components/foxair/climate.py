@@ -19,7 +19,7 @@ from .heating_curve import active_control, curve_mode, curve_target_for_at, mode
 
 class FoxAirClimate(CoordinatorEntity, ClimateEntity):
     _attr_has_entity_name = True
-    _attr_temperature_unit = UnitOfTemperature.CELSIUS
+    _attr_native_temperature_unit = UnitOfTemperature.CELSIUS
     _attr_supported_features = ClimateEntityFeature.TARGET_TEMPERATURE | ClimateEntityFeature.PRESET_MODE
     _attr_icon = "mdi:heat-pump"
     _attr_hvac_modes = [HVACMode.OFF, HVACMode.HEAT]
@@ -136,7 +136,7 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
         return round(base + (max(room) if bound == "min" else min(room)), 1)
 
     @property
-    def target_temperature(self):
+    def native_target_temperature(self):
         ctl = self._control()
         return self._display_curve_target() if ctl.get("curve") else self._value(ctl.get("target"))
 
@@ -151,7 +151,7 @@ class FoxAirClimate(CoordinatorEntity, ClimateEntity):
         return hi if hi is not None else super().max_temp
 
     @property
-    def current_temperature(self):
+    def native_current_temperature(self):
         return self._value(self._control().get("current"))
 
     @property

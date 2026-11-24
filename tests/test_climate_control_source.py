@@ -138,14 +138,14 @@ def _ent(**kw):
 @pytest.mark.parametrize("raw", sorted(CS["by_value"]))
 def test_current_temperature_follows_h25(raw):
     ent = _ent(h25=int(raw))
-    assert ent.current_temperature == 100.0 + int(raw)
+    assert ent.native_current_temperature == 100.0 + int(raw)
     assert ent.extra_state_attributes["control_source"] == CS["by_value"][raw]["key"]
 
 
 def test_unknown_h25_falls_back_to_default():
     ent = _ent(h25=None)
     default = CS["by_value"][str(CS["default"])]
-    assert ent.current_temperature == 100.0 + int(CS["default"])
+    assert ent.native_current_temperature == 100.0 + int(CS["default"])
     assert ent.extra_state_attributes["current_addr"] == default["current"]
 
 
@@ -157,16 +157,16 @@ def test_target_matrix(raw, h36, mode):
     ent = _ent(h25=int(raw), h36=h36, mode=mode)
     cooling = mode in (MODE["cooling"], MODE["cooling_dhw"])
     if src.get("target"):
-        assert ent.target_temperature == 21.5
+        assert ent.native_target_temperature == 21.5
         assert ent.extra_state_attributes["target_addr"] == src["target"]
     elif cooling:
-        assert ent.target_temperature == 18.0
+        assert ent.native_target_temperature == 18.0
         assert ent.extra_state_attributes["target_addr"] == SP["cooling_target"]
     elif h36 == 1:
-        assert ent.target_temperature == 33.3
+        assert ent.native_target_temperature == 33.3
         assert (ent.min_temp, ent.max_temp) == (LIMITS["heating_min"], LIMITS["heating_max"])
     else:
-        assert ent.target_temperature == 40.0
+        assert ent.native_target_temperature == 40.0
         assert ent.extra_state_attributes["target_addr"] == SP["heating_target"]
 
 
@@ -197,7 +197,7 @@ def test_curve_set_temperature_shifts_offset():
     ent = _curve_ent()
     asyncio.run(ent.async_set_temperature(temperature=33.8))
     assert ent.coordinator.writes == [(HC["offset"], 5.5)]
-    assert ent.target_temperature == 33.8
+    assert ent.native_target_temperature == 33.8
 
 
 def test_curve_repeated_steps_accumulate_before_device_update():
@@ -214,7 +214,7 @@ def test_curve_pending_clears_when_device_reports_target():
     asyncio.run(ent.async_set_temperature(temperature=32.8))
     ent.coordinator.data[HC["live_target"]] = {"value": 32.8}
     ent.coordinator.data[HC["offset"]] = {"value": 4.5}
-    assert ent.target_temperature == 32.8
+    assert ent.native_target_temperature == 32.8
     assert ent._opt_curve is None
     asyncio.run(ent.async_set_temperature(temperature=33.3))
     assert ent.coordinator.writes[-1] == (HC["offset"], 5.0)
@@ -224,7 +224,7 @@ def test_curve_pending_expires_back_to_live():
     ent = _curve_ent()
     asyncio.run(ent.async_set_temperature(temperature=40.0))
     ent._opt_curve = (*ent._opt_curve[:2], 0)
-    assert ent.target_temperature == 33.3
+    assert ent.native_target_temperature == 33.3
 
 
 def test_curve_rejected_write_restores_target():
@@ -236,7 +236,7 @@ def test_curve_rejected_write_restores_target():
     ent.coordinator.async_write_register = reject
     with pytest.raises(ValueError):
         asyncio.run(ent.async_set_temperature(temperature=34.3))
-    assert ent.target_temperature == 33.3
+    assert ent.native_target_temperature == 33.3
 
 
 def test_curve_without_offset_value_refuses_write():
@@ -266,20 +266,20 @@ def test_points_mode_is_curve_and_reports_control_mode():
     ent = _points_ent()
     assert ent._control()["curve"] and ent._control()["curve_mode"] == "points"
     assert ent.control_mode == "weather_points"
-    assert ent.target_temperature == 33.3
+    assert ent.native_target_temperature == 33.3
 
 
 @pytest.mark.parametrize("at,expected", [(-25.0, 55.0), (-20.0, 55.0), (-7.5, 46.0), (0.0, 40.0), (2.5, 38.0), (15.0, 28.0), (30.0, 25.0)])
 def test_points_interpolation_fallback(at, expected):
     ent = _points_ent(at=at, live=False)
-    assert ent.target_temperature == min(max(expected, LIMITS["heating_min"]), LIMITS["heating_max"])
+    assert ent.native_target_temperature == min(max(expected, LIMITS["heating_min"]), LIMITS["heating_max"])
 
 
 def test_points_shift_moves_every_point_by_delta():
     ent = _points_ent()
     asyncio.run(ent.async_set_temperature(temperature=34.3))
     assert ent.coordinator.writes == [{addr: round(PT_VALUES[k] + 1.0, 1) for k, addr in PTS.items()}]
-    assert ent.target_temperature == 34.3
+    assert ent.native_target_temperature == 34.3
     asyncio.run(ent.async_set_temperature(temperature=33.8))
     assert ent.coordinator.writes[-1] == {addr: round(PT_VALUES[k] + 0.5, 1) for k, addr in PTS.items()}
 

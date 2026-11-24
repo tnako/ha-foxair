@@ -23,7 +23,7 @@ async def async_setup_entry(hass, entry, add_entities):
 class FoxAirWaterHeater(CoordinatorEntity, WaterHeaterEntity):
     _attr_has_entity_name = True
     _attr_translation_key = "foxair_dhw"
-    _attr_temperature_unit = UnitOfTemperature.CELSIUS
+    _attr_native_temperature_unit = UnitOfTemperature.CELSIUS
     _attr_supported_features = WaterHeaterEntityFeature.TARGET_TEMPERATURE
     _attr_target_temperature_step = 0.5
     _attr_precision = 0.1
@@ -71,11 +71,11 @@ class FoxAirWaterHeater(CoordinatorEntity, WaterHeaterEntity):
         return STATE_HEAT_PUMP if raw in {mv.get(k) for k in DHW_MODES} else STATE_OFF
 
     @property
-    def current_temperature(self):
+    def native_current_temperature(self):
         return self._value("current")
 
     @property
-    def target_temperature(self):
+    def native_target_temperature(self):
         return self._value("target")
 
     @property

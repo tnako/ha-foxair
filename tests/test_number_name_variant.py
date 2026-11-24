@@ -45,6 +45,7 @@ def _load_number():
     fconst.get_device_prefix = lambda entry: "foxair"
     fconst.entity_suffix = lambda coord, addr: str(addr)
     fconst.dependency_met = lambda coord, meta, missing=False: True
+    fconst.DTYPE_SPEC = {}
     fconst.POPULAR_ADDRS = set()
 
     def write_rejected(entity, detail=""):

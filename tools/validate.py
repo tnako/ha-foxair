@@ -508,6 +508,11 @@ if re.search(r"await\s+_cleanup_retired_efficiency|await\s+[\w.]*statistic", _se
     errs.append("setup-blocking: recorder/statistics work awaited in async_setup_entry, run it as a background task")
 if "async_list_statistic_ids" in _init_src:
     errs.append("setup-blocking: async_list_statistic_ids in __init__.py misses the cache for absent ids and waits on the recorder DB, queue async_clear_statistics directly")
+for _name in ("climate.py", "water_heater.py"):
+    _src = (CC / _name).read_text()
+    for _old in ("_attr_temperature_unit", "def current_temperature(", "def target_temperature("):
+        if _old in _src:
+            errs.append(f"deprecated HA API (removed 2027.11): {_name} uses {_old.replace('def ', '').rstrip('(')}, use the native_ variant")
 
 # 7. Diagnostics live-fetch (2026-09-18: H31 missing from a user file because
 #    the rare cycle failed — diagnostics must fetch key addrs live instead of

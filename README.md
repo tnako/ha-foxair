@@ -2,7 +2,7 @@
 
 Control and monitor your **FoxAir / PHNIX air-to-water heat pump** directly from Home Assistant over Modbus TCP — no cloud, no YAML.
 
-![Version](https://img.shields.io/badge/version-0.7.52-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2026.10-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
+![Version](https://img.shields.io/badge/version-0.7.53-blue) ![HA](https://img.shields.io/badge/Home%20Assistant-%3E%3D2026.11-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
 ![FoxAir Demo](docs/screenshots/foxair_demo.gif)
 
@@ -43,7 +43,7 @@ The climate attributes `control_source`, `current_addr` and `target_addr` show w
 
 ## Requirements
 
-- Home Assistant **>= 2026.10**
+- Home Assistant **>= 2026.11**
 - Python `pymodbus>=3.10.0`
 - FoxAir/PHNIX on Modbus TCP (tested with an Elfins EW11 at the default `host:8899 slave 1`)
 
@@ -59,13 +59,6 @@ Since 2026.11, HACS is built into Home Assistant as the **Marketplace** (Setting
 3. Enter host / port / slave (defaults fill in automatically).
 
 Updates arrive through the `update.foxair_modbus_heat_pump_update` entity; after an update a repair under Settings → System → Repairs offers the restart.
-
-### Home Assistant 2026.10 or older — HACS
-
-1. Make sure [HACS](https://hacs.xyz/docs/use/) is installed.
-2. **HACS → Integrations → ⋯ → Custom repositories** → add `https://github.com/tnako/ha-foxair` as `Integration`.
-3. Search **FoxAir** → **Install** → **Restart**.
-4. **Settings → Devices & Services → Add Integration → FoxAir Heat Pump** → host / port / slave (defaults fill in automatically).
 
 ### Manual installation
 
