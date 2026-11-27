@@ -306,7 +306,7 @@ def climate_wiring_rows(states: dict, meta: dict) -> list:
                 checks.append(("target_addr", "OK" if a.get("target_addr") == want["target"] else "MISMATCH",
                                f"climate={a.get('target_addr')} expected={want['target']}"))
         curve_addr = ((cfg.get("heat_curve") or {}).get("addr_single") or {}).get("live_target")
-        curve_drives = a.get("control_mode") == "weather_curve" and a.get("hvac_action") != "cooling" \
+        curve_drives = a.get("control_mode") in ("weather_curve", "weather_points") and a.get("hvac_action") != "cooling" \
             and not (want or {}).get("target") and a.get("mode_code") not in ("cooling", "cooling_dhw")
         for label, attr, key in (("current", "current_addr", "current_temperature"), ("target", "target_addr", "temperature")):
             addr = curve_addr if label == "target" and curve_drives else a.get(attr)

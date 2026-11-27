@@ -111,6 +111,14 @@ hc_mod = importlib.util.module_from_spec(hc_spec)
 sys.modules["custom_components.foxair.heating_curve"] = hc_mod
 hc_spec.loader.exec_module(hc_mod)
 
+comp_spec = importlib.util.spec_from_file_location(
+    "custom_components.foxair.computed",
+    os.path.join(ROOT, "custom_components", "foxair", "computed.py"),
+)
+comp_mod = importlib.util.module_from_spec(comp_spec)
+sys.modules["custom_components.foxair.computed"] = comp_mod
+comp_spec.loader.exec_module(comp_mod)
+
 img_spec = importlib.util.spec_from_file_location(
     "custom_components.foxair.image",
     os.path.join(ROOT, "custom_components", "foxair", "image.py"),
@@ -132,6 +140,17 @@ if "--out" in sys.argv:
             fh.write(self._image_bytes)
 
     img.FoxAirHeatingCurveImage._render = _dump_render
+
+    _cop_orig = img.FoxAirCopPotentialImage._render
+    _cop_n = [0]
+
+    def _dump_cop(self):
+        _cop_orig(self)
+        _cop_n[0] += 1
+        with open(os.path.join(_out_dir, f"cop_{_cop_n[0]:04d}.svg"), "wb") as fh:
+            fh.write(self._image_bytes)
+
+    img.FoxAirCopPotentialImage._render = _dump_cop
 
 # ======================================================================
 # Fake coordinator + test harness
@@ -612,6 +631,129 @@ for _i in range(400):
         _fuzz_bad.append((_i, _at, _lang, hit[:2], vals))
 print(f"  {'FAIL' if _fuzz_bad else 'OK'} [label layout fuzz x400]{': ' + str(_fuzz_bad[:3]) if _fuzz_bad else ''}")
 all_ok = all_ok and not _fuzz_bad
+
+# COP-potential image: Carnot ceiling vs FoxAIR GL spec vs live reality.
+# Simulates six operating points in EN/DE/RU and gates layout + arithmetic.
+_COP_CASES = [
+    ("today AT=0.4", 0.4, 36.4, 38.4, 0.95, 2.9),
+    ("mild AT=10", 10.0, 30.0, 32.0, 0.60, 3.2),
+    ("cold AT=-15", -15.0, 45.0, 47.0, 2.60, 4.5),
+    ("high water AT=7", 7.0, 47.0, 55.0, 2.00, 5.3),
+    ("edge AT=-25", -25.0, 35.0, 37.0, 1.80, 1.9),
+    ("edge AT=25", 25.0, 25.0, 27.0, 0.30, 2.0),
+]
+
+
+def _cop_data(at, inlet, outlet, elec, heat):
+    d = {}
+    d[MARKERS["heat_curve"]["addr_single"]["at_sensor"]] = {"value": at, "raw": int(at * 10)}
+    for e in MARKERS["control_source"]["by_value"].values():
+        if e.get("key") == "inlet_water_temp":
+            d[e["current"]] = {"value": inlet}
+        elif e.get("key") == "outlet_water_temp":
+            d[e["current"]] = {"value": outlet}
+    d[MARKERS["status"]["addr_single"]["compressor_freq"]] = {"value": 39, "raw": 39}
+    d[MARKERS["status"]["addr_single"]["run_status"]] = {"value": 1, "raw": 1}
+    d[2054] = {"value": elec}  # T54 electrical kW
+    d[2059] = {"value": heat}  # T59 heating kW
+    d[2077] = {"value": 1.2}  # T39 flow m3/h
+    return d
+
+
+_COP_TL = {}
+for _lang, _file in (("en", "strings.json"), ("de", "translations/de.json"), ("ru", "translations/ru.json")):
+    _entry = json.load(open(os.path.join(ROOT, "custom_components", "foxair", _file),
+                            encoding="utf-8"))["entity"]["image"]["foxair_cop_potential"]
+    _COP_TL[_lang] = {"name": _entry["name"], **_entry["state"]}
+
+_cons_slope = max(abs(img._CONSENSUS_W35[i + 1] - img._CONSENSUS_W35[i])
+                  for i in range(len(img._CONSENSUS_W35) - 1))
+print(f"  {'OK' if _cons_slope <= 0.131 else 'FAIL'} [consensus spec slope {_cons_slope:.3f} <= 0.13/K]")
+all_ok = all_ok and _cons_slope <= 0.131
+
+_scale_set = set()
+for _lang, _tl in _COP_TL.items():
+    for name, at, inlet, outlet, elec, heat in _COP_CASES:
+        coord = FakeCoord(_cop_data(at, inlet, outlet, elec, heat))
+        obj = img.FoxAirCopPotentialImage(coord, "test")
+        obj.hass = FHass()
+        obj._tl = {**img._COP_TL_FALLBACK, **_tl}
+        obj._last_inputs = obj._read_inputs()
+        obj._render()
+        svg = obj._image_bytes.decode("utf-8")
+        problems = []
+
+        for key in ("name", "cap_spec", "cap_actual", "axis_x"):
+            if _tl[key] not in svg:
+                problems.append(f"missing {key}")
+
+        exp_b = img._spec_cop(at, outlet)
+        exp_s = (exp_b[0] + exp_b[1]) / 2
+        exp_a = round(heat / elec, 2)  # compute_cop() rounds to 2 dp before the image reads it
+        if not 1.0 <= exp_s <= 9.0:
+            problems.append(f"spec outside datasheet envelope {exp_s:.1f}")
+        want_rows = [f"{_tl['cap_spec']} {exp_s:.2f}",
+                     f"{_tl['cap_actual']} {exp_a:.2f}"]
+        rows_found = re.findall(r'font-size="15" font-weight="bold">([^<]+)</text>', svg)
+        if rows_found != want_rows:
+            problems.append(f"popup rows {rows_found} != {want_rows}")
+
+        y_labels = re.findall(r'x="74"[^>]*>([\d.]+)</text>', svg)
+        if not y_labels or float(y_labels[-1]) >= 16:
+            problems.append("Y scale still fixed at 16")
+        _scale_set.add(tuple(y_labels))
+
+        if "<polygon" not in svg:
+            problems.append("no spec band")
+        if 'r="7" fill="#f472b6" stroke="#fff" stroke-width="2"' not in svg:
+            problems.append("no live dot")
+        if 'stroke="#f472b6" stroke-width="2.5"' in svg:
+            problems.append("actual COP still drawn as a line")
+        if '<rect x="860"' in svg or 'font-size="34"' in svg:
+            problems.append("right-hand card panel still present")
+        if _tl["src_foxair"] in svg or _tl["note"] in svg:
+            problems.append("footer datasheet rows still present")
+        if "#38bdf8" in svg or "16+" in svg:
+            problems.append("Carnot reference still drawn")
+        if "feDropShadow" in svg:
+            problems.append("raster filter")
+        if "paint-order" not in svg:
+            problems.append("no halo")
+        small = [f for f in re.findall(r'font-size="(\d+)"', svg) if int(f) < 13]
+        if small:
+            problems.append(f"small fonts {small}")
+
+        boxes = []
+        for tag, body in re.findall(r'(<text[^>]*>)([^<]*)</text>', svg):
+            if "rotate" in tag or not body.strip():
+                continue
+            xm = re.search(r' x="([\d.]+)"', tag)
+            ym = re.search(r' y="([\d.]+)"', tag)
+            fm = re.search(r'font-size="(\d+)"', tag)
+            if not (xm and ym and fm):
+                continue
+            x, y, fs = float(xm.group(1)), float(ym.group(1)), int(fm.group(1))
+            fac = 0.72 if any("\u0400" <= c <= "\u04ff" for c in body) else 0.62
+            w = len(body) * fs * fac
+            left = x - (w / 2 if 'text-anchor="middle"' in tag else w if 'text-anchor="end"' in tag else 0)
+            if left < -5 or left + w > W + 5 or y > H + 5:
+                problems.append(f"overflow '{body[:24]}'")
+            boxes.append((left, y - fs * 0.8, left + w, y + fs * 0.2, body))
+        for i in range(len(boxes)):
+            for j in range(i + 1, len(boxes)):
+                a, b = boxes[i], boxes[j]
+                if a[0] < b[2] - 1 and b[0] < a[2] - 1 and a[1] < b[3] - 1 and b[1] < a[3] - 1:
+                    problems.append(f"overlap '{a[4][:16]}' / '{b[4][:16]}'")
+
+        if problems:
+            print(f"  FAIL [{_lang} {name}]: {problems[:4]}")
+            all_ok = False
+        else:
+            print(f"  OK [{_lang} {name}]")
+
+_scale_ok = len(_scale_set) >= 2
+print(f"  {'OK' if _scale_ok else 'FAIL'} [dynamic Y scale variants: {len(_scale_set)}]")
+all_ok = all_ok and _scale_ok
 
 print(f"\n{'='*60}")
 print("  ALL TESTS PASSED" if all_ok else "  SOME TESTS FAILED")

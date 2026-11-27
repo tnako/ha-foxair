@@ -4922,6 +4922,31 @@
           "cutoff_active": "Aktiv",
           "cutoff_armed": "ab"
         }
+      },
+      "foxair_cop_potential": {
+        "name": "COP-Potenzial",
+        "state": {
+          "wait": "Warte auf Daten",
+          "wait_sub": "Erster Abruf läuft (quick 30 s)",
+          "cap_at": "AT",
+          "cap_water": "Wasser",
+          "cap_carnot": "Carnot-Grenze",
+          "cap_spec": "Spezifikation",
+          "cap_actual": "Tatsächlicher COP",
+          "cap_gap": "Abstand zur Spezifikation",
+          "ref100": "100 % Referenz",
+          "of_carnot": "von Carnot",
+          "below_spec": "unter Spezifikation",
+          "above_spec": "über Spezifikation",
+          "legend_carnot": "Carnot (theoretisch)",
+          "legend_spec": "FoxAIR GL (Datenblatt)",
+          "legend_actual": "Ihr Gerät (live)",
+          "axis_x": "Außentemperatur (AT)",
+          "axis_y": "COP",
+          "src_foxair": "FoxAIR GL-9-1: A7/W35 4.24-5.34, A2/W35 3.68-4.84, SCOP35 5.22",
+          "src_phnix": "PHNIX airMono CA20B: A7/W35 4.18, A7/W55 2.65",
+          "note": "Spezifikation an aktuellen Hub angepasst. Carnot nutzt die mittlere Wassertemperatur."
+        }
       }
     },
     "time": {

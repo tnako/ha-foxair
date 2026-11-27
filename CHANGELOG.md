@@ -1,3 +1,8 @@
+## 0.7.54 - 2026-11-27
+- add: "COP Potential" image on the main device page: combined median spec curve (FoxAIR, Panasonic, Daikin, NIBE, Mitsubishi, Vaillant, plus a 17% field adjustment), live COP dot with popup legend, dynamic COP axis, live inlet/outlet water in the subtitle, EN/DE/RU.
+- fix: check_regs recognises H36 points mode, so the climate target is compared with curve register 2014 instead of R02.
+- remove: the theoretical Carnot ceiling from the image. It cannot be reached in practice and made the chart harder to read.
+
 ## 0.7.53 - 2026-11-25
 - change: minimum Home Assistant is now 2026.11 (hacs.json, README, info.md, ROADMAP); the HACS install section for 2026.10 and older is gone.
 - fix: climate and water heater use `_attr_native_temperature_unit`, `native_current_temperature` and `native_target_temperature`. The old names logged deprecation warnings on HA 2026.11 and stop working in 2027.11.

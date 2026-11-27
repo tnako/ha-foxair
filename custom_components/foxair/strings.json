@@ -4910,6 +4910,31 @@
           "cutoff_active": "Active",
           "cutoff_armed": "from"
         }
+      },
+      "foxair_cop_potential": {
+        "name": "COP Potential",
+        "state": {
+          "wait": "Waiting for data",
+          "wait_sub": "First poll in progress (quick 30 s)",
+          "cap_at": "AT",
+          "cap_water": "water",
+          "cap_carnot": "Carnot limit",
+          "cap_spec": "Spec",
+          "cap_actual": "Actual COP",
+          "cap_gap": "Gap to spec",
+          "ref100": "100% reference",
+          "of_carnot": "of Carnot",
+          "below_spec": "below spec",
+          "above_spec": "above spec",
+          "legend_carnot": "Carnot (theoretical)",
+          "legend_spec": "FoxAIR GL (datasheet)",
+          "legend_actual": "Your unit (live)",
+          "axis_x": "Outdoor temperature (AT)",
+          "axis_y": "COP",
+          "src_foxair": "FoxAIR GL-9-1: A7/W35 4.24-5.34, A2/W35 3.68-4.84, SCOP35 5.22",
+          "src_phnix": "PHNIX airMono CA20B: A7/W35 4.18, A7/W55 2.65",
+          "note": "Spec adapted to current lift. Carnot uses mean water temperature."
+        }
       }
     },
     "time": {

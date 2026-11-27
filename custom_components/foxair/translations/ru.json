@@ -4922,6 +4922,31 @@
           "cutoff_active": "Активно",
           "cutoff_armed": "от"
         }
+      },
+      "foxair_cop_potential": {
+        "name": "Потенциал COP",
+        "state": {
+          "wait": "Ожидание данных",
+          "wait_sub": "Первый опрос (quick 30 с)",
+          "cap_at": "AT",
+          "cap_water": "вода",
+          "cap_carnot": "Предел Карно",
+          "cap_spec": "Спецификация",
+          "cap_actual": "Фактический COP",
+          "cap_gap": "Отставание от спецификации",
+          "ref100": "100% опорное значение",
+          "of_carnot": "от Карно",
+          "below_spec": "ниже спецификации",
+          "above_spec": "выше спецификации",
+          "legend_carnot": "Карно (теоретический)",
+          "legend_spec": "FoxAIR GL (паспорт)",
+          "legend_actual": "Ваш насос (факт)",
+          "axis_x": "Температура на улице (AT)",
+          "axis_y": "COP",
+          "src_foxair": "FoxAIR GL-9-1: A7/W35 4.24-5.34, A2/W35 3.68-4.84, SCOP35 5.22",
+          "src_phnix": "PHNIX airMono CA20B: A7/W35 4.18, A7/W55 2.65",
+          "note": "Спецификация приведена к текущему перепаду. Карно использует среднюю температуру воды."
+        }
       }
     },
     "time": {

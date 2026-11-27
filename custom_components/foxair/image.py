@@ -35,6 +35,7 @@ heating/summer cut-off (1464/1465/2146) when the unit reports them.
 from __future__ import annotations
 
 import logging
+import statistics
 from datetime import datetime, timezone
 
 from homeassistant.components.image import ImageEntity
@@ -42,6 +43,7 @@ from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.helpers.translation import async_get_translations
 
 from .const import main_device, get_device_prefix, get_slave_id, bind_device_info
+from .computed import compute_cop, compute_heating_power, compute_electrical_power
 from .heating_curve import (active_control, at_on_curve, calc_curve_target, calc_points_target, curve_points,
                             curve_target_for_at, outdoor_source, summer_cutoff)
 
@@ -971,10 +973,495 @@ class FoxAirHeatingCurveImage(CoordinatorEntity, ImageEntity):
         self._image_last_updated = datetime.now(timezone.utc)
 
 
+# ---------------------------------------------------------------------------
+# COP potential: Carnot ceiling vs datasheet spec vs live unit.
+# ---------------------------------------------------------------------------
+
+_COP_TL_FALLBACK = {
+    "name": "COP Potential",
+    "wait": "Waiting for data",
+    "wait_sub": "First poll in progress (quick 30 s)",
+    "cap_at": "AT",
+    "cap_water": "water",
+    "cap_carnot": "Carnot limit",
+    "cap_spec": "Spec",
+    "cap_actual": "Actual COP",
+    "cap_gap": "Gap to spec",
+    "ref100": "100% reference",
+    "of_carnot": "of Carnot",
+    "below_spec": "below spec",
+    "above_spec": "above spec",
+    "legend_carnot": "Carnot (theoretical)",
+    "legend_spec": "FoxAIR GL (datasheet)",
+    "legend_actual": "Your unit (live)",
+    "axis_x": "Outdoor temperature (AT)",
+    "axis_y": "COP",
+    "src_foxair": "FoxAIR GL-9-1: A7/W35 4.24-5.34, A2/W35 3.68-4.84, SCOP35 5.22",
+    "src_phnix": "PHNIX airMono CA20B: A7/W35 4.18, A7/W55 2.65",
+    "note": "Spec adapted to current lift. Carnot uses mean water temperature.",
+}
+
+# GL-9-1 COP curves from the FoxAIR "GL COP" performance PDF (page 1):
+# outdoor temperature columns and COP at 35 C / 45 C water outlet.
+_SPEC_AT = (-25.0, -20.0, -15.0, -10.0, -7.0, -5.0, -3.0, 0.0, 2.0, 5.0,
+            7.0, 10.0, 15.0, 20.0, 25.0, 30.0, 35.0)
+_SPEC_W35 = (2.11, 2.49, 2.84, 2.94, 3.34, 3.84, 4.05, 4.28, 4.37, 4.48,
+             4.49, 4.74, 5.34, 5.75, 6.05, 7.43, 7.88)
+_SPEC_W45 = (1.83, 2.15, 2.29, 2.29, 2.40, 2.79, 2.94, 3.26, 3.36, 3.46,
+             3.82, 4.22, 4.28, 4.74, 5.22, 6.32, 6.52)
+
+
+def _carnot_cop(at: float, water: float) -> float | None:
+    lift = water - at
+    if lift < 1.0:
+        return None
+    return (water + 273.15) / lift
+
+
+def _curve_at(at: float, xs, ys) -> float:
+    if at <= xs[0]:
+        return max(0.5, ys[0] + (at - xs[0]) * (ys[1] - ys[0]) / (xs[1] - xs[0]))
+    for i in range(len(xs) - 1):
+        if at <= xs[i + 1]:
+            return ys[i] + (at - xs[i]) * (ys[i + 1] - ys[i]) / (xs[i + 1] - xs[i])
+    slope = (ys[-1] - ys[-2]) / (xs[-1] - xs[-2])
+    return max(0.5, ys[-1] + (at - xs[-1]) * slope)
+
+
+# Published A-7/W35, A2/W35 and A7/W35 COP anchors from six manufacturers.
+# The field copy (0.83x) represents the 17% average gap measured in monitored
+# fleets. Taking the median removes both maker outliers and the GL sheet's
+# 25->30 C jump.
+_BRAND_ANCHORS = (
+    (3.34, 4.37, 4.49),  # FoxAIR GL-9-1 (local GL COP.pdf)
+    (2.78, 3.43, 4.76),  # Panasonic Aquarea
+    (3.04, 4.08, 4.92),  # Daikin Altherma
+    (3.35, 4.36, 5.11),  # NIBE F2120
+    (2.41, 3.11, 4.40),  # Mitsubishi Ecodan
+    (2.70, 3.90, 4.80),  # Vaillant aroTHERM
+)
+_FIELD_FACTOR = 0.83
+_FOX_ANCHORS = _BRAND_ANCHORS[0]
+_CONSENSUS_AT = tuple(float(-25 + i) for i in range(61))
+
+
+def _brand_factor(at: float, anchors) -> float:
+    pts = ((-7.0, anchors[0] / _FOX_ANCHORS[0]),
+           (2.0, anchors[1] / _FOX_ANCHORS[1]),
+           (7.0, anchors[2] / _FOX_ANCHORS[2]))
+    if at <= pts[1][0]:
+        lo, hi = pts[0], pts[1]
+    elif at <= pts[2][0]:
+        lo, hi = pts[1], pts[2]
+    else:
+        return max(0.7, min(1.3, pts[2][1]))
+    v = lo[1] + (at - lo[0]) * (hi[1] - lo[1]) / (hi[0] - lo[0])
+    return max(0.7, min(1.3, v))
+
+
+def _raw_consensus(at: float) -> float:
+    base = _curve_at(at, _SPEC_AT, _SPEC_W35)
+    samples = []
+    for anchors in _BRAND_ANCHORS:
+        v = base * _brand_factor(at, anchors)
+        samples.extend((v, v * _FIELD_FACTOR))
+    return statistics.median(samples)
+
+
+_CONSENSUS_W35 = [_raw_consensus(a) for a in _CONSENSUS_AT]
+for _i in range(8):
+    for _j in range(1, len(_CONSENSUS_W35)):
+        _CONSENSUS_W35[_j] = min(_CONSENSUS_W35[_j], _CONSENSUS_W35[_j - 1] + 0.13)
+    for _j in range(len(_CONSENSUS_W35) - 2, -1, -1):
+        _CONSENSUS_W35[_j] = min(_CONSENSUS_W35[_j], _CONSENSUS_W35[_j + 1] + 0.13)
+_CONSENSUS_W45 = tuple(
+    v * min(1.0, _curve_at(a, _SPEC_AT, _SPEC_W45) / _curve_at(a, _SPEC_AT, _SPEC_W35))
+    for a, v in zip(_CONSENSUS_AT, _CONSENSUS_W35)
+)
+
+
+def _grid_value(at: float, values) -> float:
+    if at <= _CONSENSUS_AT[0]:
+        return values[0]
+    if at >= _CONSENSUS_AT[-1]:
+        return values[-1]
+    i = int(at - _CONSENSUS_AT[0])
+    f = at - _CONSENSUS_AT[i]
+    return values[i] + f * (values[i + 1] - values[i])
+
+
+def _cop_scale(lo: float, hi: float) -> tuple[float, float, float]:
+    """Rounded, padded Y bounds with ~4-10 ticks for the visible COP range."""
+    pad = 0.1 * max(1.0, hi - lo)
+    lo = max(0.0, lo - pad)
+    hi = hi + pad
+    if hi - lo < 2.0:
+        mid = (hi + lo) / 2
+        lo, hi = max(0.0, mid - 1.5), mid + 1.5
+    span = hi - lo
+    step = 0.5 if span <= 4 else 1.0 if span <= 10 else 2.0 if span <= 20 else 5.0
+    return max(0.0, int(lo / step) * step), (int(hi / step) + 1) * step, step
+
+
+def _spec_cop(at: float, water: float) -> tuple[float, float] | None:
+    """Interpolate precomputed median reference curves; no work per render."""
+    c35 = _carnot_cop(at, 35.0)
+    c45 = _carnot_cop(at, 45.0)
+    cw = _carnot_cop(at, water)
+    if c35 is None or c45 is None or cw is None:
+        return None
+    v35 = _grid_value(at, _CONSENSUS_W35)
+    v45 = _grid_value(at, _CONSENSUS_W45)
+    if water <= 35:
+        base = v35 * max(0.9, min(1.1, cw / c35))
+    elif water <= 45:
+        base = v35 + (v45 - v35) * (water - 35) / 10
+    else:
+        base = v45 * max(0.4, min(1.2, cw / c45))
+    return (base * 0.96, base * 1.04)
+
+
+class FoxAirCopPotentialImage(CoordinatorEntity, ImageEntity):
+    _attr_has_entity_name = True
+    _attr_icon = "mdi:speedometer-medium"
+    _attr_content_type = "image/svg+xml"
+
+    def __init__(self, coordinator, entry_id: str):
+        CoordinatorEntity.__init__(self, coordinator)
+        ImageEntity.__init__(self, coordinator.hass)
+        prefix = get_device_prefix(coordinator.entry)
+        self._prefix = prefix
+        self._attr_translation_key = "foxair_cop_potential"
+        self._attr_unique_id = f"{prefix}_cop_potential_image"
+        slave_id = get_slave_id(coordinator.entry)
+        host = coordinator.entry.data.get("host")
+        port = coordinator.entry.data.get("port")
+        self._attr_device_info = bind_device_info(
+            getattr(coordinator, "hass", None), entry_id,
+            main_device(entry_id, prefix, slave_id, host, port),
+        )
+        self.entity_id = f"image.{prefix}_cop_potential"
+        self._image_bytes: bytes | None = None
+        self._image_last_updated: datetime | None = None
+        self._last_inputs: dict | None = None
+        self._tl: dict = {}
+        self._render()
+
+    @property
+    def image_last_updated(self):
+        return self._image_last_updated
+
+    async def async_image(self) -> bytes | None:
+        if self._image_bytes is None:
+            self._render()
+        return self._image_bytes
+
+    async def async_added_to_hass(self) -> None:
+        await super().async_added_to_hass()
+        await self.async_load_translations()
+        self._render()
+        try:
+            self.async_write_ha_state()
+        except Exception:
+            pass
+        try:
+            from homeassistant.core import EVENT_CORE_CONFIG_UPDATE
+            self.async_on_remove(
+                self.hass.bus.async_listen(EVENT_CORE_CONFIG_UPDATE, self._handle_language_change)
+            )
+        except Exception:
+            pass
+
+    async def _handle_language_change(self, _event=None) -> None:
+        await self.async_load_translations()
+        self._render()
+        try:
+            self.async_write_ha_state()
+        except Exception:
+            pass
+
+    async def async_load_translations(self) -> None:
+        try:
+            lang = getattr(self.hass.config, "language", None) or "en"
+            cat = await async_get_translations(
+                self.hass, lang, category="entity", integrations=["foxair"]
+            )
+            pfx = "component.foxair.entity.image.foxair_cop_potential."
+            raw = {k[len(pfx):]: v for k, v in cat.items() if k.startswith(pfx)}
+            loaded = {}
+            for k, v in raw.items():
+                if k == "name":
+                    loaded[k] = v
+                elif k.startswith("state."):
+                    loaded[k[6:]] = v
+                else:
+                    loaded[k] = v
+            self._tl = {**_COP_TL_FALLBACK, **loaded}
+            if raw:
+                self._render()
+        except Exception as e:  # pragma: no cover - never fatal
+            _LOGGER.debug("cop-potential translations unavailable: %s", e)
+            self._tl = dict(_COP_TL_FALLBACK)
+
+    def _t(self, key: str) -> str:
+        return self._tl.get(key, _COP_TL_FALLBACK.get(key, key))
+
+    def _read_inputs(self) -> dict:
+        coord = self.coordinator
+        data = getattr(coord, "data", None) or {}
+
+        def val(addr):
+            if not addr:
+                return None
+            rec = data.get(addr)
+            return rec.get("value") if rec else None
+
+        cs = coord.marker("control_source") if hasattr(coord, "marker") else None
+        by = (cs or {}).get("by_value") or {}
+        inlet_addr = outlet_addr = None
+        for e in by.values():
+            if e.get("key") == "inlet_water_temp":
+                inlet_addr = e.get("current")
+            elif e.get("key") == "outlet_water_temp":
+                outlet_addr = e.get("current")
+        hc = coord.marker("heat_curve") if hasattr(coord, "marker") else None
+        at_addr = ((hc or {}).get("addr_single") or {}).get("at_sensor")
+        opts = getattr(coord.entry, "options", {}) or {}
+        try:
+            actual = compute_cop(coord, opts)
+            heating = compute_heating_power(coord)
+            electrical = compute_electrical_power(coord, opts)
+        except Exception as e:
+            _LOGGER.debug("cop-potential compute failed: %s", e)
+            actual = heating = electrical = None
+        at_v, in_v, out_v = val(at_addr), val(inlet_addr), val(outlet_addr)
+        return {
+            "at": at_v, "inlet": in_v, "outlet": out_v,
+            "actual": actual, "heating": heating, "electrical": electrical,
+            "ready": at_v is not None and (in_v is not None or out_v is not None),
+        }
+
+    def _handle_coordinator_update(self) -> None:
+        new = self._read_inputs()
+        if new != self._last_inputs:
+            self._last_inputs = new
+            self._render()
+            self.async_write_ha_state()
+        super()._handle_coordinator_update()
+
+    def _render(self) -> None:
+        W, H = 1200, 760
+        X_MIN, X_MAX = -25.0, 25.0
+        Y_MIN, Y_MAX = 0.0, 16.0
+        pad_l, pad_r, pad_t, pad_b = 86, 30, 96, 66
+        plot_w = W - pad_l - pad_r
+        plot_h = H - pad_t - pad_b
+        plot_bottom = pad_t + plot_h
+        plot_right = W - pad_r
+
+        def x_at(v):
+            return pad_l + (float(v) - X_MIN) / (X_MAX - X_MIN) * plot_w
+
+        def y_cop(v):
+            v = max(Y_MIN, min(Y_MAX, float(v)))
+            return pad_t + (Y_MAX - v) / (Y_MAX - Y_MIN) * plot_h
+
+        def text_w(label, fs=15):
+            fac = 0.72 if any("\u0400" <= c <= "\u04ff" for c in label) else 0.62
+            return len(label) * fs * fac
+
+        BG = "#0f172a"
+        GRID = "#1e293b"
+        GRID_MINOR = "#172033"
+        AXIS = "#334155"
+        TEXT = "#94a3b8"
+        TEXT_DARK = "#e2e8f0"
+        SPEC = "#fbbf24"
+        ACTUAL = "#f472b6"
+        SPEC_FILL = "rgba(251,191,36,0.13)"
+        GAP_COL = "#94a3b8"
+        HALO = f'paint-order="stroke" stroke="{BG}" stroke-width="3" stroke-linejoin="round"'
+
+        svg = [
+            f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" '
+            f'viewBox="0 0 {W} {H}" font-family="system-ui,-apple-system,sans-serif">',
+            f'<rect width="100%" height="100%" fill="{BG}"/>',
+            f'<text x="{W // 2}" y="34" text-anchor="middle" fill="{TEXT_DARK}" '
+            f'font-size="26" font-weight="bold">{self._t("name")}</text>',
+        ]
+
+        inp = self._last_inputs or self._read_inputs()
+        at = inp.get("at")
+        inlet = inp.get("inlet")
+        outlet = inp.get("outlet")
+        try:
+            ins = float(inlet) if inlet is not None else None
+            outs = float(outlet) if outlet is not None else None
+        except (TypeError, ValueError):
+            ins = outs = None
+        water = (ins + outs) / 2 if ins is not None and outs is not None else (ins if ins is not None else outs)
+        if not inp.get("ready") or at is None or water is None:
+            for gx in range(-25, 26, 5):
+                x = round(x_at(gx), 1)
+                svg.append(f'<line x1="{x}" y1="{pad_t}" x2="{x}" y2="{plot_bottom}" '
+                           f'stroke="{GRID}" stroke-width="1"/>')
+            for gy in range(0, 17, 2):
+                y = round(y_cop(gy), 1)
+                svg.append(f'<line x1="{pad_l}" y1="{y}" x2="{plot_right}" y2="{y}" '
+                           f'stroke="{GRID}" stroke-width="1"/>')
+            svg.append(f'<text x="{W // 2}" y="{H // 2 - 10}" text-anchor="middle" '
+                       f'{HALO} fill="{TEXT_DARK}" font-size="26">{self._t("wait")}</text>')
+            svg.append(f'<text x="{W // 2}" y="{H // 2 + 30}" text-anchor="middle" '
+                       f'{HALO} fill="{TEXT}" font-size="17">{self._t("wait_sub")}</text>')
+            svg.append("</svg>")
+            self._image_bytes = "".join(svg).encode("utf-8")
+            self._image_last_updated = datetime.now(timezone.utc)
+            return
+
+        try:
+            at = float(at)
+        except (TypeError, ValueError):
+            at = 0.0
+        in_s = f"{ins:.1f}" if ins is not None else "--"
+        out_s = f"{outs:.1f}" if outs is not None else "--"
+        sub = f"{self._t('cap_at')} {at:.1f}C \u00b7 {self._t('cap_water')} {in_s}/{out_s}C"
+        svg.append(f'<text x="{W // 2}" y="62" text-anchor="middle" {HALO} '
+                   f'fill="{TEXT}" font-size="15">{sub}</text>')
+
+        band = _spec_cop(at, outs if outs is not None else water)
+        spec_mid = (band[0] + band[1]) / 2 if band else None
+        try:
+            actual = float(inp["actual"]) if inp.get("actual") is not None else None
+        except (TypeError, ValueError):
+            actual = None
+
+        # ---- combined spec band + dynamic Y scale from its actual range ----
+        at_samples, vals_lo, vals_hi = [], [], []
+        a = X_MIN
+        while a <= X_MAX + 0.001:
+            b = _spec_cop(a, outs if outs is not None else water)
+            if b:
+                at_samples.append(a)
+                vals_lo.append(b[0])
+                vals_hi.append(b[1])
+            a += 0.5
+        shown = list(vals_lo) + list(vals_hi)
+        if spec_mid is not None:
+            shown.append(spec_mid)
+        if actual is not None:
+            shown.append(actual)
+        if shown:
+            Y_MIN, Y_MAX, y_step = _cop_scale(min(shown), max(shown))
+        else:
+            y_step = 2.0
+        pts_lo = [(round(x_at(s), 1), round(y_cop(v), 1)) for s, v in zip(at_samples, vals_lo)]
+        pts_hi = [(round(x_at(s), 1), round(y_cop(v), 1)) for s, v in zip(at_samples, vals_hi)]
+
+        # ---- grid + ticks ----
+        for gx in range(-25, 26, 5):
+            x = round(x_at(gx), 1)
+            stroke = GRID if gx % 10 == 0 else GRID_MINOR
+            svg.append(f'<line x1="{x}" y1="{pad_t}" x2="{x}" y2="{plot_bottom}" '
+                       f'stroke="{stroke}" stroke-width="1"/>')
+            svg.append(f'<circle cx="{x}" cy="{plot_bottom}" r="3" fill="{AXIS}"/>')
+            svg.append(f'<text x="{x}" y="{plot_bottom + 22}" text-anchor="middle" '
+                       f'fill="{TEXT_DARK}" font-size="14">{gx}C</text>')
+        gy = int(round(Y_MIN / y_step))
+        while gy * y_step <= Y_MAX + 1e-9:
+            value = gy * y_step
+            y = round(y_cop(value), 1)
+            major = gy % 2 == 0
+            svg.append(f'<line x1="{pad_l}" y1="{y}" x2="{plot_right}" y2="{y}" '
+                       f'stroke="{GRID if major else GRID_MINOR}" stroke-width="1"/>')
+            svg.append(f'<circle cx="{pad_l}" cy="{y}" r="3" fill="{AXIS}"/>')
+            svg.append(f'<text x="{pad_l - 12}" y="{y + 5}" text-anchor="end" '
+                       f'fill="{TEXT}" font-size="14">{value:g}</text>')
+            gy += 1
+        svg.append(f'<line x1="{pad_l}" y1="{pad_t}" x2="{pad_l}" y2="{plot_bottom}" '
+                   f'stroke="{AXIS}" stroke-width="2"/>')
+        svg.append(f'<line x1="{pad_l}" y1="{plot_bottom}" x2="{plot_right}" '
+                   f'y2="{plot_bottom}" stroke="{AXIS}" stroke-width="2"/>')
+        svg.append(f'<text x="{pad_l + plot_w // 2}" y="{plot_bottom + 50}" text-anchor="middle" '
+                   f'fill="{TEXT}" font-size="14">{self._t("axis_x")}</text>')
+        svg.append(f'<text x="24" y="{pad_t + plot_h // 2}" text-anchor="middle" fill="{TEXT}" '
+                   f'font-size="14" transform="rotate(-90 24, {pad_t + plot_h // 2})">'
+                   f'{self._t("axis_y")}</text>')
+
+        if pts_lo:
+            fill = " ".join(f"{x},{y}" for x, y in pts_lo + pts_hi[::-1])
+            lo_line = " ".join(f"{x},{y}" for x, y in pts_lo)
+            hi_line = " ".join(f"{x},{y}" for x, y in pts_hi)
+            svg.append(f'<polygon points="{fill}" fill="{SPEC_FILL}"/>')
+            svg.append(f'<polyline fill="none" stroke="{SPEC}" stroke-width="2" '
+                       f'stroke-dasharray="8 5" opacity="0.8" points="{hi_line}"/>')
+            svg.append(f'<polyline fill="none" stroke="{SPEC}" stroke-width="2" '
+                       f'stroke-dasharray="8 5" opacity="0.8" points="{lo_line}"/>')
+
+        # ---- live dot + one popup legend anchored to it ----
+        sv = f"{spec_mid:.2f}" if spec_mid is not None else "--"
+        av = f"{actual:.2f}" if actual is not None else "--"
+        rows = [
+            (f"{self._t('cap_spec')} {sv}", SPEC, False),
+            (f"{self._t('cap_actual')} {av}", ACTUAL, True),
+        ]
+        row_h = 24
+        card_w = max(text_w(t, 15) for t, _c, _m in rows) + 34
+        card_h = row_h * len(rows) + 12
+        ax = round(x_at(at), 1) if X_MIN <= at <= X_MAX else pad_l + 40
+        anchor = actual if actual is not None else (spec_mid if spec_mid is not None else 0.0)
+        ay = round(y_cop(anchor), 1)
+        if X_MIN <= at <= X_MAX:
+            if spec_mid is not None:
+                sy = round(y_cop(spec_mid), 1)
+                svg.append(f'<circle cx="{ax}" cy="{sy}" r="5" fill="{BG}" '
+                           f'stroke="{SPEC}" stroke-width="2"/>')
+            if actual is not None:
+                svg.append(f'<circle cx="{ax}" cy="{ay}" r="11" fill="none" '
+                           f'stroke="{ACTUAL}" stroke-width="2" opacity="0.8">'
+                           f'<animate attributeName="r" values="11;17;11" dur="2.4s" '
+                           f'repeatCount="indefinite"/>'
+                           f'<animate attributeName="opacity" values="0.8;0;0.8" dur="2.4s" '
+                           f'repeatCount="indefinite"/></circle>')
+                svg.append(f'<circle cx="{ax}" cy="{ay}" r="9" fill="#fff" opacity="0.9"/>')
+                svg.append(f'<circle cx="{ax}" cy="{ay}" r="7" fill="{ACTUAL}" '
+                           f'stroke="#fff" stroke-width="2"/>')
+        x0 = ax + 28
+        if x0 + card_w > plot_right - 6:
+            x0 = ax - 28 - card_w
+        x0 = max(pad_l + 4, min(x0, plot_right - card_w - 4))
+        y0 = max(pad_t + 4, min(ay - card_h / 2, plot_bottom - card_h - 4))
+        nx = max(x0, min(ax, x0 + card_w))
+        ny = max(y0, min(ay, y0 + card_h))
+        if ((nx - ax) ** 2 + (ny - ay) ** 2) ** 0.5 > 12:
+            svg.append(f'<line x1="{ax}" y1="{ay}" x2="{nx:.1f}" y2="{ny:.1f}" '
+                       f'stroke="{ACTUAL}" stroke-width="1.5" opacity="0.9"/>')
+        svg.append(f'<rect x="{x0:.1f}" y="{y0:.1f}" width="{card_w:.1f}" height="{card_h}" '
+                   f'rx="8" fill="#111c30" stroke="{ACTUAL}" stroke-width="1.5" opacity="0.96"/>')
+        ry = y0 + 6
+        for label, col, main in rows:
+            cy = ry + row_h / 2
+            mx = x0 + 14
+            if main:
+                svg.append(f'<circle cx="{mx:.1f}" cy="{cy:.1f}" r="5" fill="{ACTUAL}" '
+                           f'stroke="#fff" stroke-width="1.5"/>')
+            else:
+                svg.append(f'<circle cx="{mx:.1f}" cy="{cy:.1f}" r="5" fill="{BG}" '
+                           f'stroke="{col}" stroke-width="2"/>')
+            svg.append(f'<text x="{x0 + 27:.1f}" y="{cy + 5.2:.1f}" fill="{col}" '
+                       f'font-size="15" font-weight="bold">{label}</text>')
+            ry += row_h
+
+        svg.append("</svg>")
+        self._image_bytes = "".join(svg).encode("utf-8")
+        self._image_last_updated = datetime.now(timezone.utc)
+
+
 async def async_setup_entry(hass, entry, async_add_entities):
     coord = entry.runtime_data
     if not coord:
         return
-    entity = FoxAirHeatingCurveImage(coord, entry.entry_id)
-    await entity.async_load_translations()
-    async_add_entities([entity])
+    entities = [FoxAirHeatingCurveImage(coord, entry.entry_id),
+                FoxAirCopPotentialImage(coord, entry.entry_id)]
+    for entity in entities:
+        await entity.async_load_translations()
+    async_add_entities(entities)
