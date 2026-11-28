@@ -4939,13 +4939,12 @@
           "below_spec": "below spec",
           "above_spec": "above spec",
           "legend_carnot": "Carnot (theoretical)",
-          "legend_spec": "FoxAIR GL (datasheet)",
+          "legend_spec": "Reference band",
           "legend_actual": "Your unit (live)",
           "axis_x": "Outdoor temperature (AT)",
           "axis_y": "COP",
-          "src_foxair": "FoxAIR GL-9-1: A7/W35 4.24-5.34, A2/W35 3.68-4.84, SCOP35 5.22",
-          "src_phnix": "PHNIX airMono CA20B: A7/W35 4.18, A7/W55 2.65",
-          "note": "Spec adapted to current lift. Carnot uses mean water temperature."
+          "cap_low2": "Flow -2 K",
+          "cap_low5": "Flow -5 K"
         }
       }
     },

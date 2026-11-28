@@ -683,20 +683,48 @@ for _lang, _tl in _COP_TL.items():
         svg = obj._image_bytes.decode("utf-8")
         problems = []
 
-        for key in ("name", "cap_spec", "cap_actual", "axis_x"):
+        for key in ("name", "cap_spec", "cap_actual", "axis_x",
+                    "cap_low2", "cap_low5"):
             if _tl[key] not in svg:
                 problems.append(f"missing {key}")
 
         exp_b = img._spec_cop(at, outlet)
-        exp_s = (exp_b[0] + exp_b[1]) / 2
+        exp_s = exp_b[0]  # conservative lower spec bound = amber line + popup "Spec"
         exp_a = round(heat / elec, 2)  # compute_cop() rounds to 2 dp before the image reads it
         if not 1.0 <= exp_s <= 9.0:
             problems.append(f"spec outside datasheet envelope {exp_s:.1f}")
+        _flow_rows = []
+        for _k, _key, _col, _fill in img._FLOW_SCENARIOS:
+            _lv = exp_s * (1 + img._FLOW_GAIN_PER_K * _k)
+            _gain = img._FLOW_GAIN_PER_K * _k * 100
+            _flow_rows.append(f"{_tl[_key]} {outlet - _k:.0f}C: {_lv:.2f} (+{_gain:.0f}%)")
         want_rows = [f"{_tl['cap_spec']} {exp_s:.2f}",
-                     f"{_tl['cap_actual']} {exp_a:.2f}"]
+                     f"{_tl['cap_actual']} {exp_a:.2f}"] + _flow_rows
         rows_found = re.findall(r'font-size="15" font-weight="bold">([^<]+)</text>', svg)
         if rows_found != want_rows:
             problems.append(f"popup rows {rows_found} != {want_rows}")
+        if svg.count("<polygon") < 2:
+            problems.append("spec band + flow range missing")
+        if 'stroke="#fbbf24" stroke-width="2.5"' not in svg:
+            problems.append("current spec line missing")
+        for _k, _key, _col, _fill in img._FLOW_SCENARIOS[1:]:
+            if f'stroke="{_col}" stroke-width="2.5"' not in svg:
+                problems.append(f"flow endpoint line {_col} missing")
+        if ('url(#copRange)' not in svg or 'stop-color="#4ade80"' not in svg
+                or 'gradientUnits="userSpaceOnUse"' not in svg):
+            problems.append("flow range gradient missing")
+        _dash = 'stroke-dasharray="8 5"'
+        if svg.count(_dash) != 2:
+            problems.append(f"expected 2 dashed lines, got {svg.count(_dash)}")
+        _parsed = re.findall(
+            r'<polyline[^>]*stroke="(#[0-9a-f]{6})"[^>]*stroke-dasharray="8 5"[^>]*points="([^"]+)"', svg)
+        _lx = 86 + (at + 25.0) / 50.0 * (1200 - 86 - 30)
+        _ly = {}
+        for _col, _pts in _parsed:
+            _p = [tuple(map(float, _q.split(','))) for _q in _pts.split()]
+            _ly[_col] = min(_p, key=lambda _t: abs(_t[0] - _lx))[1]
+        if "#fbbf24" in _ly and "#22d3ee" in _ly and _ly["#fbbf24"] <= _ly["#22d3ee"]:
+            problems.append("amber spec line is not the lower-COP line")
 
         y_labels = re.findall(r'x="74"[^>]*>([\d.]+)</text>', svg)
         if not y_labels or float(y_labels[-1]) >= 16:
@@ -711,8 +739,6 @@ for _lang, _tl in _COP_TL.items():
             problems.append("actual COP still drawn as a line")
         if '<rect x="860"' in svg or 'font-size="34"' in svg:
             problems.append("right-hand card panel still present")
-        if _tl["src_foxair"] in svg or _tl["note"] in svg:
-            problems.append("footer datasheet rows still present")
         if "#38bdf8" in svg or "16+" in svg:
             problems.append("Carnot reference still drawn")
         if "feDropShadow" in svg:

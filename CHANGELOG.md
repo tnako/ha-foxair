@@ -1,3 +1,9 @@
+## 0.7.55 - 2026-11-28
+- change: "COP Potential" now answers what happens when flow temperature drops. Two dashed lines only, amber for today's conservative analysed spec bound and cyan for 5 K lower water; the space between shades through green for the 2 K step. The popup lists COP now, at -2 K and at -5 K with the resulting absolute flow temperature. The legend and source strings are model-agnostic, so the card makes no claim tied to one hardware variant.
+- change: the per-kelvin COP lever comes from the module's own analysed W35/W45 spec curves (median, clamped to 2-2.5%/K) instead of an external datasheet. Both lines and every popup number multiply that same baseline, so the picture and the numbers agree.
+- remove: the power-saving caption and the exact model reference from the COP card, plus the unused source strings in EN/DE/RU.
+- test: render gate checks two dashed lines, the anchored vector gradient, amber sitting below cyan at the live point, and the popup arithmetic in all three languages.
+
 ## 0.7.54 - 2026-11-27
 - add: "COP Potential" image on the main device page: combined median spec curve (FoxAIR, Panasonic, Daikin, NIBE, Mitsubishi, Vaillant, plus a 17% field adjustment), live COP dot with popup legend, dynamic COP axis, live inlet/outlet water in the subtitle, EN/DE/RU.
 - fix: check_regs recognises H36 points mode, so the climate target is compared with curve register 2014 instead of R02.

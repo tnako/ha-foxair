@@ -992,23 +992,26 @@ _COP_TL_FALLBACK = {
     "below_spec": "below spec",
     "above_spec": "above spec",
     "legend_carnot": "Carnot (theoretical)",
-    "legend_spec": "FoxAIR GL (datasheet)",
+    "legend_spec": "Reference band",
     "legend_actual": "Your unit (live)",
     "axis_x": "Outdoor temperature (AT)",
     "axis_y": "COP",
-    "src_foxair": "FoxAIR GL-9-1: A7/W35 4.24-5.34, A2/W35 3.68-4.84, SCOP35 5.22",
-    "src_phnix": "PHNIX airMono CA20B: A7/W35 4.18, A7/W55 2.65",
-    "note": "Spec adapted to current lift. Carnot uses mean water temperature.",
+    "cap_low2": "Flow -2 K",
+    "cap_low5": "Flow -5 K",
 }
 
-# GL-9-1 COP curves from the FoxAIR "GL COP" performance PDF (page 1):
-# outdoor temperature columns and COP at 35 C / 45 C water outlet.
+# Analysed manufacturer COP curves: outdoor temperature columns and COP at
+# 35 C / 45 C water outlet.
 _SPEC_AT = (-25.0, -20.0, -15.0, -10.0, -7.0, -5.0, -3.0, 0.0, 2.0, 5.0,
             7.0, 10.0, 15.0, 20.0, 25.0, 30.0, 35.0)
 _SPEC_W35 = (2.11, 2.49, 2.84, 2.94, 3.34, 3.84, 4.05, 4.28, 4.37, 4.48,
              4.49, 4.74, 5.34, 5.75, 6.05, 7.43, 7.88)
 _SPEC_W45 = (1.83, 2.15, 2.29, 2.29, 2.40, 2.79, 2.94, 3.26, 3.36, 3.46,
              3.82, 4.22, 4.28, 4.74, 5.22, 6.32, 6.52)
+
+# What-if steps applied to the analysed spec baseline (see _FLOW_GAIN_PER_K).
+_FLOW_SCENARIOS = ((2, "cap_low2", "#4ade80", "rgba(74,222,128,0.10)"),
+                   (5, "cap_low5", "#22d3ee", "rgba(34,211,238,0.08)"))
 
 
 def _carnot_cop(at: float, water: float) -> float | None:
@@ -1030,10 +1033,10 @@ def _curve_at(at: float, xs, ys) -> float:
 
 # Published A-7/W35, A2/W35 and A7/W35 COP anchors from six manufacturers.
 # The field copy (0.83x) represents the 17% average gap measured in monitored
-# fleets. Taking the median removes both maker outliers and the GL sheet's
-# 25->30 C jump.
+# fleets. Taking the median removes both maker outliers and the reference
+# sheet's 25->30 C jump.
 _BRAND_ANCHORS = (
-    (3.34, 4.37, 4.49),  # FoxAIR GL-9-1 (local GL COP.pdf)
+    (3.34, 4.37, 4.49),  # FoxAIR reference curve
     (2.78, 3.43, 4.76),  # Panasonic Aquarea
     (3.04, 4.08, 4.92),  # Daikin Altherma
     (3.35, 4.36, 5.11),  # NIBE F2120
@@ -1088,6 +1091,22 @@ def _grid_value(at: float, values) -> float:
     i = int(at - _CONSENSUS_AT[0])
     f = at - _CONSENSUS_AT[i]
     return values[i] + f * (values[i + 1] - values[i])
+
+
+def _flow_k_samples() -> list:
+    """Per-kelvin uplift read off the analysed W35/W45 spec curves."""
+    out = []
+    for at in _CONSENSUS_AT:
+        v35 = _grid_value(at, _CONSENSUS_W35)
+        v45 = _grid_value(at, _CONSENSUS_W45)
+        if v45 > 0.5 and v35 > v45:
+            out.append((v35 / v45) ** 0.1 - 1.0)
+    return out
+
+
+# Median of the analysed curve's own W35->W45 slope keeps the what-if lever
+# tied to the same data as the baseline band; clamp rejects datasheet steps.
+_FLOW_GAIN_PER_K = max(0.020, min(0.025, statistics.median(_flow_k_samples())))
 
 
 def _cop_scale(lo: float, hi: float) -> tuple[float, float, float]:
@@ -1327,25 +1346,31 @@ class FoxAirCopPotentialImage(CoordinatorEntity, ImageEntity):
         sub = f"{self._t('cap_at')} {at:.1f}C \u00b7 {self._t('cap_water')} {in_s}/{out_s}C"
         svg.append(f'<text x="{W // 2}" y="62" text-anchor="middle" {HALO} '
                    f'fill="{TEXT}" font-size="15">{sub}</text>')
-
-        band = _spec_cop(at, outs if outs is not None else water)
+        spec_water = outs if outs is not None else water
+        band = _spec_cop(at, spec_water)
         spec_mid = (band[0] + band[1]) / 2 if band else None
         try:
             actual = float(inp["actual"]) if inp.get("actual") is not None else None
         except (TypeError, ValueError):
             actual = None
 
-        # ---- combined spec band + dynamic Y scale from its actual range ----
+        # ---- analysed spec band + flow range up to -5 K; Y scale covers both ----
         at_samples, vals_lo, vals_hi = [], [], []
         a = X_MIN
         while a <= X_MAX + 0.001:
-            b = _spec_cop(a, outs if outs is not None else water)
+            b = _spec_cop(a, spec_water)
             if b:
                 at_samples.append(a)
                 vals_lo.append(b[0])
                 vals_hi.append(b[1])
             a += 0.5
-        shown = list(vals_lo) + list(vals_hi)
+        # The two lines use the conservative LOWER spec bound as baseline,
+        # multiplied by the flow factor: today and -5 K. The -2 K step and
+        # the datasheet spread live in the fills, not as extra outlines.
+        vals_base = list(vals_lo)
+        k_low = _FLOW_SCENARIOS[-1][0]
+        vals_low = [v * (1.0 + _FLOW_GAIN_PER_K * k_low) for v in vals_base]
+        shown = vals_lo + vals_hi + vals_low
         if spec_mid is not None:
             shown.append(spec_mid)
         if actual is not None:
@@ -1356,6 +1381,8 @@ class FoxAirCopPotentialImage(CoordinatorEntity, ImageEntity):
             y_step = 2.0
         pts_lo = [(round(x_at(s), 1), round(y_cop(v), 1)) for s, v in zip(at_samples, vals_lo)]
         pts_hi = [(round(x_at(s), 1), round(y_cop(v), 1)) for s, v in zip(at_samples, vals_hi)]
+        pts_base = [(round(x_at(s), 1), round(y_cop(v), 1)) for s, v in zip(at_samples, vals_base)]
+        pts_low = [(round(x_at(s), 1), round(y_cop(v), 1)) for s, v in zip(at_samples, vals_low)]
 
         # ---- grid + ticks ----
         for gx in range(-25, 26, 5):
@@ -1387,23 +1414,48 @@ class FoxAirCopPotentialImage(CoordinatorEntity, ImageEntity):
                    f'font-size="14" transform="rotate(-90 24, {pad_t + plot_h // 2})">'
                    f'{self._t("axis_y")}</text>')
 
+        # Faint datasheet spread around today's spec, no outline.
         if pts_lo:
-            fill = " ".join(f"{x},{y}" for x, y in pts_lo + pts_hi[::-1])
-            lo_line = " ".join(f"{x},{y}" for x, y in pts_lo)
-            hi_line = " ".join(f"{x},{y}" for x, y in pts_hi)
-            svg.append(f'<polygon points="{fill}" fill="{SPEC_FILL}"/>')
-            svg.append(f'<polyline fill="none" stroke="{SPEC}" stroke-width="2" '
-                       f'stroke-dasharray="8 5" opacity="0.8" points="{hi_line}"/>')
-            svg.append(f'<polyline fill="none" stroke="{SPEC}" stroke-width="2" '
-                       f'stroke-dasharray="8 5" opacity="0.8" points="{lo_line}"/>')
+            area = " ".join(f"{x},{y}" for x, y in pts_lo + pts_hi[::-1])
+            svg.append(f'<polygon points="{area}" fill="{SPEC_FILL}"/>')
+        # Two dashed lines only: today and -5 K. The range between them is a
+        # vector gradient: amber = now, green = -2 K, cyan = -5 K.
+        k_mid, mid_key, mid_col, _mid_fill = _FLOW_SCENARIOS[0]
+        k_low, low_key, low_col, _low_fill = _FLOW_SCENARIOS[-1]
+        stop_mid = int(round(100.0 * k_mid / k_low))
+        y_base = band[0] if band else (vals_base[len(vals_base) // 2] if vals_base else 1.0)
+        y_now = round(y_cop(y_base), 1)
+        y_low = round(y_cop(y_base * (1.0 + _FLOW_GAIN_PER_K * k_low)), 1)
+        if y_low >= y_now:
+            y_low = y_now - 1
+        svg.append(
+            '<defs><linearGradient id="copRange" gradientUnits="userSpaceOnUse" '
+            f'x1="0" y1="{y_now}" x2="0" y2="{y_low}">'
+            f'<stop offset="0%" stop-color="{SPEC}" stop-opacity="0.22"/>'
+            f'<stop offset="{stop_mid}%" stop-color="{mid_col}" stop-opacity="0.20"/>'
+            f'<stop offset="100%" stop-color="{low_col}" stop-opacity="0.16"/>'
+            '</linearGradient></defs>'
+        )
+        if pts_base:
+            area = " ".join(f"{x},{y}" for x, y in pts_base + pts_low[::-1])
+            svg.append(f'<polygon points="{area}" fill="url(#copRange)"/>')
+            for pts, col in ((pts_base, SPEC), (pts_low, low_col)):
+                line = " ".join(f"{x},{y}" for x, y in pts)
+                svg.append(f'<polyline fill="none" stroke="{col}" stroke-width="2.5" '
+                           f'stroke-dasharray="8 5" opacity="0.9" points="{line}"/>')
 
         # ---- live dot + one popup legend anchored to it ----
-        sv = f"{spec_mid:.2f}" if spec_mid is not None else "--"
+        spec_base = band[0] if band else None
+        sv = f"{spec_base:.2f}" if spec_base is not None else "--"
         av = f"{actual:.2f}" if actual is not None else "--"
         rows = [
             (f"{self._t('cap_spec')} {sv}", SPEC, False),
             (f"{self._t('cap_actual')} {av}", ACTUAL, True),
         ]
+        for k, key, col, _fill in _FLOW_SCENARIOS:
+            lv = spec_base * (1.0 + _FLOW_GAIN_PER_K * k) if spec_base is not None else None
+            ls = f"{lv:.2f} (+{_FLOW_GAIN_PER_K * k * 100:.0f}%)" if lv is not None else "--"
+            rows.append((f"{self._t(key)} {spec_water - k:.0f}C: {ls}", col, False))
         row_h = 24
         card_w = max(text_w(t, 15) for t, _c, _m in rows) + 34
         card_h = row_h * len(rows) + 12
@@ -1411,8 +1463,8 @@ class FoxAirCopPotentialImage(CoordinatorEntity, ImageEntity):
         anchor = actual if actual is not None else (spec_mid if spec_mid is not None else 0.0)
         ay = round(y_cop(anchor), 1)
         if X_MIN <= at <= X_MAX:
-            if spec_mid is not None:
-                sy = round(y_cop(spec_mid), 1)
+            if spec_base is not None:
+                sy = round(y_cop(spec_base), 1)
                 svg.append(f'<circle cx="{ax}" cy="{sy}" r="5" fill="{BG}" '
                            f'stroke="{SPEC}" stroke-width="2"/>')
             if actual is not None:
